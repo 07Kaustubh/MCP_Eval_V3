@@ -4,16 +4,22 @@ One task = one walk through this list.
 
 ---
 
-## Setup once per task
+## Setup once per task (one trigger does the folder + paths)
 
-Paste these 3 files into `Tasks/<TASK_DIR>/`:
+```
+PIPELINE NEW — <TASK_ID>
+```
+
+`<TASK_ID>` is either the hex id alone (auto-picks next index) OR `<index>_<hex>` (uses given index). The command creates `Tasks/<index>_<hex>/`, scaffolds the 3 empty input files, and prints the exact paths to paste into.
+
+Then paste these 3 files into `Tasks/<TASK_DIR>/`:
 - `1_Business_Function.txt`
 - `2_Persona.txt`
 - `3_UniverseDataForThisTask.json`
 
 ---
 
-## The 6 mandatory commands (each in a NEW chat, in order)
+## The 7 mandatory commands (each in a NEW chat, in order)
 
 ```
 PIPELINE S0       — Tasks/<TASK_DIR>
@@ -31,7 +37,17 @@ PIPELINE FINAL    — Tasks/<TASK_DIR>
 PIPELINE S4       — Tasks/<TASK_DIR>
 ```
 
-Paste `8_Verifier_Fails.txt` + 6 trajectory JSONs into `Agent_Responses/` before S4.
+Paste `8_Verifier_Fails.txt` into the task folder + 6 trajectories into `trajectory-runs/` (or `Agent_Responses/`) before S4.
+
+---
+
+## Closing the task
+
+```
+PIPELINE CLOSE — Tasks/<TASK_DIR>
+```
+
+Read-only audit. Refuses to greenlight unless required artifacts are present + FINAL verdict = PASS + (if trajectories) verdict = OK. Nudges to append any novel finding to `Tasks/_meta/Learnings.md` before exit.
 
 ---
 

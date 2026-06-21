@@ -24,12 +24,13 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 ## PIPELINE DISPATCH
 
-> **Supersedes the legacy `command workflow.txt`.** The 11 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
+> **Supersedes the legacy `command workflow.txt`.** The 13 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
 | Trigger phrase | Runbook | What it does |
 |---|---|---|
+| `PIPELINE NEW — <TASK_ID>` | [Reference/Sessions/NEW.md](Reference/Sessions/NEW.md) | Create fresh task folder + scaffold the 3 user-paste input files + nudge to S0. Accepts `<hex>` (auto-index) or `<index>_<hex>` (explicit). |
 | `PIPELINE S0 — Tasks/<TASK_DIR>` | [Reference/Sessions/S0.md](Reference/Sessions/S0.md) | Extract PersonaBrief, split universe, build Universe_Index |
 | `PIPELINE HARDNESS — Tasks/<TASK_DIR>` | [Reference/Sessions/HARDNESS.md](Reference/Sessions/HARDNESS.md) | Scan for Opus-4.8 stumping levers, produce Hardness_Plan and Stump Hypothesis |
 | `PIPELINE S1 — Tasks/<TASK_DIR>` | [Reference/Sessions/S1.md](Reference/Sessions/S1.md) | Draft `5_Prompt.txt`, validate, two councils |
@@ -41,6 +42,7 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 | `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md`, generate `13_Feedback.txt` + optional `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` |
 | `PIPELINE REDO — Tasks/<TASK_DIR>` | [Reference/Sessions/REDO.md](Reference/Sessions/REDO.md) | Reviewer redo: REVIEW done + fixes applied but trajectory failed on difficulty (pass@1 > 40%) or density (avg tool calls < 40). Archives candidate originals + rebuilds 5/6/7 from scratch as a full CB build. Also used when a CB's own task came back failing density / difficulty. |
 | `PIPELINE COMPARE — Tasks/<TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
+| `PIPELINE CLOSE — Tasks/<TASK_DIR>` | [Reference/Sessions/CLOSE.md](Reference/Sessions/CLOSE.md) | Final read-only sanity check. Audits required artifacts + FINAL verdict + trajectory verdict; refuses to greenlight if anything is missing. Nudges to append cross-task learnings before exit. |
 
 ## Project layout
 

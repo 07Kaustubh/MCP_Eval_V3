@@ -22,6 +22,7 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 
 | File | Trigger phrase |
 |---|---|
+| [Sessions/NEW.md](Sessions/NEW.md) | `PIPELINE NEW — <TASK_ID>` (scaffold a fresh task folder) |
 | [Sessions/S0.md](Sessions/S0.md) | `PIPELINE S0 — Tasks/<TASK_DIR>` |
 | [Sessions/HARDNESS.md](Sessions/HARDNESS.md) | `PIPELINE HARDNESS — Tasks/<TASK_DIR>` |
 | [Sessions/S1.md](Sessions/S1.md) | `PIPELINE S1 — Tasks/<TASK_DIR>` |
@@ -33,6 +34,7 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 | [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
 | [Sessions/REDO.md](Sessions/REDO.md) | `PIPELINE REDO — Tasks/<TASK_DIR>` (reviewer redo: trajectory failed on difficulty / density, rebuild from scratch as CB) |
 | [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (diff local rubrics vs platform paste-back) |
+| [Sessions/CLOSE.md](Sessions/CLOSE.md) | `PIPELINE CLOSE — Tasks/<TASK_DIR>` (final read-only sanity check before declaring a task done) |
 
 ## Update protocol
 
