@@ -6,16 +6,19 @@ One task = one walk through this list.
 
 ## Setup once per task (one trigger does the folder + paths)
 
-```
-PIPELINE NEW — <TASK_ID>
-```
+| Flow | Trigger | What it scaffolds |
+|---|---|---|
+| **CB** (you're authoring from scratch) | `PIPELINE NEW — <TASK_ID>` | empty `1/2/3` + `Agent_Responses/` + `trajectory-runs/` |
+| **Review** (candidate-prefilled task) | `PIPELINE NEW REVIEW — <TASK_ID>` | empty `1/2/3/5/6/7/8` + the same folders |
 
-`<TASK_ID>` is either the hex id alone (auto-picks next index) OR `<index>_<hex>` (uses given index). The command creates `Tasks/<index>_<hex>/`, scaffolds the 3 empty input files, and prints the exact paths to paste into.
+`<TASK_ID>` is either the hex id alone (auto-picks next index) OR `<index>_<hex>` (uses given index). NEW prints exact paste paths + the next-trigger phrase (S0 for CB, REVIEW for review).
 
-Then paste these 3 files into `Tasks/<TASK_DIR>/`:
-- `1_Business_Function.txt`
-- `2_Persona.txt`
-- `3_UniverseDataForThisTask.json`
+CB-mode files to paste:
+- `1_Business_Function.txt` · `2_Persona.txt` · `3_UniverseDataForThisTask.json`
+
+Review-mode files to paste (CB list + 4 more):
+- `5_Prompt.txt` · `6_Oracle_Events.txt` · `7_Rubrics.json` · `8_Verifier_Fails.txt` (optional — only if candidate already ran trajectories)
+- If candidate trajectories exist, drop the JSONs into `trajectory-runs/`. `parse_trajectories.py` will pick them up.
 
 ---
 

@@ -1,20 +1,23 @@
 # PIPELINE NEW — Fresh Task Folder Setup
 
-**Trigger:** `PIPELINE NEW — <TASK_ID>`
+**Trigger (CB mode):**       `PIPELINE NEW — <TASK_ID>`
+**Trigger (Review mode):**   `PIPELINE NEW REVIEW — <TASK_ID>`
 
-Two accepted forms:
-- `PIPELINE NEW — 6a35abc123def...` (auto-picks next available index)
-- `PIPELINE NEW — 25_6a35abc123def...` (uses given index)
+`<TASK_ID>` is one of:
+- `6a35abc123def...` — bare hex; auto-picks next available index
+- `25_6a35abc123def...` — given index
 
 ## What this phase does
 
 Single command, single chat. Eliminates the manual folder-creation chore at the start of every task.
 
 1. Creates `Tasks/<index>_<task_id>/`.
-2. Scaffolds the 3 user-pasted input files as empty placeholders.
+2. Scaffolds the input files as empty placeholders:
+   - **CB mode**: 1, 2, 3 (3 files — business function, persona, universe data)
+   - **Review mode**: 1, 2, 3, 5, 6, 7, 8 (7 files — adds candidate-prefilled prompt + OE + rubrics + verifier-fails)
 3. Creates `Agent_Responses/` and `trajectory-runs/` for later trajectory paste-back.
 4. Refuses if the folder already exists (no silent overwrites).
-5. Prints exact paste instructions + next-trigger nudge.
+5. Prints exact paste paths + next-trigger nudge (`PIPELINE S0` for CB; `PIPELINE REVIEW` for review).
 
 ## Required inputs
 
@@ -24,21 +27,21 @@ Single command, single chat. Eliminates the manual folder-creation chore at the 
 
 ## Procedure
 
-1. Run:
+1. Run one of:
    ```
-   python Validators/new_task.py <task_id_or_full_name>
+   python Validators/new_task.py <task_id_or_full_name>            # CB mode (3 files)
+   python Validators/new_task.py <task_id_or_full_name> --review   # Review mode (7 files + trajectory drop point)
    ```
-2. The script prints the absolute paths for the 3 files to paste + the next-trigger phrase.
+2. The script prints the absolute paths for each file to paste + the next-trigger phrase (`PIPELINE S0` for CB, `PIPELINE REVIEW` for review).
 
 ## STOP gate
 
-This phase ends here after the folder is scaffolded. End your response. The user pastes the 3 input files into the folder, then invokes:
+This phase ends here after the folder is scaffolded. End your response. The user pastes the required files into the folder, then invokes the next trigger per mode:
 
-```
-PIPELINE S0 - Tasks/<TASK_DIR>
-```
+- **CB mode**: `PIPELINE S0 — Tasks/<TASK_DIR>` in a fresh chat.
+- **Review mode**: `PIPELINE REVIEW — Tasks/<TASK_DIR>` in a fresh chat.
 
-in a fresh chat. Do NOT proceed to S0 in this chat — the user controls the paste step.
+Do NOT proceed to the next phase in this chat — the user controls the paste step.
 
 ## Bootstrap
 

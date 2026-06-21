@@ -30,7 +30,7 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 
 | Trigger phrase | Runbook | What it does |
 |---|---|---|
-| `PIPELINE NEW — <TASK_ID>` | [Reference/Sessions/NEW.md](Reference/Sessions/NEW.md) | Create fresh task folder + scaffold the 3 user-paste input files + nudge to S0. Accepts `<hex>` (auto-index) or `<index>_<hex>` (explicit). |
+| `PIPELINE NEW — <TASK_ID>` (or `PIPELINE NEW REVIEW — <TASK_ID>`) | [Reference/Sessions/NEW.md](Reference/Sessions/NEW.md) | Create fresh task folder + scaffold the input files. CB mode scaffolds 1/2/3 + nudges to S0. Review mode scaffolds 1/2/3/5/6/7/8 + nudges to REVIEW. Accepts `<hex>` (auto-index) or `<index>_<hex>` (explicit). |
 | `PIPELINE S0 — Tasks/<TASK_DIR>` | [Reference/Sessions/S0.md](Reference/Sessions/S0.md) | Extract PersonaBrief, split universe, build Universe_Index |
 | `PIPELINE HARDNESS — Tasks/<TASK_DIR>` | [Reference/Sessions/HARDNESS.md](Reference/Sessions/HARDNESS.md) | Scan for Opus-4.8 stumping levers, produce Hardness_Plan and Stump Hypothesis |
 | `PIPELINE S1 — Tasks/<TASK_DIR>` | [Reference/Sessions/S1.md](Reference/Sessions/S1.md) | Draft `5_Prompt.txt`, validate, two councils |
@@ -124,10 +124,12 @@ MCP_Eval_V3/
 
 ## Where to start
 
-- **New task (creation mode):** `PIPELINE S0 — Tasks/<TASK_DIR>`
-- **Review-type task (deliverables prefilled):** `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+- **Brand-new task (CB creation):** `PIPELINE NEW — <TASK_ID>` → paste 3 inputs → `PIPELINE S0 — Tasks/<TASK_DIR>`
+- **Brand-new task (review-type, deliverables prefilled):** `PIPELINE NEW REVIEW — <TASK_ID>` → paste 7 inputs → `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+- **Already-scaffolded task, continuing mid-pipeline:** invoke the next-trigger phrase the previous phase's STOP gate printed
 - **Stuck on a linter block:** `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste the linter output
 - **Verifier results came back:** `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails
+- **Wrapping up:** `PIPELINE CLOSE — Tasks/<TASK_DIR>` (read-only final audit)
 
 ## Anti-patterns (this project)
 
