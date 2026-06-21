@@ -6,7 +6,7 @@ Record shape in Universe_Split: every JSON object has two top-level keys:
   - `source`: <service>.<table> string
   - `row_data`: JSON-encoded string of the actual row fields
 
-Produces Tasks/<TASK_DIR>/_aux/Universe_Index/ with:
+Produces <TASK_DIR>/_aux/Universe_Index/ with:
 - service_inventory.md   record counts per service file
 - entities_personas.md   personas + NPCs + contacts seen in this task
 - key_facts.md           JE/recon/exception/AP/doc counts and states

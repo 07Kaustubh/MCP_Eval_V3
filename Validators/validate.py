@@ -331,7 +331,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", required=True, choices=["prompt", "oe", "rubrics", "all"])
-    ap.add_argument("--task", required=True, help="path to Tasks/<TASK_DIR>")
+    ap.add_argument("--task", required=True, help="path to <TASK_DIR>")
     args = ap.parse_args()
 
     task_dir = Path(args.task).resolve()

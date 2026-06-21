@@ -1,6 +1,6 @@
 # PIPELINE HARDNESS — Lever Scan + Stump Hypothesis + Tool-Call Density
 
-Triggered by: `PIPELINE HARDNESS — Tasks/<TASK_DIR>`
+Triggered by: `PIPELINE HARDNESS — <TASK_DIR>`
 
 ## What this phase does
 
@@ -12,11 +12,11 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/PersonaBrief.txt` | S0 produced |
-| `Tasks/<TASK_DIR>/2_Persona.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/1_Business_Function.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/_aux/Universe_Split/*` | S0 produced |
-| `Tasks/<TASK_DIR>/_aux/Universe_Index/*` | S0 produced |
+| `<TASK_DIR>/PersonaBrief.txt` | S0 produced |
+| `<TASK_DIR>/2_Persona.txt` | user-pasted |
+| `<TASK_DIR>/1_Business_Function.txt` | user-pasted |
+| `<TASK_DIR>/_aux/Universe_Split/*` | S0 produced |
+| `<TASK_DIR>/_aux/Universe_Index/*` | S0 produced |
 | `Reference/Hardness_Playbook.md` | the 11-lever catalog with per-lever tool-call costs |
 
 ## Procedure
@@ -101,7 +101,7 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 
 ## Next phase
 
-`PIPELINE S1 — Tasks/<TASK_DIR>` (unless INSUFFICIENT — user must intervene first)
+`PIPELINE S1 — <TASK_DIR>` (unless INSUFFICIENT — user must intervene first)
 
 ## Bootstrap
 

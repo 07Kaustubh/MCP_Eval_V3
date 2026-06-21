@@ -1,11 +1,11 @@
-# Tasks
+# Submitted-Tasks
 
-Live tasks. One subdirectory per task. Naming convention: `<index>_<platform-task-id>` (e.g., `23_6a347770af5b452cf30b0fa0`) or `Task<n>_<id>_<suffix>` for legacy entries.
+Archive of shipped tasks. One subdirectory per task. The **active** task lives in a folder at the repo root (e.g. `Task99-6a33cbf80d154de5ec83ab5a`); move its folder here after it ships. Naming convention: `<index>_<platform-task-id>` (e.g., `23_6a347770af5b452cf30b0fa0`) or `Task<n>_<id>_<suffix>` for legacy entries.
 
 ## Per-task folder schema
 
 ```
-Tasks/<TASK_DIR>/
+<TASK_DIR>/
 ├── 1_Business_Function.txt        # user-pasted
 ├── 2_Persona.txt                  # user-pasted
 ├── 3_UniverseDataForThisTask.json # user-pasted (per-task pgweb export, single source of truth)
@@ -41,16 +41,16 @@ Tasks/<TASK_DIR>/
 
 | Scenario | Trigger phrase |
 |---|---|
-| New task (creation mode) | `PIPELINE S0 — Tasks/<TASK_DIR>` then S0 → HARDNESS → S1 → (S1.5 as needed) → S2 → S3 → S4 |
-| Review-type task | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
-| Linter blocked the prompt | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste the linter output |
-| Verifier results came back | `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails |
+| New task (creation mode) | `PIPELINE S0 — <TASK_DIR>` then S0 → HARDNESS → S1 → (S1.5 as needed) → S2 → S3 → S4 |
+| Review-type task | `PIPELINE REVIEW — <TASK_DIR>` |
+| Linter blocked the prompt | `PIPELINE S1.5 — <TASK_DIR>` + paste the linter output |
+| Verifier results came back | `PIPELINE S4 — <TASK_DIR>` + paste verifier fails |
 
 See root `AGENTS.md` for the full dispatch table.
 
 ## Cross-task learning
 
-`Tasks/_meta/` holds cross-task logs that feed back into hardness calibration, linter justification reuse, similarity-pivot decisions. See [Tasks/_meta/AGENTS.md](_meta/AGENTS.md).
+`Submitted-Tasks/_meta/` holds cross-task logs that feed back into hardness calibration, linter justification reuse, similarity-pivot decisions. See [Submitted-Tasks/_meta/AGENTS.md](_meta/AGENTS.md).
 
 ## Conventions
 

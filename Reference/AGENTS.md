@@ -22,14 +22,14 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 
 | File | Trigger phrase |
 |---|---|
-| [Sessions/S0.md](Sessions/S0.md) | `PIPELINE S0 — Tasks/<TASK_DIR>` |
-| [Sessions/HARDNESS.md](Sessions/HARDNESS.md) | `PIPELINE HARDNESS — Tasks/<TASK_DIR>` |
-| [Sessions/S1.md](Sessions/S1.md) | `PIPELINE S1 — Tasks/<TASK_DIR>` |
-| [Sessions/S1.5.md](Sessions/S1.5.md) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + linter paste |
-| [Sessions/S2.md](Sessions/S2.md) | `PIPELINE S2 — Tasks/<TASK_DIR>` |
-| [Sessions/S3.md](Sessions/S3.md) | `PIPELINE S3 — Tasks/<TASK_DIR>` |
-| [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste |
-| [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
+| [Sessions/S0.md](Sessions/S0.md) | `PIPELINE S0 — <TASK_DIR>` |
+| [Sessions/HARDNESS.md](Sessions/HARDNESS.md) | `PIPELINE HARDNESS — <TASK_DIR>` |
+| [Sessions/S1.md](Sessions/S1.md) | `PIPELINE S1 — <TASK_DIR>` |
+| [Sessions/S1.5.md](Sessions/S1.5.md) | `PIPELINE S1.5 — <TASK_DIR>` + linter paste |
+| [Sessions/S2.md](Sessions/S2.md) | `PIPELINE S2 — <TASK_DIR>` |
+| [Sessions/S3.md](Sessions/S3.md) | `PIPELINE S3 — <TASK_DIR>` |
+| [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — <TASK_DIR>` + verifier-fails paste |
+| [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — <TASK_DIR>` |
 
 ## Update protocol
 

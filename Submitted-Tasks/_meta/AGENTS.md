@@ -1,4 +1,4 @@
-# Tasks/_meta — Cross-Task Learning Logs
+# Submitted-Tasks/_meta — Cross-Task Learning Logs
 
 Append-only logs that capture cross-task patterns. Each entry references one task; later phases mine these logs to avoid repeating mistakes and to calibrate hardness predictions.
 
@@ -13,7 +13,7 @@ Append-only logs that capture cross-task patterns. Each entry references one tas
 
 ## Append protocol
 
-Each log uses a `## Entry — Tasks/<TASK_DIR> — <YYYY-MM-DD>` heading then a tight body. Do not edit prior entries in place — append a follow-up entry if a previous outcome changes.
+Each log uses a `## Entry — <TASK_DIR> — <YYYY-MM-DD>` heading then a tight body. Do not edit prior entries in place — append a follow-up entry if a previous outcome changes.
 
 ## Why these matter
 

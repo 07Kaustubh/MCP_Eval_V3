@@ -6,13 +6,13 @@ Three Python scripts. All take `<path_to_task_dir>` or `--task <path>`. All exit
 
 ### `split_universe.py`
 
-Patched wrapper around the legacy `data.py`. Writes the per-task universe split into `Tasks/<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/` directory.
+Patched wrapper around the legacy `data.py`. Writes the per-task universe split into `<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/` directory.
 
 ```
-python Validators/split_universe.py Tasks/<TASK_DIR>
+python Validators/split_universe.py <TASK_DIR>
 ```
 
-Reads `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<service>.<table>.json` files + `Universe_complete_data.json` + `_aux/data_hash.txt` (sha256 of the input).
+Reads `<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<service>.<table>.json` files + `Universe_complete_data.json` + `_aux/data_hash.txt` (sha256 of the input).
 
 `data.py` at the project root is now a smart forwarder that routes to `Validators/split_universe.py` when given a per-task input file. The original behavior is preserved in `data.legacy.py` — do **not** call `data.legacy.py` directly; it writes to the shared `Brookfield_Base_Universe/Data/` and will overwrite parallel work.
 
@@ -21,7 +21,7 @@ Reads `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<s
 Builds quick lookup summaries from `_aux/Universe_Split/`.
 
 ```
-python Validators/build_universe_index.py Tasks/<TASK_DIR>
+python Validators/build_universe_index.py <TASK_DIR>
 ```
 
 Produces in `_aux/Universe_Index/`:
@@ -36,7 +36,7 @@ Produces in `_aux/Universe_Index/`:
 Phase-aware validator. Block on any FAIL.
 
 ```
-python Validators/validate.py --phase {prompt|oe|rubrics|all} --task Tasks/<TASK_DIR>
+python Validators/validate.py --phase {prompt|oe|rubrics|all} --task <TASK_DIR>
 ```
 
 Writes `_aux/Validator_Reports/<phase>.md`. Exits 0 clean, non-zero on any FAIL.

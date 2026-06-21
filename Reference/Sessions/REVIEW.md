@@ -1,6 +1,6 @@
 # PIPELINE REVIEW — Review-Type Task Intake
 
-Triggered by: `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+Triggered by: `PIPELINE REVIEW — <TASK_DIR>`
 
 ## What this phase does
 
@@ -10,12 +10,12 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/1_Business_Function.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/2_Persona.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json` | user-pasted |
-| `Tasks/<TASK_DIR>/5_Prompt.txt` | candidate's prompt |
-| `Tasks/<TASK_DIR>/6_Oracle_Events.txt` | candidate's OEs |
-| `Tasks/<TASK_DIR>/7_Rubrics.json` | candidate's rubrics |
+| `<TASK_DIR>/1_Business_Function.txt` | user-pasted |
+| `<TASK_DIR>/2_Persona.txt` | user-pasted |
+| `<TASK_DIR>/3_UniverseDataForThisTask.json` | user-pasted |
+| `<TASK_DIR>/5_Prompt.txt` | candidate's prompt |
+| `<TASK_DIR>/6_Oracle_Events.txt` | candidate's OEs |
+| `<TASK_DIR>/7_Rubrics.json` | candidate's rubrics |
 | `Reference/Prompt_Format.md`, `OE_Format.md`, `Rubric_Format.md` | format cards |
 | `Reference/Council_Protocol.md` | council instructions |
 | `Reference/Strict_Convention_Inventory.json` | allowed phrasings |
@@ -27,7 +27,7 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
 
 2. **Run the full validator suite.**
    ```
-   python Validators/validate.py --phase all --task Tasks/<TASK_DIR>
+   python Validators/validate.py --phase all --task <TASK_DIR>
    ```
    Read all three reports. These are findings #1 onwards in `changes.md`.
 
@@ -37,7 +37,7 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
 
 5. **Verify every finding against the per-task universe BEFORE writing it to `changes.md`.** The candidate may be right and the council's first instinct may be wrong. Re-grep `_aux/Universe_Split/`. If the council was wrong, do not add the finding — note it in `_aux/Council_Reports/REVIEW_dismissed.md` instead.
 
-6. **Initialize `Tasks/<TASK_DIR>/changes.md`** (or update if it exists) with one row per confirmed finding:
+6. **Initialize `<TASK_DIR>/changes.md`** (or update if it exists) with one row per confirmed finding:
 
    ```markdown
    # changes.md
