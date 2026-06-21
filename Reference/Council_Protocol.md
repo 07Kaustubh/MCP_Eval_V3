@@ -2,7 +2,7 @@
 
 Every deliverable (S1 prompt, S2 OEs, S3 rubrics, REVIEW intake) must pass two councils before shipping. Validators run first as a cheap gate. Councils run after. Both councils must return GO with zero Major issues.
 
-Each council is one sub-agent call but enumerates **multiple perspectives** in its prompt template. The structure: Council A covers 2 perspectives (A1 Grounding, A2 Convention). Council B covers 4 perspectives (B1 QC Scoring, B2 Adversarial Alt-Path, B3 Tool-Call Density, B4 Hardness Preservation). This is the "multi-council" coverage from every perspective without paying for 6 separate sub-agent calls per deliverable.
+Each council is one sub-agent call but enumerates **multiple perspectives** in its prompt template. The structure: Council A covers 2 perspectives (A1 Grounding, A2 Convention). Council B covers 6 perspectives (B1 QC Scoring, B2 Adversarial Alt-Path, B3 Tool-Call Density, B4 Hardness Preservation, B5 Tool-Leak / Phrasing Scan, B6 Upstream Propagation). This is the "multi-council" coverage from every perspective without paying for 6 separate sub-agent calls per deliverable.
 
 ---
 
@@ -107,6 +107,21 @@ If any lever is no longer triggered, flag `HARDNESS_REGRESSION` — the delivera
 ### B5 — Tool-leak / phrasing scan (lightweight)
 Search the deliverable for tool names in forbidden positions, internal IDs in the prompt, em-dashes / en-dashes, "at least N" phrases, "approximately" misuse, "(or similar)" near exact values. Report each hit.
 
+### B6 — Upstream propagation
+When you find an issue that originates in an UPSTREAM artifact (not the one under review), flag it with a `PROPAGATE TO <PHASE>: ...` tag instead of patching it downstream. The principle: fix the issue at the phase where the root cause lives, then re-run downstream phases. Patching a downstream artifact to paper over an upstream root cause silently embeds the bug forever.
+
+Concrete trigger examples:
+
+- During **S2 OE review**, you notice the prompt has a truthfulness gap (a claim that does not ground to `Fact_Ledger.json` or a second valid reading the prompt allows that flips a write action) → flag `PROPAGATE TO S1: prompt has <issue> — re-run S1 to fix, do not patch the OE around it`.
+- During **S2 OE review**, you notice a Hardness lever the prompt was supposed to surface is no longer visible to the agent under the prompt's framing → flag `PROPAGATE TO S1: prompt framing kills Lever <n>, OE cannot trigger it post-hoc`.
+- During **S3 rubric review**, you notice an OE step expects a tool parameter that does not match `8_Server_Tools_Details.json` or references a record that is not in `_aux/Universe_Split/` → flag `PROPAGATE TO S2: OE<n> has <issue> — re-run S2 to fix, do not encode the wrong value into the rubric`.
+- During **S3 rubric review**, you notice the prompt's framing is implicit ("execute on the figure") but the rubric set demands an explicit investigation step ("flag the discrepancy first") → flag `PROPAGATE TO S1: prompt framing mismatch — re-frame the prompt to make the investigation step explicit, OR drop the rubric (do not silently keep both)`.
+- During **FINAL holistic review**, any cross-artifact issue that traces to a root cause in S1 or S2 → flag `PROPAGATE TO <S1|S2>: ...` with the exact upstream sentence / step at fault.
+
+Output format for each finding: `PROPAGATE TO <PHASE>: <one-line root cause> -- upstream file:location -- recommended upstream fix`.
+
+A B6 finding is BLOCKING — the deliverable under review cannot ship until the upstream phase has been re-run with the fix and the downstream phase re-run on the fresh upstream artifact. Do NOT accept "fix it in place at the current phase" as an alternative when the root cause is upstream.
+
 ### Role-Lens Anchoring (apply across B1-B5)
 
 Each B perspective is reviewed through five role lenses — read the deliverable five times, once per lens, and combine findings. This is a single sub-agent call but the prompt forces multi-perspective coverage so single-model blind spots are caught.
@@ -117,7 +132,7 @@ Each B perspective is reviewed through five role lenses — read the deliverable
 | **Implementer** | Will this actually run? Every tool name real, every ID format valid, every recipient resolvable? | B5 |
 | **Red-team** | How do I break this? What's the most adversarial valid agent path? What's the second valid reading? | B2 |
 | **Ground-truth** | Is every claim in the deliverable grounded in this task's universe (per-task SSoT)? Any base-universe assumption? | B1, B5 |
-| **Integration** | Does this deliverable hold together with the upstream ones? Prompt-OE-rubrics consistency? Hardness levers preserved end to end? | B3, B4 |
+| **Integration** | Does this deliverable hold together with the upstream ones? Prompt-OE-rubrics consistency? Hardness levers preserved end to end? Any issue whose root cause is in an upstream artifact rather than the one under review? | B3, B4, B6 |
 
 A `BLOCK` from any lens propagates to the perspective it maps to. The verdict is the union of all five lens reads, not the average.
 
@@ -166,13 +181,23 @@ HARDNESS_REGRESSION with the missing lever.
 prompt body, internal IDs in the prompt, em-dashes, 'at least N' without
 mandate, 'approximately' before IDs/dates, '(or similar)' near exact values.
 
+[B6] Upstream propagation. For every issue you find whose ROOT CAUSE lives
+in an upstream artifact (not the one under review), output:
+PROPAGATE TO <PHASE>: <one-line root cause> -- <upstream file:location> --
+<recommended upstream fix>.
+A B6 finding is BLOCKING. Do NOT accept "fix it in place" as a substitute
+when the root cause is upstream — patching downstream silently embeds the
+bug. The fix is to re-run the upstream phase and then re-run the current
+phase against the fresh upstream output.
+
 Verdict:
   GO: every QC sub-dim >= 5 (or NON-FAIL bands explicitly justified by per-
       task universe), AND no adversarial divergence found, AND projected
       tool calls >= 40, AND every Hardness lever still triggered, AND no
-      phrasing hits.
-  BLOCK: list each Major / Moderate issue with the perspective cited (B1-B5)
-         and the fix.
+      phrasing hits, AND no PROPAGATE TO <upstream> flags raised.
+  BLOCK: list each Major / Moderate issue with the perspective cited (B1-B6)
+         and the fix. For B6 findings the fix MUST name the upstream phase
+         to re-run.
 
 Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 ```
@@ -183,6 +208,7 @@ Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 - B3: projected tool calls ≥ 40.
 - B4: every lever from Hardness_Plan.md is still triggered.
 - B5: returns "no hits".
+- B6: returns "no upstream propagation flags". If any `PROPAGATE TO <upstream>` flag is raised, the deliverable is BLOCK — the operator must re-run the named upstream phase, then re-run the current phase against the fresh upstream output. Patching downstream is not an acceptable resolution.
 
 ---
 

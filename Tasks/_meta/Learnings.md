@@ -172,3 +172,19 @@ The iteration count IS the problem these learnings exist to prevent. Use this fi
 ```
 
 Number monotonically — never rewrite or delete old entries.
+
+---
+
+### L23. Dollar-threshold filter blindness on email surface (NEW pattern, structural stump)
+Task 24 (AP triage REDO). Across 12 trajectory runs (6 in cycle 1 + 6 in cycle 2), every agent scoped the email to Daniel by an implicit ~$50K dollar threshold and dropped sub-threshold items the prompt named as needing partner sign-off. GraniteRack VEN-012-753165 ($39,090.56) and TimeLedger Nexus VEN-010-514242 ($24,475.25) both went from 1/6 failure in cycle 1 to 0/6 failure in cycle 2. The partner-sign-off requirement lived in the cross-service trail (Owen Mercer escalation email + Linear void-and-rebill issue for GraniteRack; Daniel Jones "conditioned release" email + Linear AP-escalation issue for TimeLedger), not in the invoice amount. Agents anchored on dollar magnitude and never consulted the trail.
+
+**Rule:** When the email-write rubric requires the agent to surface sub-threshold dollar items, design the prompt and OE chain so the partner-sign-off determination comes from an authoritative trail (Linear ticket + escalation email) rather than a dollar filter. Expect 100% failure on the email surface for any sub-$50K named item unless the prompt explicitly says "dollar amount is not the filter."
+
+**Source:** Tasks/24_6a36e84723508b4e3f391cfc/trajectory-runs/ verifier-fails analysis on 2026-06-21 (two cycles).
+
+### L24. Prompt-side L9 yield is verb-tense sensitive
+Task 24, rubric R22 (routing-fix-did-not-land). Fail rate moved from 3/6 (50%) to 2/6 (33%) after the prompt verb was softened from "was patched last sprint" to "was supposed to land last sprint" with cascading consistency updates ("whether that held" -> "whether it actually landed", "after that patch" -> "after that target"). The soft verb preserves the L9 authority-dismissal lever (agent still has to triangulate Linear ticket status past due + post-target null-approver invoices) while clearing QC Truthfulness 5 under both strict-literalist and design-intent readings. The hard verb yields ~17pp more difficulty but carries Truthfulness risk because "was patched" is a completed-action assertion the universe contradicts.
+
+**Rule:** Default to soft verbs ("was supposed to land", "should have shipped") for prompt-side L9 authority-dismissal anchors. Reserve hard verbs ("was patched", "shipped last sprint") only when difficulty headroom is needed AND the QC reviewer is known to be permissive on persona-relayed assertions.
+
+**Source:** Tasks/24_6a36e84723508b4e3f391cfc/trajectory-runs/ verifier-fails analysis on 2026-06-21 (cycle 1 hard verb 50% fail rate; cycle 2 soft verb 33% fail rate; same agent population, same universe).

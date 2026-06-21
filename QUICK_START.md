@@ -54,14 +54,15 @@ Read-only audit. Refuses to greenlight unless required artifacts are present + F
 
 ---
 
-## The 4 conditional commands
+## The 5 conditional commands
 
 | When | Command |
 |---|---|
-| Platform linter blocked the prompt (CB-mode OR Review-mode where prompt is stuck) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. Review-mode routes the fix to scratch draft; CB-mode revises 5_Prompt.txt in place. |
+| Platform linter blocked the prompt (CB-mode OR Review-mode where prompt is stuck) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. Review-mode routes the fix to scratch draft; CB-mode revises 5_Prompt.txt in place. S1.5 now runs `check_justification.py` on the pushback before allowing exit — pushbacks with internal terminology are blocked. |
 | Platform paste-back rubrics suspected mutated | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (after dropping `10_Rubrics_Platform.json`) |
 | Task came prefilled (review-type, not CB) | See **Reviewer flow** below |
 | Task came back failing difficulty (pass@1 > 40%) or density (< 40 tool calls) — REVIEW fix not enough, OR your own CB task came back too easy/thin | `PIPELINE REDO — Tasks/<TASK_DIR>` (archives candidate-original 5/6/7 + reviewer 14/15 to `_aux/Candidate_Originals/`, then runs full CB rebuild HARDNESS→S1→S2→S3→FINAL writing fresh 5/6/7) |
+| Want a veteran second-opinion under the strictest possible interpretation before a high-stakes upload, OR a task came back rejected and you want to retro under maximum rigor, OR a pipeline change just landed and you want to re-audit a recently shipped task against the new bar | `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt\|oe\|rubrics\|all}` — read-only re-verification. Strictest QC interpretation: 5/5 only, density bar 50+ (not 40), every "should" read as "must". Returns `PASS (STRICT)` / `REVISE` / `REBUILD`. Not a substitute for FINAL — complementary. |
 
 ---
 
@@ -121,9 +122,10 @@ For critical deliverables (benchmark submission, redo of a rejected task): appen
 
 - **S0** → universe split + fact ledger + graph report on disk
 - **HARDNESS** → 3-5 levers picked, density projected ≥40 tool calls, stump hypothesis recorded. STOPs hard if insufficient.
-- **S1 / S2 / S3** → drafts validated + Council A (grounding) + Council B (5 perspectives × 5 lenses). Both must GO. Each runbook starts with a `phase_ready.py` check that refuses to start if upstream artifacts are missing.
+- **S1 / S2 / S3** → drafts validated + Council A (grounding) + Council B (6 perspectives × 5 lenses, B6 catches upstream propagation issues). Both must GO. Each runbook starts with a `phase_ready.py` check that refuses to start if upstream artifacts are missing. **S1 additionally runs `calc_similarity.py` after Council B before STOP**: < 30 PASS, 30-39 WARN (logged), ≥ 40 STOP with Class B pivot mandatory (the 40% project ceiling — pivot using `Reference/Similarity_Pivot.md`).
 - **FINAL** → cross-artifact check (answer leakage, entity drift, lever regression, integrated density). Mandatory before upload.
-- **S4** → real `parse_trajectories.py` measurement of avg tool calls + pass@1 from the 6 platform runs you just pasted in. Each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written.
+- **AUDIT** → on-demand veteran second-opinion under STRICTEST QC interpretation. Read-only. Not a substitute for FINAL — complementary.
+- **S4** → real `parse_trajectories.py` measurement of avg tool calls + pass@1 from the 6 platform runs you just pasted in. Each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written AND run through `check_justification.py` before ship.
 
 ## When trajectories appear
 

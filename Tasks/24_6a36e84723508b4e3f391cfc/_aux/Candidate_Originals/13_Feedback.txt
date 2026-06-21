@@ -1,0 +1,21 @@
+Overall: FAIL on QC (worst dimensions: prompt Maximalism, OE Strict-language, rubric Truthfulness).
+
+Strengths
+- The scenario reads naturally. Persona-driven framing, two-or-three-vendor uncertainty, and the partner sign-off line all sound like a real Procurement Officer's intake. Investigation is not pre-solved; the agent has to discover the named vendors and invoice IDs on its own.
+- Rubric coverage of the read-back side (Slack post specificity, deferral to Daniel Jones / Steven Perry, root-cause categorization) is concrete and verifiable.
+- Process rubric is well-placed: ordering of Records Vault check before escalation is a real-only-by-process check, not derivable from outcome.
+
+Issues
+- Density (Major): six trajectories averaged 32.5 tool calls. The floor is 40. Only one run cleared the floor. The OE list is sparse (7 steps; the V3 reference range is 11-28) and the prompt mandates only one write action (a Slack post), so the agent has little reason to expand its discovery surface. This is the dominant defect and cannot be patched by editing OE / rubric language; the scenario needs more compulsory work.
+- Rubric R4, Acme Cloud Records Vault (Major): the rubric rewards retrieval of an Acme Cloud engagement-scope document. The per-task vault contains zero engagement_letter, zero master_services_agreement, and zero SOW records for Acme Cloud. Only Northstar Legal has an engagement letter. Agents that correctly reported "no engagement-scope doc found" were marked Fail in 3 of 6 runs. The rubric must be re-keyed to reward the correct finding (none exists), not the impossible retrieval.
+- Em-dashes (Major, validator-blocking): the prompt contains two em-dashes (offsets 599 and 1146) and the OE contains two more (offsets 1459 and 1508). The validator blocks shipment until these are stripped. This is a one-pass linter check; running it before submitting would have caught all four.
+- Rubric R1, three-vendor bundle (Moderate): AssurePath, Northloop, and BeaconPay are bundled into one rubric. Five of six runs missed BeaconPay specifically (320 days at $108,826 - old but mid-sized), because the prompt's "worst offenders" framing tilts agents toward top-dollar (VaultKey $460K, AssurePath $294K, Northloop $168K). Splitting into three atomic rubrics would expose this partial credit cleanly, and rewording the prompt to specify age-based or compound ranking would surface BeaconPay naturally.
+- OE action-verb openings (Moderate): all seven OE lines begin with "Agent <verb-as-gerund>...". V3 reference OEs open action-first (Search / Identify / Verify / Post / Defer). The current voice reads as narration, not instruction, and contributes to the sparse decomposition.
+- OE atomicity (Moderate): OE2 bundles two invoice IDs into one verification step. Splitting per-invoice would expose partial-credit failure modes cleanly.
+- Relative date (Minor): the prompt's "this week" should anchor against universe today 2026-06-12.
+
+Recommended next steps for the candidate
+- Run the linter (Validators/validate.py --phase all) locally before submitting. The four em-dashes are detectable in seconds.
+- Verify every rubric atom exists in the per-task universe before shipping. The Acme Cloud Vault rubric would have failed a 30-second grep on rv_documents.json.
+- Decompose the OE list to 11-28 atomic, action-first steps. Mandate at least two distinct write actions in the prompt (Slack post plus one of: Linear ticket, reminder, draft email, calendar event) to push density past 40.
+- Re-anchor the "worst offenders" criterion in the prompt explicitly (age, dollars, or compound), so the rubric's BeaconPay expectation falls out of the prompt naturally rather than being a surprise enumeration.

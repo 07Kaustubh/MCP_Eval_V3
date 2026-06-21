@@ -176,6 +176,8 @@ For maximum rigor on the review (review of a critical candidate's task): append 
 
 Do NOT pre-apply fixes in this chat.
 
+**If the user pastes follow-up content in this chat** (Applied-row updates for materialization, a new task, fix attempts on a different deliverable, or an unrelated question), do NOT process it. Reply: "This chat is single-shot for the REVIEW intake and scoring pass. Please open a fresh chat and invoke the appropriate next trigger from the dispatch table." Chaining inside one chat defeats the entire pipeline.
+
 ## Bootstrap
 
 Read root `AGENTS.md` first. Findings must be grounded in the per-task universe — base universe assumptions are stale. Severity follows the QC spec. Be conservative about flagging Minor issues that don't actually affect the score.

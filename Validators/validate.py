@@ -175,9 +175,14 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
         rep.fail(f"em-dash / en-dash at offset {m.start()}: `{text[max(0,m.start()-20):m.start()+20]}`")
 
     words = text.split()
-    rep.note(f"word count: {len(words)}")
-    if len(words) > 500:
-        rep.fail(f"word count {len(words)} exceeds 500 cap")
+    wc = len(words)
+    rep.note(f"word count: {wc}")
+    if wc > 500:
+        rep.fail(f"word count {wc} exceeds 500 cap")
+    elif wc > 400:
+        rep.warn(f"word count {wc} > 400 — prefer shorter. The 4 V3 reference prompts sit in the 300-400 sweet spot. Tighten if possible.")
+    elif wc > 300:
+        rep.note(f"word count {wc} is over 300 — within sweet spot but could still be tightened.")
 
     for m in TOOL_NAME_HINT.finditer(text):
         rep.fail(f"explicit tool-name leakage: `{m.group(0)}`")
@@ -249,6 +254,16 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
         rep.fail("email_send_email uses `body` — should be `content`")
     if re.search(r"slack_conversations_add_message[^.\n]{0,80}\btext\s*[:=]", text):
         rep.fail("slack_conversations_add_message uses `text` — should be `payload`")
+
+    meta_tag_patterns = [
+        (re.compile(r"(?:^|\n)\s*(?:[\u2192>\-]+\s*)?(?:Write\s+action|Read\s+action|Read/lookup\s+action|Read\s*/\s*lookup\s+action)\s*[\u2192>\-]"), "meta tag (Write action / Read action / Read-lookup arrow)"),
+        (re.compile(r"(?:^|\n)\s*(?:[\u2192>\-]+\s*)?Outcome\s+\d+\.\d+\s*[:\u2192>\-]"), "meta tag (Outcome 1.1/1.2/2.1 inline in OE body)"),
+        (re.compile(r"(?:^|\n)\s*(?:[\u2192>\-]+\s*)?Process\s+rubric\s*[:\u2192>\-]"), "meta tag (Process rubric inline in OE body)"),
+    ]
+    for pat, label in meta_tag_patterns:
+        for m in pat.finditer(text):
+            line_no = text.count("\n", 0, m.start()) + 1
+            rep.fail(f"OE line {line_no}: {label} appears in OE body — meta-tags belong in reasoning files, not 6_Oracle_Events.txt. Remove the tag, keep the action description.")
 
 
 def validate_rubrics(task_dir: Path, rep: Report) -> None:

@@ -156,6 +156,8 @@ Two next-trigger paths:
 
 Do NOT proceed to platform-upload guidance or `PIPELINE S4` inside this chat.
 
+**If the user pastes follow-up content in this chat** (verifier fails, a new task, fix attempts on a different deliverable, platform paste-back rubrics, or an unrelated question), do NOT process it. Reply: "This chat is single-shot for the FINAL cross-artifact council. Please open a fresh chat and invoke the appropriate next trigger from the dispatch table." Chaining inside one chat defeats the entire pipeline.
+
 ## Bootstrap
 
 Read root `AGENTS.md` first. This phase is mandatory before platform upload — never ship a task without a Final Council PASS. The cross-artifact gate is the last line of defense before the platform reviewer sees the work.

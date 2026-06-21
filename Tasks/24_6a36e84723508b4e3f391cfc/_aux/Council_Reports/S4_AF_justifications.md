@@ -1,0 +1,53 @@
+# AF Justifications — Task 24_6a36e84723508b4e3f391cfc (Post-Truthfulness-Fix Cycle)
+
+Style: concise, first-person, no em-dashes, no references to guides or specs or frameworks. Each AF justification names the concrete data fact the agent missed and the specific reasoning step the agent skipped. Each rubric is grounded in named records inside the per-task universe.
+
+Submitted alongside the 6 trajectory runs to justify the rubrics that failed across all (or most) runs as legitimate model gaps rather than rubric defects.
+
+This cycle's AF set is broader than pre-fix because (a) R9 and R10 are now 0/6 (every agent dropped these vendors from the email), and (b) R19 and R21 declined to 3/3 as density dropped.
+
+---
+
+## R9 — Email to Daniel Jones names GraniteRack void-and-rebill VEN-012-753165 for partner sign-off (0/6 — ALL RUNS FAILED)
+
+Every agent across all 6 runs sent the email to Daniel Jones with Steven Perry on cc, but none named GraniteRack Compute Services VEN-012-753165 as needing partner sign-off. The agents consistently anchored the email on a dollar-threshold filter (typically $50K+ Acme items) that excludes the GraniteRack void-and-rebill because its invoice is only $39,090.56. The correct answer is that VEN-012-753165 belongs in the email because Daniel already took the void-and-rebill on the deprecated SOW-2024-GR-rev3 to Steven Perry for partner sign-off, regardless of dollar amount. The Owen Mercer escalation email and Linear issue issue_e5abbb9af74642eeb10a93426b0bbaa2 both flag this as awaiting partner authority. The rubric is grounded in the email escalation thread and the Linear void-and-rebill issue. This is a genuine model gap, not a rubric issue.
+
+## R10 — Email to Daniel Jones names TimeLedger Nexus VEN-010-514242 for partner sign-off (0/6 — ALL RUNS FAILED)
+
+Every agent dropped TimeLedger Nexus VEN-010-514242 from the email body for the same dollar-threshold reason: at $24,475.25, it falls below the agents' chosen $50K cutoff. The correct answer is that the Phase-3 milestone splits into $17,825 releasable plus $6,650.25 disputed awaiting a credit memo, and Daniel's "conditioned release" email thread explicitly routes this through partner sign-off independent of dollar amount. Reaching it required pulling Linear issue_e6fbc488077344c28cc7cd13640c54bc and the Daniel Jones partner-sign-off email, both of which carry the credit-memo disposition that the SAP row alone does not surface. The rubric is grounded in the linked Linear AP-escalation issue and the partner-sign-off email. This is a genuine model gap, not a rubric issue.
+
+## R2 — Slack message identifies GraniteRack as stale/superseded SOW (3/6 fail)
+
+The agents who failed posted the Slack summary to #vendor-bills-and-ap but did not name GraniteRack Compute Services or the SOW-2024-GR-rev3 vs SOW-2025-GR-rev1 mismatch. The correct answer is that VEN-012-753165 is billing against the deprecated SOW-2024-GR-rev3 while the active engagement is SOW-2025-GR-rev1, which makes the holdup procurement's to fix via void-and-rebill. Finding this required cross-referencing the SAP pending entry for apinv_6131b7c637aa4b6e against Linear issue issue_e5abbb9af74642eeb10a93426b0bbaa2 and the Owen Mercer escalation email thread. The rubric is grounded in records_vault SOW documents, the Linear void-and-rebill issue, and the email escalation chain. This is a genuine model gap, not a rubric issue.
+
+## R3 — Slack message identifies TimeLedger Nexus VEN-010-514242 as missing credit memo (4/6 fail)
+
+The agents who failed posted the Slack summary but did not name TimeLedger Nexus VEN-010-514242 ($24,475.25) or classify it as a missing credit memo. The correct answer is that the Phase-3 milestone on this invoice carries a $6,650.25 disputed component awaiting a credit memo and a $17,825 releasable component, which makes it an AP problem awaiting partner sign-off rather than a procurement problem. Finding this required pulling Linear issue issue_e6fbc488077344c28cc7cd13640c54bc and the Daniel Jones partner-sign-off email thread. The rubric is grounded in the linked Linear AP-escalation issue and the partner-sign-off email chain. This is a genuine model gap, not a rubric issue.
+
+## R6 — Linear comment records 320/320 pending-approval invoices carry a null approver (3/6 fail)
+
+The agents who failed cited a filtered subset (214 or 215 invoices aged 80+ days, or 249 external pending) instead of the systemic 320 of 320 fingerprint across all pending-approval rows. The correct answer is that every pending-approval row in sap_subledger.ap_invoices.json has approver=null across all three entities, which is the diagnostic signal that the orphan-approver pattern is queue-wide rather than a long-tail subset. Reading any filtered subset hides the systemic pattern; only the unfiltered count exposes it. The rubric is grounded in the ap_invoices subledger and is the load-bearing systemic claim that the Linear ticket exists to track. This is a genuine model gap, not a rubric issue.
+
+## R15 — Agent identifies GraniteRack as stale/superseded SOW referencing SOW-2024-GR-rev3 vs SOW-2025-GR-rev1, assigned to procurement (3/6 fail)
+
+The agents who failed never surfaced GraniteRack VEN-012-753165 in the per-vendor root-cause analysis or named the SOW supersession. The correct answer is the SOW supersession diagnosis, which classifies the holdup as a procurement-owned void-and-rebill rather than an AP routing failure. Reaching it required the three-link chain SAP -> Linear (issue_e5abbb9af74642eeb10a93426b0bbaa2) -> email (Owen Mercer escalation); the agent who reads only SAP sees the same null-approver fingerprint as the orphan items and misclassifies. The rubric is grounded in the records_vault SOW documents and the Linear procurement-side issue. This is a genuine model gap, not a rubric issue.
+
+## R16 — Agent identifies TimeLedger Nexus VEN-010-514242 ($24,475.25) as missing credit memo (4/6 fail)
+
+The agents who failed either omitted TimeLedger from the per-vendor analysis entirely or conflated VEN-010-514242 with the separate W-9 invoice VEN-010-693199. The correct answer is that the Phase-3 milestone splits into $17,825 releasable plus $6,650.25 disputed awaiting a vendor credit memo, with AP owning the credit-memo workflow and partner sign-off owning the release. Reaching it required pulling Linear issue_e6fbc488077344c28cc7cd13640c54bc and the Daniel Jones partner-sign-off email; the invoice ID disambiguation is essential because VEN-010-693199 is a different root cause (expired W-9 hold). The rubric is grounded in the linked Linear AP-escalation issue and the partner-sign-off email. This is a genuine model gap, not a rubric issue.
+
+## R17 — Agent identifies Pinecrest Workflow Works VEN-006-193120 ($1,040.63, ~338 days, brookfield) as active vendor dispute (3/6 fail)
+
+The agents who failed never surfaced Pinecrest Workflow Works VEN-006-193120 in the per-vendor analysis. The correct answer is that this is the brookfield-side small-dollar long-aged item with a formal dispute trail in the vendor master plus an Andrea Phil partner-approved escalation, making it the canonical "active vendor dispute" example the prompt asks the agent to classify. Reaching it required reading the AP-exception ledger and the vendor dispute records rather than relying on the compound (age x dollars) ranking, because the small dollar footprint keeps Pinecrest below the visual top-5 cut. The rubric is grounded in the vendor master, the Slack vendor-dispute thread, the Andrea Phil partner-approval email, and three Linear dispute-tracking issues. This is a genuine model gap, not a rubric issue.
+
+## R19 — Agent reports Acme Cloud engagement scope from doc_eb7cb30c59bd4f03 (addendum) + doc_2d85ac5a698745c5 (change order) (3/6 fail)
+
+The agents who failed reported that the Acme engagement letter was "not located in the vault" or "not filed", falling into the trap of expecting a plain engagement_letter document. The correct answer is that Acme's scope lives in two documents of different kinds: doc_eb7cb30c59bd4f03 (FY2026 Engagement Letter Addendum #1, Multi-State Sales Tax + AR-Aging Bucket Scope Expansion) and doc_2d85ac5a698745c5 (FY2026 Change Order, same expansion). Both documents exist in records_vault.rv_documents.json with entity_id = acme_cloud and classification = restricted. Reaching them required searching across doc kinds (engagement_letter_addendum + engagement_change_order), not only the plain engagement_letter kind. The rubric is grounded in records_vault.rv_documents.json. This is a genuine model gap, not a rubric issue.
+
+## R21 — Agent states Acme/Northstar scope documents are restricted, not missing (3/6 fail)
+
+The agents who failed correctly framed Northstar's engagement letter as restricted but reported Acme's scope as "not located" or "not filed" rather than "restricted, content access-gated." The correct answer is that all three scope documents (doc_eb7cb30c59bd4f03, doc_2d85ac5a698745c5, doc_0036f5b991574808) carry classification = restricted, and zero access grants exist for Lena Park on any of them in records_vault.rv_access_grants.json (verified: 0 of 184 grants). The honest framing is "documents exist and are titled but content is access-gated", not "missing" or "not found". Reaching it required finding the documents first (the R19 prerequisite) and then reading their classification field, plus checking the access_grants table. The rubric is grounded in records_vault.rv_documents.json + records_vault.rv_access_grants.json. This is a genuine model gap, not a rubric issue.
+
+## R22 — Agent reports the departed-approver routing fix did not land, post-target invoices still pending with null approver (2/6 fail — improved from 3/6 pre-fix)
+
+The two failing agents in this cycle (Runs 1 and 4) read the prompt's softer "was supposed to land last sprint" framing and concluded either "the fix landed but was scoped brookfield-only" (Run 1) or "the post-target items are not conclusive since only 12 days old" (Run 4) rather than concluding the fix did not land. The correct answer is that the Linear tracking issue issue_378874ffeb8f4cb0b0417021f2d3d647 (assignee Mateo, status still in-flight past its 2026-05-22 due date) plus the post-target MetroShield invoices VEN-012-745157 / VEN-012-786680 / VEN-012-730094 (all dated 2026-05-31, all approver=null) together constitute direct universe evidence the fix did not propagate. Reaching the conclusion required reconciling the Linear ticket status and the post-target invoice dates against the user's belief, not deferring to it. The rubric is grounded in linear_issues.json + ap_invoices.json. This is a genuine model gap, not a rubric issue.

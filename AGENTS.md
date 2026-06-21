@@ -24,7 +24,7 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 ## PIPELINE DISPATCH
 
-> **Supersedes the legacy `command workflow.txt`.** The 13 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
+> **Supersedes the legacy `command workflow.txt`.** The 14 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
@@ -42,6 +42,7 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 | `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md`, generate `13_Feedback.txt` + optional `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` |
 | `PIPELINE REDO — Tasks/<TASK_DIR>` | [Reference/Sessions/REDO.md](Reference/Sessions/REDO.md) | Reviewer redo: REVIEW done + fixes applied but trajectory failed on difficulty (pass@1 > 40%) or density (avg tool calls < 40). Archives candidate originals + rebuilds 5/6/7 from scratch as a full CB build. Also used when a CB's own task came back failing density / difficulty. |
 | `PIPELINE COMPARE — Tasks/<TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
+| `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt\|oe\|rubrics\|all}` | [Reference/Sessions/AUDIT.md](Reference/Sessions/AUDIT.md) | On-demand veteran QC second-opinion under the STRICTEST possible interpretation (5/5 only, density bar 50+, every "should" read as "must"). Read-only re-verification for high-stakes uploads, post-platform-rejection retros, or post-pipeline-change re-audits. Not a substitute for FINAL — complementary. |
 | `PIPELINE CLOSE — Tasks/<TASK_DIR>` | [Reference/Sessions/CLOSE.md](Reference/Sessions/CLOSE.md) | Final read-only sanity check. Audits required artifacts + FINAL verdict + trajectory verdict; refuses to greenlight if anything is missing. Nudges to append cross-task learnings before exit. |
 
 ## Project layout

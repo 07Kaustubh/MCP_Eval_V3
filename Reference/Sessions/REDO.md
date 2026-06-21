@@ -113,6 +113,8 @@ PIPELINE FINAL    — Tasks/<TASK_DIR>
 
 Do NOT chain those phases inside the REDO chat. Each must be a fresh chat — the fresh-chat-per-phase contract is what keeps each phase decision-clean.
 
+**If the user pastes follow-up content in this chat** (HARDNESS inputs, S1 / S2 / S3 inputs, a new task, fix attempts on a different deliverable, or an unrelated question), do NOT process it. Reply: "This chat is single-shot for the REDO archive + clear + feedback pass. Please open a fresh chat and invoke the appropriate next trigger from the dispatch table." Chaining inside one chat defeats the entire pipeline.
+
 ## Bootstrap
 
 Read root `AGENTS.md` first. REDO is destructive of the in-place 5/6/7 — always archive before clearing. The candidate-rating evidence is the originals, not the rebuilt deliverable.

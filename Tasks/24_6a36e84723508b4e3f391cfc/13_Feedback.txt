@@ -1,0 +1,22 @@
+Overall: FAIL on density (avg_tool_calls=32.5, below the 40 floor; pass@1=0.17 is fine).
+
+What this means
+The task as submitted ran 6 trajectories on the platform. Average tool calls across the
+six runs came in at 32.5, with only one run (42 calls) clearing the 40-call density floor
+and a worst run at 23. Difficulty was acceptable (one of six runs passed all rubrics,
+pass@1 = 0.17, well below the 40 percent ceiling), so the scenario is genuinely hard for
+Opus 4.8. The structural problem is that the prompt does not force the agent through
+enough tool surface: Records Vault sweeps collapse into 2 to 4 calls per run, Slack
+history checks return empty and the agent stops there instead of pivoting to email or
+Linear, and SAP queries land in one big batch rather than per-vendor drill-downs against
+SOWs, POs, W-9s, and approver chains. The task has been rebuilt from scratch so the new
+prompt and oracle events pull the agent across more services without weakening the
+difficulty that already works.
+
+What was retained
+- The per-task universe (3_UniverseDataForThisTask.json) is unchanged.
+- The persona and business function assignment are unchanged.
+- The originals (5_Prompt.txt, 6_Oracle_Events.txt, 7_Rubrics.json), the prior
+  13_Feedback.txt, and changes.md are archived under _aux/Candidate_Originals/ for the
+  rating record. The trajectory evidence stays under trajectory-runs/ and
+  _aux/Trajectory_Stats.json.

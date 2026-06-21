@@ -1,5 +1,64 @@
 # Changelog
 
+## 2026-06-21 — v6: Justification Voice Gate + Similarity Gate + AUDIT Runbook + Upstream-Propagation Council Perspective + OE Meta-Tag Ban + Word-Count Tiers + Hardened STOP Gates
+
+Nine improvements driven by operator-pain debrief on Tasks 23-24. Closes the justification-voice gap (reviewers were seeing internal terminology in pushbacks), the silent-similarity-leak gap (similarity score wasn't enforced as a phase gate), the missing-veteran-audit gap (no on-demand strictest-interpretation re-verification), the upstream-propagation gap (S3 caught OE issues the operator had to manually trace back to S2), the OE meta-tag gap (validator missed `→ Write action` / `→ Read action` arrows operator had to manually strip), the lenient-word-count gap (single 500-word hard fail with no sweet-spot signal), and the STOP-gate leakage gap (operators were chaining phases inside one chat against the contract).
+
+### New scripts
+
+- **`Validators/calc_similarity.py`** — Jaccard on word bigrams (stdlib only). Scores `5_Prompt.txt` against every prior `5_Prompt.txt` in `Tasks/` + V3 reference prompts. Writes `_aux/Similarity_Report.json` with top matches per source. Project ceiling enforced at 40 (Class B pivot mandatory above that). Smoke-tested against Task 24: max score 4.2/100 (well clear of ceiling).
+- **`Validators/check_justification.py`** — 8 forbidden-term categories (rubric numbers, council references, pipeline phase names, internal artifact names, script names, guide / spec references, V3 framework refs, Brookfield meta refs). Scans any reviewer-facing file (linter pushbacks, AF justifications, candidate feedback). Per-hit report with line + matched term + 60-char context. Smoke-tested against Task 24 `13_Feedback.txt`: caught 3 real hits (`Candidate_Originals`, `Trajectory_Stats`, `per-task universe`).
+
+### New runbook
+
+- **`Reference/Sessions/AUDIT.md`** — `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt|oe|rubrics|all}` trigger. Veteran QC second-opinion under STRICTEST possible interpretation: 5/5 is the only acceptable score, density bar is 50+ midpoint (not 40 floor), every "should" reads as "must", every soft convention is binding. Returns `PASS (STRICT)` / `REVISE` / `REBUILD`. Read-only. Not a substitute for FINAL — complementary on-demand tool for high-stakes re-verification (pre-upload sanity check, post-rejection retro, post-pipeline-change re-audit).
+
+### Validator changes
+
+- **`Validators/validate.py`** — word-count tiers replace the single 500-word hard fail. HARD FAIL > 500, WARN > 400, NOTE > 300 (sweet spot 300-400 matches the V3 reference distribution).
+- **`Validators/validate.py`** — OE meta-tag ban catches three forbidden patterns operators had to manually strip: `→ Write action` arrows, `→ Read action` arrows, `→ Outcome N.M` inline annotations, process-rubric inline annotations. The reviewer-facing OE file is meant to read as numbered prose, not as a process-aware annotated document.
+
+### Council changes
+
+- **`Reference/Council_Protocol.md`** — Council B adds B6 perspective: **Upstream Propagation**. When a council finds an issue whose root cause lives in an upstream artifact (S3 rubric review surfaces an OE accuracy gap; S2 OE review surfaces a prompt truthfulness gap; FINAL surfaces a lever the prompt's framing actively prevents), flag `PROPAGATE TO <PHASE>: ...` instead of patching downstream. Patching downstream silently embeds the bug forever. B6 finding is BLOCKING — the operator must re-run the named upstream phase, then re-run the current phase against the fresh upstream output. Closes the operator-pain pattern of OE errors caught at S3 (rubrics) stage and prompt truthfulness issues caught late at FINAL.
+- **Role-Lens Anchoring** — Integration lens now also maps to B6 (root-cause-upstream attribution is a cross-phase property).
+
+### Pipeline changes
+
+- **`Reference/Sessions/S1.md`** — new step 7 between councils and Final Report: similarity gate via `calc_similarity.py`. < 30 PASS, 30-39 WARN (logged in `_aux/Reasoning/prompt_design.md`), ≥ 40 STOP with Class B pivot mandatory. Exit criteria updated.
+- **`Reference/Sessions/S1.5.md`** — new step 6: `check_justification.py` gate on `_aux/Linter_Justifications.md` before STOP. Pushbacks with internal terminology now blocked at the runbook layer (operator was previously catching these manually).
+- **`Reference/Sessions/S4.md`** — new step 5: `check_justification.py` gate on `_aux/Council_Reports/S4_AF_justifications.md` before producing the verdict report. AF batches with internal terminology now blocked at the runbook layer.
+- **`Reference/Sessions/S0.md`, `S1.md`, `S1.5.md`, `S2.md`, `S3.md`, `FINAL.md`, `REVIEW.md`, `REDO.md`** — STOP gates hardened with explicit "if user pastes follow-up content in this chat, do NOT process it" canonical block. Closes the operator-pain pattern of agents auto-processing pasted content that should have been a fresh chat per the fresh-chat-per-phase contract.
+
+### Linter Playbook changes
+
+- **`Reference/Linter_Playbook.md`** — new "Forbidden terms (enforced by `Validators/check_justification.py`)" section listing all 8 categories with rationale. Two new BEFORE/AFTER worked examples (feasibility pushback + AF reasoning gap) showing the most common authoring mistake (writing in process-aware voice) and how to strip it. Pre-ship check sections added to both Class A pushback and AF justification flows. `changes.md` (operator-internal change log) explicitly excluded from the check — it uses internal terms legitimately.
+
+### Dispatch + docs updates
+
+- Root **`AGENTS.md`** — PIPELINE DISPATCH adds AUDIT row between COMPARE and CLOSE. Trigger count updated from 13 to 14.
+- **`QUICK_START.md`** — conditional commands table expanded from 4 to 5 with the AUDIT row. S1 phase description notes the similarity gate. S4 description notes the AF justification check. AUDIT added to the "What each phase guarantees" list.
+
+### What this closes
+
+| Operator-pain gap from Tasks 23-24 debrief | Status |
+|---|---|
+| Reviewer-facing pushbacks / AF justifications had internal terminology slipping through | Closed — `check_justification.py` wired at S1.5 + S4 STOP gates |
+| Similarity score wasn't a phase gate — only caught downstream at platform linter | Closed — `calc_similarity.py` wired at S1 between Council B and STOP |
+| No on-demand strictest-interpretation re-verification for high-stakes uploads | Closed — `PIPELINE AUDIT` runbook + dispatch row |
+| OE errors caught late at S3 had to be manually traced back to S2 with no protocol | Closed — Council B-B6 PROPAGATE perspective with mandatory upstream re-run |
+| OE meta-tags (write/read action arrows) had to be manually stripped | Closed — validator catches all 3 patterns |
+| Word count had no sweet-spot signal — operator couldn't tell 480 from 320 | Closed — HARD FAIL > 500 / WARN > 400 / NOTE > 300 tiers |
+| Operators chained phases inside one chat, polluting the decision-clean contract | Closed — STOP gates hardened in 8 runbooks with explicit reject-follow-up block |
+
+Smoke-tested end-to-end against Task 24 (reference task, 473 words, full lifecycle):
+- `calc_similarity.py`: max 4.2/100 vs prior corpus (clear of 40 ceiling).
+- `check_justification.py`: caught 3 real hits in `13_Feedback.txt`.
+- `validate.py` word-count tiers: prompt = PASS with warn/note flags.
+- `validate.py` OE meta-tag ban: synthetic test → 1 fail recorded.
+
+---
+
 ## 2026-06-21 — v4: Learnings Log + Final Council + Multi-Model Opt-In + STOP Gates
 
 Adopted the remaining 4 gaps from the sibling reviewer pipeline (excluding the SQL-inject layer the user explicitly skipped). Closes the empirical-calibration gap and the cross-artifact gate gap. Pipeline is now decisively ahead overall.
