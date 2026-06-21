@@ -2,6 +2,8 @@
 
 **Updated:** 2026-06-21
 
+> **Operator?** Read [`QUICK_START.md`](QUICK_START.md) — the 1-page how-to.
+
 ## What this project is
 
 An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubrics) built on the **Brookfield CPAs & Advisors** synthetic universe. The pipeline produces 5-of-5 QC-grade deliverables that meaningfully stump **Opus 4.8** during the 6-run agent verification step.
