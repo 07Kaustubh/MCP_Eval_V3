@@ -35,13 +35,60 @@ Paste `8_Verifier_Fails.txt` + 6 trajectory JSONs into `Agent_Responses/` before
 
 ---
 
-## The 3 conditional commands
+## The 4 conditional commands
 
 | When | Command |
 |---|---|
-| Platform linter blocked the prompt | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output |
+| Platform linter blocked the prompt (CB-mode OR Review-mode where prompt is stuck) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. Review-mode routes the fix to scratch draft; CB-mode revises 5_Prompt.txt in place. |
 | Platform paste-back rubrics suspected mutated | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (after dropping `10_Rubrics_Platform.json`) |
-| Task came prefilled (review-type, not CB) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` instead of S0→S3 |
+| Task came prefilled (review-type, not CB) | See **Reviewer flow** below |
+| Task came back failing difficulty (pass@1 > 40%) or density (< 40 tool calls) — REVIEW fix not enough, OR your own CB task came back too easy/thin | `PIPELINE REDO — Tasks/<TASK_DIR>` (archives candidate-original 5/6/7 + reviewer 14/15 to `_aux/Candidate_Originals/`, then runs full CB rebuild HARDNESS→S1→S2→S3→FINAL writing fresh 5/6/7) |
+
+---
+
+## Reviewer flow (task came prefilled with 5/6/7)
+
+Paste the same 3 inputs (`1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json`) plus the candidate's prefilled `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` into `Tasks/<TASK_DIR>/`. Then one new chat:
+
+```
+PIPELINE REVIEW — Tasks/<TASK_DIR>
+```
+
+What it does (single chat, runs the full review end-to-end):
+- S0 setup (split, index, fact ledger, graph report)
+- Validator on all 3 phases
+- Council A grounding sweep on prompt + OE + rubrics
+- Council B (5 perspectives × 5 lenses) on prompt + OE + rubrics
+- **Final Council cross-artifact gate** (answer leakage, entity drift, lever regression — same gate the CB flow uses)
+- **Hardness pre-assessment**: if `Agent_Responses/Run*.json` exist, compute measured `pass@1` + `avg_tool_calls`. Otherwise project from Council B-B3.
+- Verifies every finding against the per-task universe before recording
+- Writes `changes.md` (one row per confirmed finding, severity-tagged, status=Pending)
+- Writes `13_Feedback.txt` (candidate-facing rating in plain narrative)
+- Writes `_aux/Council_Reports/REVIEW_score.md` (per-phase QC scores)
+
+**Binary triage outcome (the only if/else):**
+
+| Verdict | Trigger | Action |
+|---|---|---|
+| **SALVAGEABLE** | prompt has no Major QC issues (or only minor cosmetic fixes) AND hardness OK (measured pass@1 ≤ 40% AND avg tool calls ≥ 40, OR projected density ≥ 40 + levers trigger + no answer leakage) | Fix OE + rubrics (+ minor prompt edits to scratch draft) via `changes.md`. Mark Applied → re-invoke REVIEW → emits 14/15. Originals stay pristine. |
+| **REBUILD** | prompt fails Major QC dim OR hardness fails | Do NOT emit 14/15. `changes.md` + `13_Feedback.txt` still record everything for the rating. Invoke `PIPELINE REDO`. |
+
+Originals stay pristine throughout. Same 4-layer defense (validator → Council A → Council B → FINAL) as the CB flow.
+
+### Reviewer-specific: prompt stuck at platform linter (preferred over REDO)
+
+If the candidate's prompt is blocked by the platform linter (any class: business function / data / similarity) so you can't get to the prefilled OE/rubrics, handle it FIRST before running REVIEW:
+
+```
+PIPELINE S1.5 — Tasks/<TASK_DIR>
+<paste linter output>
+```
+
+S1.5 detects review-mode (presence of any REVIEW artifact in `_aux/`) and routes accordingly:
+- **Push back (preferred)** — writes a 2-5 sentence justification to `_aux/Linter_Justifications.md` in your voice. You paste it back to the platform.
+- **Minimal prompt fix** — writes the fix to `_aux/REVIEW_prompt_draft.txt` + Pending row in `changes.md`. Originals stay pristine. Validates the draft with same Fact_Ledger groundedness + Council A + B as a fresh S1 prompt.
+
+Once the platform is unblocked, `PIPELINE REVIEW` proceeds normally with the scratch draft as the reference prompt.
 
 ---
 
@@ -55,9 +102,20 @@ For critical deliverables (benchmark submission, redo of a rejected task): appen
 
 - **S0** → universe split + fact ledger + graph report on disk
 - **HARDNESS** → 3-5 levers picked, density projected ≥40 tool calls, stump hypothesis recorded. STOPs hard if insufficient.
-- **S1 / S2 / S3** → drafts validated + Council A (grounding) + Council B (5 perspectives × 5 lenses). Both must GO.
+- **S1 / S2 / S3** → drafts validated + Council A (grounding) + Council B (5 perspectives × 5 lenses). Both must GO. Each runbook starts with a `phase_ready.py` check that refuses to start if upstream artifacts are missing.
 - **FINAL** → cross-artifact check (answer leakage, entity drift, lever regression, integrated density). Mandatory before upload.
-- **S4** → each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written.
+- **S4** → real `parse_trajectories.py` measurement of avg tool calls + pass@1 from the 6 platform runs you just pasted in. Each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written.
+
+## When trajectories appear
+
+Trajectories are platform output. They don't exist until you upload + kick off the 6 runs.
+
+| Phase | Are trajectories available? | What the pipeline uses |
+|---|---|---|
+| S0 / HARDNESS / S1 / S1.5 / S2 / S3 / FINAL | No (pre-upload) | Projected density + lever coverage + answer-leakage scan |
+| S4 | Yes — you just pasted them in | Measured pass@1 + avg tool calls (`parse_trajectories.py`) |
+| REDO | Yes (the failed trajectory is why REDO fired) | `_aux/REDO_reason.md` carries the failure numbers |
+| REVIEW | Maybe — depends on whether the candidate already submitted to the platform | Measured if present, projected if not |
 
 ---
 

@@ -31,6 +31,7 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 | [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste |
 | [Sessions/FINAL.md](Sessions/FINAL.md) | `PIPELINE FINAL — Tasks/<TASK_DIR>` (cross-artifact holistic council, required before platform upload) |
 | [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
+| [Sessions/REDO.md](Sessions/REDO.md) | `PIPELINE REDO — Tasks/<TASK_DIR>` (reviewer redo: trajectory failed on difficulty / density, rebuild from scratch as CB) |
 | [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (diff local rubrics vs platform paste-back) |
 
 ## Update protocol

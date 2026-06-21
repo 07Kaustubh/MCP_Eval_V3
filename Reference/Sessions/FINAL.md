@@ -55,6 +55,14 @@ Use the `oracle` or `ultrabrain` sub-agent. Single call, 4 lenses applied in seq
 | Implicit-prompt framing preserved (no rubric demands an investigation step the prompt explicitly says not to do) | L15 + L16 framing constraint | MAJOR |
 | OE step count + opening-verb coverage match `OE_Convention_Inventory.json` distribution | Convention drift | MINOR |
 
+## Phase-readiness gate (run FIRST)
+
+```
+python Validators/phase_ready.py --phase final --task Tasks/<TASK_DIR>
+```
+
+Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
+
 ## Procedure
 
 1. **Verify upstream artifacts exist.** All three deliverables + Hardness_Plan + Fact_Ledger must be in place.
@@ -137,6 +145,16 @@ Save the report to Tasks/<TASK_DIR>/_aux/Council_Reports/FINAL_council.md.
 | `REVISE` | Apply the fixes IN PLACE. Re-run validators. Re-run PIPELINE FINAL. Iteration cap: **3 REVISE rounds**. After 3, escalate to the user with the full issue list — do NOT silently downgrade or accept. |
 
 5. **Exit criteria.** `Tasks/<TASK_DIR>/_aux/Council_Reports/FINAL_council.md` exists with `VERDICT: PASS` and PASS evidence cited for every hard rule in the table above.
+
+## STOP gate
+
+This phase ends here after `VERDICT: PASS` (or after the 3-REVISE iteration cap is hit). End your response.
+
+Two next-trigger paths:
+- `VERDICT: PASS` → user uploads the 4 deliverables to the platform and runs 6 trajectories. After results: `PIPELINE S4 — Tasks/<TASK_DIR>` (paste verifier fails) in a fresh chat, or `PIPELINE REDO — Tasks/<TASK_DIR>` if the task came back too easy / too thin.
+- 3 REVISE rounds hit without PASS → end your response with the full issue list. The user decides whether to keep iterating (re-invoke FINAL in a fresh chat) or escalate.
+
+Do NOT proceed to platform-upload guidance or `PIPELINE S4` inside this chat.
 
 ## Bootstrap
 

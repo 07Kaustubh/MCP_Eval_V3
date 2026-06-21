@@ -11,6 +11,14 @@
 
 If `10_Rubrics_Platform.json` is missing, ask the user to paste it.
 
+## Phase-readiness gate (run FIRST)
+
+```
+python Validators/phase_ready.py --phase compare --task Tasks/<TASK_DIR>
+```
+
+Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
+
 ## Steps
 
 1. Run the comparator:
@@ -40,3 +48,13 @@ python3 Validators/compare_rubrics.py \
 
 - stdout: per-diff report
 - `_aux/Council_Reports/COMPARE_diff.md` (only if diffs found): summary + per-rubric decision (accept | re-upload | re-author)
+
+## STOP gate
+
+This phase ends here. End your response.
+
+Two next-trigger paths:
+- Match → no further action; continue with the regular flow (`PIPELINE S4 — Tasks/<TASK_DIR>` once trajectories are back).
+- Mismatch → user decides accept-platform vs re-upload-local per diff. If re-upload is chosen, the user resubmits to the platform, then re-invokes `PIPELINE COMPARE — Tasks/<TASK_DIR>` in a fresh chat to verify the paste-back is now clean.
+
+Do NOT chain to S4 or other phases inside this chat.

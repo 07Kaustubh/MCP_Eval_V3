@@ -1,6 +1,6 @@
 # Validators
 
-Six Python scripts. All take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block.
+Eight Python scripts. All take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block.
 
 ## Scripts
 
@@ -73,6 +73,32 @@ python Validators/compare_rubrics.py Tasks/<TASK_DIR>/7_Rubrics.json Tasks/<TASK
 ```
 
 Catches silent platform-side mutations (reformatting, field stripping, reordering). Triggered by `PIPELINE COMPARE — Tasks/<TASK_DIR>`. Exits 0 on match, non-zero on any count mismatch or per-field diff.
+
+### `parse_trajectories.py`
+
+Parses real Claude Code SDK trajectories + verifier-fails text. Computes empirical hardness metrics — no manual JSON parsing.
+
+```
+python Validators/parse_trajectories.py Tasks/<TASK_DIR>
+```
+
+Reads `trajectory-runs/trajectory-run-*.json` (platform export) or falls back to `Agent_Responses/Run*.json` (template path). Counts `tool_use` blocks in assistant `message.content[]`, separates MCP (`mcp__*`) from internal scaffolding (Task, TaskCreate, TaskUpdate, etc.).
+
+Parses `8_Verifier_Fails.txt` block headers (`Run #N` + `X/Y criteria passed`) to compute pass@1. A run passes iff X == Y.
+
+Writes `_aux/Trajectory_Stats.json` with per-run table + verdict (`OK` / `REBUILD_CANDIDATE_DENSITY` / `REBUILD_CANDIDATE_DIFFICULTY`). Exits 0 on OK, non-zero otherwise.
+
+Used by `PIPELINE REVIEW` step 3 (hardness pre-assessment) and `PIPELINE S4` phase-readiness gate.
+
+### `phase_ready.py`
+
+Refuses to start a phase if upstream artifacts are missing. Architectural enforcement layer on top of the STOP-gate convention — catches the case where an agent silently skipped a previous phase.
+
+```
+python Validators/phase_ready.py --phase {hardness|s1|s1.5|s2|s3|final|s4|review|redo|compare} --task Tasks/<TASK_DIR>
+```
+
+Every runbook except S0 invokes this as step 1. If it STOPs with a missing-artifact list, the agent must run the named upstream phase before continuing. Exits 0 when all required artifacts exist + are non-empty, non-zero otherwise.
 
 ### `validate.py`
 

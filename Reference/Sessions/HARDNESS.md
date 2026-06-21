@@ -20,6 +20,16 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 | `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 produced |
 | `Reference/Hardness_Playbook.md` | the 11-lever catalog with per-lever tool-call costs |
 | `Tasks/_meta/Learnings.md` | **READ FIRST** — empirical Opus 4.8 failure-mode evidence. Every lever picked in this phase must cite a Learnings entry that justifies it (or you document a new finding if you try a novel pattern). |
+| `Tasks/<TASK_DIR>/_aux/REDO_reason.md` | **READ IF PRESENT** — when HARDNESS is invoked as part of a `PIPELINE REDO` rebuild, this file documents the previous attempt's specific failure (pass@1 > 40% / density < 40 / FINAL BLOCKER). The new lever selection MUST address that specific failure — don't pick the same lever combination that already failed. |
+| `Tasks/<TASK_DIR>/_aux/Candidate_Originals/` | **READ IF PRESENT** — when invoked via REDO, the archived candidate's originals reveal what the previous attempt looked like. Useful to avoid repeating the same scenario shape. |
+
+## Phase-readiness gate (run FIRST)
+
+```
+python Validators/phase_ready.py --phase hardness --task Tasks/<TASK_DIR>
+```
+
+Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
 
 ## Procedure
 
@@ -40,6 +50,8 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
    - Which Learnings entry justifies picking this lever? (cite L<n>).
 
 4. **Sub-agent task: select levers.** Pick the 3 to 5 strongest. Default to the L8 + L9 + L10 anatomy (3 reductions across 3 services + authority-figure dismissal + subledger reduction). Maximize independence (don't pick 3 latching variants). Never rely solely on L4 (near-miss entity) or L5 (action-incompleteness) — Learnings says they are ineffective alone.
+
+   **If `_aux/REDO_reason.md` exists (REDO rebuild):** the new lever combination MUST materially differ from what the previous attempt used. Read the candidate's originals in `_aux/Candidate_Originals/`. If they used L8 + L4 and failed density, drop L4 and replace with L9 + L10 + multi-write density buffer. If they used L8 + L9 and failed difficulty, the issue was probably L6 / L7 (stated answer or binary trap) — verify the new lever set explicitly avoids those failure patterns. Document the lever delta in `Hardness_Plan.md` under a new section `## Lever changes from previous attempt`.
 
 5. **Sub-agent task: tool-call density projection.** Sum:
    - Base discovery: 5 to 8 tool calls
@@ -106,9 +118,13 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 - At least 3 levers selected (PASS) OR explicit `INSUFFICIENT_LEVERS`.
 - Projected tool-call midpoint ≥ 40 (PASS) OR explicit `INSUFFICIENT_DENSITY`.
 
-## Next phase
+## STOP gate
 
-`PIPELINE S1 — Tasks/<TASK_DIR>` (unless INSUFFICIENT — user must intervene first)
+This phase ends here. End your response. Wait for the user to invoke `PIPELINE S1 — Tasks/<TASK_DIR>` in a fresh chat.
+
+If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to edit the universe, swap the task, or accept a lower hardness target before invoking S1.
+
+Do NOT proceed to prompt drafting in this chat.
 
 ## Bootstrap
 
