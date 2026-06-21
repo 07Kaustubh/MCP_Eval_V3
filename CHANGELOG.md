@@ -1,5 +1,45 @@
 # Changelog
 
+## 2026-06-21 — v7: Strict Veteran AUDIT Auto-Fires After Every Per-Phase Deliverable
+
+Same-day amendment to v6's AUDIT runbook. Operator found flaws on Tasks 23-24 that escaped per-phase Council A + B + FINAL. Decision: catching defects at the producing phase is cheaper than catching them downstream at FINAL or at platform-reviewer time, so AUDIT becomes a MANDATORY per-phase exit gate, not an optional on-demand tool.
+
+### Behavior change
+
+v6 shipped AUDIT as an on-demand-only trigger. v7 makes AUDIT mandatory inline after every per-phase deliverable:
+
+| Phase | When AUDIT fires | Sub-agent | Phase argument |
+|---|---|---|---|
+| S1 | After Council A + B + similarity gate pass | `oracle` | `--phase prompt` |
+| S2 | After Council A + B pass | `oracle` | `--phase oe` |
+| S3 | After Council A + B pass | `ultrabrain` | `--phase rubrics` |
+| S1.5 | After Council A + B re-run on revised prompt (skipped on justification-only path) | `oracle` | `--phase prompt` |
+| REVIEW | On the corrected materialization (14/15 + prompt draft) | per phase | per phase |
+
+`PASS (STRICT)` is now a required exit criterion. `REVISE` iterates the producing phase (validators + Council A + Council B + AUDIT, iteration cap 3 rounds). `REBUILD` STOPs to `PIPELINE REDO`. `PROPAGATE TO <upstream>` STOPs to the upstream phase re-run (uses the Council B-B6 propagation mechanism added in v6).
+
+On-demand mode preserved unchanged for additional re-verification beyond the built-in gates (pre-FINAL pre-upload sanity check, post-platform-rejection retro, post-pipeline-change re-audit).
+
+### Files modified
+
+- **`Reference/Sessions/AUDIT.md`** — "What this phase does" rewritten to describe dual-mode operation (Mode 1 auto-fire from per-phase runbooks + Mode 2 on-demand). "When NOT to use" updated (removed "during normal build pipeline" bullet). Cost note updated to reflect the ~3 additional sub-agent calls per task. STOP gate clarified as on-demand-mode only (auto-fire piggybacks on the parent phase's STOP gate).
+- **`Reference/Sessions/S1.md`** — new step 8 "Strict veteran audit (MANDATORY, auto-fire)" between similarity gate (step 7) and final report (now step 9). Exit criteria updated to require `AUDIT_prompt.md` with `PASS (STRICT)`.
+- **`Reference/Sessions/S2.md`** — new step 8 "Strict veteran audit (MANDATORY, auto-fire)" between Loop (step 7) and final report (now step 9). Exit criteria updated to require `AUDIT_oe.md` with `PASS (STRICT)`. Includes explicit handling for `PROPAGATE TO S1` findings (STOP to S1 re-run).
+- **`Reference/Sessions/S3.md`** — new step 9 "Strict veteran audit (MANDATORY, auto-fire)" between Loop (step 8) and coverage matrix (now step 10). Uses `ultrabrain` (rubrics is the heaviest phase). Exit criteria updated to require `AUDIT_rubrics.md` with `PASS (STRICT)`. Includes explicit handling for `PROPAGATE TO S1` and `PROPAGATE TO S2` findings.
+- **`Reference/Sessions/S1.5.md`** — new step 7 "Strict veteran audit on any revised prompt" between justification voice gate (step 6) and exit. Conditional: fires only when 5_Prompt.txt or REVIEW_prompt_draft.txt was modified (Class A revise OR Class B pivot path). Skipped on justification-only resolution.
+- **`Reference/Sessions/REVIEW.md`** — step 11 amended to include AUDIT on every corrected artifact (14/15 + prompt draft). AUDIT fires before FINAL in the re-run gate set, matching the per-phase order in S1/S2/S3.
+- **Root `AGENTS.md`** — new hard rule #12: "Strict veteran AUDIT runs after every per-phase deliverable." Dispatch table description for AUDIT updated to call out auto-fire mode + preserved on-demand mode.
+- **`QUICK_START.md`** — "What each phase guarantees" updated to note inline AUDIT in S1/S2/S3. Conditional commands table updated to clarify the on-demand AUDIT trigger is for ADDITIONAL re-verification beyond the auto-fired inline gate.
+
+### Cost + benefit
+
+- **Cost**: ~3 additional sub-agent calls per task (S1 + S2 + S3, with S3 using ultrabrain). Pre-FINAL pre-upload on-demand AUDIT is still possible but largely redundant once auto-fire is in place.
+- **Benefit**: catches defects at the producing phase, before they propagate through downstream phases. Operator-pain pattern on Tasks 23-24 (defects surfacing only at S3 or at FINAL or post-trajectory) is structurally prevented.
+
+The bar is now: validator + Council A + Council B + AUDIT all GO per phase, then FINAL GO before platform upload. Five gates per task.
+
+---
+
 ## 2026-06-21 — v6: Justification Voice Gate + Similarity Gate + AUDIT Runbook + Upstream-Propagation Council Perspective + OE Meta-Tag Ban + Word-Count Tiers + Hardened STOP Gates
 
 Nine improvements driven by operator-pain debrief on Tasks 23-24. Closes the justification-voice gap (reviewers were seeing internal terminology in pushbacks), the silent-similarity-leak gap (similarity score wasn't enforced as a phase gate), the missing-veteran-audit gap (no on-demand strictest-interpretation re-verification), the upstream-propagation gap (S3 caught OE issues the operator had to manually trace back to S2), the OE meta-tag gap (validator missed `→ Write action` / `→ Read action` arrows operator had to manually strip), the lenient-word-count gap (single 500-word hard fail with no sweet-spot signal), and the STOP-gate leakage gap (operators were chaining phases inside one chat against the contract).

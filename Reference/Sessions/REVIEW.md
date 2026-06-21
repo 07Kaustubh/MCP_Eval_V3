@@ -141,7 +141,13 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    - Overall: ...
    ```
 
-11. **Re-run gates on the corrected `14_Updated_Oracle_Events.txt` and `15_Updated_Rubrics.json` if emitted.** Treat the corrected versions as a fresh shipment: run `python Validators/validate.py --phase oe` and `--phase rubrics` against them (point the validator at temp copies named `6_Oracle_Events.txt` / `7_Rubrics.json` in a scratch dir if needed), then re-run Council A + Council B + FINAL against the corrected set. Any BLOCKER on the corrected version means the fix introduced a new issue — iterate until clean. Originals 5/6/7 stay untouched throughout.
+11. **Re-run gates on the corrected `14_Updated_Oracle_Events.txt` and `15_Updated_Rubrics.json` if emitted.** Treat the corrected versions as a fresh shipment: run `python Validators/validate.py --phase oe` and `--phase rubrics` against them (point the validator at temp copies named `6_Oracle_Events.txt` / `7_Rubrics.json` in a scratch dir if needed), then re-run Council A + Council B + **AUDIT (`--phase oe` for 14, `--phase rubrics` for 15)** + FINAL against the corrected set.
+
+   AUDIT auto-fires on the corrected materialization for the same reason it auto-fires in S1/S2/S3: catching defects at the producing phase (here, the corrected version is the produced artifact) is cheaper than catching them at FINAL or at platform-reviewer time. Save reports to `_aux/Council_Reports/AUDIT_oe.md` and `_aux/Council_Reports/AUDIT_rubrics.md` (overwrite any prior audit since the artifact has changed). Verdict handling matches S2/S3: `PASS (STRICT)` → proceed; `REVISE` → apply fixes + re-run gate set (cap 3 rounds); `REBUILD` → STOP, recommend the original triage REBUILD verdict was correct and `PIPELINE REDO` is mandatory after all.
+
+   Same rule for the corrected prompt draft in `_aux/REVIEW_prompt_draft.txt` if any prompt-phase row was Applied: run AUDIT `--phase prompt` on it (`_aux/Council_Reports/AUDIT_prompt.md`).
+
+   Any BLOCKER on the corrected version means the fix introduced a new issue — iterate until clean. Originals 5/6/7 stay untouched throughout.
 
 ## Exit criteria
 

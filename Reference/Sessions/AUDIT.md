@@ -1,23 +1,32 @@
-# PIPELINE AUDIT — Veteran QC Second-Opinion
+# PIPELINE AUDIT — Veteran QC Second-Opinion (Strictest Interpretation)
 
 **Trigger:** `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt|oe|rubrics|all}`
 
 ## What this phase does
 
-On-demand veteran audit of a completed deliverable (or a full task) using the **STRICTEST possible QC interpretation**. Unlike per-phase Council A/B (which run inside S1/S2/S3 and gate progression) and unlike PIPELINE FINAL (which is automatic before platform upload and checks cross-artifact consistency), AUDIT is a re-verification pass triggered manually when:
+Veteran audit of a completed deliverable (or a full task) using the **STRICTEST possible QC interpretation**. Two invocation modes:
 
-- The operator wants a second-opinion sanity check before a high-stakes upload.
+### Mode 1 — Auto-fire (mandatory, runs after every per-phase deliverable)
+
+S1, S2, S3, S1.5 (revise path), and REVIEW (corrected materialization) runbooks now spawn an AUDIT sub-agent INLINE after the per-phase Council A + Council B pass, BEFORE the STOP gate. The `_aux/Council_Reports/AUDIT_<phase>.md` report with `PASS (STRICT)` is a required exit criterion for those phases.
+
+Rationale (v7 design): operator found flaws on Tasks 23-24 that escaped per-phase Council A + B + FINAL. Catching them early — at the phase that produced them — is cheaper than catching them downstream at FINAL or at platform-reviewer time. Per-phase councils enforce the 5/5 bar with NON-FAIL bands explicitly justified; AUDIT enforces the same bar without ANY NON-FAIL band tolerance, plus tightens density (50+ midpoint vs 40 floor) and reads every "should" as "must". The cost is ~3 additional sub-agent calls per task (S1 + S2 + S3, with S3 using ultrabrain) — accepted for early risk mitigation.
+
+### Mode 2 — On-demand (manual, fresh chat)
+
+Operator-triggered re-verification in a fresh chat using the trigger phrase above. Use when:
+
+- Pre-FINAL high-stakes sanity check on a task you already shipped through the auto-fire loop, before platform upload.
 - A FINAL council passed but something still feels off.
-- A task came back from the platform reviewer with a fail and we want to retro the deliverable through the strictest possible lens before deciding rebuild vs. fix.
+- A task came back from the platform reviewer with a fail and we want to retro the full task under strictest lens before deciding rebuild vs. fix.
 - A new pipeline change (validator, council perspective, lever) just landed and we want to re-audit recently shipped tasks against the new bar.
-- A reviewer is calibrating the project bar and needs a worked audit example for a known-good task.
+- A reviewer is calibrating the project bar and needs a worked audit example.
 
-Read-only. Does NOT modify the deliverables. Produces a single audit report the operator reads and decides on.
+Both modes use the SAME prompt template (below) and produce the SAME report format. Auto-fire mode is invoked inline as a sub-agent inside the phase chat; on-demand mode is invoked in a fresh chat via the trigger phrase. Read-only either way — does NOT modify deliverables.
 
 ## When NOT to use AUDIT
 
-- During the normal build pipeline. The per-phase councils + FINAL already enforce the bar; running AUDIT inside the build loop is wasted spend.
-- As a substitute for FINAL. AUDIT can audit any single phase; FINAL is mandatory before platform upload and checks cross-artifact holism. They are complementary, not replacements.
+- As a substitute for FINAL. AUDIT audits per-phase artifacts in isolation; FINAL is the mandatory cross-artifact council before platform upload (checks cross-artifact consistency, entity drift, integrated density). They are complementary, not replacements.
 - For trivial sanity checks. AUDIT is heavyweight (oracle / ultrabrain sub-agent with strictest interpretation). For quick checks, run `Validators/validate.py` or `Validators/check_justification.py`.
 
 ## Required inputs
@@ -190,13 +199,18 @@ Save the report to Tasks/<TASK_DIR>/_aux/Council_Reports/AUDIT_<PHASE>.md.
 
 ## Cost note
 
-AUDIT spends 1 oracle (or 1 ultrabrain for rubrics / all) sub-agent call per invocation. For `--phase all` against a heavy task, prefer ultrabrain. Use AUDIT sparingly — once per high-stakes task, not as part of the routine build loop.
+AUDIT spends 1 oracle (or 1 ultrabrain for rubrics / all) sub-agent call per invocation.
 
-## STOP gate
+- **Auto-fire mode** (mandatory): ~3 additional calls per task (S1 + S2 + S3, with S3 using ultrabrain), plus any S1.5 / REVIEW re-runs. Accepted cost for early risk mitigation per the v7 design decision — catching defects at the producing phase is cheaper than catching them downstream at FINAL or at platform-reviewer time.
+- **On-demand mode** (manual): 1 call per invocation. Use for the discrete scenarios listed under Mode 2 above.
 
-This phase ends here after the audit report is saved. End your response.
+## STOP gate (on-demand mode only)
 
-If the user pastes follow-up content (a new task, a different deliverable to audit, fix attempts, etc.), do NOT process it in this chat. Tell the user: "PIPELINE AUDIT is single-shot per phase. Open a fresh chat and invoke the appropriate next trigger." This keeps the audit chat decision-clean.
+Auto-fire mode does NOT have its own STOP gate — it runs inline as a sub-agent inside the parent phase chat (S1/S2/S3/S1.5/REVIEW), and the parent phase's STOP gate handles the chat termination.
+
+On-demand mode ends here after the audit report is saved. End your response.
+
+If the user pastes follow-up content (a new task, a different deliverable to audit, fix attempts, etc.), do NOT process it in this chat. Tell the user: "PIPELINE AUDIT is single-shot per phase in on-demand mode. Open a fresh chat and invoke the appropriate next trigger." This keeps the audit chat decision-clean.
 
 Three next-trigger paths:
 - `PASS (STRICT)` → user ships the task (or proceeds to platform upload after FINAL if not yet run). Append a one-line entry to `Tasks/_meta/Audit_Log.md`.
