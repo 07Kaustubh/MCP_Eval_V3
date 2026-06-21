@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "purpose": "Extracted from QC_Tasks/V3_Tasks/Task11..Task14 Rubrics.json. Defines the only phrasings, verb shapes, and qualifier rules considered on-framework. Anything in a deliverable that does not match these patterns is a Major convention drift — Council A blocks it.",
+    "source_files": [
+      "QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b/Rubrics.json",
+      "QC_Tasks/V3_Tasks/Task12_6a29448b7e4c641c30eb3890/Rubrics.json",
+      "QC_Tasks/V3_Tasks/Task13_6a2202b85b24c47c08dd2e79/Rubrics.json",
+      "QC_Tasks/V3_Tasks/Task14_6a29448b7e4c641c30eb3875/Rubrics.json"
+    ],
+    "category_distribution_observed": {
+      "outcome": 59,
+      "process": 0
+    },
+    "note": "All 59 rubrics across the 4 V3 reference tasks are outcome. Process is theoretically allowed but practically vanishingly rare. Default to zero process rubrics."
+  },
+
+  "title_opening_patterns": [
+    "The Agent <verb> ...",
+    "The Agent's <artifact> <verb> ...",
+    "Agent <verb> ... (rarer, equivalent)"
+  ],
+
+  "verbs_by_subtype": {
+    "outcome_1_1_write_action": [
+      "sends an email",
+      "sends an email from",
+      "sends ... to",
+      "posts a status",
+      "posts a message",
+      "posts a standalone status note",
+      "creates a Linear issue",
+      "creates a reminder",
+      "creates a calendar event",
+      "adds a status comment to Linear issue",
+      "adds an activity note on",
+      "uploads a memo",
+      "uploads a document",
+      "schedules a review meeting",
+      "schedules a follow-up meeting",
+      "updates the",
+      "follows up with"
+    ],
+    "outcome_1_2_action_content": [
+      "Agent's email to <X> includes",
+      "Agent's email to <X> mentions",
+      "Agent's email to <X> states",
+      "Agent's message to <channel> references",
+      "Agent's status comments to <issues> reflect",
+      "Agent's memo includes",
+      "Agent's threshold analysis memo includes",
+      "Agent's Slack summary in <channel> includes"
+    ],
+    "outcome_2_1_key_facts": [
+      "Agent identifies",
+      "Agent reports",
+      "Agent reports in the final response",
+      "Agent flags",
+      "Agent lists",
+      "Agent recommends",
+      "Agent concludes"
+    ],
+    "process_rare": [
+      "Agent verifies ... before",
+      "Agent confirms ... before",
+      "Agent reviews ... before",
+      "Agent notifies ... before"
+    ]
+  },
+
+  "qualifier_rules": {
+    "approximately": {
+      "use_for": ["calculated aggregates", "rounded dollar amounts", "computed totals", "derived percentages"],
+      "never_for": ["JE ids", "exception ids", "vendor ids", "doc ids", "dates", "fiscal period labels", "account numbers", "exact static dollar figures from a single record"],
+      "examples_seen": [
+        "approximately $117,000",
+        "approximately $6,750",
+        "approximately $435.41 (NOTE: not flagged — accepted as calculated rounded)"
+      ]
+    },
+    "or_similar": {
+      "placement": "End of the phrase being relaxed, in parentheses",
+      "use_for": ["free-text descriptions", "agent-generated subject lines", "agent-generated body content", "summary phrasing"],
+      "never_for": ["email addresses", "Slack channel ids or names", "JE / exception / vendor / doc / issue ids", "exact dates", "exact dollar amounts pulled from a single record"],
+      "examples_seen": [
+        "subject related to a relocation proposal (or similar)",
+        "noting that the reissue is absent and the original invoice remains blocked (or similar statement)",
+        "or similar statement that the reissue is absent",
+        "or similar phrasing"
+      ]
+    },
+    "at_least_N": {
+      "rule": "Banned in rubric titles unless the prompt explicitly mandates a minimum count using 'at least N' phrasing.",
+      "alternative": "Write one atomic rubric per ground-truth item.",
+      "examples_seen": "None in V3 reference tasks (zero hits)."
+    },
+    "must_be_one_of": {
+      "use_for": "Closed set of accepted values",
+      "example": "retention code AICPA_SQMS_7Y or FIRM_INTERNAL"
+    }
+  },
+
+  "service_metadata_required": {
+    "email_rubrics": ["recipient address", "CC (when specified)", "specific content items when 1.2"],
+    "slack_rubrics": ["channel name OR channel id", "specific content items when 1.2", "whether the post is channel-level vs thread reply when material"],
+    "linear_rubrics": ["issue id", "comment/title content when 1.2"],
+    "records_vault_rubrics": ["kind", "retention code", "classification", "entity link when relevant"],
+    "calendar_rubrics": ["attendees", "time window when material"],
+    "reminder_rubrics": ["due date / window when material"]
+  },
+
+  "evidence_field_patterns": [
+    "Look for a <verb>-... tool call in the trajectory with the <param> field set to <value>.",
+    "Look for a <kind> call ... Confirm the tool returned a success response.",
+    "Check the <param> parameter of the <tool> call for <pattern>.",
+    "Check the body / text field of the <tool> call targeting <id>. The comment should reference <X> or <Y> (or similar).",
+    "Check the agent's final response for <statement>.",
+    "Look for ... and verify ... and that the tool returned a success response.",
+    "Check the content parameter of the email body for <X>, <Y>, and <Z>."
+  ],
+
+  "justification_field_patterns": [
+    "The prompt explicitly says '<quote>'. This rubric confirms <what>.",
+    "The prompt asks <what> and specifies <constraint>. The ground truth is <X>.",
+    "The prompt asks <X>. Splitting <Y> and <Z> into separate rubrics (instead of one bundled rubric) allows an agent that gets one item right and omits the other to receive appropriate partial credit.",
+    "This is the single hardest discriminating criterion: <why>.",
+    "Per OE<n>: <what should happen>. <Why this rubric is needed>."
+  ],
+
+  "forbidden_in_title": [
+    "tool function names (oracle_gl_*, email_*, slack_*, sap_*, blackline_*, records_vault_*, linear_*, airtable_*, contacts_*, messaging_*, calendar_*, reminder_*)",
+    "parameter names in code-fence style (`recipient`, `channel_id`, `payload`, `content`, `body`, `kind`, `retention_policy_code` mentioned as the parameter name itself)",
+    "passive voice ('An email was sent to ...')",
+    "subjective language ('enough', 'professional', 'thorough', 'helpful', 'good', 'clear', 'detailed')",
+    "em-dash (—) and en-dash (–)",
+    "'at least N' (unless the prompt uses that exact phrasing for the same N)"
+  ],
+
+  "atomicity_rules": {
+    "one_independent_claim": "A rubric must fail for exactly one reason. If 'sends email AND creates issue' could fail two ways, split it.",
+    "allowed_bundling": [
+      "Multiple attributes of the same artifact / same tool call (recipient + CC on one send)",
+      "Multiple facts from the same data record that would always pass / fail together"
+    ],
+    "forbidden_bundling": [
+      "Two independent write actions in one rubric",
+      "Investigation step + write action in one rubric",
+      "Multiple distinct content items across different parameters in one rubric"
+    ]
+  },
+
+  "outcome_v_process_balance": {
+    "rule": "Outcome must outnumber Process. Process > 50% of total = FAIL.",
+    "v3_reference_distribution": "100% outcome (4 tasks × 59 rubrics)",
+    "process_three_condition_test": [
+      "Required by every valid solution path (phrased broadly enough to allow alternatives)",
+      "A stricter Outcome rubric cannot capture the same requirement",
+      "Describes a verification, not an execution trace"
+    ]
+  }
+}

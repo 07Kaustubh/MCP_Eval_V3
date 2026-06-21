@@ -1,0 +1,200 @@
+[
+  {
+    "title": "An email was sent (via send_email) from david.chen@moveops.com to pam.kowalski@northwindtech.com.",
+    "category": "outcome",
+    "justification": "The prompt says to email Pam a proposal that owns what went wrong. This is one of the three required outbound emails. The sender must be David Chen as the persona handling the request.",
+    "evidence": "See OE #9. Look for a send_email tool call with sender david.chen@moveops.com and recipients including pam.kowalski@northwindtech.com."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to pam.kowalski@northwindtech.com acknowledges the chain-of-custody breach involving Raj Patel's server equipment move.",
+    "category": "outcome",
+    "justification": "Pam's escalation specifically involves the chain-of-custody issue from Raj Patel's server relocation. A credible retention proposal must own this specific failure rather than offer a generic apology.",
+    "evidence": "See OE #9. Look in the body/content parameter of the send_email call to pam.kowalski@northwindtech.com for references to the chain-of-custody breach, server equipment, or Raj Patel."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to pam.kowalski@northwindtech.com acknowledges the damage to Emilia Cruz's piano.",
+    "category": "outcome",
+    "justification": "The piano damage during Emilia Cruz's relocation is a separate service failure that Pam escalated about. The retention proposal must address this incident specifically to demonstrate accountability.",
+    "evidence": "See OE #9. Look in the body/content parameter of the send_email call to pam.kowalski@northwindtech.com for references to piano damage or Emilia Cruz."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to pam.kowalski@northwindtech.com includes a concrete financial concession or discount offer (such as a percentage discount on future services or Q3 pricing).",
+    "category": "outcome",
+    "justification": "David asks the agent to understand what Alejandro or Marcus have modeled on discounts before putting anything in front of Pam. Alejandro's draft proposes a 12% Q3 discount conditional on Denver expansion volume. A retention proposal without a concrete offer lacks substance.",
+    "evidence": "See OE #9. Look in the body/content parameter of the send_email call to pam.kowalski@northwindtech.com for a specific discount percentage, credit amount, or pricing concession."
+  },
+  {
+    "title": "A comment was added (via linear_create_comment) to the NorthWind retention Linear issue (linear_issue_c8cdba4408f1) summarizing findings or updating the retention plan status.",
+    "category": "outcome",
+    "justification": "The prompt says to make sure the retention plan being tracked internally reflects what was found. The NorthWind retention response plan is tracked as Linear issue linear_issue_c8cdba4408f1.",
+    "evidence": "See OE #10. Look for a linear_create_comment tool call with issueId linear_issue_c8cdba4408f1 and a body containing substantive NorthWind retention findings."
+  },
+  {
+    "title": "An email was sent (via send_email) from david.chen@moveops.com to liam.park@stormcloud.io.",
+    "category": "outcome",
+    "justification": "The prompt says Liam needs to get a real remediation plan from David. This is one of the three required outbound emails.",
+    "evidence": "See OE #17. Look for a send_email tool call with sender david.chen@moveops.com and recipients including liam.park@stormcloud.io."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to liam.park@stormcloud.io addresses Jae-won Kim's unresolved housing situation (lease not finalized, still in temporary housing in Austin).",
+    "category": "outcome",
+    "justification": "Jae-won Kim's housing is one of the primary unresolved StormCloud items. The guarantor packet was never sent, the file was incorrectly marked completed, and Jae-won is still in temporary housing.",
+    "evidence": "See OE #17. Look in the body/content parameter of the send_email call to liam.park@stormcloud.io for references to Jae-won Kim's housing, lease status, or temporary housing situation."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to liam.park@stormcloud.io addresses Simone Richter's frozen stipend claim (the $340 standing desk stuck in the expense review freeze).",
+    "category": "outcome",
+    "justification": "Simone Richter's legitimate $340 stipend claim for a standing desk is frozen due to the broader ExpenseBot fraud review. This is a specific unresolved item David mentioned.",
+    "evidence": "See OE #17. Look in the body/content parameter of the send_email call to liam.park@stormcloud.io for references to Simone Richter's stipend, the $340 standing desk, or the expense freeze."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to liam.park@stormcloud.io addresses the $500 goodwill credit that was posted to the wrong record (cancelled estimate EST-2026-0287 instead of live invoice INV-2026-0319).",
+    "category": "outcome",
+    "justification": "The $500 credit mispost is a specific billing error David mentioned. Marcus discovered it was applied to a cancelled estimate rather than the active StormCloud invoice.",
+    "evidence": "See OE #17. Look in the body/content parameter of the send_email call to liam.park@stormcloud.io for references to the $500 credit, its incorrect posting, or a plan to correct the billing."
+  },
+  {
+    "title": "A message was posted (via conversations_add_message) to the #operations Slack channel (channel_id: C006) flagging outstanding StormCloud items.",
+    "category": "outcome",
+    "justification": "The prompt says the ops team needs to know what's still stuck. The #operations channel (C006) is where ops coordination happens.",
+    "evidence": "See OE #18. Look for a conversations_add_message tool call with channel_id C006 and payload referencing StormCloud outstanding items."
+  },
+  {
+    "title": "An email was sent (via send_email) from david.chen@moveops.com to tessa.moreno@brightloopanalytics.com.",
+    "category": "outcome",
+    "justification": "The prompt says to get back to Tessa confirming readiness for the expansion. This is one of the three required outbound emails.",
+    "evidence": "See OE #25. Look for a send_email tool call with sender david.chen@moveops.com and recipients including tessa.moreno@brightloopanalytics.com."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to tessa.moreno@brightloopanalytics.com acknowledges at least one specific open issue from the April batch (such as Simone Richter's housing mismatch or Marcus Webb's delayed car shipment).",
+    "category": "outcome",
+    "justification": "David needs Tessa to know the team is aware of outstanding items from the April batch. Mina's audit found Simone got the wrong unit type and Marcus Webb's car delivery was delayed. Acknowledging these shows accountability.",
+    "evidence": "See OE #25. Look in the body/content parameter of the send_email call to tessa.moreno@brightloopanalytics.com for references to at least one specific April issue (Simone housing mismatch or Marcus car delay)."
+  },
+  {
+    "title": "The email body (visible in send_email parameters) to tessa.moreno@brightloopanalytics.com confirms readiness for 6 new May expansion relocations.",
+    "category": "outcome",
+    "justification": "Tessa wants six expansion relocations in May after BrightLoop's Series B. David must confirm the team can absorb six more. This is the core ask of the BrightLoop outreach.",
+    "evidence": "See OE #25. Look in the body/content parameter of the send_email call to tessa.moreno@brightloopanalytics.com for language confirming readiness for 6 new May relocations."
+  },
+  {
+    "title": "A CRM engagement was created (via crm_create_engagement) logging the BrightLoop expansion outreach.",
+    "category": "outcome",
+    "justification": "The prompt says to make sure the CRM is updated. The BrightLoop expansion outreach must be logged so Mina has a record.",
+    "evidence": "See OE #26. Look for a crm_create_engagement tool call with body referencing BrightLoop expansion outreach and contact_ids or company_ids referencing BrightLoop."
+  },
+  {
+    "title": "A summary message was posted (via conversations_add_message) to the #customer-engagement Slack channel (channel_id: C002).",
+    "category": "outcome",
+    "justification": "The prompt says to give the customer engagement team a status across all three accounts. The #customer-engagement channel (C002) is the appropriate destination.",
+    "evidence": "See OE #27. Look for a conversations_add_message tool call with channel_id C002."
+  },
+  {
+    "title": "The Slack message to #customer-engagement (visible in conversations_add_message parameters) covers the NorthWind account status (retention proposal sent to Pam, or similar).",
+    "category": "outcome",
+    "justification": "The #customer-engagement summary must cover all three accounts. NorthWind is the highest-risk account with the retention crisis. The team needs visibility on what was communicated to Pam.",
+    "evidence": "See OE #27. Look in the message/text parameter of the conversations_add_message call to C002 for references to NorthWind, Pam, or the retention proposal."
+  },
+  {
+    "title": "The Slack message to #customer-engagement (visible in conversations_add_message parameters) covers the StormCloud account status (remediation plan sent to Liam, or similar).",
+    "category": "outcome",
+    "justification": "The #customer-engagement summary must cover all three accounts. StormCloud has multiple unresolved items. The team needs to know a remediation plan was delivered.",
+    "evidence": "See OE #27. Look in the message/text parameter of the conversations_add_message call to C002 for references to StormCloud, Liam, or the remediation plan."
+  },
+  {
+    "title": "The Slack message to #customer-engagement (visible in conversations_add_message parameters) covers the BrightLoop account status (expansion confirmed with Tessa, or similar).",
+    "category": "outcome",
+    "justification": "The #customer-engagement summary must cover all three accounts. BrightLoop is the positive opportunity. The team needs to know the expansion was confirmed.",
+    "evidence": "See OE #27. Look in the message/text parameter of the conversations_add_message call to C002 for references to BrightLoop, Tessa, or the expansion."
+  },
+  {
+    "title": "The final response identifies that the NorthWind account represents $60,000 in revenue (5 relocations at $12,000 each).",
+    "category": "outcome",
+    "justification": "David needs the full NorthWind invoice history to understand the revenue at stake. The QuickBooks data shows INV-2026-003 at $60,000 for 5 enterprise relocations at $12,000 each.",
+    "evidence": "See OE #4. Look in the agent's final text response for the $60,000 NorthWind revenue figure."
+  },
+  {
+    "title": "The final response identifies that Alejandro's finance draft proposes a 12% Q3 discount for NorthWind.",
+    "category": "outcome",
+    "justification": "Alejandro's Linear comment on the NorthWind retention issue proposes a 12% Q3 discount. This is the specific discount rate David asked the agent to find from Alejandro or Marcus's models.",
+    "evidence": "See OE #7. Look in the agent's final text response for reference to the 12% Q3 discount rate from Alejandro's draft."
+  },
+  {
+    "title": "The final response identifies that the proposed 12% discount is conditional on NorthWind committing the full Denver expansion volume.",
+    "category": "outcome",
+    "justification": "Alejandro's draft specifies the discount applies only if NorthWind commits the full Denver expansion volume. This condition is a critical detail David needs before proposing anything to Pam.",
+    "evidence": "See OE #7. Look in the agent's final text response for the Denver expansion volume commitment condition on the discount."
+  },
+  {
+    "title": "The final response notes that Alejandro's finance draft is still incomplete or not ready to share externally.",
+    "category": "outcome",
+    "justification": "Alejandro explicitly marked his draft as 'still incomplete and not ready to socialize.' David needs to know this caveat before using the numbers in Pam's retention proposal.",
+    "evidence": "See OE #7. Look in the agent's final text response for language indicating the draft is incomplete, preliminary, or not ready for external sharing."
+  },
+  {
+    "title": "The final response identifies that Jae-won Kim's lease in Austin was never finalized because the guarantor packet was never sent.",
+    "category": "outcome",
+    "justification": "This is a key finding from the StormCloud reconstruction. Chloe's ops audit found the guarantor packet was never sent, which is the root cause of Jae-won's unresolved housing.",
+    "evidence": "See OE #11, #15. Look in the agent's final text response for mentions of the guarantor packet not being sent or the lease never being finalized."
+  },
+  {
+    "title": "The final response identifies that the $500 goodwill credit was posted to cancelled estimate EST-2026-0287 instead of the live StormCloud invoice INV-2026-0319.",
+    "category": "outcome",
+    "justification": "The $500 credit mispost is a key billing error the agent discovers through StormCloud investigation. Marcus found the credit was applied to a cancelled estimate rather than the active invoice. David needs to know the specifics to include in the remediation plan and to correct the billing.",
+    "evidence": "See OE #13. Look in the agent's final text response for references to the $500 credit being posted to EST-2026-0287 instead of INV-2026-0319."
+  },
+  {
+    "title": "The final response identifies BrightLoop's expansion scope as 6 new relocations for the May headcount ramp following their Series B.",
+    "category": "outcome",
+    "justification": "Tessa Moreno's expansion request specifies 6 new relocations tied to the Series B close. David needs to understand the expansion scope to assess capacity.",
+    "evidence": "See OE #19, #21. Look in the agent's final text response for mentions of 6 new BrightLoop relocations, the May timeline, or the Series B context."
+  },
+  {
+    "title": "The final response identifies at least one specific open issue from BrightLoop's April batch (such as Simone Richter being assigned the wrong unit type in Boston or Marcus Webb's vehicle shipment delay).",
+    "category": "outcome",
+    "justification": "David explicitly asks 'I need to know what those are' about the April batch issues Mina flagged. Mina's audit found Simone Richter was placed in the wrong unit type and Marcus Webb's car shipment was delayed. The agent must report these findings back to David in the final response.",
+    "evidence": "See OE #20. Look in the agent's final text response for references to specific BrightLoop April batch issues such as Simone Richter's housing mismatch or Marcus Webb's delayed vehicle shipment."
+  },
+  {
+    "title": "The model must use a QuickBooks tool (e.g., quickbooks_search_invoices).",
+    "category": "tool_selection",
+    "justification": "QuickBooks contains invoice and billing records for NorthWind, StormCloud, and BrightLoop. The agent must select this non-default tool to retrieve financial data for the retention proposal, billing investigation, and capacity assessment.",
+    "evidence": "See OE #4, #14, #22. Look for any quickbooks_search_invoices tool call in the trajectory."
+  },
+  {
+    "title": "The model must use a CRM tool (e.g., crm_search_deals or crm_search_companies).",
+    "category": "tool_selection",
+    "justification": "CRM contains deal history, company records, and engagement logging. The agent needs CRM for NorthWind deal/revenue context, BrightLoop company info, and logging the BrightLoop outreach engagement. Non-default tool the agent might skip.",
+    "evidence": "See OE #5, #23. Look for any crm_search_deals or crm_search_companies tool call in the trajectory."
+  },
+  {
+    "title": "The model must use a Linear tool (e.g., linear_list_issues, linear_list_comments).",
+    "category": "tool_selection",
+    "justification": "Linear contains the NorthWind retention issue with Alejandro's finance draft in comments, and StormCloud open tickets. The agent must select this non-default tool to access working notes and issue tracking.",
+    "evidence": "See OE #6, #7, #15. Look for any linear_* tool call in the trajectory."
+  },
+  {
+    "title": "The model must use an Airtable tool (e.g., airtable_search_records, airtable_list_records).",
+    "category": "tool_selection",
+    "justification": "Airtable contains the relocation tracking records needed to assess whether the team can absorb six more BrightLoop relocations in May. Non-default tool the agent might skip entirely.",
+    "evidence": "See OE #21. Look for any airtable_* tool call in the trajectory."
+  },
+  {
+    "title": "When searching for Alejandro's NorthWind discount/concession model, the model must construct a query that searches finance-related channels or Linear comments for terms like 'discount', 'concession', '12%', 'retention', or 'Alejandro' in conjunction with 'NorthWind'.",
+    "category": "query_construction",
+    "justification": "The prompt hints that Alejandro or Marcus have modeled something on discounts, but does not specify where this lives. The agent must infer to search finance Slack or Linear comments. A generic NorthWind search without finance/discount context would miss Alejandro's 12% Q3 working draft.",
+    "evidence": "See OE #3, #7. Look for a conversations_search_messages or linear_list_comments query that includes terms related to discount/concession/finance/Alejandro in combination with NorthWind."
+  },
+  {
+    "title": "When investigating the StormCloud goodwill credit mispost, the model must construct a query that includes terms like 'credit', 'goodwill', 'estimate', 'EST-2026-0287', or 'INV-2026-0319' in conjunction with 'StormCloud' (or similar).",
+    "category": "query_construction",
+    "justification": "The prompt mentions a goodwill credit that ended up in the wrong place without specifying the invoice or estimate numbers. The agent must infer to search for credit/goodwill terms in billing records or finance channels. A generic StormCloud search might not surface the specific mispost details.",
+    "evidence": "See OE #13. Look for a conversations_search_messages or quickbooks_search_invoices query that includes credit/goodwill/estimate terms with StormCloud context."
+  },
+  {
+    "title": "The model must pass the issue ID linear_issue_c8cdba4408f1 (or the equivalent discovered issue ID) when calling linear_list_comments to retrieve NorthWind retention working notes.",
+    "category": "query_construction",
+    "justification": "The NorthWind retention plan issue contains Alejandro's 12% Q3 discount draft as a comment. Simply listing issues is insufficient; the agent must drill into comments on this specific issue. The issueId is not given in the prompt — the agent must discover it from linear_list_issues results and then pass it to linear_list_comments.",
+    "evidence": "See OE #7. Look for a linear_list_comments tool call with issueId matching linear_issue_c8cdba4408f1 or the issue ID returned from the prior linear_list_issues call."
+  }
+]

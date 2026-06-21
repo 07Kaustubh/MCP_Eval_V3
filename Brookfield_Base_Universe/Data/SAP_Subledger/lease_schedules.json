@@ -1,0 +1,620 @@
+[
+  {
+    "id": "lease_c417c8a7f8874a",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "633750.00"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "621250.00"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "608750.00"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "596250.00"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "583750.00"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "571250.00"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "558750.00"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "546250.00"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "533750.00"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "521250.00"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "508750.00"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "496250.00"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "brookfield",
+    "start_date": "2025-07-01",
+    "description": "Headquarters office lease",
+    "document_id": null,
+    "discount_rate": 0.060000,
+    "classification": "operating",
+    "lease_reference": "LEASE-FP-2025-07-001",
+    "monthly_payment": 12500.00,
+    "initial_rou_amount": 646250.00,
+    "rou_account_number": "153000",
+    "initial_liability_amount": 646250.00,
+    "liability_current_account_number": "221000",
+    "liability_long_term_account_number": "222000"
+  },
+  {
+    "id": "lease_c6f7e929c5aa47",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "2200",
+        "interest_expense": "723.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "106983.07"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "2200",
+        "interest_expense": "713.22",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "105496.29"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "2200",
+        "interest_expense": "703.31",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "103999.60"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "2200",
+        "interest_expense": "693.33",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "102492.93"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "2200",
+        "interest_expense": "683.29",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "100976.22"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "2200",
+        "interest_expense": "673.17",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "99449.39"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "2200",
+        "interest_expense": "663.00",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "97912.39"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "2200",
+        "interest_expense": "652.75",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "96365.14"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "2200",
+        "interest_expense": "642.43",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "94807.57"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "2200",
+        "interest_expense": "632.05",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "93239.62"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "2200",
+        "interest_expense": "621.60",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "91661.22"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "2200",
+        "interest_expense": "611.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "90072.29"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "brookfield",
+    "start_date": "2025-07-01",
+    "description": "Office equipment finance lease (5-yr)",
+    "document_id": null,
+    "discount_rate": 0.080000,
+    "classification": "finance",
+    "lease_reference": "LEASE-FP-2025-07-002",
+    "monthly_payment": 2200.00,
+    "initial_rou_amount": 108460.00,
+    "rou_account_number": "154000",
+    "initial_liability_amount": 108460.00,
+    "liability_current_account_number": "223000",
+    "liability_long_term_account_number": "224000"
+  },
+  {
+    "id": "lease_c288107e7f3c4f",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "633750.00"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "621250.00"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "608750.00"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "596250.00"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "583750.00"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "571250.00"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "558750.00"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "546250.00"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "533750.00"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "521250.00"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "508750.00"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "496250.00"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "northstar_legal",
+    "start_date": "2025-07-01",
+    "description": "Headquarters office lease",
+    "document_id": null,
+    "discount_rate": 0.060000,
+    "classification": "operating",
+    "lease_reference": "LEASE-FP-2025-07-001",
+    "monthly_payment": 12500.00,
+    "initial_rou_amount": 646250.00,
+    "rou_account_number": "153000",
+    "initial_liability_amount": 646250.00,
+    "liability_current_account_number": "221000",
+    "liability_long_term_account_number": "222000"
+  },
+  {
+    "id": "lease_375629f2861442",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "2200",
+        "interest_expense": "723.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "106983.07"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "2200",
+        "interest_expense": "713.22",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "105496.29"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "2200",
+        "interest_expense": "703.31",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "103999.60"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "2200",
+        "interest_expense": "693.33",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "102492.93"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "2200",
+        "interest_expense": "683.29",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "100976.22"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "2200",
+        "interest_expense": "673.17",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "99449.39"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "2200",
+        "interest_expense": "663.00",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "97912.39"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "2200",
+        "interest_expense": "652.75",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "96365.14"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "2200",
+        "interest_expense": "642.43",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "94807.57"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "2200",
+        "interest_expense": "632.05",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "93239.62"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "2200",
+        "interest_expense": "621.60",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "91661.22"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "2200",
+        "interest_expense": "611.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "90072.29"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "northstar_legal",
+    "start_date": "2025-07-01",
+    "description": "Office equipment finance lease (5-yr)",
+    "document_id": null,
+    "discount_rate": 0.080000,
+    "classification": "finance",
+    "lease_reference": "LEASE-FP-2025-07-002",
+    "monthly_payment": 2200.00,
+    "initial_rou_amount": 108460.00,
+    "rou_account_number": "154000",
+    "initial_liability_amount": 108460.00,
+    "liability_current_account_number": "223000",
+    "liability_long_term_account_number": "224000"
+  },
+  {
+    "id": "lease_f10bec73c03747",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "633750.00"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "621250.00"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "608750.00"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "596250.00"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "583750.00"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "571250.00"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "558750.00"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "546250.00"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "533750.00"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "521250.00"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "508750.00"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "12500",
+        "interest_expense": "0",
+        "rou_amortization": "10770.83",
+        "remaining_liability": "496250.00"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "acme_cloud",
+    "start_date": "2025-07-01",
+    "description": "Headquarters office lease",
+    "document_id": null,
+    "discount_rate": 0.060000,
+    "classification": "operating",
+    "lease_reference": "LEASE-FP-2025-07-001",
+    "monthly_payment": 12500.00,
+    "initial_rou_amount": 646250.00,
+    "rou_account_number": "153000",
+    "initial_liability_amount": 646250.00,
+    "liability_current_account_number": "221000",
+    "liability_long_term_account_number": "222000"
+  },
+  {
+    "id": "lease_deabd65f32c742",
+    "periods": [
+      {
+        "period_id": "FP-2025-07",
+        "lease_payment": "2200",
+        "interest_expense": "723.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "106983.07"
+      },
+      {
+        "period_id": "FP-2025-08",
+        "lease_payment": "2200",
+        "interest_expense": "713.22",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "105496.29"
+      },
+      {
+        "period_id": "FP-2025-09",
+        "lease_payment": "2200",
+        "interest_expense": "703.31",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "103999.60"
+      },
+      {
+        "period_id": "FP-2025-10",
+        "lease_payment": "2200",
+        "interest_expense": "693.33",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "102492.93"
+      },
+      {
+        "period_id": "FP-2025-11",
+        "lease_payment": "2200",
+        "interest_expense": "683.29",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "100976.22"
+      },
+      {
+        "period_id": "FP-2025-12",
+        "lease_payment": "2200",
+        "interest_expense": "673.17",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "99449.39"
+      },
+      {
+        "period_id": "FP-2026-01",
+        "lease_payment": "2200",
+        "interest_expense": "663.00",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "97912.39"
+      },
+      {
+        "period_id": "FP-2026-02",
+        "lease_payment": "2200",
+        "interest_expense": "652.75",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "96365.14"
+      },
+      {
+        "period_id": "FP-2026-03",
+        "lease_payment": "2200",
+        "interest_expense": "642.43",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "94807.57"
+      },
+      {
+        "period_id": "FP-2026-04",
+        "lease_payment": "2200",
+        "interest_expense": "632.05",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "93239.62"
+      },
+      {
+        "period_id": "FP-2026-05",
+        "lease_payment": "2200",
+        "interest_expense": "621.60",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "91661.22"
+      },
+      {
+        "period_id": "FP-2026-06",
+        "lease_payment": "2200",
+        "interest_expense": "611.07",
+        "rou_amortization": "1807.67",
+        "remaining_liability": "90072.29"
+      }
+    ],
+    "end_date": "2026-06-28",
+    "entity_id": "acme_cloud",
+    "start_date": "2025-07-01",
+    "description": "Office equipment finance lease (5-yr)",
+    "document_id": null,
+    "discount_rate": 0.080000,
+    "classification": "finance",
+    "lease_reference": "LEASE-FP-2025-07-002",
+    "monthly_payment": 2200.00,
+    "initial_rou_amount": 108460.00,
+    "rou_account_number": "154000",
+    "initial_liability_amount": 108460.00,
+    "liability_current_account_number": "223000",
+    "liability_long_term_account_number": "224000"
+  }
+]

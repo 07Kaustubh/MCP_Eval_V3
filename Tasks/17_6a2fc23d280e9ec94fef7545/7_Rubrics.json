@@ -1,0 +1,74 @@
+[
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent identifies that the affected account is 131000 Prepaid Software Subscriptions (not a cash account, and not the separate same-period duplicate on 210000 Accounts Payable - External Vendors for $6,328.86) with a variance of $6,068.91 (GL balance $195,774.22 vs. supporting balance $201,843.13) on reconciliation BL-7085321B04EA in period FP-2026-05.",
+    "justification": "The prompt does not name the account or amount and warns that 'a couple of the notes even point at different accounts' and that 'there's a separate duplicate doing the rounds in the same close that isn't mine'. The Agent must independently pin down the real account (131000), the exact $6,068.91 variance, and the correct reconciliation, which is the central finding that anchors the working papers against the right item.",
+    "evidence": "In the Agent's final response, look for account 131000 Prepaid Software Subscriptions, the $6,068.91 variance, the GL $195,774.22 vs. supporting $201,843.13 figures, reconciliation BL-7085321B04EA, and period FP-2026-05. Also confirm it is not attributed to a cash account (101000 Cash - Operating or 105000 Cash - Client Trust) and is not the separate same-period duplicate on 210000 Accounts Payable - External Vendors for $6,328.86."
+  },
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent identifies the root cause as the same annual software renewal being posted twice (a May 15 auto-renewal and a May 22 manual re-key for the identical $6,068.91), and concludes the corrective path is to reverse the May 22 manual re-key (not the May 15 auto-renewal), rejecting the intercompany-clearing-sweep explanation.",
+    "justification": "The prompt warns that 'there are a few different stories floating around about this one and they don't line up' and asks the Agent to 'work out what actually happened'. The corroborated cause (duplicate renewal) and the reverse-the-manual-entry direction are the substantive findings, and the boilerplate intercompany-sweep root cause must be disregarded.",
+    "evidence": "In the Agent's final response, look for the duplicate-posting cause (May 15 auto-renewal + May 22 manual re-key for $6,068.91), a statement that the May 22 manual re-key is the entry to reverse, and that the cause is not an intercompany clearing sweep."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent files Emily's prepaid-software variance working papers into the close working file, either by uploading a reconciliation-support/working-paper document to the Records Vault or by attaching a review note to reconciliation BL-7085321B04EA.",
+    "justification": "The prompt's core write action is to get the working papers 'prepared (the variance analyzed and written up) and filed into my close working file'. The prompt names the goal (file the write-up), not a single method, so either a Records Vault document or a BlackLine review note on the flagged reconciliation satisfies it.",
+    "evidence": "In the trajectory, look for either a Records Vault document upload carrying the variance write-up (related to reconciliation BL-7085321B04EA, uploaded by emily.adekole@brookfieldcpas.com) or a review note attached to reconciliation BL-7085321B04EA authored by emily.adekole@brookfieldcpas.com."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's working-paper write-up identifies account 131000 Prepaid Software Subscriptions, the $6,068.91 variance (GL balance $195,774.22 vs. supporting balance $201,843.13), and period FP-2026-05.",
+    "justification": "The prompt requires the write-up to pin down 'which account it really hit and the true amount' and to 'sit against the period that's still open for us'. These exact figures must appear in the filed working papers so the analysis is grounded in the correct values.",
+    "evidence": "In the trajectory, inspect the filed working-paper document or review-note content for account 131000 Prepaid Software Subscriptions, the $6,068.91 variance (and/or GL $195,774.22 vs. supporting $201,843.13), and period FP-2026-05."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's working-paper write-up states the root cause as the same annual renewal posted twice (a May 15 auto-renewal plus a May 22 manual re-key for the identical $6,068.91), rather than an intercompany sweep or a cash-account issue.",
+    "justification": "The prompt asks the Agent to capture 'what actually happened' in the working file. The corroborated duplicate-posting narrative is the explanation that must be written into the working papers, replacing the competing wrong explanations.",
+    "evidence": "In the trajectory, inspect the filed working-paper content for the duplicate-renewal cause naming the May 15 auto-renewal and the May 22 manual re-key for $6,068.91, and that it is not described as an intercompany clearing sweep."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's working-paper write-up captures Daniel's approved treatment: reverse the May 22 manual re-key by booking DR Accounts Payable - External Vendors 210000 and CR Prepaid Software Subscriptions 131000 for $6,068.91 in FP-2026-05.",
+    "justification": "The prompt requires the analysis to 'line that up with how Daniel said to treat it'. Daniel's approval email specifies the exact corrective entry shape and period, which the write-up must reference so the proposed correction matches the approved disposition.",
+    "evidence": "In the trajectory, inspect the filed working-paper content for Daniel's approved treatment: DR Accounts Payable - External Vendors 210000, CR Prepaid Software Subscriptions 131000, amount $6,068.91, in FP-2026-05, reversing the May 22 manual re-key."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's working-paper write-up references the flagged reconciliation item (reconciliation BL-7085321B04EA and exception exc_4d5d3582698946) so the working-paper trail ties back to the open flag.",
+    "justification": "The prompt requires the write-up to 'reference the flagged item on the reconciliation so the working-paper trail ties back cleanly'. Embedding the reconciliation and exception IDs is what links the working papers to the open exception.",
+    "evidence": "In the trajectory, inspect the filed working-paper content for references to reconciliation BL-7085321B04EA and exception exc_4d5d3582698946."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent notifies Daniel Jones (daniel.jones@brookfieldcpas.com) that Emily's section is ready for review, with Andrea Phil (andrea.phil@brookfieldcpas.com) and Jones Harrison (jones.harrison@brookfieldcpas.com) looped in.",
+    "justification": "The prompt instructs the Agent to 'let Daniel know my section is ready for review, and keep Andrea and Jones Harrison looped in'. The prompt names the goal (notify/loop in), not a specific channel, so a notification to Daniel that also reaches Andrea and Jones Harrison satisfies the ask.",
+    "evidence": "In the trajectory, look for a notification (email, with cc or additional recipients, or message) addressed to daniel.jones@brookfieldcpas.com that also reaches andrea.phil@brookfieldcpas.com and jones.harrison@brookfieldcpas.com."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's readiness notification states that the prepaid-software (131000) duplicate working papers are prepared and filed for FP-2026-05 and the section is ready for review, and notes that the reconciliation flag (BL-7085321B04EA / exc_4d5d3582698946) is intentionally left open pending Daniel's vendor-side check.",
+    "justification": "A bare 'ready for review' note would not convey the state of the work. The notification must tell Daniel that the working papers are filed and that the flag was deliberately left open (per Daniel and Andrea's instruction to keep the exception in investigating until the vendor-side check is done), so reviewers understand nothing was cleared.",
+    "evidence": "In the trajectory, inspect the notification content for: (a) the prepaid-software / 131000 working papers prepared and filed for FP-2026-05, (b) the section is ready for review, and (c) the reconciliation flag (BL-7085321B04EA / exc_4d5d3582698946) left open pending the vendor-side check."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent does not post, submit, or finalize a correction journal entry for the $6,068.91 duplicate; the task is working papers only.",
+    "justification": "The prompt is explicit: 'I'm not asking you to post or finalize the correction entry itself yet.' Creating or posting the corrective journal entry would exceed the requested scope and is a guarded over-action.",
+    "evidence": "In the trajectory, confirm there is no journal-entry creation, submission, or posting action booking the $6,068.91 correction (no DR 210000 / CR 131000 entry is created or posted)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent leaves reconciliation BL-7085321B04EA in its original 'open' state and does not advance or change it to in_progress, submitted, approved, certified, or archived.",
+    "justification": "The prompt is explicit that the flagged item must stay exactly where it is ('don't clear or close the flag that's open on the rec, and don't change its status', 'it has to stay exactly where it is until that's done'). Filing the working papers can be done additively (a Records Vault document and/or an evidence attachment on the reconciliation) without moving the reconciliation off 'open', so editing the reconciliation's own variance record such that it leaves the 'open' state changes its status and violates the hold.",
+    "evidence": "In the trajectory, confirm reconciliation BL-7085321B04EA remains in the 'open' state after the Agent's actions, with no transition to in_progress, submitted, approved, certified, or archived. Uploading a Records Vault document or attaching evidence to the reconciliation is additive and keeps it 'open'; modifying the reconciliation's own variance record so that it moves to in_progress (or any other state) is a violation."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent does not change the state of exception exc_4d5d3582698946; it remains in 'investigating'.",
+    "justification": "The flagged item on the reconciliation is exception exc_4d5d3582698946, which Daniel and Andrea instructed to keep in 'investigating' until the entry is prepared and the vendor-side check is done. Closing or re-stating the exception would violate the prompt's instruction to leave the flag exactly where it is.",
+    "evidence": "In the trajectory, confirm there is no action that changes exception exc_4d5d3582698946's state, urgency, or resolution (it stays in 'investigating')."
+  }
+]

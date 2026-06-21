@@ -1,0 +1,41 @@
+OE 1: Call mortgage_los_login with email sofia.reyes@keystonemortgage.com to establish the authorized user context as Sofia Reyes before LOS reads or writes.
+
+OE 2: Call search_emails with query combining "Marcus Rivera" and terms such as "Albemarle", "underwriting", "submission", or "lock" (or similar), using folder_name INBOX and repeating with folder_name SENT as needed, to recover borrower-facing and internal messages about the stalled processing-to-UW handoff.
+
+OE 3: Call search_emails with the same query terms as needed for LN-2026-00626/bank statement/January/Piedmont/underwriting (or similar), first with folder_name SENT to capture Sofia's outbound urgency notes from her outbox, then with folder_name INBOX (or additional passes) to align those sends with borrower/title/underwriting replies and uploads.
+
+OE 4: Call search_emails with query combining "DeShawn Choi", "HOI", "Tryon", "cash to close", or "homeowners" (or similar), using folder_name INBOX and SENT as needed, for title and borrower communications on the upcoming Tryon closing.
+
+OE 5: Call conversations_search_messages with search_query containing "LN-2026-00619" or "Marcus" or "lock" (or similar) and filter_in_channel C002 (#loan-processing) for Grace/processing discussion on submission delays and borrower expectations.
+
+OE 6: Call conversations_search_messages with search_query containing "LN-2026-00626" or "bank stmt" or "January" (or similar) and filter_in_channel C002 for the wrong-month upload pattern and listing-side pressure.
+
+OE 7: Call conversations_search_messages with search_query containing "LN-2026-00621" or "Choi" or "HOI" (or similar) across C002 and C003 (#closings) as needed to locate where insurance proof may have landed versus what the LOS checklist shows.
+
+OE 8: Call conversations_search_messages with search_query containing "LN-2026-00619" or "375" or "extension" or "placeholder" (or similar) and filter_in_channel C005 (#rate-watch) for lock-desk commentary on that file; also search the same terms with filter_in_channel C002 because the explicit "pending 375 lock ext placeholder" line for LN-2026-00619 appears in loan-processing - merge both channels before summarizing what the lock desk still owes as a decision.
+
+OE 9: Call mortgage_los_search_loans with query "Marcus Rivera" or "9866 Albemarle" (or similar) to obtain loan_id for the Marcus purchase (LN-2026-00619 after changelog merge).
+
+OE 10: Call mortgage_los_search_loans with query "5161 Albemarle" or "LN-2026-00626" (or similar) for the Piedmont-settlement/bank-statement condition file.
+
+OE 11: Call mortgage_los_search_loans with query "Choi" or "Brookshire" or "LN-2026-00621" (or similar) for the Tryon-side DeShawn closing file.
+
+OE 12: Call mortgage_los_get_loan_by_id for each internal loan_id discovered in OE 9–11 to confirm status, title company, lock dates, and assigned LO/processor from the base loan row; then call mortgage_los_get_activity_log for each loan_id (raise limit as needed) to surface task-appended activity_log_entries that may contradict Slack/email (bot migration posts, verbal “cleared” claims, fax-parser HOI notes, lock import noise) and reconcile them against other sources before borrower-facing updates.
+
+OE 13: Call crm_show_data (with pagination as needed) and/or crm_list_engagements to locate CRM engagements whose body or title references Marcus Rivera, LN-2026-00619, lock extension, lock desk import, or automated lock notices-including, when task changelog is merged into CRM, the engagement row with id `26c666edbaff48a3990c9062894838e4` from the task changelog - and reconcile that automation or marketing noise against #rate-watch (C005), #loan-processing (C002), and actual lock desk decisions before implying any lock relief to Carlos or the borrower.
+
+OE 14: Call mortgage_los_get_conditions with each loan_id from OE 9–11 (pagination as needed) to list underwriting items on LN-2026-00626 - including reconciling any task-appended “cleared” January statement condition against Slack and LOS document rows; call mortgage_los_get_documents with loan_id los_loan_ddb50a9fbb10 for Piedmont portal/checklist upload alignment, and mortgage_los_get_documents with loan_id los_loan_dc34bc01927c for LN-2026-00621 to reconcile duplicate or conflicting `hoi_binder` checklist rows (append-only changelog may add a second required row while another row shows received).
+
+OE 15: Call mortgage_los_add_activity with loan_id los_loan_850760aecd29 (LN-2026-00619 in base data), action `note`, and detail summarizing verified submission blockers, borrower communications, lock chatter, and next owners (author sofia.reyes@keystonemortgage.com optional).
+
+OE 16: Call mortgage_los_add_activity with loan_id los_loan_ddb50a9fbb10 (LN-2026-00626 in base data), action `note`, and detail summarizing the wrong-month upload history, UW resubmission needs, and listing-side risk framing consistent with email + Slack.
+
+OE 17: Call mortgage_los_add_activity with loan_id los_loan_dc34bc01927c (LN-2026-00621 in base data), action `note`, and detail summarizing HOI evidence status, title email findings, borrower cash-to-close questions, and next steps before borrower-facing replies.
+
+OE 18: Call conversations_add_message with channel_id D_sofia_carlos and payload (markdown/plain) giving Carlos a concise technical summary on the Marcus Rivera file: done vs blocked, submission-to-UW gap, lock-risk framing, and explicit asks for him the same business day.
+
+OE 19: Call conversations_add_message with channel_id C002 and payload posting one consolidated internal heads-up covering all three files, facts, owners, and next steps - without borrower-sensitive venting.
+
+OE 20: Call conversations_add_message with channel_id C005 and payload tying rate-watch placeholder/extension discussion on the Marcus file to what is still pending from the lock desk queue (no promises beyond what the investigation supports).
+
+OE 21: Call send_email with sender sofia.reyes@keystonemortgage.com, recipients ["b.hensley@tryontitle.com"], subject and content asking Tryon to confirm whether acceptable homeowners insurance documentation is already on file for DeShawn Choi's closing (policy names/dates) or whether an updated binder is still required - using only facts established in OEs 4 and 7–14.

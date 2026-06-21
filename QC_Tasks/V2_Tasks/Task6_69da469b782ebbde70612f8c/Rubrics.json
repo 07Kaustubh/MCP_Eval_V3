@@ -1,0 +1,155 @@
+[
+  {
+    "annotations": {
+      "evidence": "Look for a send_email tool call with sender derek.moss@keystonemortgage.com and a recipient matching one of the Alicia Grant lead emails from the CRM.",
+      "justification": "The prompt says to reach out to anyone who's gone cold from Alicia Grant's referrals. The CRM contains multiple stale leads sourced from Alicia Grant that have not been contacted by Derek. Which specific leads qualify as 'cold' is genuinely indeterminate, so 'at least one' is appropriate.",
+      "rubric_category": "outcome"
+    },
+    "id": "c1a5b77b-f85d-42ad-bcd1-693c807a2c6e",
+    "title": "An email was sent (via send_email or similar) from [derek.moss@keystonemortgage.com](mailto:derek.moss@keystonemortgage.com) to at least one Alicia Grant referral lead whose CRM status is \"new\" or \"contacted\" (e.g., [catherine.shah@gmail.com](mailto:catherine.shah@gmail.com), [tonya.chen@gmail.com](mailto:tonya.chen@gmail.com), [curtis.murphy@outlook.com](mailto:curtis.murphy@outlook.com), or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of a send_email call to an Alicia Grant lead. It must reference at least one detail from the CRM lead notes (location, budget, loan type, or similar).",
+      "justification": "The prompt asks Derek to reach out to stale leads. A personalized email should reference what the lead was looking for based on CRM notes, not be a generic blast. CRM lead notes contain details like 'Interested in Ballantyne area. Budget ~$462K' and 'Existing homeowner looking to purchase investment property in Plaza Midwood.'",
+      "rubric_category": "outcome"
+    },
+    "id": "52296331-9a77-4da6-800c-3843f3550654",
+    "title": "The email body (visible in send_email parameters) sent to at least one Alicia Grant lead references what the lead was looking for, such as a location (e.g., \"Ballantyne\", \"Mooresville\", \"Plaza Midwood\"), a budget, or a loan type (e.g., \"FHA\", \"pre-approval\", or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a conversations_add_message tool call. Check the payload for references to Alicia Grant, referrals, lead outreach, or similar. The channel may be #sales-pipeline (C006), a DM to Jordan, or another relevant channel.",
+      "justification": "The prompt says 'Drop an update in Slack for Jordan so he knows I'm on it.' The intent is to notify Jordan via Slack; the exact channel is not specified by the prompt.",
+      "rubric_category": "outcome"
+    },
+    "id": "55e99c2a-e86e-4e49-a036-8f5dd550d68b",
+    "title": "A Slack message was posted (via conversations_add_message or similar) mentioning Alicia Grant's referrals and Derek's outreach effort (or similar). The message may be posted to #sales-pipeline (C006), sent as a DM to Jordan Blake, or posted to another relevant channel."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a send_email tool call with sender derek.moss@keystonemortgage.com and recipient danielle.harrison@gmail.com.\n",
+      "justification": "The prompt says to draft something Derek can send Danielle that addresses the escrow/payment increase. Danielle is threatening a state complaint by end of week and needs a written explanation.",
+      "rubric_category": "outcome"
+    },
+    "id": "d5d90f38-9f10-4136-b23f-e12cfb047d32",
+    "title": "An email was sent (via send_email or similar) from [derek.moss@keystonemortgage.com](mailto:derek.moss@keystonemortgage.com) to [danielle.harrison@gmail.com](mailto:danielle.harrison@gmail.com)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to danielle.harrison@gmail.com. It must reference the county reassessment, property tax increase after closing, or similar not admit to a Keystone error.",
+      "justification": "The prompt says to figure out whether it was Keystone's mistake or a county reassessment and then address it. The CRM and Hana's email confirm the increase is due to a Mecklenburg County reassessment after closing, not an error in the original escrow calc.",
+      "rubric_category": "outcome"
+    },
+    "id": "7aed569d-cbff-4f38-a1af-74d47815cf2f",
+    "title": "The email body (visible in send_email parameters) sent to [danielle.harrison@gmail.com](mailto:danielle.harrison@gmail.com) explains that the payment increase is related to a Mecklenburg County property tax reassessment that occurred after closing (or similar), rather than an error in Keystone's original closing estimate."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to danielle.harrison@gmail.com for a reference to approximately $400 or $402 per month.",
+      "justification": "The prompt says Danielle's payment jumped about four hundred dollars. The CRM engagement and Hana's email confirm approximately $402/mo. A credible written explanation must address the specific amount.",
+      "rubric_category": "outcome"
+    },
+    "id": "83822469-a3e3-44e4-a799-a658242e3d00",
+    "title": "The email body (visible in send_email parameters) sent to [danielle.harrison@gmail.com](mailto:danielle.harrison@gmail.com) references the approximate dollar amount of the payment increase (approximately $400 or $402 per month, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a send_email tool call with sender derek.moss@keystonemortgage.com and recipient abigail.clark@gmail.com.",
+      "justification": "The prompt says Derek wants Abigail to hear from him directly before she makes a decision about transferring her file. Abigail emailed Grace asking to transfer to Marcus's new company.",
+      "rubric_category": "outcome"
+    },
+    "id": "c3d48bef-756a-4262-a73c-d0e883d048e0",
+    "title": "An email was sent (via send_email or similar) from [derek.moss@keystonemortgage.com](mailto:derek.moss@keystonemortgage.com) to [abigail.clark@gmail.com](mailto:abigail.clark@gmail.com)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to abigail.clark@gmail.com for a reference to Marcus leaving, departing, no longer at Keystone, or similar.",
+      "justification": "The prompt says to acknowledge that Marcus is gone. Abigail already knows Marcus left because she emailed Grace about transferring. A retention email that ignores this fact would not be credible.",
+      "rubric_category": "outcome"
+    },
+    "id": "dc1be9df-db76-47a8-80f5-c21e07e5bb26",
+    "title": "The email body (visible in send_email parameters) sent to [abigail.clark@gmail.com](mailto:abigail.clark@gmail.com) acknowledges that Marcus Webb has left Keystone (or similar acknowledgment of the departure)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to abigail.clark@gmail.com for reassurance about continuity, Derek handling the file, Morehead property reference, or closing proceeding as planned.",
+      "justification": "The prompt says 'let her know I'm personally on her file' and 'make it clear we'll get her to closing without disruption.' The email must contain a retention message, not just an acknowledgment.",
+      "rubric_category": "outcome"
+    },
+    "id": "00c3de65-da4b-4fd9-baf2-e3cfb0dcdaaf",
+    "title": "The email body (visible in send_email parameters) sent to [abigail.clark@gmail.com](mailto:abigail.clark@gmail.com) reassures Abigail that Derek is handling her file and references the Morehead property or the loan proceeding without disruption (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a crm_create_engagement tool call with body or contact_ids referencing Abigail Clark and documenting the retention outreach.",
+      "justification": "The prompt says to update the CRM with a note that Derek has done the outreach. Logging engagement notes is standard practice after client touchpoints.",
+      "rubric_category": "outcome"
+    },
+    "id": "2a9022bd-b055-4271-aaa7-230f83cb1265",
+    "title": "A CRM engagement was created (via crm_create_engagement or similar) referencing Abigail Clark and documenting Derek's outreach or the retention effort."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response for mention of Stephen Hamilton, Keisha Perry, or Joshua Cruz as additional borrowers who requested file transfers to Marcus Webb's new company.",
+      "justification": "The prompt says 'Also check if any of Marcus's other borrowers have reached out about transferring I don't want to find out about more of these secondhand.' Emails and CRM engagements show three additional borrowers requested transfers: Stephen Hamilton (LN-2026-00009), Keisha Perry (LN-2026-00525), and Joshua Cruz (LN-2026-00527).",
+      "rubric_category": "outcome"
+    },
+    "id": "33779718-6e67-4337-9001-e6537ec9b4ae",
+    "title": "The final response identifies that at least one of Stephen Hamilton (LN-2026-00009), Keisha Perry (LN-2026-00525), or Joshua Cruz (LN-2026-00527) has also requested a file transfer to Marcus Webb's new company, in addition to Abigail Clark."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a `send_email` tool call with sender `derek.moss@keystonemortgage.com` and recipient `timothy.edwards.241@gmail.com` (or a recipient confirmed as Timothy Edwards from the LOS loan/borrower data in the trajectory).",
+      "justification": "The prompt says 'Pick the two most recent ones and send them a quick note from me.' The mortgage LOS shows Timothy Edwards (LN-2026-00241, closed 2026-04-23) as Derek's most recently closed borrower, excluding Danielle Harrison who is already being handled as an active complaint case.",
+      "rubric_category": "outcome"
+    },
+    "id": "9ee52a40-2c55-419b-81d9-4001d8161606",
+    "title": "A check-in email was sent (via `send_email` or similar) from [derek.moss@keystonemortgage.com](mailto:derek.moss@keystonemortgage.com) to Timothy Edwards ([timothy.edwards.241@gmail.com](mailto:timothy.edwards.241@gmail.com)), Derek's most recently closed borrower (LN-2026-00241, closed 2026-04-23)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a `send_email` tool call with sender `derek.moss@keystonemortgage.com` and recipient `daniel.allen.210@gmail.com` (or a recipient confirmed as Daniel Allen from the LOS loan/borrower data in the trajectory).",
+      "justification": "The prompt says 'Pick the two most recent ones and send them a quick note from me.' The mortgage LOS shows Daniel Allen (LN-2026-00210, closed 2026-03-17) as Derek's second most recently closed borrower, excluding Danielle Harrison who is already being handled as an active complaint case.",
+      "rubric_category": "outcome"
+    },
+    "id": "0d1b350b-42eb-43d6-853c-08fa618b2b7e",
+    "title": "A check-in email was sent (via `send_email` or similar) from [derek.moss@keystonemortgage.com](mailto:derek.moss@keystonemortgage.com) to Daniel Allen ([daniel.allen.210@gmail.com](mailto:daniel.allen.210@gmail.com)), Derek's second most recently closed borrower (LN-2026-00210, closed 2026-03-17)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of at least one send_email call to a closed borrower. It should contain a casual check-in, offer of help, or referral ask not aggressive sales language.",
+      "justification": "The prompt says 'nothing salesy, just checking in and reminding them I'm here if anything comes up with their loan or if they know anyone looking to buy.' The tone should be a genuine check-in, not a marketing pitch.",
+      "rubric_category": "outcome"
+    },
+    "id": "3d6fe838-e909-4ab3-bdcb-d1b41e7f189c",
+    "title": "At least one of the check-in emails to closed borrowers (visible in send_email parameters) is casual and non-salesy checking in, reminding them Derek is available, or asking for referrals (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for any crm_* read tool call in the trajectory (e.g., crm_search_leads, crm_search_contacts, crm_search_deals, crm_list_engagements).",
+      "justification": "CRM is a non-default service. Alicia Grant's referral leads, Danielle Harrison's complaint engagements, and Abigail Clark's deal record all live in the CRM. The agent might skip CRM entirely and rely on email/Slack, missing critical data needed for all three asks.",
+      "rubric_category": "tool selection"
+    },
+    "id": "e0ea8f75-9d35-40fd-a87e-45a060450634",
+    "title": "The model must use a CRM read tool (e.g., crm_search_leads, crm_search_contacts, crm_search_deals, or crm_list_engagements) to look up account data."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for any mortgage_los_* read tool call in the trajectory (e.g., mortgage_los_search_loans, mortgage_los_search_borrowers, mortgage_los_get_loan).",
+      "justification": "The mortgage LOS is a non-default service containing Danielle Harrison's closed loan record and Abigail Clark's active loan (LN-2026-00008). The agent might rely on secondhand information from emails and CRM instead of querying the LOS directly for authoritative loan data.",
+      "rubric_category": "tool selection"
+    },
+    "id": "31c4a24d-69e5-4abb-9a46-599369ef7fbb",
+    "title": "The model must use a mortgage LOS tool (e.g., mortgage_los_search_loans, mortgage_los_search_borrowers, or mortgage_los_get_loan) to look up loan or borrower records."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response for a list or mention of closed borrowers Derek hasn't contacted since closing. The response should identify the untouched borrowers, not merely send emails without reporting back.",
+      "justification": "The prompt says 'flag anyone I haven't touched since closing and pick the two most recent ones.' Derek explicitly asked for the identification/flagging step not just sending emails. The agent must report which borrowers are untouched.",
+      "rubric_category": "outcome"
+    },
+    "id": "7a31d905-ab9a-4d32-9422-f0698db4ef78",
+    "title": "The final response identifies which of Derek's closed borrowers he has not contacted since closing (i.e., flags untouched borrowers) before or as part of selecting the two most recent for check-in emails."
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "qc_score": "4",
+  "qc_feedback": "Failing Issues: - None. Non-Failing Issues: - [Rubrics] [Non-Fail - Up to 10% Major Errors]: The prompt explicitly asks Elena to be shown 4 investigation findings (condition details, documents on file, Sofia/Elena Slack alignment, Destiny email chain). No Outcome rubric verifies the agent presented these findings in its final response. TS rubrics 1 and 17 only check tools were called, not that results were surfaced. 1/19=5.3%. - [Rubrics] [Non-Fail - Outcome-Light]: Outcome rubrics account for 73.7% (14/19).",
+  "error_categories": "[All] [All] [Non-Fail - Up to 10% Major Errors], [All] [All] [Non-Fail - Outcome-Light]",
+  "project_team_verdict": "",
+  "project_team_feedback": ""
+}

@@ -1,0 +1,47 @@
+VERIFIER FAILS - Paste all failing run details below
+====================================================
+
+Instructions: Copy-paste ONLY the failing "Run Detail" blocks from the verifier output below.
+Paste one block per failing run. If a rubric failed on 3 runs, paste all 3 blocks for it.
+Separate each block with a blank line. No reformatting needed - paste as-is.
+
+----
+
+```
+Run Detail
+
+FAIL
+83% pass rate
+process
+The Agent confirms the reconciliation is certified before dismissing the re-firing reminder.
+
+Run
+Run #6
+Criteria ID
+9ec3b181-6131-4a54-9913-60dd443cb67c
+Judge Justification
+The agent dismissed the stale reminder but there is no evidence it checked the reconciliation's certification status first. No reconciliation lookup precedes the reminder dismissal in the trajectory.
+Rubric Rationale
+The prompt asks the agent to clear the stale reminder without reopening the already-closed reconciliation.
+Expected Evidence
+Look for a reconciliation status check (certified) before the reminder is dismissed.
+```
+
+```
+Run Detail
+
+FAIL
+83% pass rate
+outcome
+The Agent reports the $1,800 exception variance in the summary to Daniel Jones.
+Run
+Run #4
+Criteria ID
+91d4c581-4dc4-4c43-8132-689b3c0292ae
+Judge Justification
+The response summarizes the month-end close tasks but does not state the $1,800 exception variance. The summary references the reconciliation generally but omits the specific unresolved variance amount the prompt asked for.
+Rubric Rationale
+The prompt asks the agent to surface the unresolved exception variance to Daniel Jones.
+Expected Evidence
+Check the summary for the $1,800 variance figure.
+```

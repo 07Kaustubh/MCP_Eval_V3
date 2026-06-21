@@ -1,0 +1,166 @@
+[
+  {
+    "id": "proj_aml_onboarding",
+    "name": "AML and Onboarding Control Improvements",
+    "state": "active",
+    "lead_id": "persona_016",
+    "summary": "Strengthen onboarding evidence, beneficial-owner checks, and policy adherence",
+    "team_id": "team_comp",
+    "priority": 1,
+    "created_at": "2025-05-17T08:19:00Z",
+    "start_date": null,
+    "updated_at": "2025-05-17T08:19:00Z",
+    "description": "Cross-functional project focused on onboarding readiness, AML completeness, privacy obligations, and records consistency before new clients go live.",
+    "is_archived": false,
+    "labels_json": [
+      "aml",
+      "onboarding",
+      "compliance"
+    ],
+    "target_date": null
+  },
+  {
+    "id": "proj_qtr_tax_deadlines",
+    "name": "Quarterly Tax Deadline Readiness",
+    "state": "active",
+    "lead_id": "persona_017",
+    "summary": "Coordinate quarterly sales tax and corporate tax preparation dependencies",
+    "team_id": "team_tax",
+    "priority": 1,
+    "created_at": "2025-07-06T17:03:00Z",
+    "start_date": null,
+    "updated_at": "2025-07-06T17:03:00Z",
+    "description": "Align accounting outputs, tax positions, and regulator-facing clarifications to ensure timely and defensible submissions.",
+    "is_archived": false,
+    "labels_json": [
+      "tax",
+      "quarterly",
+      "filings"
+    ],
+    "target_date": null
+  },
+  {
+    "id": "proj_audit_docs",
+    "name": "Audit Support and Documentation Pack",
+    "state": "active",
+    "lead_id": "persona_021",
+    "summary": "Prepare audit schedules, support requests, and workpaper completeness",
+    "team_id": "team_audit",
+    "priority": 2,
+    "created_at": "2025-07-09T10:08:00Z",
+    "start_date": null,
+    "updated_at": "2025-07-09T10:08:00Z",
+    "description": "Coordinates audit support activities for recurring client audits, including schedules, statements, classifications, and control walkthrough evidence.",
+    "is_archived": false,
+    "labels_json": [
+      "audit",
+      "documentation",
+      "support"
+    ],
+    "target_date": null
+  },
+  {
+    "id": "proj_monthly_portfolios",
+    "name": "Monthly Portfolio Delivery",
+    "state": "active",
+    "lead_id": "persona_002",
+    "summary": "Recurring management accounts, bookkeeping close, and review deadlines",
+    "team_id": "team_acctops",
+    "priority": 2,
+    "created_at": "2025-09-12T16:56:00Z",
+    "start_date": null,
+    "updated_at": "2025-09-12T16:56:00Z",
+    "description": "Tracks recurring monthly client work items across mixed portfolios with emphasis on response SLAs, review lead time, and filing deadlines.",
+    "is_archived": false,
+    "labels_json": [
+      "monthly",
+      "client_delivery",
+      "review"
+    ],
+    "target_date": null
+  },
+  {
+    "id": "linear_63697b7dff5c",
+    "name": "AP workflow standardization for managed clients",
+    "state": "in_progress",
+    "lead_id": "linear_6ef0fc68abd7",
+    "summary": "Standardize approval routing and exception handling for outsourced accounting clients after recurring payment delays and inconsistent vendor support.",
+    "team_id": "linear_5477c0808ac2",
+    "priority": 2,
+    "created_at": "2026-03-03T14:22:00Z",
+    "start_date": "2026-03-04",
+    "updated_at": "2026-05-08T11:10:00Z",
+    "description": "Partner-led cleanup project for Client Accounting Operations to tighten AP processing across managed clients. Scope includes documenting approval handoffs, exception thresholds, and invoice support requirements, with immediate focus on late vendor approval chain issues affecting payment timeliness. Review recent examples including VEN-019-583136 (Bridgefield Backup Systems, pending_approval), VEN-012-211225 (MetroShield Facility Services, approved), and VEN-029-817825 (VaultKey Access & Security, approved) to identify where approvals stall. Tie remediation back to open exception exc_af7274fb658844 (timing_difference_over_sla, investigating) and duplicate-entry risk exc_4d5d3582698946. Team should also confirm whether any AP-related recon activity is spilling into 210000 Accounts Payable - External Vendors, referencing BL-186D1A0DED18 and archived item BL-0DEC7D2FD9E6 for process examples.",
+    "is_archived": false,
+    "labels_json": [
+      "active_project",
+      "ap",
+      "process-improvement",
+      "managed-clients"
+    ],
+    "target_date": "2026-05-20"
+  },
+  {
+    "id": "linear_feeee7292b66",
+    "name": "Multi-state annual report catch-up for overdue client entities",
+    "state": "in_progress",
+    "lead_id": "linear_4d9e2b202532",
+    "summary": "Centralized catch-up effort to clear overdue entity filings and reduce compliance risk before May deadlines.",
+    "team_id": "linear_7d4b3f1127cd",
+    "priority": 1,
+    "created_at": "2026-04-14T10:09:57Z",
+    "start_date": "2026-03-10",
+    "updated_at": "2026-05-21T13:42:00Z",
+    "description": "Tax & Compliance Delivery project to work the overdue annual report queue and clean up filing-calendar exceptions for external clients with multi-state registrations. The team is tracking document readiness, vendor filing support, and escalation timing where client signatures or formation data are missing. Use DocketPilot Filing Services invoice VEN-004-799133 as the reference point for third-party filing support already paid, and connect status reviews to the tax document chase list and filing readiness checks. Include follow-up on any blocked work tied to missing source documents and confirm whether compliance support items need partner escalation during the weekly tax pipeline review. This project should prioritize clients with due dates landing in April and May and document any exceptions that could move into incident status if unresolved.",
+    "is_archived": false,
+    "labels_json": [
+      "active_project",
+      "compliance",
+      "annual-reports",
+      "entity-filings"
+    ],
+    "target_date": "2026-05-28"
+  },
+  {
+    "id": "linear_de68751be591",
+    "name": "Audit PBC backlog burn-down for retail client group",
+    "state": "planned",
+    "lead_id": "linear_2e7b3ea28766",
+    "summary": "Reduce open PBC requests and unblock audit support deliverables for retail-sector engagements before month-end reporting deadlines.",
+    "team_id": "linear_7d4b3f1127cd",
+    "priority": 2,
+    "created_at": "2026-04-14T09:48:29Z",
+    "start_date": "2026-04-06",
+    "updated_at": "2026-05-18T09:27:00Z",
+    "description": "Targeted burn-down project for audit support work sitting with the Tax & Compliance Delivery team. Focus is on clearing stale PBC lists, assigning owners for missing schedules, and escalating client-request gaps that are delaying completion. The team should review whether supporting entries are ready for auditor requests, including JE-acme_cloud-FP-2026-05-0002 (draft, Professional services - external audit) and JE-brookfield-FP-2026-05-0004 (submitted, Bad debt write-off), and validate related balance support around 117000 Allowance for Doubtful Accounts using BL-18FFAE0E20D0 and BL-32D277EF07F9. Where support is missing, link it back to the ongoing issue pattern of missing client source documents delaying return or audit package completion. Weekly partner escalations should be prepared for any items still outstanding after client follow-up.",
+    "is_archived": false,
+    "labels_json": [
+      "active_project",
+      "audit-support",
+      "pbc",
+      "retail-clients"
+    ],
+    "target_date": "2026-05-31"
+  },
+  {
+    "id": "linear_ecebc0cac4bf",
+    "name": "Legacy bookkeeping cleanup and opening balance remediation",
+    "state": "in_progress",
+    "lead_id": "persona_001",
+    "summary": "Resolve inherited bookkeeping inconsistencies and opening balance issues affecting monthly close reliability for outsourced accounting clients.",
+    "team_id": "linear_5477c0808ac2",
+    "priority": 1,
+    "created_at": "2026-03-15T16:40:00Z",
+    "start_date": "2026-03-18",
+    "updated_at": "2026-05-24T14:05:00Z",
+    "description": "Remediation project for older client books with recurring reconciliation noise and unsupported opening balances. Initial workstream centers on reconciling cash and prepaid accounts, documenting historical adjustments, and separating true opening balance errors from routine close timing items. Review archived and certified examples including BL-3E4ED5B5B9BA on 131000 Prepaid Software Subscriptions, BL-8DCA6908E272 on 102000 Cash - Payroll, and the submitted insurance-related journal context around JE-brookfield-FP-2026-05-0007. Also screen open exception exc_abd8e711f5f347 (fx_revaluation_drift, high) and exc_cb0a9a94a3084c for items that may actually trace back to legacy setup problems rather than current-period processing. Deliverable is a documented remediation tracker, proposed adjusting entry list, and a clean opening balance sign-off package for future closes.",
+    "is_archived": false,
+    "labels_json": [
+      "active_project",
+      "bookkeeping-cleanup",
+      "opening-balances",
+      "reconciliations"
+    ],
+    "target_date": "2026-05-24"
+  }
+]

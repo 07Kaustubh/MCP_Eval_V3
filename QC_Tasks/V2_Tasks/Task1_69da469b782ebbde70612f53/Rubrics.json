@@ -1,0 +1,173 @@
+[
+  {
+    "annotations": {
+      "evidence": "Look for a send_email tool call with sender grace.yamamoto@keystonemortgage.com and recipients including elena.marchetti@keystonemortgage.com. Confirm the tool response indicates success.",
+      "justification": "The prompt explicitly says 'send Elena a detailed breakdown since she'll need to help me triage the backlog.' Elena Marchetti is a Processor at Keystone Mortgage. This rubric confirms the write action was executed to the correct recipient from the correct sender.",
+      "rubric_category": "outcome"
+    },
+    "id": "58afaf88-e4bf-448b-a8e9-2fce21d019b7",
+    "title": "An email was sent (via send_email) from [grace.yamamoto@keystonemortgage.com](mailto:grace.yamamoto@keystonemortgage.com) to [elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com) and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to elena.marchetti@keystonemortgage.com. It must contain LN-2026-00619 and at least two other loan numbers that correspond to loans with expired rate locks or past closing dates from the pipeline data.",
+      "justification": "The prompt says 'send Elena a detailed breakdown.' The pipeline contains 9+ CTC loans past their closing dates and dozens more with expired locks. A useful breakdown must name specific stuck loans so Elena can help triage. LN-2026-00619 is the most critical (40 days past closing); the agent should identify it plus other stuck loans from the pipeline",
+      "rubric_category": "outcome"
+    },
+    "id": "0056b8b0-5492-4d6a-81f7-7e5ea08ae5b7",
+    "title": "The email content (visible in send_email parameters) sent to [elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com) names multiple stuck pipeline loans by loan number, including at least LN-2026-00619 and at least two other loans with expired rate locks or past closing dates (e.g., LN-2026-00601, LN-2026-00554, LN-2026-00545, LN-2026-00616, LN-2026-00621, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to elena.marchetti@keystonemortgage.com. It must reference at least one delay reason such as lock expiration, processing backlog, missed condition, workload overload, or similar.",
+      "justification": "The prompt says 'send Elena a detailed breakdown' and 'figure out why they're stuck.' Elena needs to understand the root causes to help triage the backlog.",
+      "rubric_category": "outcome"
+    },
+    "id": "3b48df28-8a7c-4a99-bac7-30deba5cd1a0",
+    "title": "The email content (visible in send_email parameters) sent to [elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com) includes the reason for the delays on the stuck pipeline loans (e.g., lock expiration, processing backlog, missed condition, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a send_email tool call with sender grace.yamamoto@keystonemortgage.com and recipients including denise.holloway@keystonemortgage.com. Confirm the tool response indicates success.",
+      "justification": "The prompt says 'loop in Denise on anything that has compliance exposure.' Denise Holloway is the Compliance Officer. This rubric confirms the compliance escalation email was actually sent to the correct recipient.",
+      "rubric_category": "outcome"
+    },
+    "id": "a366e714-6ce4-44fc-b76b-5fd928351329",
+    "title": "An email was sent (via send_email) from [grace.yamamoto@keystonemortgage.com](mailto:grace.yamamoto@keystonemortgage.com) to [denise.holloway@keystonemortgage.com](mailto:denise.holloway@keystonemortgage.com) and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to elena.marchetti@keystonemortgage.com. It must reference Sofia Reyes (or 'Sofia') in connection with workload, caseload, or being overburdened.",
+      "justification": "The prompt says 'figure out who's responsible for each one' and to send Elena a breakdown. Sofia Reyes's overloaded caseload (34 active files) is a primary cause of the backlog. Elena needs to know this to help triage.",
+      "rubric_category": "outcome"
+    },
+    "id": "67fd8808-66b1-448f-bb05-bc3c49e809c4",
+    "title": "The email content (visible in send_email parameters) sent to [elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com) identifies Sofia Reyes or her workload as a contributing factor to the pipeline delays."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to denise.holloway@keystonemortgage.com. It must reference Tyler Washington (or 'Tyler') in connection with clearing conditions without documentation.",
+      "justification": "The prompt references 'conditions getting cleared without the right documentation' and asks to loop in Denise on compliance exposure. Raymond's QC review identified Tyler Washington as the person who cleared conditions improperly. Denise needs this specific name to investigate.",
+      "rubric_category": "outcome"
+    },
+    "id": "33243123-c177-4c11-87e6-f39bdfe71a58",
+    "title": "The email content (visible in send_email parameters) sent to [denise.holloway@keystonemortgage.com](mailto:denise.holloway@keystonemortgage.com) names Tyler Washington as the person who cleared conditions without supporting documentation in the loan files."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to denise.holloway@keystonemortgage.com. It must contain at least one of: 'LN-2026-00603' (or 'Heather Sullivan'), 'LN-2026-00211', or 'LN-2026-00224'.",
+      "justification": "Denise needs specific loan identifiers to assess compliance exposure. Raymond's QC review flagged three loans (LN-2026-00603, LN-2026-00211, LN-2026-00224) where conditions were improperly cleared. At least one must be named for Denise to begin a compliance review. Raymond's email names all three, but the most critical is LN-2026-00603 (Heather Sullivan) since it already closed.",
+      "rubric_category": "outcome"
+    },
+    "id": "7e36be84-bd66-45ff-945f-ead42be135a9",
+    "title": "The email content (visible in send_email parameters) sent to [denise.holloway@keystonemortgage.com](mailto:denise.holloway@keystonemortgage.com) references at least one of the QC-flagged loans from Raymond's review: LN-2026-00603 (Heather Sullivan), LN-2026-00211, or LN-2026-00224."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a conversations_add_message tool call targeting #loan-processing. The agent may use channel_id 'C002' or '#loan-processing' - both are valid identifiers for this channel. Confirm the tool response indicates success (e.g., ok: true).",
+      "justification": "The prompt says 'post an update in #loan-processing so the processors know we're on top of it.' This rubric confirms the Slack write action was executed in the correct channel.",
+      "rubric_category": "outcome"
+    },
+    "id": "aa8cb1df-7504-487a-bd8f-7eecd162cc9c",
+    "title": "A message was posted (via conversations_add_message) in #loan-processing (channel C002) and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the payload parameter of the conversations_add_message call to channel C002. It must reference pipeline delays, backlog, stuck files, or similar, and indicate that the issues are being addressed.",
+      "justification": "The prompt says 'post an update so the processors know we're on top of it.' The message must communicate that leadership is aware of delays and action is being taken",
+      "rubric_category": "outcome"
+    },
+    "id": "dbb06bab-4790-44b0-bdac-8d6bf1aa1b61",
+    "title": "The #loan-processing message (visible in conversations_add_message payload) references pipeline delays or backlog issues and indicates that affected files are being reviewed or triaged."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a mortgage_los_add_activity or mortgage_los_update_loan tool call with loan_id 'LN-2026-00619'. Check the detail/notes parameter for reference to lock expiration, closing delay, or current status. Confirm the tool returned success.",
+      "justification": "The prompt says 'update the loan files with current status notes.' LN-2026-00619 is one of the most critical stuck loans: clear_to_close status but the lock expired on 3/21 and the closing date of 3/17 has passed.",
+      "rubric_category": "outcome"
+    },
+    "id": "f4c7f14e-3f71-499b-8a2f-e6243b7f9e30",
+    "title": "A loan status note or activity was added (via mortgage_los_add_activity or mortgage_los_update_loan) to loan LN-2026-00619 with a note reflecting the identified issues (e.g., lock expiration, closing date passed, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for mortgage_los_add_activity or mortgage_los_update_loan tool calls on at least two loans other than LN-2026-00619. Each must include a note referencing lock expiration, closing delay, processing backlog, or current status. Confirm the tools returned success.",
+      "justification": "The prompt says 'update the loan files with current status notes.' The pipeline contains 9+ CTC loans past their closing dates and many more with expired locks. The agent should update multiple stuck loan files, not just LN-2026-00619. Acceptable loans include any with expired locks or past closing dates (e.g., LN-2026-00601, LN-2026-00554, LN-2026-00545, LN-2026-00616, LN-2026-00621, LN-2026-00552, or similar).",
+      "rubric_category": "outcome"
+    },
+    "id": "acaa7223-a08b-44ed-a5a5-836c306b94e5",
+    "title": "A loan status note or activity was added (via mortgage_los_add_activity or mortgage_los_update_loan) to at least two additional stuck pipeline loans (beyond LN-2026-00619) with notes reflecting their identified issues (e.g., lock expiration, closing date passed, processing delay, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Count the total number of distinct loans updated via mortgage_los_add_activity or mortgage_los_update_loan with status notes referencing lock expiration, closing delay, backlog, or similar. Must be at least five distinct loans.",
+      "justification": "The prompt says 'update the loan files with current status notes.' With 9+ CTC loans past closing and dozens of expired locks, a thorough agent should update at least five files. This tests operational diligence - adding notes to one or two files is insufficient given the scope of the backlog.",
+      "rubric_category": "outcome"
+    },
+    "id": "f3d9df19-41cf-430c-a3f9-4d756138dd06",
+    "title": "A loan status note or activity was added (via mortgage_los_add_activity or mortgage_los_update_loan) to at least five stuck pipeline loans total (including LN-2026-00619) with notes reflecting their identified issues."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a mortgage_los_add_activity or mortgage_los_update_loan tool call with loan_id matching one of 'LN-2026-00603', 'LN-2026-00211', or 'LN-2026-00224'. Check the detail/notes parameter for reference to QC findings, conditions cleared improperly, or documentation concerns. Confirm the tool returned success.",
+      "justification": "The prompt says 'update the loan files with current status notes.' Raymond's QC review flagged three loans where Tyler Washington cleared conditions without supporting documentation. LN-2026-00603 (Heather Sullivan) is the most critical since it already closed, carrying post-close liability. At least one QC-flagged loan should be updated with a note reflecting this finding.",
+      "rubric_category": "outcome"
+    },
+    "id": "372cd897-b1b1-48a3-8a2b-7d31df489676",
+    "title": "A loan status note or activity was added (via mortgage_los_add_activity or mortgage_los_update_loan) to at least one of the QC-flagged loans (LN-2026-00603, LN-2026-00211, or LN-2026-00224) with a note reflecting the QC concern (e.g., conditions cleared without supporting documentation, Tyler Washington, quality control finding, or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's final response text for LN-2026-00619 identified as stuck with a lock expiration or closing date issue.",
+      "justification": "The prompt says 'figure out which loans are stuck, why they're stuck.' LN-2026-00619 is the most critical stuck loan: clear_to_close status but the lock expired on 3/21 and the closing date of 3/17 has passed. Grace needs this reported directly.",
+      "rubric_category": "outcome"
+    },
+    "id": "b84afe89-bc56-423f-9afa-31727407b6b2",
+    "title": "The final response identifies loan LN-2026-00619 as a stuck pipeline loan, noting that it has reached clear_to_close status but the lock has expired and the closing date has passed."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's final response text for 'Tyler Washington' or 'Tyler' in connection with clearing conditions without documentation or QC audit findings.",
+      "justification": "The prompt says 'Raymond pulled me aside about some concerning findings from his latest QC review, something about conditions getting cleared without the right documentation' and 'I need answers.' Raymond's QC report and CRM engagement notes identify Tyler Washington as the person who cleared the conditions improperly. Grace needs to know who is responsible.",
+      "rubric_category": "outcome"
+    },
+    "id": "8c962eb2-07da-4bad-a171-cdb981acf944",
+    "title": "The final response identifies Tyler Washington as the person who cleared conditions on QC-flagged loans (LN-2026-00603, LN-2026-00211, or LN-2026-00224) without supporting documentation in the file."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's final response text for 'Sofia Reyes' or 'Sofia' in connection with workload volume (e.g., 34 files, overburdened caseload, or similar).",
+      "justification": "The prompt says 'Sofia seems completely buried' and asks the agent to figure out what's going on. CRM engagement notes reveal Sofia described being buried under 34 active files during a panicked call. This is a key finding explaining the root cause of the pipeline bottleneck.",
+      "rubric_category": "outcome"
+    },
+    "id": "80ac3665-7e89-4c74-8ea1-820b18268ee5",
+    "title": "The final response identifies Sofia Reyes's workload (34 active files or a similar volume indicating significant overload) as a contributing factor to the pipeline delays."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for any mortgage_los_search_loans, mortgage_los_get_pipeline, or mortgage_los_get_pipeline_summary tool call in the trajectory.",
+      "justification": "The prompt says 'go through the pipeline and figure out which loans are stuck.' The Mortgage LOS contains the actual loan pipeline data including statuses, lock expirations, and processor assignments. This is a non-default tool the agent might skip, relying on email or Slack references instead of querying the pipeline directly.",
+      "rubric_category": "tool selection"
+    },
+    "id": "1a2a28d5-e4ea-45ef-8edc-a87bac9d76f4",
+    "title": "The model must use a Mortgage LOS tool (e.g., mortgage_los_search_loans, mortgage_los_get_pipeline, or mortgage_los_get_pipeline_summary) to identify loans in the processing pipeline."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for any mortgage_los_get_conditions tool call in the trajectory with a loan_id parameter.",
+      "justification": "The prompt references 'conditions getting cleared without the right documentation.' The LOS conditions data is the source of truth for verifying what was improperly cleared. An agent that relies only on secondhand reports from Raymond's email would miss the detailed condition status information.",
+      "rubric_category": "tool selection"
+    },
+    "id": "43948151-94a4-40e8-a1f5-0414c815d636",
+    "title": "The model must use the mortgage_los_get_conditions tool to check loan conditions on at least one loan."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for any CRM tool call (crm_list_engagements, crm_search_deals, crm_search_contacts) in the trajectory. Note: contacts_search_contacts is a Contacts directory tool, NOT a CRM tool - it does not satisfy this criterion.",
+      "justification": "CRM engagement notes contain critical details not available in email or Slack, including Sofia Reyes's panicked call describing being buried under 34 active files, the missed HOI binder condition on LN-2026-00616 that caused the file to suspend, and Camille Foster's three-way call about pricing a lock extension. This is a non-default tool the agent might skip entirely.",
+      "rubric_category": "tool selection"
+    },
+    "id": "f11a1fec-de7c-4995-b775-abc6c948d06e",
+    "title": "The model must use a CRM tool (e.g., crm_list_engagements, crm_search_deals, or crm_search_contacts) to look up engagement records or deal activity related to the pipeline investigation."
+  }
+]

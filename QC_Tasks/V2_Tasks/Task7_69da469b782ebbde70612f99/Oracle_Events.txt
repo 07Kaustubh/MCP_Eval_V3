@@ -1,0 +1,49 @@
+OE 1 [Read]: Search emails for the Gupta complaint using search_emails with a query related to "Gupta" or "appraisal" or "charged twice" (or similar). Discovers email from takeshi.gupta@gmail.com (email_inject_gupta_complaint) complaining about two identical $575 appraisal charges on his card for the property at 945 Harris Blvd. He names James Thornton as his loan officer.
+
+OE 2 [Read]: Search Mortgage LOS for Gupta's loan using mortgage_los_search_loans with a query related to "Gupta" or "945 Harris" (or similar). Discovers loan LN-2024-00034, borrower Takeshi Gupta, assigned LO los_staff_ef0febeeff53 (James Thornton), property 945 Harris Blvd, Charlotte, NC 28269.
+
+OE 3 [Read]: Search Stripe for charges on the Gupta loan using stripe_search_charges or stripe_list_charges with a query related to "Gupta" or "LN-2024-00034" or the Stripe customer ID (or similar). Discovers two identical succeeded appraisal fee charges of $575 each: ch_UNmjnIRaZ942m2pE and ch_RQIayJoG7xaHKn9m, both for customer cus_bjhPInRVkLUhY7gb, both with description "Appraisal fee -- Gupta (LN-2024-00034)".
+
+OE 4 [Write]: Create a refund via stripe_create_refund for one of the duplicate appraisal charges (ch_UNmjnIRaZ942m2pE or ch_RQIayJoG7xaHKn9m). Amount: 57500 cents ($575).
+
+OE 5 [Write]: Send email via send_email to takeshi.gupta@gmail.com confirming the duplicate appraisal charge has been refunded.
+
+OE 6 [Write]: Send email via send_email to james.thornton@keystonemortgage.com (LO on LN-2024-00034) with a heads-up that borrower Takeshi Gupta was double-charged for an appraisal and a refund has been processed.
+
+OE 7 [Read]: Search Slack via conversations_search_messages with a query related to "Ibrahim" or "LN-2024-00192" or "comp" (or similar), optionally filtered to channel C002 (#loan-processing). Discovers Sofia Reyes's post noting the broker comp invoice KMP-00192 looks low and asking Hana to check Freedom Mortgage correspondence.
+
+OE 8 [Read]: Search Mortgage LOS for the Ibrahim loan using mortgage_los_search_loans or mortgage_los_get_loan with a query related to "Ibrahim" or loan number "LN-2024-00192" (or similar). Discovers loan LN-2024-00192, borrower Russell Ibrahim, lender Freedom Mortgage (los_lender_345751ed726c), assigned LO los_staff_a583f044387a (Marcus Webb).
+
+OE 9 [Read]: Search QuickBooks invoices via quickbooks_search_invoices with a query related to "KMP-00192" or "Ibrahim" (or similar). Discovers invoice KMP-00192 (Id: INV-c569e6bf9158) with Amount $5,434.79 and UnitPrice $5,584.79 -- a $150 gap between what was invoiced and the stated unit price.
+
+OE 10 [Read]: Search emails for Freedom Mortgage correspondence about a waiver or deduction using search_emails with a query related to "Freedom Mortgage" and "waiver" or "deduction" (or similar). Discovers email from wholesale@freedommortgage.com (email_inject_freedom_waiver) confirming the $150 underwriting review fee deduction on LN-2024-00192 is being waived, and the full $5,584.79 should be reflected.
+
+OE 11 [Write]: Create corrective QuickBooks entry via quickbooks_create_invoice or quickbooks_create_bill for the $150 shortfall on the Ibrahim comp (difference between $5,584.79 owed and $5,434.79 invoiced).
+
+OE 12 [Write]: Send email via send_email to marcus.webb@keystonemortgage.com (LO on LN-2024-00192) notifying that the broker comp on the Ibrahim deal has been adjusted. Send email via send_email to wholesale@freedommortgage.com confirming Keystone has updated records to reflect the waived deduction.
+
+OE 13 [Read]: Search QuickBooks invoices via quickbooks_search_invoices with a query related to "REV-IMPACT" (or similar). Discovers invoice REV-IMPACT-0318 (Id: 9731), $15,000, dated March 18, 2026, customer "Internal Revenue Impact Review" (customer ref 294). Line description: "Estimated commission/revenue drag tied to three delayed closings versus expected on-time funding cadence."
+
+OE 14 [Read]: Search Slack via conversations_search_messages with a query related to "revenue" or "delayed" or "15k" or "commission drag" (or similar). Discovers Victor Osei's message in C006 stating "around 15k in revenue/commission drag" on 3 delayed files, and related discussion about delayed closings. May also discover Victor's email (email_email_6e95892984bc) to Robert and Grace titled "Revenue impact snapshot on delayed closings" stating the estimate is "directional, not a formal forecast."
+
+OE 15 [Write]: Determine the REV-IMPACT-0318 entry is a planning estimate (not tied to a real transaction) based on: the invoice line says "Estimated", Victor's email says "directional, not a formal forecast", and the customer is an internal shell. Reverse or offset the entry via quickbooks_create_invoice (credit) or similar QuickBooks write action for approximately $15,000.
+
+OE 16 [Write]: Send email via send_email to victor.osei@keystonemortgage.com notifying that the REV-IMPACT-0318 planning estimate has been reversed from the books.
+
+OE 17 [Read]: Search Stripe for Mercer lock extension charges using stripe_search_charges with a query related to "Mercer" or "lock extension" or "LN-2026-00184" (or similar). Discovers 3 succeeded charges to customer cus_scenario_c66_mercer:
+  - ch_scenario_c66_lockext1: $375 (Rate lock extension -- Mercer)
+  - ch_scenario_c66_lockext2: $375 (Rate lock extension 2nd -- Mercer)
+  - ch_scenario_c66_lockext3: $500 (Rate lock extension 3rd -- Mercer)
+  Total: $1,250.
+
+OE 18 [Read]: Search QuickBooks for existing Mercer lock extension bills via quickbooks_search_bills with a query related to "Mercer" or "lock ext" or "LN-2026-00184" (or similar). Discovers partial/messy entries (LOCK-EXT-00184, LOCKEXT-00184-1, PENDING-LOCK-EXT-2-MERCER). Reconciles these against the 3 Stripe charges to identify gaps -- at minimum the $500 third charge has no matching bill.
+
+OE 19 [Write]: Create or correct QuickBooks bill entries via quickbooks_create_bill to properly record any Mercer lock extension charges not yet reflected in QB (at minimum the $500 third extension).
+
+OE 20 [Write]: Send email via send_email to carlos.rivera@keystonemortgage.com (LO on LN-2026-00184) notifying that the Mercer lock extension billing has been reconciled between Stripe and QuickBooks.
+
+OE 21 [Write]: Add activity notes via mortgage_los_add_activity on affected loan files (LN-2024-00034, LN-2024-00192, LN-2026-00184) documenting the findings and corrective actions taken. Auditors need to be able to follow the trail.
+
+OE 22 [Write]: Send consolidated email via send_email to grace.yamamoto@keystonemortgage.com covering all four items: (a) Gupta appraisal refund, (b) Ibrahim comp adjustment, (c) REV-IMPACT reversal, (d) Mercer lock extension billing reconciliation -- with findings, corrections, and anything still outstanding.
+
+OE 23 [Write]: Post summary via conversations_add_message in channel C002 (#loan-processing) so Sofia and the ops team can close the loop.

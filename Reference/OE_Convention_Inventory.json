@@ -1,0 +1,157 @@
+{
+  "_meta": {
+    "purpose": "Auto-extracted conventions from QC_Tasks/V3_Tasks/Task11..Task14 Oracle_Events.txt. The OE validator + Council A check against this. Anything in an OE that does not match these patterns is convention drift.",
+    "source_files": [
+      "QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b/Oracle_Events.txt",
+      "QC_Tasks/V3_Tasks/Task12_6a29448b7e4c641c30eb3890/Oracle_Events.txt",
+      "QC_Tasks/V3_Tasks/Task13_6a2202b85b24c47c08dd2e79/Oracle_Events.txt",
+      "QC_Tasks/V3_Tasks/Task14_6a29448b7e4c641c30eb3875/Oracle_Events.txt"
+    ],
+    "oe_count_distribution": {
+      "Task11": 11,
+      "Task12": 15,
+      "Task13": 28,
+      "Task14": 12,
+      "mean": 16.5,
+      "min": 11,
+      "max": 28
+    },
+    "tools_used_count": 36,
+    "tools_universe_count": 453,
+    "all_referenced_tools_valid": true
+  },
+
+  "format_rules": {
+    "line_prefix": "^OE\\s*\\d+:?",
+    "examples": ["OE 1: ...", "OE1: ...", "OE 12: ..."],
+    "numbered_sequential": true,
+    "free_form_prose": "Not structured JSON. Numbered prose with full sentences.",
+    "em_dash_banned": true
+  },
+
+  "tool_usage_frequencies": {
+    "_note": "From V3 reference tasks. Counts indicate which tools are most common in well-formed OEs.",
+    "email_search_emails": 12,
+    "email_send_email": 10,
+    "slack_conversations_search_messages": 7,
+    "sap_subledger_list_ap_invoices": 7,
+    "messaging_search_conversations": 5,
+    "slack_conversations_add_message": 4,
+    "contacts_search_contacts": 4,
+    "messaging_list_conversations": 4,
+    "messaging_send_message": 4,
+    "oracle_gl_get_journal_entry": 2,
+    "reminder_add_reminder": 2,
+    "linear_list_issues": 2,
+    "linear_update_issue": 2,
+    "reminder_get_all_reminders": 2,
+    "blackline_get_exception": 2,
+    "email_list_emails": 1,
+    "oracle_gl_list_journal_entries": 1,
+    "records_vault_list_documents": 1,
+    "sap_subledger_list_subledger_transactions": 1,
+    "records_vault_upload_document": 1,
+    "blackline_get_reconciliation": 1,
+    "blackline_list_reconciliations": 1,
+    "blackline_list_exceptions": 1,
+    "oracle_gl_get_fiscal_period": 1,
+    "oracle_gl_list_fiscal_periods": 1,
+    "linear_list_projects": 1,
+    "linear_create_comment": 1,
+    "airtable_list_records": 1,
+    "airtable_search_records": 1,
+    "calendar_search_events": 1,
+    "calendar_add_calendar_event": 1
+  },
+
+  "parameter_naming": {
+    "_note": "Parameter names observed in V3 OE bodies. Hard parameter-trap rules below.",
+    "observed_params": ["query", "entity_id", "id", "vendor_id", "project", "posting_date_from", "status", "channel_types", "channel_id"],
+    "hard_traps": {
+      "email_send_email": {"body_field": "content", "wrong_aliases": ["body", "text", "message"]},
+      "email_reply_to_email": {"body_field": "content", "wrong_aliases": ["body", "text"]},
+      "messaging_send_message": {"body_field": "content", "wrong_aliases": ["body", "text"]},
+      "slack_conversations_add_message": {"body_field": "payload", "wrong_aliases": ["text", "content", "message", "body"]},
+      "linear_create_comment": {"body_field": "body", "id_field": "issueId", "wrong_id_aliases": ["issue_id", "issueid", "id"]},
+      "records_vault_upload_document": {"required": ["kind", "retention_policy_code", "classification", "content_b64"], "valid_retention_codes": ["AICPA_SQMS_7Y", "IRS_TAX_7Y", "FIRM_INTERNAL", "INDEFINITE"], "valid_classifications": ["public", "internal", "restricted"]}
+    }
+  },
+
+  "opening_phrase_patterns": {
+    "_note": "First three words of an OE line. Anchors the OE's intent. Match observed patterns.",
+    "search_first": [
+      "Search emails using ...",
+      "Search Slack messages using ...",
+      "Search messaging conversations using ...",
+      "Search AP invoices using ...",
+      "Search Linear for ...",
+      "Search calendar events using ...",
+      "Search the SAP subledger ..."
+    ],
+    "action_first": [
+      "Send an email using ...",
+      "Post a status update using ...",
+      "Create a calendar event using ...",
+      "Update both ... Linear tracking issues using ...",
+      "Upload a memo using ...",
+      "Add a reminder using ..."
+    ],
+    "inspect_first": [
+      "When inspecting the ... entry ...",
+      "When inspecting the ... disbursement ...",
+      "Call <tool> with <args> to confirm ...",
+      "Verify each of the ... transactions in ..."
+    ],
+    "lookup_first": [
+      "Look up Brent Noah's email address using ...",
+      "Look up contact details using ...",
+      "Call contacts_search_contacts with query ..."
+    ]
+  },
+
+  "discovery_step_phrasing": {
+    "tool_call_form": "Search <service> using <tool_name> with <param>=<value> ('or similar' acceptable for free-text queries)",
+    "examples": [
+      "Search email (email_search_emails or email_list_emails) for messages from <X>",
+      "Search Slack (slack_conversations_search_messages in channel C008 / #compliance-and-registrations) for <X>",
+      "Call blackline_get_exception with exception_id 'exc_<hex>' to confirm <fields>"
+    ],
+    "concrete_values_required": "Every named id, entity, period, amount must be from the per-task universe. The OE validator and Council A enforce this."
+  },
+
+  "write_step_phrasing": {
+    "form": "<Write action> using <tool_name> (... key params with concrete values ...).",
+    "examples": [
+      "Send an email using email_send_email from priya.khatri@brookfieldcpas.com to daniel.jones@brookfieldcpas.com",
+      "Use records_vault_upload_document to create the threshold analysis memo. Required parameters: kind 'memo', retention_policy_code 'AICPA_SQMS_7Y', classification 'restricted', content_b64 <...>",
+      "Use slack_conversations_add_message in channel C008 (#compliance-and-registrations). The message payload should summarize <X>"
+    ]
+  },
+
+  "conclude_clause_pattern": {
+    "_note": "When a discovery step yields a conclusion the agent must draw, use 'Conclude:' verbatim. Observed 3 times across V3 references.",
+    "form": "Conclude: <one-sentence reasoning that the agent must apply>.",
+    "examples": [
+      "Conclude: this wire was a duplicate booking with net zero cash movement. Exclude $42,500 from the aggregate.",
+      "Conclude: intercompany transfer, not third-party wire. Exclude $15,000 from the aggregate.",
+      "Conclude: the actual net economic outflow was $6,750, not $18,600. Reduce the aggregate by $11,850."
+    ],
+    "use_when": "Critical reasoning step that determines a downstream value or write decision."
+  },
+
+  "branching_phrasing": {
+    "_note": "When the OE depends on what the discovery returns, name both branches.",
+    "form": "The outcome of this check determines the action path: if <A>, <do X>; if <B>, <do Y>.",
+    "examples": [
+      "The outcome of this check determines the action path: if a clean reissued invoice is present, route it through the normal AP release path; if absent, the escalation summary to Daniel must note the missed deadline and confirm that a hard deadline is being set."
+    ]
+  },
+
+  "anti_patterns": {
+    "_note": "Patterns NEVER seen in V3 references; OE validator should flag these.",
+    "structured_json_oe": "OEs are NEVER written as JSON / YAML. Always numbered prose.",
+    "tool_name_without_parameters": "Naming a tool but not its key parameters is too vague. Always state what the tool will be called with.",
+    "scripted_final_response": "OEs describe tool-use steps, NOT what the final response should say. Final-response content lives in Outcome 2.1 rubrics.",
+    "tool_name_with_param_aliases": "Calling email_send_email with `body` (should be `content`) or slack_conversations_add_message with `text` (should be `payload`) is a tool failure."
+  }
+}

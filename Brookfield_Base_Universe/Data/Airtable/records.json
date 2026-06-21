@@ -1,0 +1,400 @@
+[
+  {
+    "id": "airtable_89e9965af72a",
+    "fields": {
+      "blocker_title": "Daily close blocker triage for payroll cash mismatch on Acme cloud book",
+      "created_at": "2026-03-02T08:14:00",
+      "updated_at": "2026-03-02T11:26:00",
+      "target_date": "2026-03-03T17:00:00",
+      "workflow_theme": "daily_operations",
+      "exception_id": "exc_af7274fb658844",
+      "recon_id": "BL-3F60ED1C7107",
+      "gl_account": "102000 Cash - Payroll",
+      "owner": "Priya Singh",
+      "priority": "High",
+      "status": "Open",
+      "notes": "Bank feed timing difference is delaying cash posting sign-off for the daily outsourced accounting close. Team to confirm whether the recon variance on BL-3F60ED1C7107 clears with next feed."
+    },
+    "table_id": "airtable_1a80ff5c1ed3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_cc1b0db46b15",
+    "fields": {
+      "blocker_title": "Bank feed exception follow-up for FX revaluation drift in operating cash",
+      "created_at": "2026-03-11T09:03:00",
+      "updated_at": "2026-03-12T15:18:00",
+      "target_date": "2026-03-13T16:30:00",
+      "workflow_theme": "daily_operations",
+      "exception_id": "exc_abd8e711f5f347",
+      "recon_id": "BL-18FFAE0E20D0",
+      "gl_account": "101000 Cash - Operating",
+      "owner": "Margaret Sullivan",
+      "priority": "High",
+      "status": "Escalated",
+      "notes": "High-impact FX revaluation drift remains awaiting approval and is now affecting partner review of close completeness. Recon BL-18FFAE0E20D0 also remains overdue for follow-up."
+    },
+    "table_id": "airtable_1a80ff5c1ed3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_7de1f681f0a4",
+    "fields": {
+      "blocker_title": "Cash posting delay tied to duplicate entry investigation in client trust activity",
+      "created_at": "2026-04-07T07:52:00",
+      "updated_at": "2026-04-07T13:10:00",
+      "target_date": "2026-04-08T14:00:00",
+      "workflow_theme": "daily_operations",
+      "exception_id": "exc_4d5d3582698946",
+      "recon_id": "BL-0DEC7D2FD9E6",
+      "gl_account": "105000 Cash - Client Trust",
+      "owner": "Owen Mercer",
+      "priority": "Critical",
+      "status": "Investigating",
+      "notes": "Large duplicate entry exception is holding cash posting review and preventing completion of close blocker triage for one managed client portfolio."
+    },
+    "table_id": "airtable_1a80ff5c1ed3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_4d0cdf5258b5",
+    "fields": {
+      "blocker_title": "Reconciliation follow-up on prepaid software subscriptions before close sign-off",
+      "created_at": "2026-05-05T08:41:00",
+      "updated_at": "2026-05-05T12:24:00",
+      "target_date": "2026-05-06T17:30:00",
+      "workflow_theme": "daily_operations",
+      "exception_id": "exc_cb0a9a94a3084c",
+      "recon_id": "BL-3E4ED5B5B9BA",
+      "gl_account": "131000 Prepaid Software Subscriptions",
+      "owner": "George McAdam",
+      "priority": "Medium",
+      "status": "Pending approval",
+      "notes": "Medium-urgency FX revaluation drift was identified during daily close blocker review. Need partner approval before clearing the prepaid subscription recon item."
+    },
+    "table_id": "airtable_1a80ff5c1ed3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_15cef33c8adf",
+    "fields": {
+      "entity_task": "Multi-state annual report catch-up for dormant entities using filing service support",
+      "created_at": "2026-03-04T10:08:00",
+      "start_date": "2026-03-05T09:00:00",
+      "due_date": "2026-03-25T17:00:00",
+      "updated_at": "2026-03-18T16:42:00",
+      "project_theme": "active_project",
+      "invoice_id": "VEN-004-799133",
+      "period_id": "acme_cloud_FP-2025-12",
+      "owner": "Sofia Halabi",
+      "review_partner": "Daniel Jones",
+      "status": "In progress",
+      "notes": "Using DocketPilot Filing Services support to push through overdue state annual reports. Exceptions log shows several client entities missing registered office confirmations."
+    },
+    "table_id": "airtable_d2d6dfe7c4b3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_44a0c8992c54",
+    "fields": {
+      "entity_task": "Entity filing calendar exception sweep before April submission deadlines",
+      "created_at": "2026-03-22T14:16:00",
+      "start_date": "2026-03-23T08:30:00",
+      "due_date": "2026-04-15T17:00:00",
+      "updated_at": "2026-04-10T10:51:00",
+      "project_theme": "daily_operations",
+      "invoice_id": "VEN-029-817825",
+      "period_id": "acme_cloud_FP-2026-02",
+      "owner": "Brenda Abbas",
+      "review_partner": "Anaya Patel",
+      "status": "At risk",
+      "notes": "Client vault access package from VaultKey Access & Security was approved but several annual report signatures are still pending. Filing calendar exceptions remain concentrated in multi-state entities."
+    },
+    "table_id": "airtable_d2d6dfe7c4b3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_f9a88714d8f4",
+    "fields": {
+      "entity_task": "Overdue annual report remediation for retail client group",
+      "created_at": "2026-04-14T09:27:00",
+      "start_date": "2026-04-15T09:00:00",
+      "due_date": "2026-05-12T17:00:00",
+      "updated_at": "2026-05-02T15:33:00",
+      "project_theme": "active_project",
+      "invoice_id": "VEN-004-799133",
+      "period_id": "acme_cloud_FP-2025-11",
+      "owner": "Mark Price",
+      "review_partner": "George McAdam",
+      "status": "In review",
+      "notes": "Catch-up workstream for overdue annual reports moved into partner review after document retrieval backlog eased. DocketPilot invoice VEN-004-799133 covered rush filing support."
+    },
+    "table_id": "airtable_d2d6dfe7c4b3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_bb936b3e5c64",
+    "fields": {
+      "entity_task": "Readiness check for state submission window after missing source documents",
+      "created_at": "2026-05-06T11:11:00",
+      "start_date": "2026-05-06T13:00:00",
+      "due_date": "2026-05-28T17:00:00",
+      "updated_at": "2026-05-19T16:05:00",
+      "project_theme": "incident",
+      "invoice_id": "VEN-040-226456",
+      "period_id": "acme_cloud_FP-2025-10",
+      "owner": "Hannah Grant",
+      "review_partner": "William White",
+      "status": "Blocked",
+      "notes": "Several client source documents needed for filing readiness are still outstanding, pushing state submission preparation late. Mailroom follow-up referenced paid courier invoice VEN-040-226456."
+    },
+    "table_id": "airtable_d2d6dfe7c4b3",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_50e99c04093d",
+    "fields": {
+      "meeting_title": "Wednesday tax pipeline review and partner escalation list",
+      "created_at": "2026-03-03T15:02:00",
+      "updated_at": "2026-03-04T12:20:00",
+      "target_date": "2026-03-04T14:00:00",
+      "cadence_theme": "weekly_recurring",
+      "journal_entry_id": "JE-brookfield-FP-2026-05-0004",
+      "owner": "William White",
+      "participants": "William White, Hannah Grant, Daniel Jones",
+      "status": "Completed",
+      "notes": "Reviewed returns delayed by missing client source documents and flagged pre-submission review queue. JE-brookfield-FP-2026-05-0004 was referenced in one bad debt support package."
+    },
+    "table_id": "airtable_11c1e4c6585d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_2de49cac4a04",
+    "fields": {
+      "meeting_title": "George McAdam and Daniel Jones trainee work review loop for graduate assignments",
+      "created_at": "2026-03-17T09:48:00",
+      "updated_at": "2026-03-18T16:14:00",
+      "target_date": "2026-03-18T11:00:00",
+      "cadence_theme": "weekly_recurring",
+      "journal_entry_id": "JE-acme_cloud-FP-2026-05-0002",
+      "owner": "George McAdam",
+      "participants": "George McAdam, Daniel Jones, Mia Chen",
+      "status": "Completed",
+      "notes": "Graduate assignments on audit support and return prep were reviewed for completeness. Draft JE-acme_cloud-FP-2026-05-0002 used as a training example for support tie-out."
+    },
+    "table_id": "airtable_11c1e4c6585d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_be175c6242b5",
+    "fields": {
+      "meeting_title": "William White and Hannah Grant return-review thread before IRS submission windows",
+      "created_at": "2026-04-21T13:09:00",
+      "updated_at": "2026-04-22T17:22:00",
+      "target_date": "2026-04-22T15:00:00",
+      "cadence_theme": "weekly_recurring",
+      "journal_entry_id": "JE-brookfield-FP-2026-05-0007",
+      "owner": "Hannah Grant",
+      "participants": "William White, Hannah Grant, Priya Shah",
+      "status": "In progress",
+      "notes": "Return-review thread centered on clients nearing IRS submission windows and on unresolved documentation gaps. JE-brookfield-FP-2026-05-0007 referenced in one insurance amortization workpaper package."
+    },
+    "table_id": "airtable_11c1e4c6585d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_5cbeb89a7368",
+    "fields": {
+      "meeting_title": "Wednesday tax pipeline review with partner escalation for missing documents",
+      "created_at": "2026-05-12T16:35:00",
+      "updated_at": "2026-05-13T13:41:00",
+      "target_date": "2026-05-13T14:30:00",
+      "cadence_theme": "weekly_recurring",
+      "journal_entry_id": "JE-northstar_legal-FP-2026-05-0002",
+      "owner": "Daniel Jones",
+      "participants": "Daniel Jones, William White, Hannah Grant, George McAdam",
+      "status": "Escalated",
+      "notes": "Escalated client chase list where source documents continue to delay return completion. Northstar malpractice insurance entry JE-northstar_legal-FP-2026-05-0002 was discussed as part of review support completeness."
+    },
+    "table_id": "airtable_11c1e4c6585d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_ff019d106853",
+    "fields": {
+      "issue_title": "Late vendor approval chain causing payment miss for backup systems invoice",
+      "created_at": "2026-03-09T08:58:00",
+      "updated_at": "2026-03-10T14:27:00",
+      "due_date": "2026-03-12T17:00:00",
+      "theme": "incident",
+      "invoice_id": "VEN-019-583136",
+      "gl_account": "210000 Accounts Payable - External Vendors",
+      "owner": "Ben Arinzo",
+      "severity": "High",
+      "status": "Open",
+      "notes": "Bridgefield Backup Systems invoice is still pending approval and missed the scheduled AP batch. This is now part of the managed-client AP workflow standardization exception list."
+    },
+    "table_id": "airtable_8ee8b6013413",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_94302f2cf362",
+    "fields": {
+      "issue_title": "Vendor coding inconsistency during AP workflow standardization for facility services",
+      "created_at": "2026-03-29T10:37:00",
+      "updated_at": "2026-04-01T09:18:00",
+      "due_date": "2026-04-04T17:00:00",
+      "theme": "active_project",
+      "invoice_id": "VEN-012-211225",
+      "gl_account": "132000 Prepaid Facilities Maintenance",
+      "owner": "Anaya Wallace",
+      "severity": "Medium",
+      "status": "In progress",
+      "notes": "MetroShield invoice was approved but surfaced inconsistent coding across managed clients. Standardization checklist updated to require prepaid vs period expense validation before posting."
+    },
+    "table_id": "airtable_8ee8b6013413",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_4567a0517f38",
+    "fields": {
+      "issue_title": "Bank signatory mismatch blocking treasury-linked AP release",
+      "created_at": "2026-04-18T11:50:00",
+      "updated_at": "2026-04-18T16:40:00",
+      "due_date": "2026-04-21T15:00:00",
+      "theme": "incident",
+      "invoice_id": "VEN-029-171481",
+      "gl_account": "103000 Cash - Tax Reserve",
+      "owner": "Ryan Delgado",
+      "severity": "Critical",
+      "status": "Blocked",
+      "notes": "Payment release could not proceed because bank signatory records did not match current treasury authorization. Issue logged alongside access control review for sensitive vendor payment workflows."
+    },
+    "table_id": "airtable_8ee8b6013413",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_bff5a2082279",
+    "fields": {
+      "issue_title": "Mailroom vendor voided invoice left in AP approval queue",
+      "created_at": "2026-05-07T09:12:00",
+      "updated_at": "2026-05-08T10:44:00",
+      "due_date": "2026-05-11T13:00:00",
+      "theme": "daily_operations",
+      "invoice_id": "VEN-040-991816",
+      "gl_account": "210000 Accounts Payable - External Vendors",
+      "owner": "George McAdam",
+      "severity": "Low",
+      "status": "Resolved",
+      "notes": "Voided Meridian Mailroom Solutions invoice was still appearing in the AP approval workflow. Cleared from queue and documented as a control fix in daily exception review."
+    },
+    "table_id": "airtable_8ee8b6013413",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_cfb12daec482",
+    "fields": {
+      "admin_item": "Monday client onboarding kickoff and document request review for new advisory engagement",
+      "created_at": "2026-03-01T09:05:00",
+      "start_date": "2026-03-02T10:00:00",
+      "updated_at": "2026-03-02T15:22:00",
+      "target_date": "2026-03-06T17:00:00",
+      "theme": "weekly_recurring",
+      "journal_entry_id": "JE-brookfield-FP-2025-07-0002",
+      "owner": "Sofia Halabi",
+      "status": "Completed",
+      "notes": "Kickoff covered bookkeeping scope, tax document request list, and outsourced accounting access needs. Prior dues entry JE-brookfield-FP-2025-07-0002 referenced only as onboarding sample support."
+    },
+    "table_id": "airtable_f9ea4c4c150d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_ddadfe58b867",
+    "fields": {
+      "admin_item": "New starter onboarding checklist and access scheduling during month-end close",
+      "created_at": "2026-04-02T08:21:00",
+      "start_date": "2026-04-02T09:00:00",
+      "updated_at": "2026-04-03T17:04:00",
+      "target_date": "2026-04-08T16:00:00",
+      "theme": "administrative",
+      "journal_entry_id": "JE-brookfield-FP-2025-07-0047",
+      "owner": "Margaret Sullivan",
+      "status": "In progress",
+      "notes": "A senior accountant resignation created urgency around onboarding a replacement and scheduling system access. Checklist includes tax, bookkeeping, and audit support tool permissions."
+    },
+    "table_id": "airtable_f9ea4c4c150d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_d44430a7f8f9",
+    "fields": {
+      "admin_item": "Ryan Delgado restricts engagement-confidential records vault access to assigned client team",
+      "created_at": "2026-04-24T12:30:00",
+      "start_date": "2026-04-24T13:00:00",
+      "updated_at": "2026-04-25T11:19:00",
+      "target_date": "2026-04-29T17:00:00",
+      "theme": "administrative",
+      "journal_entry_id": "JE-brookfield-FP-2026-05-0010",
+      "owner": "Ryan Delgado",
+      "status": "Completed",
+      "notes": "Confidential records vault was re-permissioned so only assigned client teams can access sensitive engagement files. Change was prompted by a major multi-service client win and tighter confidentiality requirements."
+    },
+    "table_id": "airtable_f9ea4c4c150d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_1247c63b4235",
+    "fields": {
+      "admin_item": "Client bookkeeping completion confirmations posted before management accounts drafting",
+      "created_at": "2026-05-20T10:16:00",
+      "start_date": "2026-05-20T11:00:00",
+      "updated_at": "2026-05-22T14:08:00",
+      "target_date": "2026-05-29T17:00:00",
+      "theme": "monthly_quarterly",
+      "journal_entry_id": "JE-acme_cloud-FP-2025-07-0001",
+      "owner": "Owen Mercer",
+      "status": "In review",
+      "notes": "Admin control added to confirm bookkeeping completion before management accounts drafting begins. This was introduced after close quality issues surfaced during recurring capacity standups."
+    },
+    "table_id": "airtable_f9ea4c4c150d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  },
+  {
+    "id": "airtable_7b10d30a6765",
+    "fields": {
+      "admin_item": "Managing partner announces major multi-service client win and onboarding prep",
+      "created_at": "2026-05-27T09:40:00",
+      "start_date": "2026-05-27T10:00:00",
+      "updated_at": "2026-05-29T16:31:00",
+      "target_date": "2026-05-31T15:00:00",
+      "theme": "narrative_event",
+      "journal_entry_id": "JE-brookfield-FP-2026-05-0007",
+      "owner": "Daniel Jones",
+      "status": "Announced",
+      "notes": "Managing partner shared the new multi-service win with accounting, tax, and compliance teams and requested accelerated onboarding prep before month-end. Follow-up includes document request templates and access sequencing."
+    },
+    "table_id": "airtable_f9ea4c4c150d",
+    "created_time": "2026-06-12T12:59:57Z",
+    "modified_time": "2026-06-12T12:59:57Z"
+  }
+]

@@ -1,0 +1,202 @@
+[
+    {
+     "table_name": "bases",
+     "table_schema": "airtable"
+    },
+    {
+     "table_name": "records",
+     "table_schema": "airtable"
+    },
+    {
+     "table_name": "tables",
+     "table_schema": "airtable"
+    },
+    {
+     "table_name": "blackline_archived_reconciliations",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_audit_trail",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_close_tasks",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_evidence",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_exceptions",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_reconciliations",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_review_notes",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "blackline_sox_controls",
+     "table_schema": "blackline"
+    },
+    {
+     "table_name": "events",
+     "table_schema": "calendar"
+    },
+    {
+     "table_name": "contacts",
+     "table_schema": "contacts"
+    },
+    {
+     "table_name": "emails",
+     "table_schema": "email"
+    },
+    {
+     "table_name": "jmap_emails",
+     "table_schema": "email"
+    },
+    {
+     "table_name": "mailboxes",
+     "table_schema": "email"
+    },
+    {
+     "table_name": "threads",
+     "table_schema": "email"
+    },
+    {
+     "table_name": "linear_comments",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "linear_issues",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "linear_projects",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "linear_team_memberships",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "linear_teams",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "linear_users",
+     "table_schema": "linear"
+    },
+    {
+     "table_name": "conversations",
+     "table_schema": "messaging"
+    },
+    {
+     "table_name": "messages",
+     "table_schema": "messaging"
+    },
+    {
+     "table_name": "ogl_accounts",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "ogl_fiscal_periods",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "ogl_journal_entries",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "ogl_subledger_feed_runs",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "ogl_subledger_feeds",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "ogl_transactions",
+     "table_schema": "oracle_gl"
+    },
+    {
+     "table_name": "_changelog",
+     "table_schema": "public"
+    },
+    {
+     "table_name": "rv_access_grants",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_chain_of_custody",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_classifications",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_document_versions",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_documents",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_legal_holds",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "rv_retention_policies",
+     "table_schema": "records_vault"
+    },
+    {
+     "table_name": "reminders",
+     "table_schema": "reminder"
+    },
+    {
+     "table_name": "ap_invoices",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "depreciation_schedule",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "fixed_assets",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "lease_schedules",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "prepaid_periods",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "prepaid_schedules",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "subledger_transactions",
+     "table_schema": "sap_subledger"
+    },
+    {
+     "table_name": "slack_channels",
+     "table_schema": "slack"
+    },
+    {
+     "table_name": "slack_messages",
+     "table_schema": "slack"
+    },
+    {
+     "table_name": "slack_users",
+     "table_schema": "slack"
+    }
+   ]

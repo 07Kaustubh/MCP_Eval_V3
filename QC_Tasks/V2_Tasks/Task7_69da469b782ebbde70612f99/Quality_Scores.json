@@ -1,0 +1,7 @@
+{
+  "qc_score": "3",
+  "qc_feedback": "[FAILING ISSUES] N/A [NON-FAILING ISSUES] [Non-Fail - Outcome-Light] - The rubric set is slightly below the target outcome ratio. It has 15/19 = 78.9% outcome criteria, which is just below the 80% target. [Non-Fail - Up to 15% Moderate Errors] - Rubric 16 is overly broad. The prompt asks for notes on `every affected loan file`, but the rubric passes with notes on only `at least one` file. This can lead fail positive passes. [Non-Fail - Somewhat Contrived / Unnatural Prompt] - The prompt is densely stacked. The four separate month-end cleanup threads feel somewhat bundled for eval difficulty. [OTHER DISCUSSION] N/A",
+  "error_categories": "[All] [All] [Non-Fail - Outcome-Light], [All] [All] [Non-Fail - Up to 15% Moderate Errors], [All] [All] [Non-Fail - Somewhat Contrived / Unnatural Prompt]",
+  "project_team_verdict": "",
+  "project_team_feedback": ""
+}

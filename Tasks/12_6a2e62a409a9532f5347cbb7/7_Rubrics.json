@@ -1,0 +1,98 @@
+[
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent sends an email to andrea.phil@brookfieldcpas.com with the Acme Cloud Q1 engagement-economics recap.",
+    "justification": "The prompt explicitly says 'Andrea gets the recap from me when this is done.' Verifying that the recap email is actually sent to Andrea is the central write action of the task.",
+    "evidence": "Trajectory contains an outgoing email whose 'to' field includes andrea.phil@brookfieldcpas.com and whose subject/body references the Acme Cloud Q1 recap, engagement economics, or scope review."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent does NOT send the Acme Cloud Q1 recap email to any Acme client-side recipient (no Acme CFO, no Acme controller, no other Acme external party).",
+    "justification": "The prompt is explicit: 'Andrea gets the recap from me when this is done. ... Not the Acme CFO, not the controller. Andrea decides what gets pushed client-side.' Routing the recap externally would breach the prompt's escalation discipline.",
+    "evidence": "No outgoing recap email in the trajectory has 'to' or 'cc' values pointing at an Acme client-side address (e.g., anything @acmecloud.com or any Acme Cloud finance/CFO/controller contact)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent creates a new calendar event for Daniel Jones and Andrea Phil scheduled between 2026-06-15 and 2026-06-19 (the early-next-week window relative to today, 2026-06-12).",
+    "justification": "The prompt asks the Agent to 'Book us a slot with Andrea early next week, before her Matthew sit-down.' Today (2026-06-12) is a Friday, so 'early next week' resolves to Mon-Fri of 2026-06-15 to 2026-06-19. The recap walkthrough needs its own booked slot.",
+    "evidence": "Trajectory contains a new calendar event create whose start datetime falls within 2026-06-15T00:00 to 2026-06-19T23:59 (US/Eastern)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent does NOT reuse, move, or modify the existing change-order contingency calendar event (event_scen_065_change_order_acme_0004 - 'Acme change-order - partner negotiation slot (contingency)' scheduled 2026-05-19) for the Q1 recap walkthrough.",
+    "justification": "The prompt is explicit: 'There is a standing contingency slot for the change order, but the package signed clean, so it is not ours to take. Schedule us a separate time.' Reusing that slot directly violates the instruction.",
+    "evidence": "Trajectory contains no update, reschedule, or repurpose of event_scen_065_change_order_acme_0004. Any Q1 recap booking is a separate, newly-created event."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's calendar event for the Q1 recap walkthrough includes both daniel.jones@brookfieldcpas.com and andrea.phil@brookfieldcpas.com as attendees, with a title or description referencing the Acme Cloud Q1 engagement-economics recap, scope review, or walkthrough (or similar).",
+    "justification": "The prompt specifies who attends ('Book us a slot with Andrea') and what the slot is for (the Acme Q1 walkthrough before Andrea's Matthew touch-base). Both attendees and a recognisable purpose are required for the slot to actually serve the prompt.",
+    "evidence": "The new calendar event's attendees field lists both daniel.jones@brookfieldcpas.com and andrea.phil@brookfieldcpas.com. Title or description contains an Acme Cloud Q1 reference (e.g., 'Acme Cloud Q1 recap walkthrough' or similar wording)."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email states the Acme Cloud April (FP-2026-04) hours overrun as 47.0 actual hours against the 32.0-hour engagement-letter baseline (a +15.0 hour / approximately +47% overrun), with approximately 9 hours tied to multi-state sales-tax coding and approximately 6 hours to AR-aging-bucket reconciliation.",
+    "justification": "The prompt explicitly asks for 'Hours and dollars per line, not a headline figure' broken out per scope item. The 47.0 vs 32.0 figures and the ~9h sales-tax / ~6h AR-aging split are the canonical per-line breakout for the April overrun as captured in the engagement-budget Slack and Daniel's own 2026-05-05 escalation email.",
+    "evidence": "Recap email body contains the numeric pair 47.0 vs 32.0 (or a clear restatement such as '47 actual against 32 budgeted'), the +15-hour delta, and the approximately 9-hour sales-tax / approximately 6-hour AR-aging breakout."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email categorizes the Acme Cloud multi-state sales-tax cleanup as ALREADY CAPTURED under Engagement Letter Addendum #1 (filed 2026-05-21) - not as fresh out-of-scope exposure.",
+    "justification": "The prompt's central question is 'whether it has already been formally captured. We have gotten this wrong before by treating signed scope as fresh exposure.' Multi-state sales-tax was formalized in Addendum #1; mislabeling it as fresh OOS exposure is the exact error the prompt is guarding against.",
+    "evidence": "Recap email body identifies the multi-state sales-tax effort as already captured / already formalized / already addendum-covered (or similar wording) under Addendum #1, with the 2026-05-21 filing date."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email categorizes the Acme Cloud AR-aging-bucket cleanup as ALREADY CAPTURED under Engagement Letter Addendum #1 (filed 2026-05-21) - not as fresh out-of-scope exposure.",
+    "justification": "The prompt explicitly names heavier-than-expected AR aging as one of the items 'swirling' that Andrea is unsure has been accounted for. AR-aging-bucket cleanup was formalized in Addendum #1; mislabeling it as fresh OOS exposure is exactly the 'treating signed scope as fresh exposure' mistake the prompt is guarding against.",
+    "evidence": "Recap email body identifies the AR-aging-bucket cleanup as already captured / already formalized / already addendum-covered (or similar wording) under Addendum #1, with the 2026-05-21 filing date."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email states that Andrea Phil decided on 2026-05-06 to absorb the April (FP-2026-04) overrun as one-time goodwill and to formalize the Acme Cloud scope expansion via change order starting May.",
+    "justification": "The prompt asks the Agent to confirm what has already been formally captured before labeling anything OOS. Andrea's 2026-05-06 written decision is the governing disposition for the April overrun and the trigger for the May change order; Andrea will press on this directly in the walkthrough.",
+    "evidence": "Recap email body identifies Andrea Phil as the decision-maker, dates the decision to 2026-05-06, names the absorb-April-as-goodwill outcome, and states that scope was formalized via change order from May onward."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email states that the April pattern did NOT carry into May, that the Acme Cloud FP-2026-05 MAP package closed clean against Addendum #1, and that Andrea Phil signed off the package on 2026-06-10.",
+    "justification": "The prompt explicitly requests this: 'Once Q1 is settled, tell me whether the April pattern carried into May or May closed clean against the addendum. If May closed clean, name when Andrea signed it off so I have the date.' Surfacing the 2026-06-10 sign-off date is a direct prompt ask.",
+    "evidence": "Recap email body states May closed clean (April pattern did not carry forward) and gives the sign-off date 2026-06-10 for the Acme Cloud FP-2026-05 MAP package."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email identifies the resolved Acme Cloud Q1 2026 multi-state sales-tax position as covering exactly four SaaS-taxable states - Texas, New York, Washington, and Arizona - totaling approximately $40,364.55 across those states.",
+    "justification": "The prompt says 'the position must reflect the system of record, not whatever's easiest to query.' The four-state resolved position ($40,364.55 across TX/NY/WA/AZ) per the SaaS-taxability determination memo is the system-of-record position; older TX/GA/NC-only framings are out of date.",
+    "evidence": "Recap email body lists the four states (TX, NY, WA, AZ) as Acme's SaaS-taxable jurisdictions for Q1 2026 and references the approximately $40,364.55 cross-state total."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email references the Acme Cloud Q1 2026 Oracle GL incremental sales-tax accrual of approximately $42,180.55 on account 225000 as the system-of-record figure.",
+    "justification": "The prompt is explicit that 'our ledger systems are mid-migration, so the position must reflect the system of record, not whatever's easiest to query.' The Q1 system-of-record figure is the Oracle GL JE accrual of approximately $42,180.55 on account 225000; surfacing it (or its account) shows the recap is tied to the GL, not to Slack chatter.",
+    "evidence": "Recap email body contains the approximately $42,180.55 Q1 sales-tax accrual figure and references account 225000 as the posting account (or the period FP-2026-03 quarter-end accrual)."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's recap email does NOT reference any of the following out-of-scope items: the Acme AML wire-flag clearance from April, the Acme FY2026 BO refresh, the TimeLedger Nexus AP escalations, the GraniteRack Compute AP escalation, the Helix Bio onboarding, or the Datadog reclass / SAB 99 memo.",
+    "justification": "The prompt is explicit: 'The AML wire-flag clearance from April, the BO refresh, the TimeLedger and GraniteRack AP escalations, Helix Bio onboarding, the Datadog reclass: none of that is in scope, so do not drag it into the recap.' Mentioning any of these in the recap directly violates the prompt's discipline instruction.",
+    "evidence": "Recap email body contains no reference to AML wire-flag (or JE-acme_cloud-FP-2026-04-0052), no BO refresh, no TimeLedger Nexus, no GraniteRack Compute, no Helix Bio onboarding, and no Datadog reclass or SAB 99 memo."
+  },
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent identifies the Acme Cloud FY2026 Engagement Letter Addendum #1 (Multi-State Sales Tax + AR-Aging Bucket scope expansion) and the matching Acme Cloud FY2026 Change Order, both filed 2026-05-21 in Records Vault under retention code AICPA_SQMS_7Y, as the engagement-governance documents that formally capture the scope expansion.",
+    "justification": "The prompt instructs the Agent to start with 'engagement governance docs ... amendments, change orders, addendums signed since FY2026 began. What lands there is already formally captured.' Naming both governance artifacts by title (and ideally their filing date / retention) is the proof that the Agent verified formal capture rather than relying on recollection.",
+    "evidence": "Final response identifies the Acme Cloud FY2026 Engagement Letter Addendum #1 and the matching Acme Cloud FY2026 Change Order, both with a 2026-05-21 filing date, as the engagement-governance docs covering the multi-state sales tax and AR-aging scope expansion. Mention of doc IDs (doc_eb7cb30c59bd4f03, doc_2d85ac5a698745c5) or the AICPA_SQMS_7Y retention code is accepted but not required."
+  },
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent reports that there is zero net new out-of-scope exposure on Acme Cloud Q1 beyond what is already formally captured by Engagement Letter Addendum #1 - i.e., the items that were 'swirling' (multi-state sales-tax cleanup, heavier-than-expected AR aging, and the April hours overrun) have all been formally addressed, not silently absorbed.",
+    "justification": "The prompt's central deliverable is 'OOS exposure totals' and 'confirmation that nothing has been silently absorbed.' Stating the bottom-line conclusion (zero net new exposure beyond Addendum #1) is the direct answer to Daniel's question to himself.",
+    "evidence": "Final response includes a bottom-line OOS exposure statement: zero net new exposure / nothing silently absorbed / everything already captured by Addendum #1 (or equivalent wording) covering all three swirling items."
+  },
+  {
+    "category": "Process",
+    "criterion": "The Agent verifies that the Acme cross-team consent letters (Audit-to-Tax FY2026 and Audit-to-Accounting-Services FY2026) are on file in Records Vault BEFORE reading any tax-team or audit-team artifacts on Acme Cloud (the SaaS sales-tax determination memo, tax-team Slack on the Q1 sales-tax cycle, or audit-side review/sign-off comments).",
+    "justification": "The prompt sets this as a hard precondition: 'Do not pull from the audit or tax teams on Acme without first verifying the cross-team consents are on file. We have rules.' This is an ordering constraint between actions (consent check first, tax/audit-team read second) - no Outcome rubric can verify which came first; only a Process rubric grounded in the trajectory sequence can.",
+    "evidence": "Trajectory shows the consent-letter listing or read (Audit-to-Tax FY2026 client_consent_letter and Audit-to-Accounting-Services FY2026 client_consent_letter, both Acme Cloud) occurring before any read of the Acme SaaS-taxability determination memo, any tax-team Slack search on the Acme Q1 sales-tax cycle, or any audit-team artifact on Acme."
+  }
+]

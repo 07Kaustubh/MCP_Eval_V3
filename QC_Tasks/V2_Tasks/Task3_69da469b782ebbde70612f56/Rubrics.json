@@ -1,0 +1,173 @@
+[
+  {
+    "annotations": {
+      "evidence": "See OE 1, OE 2. Look for at least one mortgage_los_get_conditions tool call in the trajectory whose loan_id parameter equals 'los_loan_3662f4616df5' (or whose results reference loan LN-2026-00610) and whose response surfaces the open conditions on the loan, including condition_id 'los_cond_pham610dep01'.",
+      "justification": "The prompt explicitly says 'I want to see exactly what the condition says the underwriter is looking for.' The mortgage LOS is a non-default server the agent commonly skips in favor of secondhand references pulled from Slack/email chatter - the Slack DMs already describe the $14,000 deposit situation, so an agent that never calls an LOS conditions read could still fabricate a plausible answer from the internal messages. mortgage_los_get_conditions is the only tool in the LOS server that returns the conditions list (loan-record retrievers like mortgage_los_get_loan_by_id and mortgage_los_search_loans do not return conditions on their own), so this TS forces the agent to go to the source for the authoritative condition text and notes.",
+      "rubric_category": "tool selection"
+    },
+    "id": "66b16cc4-4064-401b-8d95-18cee09c2ffa",
+    "title": "The model must call mortgage_los_get_conditions to retrieve the open conditions on Destiny Pham's loan LN-2026-00610 (loan_id los_loan_3662f4616df5), including the $14,000 cash deposit condition los_cond_pham610dep01."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 5. Look for at least one search_emails tool call in the trajectory with folder_name parameter equal to 'SENT' (case-insensitive), or look for two search_emails calls covering both 'INBOX' and 'SENT'.",
+      "justification": "The search_emails tool defaults folder_name to 'INBOX'. The outbound side of the borrower correspondence chain (Sofia's original request to Destiny, and the internal escalation forwarded to Carlos) sits in SENT, not INBOX. If the agent relies on the default it will only see Destiny's one-sentence LOX reply and miss the framing of what Sofia already asked and promised - exactly the context the prompt says Elena needs so she doesn't 'contradict what Sofia already told her.' The query value itself is derivable from the prompt, but the folder parameter is not obvious and a wrong choice drops critical data.",
+      "rubric_category": "query construction"
+    },
+    "id": "b17a4853-6fd2-40f0-8d71-de8b80e46e7d",
+    "title": "The model must call search_emails with folder_name set to 'SENT' on at least one invocation (or otherwise search both INBOX and SENT), so that Sofia Reyes's outbound 'Need LOX for $14,000 deposit on LN-2026-00610' request and the internal 'LN-2026-00610 deposit condition may stall file' escalation thread - both of which live in the SENT folder - are included in the results."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 7. Look for a mortgage_los_update_condition tool call in the trajectory. Confirm the condition_id parameter equals 'los_cond_pham610dep01'. Verify the tool response indicates success.",
+      "justification": "The prompt explicitly says 'update the deposit condition itself with a clean list of the supporting documents we're going to require from her.' This rubric confirms the write action was executed against the correct condition record (there are two open conditions on this loan - the deposit condition and a separate rate-lock condition; only the deposit condition matches the prompt's intent).",
+      "rubric_category": "outcome"
+    },
+    "id": "8fe1ae0b-f2cd-4190-9178-82146cc6e542",
+    "title": "A mortgage LOS condition was updated (via mortgage_los_update_condition) targeting the $14,000 cash deposit condition on Destiny Pham's loan LN-2026-00610 (condition_id los_cond_pham610dep01, the open prior_to_docs condition referencing the $14,000 bank statement deposit), and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 7. Check the status parameter of the mortgage_los_update_condition call that satisfies rubric 3. It must be 'open' or 'outstanding' (the two non-cleared values in the LOS conditions schema), and not 'cleared'.",
+      "justification": "The LOS conditions schema uses status values including 'open', 'outstanding', and 'cleared'. The deposit condition is being documented with its required evidence set, not cleared, so the status must remain 'open' or 'outstanding'.",
+      "rubric_category": "outcome"
+    },
+    "id": "a2ed7383-41c3-46ea-9e62-116094899954",
+    "title": "The mortgage_los_update_condition call for the $14,000 deposit condition (los_cond_pham610dep01) passes status set to 'open' or 'outstanding' (the two non-cleared values used by the LOS conditions schema), and not to 'cleared' - the condition is being documented with its required evidence set, not cleared."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 7. Check the notes parameter of the mortgage_los_update_condition call that satisfies rubric 3. It must contain a reference to 'Marketplace listing', 'listing screenshot', 'listing photo', 'marketplace post', or similar.",
+      "justification": "The prompt explicitly says 'pull that list from what Sofia and I actually landed on, not from your own guesses.' Elena's threaded reply to Sofia in Slack named Marketplace listing screenshots first on the supporting-doc menu, and the underwriter's own condition notes list 'listing screenshots' as one of the three acceptable evidence categories. Missing this item means the next processor does not know to ask the borrower for it.",
+      "rubric_category": "outcome"
+    },
+    "id": "25e9e8b8-3b33-4b33-a2f1-46bee711b842",
+    "title": "The notes parameter on the mortgage_los_update_condition call for the $14,000 deposit condition references Facebook Marketplace listing screenshots (or listings, listing photos, marketplace posts, or similar) as a required supporting document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 7. Check the notes parameter of the mortgage_los_update_condition call that satisfies rubric 3. It must contain a reference to 'Messenger', 'buyer conversation', 'buyer thread', 'buyer message', or similar.",
+      "justification": "The underwriter's condition notes explicitly list 'Messenger conversations with buyers' as one of the three acceptable evidence categories, and Elena's Slack reply to Sofia named 'Messenger convos' on the supporting-doc menu. This is a distinct item from listing screenshots and can fail independently.",
+      "rubric_category": "outcome"
+    },
+    "id": "74878d30-51ad-437e-a126-322fed5795bc",
+    "title": "The notes parameter on the mortgage_los_update_condition call for the $14,000 deposit condition references Facebook Messenger buyer conversation threads (or Messenger chats, buyer messages, buyer threads, or similar) as a required supporting document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 7. Check the notes parameter of the mortgage_los_update_condition call that satisfies rubric 3. It must contain a reference to 'withdrawal trail', 'transfer trail', 'deposit trail', 'bank trail', 'paper trail', or similar.",
+      "justification": "The underwriter's condition notes explicitly list 'any withdrawal/transfer trail showing proceeds moving into the account' as the third acceptable evidence category. A condition update that only lists Marketplace listings and Messenger threads leaves out the cash-to-bank-deposit linkage, which is precisely the piece the underwriter needs to see because the deposit appeared as cash on the bank statement.",
+      "rubric_category": "outcome"
+    },
+    "id": "83bc0dd1-020d-46f3-830f-dac4505ffce3",
+    "title": "The notes parameter on the mortgage_los_update_condition call for the $14,000 deposit condition references a bank withdrawal trail, transfer trail, or deposit paper trail tying the proceeds to the furniture sale (or similar) as a required supporting document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Look for a send_email tool call in the trajectory with sender equal to 'elena.marchetti@keystonemortgage.com' and recipients containing 'destiny.pham@gmail.com'. Verify the tool response indicates success.",
+      "justification": "The prompt explicitly says 'send Destiny a fresh email in plain language.' The persona is Elena Marchetti (Senior Processor), so the sender must be her keystonemortgage.com address and the recipient must be Destiny's borrower email on the LOS record. Agents commonly draft the email body in their final text response without actually calling send_email; this rubric confirms the write action was executed.",
+      "rubric_category": "outcome"
+    },
+    "id": "ac468679-ef2e-45c5-bd25-0cd5eaf00c87",
+    "title": "An email was sent (via send_email) with sender equal to '[elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com)' and recipients containing '[destiny.pham@gmail.com](mailto:destiny.pham@gmail.com)', and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Check the subject parameter of the send_email call that satisfies rubric 8. It must reference 'deposit', '$14,000', 'documentation', 'supporting docs', 'Marketplace', or a similar phrase tying the subject to the deposit condition.",
+      "justification": "A relevant subject line is essential for the borrower to connect the email to her outstanding deposit question and not treat it as generic mortgage correspondence. The prompt asks for a 'fresh' email walking through the supporting documentation list, so the subject should signal the deposit documentation topic.",
+      "rubric_category": "outcome"
+    },
+    "id": "1b146c73-4cb3-4868-a0d0-126c504b3f7d",
+    "title": "The subject parameter on the send_email call to [destiny.pham@gmail.com](mailto:destiny.pham@gmail.com) relates to the $14,000 deposit documentation or next steps on the deposit condition (e.g., 'Next steps on your $14,000 deposit documentation', 'Additional documentation needed for your $14,000 deposit', or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Check the content parameter of the send_email call that satisfies rubric 8. It must contain a reference to 'Marketplace listing', 'listing screenshot', 'listing photo', 'marketplace post', or similar.",
+      "justification": "The prompt says 'walking her through that same list' - the same three-item supporting-doc menu the condition update documents. The borrower email must tell Destiny to send Marketplace listing screenshots as the first item of evidence.",
+      "rubric_category": "outcome"
+    },
+    "id": "2bf53df1-c418-4ebe-b9c1-eb960a0bc27e",
+    "title": "The content parameter on the send_email call to [destiny.pham@gmail.com](mailto:destiny.pham@gmail.com) references Facebook Marketplace listing screenshots (or listings, listing photos, marketplace posts, or similar) as documentation the borrower needs to provide."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Check the content parameter of the send_email call that satisfies rubric 8. It must contain a reference to 'Messenger', 'buyer conversation', 'buyer thread', 'buyer message', or similar.",
+      "justification": "The prompt asks Elena to walk Destiny through 'that same list' in plain language. The Messenger buyer threads are the second of the three items on the underwriter-acceptable supporting-doc menu and can fail independently of the listing screenshots.",
+      "rubric_category": "outcome"
+    },
+    "id": "772b7806-1081-42ca-b768-4e159ff24ec6",
+    "title": "The content parameter on the send_email call to [destiny.pham@gmail.com](mailto:destiny.pham@gmail.com) references Facebook Messenger buyer conversation threads (or Messenger chats, buyer messages, buyer threads, or similar) as documentation the borrower needs to provide."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Check the content parameter of the send_email call that satisfies rubric 8. It must contain a reference to 'withdrawal trail', 'transfer trail', 'deposit trail', 'bank trail', 'paper trail', or similar.",
+      "justification": "The prompt asks Elena to walk Destiny through the same list. The bank-side paper trail is the third of the three items on the underwriter-acceptable supporting-doc menu. Because the $14,000 appeared as a cash deposit, the bank-side trail is the hardest item to satisfy and the one most likely to be dropped if the agent paraphrases the list.",
+      "rubric_category": "outcome"
+    },
+    "id": "28c7eeb7-191d-411b-bee5-72c5b6bbb065",
+    "title": "The content parameter on the send_email call to [destiny.pham@gmail.com](mailto:destiny.pham@gmail.com) references a bank withdrawal trail, transfer trail, or deposit paper trail showing the $14,000 cash moving into the borrower's deposit account (or similar) as documentation the borrower needs to provide."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 8. Check the content parameter of the send_email call that satisfies rubric 8. It must contain language explaining that the signed letter, LOX, or prior written explanation is not enough on its own, that the underwriter needs additional supporting evidence, or similar framing.",
+      "justification": "The prompt explicitly says 'explaining why the letter alone wasn't enough, framed so she doesn't feel like we're moving the goalposts on her.' This is a distinct content requirement from the supporting-doc list: it is the explanation of why more evidence is needed, which protects the borrower relationship. An email that only lists the required documents without explaining the reason reads as if requirements are shifting arbitrarily.",
+      "rubric_category": "outcome"
+    },
+    "id": "ddb593a4-d6f7-4f3a-a6e7-d4d193e3bd12",
+    "title": "The content parameter on the send_email call to [destiny.pham@gmail.com](mailto:destiny.pham@gmail.com) includes a plain-language explanation that the signed letter of explanation (LOX) alone is not sufficient for the lender's underwriter (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 6, OE 9. Look for a crm_create_engagement tool call in the trajectory. Confirm the contact_ids parameter contains 'crm_crmcontact_24b6f46325f0' (or a Destiny Pham contact whose phone number is '(980) 727-1373'). Verify the tool response indicates success.",
+      "justification": "The prompt explicitly says 'drop a CRM engagement note on her record.' The engagement must be linked to the correct Destiny Pham contact record - there are eight 'Destiny Pham' CRM rows sharing the same email address but different phone numbers and addresses, only the row whose phone matches the authoritative LOS borrower record is 'her record' for this loan.",
+      "rubric_category": "outcome"
+    },
+    "id": "b2d87c66-7ebe-4f3b-acfd-c234fec3c757",
+    "title": "A CRM engagement was created (via crm_create_engagement) with contact_ids referencing Destiny Pham's CRM contact record (the contact whose phone number matches the LOS borrower phone '(980) 727-1373' - specifically crm_crmcontact_24b6f46325f0), and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 9. Check the body parameter of the crm_create_engagement call that satisfies rubric 14. It must reference the $14,000 deposit, the deposit condition, the supporting-document list, or the outstanding Marketplace/LOX situation.",
+      "justification": "The prompt says the engagement note is meant to be logged 'so the call I'm planning to make to her tomorrow morning is logged before I forget.' A note that does not describe what the call is about is not actionable for the next processor or for Elena herself if she picks the file up again later. The note must capture the substance of the deposit condition state.",
+      "rubric_category": "outcome"
+    },
+    "id": "63995451-106b-47a2-a501-0b85353d6631",
+    "title": "The body parameter on the crm_create_engagement call for Destiny Pham references the outstanding $14,000 deposit condition, the supporting-documentation list being requested from the borrower, or similar content describing the current state of the deposit-clearing effort."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 9. Check the body parameter of the crm_create_engagement call that satisfies rubric 14. It must reference a planned or upcoming call from Elena to Destiny, anchored to 'April 29', '4/29', 'tomorrow', 'tomorrow morning', or a similar day-after reference.",
+      "justification": "The prompt explicitly says 'so the call I'm planning to make to her tomorrow morning is logged before I forget.' 'Tomorrow morning' relative to the fixed universe date of April 28, 2026 resolves to the morning of April 29, 2026. Capturing the planned call is the stated purpose of the engagement note and is a separate check from the deposit-substance content.",
+      "rubric_category": "outcome"
+    },
+    "id": "107fc349-f41a-4dd2-afad-693b20a7a8a3",
+    "title": "The body parameter on the crm_create_engagement call for Destiny Pham references a planned follow-up call from Elena to Destiny scheduled for April 29, 2026 (or for 'tomorrow morning' / 'the morning of April 29, 2026' or similar language anchored to the day after the current date of April 28, 2026)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 3. Look for at least one mortgage_los_get_documents tool call in the trajectory whose loan_id parameter equals 'los_loan_3662f4616df5' (or whose results reference loan LN-2026-00610), and whose response surfaces the document checklist items on the loan.",
+      "justification": "The prompt explicitly says 'every document already on her file in case there's something useful sitting in there that nobody's connected to the deposit yet.' This is a distinct read from the conditions read in rubric 1 - the document checklist lives in a separate LOS table and mortgage_los_get_documents is the only tool in the LOS server that returns it. An agent that only reads the conditions would miss the prompt's explicit instruction to scan the document file for anything that might already substantiate the $14,000 deposit narrative.",
+      "rubric_category": "tool selection"
+    },
+    "id": "3ccf0f9a-7728-49e9-b0f6-43dafabda944",
+    "title": "The model must call mortgage_los_get_documents to enumerate the document checklist items currently on Destiny Pham's loan LN-2026-00610 (loan_id los_loan_3662f4616df5)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 1. Look for a mortgage_los_search_loans or mortgage_los_get_loan call whose results surface loan LN-2026-00610.",
+      "justification": "The prompt provides no loan number or internal IDs. The mortgage LOS is a non-default server the agent might skip in favor of email/Slack references. Without this lookup, the agent cannot obtain loan_id los_loan_3662f4616df5 needed for all subsequent LOS calls (conditions, documents, condition update).",
+      "rubric_category": "tool selection"
+    },
+    "id": "4c2e4cb8-c14d-45c1-b5aa-35f3fcb8dc57",
+    "title": "The model must use mortgage_los_search_loans (or mortgage_los_get_loan) to resolve Destiny Pham's loan record LN-2026-00610."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE 6. Look for a crm_search_contacts call with a query related to 'Destiny Pham' (or similar). Confirm the results surface crm_crmcontact_24b6f46325f0.",
+      "justification": "The CRM contains 8 near-duplicate 'Destiny Pham' rows with different phone numbers, emails, and job titles. Only crm_crmcontact_24b6f46325f0 (phone (980) 727-1373) matches the LOS borrower record. Without a CRM lookup, the agent would guess the contact_id for the engagement note and likely pick the wrong duplicate.",
+      "rubric_category": "tool selection"
+    },
+    "id": "8ed1804e-1d0b-4906-a831-21de0c1d847b",
+    "title": "The model must use crm_search_contacts (or crm_get_contact) to resolve Destiny Pham's CRM contact record."
+  }
+]

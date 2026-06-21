@@ -1,0 +1,39 @@
+OE 1: Search emails for the Flagstar compensation statement using search_emails (query: "Flagstar compensation" or "lender statement" or similar) to find the March 2026 statement from wholesale.accounting@flagstar.com. It shows two loans: LN-2026-00618 (Reeves) at $3,850 broker comp (1.10%, adjusted from 1.20% after a float-down on 03/12), and LN-2026-00597 (Abernathy) at $3,220 (1.15% on $280,000). Also pick up Victor's email to Hana flagging the $4,200 vs $3,850 gap and the Thursday partner meeting deadline.
+
+OE 2: Pull the Reeves broker comp invoice from QuickBooks using quickbooks_search_invoices (criteria: "Reeves" or "KMP-00618" or similar). Finds INV-INJ-COMP-618 for $4,200 against Flagstar Wholesale - $350 higher than the lender statement.
+
+OE 3: Verify the Reeves loan terms in the LOS using mortgage_los_search_loans (query: "Reeves" or "LN-2026-00618" or similar). Loan amount is $350,000 through Flagstar (los_lender_fff8b2eea94d). At the adjusted 1.10% comp rate, $350,000 x 1.10% = $3,850 -confirming Flagstar's number is correct and the QB invoice needs a $350 downward adjustment.
+
+OE 4: Check the Abernathy loan from the same statement using mortgage_los_search_loans (query: "Abernathy" or similar) and quickbooks_search_invoices (criteria: "Abernathy" or similar). Abernathy (LN-2026-00597) may not have LOS or QB records since it could predate the current data window - if nothing comes back, the agent can verify the math from the statement itself ($280,000 x 1.15% = $3,220) and note the gap in internal records.
+
+OE 5: Search emails for Elena's Ballantyne report using search_emails (query: "Ballantyne" or "Nguyen" or similar). Elena emailed Hana (CC Grace) saying the Stripe charge on LN-2026-00632 (Nguyen) was $550 but Ballantyne's contract rate is $475 - and this is the third overcharge (Chen was $525, Morrison was $500).
+
+OE 6: Look up the Nguyen appraisal charge in Stripe using stripe_search_charges (query: "Nguyen" or "LN-2026-00632" or similar). Finds ch_inj_ballantyne_632_appr for $550 (55000 cents), plus a $65 credit report charge. Then check the QB bill using quickbooks_search_bills (criteria: "Nguyen" or "Ballantyne" or similar) - finds BILL-INJ-APPR-632 for $475. That's a $75 gap.
+
+OE 7: Trace the vendor payment using stripe_list_connected_accounts to find Ballantyne's account (acct_atP21R95MKte2Bba), then stripe_list_transfers (destination_account_id: acct_atP21R95MKte2Bba) to check what was actually paid out. Finds tr_inj_ballantyne_632 for $550 - the full overcharged amount went to Ballantyne.
+
+OE 8: Dig into the broader Ballantyne pattern using stripe_search_charges (query: "Ballantyne" or similar) and stripe_list_transfers to that same connected account. The Chen ($525) and Morrison ($500) overcharges are sourced from Elena's email - they may not show up under those names in Stripe, so loan-number searches might be needed. Total overcharge exposure from Elena's email across all three files is $75 + $50 + $25 = $150, though only the Nguyen $75 is directly Stripe-verified at this point.
+
+OE 9: Search QuickBooks for all Mercer lock extension bills using quickbooks_search_bills (criteria: "Mercer" or "00184" or "lock extension" or similar). Turns up four bills: BILL-2026-0319-001 (LOCK-EXT-00184, $375, the original), BILL-2026-0402-001 (LOCKEXT-00184-1, $375), BILL-INJ-DUP-LOCK-184 (LOCK-EXT-00184-DUP, $375, the duplicate), and BILL-2026-0416-002 (PENDING-LOCK-EXT-2-MERCER, $375, pending cost ownership for the second extension).
+
+OE 10: Pull Mercer's Stripe charges using stripe_search_charges (query: "Mercer" or "LN-2026-00184" or similar). Three charges: ch_scenario_c66_lockext1 ($375), ch_scenario_c66_lockext2 ($375), ch_scenario_c66_lockext3 ($500). The first extension maps to one Stripe charge but has three QB bills - BILL-INJ-DUP-LOCK-184 is the duplicate that needs voiding.
+
+OE 11: Search emails for Grace's Webb commission request using search_emails (query: "Marcus Webb" or "post-departure" or similar). Grace emailed Hana (CC Denise) asking for every commission transfer to Webb's Stripe account after his March 15 departure - loan numbers, borrower names, amounts, dates, and whether each was auto-generated.
+
+OE 12: Find Webb's Stripe connected account using stripe_list_connected_accounts (or stripe_search_customers). Discovers acct_scenario_644_departed - "Marcus Webb Consulting," marcus.webb.lo@gmail.com, metadata shows departed 2026-03-15 and payouts are still enabled.
+
+OE 13: List transfers to Webb's account using stripe_list_transfers (destination_account_id: acct_scenario_644_departed or similar). Five commission payouts show up: $1,250 (LN-2026-00525), $1,875 (LN-2026-00527), $980 (LN-2026-00008), $1,450 (LN-2026-00211, auto_generated: true), $2,100 (LN-2026-00608, auto_generated: true). Total $7,655, two auto-generated. The borrower surnames in the Stripe descriptions (Chen, Patel, Torres, Kim, Okafor) may not match the actual LOS borrower records - the agent needs to use mortgage_los_get_borrower_by_id for the authoritative names. All five transfers share the same created timestamp.
+
+OE 14: Check Webb's staff record in the LOS using mortgage_los_get_staff (staff_id: los_staff_a583f044387a) or mortgage_los_list_staff. Termination_date is null -never entered, explaining why commissions kept routing to his account.
+
+OE 15: Pull borrower details from the LOS for each of the five Webb payout loans (LN-2026-00525, 00527, 00008, 00211, 00608) using mortgage_los_search_loans and mortgage_los_get_borrower_by_id so Grace has complete records.
+
+OE 16: Look up Grace's email using contacts_search_contacts (query: "Grace Yamamoto"), then Denise's using a separate contacts_search_contacts (query: "Denise Holloway"). Confirms grace.yamamoto@keystonemortgage.com and denise.holloway@keystonemortgage.com.
+
+OE 17: Send the reconciliation email via send_email from hana.kim@keystonemortgage.com to grace.yamamoto@keystonemortgage.com, CC denise.holloway@keystonemortgage.com. Should cover all four issues with dollar amounts: the Reeves comp gap ($4,200 QB vs $3,850 Flagstar, $350 adjustment needed), Ballantyne pattern ($550 vs $475 on Nguyen, $75 over, third time), Mercer duplicate (LOCK-EXT-00184-DUP is the $375 entry to void), and Webb payouts ($7,655 across 5 transfers, 2 auto-generated, termination_date never set).
+
+OE 18: Get the Slack channel list using channels_list (channel_types: "public_channel") and find #general (C001). Post the Ballantyne overcharge details there via conversations_add_message (channel_id: C001, payload covering the $550 vs $475 issue, pattern across three files, and total exposure) so Victor sees it.
+
+OE 19: Look up the Mercer loan ID via mortgage_los_search_loans (query: "Mercer" or "LN-2026-00184") - finds los_loan_e3c96605df9f. Add an activity note using mortgage_los_add_activity (loan_id: los_loan_e3c96605df9f, action: "note", detail documenting the duplicate bill and which entry to void).
+
+OE 20: Look up the Nguyen loan ID via mortgage_los_search_loans (query: "Nguyen" or "LN-2026-00632"). Add an activity note using mortgage_los_add_activity (loan_id for LN-2026-00632, action: "note", detail documenting the Ballantyne $75 overcharge and the escalation to Grace and Denise).

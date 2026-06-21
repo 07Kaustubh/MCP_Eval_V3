@@ -1,0 +1,191 @@
+[
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a successful mortgage_los_add_activity call where the loan_id corresponds to LN-2026-00603 (the internal loan ID discovered from looking up this loan number).",
+      "justification": "The prompt explicitly requires adding an activity note to each QC-affected loan. LN-2026-00603 is one of the three files identified in Raymond Chen's spot check findings.",
+      "rubric_category": "outcome"
+    },
+    "id": "b27f3a7e-4c6a-4f58-b011-01e7724c8451",
+    "title": "A loan activity note was added (via mortgage_los_add_activity) to the loan with loan number LN-2026-00603."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a successful mortgage_los_add_activity call where the loan_id corresponds to LN-2026-00211.",
+      "justification": "The prompt explicitly requires adding an activity note to each QC-affected loan. LN-2026-00211 is one of the three files identified in Raymond Chen's spot check findings.",
+      "rubric_category": "outcome"
+    },
+    "id": "e1cf998e-3c58-4138-9ca3-96b08ceadd00",
+    "title": "A loan activity note was added (via mortgage_los_add_activity) to the loan with loan number LN-2026-00211."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a successful mortgage_los_add_activity call where the loan_id corresponds to LN-2026-00224.",
+      "justification": "The prompt explicitly requires adding an activity note to each QC-affected loan. LN-2026-00224 is one of the three files identified in Raymond Chen's spot check findings.",
+      "rubric_category": "outcome"
+    },
+    "id": "4bd97c1d-275a-475d-a9fd-aae30fb4327a",
+    "title": "A loan activity note was added (via mortgage_los_add_activity) to the loan with loan number LN-2026-00224."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for the detail parameter in the mortgage_los_add_activity calls. The text should reference an operational or compliance review hold and a restriction on status changes (or similar).",
+      "justification": "The prompt specifies the activity notes should document that each loan is 'under ops and compliance review with no status changes authorized until further notice.'",
+      "rubric_category": "outcome"
+    },
+    "id": "9830c69b-680c-43b7-b7d0-d113e4fc68b0",
+    "title": "The activity notes added to the QC-affected loans (via mortgage_los_add_activity) must reference that the loan is under operational or compliance review and that no status changes are authorized until further notice (or similar hold language)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a send_email call where the recipients array includes denise.holloway@keystonemortgage.com.",
+      "justification": "The prompt requires following up with Denise Holloway on the compliance exposure question. The investigation reveals no reply from Denise to the earlier compliance request, so a follow-up email is needed.",
+      "rubric_category": "outcome"
+    },
+    "id": "c73709d0-a01c-4593-af85-3c751f8d9324",
+    "title": "An email was sent (via send_email) to denise.holloway@keystonemortgage.com."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to denise.holloway@keystonemortgage.com for content referencing conditions cleared without supporting docs and requesting a compliance, investor, or regulatory risk assessment.",
+      "justification": "The prompt requires getting the compliance question in front of Denise with specifics, the QC finding that conditions were cleared without supporting docs, and that at least one affected file has already closed, creating potential investor or regulatory exposure.",
+      "rubric_category": "outcome"
+    },
+    "id": "b8df07ec-670d-4589-9493-e86f4539eb99",
+    "title": "The email to denise.holloway@keystonemortgage.com must reference conditions cleared without supporting documentation on QC-flagged loan files and request Denise's assessment of investor or regulatory risk (or similar compliance exposure language)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a send_email call where the recipients array includes elena.marchetti@keystonemortgage.com.",
+      "justification": "The prompt explicitly requires making sure Elena knows the open files from Raymond's findings need her attention for re-verification before anything else moves on them.",
+      "rubric_category": "outcome"
+    },
+    "id": "16f44d3c-00e5-47bd-8969-9abf224a7824",
+    "title": "An email was sent (via send_email) to elena.marchetti@keystonemortgage.com."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to elena.marchetti@keystonemortgage.com for content identifying LN-2026-00603 and LN-2026-00211 (or references to the non-closed QC files) and requesting Elena's re-verification action.",
+      "justification": "The prompt says 'Make sure Elena knows the open files from Raymond's findings need her attention for re-verification before anything else moves on them.' Per LOS data, LN-2026-00224 is already closed (closing date 2026-03-10), so the non-closed files requiring re-verification are LN-2026-00603 (status: processing) and LN-2026-00211 (status: withdrawn).",
+      "rubric_category": "outcome"
+    },
+    "id": "edc77bca-cb62-4123-8a7c-c2c7bf1ac700",
+    "title": "The email to elena.marchetti@keystonemortgage.com must identify the non-closed QC-affected loan files, LN-2026-00603 and LN-2026-00211 (per LOS, these are the files not yet closed), as needing condition re-verification, and ask Elena to pull them before anything else moves on them (or similar re-verification request)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for a send_email call where the recipients array includes r.calloway@keystonemortgage.com.",
+      "justification": "The prompt explicitly requires sending Robert Calloway a consolidated brief covering both the QC situation and Carlos Rivera's performance picture before they sit down to make decisions.",
+      "rubric_category": "outcome"
+    },
+    "id": "02b2e92f-109f-4916-9241-aca13a612ab1",
+    "title": "An email was sent (via send_email) to r.calloway@keystonemortgage.com."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to r.calloway@keystonemortgage.com for content listing or referencing the three QC-affected loan numbers (LN-2026-00603, LN-2026-00211, LN-2026-00224).",
+      "justification": "The prompt requires a consolidated brief to Robert covering the QC situation. Identifying the three specific affected files is a core component of the QC findings.",
+      "rubric_category": "outcome"
+    },
+    "id": "2e2d435b-37cd-456c-a9f3-55ebfff8ee8e",
+    "title": "The email to r.calloway@keystonemortgage.com must identify the 3 QC-affected loan files: LN-2026-00603, LN-2026-00211, and LN-2026-00224 (or references to three affected files from the QC spot check)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the final response, the email to r.calloway@keystonemortgage.com, or trajectory reasoning for Tyler Washington's explanation referencing workload pressure, lock file timing, Carlos pushing on LN-2026-00603, or an informal practice of fixing documentation after the fact.",
+      "justification": "The prompt explicitly asks 'what the processor said about why it happened.' Tyler's pre-meeting email to Grace explains he cleared conditions before docs were in the file due to workload overload and lock pressure, and acknowledged making a bad call. This explanation is part of the 'full picture' Grace requested.",
+      "rubric_category": "outcome"
+    },
+    "id": "5c306ad9-13c4-4e68-9af9-197049c2b150",
+    "title": "The final response or trajectory must report Tyler Washington's explanation for clearing conditions without supporting documentation: workload pressure, multiple lock files hitting simultaneously, or Carlos pushing to keep LN-2026-00603 moving before the lock expired (or similar explanation citing workload or process pressure)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the final response or trajectory tool outputs for all three loan numbers: LN-2026-00603, LN-2026-00211, and LN-2026-00224.",
+      "justification": "The prompt asks for the full picture of which files were affected by the QC spot check. Raymond Chen's email identifies these three specific loan numbers. Discovering all three is essential for the activity notes and the consolidated brief.",
+      "rubric_category": "outcome"
+    },
+    "id": "a8cb9baa-31f0-471a-a96b-201f2c8a3574",
+    "title": "The final response or trajectory must identify all 3 QC-affected loan numbers: LN-2026-00603, LN-2026-00211, and LN-2026-00224."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the final response or trajectory for a finding that Denise Holloway has not replied to the compliance question, or that the compliance assessment is still outstanding or unresolved.",
+      "justification": "The prompt asks whether Denise ever came back with her read on the regulatory and investor risk, and says 'if that compliance question is still hanging, get it in front of her now.' The agent must confirm the non-response to justify the follow-up email.",
+      "rubric_category": "outcome"
+    },
+    "id": "cff5eaf7-cc3f-4479-9e93-235087db2f63",
+    "title": "The final response or trajectory must identify that Denise Holloway has not responded to the compliance exposure question on the QC files, confirming the compliance question is still unresolved."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the final response, the email to r.calloway@keystonemortgage.com, or trajectory tool outputs for at least one Carlos Rivera active loan identified by loan number (e.g., LN-2026-00009) with its status and a relevant deadline such as a closing date or rate lock expiration.",
+      "justification": "The prompt explicitly asks 'I need a current picture of his active loans: which files, where each one stands, any locks or deadlines about to hit.' The agent must surface specific pipeline data from the LOS, not just summarize the general performance pattern. LN-2026-00009 is Carlos's most time-sensitive active file with both closing and rate lock deadlines within days of the current date.",
+      "rubric_category": "outcome"
+    },
+    "id": "d716e894-cbd3-440f-a0b3-6ecfb12b32a2",
+    "title": "The final response or trajectory must identify at least one of Carlos Rivera's active loans with its current status and a relevant deadline (approaching or recently passed), such as LN-2026-00009 ($393,000 VA purchase, closing date 2026-04-12, rate lock expiration 2026-04-15) or another active Carlos Rivera file with specific status and timeline details."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the final response, emails to denise.holloway@keystonemortgage.com or r.calloway@keystonemortgage.com, or trajectory reasoning for identification of LN-2026-00224 as the closed file. The agent should reference LOS data showing LN-2026-00224 as closed (not LN-2026-00603).",
+      "justification": "Raymond's email and Slack messages identify LN-2026-00603 as the closed file, but LOS data shows LN-2026-00603 has status 'processing' with no closing date, while LN-2026-00224 has status 'closed' with closing date 2026-03-10. The agent must use LOS as the single source of truth to correctly reconcile which file is actually closed, as this determines where the post-close compliance exposure lies and which files need re-verification.",
+      "rubric_category": "outcome"
+    },
+    "id": "393c7525-58f7-4c17-a91f-5087b95454e5",
+    "title": "The final response or trajectory must identify LN-2026-00224 as the actually closed QC-affected file (closing date 2026-03-10), not LN-2026-00603 which the email and Slack narrative incorrectly references as closed."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to r.calloway@keystonemortgage.com for content referencing Tyler Washington by name and his role in clearing conditions without supporting documentation.",
+      "justification": "The prompt requires a consolidated brief covering the QC situation. Tyler Washington is the processor responsible for clearing conditions without docs, a key fact for Robert's decision-making.",
+      "rubric_category": "outcome"
+    },
+    "id": "c53fe2de-bd64-4a99-86a4-8499ed77c1f5",
+    "title": "The email to [r.calloway@keystonemortgage.com](mailto:r.calloway@keystonemortgage.com) must identify Tyler Washington as the processor who cleared conditions without supporting documentation on the QC-affected files (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to r.calloway@keystonemortgage.com for content referencing compliance exposure, investor risk, or regulatory risk related to the closed file from the QC findings.",
+      "justification": "The prompt requires the consolidated brief to cover the QC situation including the compliance exposure from a closed loan with conditions cleared without supporting docs.",
+      "rubric_category": "outcome"
+    },
+    "id": "c5dfa47b-a69e-4e72-924c-35f7d9aee4f7",
+    "title": "The email to [r.calloway@keystonemortgage.com](mailto:r.calloway@keystonemortgage.com) must reference compliance or investor risk exposure on the closed QC-affected file (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the send_email call to r.calloway@keystonemortgage.com for content referencing Carlos Rivera's $0 or zero funded commissions over a 60+ day period.",
+      "justification": "The prompt requires the consolidated brief to cover Carlos Rivera's performance. Zero funded commissions over 60+ days is the headline metric from Victor Osei's production report.",
+      "rubric_category": "outcome"
+    },
+    "id": "7f31e9f2-e3b9-43b2-afb2-b10ceb36b843",
+    "title": "The email to [r.calloway@keystonemortgage.com](mailto:r.calloway@keystonemortgage.com) must reference that Carlos Rivera has $0 (or zero) in funded commissions over 60+ days (or similar production shortfall language)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for at least one call to any mortgage_los read/lookup tool (mortgage_los_search_loans, mortgage_los_get_loan, mortgage_los_get_loan_by_id, mortgage_los_get_pipeline, mortgage_los_list_staff, mortgage_los_get_activity_log, mortgage_los_get_conditions, or mortgage_los_get_rate_lock_status).",
+      "justification": "The prompt requires investigating QC-affected loan files and Carlos Rivera's active pipeline. Both require querying the Mortgage LOS for loan details, statuses, assigned LOs, and rate lock expirations, data only available in the LOS.",
+      "rubric_category": "tool selection"
+    },
+    "id": "3ee499fd-4d01-4812-9dae-553cc7ed6b16",
+    "title": "The model must use a Mortgage LOS read tool (e.g., mortgage_los_search_loans, mortgage_los_get_loan, mortgage_los_get_loan_by_id, mortgage_los_get_pipeline, or mortgage_los_list_staff)."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for at least one call to a CRM read tool (crm_list_engagements, crm_search_deals, crm_show_data, crm_get_deal, or similar CRM read operation).",
+      "justification": "CRM engagement notes contain documented QC incident details (conditions cleared without docs, post-meeting findings) and Carlos Rivera performance observations that supplement the email and Slack evidence.",
+      "rubric_category": "tool selection"
+    },
+    "id": "654514e9-9a03-4c7d-90d9-e0b6c3d72103",
+    "title": "The model must use a CRM read tool (e.g., crm_list_engagements, crm_search_deals, or crm_show_data) to retrieve compliance-related engagement or deal records."
+  },
+  {
+    "annotations": {
+      "evidence": "Look in the trajectory for at least one call to a QuickBooks read tool (quickbooks_search_invoices, quickbooks_show_data, quickbooks_search_bills, quickbooks_read_invoice, or similar).",
+      "justification": "The prompt asks to pull financial data showing the impact of Carlos Rivera's production shortfall. QuickBooks contains broker compensation invoices that can confirm or contextualize the $0 funded commissions finding.",
+      "rubric_category": "tool selection"
+    },
+    "id": "362b26a0-a9c9-41c1-a867-2829c2983867",
+    "title": "The model must use a QuickBooks read tool (e.g., quickbooks_search_invoices, quickbooks_show_data, or quickbooks_search_bills) to look up financial or commission data."
+  }
+]

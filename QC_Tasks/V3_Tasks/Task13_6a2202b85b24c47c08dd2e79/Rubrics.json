@@ -1,0 +1,128 @@
+[
+  {
+    "annotations": {
+      "evidence": "Look for a tool call that sends an email with recipient brent.noah@brookfieldcpas.com. Confirm the tool response indicates success.",
+      "justification": "The prompt explicitly asks to \"put together the summary Brent is asking for with all the specifics.\" Brent's email requests a full summary of open HR vendor invoices and a remediation plan by Monday.",
+      "rubric_category": "outcome"
+    },
+    "id": "5c201b6b-6018-4ef5-b492-a2363807fe06",
+    "title": "The Agent sends an email to brent.noah@brookfieldcpas.com (Brent Noah, Director of People and Culture) containing a summary of HR vendor billing findings and a remediation plan."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the email content sent to brent.noah@brookfieldcpas.com. It must reference the FairLedger invoice amount ($6,210.40), the 143 headcount, and the contractor conversions as the explanation.",
+      "justification": "The FairLedger invoice is one of the key vendor items Brent asked about. The agent must determine that FairLedger's billing is accurate and explain why the headcount increased from 140 to 143.",
+      "rubric_category": "outcome"
+    },
+    "id": "5b6f501d-5429-4882-b9f7-1afc96593998",
+    "title": "The Agent's email to Brent Noah identifies that the FairLedger Payroll Services invoice (VEN-020-842917, $6,210.40) is correct and that the payroll headcount of 143 employees reflects three contractor-to-employee conversions processed in April."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the email content sent to brent.noah@brookfieldcpas.com. It must reference the CobaltPeak count of 140 and the 90-day benefits eligibility waiting period as the reason for the difference.",
+      "justification": "The headcount discrepancy (143 payroll vs 140 benefits) is the central puzzle of Scenario A. The agent must explain that CobaltPeak's 140 is not an error but reflects the waiting period for contractor conversions.",
+      "rubric_category": "outcome"
+    },
+    "id": "51e2499a-845f-44de-850b-6ff2e35e99ed",
+    "title": "The Agent's email to Brent Noah identifies that the CobaltPeak Benefits Administrators count of 140 active members is correct because the three converted contractors have a 90-day benefits eligibility waiting period and are not yet eligible for firm benefits."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the email content sent to brent.noah@brookfieldcpas.com. It must reference the LatticeHill overbilling, the actual attendance of 11, and the correct amount of $2,035.",
+      "justification": "The LatticeHill invoice is overbilled by $555.00. The agent must discover the correct attendee count from the calendar event (11 listed) and calculate the correct total.",
+      "rubric_category": "outcome"
+    },
+    "id": "e20d5004-ca6f-4192-8030-634559728bc3",
+    "title": "The Agent's email to Brent Noah identifies that the LatticeHill Learning Center invoice (VEN-033-612488, $2,590.00) is incorrect because only 11 people attended the May 28 CPE session, not 14 as billed, and states that the correct amount is $2,035.00 (11 attendees at $185 each)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response or the email to Brent. It must name Matthew Li, Andrea Phil, and Steven Perry (or their surnames) as the cancelled attendees.",
+      "justification": "The agent must discover which three people cancelled to verify the attendance discrepancy. Rachel Green's email and Reshma Patel's messaging both name these three partners as the cancellees. The calendar event attendee list confirms their absence.",
+      "rubric_category": "outcome"
+    },
+    "id": "ff3db196-4ca7-4c80-993a-16ca3f6a2945",
+    "title": "The Agent identifies that Matthew Li, Andrea Phil, and Steven Perry are the three people who cancelled from the May 28 CPE session, accounting for the difference between 14 registered and 11 who attended."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the email content sent to brent.noah@brookfieldcpas.com. It must reference the Fieldstone invoice ($4,850), the cancelled search, and the recommendation to dispute or void.",
+      "justification": "The Fieldstone invoice is for a cancelled search. The agent must discover from George McAdam's communications and Reshma Patel's messaging that the search was cancelled but no written confirmation was obtained.",
+      "rubric_category": "outcome"
+    },
+    "id": "af7e4e29-5533-49d9-bd7f-342fa0041ae5",
+    "title": "The Agent's email to Brent Noah identifies that the Fieldstone Recruiting Partners invoice (VEN-038-703291, $4,850.00) should be disputed or voided because the Senior Accountant search was verbally cancelled in April after the position was filled internally."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the email content sent to brent.noah@brookfieldcpas.com. It must mention the CPE audit, the Illinois CPA Society, and the mid-July timeline.",
+      "justification": "The compliance review is one of the outstanding items the prompt asks about. Marina Soko's email and Slack message both flag the CPE audit timeline and request a status update from Clint.",
+      "rubric_category": "outcome"
+    },
+    "id": "ac9907e9-b049-4ac0-99f7-beda4c75516a",
+    "title": "The Agent's email to Brent Noah references the upcoming Illinois CPA Society CPE audit scheduled for mid-July and the need to compile training attendance records."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a tool call that sends an email to a LatticeHill address. Confirm it requests an amendment to 11 attendees and references $2,035 as the correct amount.",
+      "justification": "The prompt asks to \"reach out to whoever needs to be corrected.\" The LatticeHill invoice is overbilled and must be amended. The vendor contact email is discoverable from the billing email.",
+      "rubric_category": "outcome"
+    },
+    "id": "7342aa16-c9e9-4ad4-89a5-37c31bb838aa",
+    "title": "The Agent sends an email to LatticeHill Learning Center (invoices@latticehilllearning.com or the billing contact discovered from the LatticeHill invoice email) requesting an amended invoice reflecting 11 attendees at $185 each ($2,035.00) instead of the original 14 attendees ($2,590.00"
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a tool call that sends an email to a Fieldstone address. Confirm it references invoice VEN-038-703291, the $4,850 amount, and the April cancellation.",
+      "justification": "The prompt asks to \"reach out to whoever needs to be corrected.\" The Fieldstone invoice is for a cancelled search and must be disputed. The vendor contact is discoverable from the Fieldstone representative's email to Reshma.",
+      "rubric_category": "outcome"
+    },
+    "id": "19162dde-cf6f-4767-a180-f4c50f874852",
+    "title": "The Agent sends an email to Fieldstone Recruiting Partners (accounts@fieldstonerecruiting.com or the contact discovered from the Fieldstone invoice email) requesting that invoice VEN-038-703291 ($4,850.00) be voided, cancelled, or disputed, referencing the April cancellation of the search."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response or the Brent summary. It must state the overbilling amount of $555 (or the equivalent breakdown showing 14 vs 11 and $2,590 vs $2,035).",
+      "justification": "This is a key numerical finding the agent must compute. The overbilling is $555 ($2,590 minus $2,035). The agent discovers this by cross-referencing the invoice (14 billed), the calendar event (11 attendees), and the per-person rate ($185).",
+      "rubric_category": "outcome"
+    },
+    "id": "2e799765-1a19-4128-81c6-340b9ad410df",
+    "title": "The Agent identifies that the LatticeHill Learning Center CPE invoice is overbilled by $555.00, calculated as the difference between the billed amount ($2,590.00 for 14 attendees) and the correct amount ($2,035.00 for 11 actual attendees at $185 per person)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response or the Brent summary. It must reference the verbal-only cancellation and the absence of written confirmation.",
+      "justification": "This root cause is critical to understanding the Fieldstone billing issue. Reshma's messaging explains the verbal cancellation and lack of follow-up. The Fieldstone representative's email confirms their position that sourcing work was completed.",
+      "rubric_category": "outcome"
+    },
+    "id": "2897861c-2922-48c0-b383-4f5ed47e14b1",
+    "title": "The Agent identifies that the Fieldstone Recruiting Partners search was verbally cancelled by Reshma Patel in April but no written confirmation was obtained, which is why the $4,850 invoice was still generated."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a tool call that creates a calendar event, reminder, Linear issue, or Airtable record related to vendor billing review or CPE compliance preparation. Confirm it is set for a future date.",
+      "justification": "The prompt asks to set up \"whatever needs to be tracked or scheduled going forward.\" A follow-up meeting or tracking item to review vendor billing and prepare for the CPE audit is a natural action. The agent may use a calendar event, a reminder, a Linear issue, or an Airtable record to accomplish this.",
+      "rubric_category": "outcome"
+    },
+    "id": "d09fa034-3a92-4797-8ba6-d7a06f784734",
+    "title": "The Agent schedules a follow-up meeting or creates a tracking item for HR vendor billing review and CPE compliance preparation, involving relevant HR staff."
+  },
+  {
+    "annotations": {
+      "evidence": "Look for a tracking-related tool call that references vendor billing corrections, the LatticeHill amendment, or the Fieldstone dispute. Confirm it has a future due date or scheduled time.",
+      "justification": "The prompt asks to ensure \"nothing else is slipping through\" and to set up tracking \"going forward.\" The vendor correction follow-ups (LatticeHill amended invoice and Fieldstone dispute resolution) are outstanding items that need tracking to ensure resolution.",
+      "rubric_category": "outcome"
+    },
+    "id": "8109ddb4-c6c7-469a-a5b3-2a5697192c89",
+    "title": "The Agent sets up tracking for follow-up on outstanding vendor corrections (LatticeHill invoice amendment or Fieldstone invoice dispute). The agent may use a reminder, calendar event, Linear issue, or Airtable record."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the final response or the Brent summary. It must reference the CPE audit, mid-July timeline, and Marina Soko's notification.",
+      "justification": "The prompt mentions \"something about a compliance review coming up.\" Marina Soko's email and Slack message in the compliance channel both flag the CPE audit timeline and request a status update by end of next week.",
+      "rubric_category": "outcome"
+    },
+    "id": "8e10f9bc-9505-42f8-9bf5-b666c3b3f15b",
+    "title": "The Agent identifies that the Illinois CPA Society CPE audit is scheduled for mid-July 2026 and that training attendance records need to be compiled, as flagged by Marina Soko (Compliance Officer)."
+  }
+]

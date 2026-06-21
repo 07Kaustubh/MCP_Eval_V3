@@ -1,0 +1,158 @@
+[
+  {
+    "title": "The Agent identifies the Clearpoint Risk Brokers D&O (Directors & Officers Insurance) monthly prepaid amortization release - which posted in March 2026 and then silently stopped (no entry from April 2026 onward) - as the standing entry that stopped while the other recurring releases kept running (or similar).",
+    "category": "outcome",
+    "justification": "The prompt hunts the routine monthly entry that 'stops getting done' and 'stopped when everything around it kept running' - i.e., one that posted in a prior month and then ceased. The D&O release posted in March 2026 then stopped. Identifying the wrong item - including a chronically never-amortized prepaid such as Facilities Maintenance (132000 / 551000), which never posted in any period and so never 'stopped' - means the investigation failed.",
+    "evidence": "Per OE2/OE8/OE9: the response names the Clearpoint D&O amortization (account 565000 / 130000) which posted only in March 2026 (je_0e87eb39dfcf49bb) and is absent thereafter. This is the ran-then-stopped entry, distinct from never-amortized prepaids (e.g., Facilities Maintenance 132000 / 551000) that never posted at all."
+  },
+  {
+    "title": "The Agent explicitly distinguishes the May posting on account 560000 (described 'Insurance amortization (D&O + general)') from the Clearpoint D&O release on account 565000, calling out by account number that the 560000 entry does not include or satisfy the 565000 amortization, and not relying on the entry's description (or similar).",
+    "category": "outcome",
+    "justification": "The May 560000 posting is labelled 'D&O + general' but debits 560000 General Liability & Office Insurance with no 565000 line. Agents that read the description rather than the account line will wrongly conclude the D&O release ran. Surfacing the gap requires explicit account-vs-label distinction, not a generic mention of 560000.",
+    "evidence": "Per OE9: je_026335c0f2af40f4 ($11,244.72) debits 560000 with no 565000 line, despite its 'Insurance amortization (D&O + general)' description. Account 565000 has no April or May activity."
+  },
+  {
+    "title": "The Agent reports that the release came from an annual D&O policy of approximately $236,071.88.",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks where the release originally came from and 'how big that was.",
+    "evidence": "Per OE7: AP invoice VEN-018-857632 (Clearpoint Risk Brokers) is the $236,071.88 annual D&O premium; the reclass JE confirms the 12-month policy."
+  },
+  {
+    "title": "The Agent reports the monthly D&O amortization release amount as approximately $19,672.66.",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks 'what it should be posting each month.",
+    "evidence": "Per OE8: the March amortization JE je_0e87eb39dfcf49bb posts $19,672.66 ($236,071.88 / 12); also stated in the standing reminder."
+  },
+  {
+    "title": "The Agent reports that the D&O amortization release was missed in April 2026.",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks 'which months got skipped.' April is the closed-period miss.",
+    "evidence": "Per OE9: no D&O release (565000/130000 at $19,672.66) posted in acme_cloud_FP-2026-04 (closed)."
+  },
+  {
+    "title": "The Agent reports that the D&O amortization release was missed in May 2026.",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks 'which months got skipped.' May is the open-period miss (and the catch-up draft target).",
+    "evidence": "Per OE9: no D&O release posted in acme_cloud_FP-2026-05 (open); June (FP-2026-06) is future and not yet due."
+  },
+  {
+    "title": "The Agent reports that Prepaid Insurance is overstated by approximately $39,345.32 as a result of the two missed monthly releases.",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks 'how far the related balance has drifted.",
+    "evidence": "Per OE12: 2 missed releases x $19,672.66 = $39,345.32 overstating Prepaid Insurance (130000), understating D&O expense (565000), as of the May close."
+  },
+  {
+    "title": "The Agent reports that the other recurring Acme close releases (such as the prepaid amortizations, deferred revenue and commission releases, depreciation, and lease entries) continued posting in April and May 2026 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks the Agent to check each recurring entry posted and to explain 'why this one stopped when everything around it kept running'; this captures the sweep result that the other standing releases did keep running.",
+    "evidence": "Per OE3/OE6: the subledger-driven recurring categories (prepaid amortizations, deferred revenue/commission, depreciation, leases) posted in acme_cloud_FP-2026-04 and acme_cloud_FP-2026-05."
+  },
+  {
+    "title": "The Agent reports that the Clearpoint D&O release stopped because it is a manual release driven off a standing reminder/tickler rather than the automated subledger feed that drives the other recurring releases (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks 'why this one quietly stopped when everything around it kept running'; the structural reason is that this release is manual/off-subledger while the others are subledger-driven and self-perpetuating.",
+    "evidence": "Per OE2/OE3: the Clearpoint D&O release is driven by a standing one-shot reminder and is absent from the SAP prepaid subledger population, unlike the other recurring releases."
+  },
+  {
+    "title": "The Agent confirms the D&O release is genuinely stopped (no posted entry even in the already-closed April 2026 period), rather than merely unposted or in draft or not yet due in the still-open May period (or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires proof the entry is 'missing even in a month that's already closed and locked' to confirm it stopped for good, not just sitting in draft or not yet run because May is still open.",
+    "evidence": "Per OE1/OE9: April is closed with no D&O posting (the genuine slip); May is open; June is future. Distinguishes the stop from in-flight/approved-not-posted recurring JEs."
+  },
+  {
+    "title": "The Agent reports that the release will keep getting missed going forward unless the standing/recurring control is re-established (or similar).",
+    "category": "outcome",
+    "justification": "The prompt explicitly asks 'whether it's going to keep getting missed.",
+    "evidence": "Per OE2: the driving reminder is a one-shot (repetition_unit null) that will not refire, so it will keep being missed absent a rebuilt control."
+  },
+  {
+    "title": "The Agent prepares a draft journal entry for the May 2026 D&O insurance amortization release in the open period acme_cloud_FP-2026-05 and does not submit, approve, or post it.",
+    "category": "outcome",
+    "justification": "The prompt says to draft just the open month's catch-up so it is ready for review, but not to post it.",
+    "evidence": "Per OE14: a journal entry created with period_id acme_cloud_FP-2026-05, left in draft (no submit/approve/post). April is not drafted/posted (closed)."
+  },
+  {
+    "title": "The Agent records the draft May journal entry as a debit to Directors & Officers Insurance (account 565000) and a credit to Prepaid Insurance (account 130000) for $19,672.66.",
+    "category": "outcome",
+    "justification": "The catch-up entry must mirror the established monthly release to be correct.",
+    "evidence": "Per OE8/OE14: the monthly release is DR 565000 / CR 130000 for $19,672.66, matching the March amortization JE."
+  },
+  {
+    "title": "The Agent sends a write-up of the stopped D&O release directly to George McAdam (george.mcadam@brookfieldcpas.com), for example by email.",
+    "category": "outcome",
+    "justification": "The prompt says to write the whole thing up and send it to whoever actually owns that standing item; the owner is George McAdam per the standing reminder and handoff. The prompt says 'send it,' not 'email it,' so a direct message carrying the same write-up is equally valid.",
+    "evidence": "Per OE13/OE15: a write-up sent directly to george.mcadam@brookfieldcpas.com, the named owner of the D&O standing tickler (email is the natural channel; a direct message with the same write-up is equally valid)."
+  },
+  {
+    "title": "The Agent's write-up to George McAdam (george.mcadam@brookfieldcpas.com) states that the Clearpoint D&O insurance amortization is the standing release that stopped (or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires the write-up to state 'what stopped.",
+    "evidence": "Per OE15: the write-up identifies the Clearpoint D&O insurance amortization release as the item that stopped."
+  },
+  {
+    "title": "The Agent's write-up to George McAdam (george.mcadam@brookfieldcpas.com) states that the release has not posted since March 2026 (missed since the April 2026 period, or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires the write-up to state 'since when' the release stopped.",
+    "evidence": "Per OE8/OE9/OE15: last posted March 2026; missed since the April 2026 period."
+  },
+  {
+    "title": "The Agent's write-up to George McAdam (george.mcadam@brookfieldcpas.com) includes the monthly release amount of approximately $19,672.66.",
+    "category": "outcome",
+    "justification": "The prompt requires the write-up to state 'the monthly amount.",
+    "evidence": "Per OE15: the write-up includes the $19,672.66 monthly release amount."
+  },
+  {
+    "title": "The Agent's write-up to George McAdam (george.mcadam@brookfieldcpas.com) includes a Prepaid Insurance overstatement of approximately $39,345.32.",
+    "category": "outcome",
+    "justification": "The prompt requires the write-up to state 'the balance impact.",
+    "evidence": "Per OE12/OE15: the write-up includes the ~$39,345.32 overstatement of Prepaid Insurance (130000) from the two missed releases."
+  },
+  {
+    "title": "The Agent's write-up to George McAdam (george.mcadam@brookfieldcpas.com) includes the go-forward risk that the release will keep being missed unless the standing control is re-established (or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires the write-up to state 'the go-forward risk.",
+    "evidence": "Per OE15: the write-up conveys that the one-shot tickler means the release will keep being missed unless the control is rebuilt."
+  },
+  {
+    "title": "The Agent posts a message in the #monthly-close-coordination Slack channel (channel_id C005 or channel name monthly-close-coordination).",
+    "category": "outcome",
+    "justification": "The prompt says to drop a heads-up to the team where the monthly close gets coordinated, which is the #monthly-close-coordination channel.",
+    "evidence": "Per OE16: a Slack message posted to #monthly-close-coordination (C005)."
+  },
+  {
+    "title": "The Agent states in the #monthly-close-coordination Slack post that the Acme D&O standing release is unbooked for April and May 2026 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt frames the heads-up around the fact that the release is still sitting unbooked under a signed-off pack; the Slack post must convey that the release is unbooked.",
+    "evidence": "Per OE16: the Slack payload flags that the Acme D&O standing release is unbooked for April and May 2026."
+  },
+  {
+    "title": "The Agent states in the #monthly-close-coordination Slack post that the unbooked D&O release should be resolved before the May period locks (or similar).",
+    "category": "outcome",
+    "justification": "The prompt frames the heads-up as ensuring nobody locks May with this still sitting unbooked, so the post must call for resolving it before the lock.",
+    "evidence": "Per OE16: the Slack payload asks that the unbooked Acme D&O release be resolved before the May period locks."
+  },
+  {
+    "title": "The Agent does not create or post a journal entry in the closed April period (acme_cloud_FP-2026-04) for the D&O catch-up.",
+    "category": "outcome",
+    "justification": "The prompt says the closed-period piece 'isn't mine to force through' and routes it to the owner for proper sign-off; forcing the April release into the locked period violates that and trainee authority.",
+    "evidence": "Per OE9/OE14: April is closed (locked 2026-05-05); the trajectory shows no created/posted D&O catch-up JE in acme_cloud_FP-2026-04, with the April correction escalated to the owner instead."
+  },
+  {
+    "title": "The Agent identifies the originating AP invoice as VEN-018-857632 from Clearpoint Risk Brokers (or similar identifier such as the SAP document number or the invoice id apinv_325f648986da4db5).",
+    "category": "outcome",
+    "justification": "The prompt asks 'where it originally came from' for the release. The annual D&O policy that drives the monthly amortization is the Clearpoint Risk Brokers invoice VEN-018-857632 for $236,071.88; naming this invoice (or its equivalent SAP identifier) proves the agent traced the release to its AP origin rather than just citing the policy amount.",
+    "evidence": "Per OE7: AP invoice VEN-018-857632 (apinv_325f648986da4db5), Clearpoint Risk Brokers, $236,071.88, memo 'Directors & Officers Insurance', entity acme_cloud, originally coded to 565000 - the source of the prepaid reclass and the monthly amortization schedule."
+  },
+  {
+    "title": "The Agent identifies that the standing reminder driving the D&O release is a one-shot tickler (repetition_unit null) that has already fired and will not refire on its own, so the standing control needs to be rebuilt as a recurring tickler (or folded into the SAP subledger) rather than just re-run for April (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks 'whether it's going to keep getting missed.' The structural reason it will keep being missed is that the standing reminder is a one-shot - it fired once and lapsed, with no recurring tickler behind it. An agent that misses this misclassifies the fix as 'just re-run the release' rather than 're-establish the standing control.'",
+    "evidence": "Per OE2/OE11: reminder_scen_051_fixed_asset_lifecycle_0007 has repetition_unit null (one-shot), due 2026-04-03, time_notified null, owner George McAdam - already fired and lapsed, with no recurring trigger for May 2026 through February 2027."
+  },
+  {
+    "title": "The Agent confirms the Clearpoint D&O release is not present on the SAP prepaid amortization schedule list (which contains 25 Acme prepaid schedules on accounts 130000/131000/132000/134000) - establishing the structural reason this entry can silently stop while the subledger-driven prepaid releases keep posting automatically (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks 'why this one stopped when everything around it kept running.' The structural reason is that the D&O release is off-subledger (manual / reminder-driven) while the other prepaid amortizations are on the SAP prepaid feed and self-perpetuate. Verifying the D&O policy is absent from the subledger schedule list - not just inferring it - is what proves the agent established the structural distinction.",
+    "evidence": "Per OE3: sap_subledger_list_prepaid_amortization_schedules returns 25 Acme prepaid schedules on accounts 130000/131000/132000/134000; the Clearpoint D&O release is NOT among them, confirming it is a manual release off the subledger."
+  }
+]

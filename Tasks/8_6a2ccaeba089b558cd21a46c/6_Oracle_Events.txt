@@ -1,0 +1,19 @@
+OE1: Review recent internal communications on TimeLedger, GraniteRack, and CrownPeak to identify the active invoice issues, owners, and blockers; read/lookup.
+
+OE2: Check the AP records for the three target invoices (TimeLedger VEN-010-514242, GraniteRack VEN-012-753165, CrownPeak VEN-030-353041) to confirm entity, amount, status, approver path, and aging, and additionally look up the alleged CrownPeak paid sibling VEN-030-353009 in the AP system to confirm it is not present there; read/lookup.
+
+OE3: Pull the ledger history for those vendors to verify accruals, reversals, and any missing accounting steps; read/lookup.
+
+OE4: Review the available support trail for each invoice (SOW versions, credit-memo status, dispute notes, contract-version references), wherever it actually lives, recognizing that for these three items the substantive support sits in internal communications and issue-tracking records rather than the document vault (e.g., the TimeLedger credit memo never arrived in the vault, and GraniteRack SOW version history surfaces through email and Linear); read/lookup.
+
+OE5: Trace the vendor records and prior-invoice history through internal communications, contacts, and issue-tracking records for routing gaps, stale terms, or duplicate-billing signals, including the GraniteRack vendor-master description still referencing superseded SOW-2024-GR-rev3 as a broader hygiene signal; read/lookup.
+
+OE6: Reconstruct the approval timeline for the three invoices, including the null/missing approver assignments on the SAP AP records, to determine whether each delay was caused by a real dispute or an internal approval-routing failure; read/lookup.
+
+OE7: Review internal workflow tracking to see whether the same control issue is already known or assigned, including any existing AP-workflow-standardization Linear issues or Airtable records; read/lookup.
+
+OE8: Update the relevant internal tracking records with the verified blocker, owner, approver path, and recommended disposition for each of the three invoices, including (for CrownPeak) both the vendor-relayed duplicate narrative and the SAP-side verification finding that the alleged paid sibling does not appear in Brookfield's records; write action.
+
+OE9: Deliver a concise internal recap to the engagement partners carrying the client-facing exposure (Andrea Phil for Acme Cloud, Matthew Li for Northstar Legal) via email, Slack direct message, or equivalent direct internal channel write action, including per-invoice disposition (release / blocked / partner judgment), the operational risk of moving too quickly on each item, and explicit client-facing or engagement-scope exposure callouts; write action.
+
+OE10: Create or update an internal-controls follow-up issue or record that tracks the recurring AP-control pattern across all three vendors, referencing the root-cause control areas (approval routing, vendor-master hygiene, duplicate-billing checks, contract version control), an owner, and next steps; write action.

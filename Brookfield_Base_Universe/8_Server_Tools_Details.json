@@ -1,0 +1,4662 @@
+{
+  "servers": [
+    {
+      "name": "Airtable MCP",
+      "tools": [
+        {
+          "name": "airtable_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "airtable_list_bases",
+          "description": "List all accessible Airtable bases.",
+          "parameters": []
+        },
+        {
+          "name": "airtable_list_tables",
+          "description": "List all tables in a specific base.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "detail_level",
+              "type": "string",
+              "required": false,
+              "default": "full"
+            }
+          ]
+        },
+        {
+          "name": "airtable_describe_table",
+          "description": "Get detailed information about a specific table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "detail_level",
+              "type": "string",
+              "required": false,
+              "default": "full"
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_table",
+          "description": "Create a new table in a base.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "fields",
+              "type": "array | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_table",
+          "description": "Update a table's schema (name and/or description).",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_field",
+          "description": "Create a new field in a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "field",
+              "type": "any",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_field",
+          "description": "Update a field in a table. Field type cannot be changed.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "field_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "updates",
+              "type": "any",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_list_records",
+          "description": "List records from a specified Airtable table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "max_records",
+              "type": "integer | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_get_record",
+          "description": "Get a specific record by ID.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "record_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_record",
+          "description": "Create a new record in a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "fields",
+              "type": "object",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_records",
+          "description": "Update one or more records in a table (max 10 per call).",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "records",
+              "type": "array",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_delete_records",
+          "description": "Delete one or more records from a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "record_ids",
+              "type": "array",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_search_records",
+          "description": "Search for records containing specific value in a field.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "field_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_show_data",
+          "description": "Show raw data as JSON for debugging.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Blackline MCP",
+      "tools": [
+        {
+          "name": "blackline_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "blackline_list_reconciliations",
+          "description": "List reconciliations.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "preparer",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "reviewer",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "certifier",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "min_variance_abs",
+              "type": "number",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sort_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sort_order",
+              "type": "string",
+              "required": false,
+              "default": "asc"
+            },
+            {
+              "name": "period_affected_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "period_discovered_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "period_due_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "period_due_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_create_reconciliation",
+          "description": "Create a draft reconciliation (state=open).",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "gl_balance",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "supporting_balance",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "preparer",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "account_name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "period_label",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "prior_period_reconciliation_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sla_due_at",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "variance_threshold",
+              "type": "number",
+              "required": false,
+              "default": 10000
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_reconciliation",
+          "description": "Retrieve a single reconciliation by ID.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_update_reconciliation_variances",
+          "description": "Replace variance lines on a draft / in_progress reconciliation.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "variance_explanations",
+              "type": "array",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_submit_reconciliation",
+          "description": "Submit an in_progress reconciliation for senior review.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_approve_reconciliation",
+          "description": "Senior approves a submitted reconciliation (Four-Eyes).",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "reviewer",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_return_reconciliation",
+          "description": "Return a submitted reconciliation to the preparer.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_certify_reconciliation",
+          "description": "Manager certifies an approved reconciliation.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "certifier",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_archive_reconciliation",
+          "description": "Archive a certified reconciliation into the PBC binder.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_attach_evidence",
+          "description": "Attach evidence to a reconciliation (by ``document_id`` preferred).",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "note",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attached_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sha256",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "blackline_list_review_notes",
+          "description": "List review notes attached to a reconciliation.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_create_review_note",
+          "description": "Leave a review note on a reconciliation.",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "author",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "body",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_clear_review_note",
+          "description": "Preparer clears an open review note with a response narrative.",
+          "parameters": [
+            {
+              "name": "review_note_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "response",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_reopen_review_note",
+          "description": "Reviewer reopens a previously cleared review note.",
+          "parameters": [
+            {
+              "name": "review_note_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_list_exceptions",
+          "description": "List exceptions in the BlackLine Exception Tracker.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "urgency",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sox_implications",
+              "type": "boolean",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_create_exception",
+          "description": "Log a new exception.",
+          "parameters": [
+            {
+              "name": "type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "identified_by",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "urgency",
+              "type": "string",
+              "required": false,
+              "default": "medium"
+            },
+            {
+              "name": "related_account_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_reconciliation_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_journal_entry_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assigned_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_exception",
+          "description": "Retrieve a single exception by ID.",
+          "parameters": [
+            {
+              "name": "exception_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_update_exception",
+          "description": "Update investigation findings on an exception.",
+          "parameters": [
+            {
+              "name": "exception_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "root_cause",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "supporting_evidence",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "financial_impact",
+              "type": "number",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sox_implications",
+              "type": "boolean",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "proposed_resolution",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_resolve_exception",
+          "description": "Approve and execute an exception's resolution.",
+          "parameters": [
+            {
+              "name": "exception_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "approver",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "resolution_summary",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "corrective_journal_entry_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "systemic_issue_flag",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "lessons_learned",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_list_close_tasks",
+          "description": "List close tasks (filterable by period, owner, status).",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "owner",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_update_close_task_status",
+          "description": "Update a close task's status.",
+          "parameters": [
+            {
+              "name": "task_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "note",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_close_task_checklist",
+          "description": "Get the per-item checklist for a close task.",
+          "parameters": [
+            {
+              "name": "task_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_close_status_dashboard",
+          "description": "Real-time close-status dashboard for a fiscal period.",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_list_sox_controls",
+          "description": "List SOX 302/404/FFIEC/SEC S-X controls.",
+          "parameters": [
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_sox_control",
+          "description": "Get a single SOX control's detail.",
+          "parameters": [
+            {
+              "name": "control_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_audit_trail",
+          "description": "Get who-did-what-when for a reconciliation, exception, or close task.",
+          "parameters": [
+            {
+              "name": "reconciliation_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "exception_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "close_task_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_list_archived_reconciliations",
+          "description": "List archived reconciliations (the PBC binder feed).",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_get_archived_reconciliation",
+          "description": "Get a single archived reconciliation (PBC handoff record).",
+          "parameters": [
+            {
+              "name": "recon_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "blackline_show_data",
+          "description": "Dump all BlackLine state - for debugging.",
+          "parameters": []
+        },
+        {
+          "name": "blackline_reset",
+          "description": "Reset the BlackLine database to its seeded state.",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "Calendar MCP",
+      "tools": [
+        {
+          "name": "calendar_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_add_calendar_event",
+          "description": "Add a calendar event.",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "default": "Event"
+            },
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "organizer",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "location",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attendees",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_get_calendar_event",
+          "description": "Get a calendar event by ID.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_delete_calendar_event",
+          "description": "Delete a calendar event.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_get_calendar_events_from_to",
+          "description": "Get events that overlap with a date range.",
+          "parameters": [
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "calendar_read_today_calendar_events",
+          "description": "Read today's calendar events.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_get_all_tags",
+          "description": "Get all unique tags.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_get_calendar_events_by_tag",
+          "description": "Get events by tag.",
+          "parameters": [
+            {
+              "name": "tag",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_search_events",
+          "description": "Search events by query in title, description, location, and attendees.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_edit_calendar_event",
+          "description": "Edit a calendar event.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "organizer",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "location",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attendees",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_respond_to_event",
+          "description": "Set an attendee's RSVP for an event.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "attendee",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "response",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_show_data",
+          "description": "Show raw calendar data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Contacts MCP",
+      "tools": [
+        {
+          "name": "contacts_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "contacts_get_contacts",
+          "description": "Get contacts list with pagination.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "contacts_get_contact",
+          "description": "Get a specific contact by ID.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_add_new_contact",
+          "description": "Add a new contact.",
+          "parameters": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "gender",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "age",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "nationality",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "city_living",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "job",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_edit_contact",
+          "description": "Edit a contact's fields.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "updates",
+              "type": "any",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_delete_contact",
+          "description": "Delete a contact.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_search_contacts",
+          "description": "Search contacts by name, phone, or email.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_show_data",
+          "description": "Show raw contacts data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Email MCP",
+      "tools": [
+        {
+          "name": "email_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "email_list_emails",
+          "description": "List emails in a folder with pagination support.",
+          "parameters": [
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "email_get_email_by_id",
+          "description": "Get an email by its unique ID.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "email_get_email_by_index",
+          "description": "Get an email by its index position in a folder.",
+          "parameters": [
+            {
+              "name": "idx",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "email_send_email",
+          "description": "Send an email to the specified recipients.",
+          "parameters": [
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "recipients",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "subject",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "cc",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "attachment_paths",
+              "type": "array | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "email_reply_to_email",
+          "description": "Reply to an existing email.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "cc",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "email_forward_email",
+          "description": "Forward an existing email to new recipients.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "recipients",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "email_move_email",
+          "description": "Move an email from one folder to another.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "from_folder",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "to_folder",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "email_delete_email",
+          "description": "Delete an email by moving it to the TRASH folder.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "email_search_emails",
+          "description": "Search for emails in a folder based on a query string.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "email_show_data",
+          "description": "Show raw email data as JSON.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        },
+        {
+          "name": "email_list_jmap_emails",
+          "description": "List emails in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "email_get_jmap_email",
+          "description": "Get single email in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "email_set_email_keywords",
+          "description": "Update email keywords/flags.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "keywords",
+              "type": "object",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "email_list_mailboxes",
+          "description": "Get all mailboxes with counts and metadata.",
+          "parameters": []
+        },
+        {
+          "name": "email_get_mailbox",
+          "description": "Get mailbox by ID with current counts.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "email_get_thread",
+          "description": "Get conversation thread with all related emails.",
+          "parameters": [
+            {
+              "name": "thread_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "email_get_email_threads",
+          "description": "List threads in a specific mailbox.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Linear MCP",
+      "tools": [
+        {
+          "name": "linear_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "linear_list_users",
+          "description": "List users in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "after",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "before",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "includeDisabled",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_get_user",
+          "description": "Get a specific user.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_create_user",
+          "description": "Create a new user.",
+          "parameters": [
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_list_teams",
+          "description": "List teams in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "createdAt",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "updatedAt",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_get_team",
+          "description": "Get a specific team.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_create_team",
+          "description": "Create a new team.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_list_projects",
+          "description": "List projects in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "member",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "createdAt",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "updatedAt",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_get_project",
+          "description": "Get a specific project.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_create_project",
+          "description": "Create a new project.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "lead",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "startDate",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "targetDate",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_update_project",
+          "description": "Update an existing project.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "lead",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "startDate",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "targetDate",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_list_issues",
+          "description": "List issues in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "parentId",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "createdAt",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "updatedAt",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_get_issue",
+          "description": "Get a specific issue.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_create_issue",
+          "description": "Create a new issue.",
+          "parameters": [
+            {
+              "name": "team",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "links",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "parentId",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "dueDate",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_update_issue",
+          "description": "Update an existing issue.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "estimate",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "links",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "parentId",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "dueDate",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_list_comments",
+          "description": "List comments for an issue.",
+          "parameters": [
+            {
+              "name": "issueId",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "linear_create_comment",
+          "description": "Create a comment on an issue.",
+          "parameters": [
+            {
+              "name": "body",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "issueId",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "parentId",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "linear_show_data",
+          "description": "Show raw Linear data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Messaging MCP",
+      "tools": [
+        {
+          "name": "messaging_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "messaging_send_message",
+          "description": "Send a message to a user. Creates a new conversation if none exists.",
+          "parameters": [
+            {
+              "name": "user_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "attachment_path",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "messaging_send_message_to_conversation",
+          "description": "Send a message to an existing conversation.",
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "attachment_path",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "messaging_list_conversations",
+          "description": "List conversations sorted by last updated time.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "messaging_get_conversation",
+          "description": "Get a conversation with its messages.",
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            }
+          ]
+        },
+        {
+          "name": "messaging_search_conversations",
+          "description": "Search conversations by title, participant names, or message content.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "messaging_create_conversation",
+          "description": "Create a new conversation with specified participants.",
+          "parameters": [
+            {
+              "name": "participant_ids",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "messaging_add_user_to_conversation",
+          "description": "Add a user to an existing conversation.",
+          "parameters": [
+            {
+              "name": "conversation_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "user_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "messaging_show_data",
+          "description": "Show raw messaging data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Oracle Gl MCP",
+      "tools": [
+        {
+          "name": "oracle_gl_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "oracle_gl_list_accounts",
+          "description": "List GL accounts (chart of accounts).",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cost_center",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "product_code",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "role",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "include_rollup_only",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_account",
+          "description": "Retrieve a single GL account.",
+          "parameters": [
+            {
+              "name": "account_number",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_entities",
+          "description": "List all entities this GL holds data for.",
+          "parameters": []
+        },
+        {
+          "name": "oracle_gl_get_account_balance",
+          "description": "Get an account balance for a fiscal period.",
+          "parameters": [
+            {
+              "name": "account_number",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_journal_entries",
+          "description": "List journal entries with optional filters.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "prepared_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entry_type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "min_amount",
+              "type": "number",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_journal_entry",
+          "description": "Retrieve a single journal entry by ID with all lines and audit trail.",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_create_journal_entry",
+          "description": "Create a draft journal entry.",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "posting_date",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "lines",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "entry_type",
+              "type": "string",
+              "required": false,
+              "default": "standard"
+            },
+            {
+              "name": "is_standard_entry",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            },
+            {
+              "name": "source_module",
+              "type": "string",
+              "required": false,
+              "default": "manual"
+            },
+            {
+              "name": "business_justification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attachments",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "prepared_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_submit_journal_entry",
+          "description": "Submit a draft journal entry for review.",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_approve_journal_entry",
+          "description": "Approve a submitted journal entry (Four-Eyes).",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "approver_user",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_reject_journal_entry",
+          "description": "Return a submitted journal entry to the preparer with comments.",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "rejected_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_post_journal_entry",
+          "description": "Post an approved journal entry to the GL.",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "late_post_authorization_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posted_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_reverse_journal_entry",
+          "description": "Create a reversing journal entry for a posted entry.",
+          "parameters": [
+            {
+              "name": "entry_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "target_period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "prepared_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_trial_balance",
+          "description": "Get the trial balance for a fiscal period.",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "entity",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "as_of",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_transactions",
+          "description": "List GL transactions (line-level drill-through).",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "source_module",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posted_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posted_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "min_amount",
+              "type": "number",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_transaction",
+          "description": "Retrieve a single posted GL line by ID.",
+          "parameters": [
+            {
+              "name": "transaction_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_subledger_feeds",
+          "description": "List configured sub-ledger feeds (e.g., SAP -> Oracle (AP)).",
+          "parameters": []
+        },
+        {
+          "name": "oracle_gl_get_subledger_feed",
+          "description": "Retrieve a single sub-ledger feed configuration.",
+          "parameters": [
+            {
+              "name": "feed_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_subledger_feed_runs",
+          "description": "List recent runs for a sub-ledger feed.",
+          "parameters": [
+            {
+              "name": "feed_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_subledger_feed_run",
+          "description": "Retrieve a single sub-ledger feed run with status, row counts,",
+          "parameters": [
+            {
+              "name": "run_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_retry_subledger_feed_run",
+          "description": "Retry a failed sub-ledger feed run.",
+          "parameters": [
+            {
+              "name": "run_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_list_fiscal_periods",
+          "description": "List fiscal periods with BD3 lock state and regulatory deadlines.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "fiscal_year",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_fiscal_period",
+          "description": "Retrieve a fiscal period including BD3 lock state and BD5 deadline.",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_get_close_calendar",
+          "description": "Get the close calendar for a fiscal period.",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_lock_fiscal_period",
+          "description": "Execute the GL close lock (BD3 6pm ET).",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_unlock_fiscal_period",
+          "description": "Unlock a locked fiscal period (VP only).",
+          "parameters": [
+            {
+              "name": "period_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "justification",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "related_exception_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "oracle_gl_show_data",
+          "description": "Show all data in the system for debugging.",
+          "parameters": []
+        },
+        {
+          "name": "oracle_gl_reset",
+          "description": "Reset Oracle GL to its initial state.",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "Records Vault MCP",
+      "tools": [
+        {
+          "name": "records_vault_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "records_vault_list_documents",
+          "description": "List documents with optional filters.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "classification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "retention_policy_code",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "legal_hold",
+              "type": "boolean",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "retention_expired",
+              "type": "boolean",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "uploaded_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "uploaded_at_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "uploaded_at_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sort_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sort_order",
+              "type": "string",
+              "required": false,
+              "default": "asc"
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "records_vault_upload_document",
+          "description": "Upload a new document with retention metadata.",
+          "parameters": [
+            {
+              "name": "kind",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "retention_policy_code",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "classification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "content_b64",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "uploaded_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_get_document",
+          "description": "Get document metadata (no bytes).",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_update_document_metadata",
+          "description": "Update mutable metadata on a document.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "related_resource_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "classification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sha256",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "size_bytes",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "current_version",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_download_document_content",
+          "description": "Download document bytes (defaults to current version).",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "version",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "ip_address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_purge_document",
+          "description": "Purge a document past retention with no active legal hold.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "justification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_list_document_versions",
+          "description": "List all versions of a document, chronological.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_add_document_version",
+          "description": "Add a new version to an existing document.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content_b64",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "uploaded_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "change_note",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_get_document_version",
+          "description": "Get metadata for a specific version of a document.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "version",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "name": "actor_role",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_list_retention_policies",
+          "description": "List the catalog of retention policies the vault enforces.",
+          "parameters": []
+        },
+        {
+          "name": "records_vault_get_retention_policy",
+          "description": "Get a single retention policy by code.",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_list_legal_holds",
+          "description": "List legal holds with optional filters.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "matter_reference",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "active_only",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "records_vault_place_legal_hold",
+          "description": "Place a legal hold on a document.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "matter_reference",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "placed_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_release_legal_hold",
+          "description": "Release a legal hold (Legal/Compliance role required).",
+          "parameters": [
+            {
+              "name": "legal_hold_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "released_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "release_note",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_list_chain_of_custody",
+          "description": "List chain-of-custody events for a document, chronological.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_list_access_grants",
+          "description": "List time-bounded access grants with optional filters.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "grantee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "active_only",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "records_vault_create_access_grant",
+          "description": "Create a time-bounded read grant for a single document.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "grantee",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "expires_at",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "role",
+              "type": "string",
+              "required": false,
+              "default": "viewer"
+            },
+            {
+              "name": "granted_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "purpose",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_revoke_access_grant",
+          "description": "Revoke an active access grant before its natural expiry.",
+          "parameters": [
+            {
+              "name": "access_grant_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "revoked_by",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "records_vault_show_data",
+          "description": "Debug tool: dump every table.",
+          "parameters": []
+        },
+        {
+          "name": "records_vault_reset",
+          "description": "Reset the vault to its initial seeded state.",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "Reminder MCP",
+      "tools": [
+        {
+          "name": "reminder_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "reminder_add_reminder",
+          "description": "Add a new reminder with optional repetition.",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "due_datetime",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "repetition_unit",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "repetition_value",
+              "type": "integer",
+              "required": false,
+              "nullable": true,
+              "default": 1
+            }
+          ]
+        },
+        {
+          "name": "reminder_delete_reminder",
+          "description": "Delete a reminder and all its repetitions if any exist.",
+          "parameters": [
+            {
+              "name": "reminder_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "reminder_delete_all_reminders",
+          "description": "Delete all reminders from the system.",
+          "parameters": []
+        },
+        {
+          "name": "reminder_get_due_reminders",
+          "description": "Get all reminders that are currently due (due_datetime <= current time).",
+          "parameters": []
+        },
+        {
+          "name": "reminder_get_all_reminders",
+          "description": "Get all reminders from the reminder system.",
+          "parameters": []
+        },
+        {
+          "name": "reminder_show_data",
+          "description": "Show raw reminder data as JSON.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sap Subledger MCP",
+      "tools": [
+        {
+          "name": "sap_subledger_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "sap_subledger_list_ap_invoices",
+          "description": "List accounts-payable invoices from the SAP sub-ledger.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "vendor_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "gl_account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posting_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posting_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "approver",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "due_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "due_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "payment_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "payment_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_get_ap_invoice",
+          "description": "Get a single AP invoice from the SAP sub-ledger.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_create_ap_invoice",
+          "description": "Create a new AP invoice in pending_approval state.",
+          "parameters": [
+            {
+              "name": "vendor_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "invoice_number",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "amount",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "sap_document_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "vendor_name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "invoice_date",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "time_received",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "required": false,
+              "default": "USD"
+            },
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_code_ap_invoice",
+          "description": "Code an AP invoice - assign per-line GL accounts.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "lines",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "processing_date",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_approve_ap_invoice",
+          "description": "Approve an AP invoice for payment.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "approver",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_pay_ap_invoice",
+          "description": "Mark an AP invoice as paid (cash disbursement).",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "payment_method",
+              "type": "string",
+              "required": false,
+              "default": "ach"
+            },
+            {
+              "name": "payment_reference",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "payment_date",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_void_ap_invoice",
+          "description": "Void an AP invoice with a captured reason.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "void_reason",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "actor_role_tags",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_list_fixed_assets",
+          "description": "List fixed assets in the SAP register.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "cost_center",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "gl_account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "accum_dep_account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "in_service_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "in_service_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_get_fixed_asset",
+          "description": "Get a fixed asset (with depreciation schedule).",
+          "parameters": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_list_lease_schedules",
+          "description": "List ASC 842 lease schedules - operating + finance.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "classification",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "rou_account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_get_lease_schedule",
+          "description": "Get a single ASC 842 lease schedule (with per-period",
+          "parameters": [
+            {
+              "name": "lease_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_list_prepaid_amortization_schedules",
+          "description": "List prepaid amortization schedules.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_get_subledger_transaction_detail",
+          "description": "Drill-through transaction detail by transaction ID.",
+          "parameters": [
+            {
+              "name": "transaction_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "sap_subledger_list_subledger_transactions",
+          "description": "List sub-ledger transactions by GL account + date range.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 50
+            },
+            {
+              "name": "gl_account_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "sap_module",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posting_date_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "posting_date_to",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "entity_id",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Slack MCP",
+      "tools": [
+        {
+          "name": "slack_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "slack_channels_list",
+          "description": "List Slack channels, DMs, and Group DMs.",
+          "parameters": [
+            {
+              "name": "channel_types",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "slack_conversations_history",
+          "description": "Get messages from a Slack channel or DM.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "slack_conversations_replies",
+          "description": "Get an entire Slack message thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "thread_ts",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "slack_conversations_search_messages",
+          "description": "Search across Slack messages.",
+          "parameters": [
+            {
+              "name": "search_query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "filter_date_on",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_during",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_after",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_before",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_in_channel",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_in_im_or_mpim",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_threads_only",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "filter_users_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_users_with",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "slack_conversations_add_message",
+          "description": "Post a message to a Slack channel or thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "payload",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content_type",
+              "type": "string",
+              "required": false,
+              "default": "text/markdown"
+            },
+            {
+              "name": "thread_ts",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "user_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

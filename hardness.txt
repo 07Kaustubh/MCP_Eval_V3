@@ -1,0 +1,24 @@
+Read C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Docs\4_Prompt_Hard_Tips.md '. We have to stump the model which is opus 4.8. Lets step back and restrategise the prompt. use web search for any knowledge gap on how to stump the model. lets bring the hardest prompt out there to stump the model
+
+--------------
+how much surety do you have to be certain it wll fail on certain rubrics. i wont change the universe data
+---------------
+
+we are against opus 4.8. current sota model which is very hard to stump. you have C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Brookfield_Base_Universe C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Docs C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Tasks\6a33e6e4a06e9ffac50d744e\1_Business_Function.txt C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Tasks\6a33e6e4a06e9ffac50d744e\2_Persona.txt C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Tasks\6a33e6e4a06e9ffac50d744e\3_UniverseDataForThisTask.json
+
+YOu have to create C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Tasks\6a33e6e4a06e9ffac50d744e\5_Prompt.txt.
+
+Review and verify against C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Evals\1_Prompt_Eval.md C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Docs\7_QC_Spec_Doc1.json C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Docs\8_QC_Spec_Doc2.md.
+
+Plan for the strongest task
+
+
+--------------------------------------
+
+are you sure  we are strongest. no universe edits will be done. did you leverage all hardness techniques in hard tips and web search possible
+
+-----------------------------
+
+review and verify C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Tasks\6a33e6e4a06e9ffac50d744e\5_Prompt.txt against C:\Users\91969\Downloads\MCP_Eval_V3\MCP_Eval_V3\Prompt_Guidelines.md.
+
+prompt has limit at 500 words

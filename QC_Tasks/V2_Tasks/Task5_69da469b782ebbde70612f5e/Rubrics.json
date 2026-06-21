@@ -1,0 +1,290 @@
+[
+  {
+    "annotations": {
+      "evidence": "In the trajectory, find mortgage_los_login. The email argument must be exactly sofia.reyes@keystonemortgage.com.",
+      "justification": "Sofia Reyes (sofia.reyes@keystonemortgage.com) is the acting processor for this task. Keystone LOS tools require an authenticated LOS session before loan reads or writes.",
+      "rubric_category": "outcome"
+    },
+    "id": "11247a13-d268-401e-a01f-1b38dc133042",
+    "title": "The model called mortgage_los_login with email [sofia.reyes@keystonemortgage.com](mailto:sofia.reyes@keystonemortgage.com)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find mortgage_los_add_activity. The loan_id parameter must be los_loan_850760aecd29.",
+      "justification": "The user asked for a dated LOS activity line on Marcus Rivera's file LN-2026-00619. That file is identified in the task materials by loan_id los_loan_850760aecd29.",
+      "rubric_category": "outcome"
+    },
+    "id": "89214fd9-4128-4c4b-bcac-336ce784435b",
+    "title": "A loan activity was added using mortgage_los_add_activity with loan_id los_loan_850760aecd29 (Marcus Rivera, LN-2026-00619, 9866 Albemarle purchase)."
+  },
+  {
+    "annotations": {
+      "evidence": "Open the add_activity call whose loan_id is los_loan_850760aecd29. Read the detail or body text and confirm at least one of the listed themes appears.",
+      "justification": "The prompt required a note with verified status, owners, and next steps for LN-2026-00619, plus submission versus underwriting and lock themes - all expressible as concrete keywords the judge can scan for.",
+      "rubric_category": "outcome"
+    },
+    "id": "f4e28237-7c8a-45f1-8d86-80048db65d0c",
+    "title": "The mortgage_los_add_activity detail text for los_loan_850760aecd29 mentions at least one of: underwriting, UW, submit, submission, processing, lock, extension, verified status, current status, next step, follow-up, owner, processor, assigned, Grace, or Carlos."
+  },
+  {
+    "annotations": {
+      "evidence": "Find mortgage_los_add_activity with loan_id los_loan_ddb50a9fbb10.",
+      "justification": "The user asked for a dated LOS activity line on the Piedmont settlement file LN-2026-00626. That file is identified by loan_id los_loan_ddb50a9fbb10.",
+      "rubric_category": "outcome"
+    },
+    "id": "82184f95-4e3c-4688-ac8a-0b2fa2c0a669",
+    "title": "A loan activity was added using mortgage_los_add_activity with loan_id los_loan_ddb50a9fbb10 (LN-2026-00626, Piedmont settlement, bank statement condition churn)."
+  },
+  {
+    "annotations": {
+      "evidence": "Open the add_activity call whose loan_id is los_loan_ddb50a9fbb10. Read the detail or body text for the listed anchors.",
+      "justification": "The prompt required reconciliation of email, Slack, and portal behavior plus listing pressure, with verified status, owners, and next steps on LN-2026-00626.",
+      "rubric_category": "outcome"
+    },
+    "id": "0c15449c-99e0-4c7e-b5ea-78ae2bef1647",
+    "title": "The mortgage_los_add_activity detail text for los_loan_ddb50a9fbb10 mentions at least one of: January, bank statement, wrong month, upload, portal, Piedmont, underwriting, listing, close, Allison, next step, follow-up, owner, processor, verified, status, or assigned (or a close paraphrase of those themes)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find mortgage_los_add_activity with loan_id los_loan_dc34bc01927c.",
+      "justification": "The user asked for a dated LOS activity line on DeShawn Choi's Tryon-side closing file LN-2026-00621. That file is identified by loan_id los_loan_dc34bc01927c.",
+      "rubric_category": "outcome"
+    },
+    "id": "8fd9418e-53a4-41ac-9c7a-103b14eda11f",
+    "title": "A loan activity was added using mortgage_los_add_activity with loan_id los_loan_dc34bc01927c (DeShawn Choi, LN-2026-00621, Tryon Title closing)."
+  },
+  {
+    "annotations": {
+      "evidence": "Open the add_activity call whose loan_id is los_loan_dc34bc01927c. Read the detail or body text for the listed anchors.",
+      "justification": "The prompt required lining up title or email evidence with live checklist state and cash-to-close questions, with verified status, owners, and next steps.",
+      "rubric_category": "outcome"
+    },
+    "id": "92d74beb-21ec-4214-b202-a8e3dd258397",
+    "title": "The mortgage_los_add_activity detail text for los_loan_dc34bc01927c mentions at least one of: HOI, homeowners, insurance, Tryon, DeShawn, Choi, cash to close, checklist, document, verified, status, next step, follow-up, owner, processor, title, or assigned (or a close paraphrase of those themes)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find conversations_add_message. The channel_id must be D_sofia_carlos.",
+      "justification": "The user required a direct Slack to loan officer Carlos Rivera about Marcus Rivera LN-2026-00619 submission and lock context. In Slack data for this task that DM is channel_id D_sofia_carlos.",
+      "rubric_category": "outcome"
+    },
+    "id": "c8d1b293-af65-4d31-88f4-f35611b7b913",
+    "title": "A Slack message was posted using conversations_add_message to channel_id D_sofia_carlos (direct message between Sofia Reyes and Carlos Rivera)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find conversations_add_message with channel_id C002.",
+      "justification": "The user required one consolidated internal heads-up in the loan-processing Slack channel for operations visibility.",
+      "rubric_category": "outcome"
+    },
+    "id": "151d0c47-cca1-4b0f-8d78-c04d7738a25e",
+    "title": "A Slack message was posted using conversations_add_message to channel_id C002 (internal channel loan-processing)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find conversations_add_message with channel_id C005.",
+      "justification": "The user required a short rate-watch Slack note tying lock extension placeholder discussion to what the lock desk still owes.",
+      "rubric_category": "outcome"
+    },
+    "id": "a66b4211-68af-4ac9-8175-76a823f9d240",
+    "title": "A Slack message was posted using conversations_add_message to channel_id C005 (internal channel rate-watch)."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the C005 conversations_add_message payload. Confirm at least one listed anchor term appears.",
+      "justification": "The rate-watch audience expects language about extensions, placeholder pricing, and lock desk queue items, including optional numeric placeholder 375 or lock desk owner Camille when those appear in internal chatter.",
+      "rubric_category": "outcome"
+    },
+    "id": "42c4f429-651e-4fe3-82f0-ddbee23c3cb8",
+    "title": "The C005 message payload mentions lock extension, placeholder pricing, or pending lock desk follow-up. Accept keywords such as extension, lock, 375, placeholder, rate desk, lock desk, or Camille."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the message body or payload sent to D_sofia_carlos. Confirm at least one keyword from the underwriting, submission, processing, or lock group appears.",
+      "justification": "The DM must carry a technical handoff on submission versus underwriting and lock risk, not a generic nudge.",
+      "rubric_category": "outcome"
+    },
+    "id": "f4a234e6-d24e-412c-badd-b593bcd07dd9",
+    "title": "The conversations_add_message payload for D_sofia_carlos mentions underwriting, UW, submission, processing backlog, or lock or extension risk. Accept keywords such as UW, underwriting, submit, submission, processing, lock, or extension."
+  },
+  {
+    "annotations": {
+      "evidence": "Find send_email. Sender must be sofia.reyes@keystonemortgage.com. The to or cc list must include b.hensley@tryontitle.com.",
+      "justification": "The user required an outbound email from Sofia to Tryon Title about LN-2026-00621 HOI status. Barbara Hensley at b.hensley@tryontitle.com is the Tryon contact named for that thread.",
+      "rubric_category": "outcome"
+    },
+    "id": "7d0ee334-36b3-4b4f-87ac-566d377038a6",
+    "title": "An email was sent using send_email from  \"sofia.reyes@keystonemortgage.com\" with recipients including \"b.hensley@tryontitle.com\" (Barbara Hensley, Tryon Title)."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the send_email body or content field. Confirm at least one keyword from the DeShawn, Choi, Tryon, 00621, or closing list appears.",
+      "justification": "The email must tie the HOI question to the correct borrower file and Tryon-side closing.",
+      "rubric_category": "outcome"
+    },
+    "id": "f2a15895-d2f6-49d3-ae22-ac256e400b28",
+    "title": "The send_email content references DeShawn Choi, LN-2026-00621, Tryon Title, or the closing. Accept keywords such as DeShawn, Choi, LN-2026-00621, Tryon, or closing."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the C002 conversations_add_message payload. Confirm Marcus or 00619 appears.",
+      "justification": "The consolidated post must include the Marcus / LN-2026-00619 escalation.",
+      "rubric_category": "outcome"
+    },
+    "id": "00c34ef0-f41f-411c-9419-1fe3c11acb43",
+    "title": "The C002 conversations_add_message payload mentions Marcus Rivera or LN-2026-00619 (or a close paraphrase). Accept keywords such as Marcus or 00619."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the send_email body or content field. Confirm the message asks whether HOI evidence on file is acceptable and references policy or binder sufficiency.",
+      "justification": "The user required Tryon to confirm HOI sufficiency and policy identification before a final borrower answer.",
+      "rubric_category": "outcome"
+    },
+    "id": "8bf4d6a7-7811-4843-b29e-d5d2a4309d48",
+    "title": "The send_email content asks Tryon to confirm whether acceptable homeowners insurance is already on file, including policy name, carrier, or dates, or whether an updated binder is still needed - a clear sufficiency question before borrower-facing HOI commitments."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the C002 conversations_add_message payload. Confirm at least one keyword from the second-track list appears.",
+      "justification": "The user required one post that rolls up three concurrent escalations; this checks coverage beyond the Marcus file alone.",
+      "rubric_category": "outcome"
+    },
+    "id": "171f4176-fa25-4a1c-aecd-05de795fde43",
+    "title": "The C002 conversations_add_message payload mentions at least one other concurrent track: bank statements, LN-2026-00626, January, Piedmont, DeShawn Choi, HOI, or LN-2026-00621. Accept keywords such as January, bank, 00626, Piedmont, Choi, HOI, or 00621."
+  },
+  {
+    "annotations": {
+      "evidence": "Read the message body or payload sent to D_sofia_carlos. Confirm Marcus, 00619, or Albemarle appears.",
+      "justification": "Carlos Rivera needs the DM tied to the correct borrower and Albemarle purchase context.",
+      "rubric_category": "outcome"
+    },
+    "id": "b288c66c-689b-4886-8982-56cc17e31bb5",
+    "title": "The conversations_add_message payload for D_sofia_carlos mentions Marcus Rivera, LN-2026-00619, or Albemarle (or a close paraphrase of the borrower or subject property). Accept keywords such as Marcus, Albemarle, or 00619."
+  },
+  {
+    "annotations": {
+      "evidence": "Find any tool call whose name is one of the listed mortgage_los read tools. Writes such as mortgage_los_add_activity do not satisfy this rubric.",
+      "justification": "For Keystone v2.2 tasks, mortgage_los tools are non-default. Agents may skip LOS reads entirely. At least one read shows the agent used the LOS for lookup, not only writes.",
+      "rubric_category": "tool selection"
+    },
+    "id": "c2cc19bc-13fc-4512-ab82-fc8a5deb355b",
+    "title": "The model must call at least one mortgage LOS read tool. Valid read tools include mortgage_los_search_loans, mortgage_los_get_loan_by_id, mortgage_los_get_activity_log, mortgage_los_get_conditions, or mortgage_los_get_documents."
+  },
+  {
+    "annotations": {
+      "evidence": "Find any read-style crm_ tool call such as crm_show_data, crm_list_engagements, crm_search_contacts, or crm_get_contact.",
+      "justification": "CRM holds engagements and contacts that can conflict with Slack or email summaries. A CRM read shows the agent used CRM lookup, not only email and Slack defaults.",
+      "rubric_category": "tool selection"
+    },
+    "id": "01102916-94af-4f0d-8058-c91be815fcd1",
+    "title": "The model must use a CRM read tool. Valid examples include crm_show_data, crm_list_engagements, or crm_search_contacts."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect every search_emails call. At least one query string or filter text should clearly reference Marcus, Albemarle, or LN-2026-00619.",
+      "justification": "Inbox search for LN-2026-00619 must be anchored on Marcus Rivera, the Albemarle property, or the loan number so threads about underwriting submission and locks are retrievable.",
+      "rubric_category": "query construction"
+    },
+    "id": "c2ec568f-2bf0-4e10-aa58-e45ae3c3f557",
+    "title": "The model must pass a search_emails query related to Marcus Rivera, 9866 Albemarle, or LN-2026-00619, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect search_emails parameters for LN-2026-00626, January, bank statement, or Piedmont wording.",
+      "justification": "LN-2026-00626 email traffic is tied to January bank statements, Piedmont settlement, and underwriting. The search string must use those anchors so the right thread surfaces.",
+      "rubric_category": "query construction"
+    },
+    "id": "e37deabf-3c20-4395-99cd-2e90189e28d1",
+    "title": "The model must pass a search_emails query related to LN-2026-00626, January, bank statement, or Piedmont, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect search_emails parameters for DeShawn, Choi, HOI, Tryon, or homeowners wording.",
+      "justification": "LN-2026-00621 email traffic covers Tryon Title, HOI, and borrower DeShawn Choi. The search must use those anchors",
+      "rubric_category": "query construction"
+    },
+    "id": "91606a2f-1019-4758-9a34-8caee760dc64",
+    "title": "The model must pass a search_emails query related to DeShawn Choi, HOI, Tryon, or homeowners, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect Slack read tool arguments for channel_id C002 plus Marcus, LN-2026-00619, or lock in the query or history parameters.",
+      "justification": "C002 contains processing chatter for Marcus Rivera and lock risk on LN-2026-00619. The Slack read must filter or search on those anchors.",
+      "rubric_category": "query construction"
+    },
+    "id": "af561ddc-b033-4eea-935c-96e4aca711bf",
+    "title": "The model must call conversations_search_messages or conversations_history with channel_id C002 and a search related to LN-2026-00619, Marcus, or lock, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect Slack read tool arguments for channel_id C002 plus 00626, January, bank, or Allison wording.",
+      "justification": "C002 contains listing and underwriting pressure for LN-2026-00626 and wrong-month bank uploads. The Slack read must use those anchors.",
+      "rubric_category": "query construction"
+    },
+    "id": "fae74b8a-089c-4ff0-b826-b225e15fbf8c",
+    "title": "The model must call conversations_search_messages or conversations_history with channel_id C002 and a search related to LN-2026-00626, bank stmt, January, or Allison, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect Slack read tool arguments for channel_id C002 or C003 plus Choi, HOI, or LN-2026-00621 wording.",
+      "justification": "HOI discussion for LN-2026-00621 may appear in loan-processing (C002) or closings (C003). At least one read on C002 or C003 must target Choi, HOI, or 00621.",
+      "rubric_category": "query construction"
+    },
+    "id": "43b61987-7421-43fd-9ff9-edd03d9af9f2",
+    "title": "The model must call conversations_search_messages or conversations_history with channel_id C002 or C003 and a search related to LN-2026-00621, Choi, or HOI, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect Slack read tool arguments for channel_id C005 plus extension, LN-2026-00619, 375, or placeholder wording.",
+      "justification": "C005 holds rate-watch discussion of lock extensions and placeholder pricing tied to LN-2026-00619. The Slack read must use those anchors.",
+      "rubric_category": "query construction"
+    },
+    "id": "4da8d426-a2ee-4e72-8312-51a01e8a8ad7",
+    "title": "The model must call conversations_search_messages or conversations_history with channel_id C005 and a search related to LN-2026-00619, extension, 375, or placeholder, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Find any mortgage_los_get_activity_log call in the trajectory. The loan_id argument must be exactly los_loan_850760aecd29.",
+      "justification": "LN-2026-00619 (Marcus Rivera) can show extra automated or low-signal rows in LOS history. A dedicated activity log read with the correct internal loan_id shows the agent targeted the right file and could reconcile visible log noise when drafting the note.",
+      "rubric_category": "query construction"
+    },
+    "id": "3663661e-ab1d-44b7-851f-fc932f631d4f",
+    "title": "The model must call mortgage_los_get_activity_log with loan_id los_loan_850760aecd29 (exact string)."
+  },
+  {
+    "annotations": {
+      "evidence": "Find any mortgage_los_get_conditions call in the trajectory. The loan_id argument must be exactly los_loan_ddb50a9fbb10.",
+      "justification": "LN-2026-00626 (Piedmont bank-statement track) can show misleading cleared or duplicate condition lines. A conditions read with the correct internal loan_id shows the agent pulled the live condition list for that file.",
+      "rubric_category": "query construction"
+    },
+    "id": "3552df24-d804-46f3-9ef3-428347bbbd88",
+    "title": "The model must call mortgage_los_get_conditions with loan_id los_loan_ddb50a9fbb10 (exact string)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect search_emails calls. At least one call must use folder_name SENT (or equivalent sent folder) and a query tied to LN-2026-00626, January, bank statement, or Piedmont (or similar).",
+      "justification": "The user said they sent urgent notes from their outbox on the Piedmont file; a SENT-folder search is needed to reconcile outbound mail with Slack and portal state.",
+      "rubric_category": "query construction"
+    },
+    "id": "1f829e5f-3939-4f7d-b721-6599d81db20e",
+    "title": "The model must call search_emails with folder_name SENT (or an explicit sent-mail folder name equivalent to SENT) and a query related to LN-2026-00626, January, bank statement, Piedmont, or urgent borrower follow-up, or a close paraphrase."
+  },
+  {
+    "annotations": {
+      "evidence": "Find mortgage_los_get_documents in the trajectory. The loan_id argument must be exactly los_loan_dc34bc01927c.",
+      "justification": "The prompt required lining up title or email evidence with live checklist state for DeShawn Choi; document checklist rows for that loan are returned only with the correct internal loan_id.",
+      "rubric_category": "query construction"
+    },
+    "id": "73c22611-f45e-4a38-870b-8643a98a0cb8",
+    "title": "The model must call mortgage_los_get_documents with loan_id los_loan_dc34bc01927c."
+  },
+  {
+    "annotations": {
+      "evidence": "Find mortgage_los_get_documents in the trajectory. The loan_id argument must be exactly los_loan_ddb50a9fbb10.",
+      "justification": "The prompt required reconciling email and Slack with portal uploads for the Piedmont settlement file; document checklist rows use the internal loan_id for LN-2026-00626.",
+      "rubric_category": "query construction"
+    },
+    "id": "b6a12511-0711-4b08-8433-3368888bf063",
+    "title": "The model must call mortgage_los_get_documents with loan_id los_loan_ddb50a9fbb10."
+  }
+]

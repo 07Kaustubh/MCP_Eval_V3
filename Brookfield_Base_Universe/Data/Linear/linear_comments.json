@@ -1,0 +1,252 @@
+[
+  {
+    "id": "linear_67109c807023",
+    "body": "Reviewed the kickoff request list for Monday. We already ask for bank access, prior close package, AP aging, open invoices, payroll reports, and tax deposit support, but we should add confirmation of treasury approvers up front. Given the signatory issues we have seen on new accounts, I want legal entity signer support and a copy of the bank setup letter before we call the list final.",
+    "issue_id": "linear_0f045e9b0962",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-12T16:48:28Z",
+    "updated_at": "2026-04-12T16:48:28Z"
+  },
+  {
+    "id": "linear_8a647a5ea8ec",
+    "body": "Spoke with the client controller this morning. The operating account signatory form names do not match the portal admin profile, so the bank will not release statements or enable dual approval changes yet. Until we get corrected signer support, onboarding cannot complete the treasury checklist.",
+    "issue_id": "linear_b509f82b465f",
+    "author_id": "linear_6ef0fc68abd7",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-21T10:00:32Z",
+    "updated_at": "2026-04-21T10:00:32Z"
+  },
+  {
+    "id": "linear_c27360465c76",
+    "body": "I checked exc_abd8e711f5f347 against 103000 Cash - Tax Reserve and the rollforward still ties except for the FX revaluation drift of $1,014.33. Nothing else in the cash pack is open. We just need approval on the exception treatment so the daily close checklist can move forward.",
+    "issue_id": "linear_2e7d8014618a",
+    "author_id": "linear_4d9e2b202532",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-10T10:56:15Z",
+    "updated_at": "2026-03-10T10:56:15Z"
+  },
+  {
+    "id": "linear_9a7543463998",
+    "body": "For exc_4d5d3582698946 I traced the duplicate activity back to 101000 Cash - Operating and it looks like one bank feed line hit twice while the source statement only shows a single cash movement. Holding off on any reversal until we confirm whether this is feed duplication versus a user re-import. Impact remains $-6,068.91.",
+    "issue_id": "linear_d8b80c5bad34",
+    "author_id": "persona_001",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-10T09:45:57Z",
+    "updated_at": "2026-03-10T09:45:57Z"
+  },
+  {
+    "id": "linear_57c729fe6820",
+    "body": "Daniel, for this week's graduate review loop please have the trainees write their cash rec summaries using the real period and account language. I want them citing 101000 Cash - Operating or 103000 Cash - Tax Reserve directly rather than saying 'cash account,' and they should reference the exception ID when a recon note depends on it.",
+    "issue_id": "linear_a9844c466815",
+    "author_id": "persona_001",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T11:21:11Z",
+    "updated_at": "2026-04-15T11:21:11Z"
+  },
+  {
+    "id": "linear_6cecdfa4a4f6",
+    "body": "Added three returns to the Wednesday escalation list. Two are waiting on brokerage statements and one is ready except for an unsigned organizer. I split the chase tracker so partner review can quickly tell which items are client-source-document delays versus internal preparation backlog.",
+    "issue_id": "linear_ec6773368375",
+    "author_id": "persona_002",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T10:51:17Z",
+    "updated_at": "2026-04-14T10:51:17Z"
+  },
+  {
+    "id": "linear_f81ca4d09c94",
+    "body": "Invoice support for VEN-004-799133 is in the folder and the paid amount of $1,251.76 agrees to the DocketPilot Filing Services bill. What is still missing is state backup for two entities in the overdue batch, so I would not release those filings yet. Once the upload is complete this one should be clear.",
+    "issue_id": "linear_19e2a2787153",
+    "author_id": "linear_4d9e2b202532",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T11:22:34Z",
+    "updated_at": "2026-04-14T11:22:34Z"
+  },
+  {
+    "id": "linear_09fb5403bb4f",
+    "body": "I reviewed the stale retail PBC items. The oldest requests break into two buckets: client-dependent inventory support and internal pulls for trial balance mapping. I assigned temporary owners on the internal pulls so the partner escalation tracker only carries the true client blockers now.",
+    "issue_id": "linear_d49cf721d655",
+    "author_id": "linear_6ef0fc68abd7",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T10:48:45Z",
+    "updated_at": "2026-04-14T10:48:45Z"
+  },
+  {
+    "id": "linear_33e8d04bbf00",
+    "body": "BL-18FFAE0E20D0 is still marked overdue even though the reconciliation itself is clean on 117000 Allowance for Doubtful Accounts for acme_cloud_FP-2026-02. I do not see any open variance to resolve. This looks like a workflow status problem, but because it blocks sign-off on the remediation package we should clear it before we close the opening balance memo.",
+    "issue_id": "linear_4276769f4e97",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-31T12:19:18Z",
+    "updated_at": "2026-03-31T12:19:18Z"
+  },
+  {
+    "id": "linear_b0d69a53e2c0",
+    "body": "Checked VEN-019-583136 from Bridgefield Backup Systems. Status is still pending_approval at $5,279.87 and the handoff appears to have stalled between the budget owner and final approver. I do not see a coding issue, so this is purely an approval chain gap that fits the standardization problem we flagged.",
+    "issue_id": "linear_6186144f3d1e",
+    "author_id": "linear_4d9e2b202532",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-04T09:54:49Z",
+    "updated_at": "2026-04-04T09:54:49Z"
+  },
+  {
+    "id": "linear_24a780dba520",
+    "body": "For the new multi-service client win, I started a readiness checklist with three workstreams: outsourced accounting onboarding, tax intake, and annual report calendar setup. Please make sure we include bank access timing, source-document ownership, and state filing cadence in the first draft so we do not create preventable handoff issues between teams.",
+    "issue_id": "linear_e91d48658876",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-27T10:00:49Z",
+    "updated_at": "2026-05-27T10:00:49Z"
+  },
+  {
+    "id": "linear_1f58acd03c16",
+    "body": "Historical review on BL-3E4ED5B5B9BA is done. The archived recon for brookfield_FP-2025-09 still shows the small $-1.65 variance on 131000 Prepaid Software Subscriptions, but the memo support is enough to explain why we are not reopening it. I suggest we keep the narrative brief and avoid spending more cleanup time on immaterial legacy noise.",
+    "issue_id": "linear_55d9fb98aea4",
+    "author_id": "persona_001",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-03T12:36:51Z",
+    "updated_at": "2026-05-03T12:36:51Z"
+  },
+  {
+    "id": "linear_2bfee19792d0",
+    "body": "Mapped the approval timing on the recent misses. VEN-012-211225 from MetroShield Facility Services and VEN-014-300659 from Union Square Realty Partners were both ultimately approved, but each sat too long waiting for budget-owner confirmation before finance got a final release signal. We need a tighter SLA between initial coding and final approval if this workflow standard is going to work.",
+    "issue_id": "linear_6e80862770a3",
+    "author_id": "linear_6ef0fc68abd7",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-10T09:27:17Z",
+    "updated_at": "2026-05-10T09:27:17Z"
+  },
+  {
+    "id": "linear_ab89ba26a01a",
+    "body": "Given the resignation during month-end close, I rebalanced the Tuesday board so no single senior carries both close blockers and review queue for the same managed client set. Please double-check that the high-urgency cash exception work, especially items tied to daily close approvals, has a named backup owner through quarter-end.",
+    "issue_id": "linear_846e0370dd1f",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-13T18:58:27Z",
+    "updated_at": "2026-04-13T18:58:27Z"
+  },
+  {
+    "id": "linear_82ac4a591b5d",
+    "body": "Update from today's follow-up: the duplicate line behind exc_4d5d3582698946 was not in the client-provided bank statement package, so this continues to point to a feed issue rather than real cash movement. I prepared a proposed cleanup entry path but will wait for manager sign-off before touching 101000 Cash - Operating.",
+    "issue_id": "linear_d8b80c5bad34",
+    "author_id": "persona_002",
+    "is_edited": true,
+    "parent_id": null,
+    "created_at": "2026-04-08T17:06:19Z",
+    "updated_at": "2026-04-09T09:12:03Z"
+  },
+  {
+    "id": "linear_aece5741988a",
+    "body": "Please move the two brokerage-statement cases to the top of the Wednesday partner list. Those are now the longest-running document chases, and the returns are otherwise close to filing ready. The unsigned organizer item is lower risk by comparison because prep is complete pending signature.",
+    "issue_id": "linear_ec6773368375",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T10:46:23Z",
+    "updated_at": "2026-04-14T10:46:23Z"
+  },
+  {
+    "id": "linear_4fbb04c8fb77",
+    "body": "Client sent revised signatory paperwork this afternoon. Names now match the legal entity docs, but the bank portal still shows the prior admin setup. I have asked the relationship manager to confirm whether statements can be released while the dual-approval change is pending.",
+    "issue_id": "linear_b509f82b465f",
+    "author_id": "linear_4d9e2b202532",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-21T09:56:57Z",
+    "updated_at": "2026-04-21T09:56:57Z"
+  },
+  {
+    "id": "linear_227756652b5f",
+    "body": "Approval came through on exc_abd8e711f5f347 and the $1,014.33 FX revaluation drift can be documented as accepted for this close cycle. I updated the note against 103000 Cash - Tax Reserve so the team can release the held checklist item without reopening the cash pack.",
+    "issue_id": "linear_2e7d8014618a",
+    "author_id": "linear_6ef0fc68abd7",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-16T18:04:27Z",
+    "updated_at": "2026-04-16T18:04:27Z"
+  },
+  {
+    "id": "linear_ca945dfe3c0e",
+    "body": "I reviewed the trainee writeups with George. Best improvement this week was that they finally referenced actual IDs in their summaries, including BL-18FFAE0E20D0 and exc_4d5d3582698946, instead of generic descriptions. Still need them to be more explicit on whether the support is recon evidence, client follow-up, or proposed exception resolution.",
+    "issue_id": "linear_a9844c466815",
+    "author_id": "persona_002",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-18T10:17:48Z",
+    "updated_at": "2026-04-18T10:17:48Z"
+  },
+  {
+    "id": "linear_5d82b37ec4db",
+    "body": "The remaining state backup has been uploaded, so the overdue batch now fully ties to VEN-004-799133. Paid status and amount are confirmed, and I no longer see any mismatch between invoice support and the entities queued for release. This should be ready for final check before filings go out.",
+    "issue_id": "linear_19e2a2787153",
+    "author_id": "persona_001",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T13:44:12Z",
+    "updated_at": "2026-04-22T13:44:12Z"
+  },
+  {
+    "id": "linear_2f18d7896ec6",
+    "body": "Thanks for separating client-dependent versus internal PBC items. For partner reporting, please call out anything that can be solved with internal pulls this week so the retail group sees visible burn-down before month-end. The stale asks with no owner were creating unnecessary noise in the completion forecast.",
+    "issue_id": "linear_d49cf721d655",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T09:30:25Z",
+    "updated_at": "2026-04-24T09:30:25Z"
+  },
+  {
+    "id": "linear_aab3a205d566",
+    "body": "Started the quarter-end margin deck. JE-brookfield-FP-2026-05-0004 is still submitted and represents the main write-off item we need to quantify against realization. I am tying the bad debt impact back to 110000 Accounts Receivable - Client Billings so the partner discussion can separate collection pressure from pure pricing leakage.",
+    "issue_id": "linear_ef1f48334dcf",
+    "author_id": "linear_4d9e2b202532",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-06T11:51:33Z",
+    "updated_at": "2026-05-06T11:51:33Z"
+  },
+  {
+    "id": "linear_8876d0f66d8c",
+    "body": "Added a readiness subsection for compliance calendar dependencies. The new client will need annual report tracking set up at onboarding, not after bookkeeping is live, otherwise we risk repeating the overdue-entity cleanup pattern we are already working through elsewhere. Tax intake timing also needs a single owner so missing source docs do not bounce between teams.",
+    "issue_id": "linear_e91d48658876",
+    "author_id": "linear_6ef0fc68abd7",
+    "is_edited": true,
+    "parent_id": null,
+    "created_at": "2026-05-27T09:24:32Z",
+    "updated_at": "2026-05-27T09:24:32Z"
+  },
+  {
+    "id": "linear_ecfee0987378",
+    "body": "Please close the loop with the approver on VEN-019-583136 before Friday. Bridgefield Backup Systems is still sitting at pending_approval for $5,279.87, and this is exactly the sort of avoidable stall that undermines the AP standardization rollout. If no action by tomorrow afternoon, escalate it on the vendor approval exceptions list.",
+    "issue_id": "linear_6186144f3d1e",
+    "author_id": "linear_2e7b3ea28766",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-20T09:43:20Z",
+    "updated_at": "2026-05-20T09:43:20Z"
+  },
+  {
+    "id": "linear_cf9410527fcd",
+    "body": "Confirmed the blocker was status-related only. BL-18FFAE0E20D0 remains clean on 117000 Allowance for Doubtful Accounts for acme_cloud_FP-2026-02, and once the overdue flag was removed the opening balance remediation sign-off advanced as expected. No accounting change needed.",
+    "issue_id": "linear_4276769f4e97",
+    "author_id": "persona_002",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-05-28T14:27:59Z",
+    "updated_at": "2026-05-28T14:27:59Z"
+  }
+]

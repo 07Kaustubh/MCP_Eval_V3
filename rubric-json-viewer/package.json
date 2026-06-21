@@ -1,0 +1,49 @@
+{
+  "name": "rubric-json-viewer",
+  "displayName": "Rubric JSON Viewer",
+  "description": "Browse JSON array objects with prev/next and per-field copy.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:rubricJsonViewer.open",
+    "onCommand:rubricJsonViewer.openFromActiveFile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "rubricJsonViewer.open",
+        "title": "Rubric JSON Viewer: Open JSON File…"
+      },
+      {
+        "command": "rubricJsonViewer.openFromActiveFile",
+        "title": "Rubric JSON Viewer: Open Active JSON"
+      }
+    ],
+    "configuration": {
+      "title": "Rubric JSON Viewer",
+      "properties": {
+        "rubricJsonViewer.defaultRelativePath": {
+          "type": "string",
+          "default": "Tasks/updated_rubrics.json",
+          "description": "Workspace-relative path tried when no file is active (Open command only)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "node node_modules/typescript/lib/tsc.js -p ./",
+    "watch": "node node_modules/typescript/lib/tsc.js -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}

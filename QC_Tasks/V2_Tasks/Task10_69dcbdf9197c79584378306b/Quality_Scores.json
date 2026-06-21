@@ -1,0 +1,7 @@
+{
+  "qc_score": "3",
+  "qc_feedback": "[FAILING ISSUE] None. [NON-FAILING ISSUE] [Non-Fail - Up to 10% Major Errors] The spec doc mentions that each rubric criterion must evaluate exactly one independent dimension. Unrelated constraints cannot be bundled together. Rubric 18 is a confusing Tool Selection (TS) criterion. It states that the trajectory must include a quickbooks search, OR at least two stripe searches, OR quickbooks_show_data.  This creates two problems: It improperly bundles the tool selection for QuickBooks with the tool selection (and usage count) for Stripe into a single criterion, which is not atomic (Major Issue). Rubric 17 already tests for Stripe Tool Selection. Evaluating the number of Stripe tool calls again in Rubric 18 also introduces overlaps. [OTHER DISCUSSION] None.",
+  "error_categories": "[All] [All] [Non-Fail - Up to 10% Major Errors]",
+  "project_team_verdict": "",
+  "project_team_feedback": ""
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "annotations": {
+      "evidence": "Find send_email in the trajectory with casey.morgan@uwm.com or uwm.submissions@uwm.com in the to field. Confirm the response indicates success.",
+      "justification": "The prompt says 'draft my response to Casey.' Casey Morgan is the UWM underwriter who sent the quality review warning from casey.morgan@uwm.com. The UWM lender contact email is uwm.submissions@uwm.com. Either address is a valid way to reach Casey at UWM.",
+      "rubric_category": "outcome"
+    },
+    "id": "69bc8f28-625b-40b6-b2d2-a78453f11227",
+    "title": "An email was sent (via send_email) to \"casey.morgan@uwm.com\" or \"uwm.submissions@uwm.com\", and the tool response indicates success."
+  },
+  {
+    "annotations": {
+      "evidence": "Find send_email with grace.yamamoto@keystonemortgage.com in the to field, or conversations_add_message to Grace's DM channel. Confirm the response indicates success.",
+      "justification": "The prompt says 'get Grace her update before end of day.' Grace Yamamoto is the Director of Operations who emailed Keisha demanding an EOD update on the UWM quality review situation before she talks to Robert.",
+      "rubric_category": "outcome"
+    },
+    "id": "a3d04b7c-f734-4620-8ebe-49c6dfcf20f7",
+    "title": "An email was sent via send_email from \"keisha.williams@keystonemortgage.com\" to \"grace.yamamoto@keystonemortgage.com\", and the tool response indicates success."
+  },
+  {
+    "annotations": {
+      "evidence": "Find send_email with camille.foster@keystonemortgage.com, or conversations_add_message to #rate-watch, #loan-processing, or Camille's DM. Confirm success.",
+      "justification": "The prompt requires flagging the lock situation. Camille is lock desk; C005 and C002 are the concrete channel ids for rate-watch and loan-processing in slack_channels.json.",
+      "rubric_category": "outcome"
+    },
+    "id": "d2ea78d5-5cdf-421a-b4f4-93598d43f740",
+    "title": "A message was sent via send_email from \"keisha.williams@keystonemortgage.com\"  to \"camille.foster@keystonemortgage.com\" or via conversations_add_message with channel_id C005 (#rate-watch) or channel_id C002 (#loan-processing), and the tool response indicates success."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the send_email body parameter for the Casey/UWM email. Check for references to LN-2026-00556 or Turner, and language about submission quality, condition count, compliance check, or remediation steps.",
+      "justification": "Casey's quality review email specifically flags LN-2026-00556 as having 15 initial conditions, well above average for conventional submissions. The root cause is that Tyler submitted without running the automated compliance check. The response to Casey must address this to prevent escalation.",
+      "rubric_category": "outcome"
+    },
+    "id": "bf0b31c0-b695-4f22-8449-5dfbcd8d48cb",
+    "title": "The email to Casey/UWM (visible in send_email parameters) mentions LN-2026-00556 or the Turner file and addresses the submission quality issue, such as the high condition count or compliance check not being run before submission (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the send_email body parameter for the Casey/UWM email. Check for references to LN-2026-00555 or Flores and language about its current status, lock extension, or progress.",
+      "justification": "Casey's quality review email flags LN-2026-00555 as showing 'a lock extension but no movement since.' The prompt says 'Also look at my Flores file since Casey flagged that one too.' The response to Casey must address both flagged files.",
+      "rubric_category": "outcome"
+    },
+    "id": "7081c556-88f5-4951-9354-35a3eb5b14df",
+    "title": "The email to Casey/UWM (visible in send_email parameters) mentions LN-2026-00555 or the Flores file and addresses its status (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the send_email body parameter for the Casey/UWM email. Check for references to portal security, phishing, account restriction, security incident, or that the issue has been resolved.",
+      "justification": "Casey's quality review email mentions 'your portal account was part of the security incident we had to lock down last month.' This is one of two specific items Casey flagged alongside the 15 conditions. Addressing it is necessary to show the issue is resolved and prevent formal account review.",
+      "rubric_category": "outcome"
+    },
+    "id": "bf744502-0629-422e-99bd-1bd2ff7c0c06",
+    "title": "The email to Casey/UWM (visible in send_email parameters) addresses the portal security incident, such as the phishing attack, account restriction, or portal lockdown (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the send_email body parameter for the message whose recipients include grace.yamamoto@keystonemortgage.com. Check for LN-2026-00556 or Turner plus lock expiration, expired lock, or no extension language.",
+      "justification": "Grace's changelog email asks for current status on open UWM files; Turner lock expired 2026-04-16 per LOS rate_lock_expiration for los_loan_ae236f30d53a.",
+      "rubric_category": "outcome"
+    },
+    "id": "f0d607e6-e833-4582-bb2c-9812f90be707",
+    "title": "The send_email content to \"grace.yamamoto@keystonemortgage.com\" mentions LN-2026-00556 or the Turner file and its lock status, such as the lock expiring on or about 2026-04-16 or no extension purchased (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the message body to Grace for references to LN-2026-00555 or Flores and language about its status, application stage, expired lock, or current state.",
+      "justification": "Grace's email demands status on all open UWM files. LN-2026-00555 (Flores) is the second open UWM file, still in application status with an expired lock (April 21) and one lock extension already charged. Grace needs both files covered.",
+      "rubric_category": "outcome"
+    },
+    "id": "f0a641b0-c74a-4820-affd-2d45bfe02341",
+    "title": "The send_email content to \"grace.yamamoto@keystonemortgage.com\" mentions LN-2026-00555 or the Flores file and its status, such as application stage, expired lock on or about 2026-04-21, or an extension charge already taken (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the message body to Grace for dollar amounts, cost breakdowns, financial exposure references, or specific charges related to Turner and/or Flores.",
+      "justification": "Grace's email specifically asks 'what the financial exposure looks like.' The financial exposure includes Stripe charges (credit reports, deposits, appraisal fees, lock extensions) plus the cost of expired locks that will require repricing at current rates.",
+      "rubric_category": "outcome"
+    },
+    "id": "98532f57-4d33-4c49-a55e-546c03222d17",
+    "title": "The send_email content to \"grace.yamamoto@keystonemortgage.com\" includes financial exposure information (dollar figures, charge labels, or totals) tied to Turner (LN-2026-00556) and/or Flores (LN-2026-00555)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the message body to Grace for references to processor issues, Tyler, compliance check failure, submission quality gap, or internal process accountability.",
+      "justification": "Grace asked for processor or submission quality gaps separately; the compliance miss on the Turner file is the clearest documented gap (Slack thread on C002 with keystone_25ab76814149 and keystone_c6b42763fb1f).",
+      "rubric_category": "outcome"
+    },
+    "id": "650d01f7-a7ea-49d8-bb0e-7cded19fb7f0",
+    "title": "The send_email content to \"grace.yamamoto@keystonemortgage.com\" documents a submission-quality or processor gap tied to LN-2026-00556, including Tyler Washington and the automated compliance check not being run before UWM submission, or another explicit processor accountability point on these UWM files (or equivalent plain-language description)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the message body to Camille or the channel post for references to both LN-2026-00556/Turner and LN-2026-00555/Flores, with language about re-lock, repricing, expired locks, or new lock terms.",
+      "justification": "The prompt says 'flag the lock situation to whoever can still do something about it.' Both Turner (lock expired April 16) and Flores (lock expired April 21) have expired locks that need to be addressed before either file can move forward with UWM.",
+      "rubric_category": "outcome"
+    },
+    "id": "c18b9807-aa57-447e-91ae-f9274f41f87c",
+    "title": "The send_email body to \"camille.foster@keystonemortgage.com\" or the conversations_add_message payload on channel_id C005 or C002 mentions both LN-2026-00556 (Turner) and LN-2026-00555 (Flores) and asks for re-lock, repricing, or new lock terms (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the final response for discussion of items 4/9/12, document timestamps or received dates, and an assessment that Tyler's claim is partially supported, plausible, or inconclusive.",
+      "justification": "The prompt says 'I need to know if Tyler is right' and 'tell me who's right.' Tyler claimed items 4, 9, and 12 were already in the submission package. The LOS shows 10 documents received 2026-02-24, before Tyler's submission. This provides partial support but does not definitively map documents to specific UWM conditions.",
+      "rubric_category": "outcome"
+    },
+    "id": "60a9680e-b797-4ef8-9e81-fe72a6d467c1",
+    "title": "Trajectory text from outbound send_email messages (to \"casey.morgan@uwm.com\" or \"uwm.submissions@uwm.com\" and/or \"grace.yamamoto@keystonemortgage.com\") and/or conversations_add_message payloads on C002 or C005 discusses UWM conditions items 4, 9, and 12 and notes LOS checklist documents received on approximately 2026-02-24 for LN-2026-00556, with an assessment that Tyler's claim is partially supported, plausible, or not fully provable against Casey's numbered list (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Parse the same outbound bodies/payloads as R12 for item 7 or compliance check, C002 or Slack, Tyler admission / without running automated compliance, Elena response, and a conclusion that Tyler is wrong or inconsistent on item 7.",
+      "justification": "Ground-truth contradiction lives in base slack_messages.json on C002; the agent must surface it in the same outbound artifacts used for stakeholders.",
+      "rubric_category": "outcome"
+    },
+    "id": "eb637834-765c-4097-a220-ca0e7c25c772",
+    "title": "Trajectory text from outbound send_email messages (to \"casey.morgan@uwm.com\" or \"uwm.submissions@uwm.com\" and/or \"grace.yamamoto@keystonemortgage.com\") and/or conversations_add_message payloads on C002 or C005 discusses item 7 / the compliance check, Tyler's Slack admission (channel C002 thread_ts 1774382100.000000, user keystone_25ab76814149), and Elena's reply (keystone_c6b42763fb1f), concluding Tyler's verbal-clearance story on item 7 does not hold (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the final response for dollar amounts related to Turner/LN-2026-00556, such as credit report, deposit, appraisal, or a total around $1,365.",
+      "justification": "Financial exposure for Turner is anchored to stripe charges.json amounts in USD (cents divided by 100).",
+      "rubric_category": "outcome"
+    },
+    "id": "061ba759-c65c-4fa1-ac6f-f89c02332e1a",
+    "title": "Trajectory text from outbound send_email messages (to \"casey.morgan@uwm.com\" or \"uwm.submissions@uwm.com\", and/or \"grace.yamamoto@keystonemortgage.com\" and/or conversations_add_message payloads on C002 or C005 reports Turner (LN-2026-00556) charges consistent with Stripe: approximately $65 credit report, approximately $750 application deposit, approximately $550 appraisal, combined approximately $1,365 (or the charge ids ch_o8s1SGwTr9VtI5Cu, ch_Kk2nkrSkoTUGT8Ak, ch_pQpVd8Wr3MgUMv5K)."
+  },
+  {
+    "annotations": {
+      "evidence": "Inspect the final response for dollar amounts related to Flores/LN-2026-00555, such as lock extension, deposit, appraisal, rush processing, credit report, or a total around $2,135.",
+      "justification": "Financial exposure for Flores matches stripe charges.json for the listed charge ids.",
+      "rubric_category": "outcome"
+    },
+    "id": "49632a2b-3885-497f-a2ec-5745476d89f6",
+    "title": "Trajectory text from outbound send_email messages (to \"casey.morgan@uwm.com\" or \"uwm.submissions@uwm.com\", and/or \"grace.yamamoto@keystonemortgage.com\") and/or conversations_add_message payloads on C002 or C005 reports Flores (LN-2026-00555) charges consistent with Stripe: approximately $60 credit report, approximately $1,000 application deposit, approximately $400 appraisal, approximately $275 rush processing, approximately $400 rate lock extension, combined approximately $2,135 (or the charge ids ch_Z36IjShqUSan09PE, ch_4kd3bnVLhHPes9BW, ch_hi6iWHhkO6RPeV7D, ch_qgMbDOhnHyZUsqwP, ch_RAiNiO8YCqFxXKxs)."
+  },
+  {
+    "annotations": {
+      "evidence": "Search the trajectory for any mortgage_los read/lookup tool call (mortgage_los_search_loans, mortgage_los_get_conditions, mortgage_los_get_rate_lock_status, mortgage_los_get_documents, or similar). At least one must appear.",
+      "justification": "mortgage_los_* reads (and session login) are non-default. The prompt requires investigating Turner and Flores files including conditions, locks, and documents.",
+      "rubric_category": "tool selection"
+    },
+    "id": "c10d601c-33c9-4ab6-9ff0-31be6bc83031",
+    "title": "The model must use a mortgage LOS read tool among: mortgage_los_login, mortgage_los_search_loans, mortgage_los_get_loan, mortgage_los_get_loan_by_id, mortgage_los_get_conditions, mortgage_los_get_rate_lock_status, or mortgage_los_get_documents."
+  },
+  {
+    "annotations": {
+      "evidence": "Search the trajectory for any stripe_search_charges or stripe_list_charges tool call. At least one must appear.",
+      "justification": "stripe_* is a non-default tool in the Keystone universe. The prompt asks to 'pull the financial exposure on both, every extension charge and delay cost.' Stripe contains the actual charge records (credit reports, deposits, appraisal fees, lock extensions) needed to quantify financial exposure.",
+      "rubric_category": "tool selection"
+    },
+    "id": "a70f003c-f1bd-4834-802f-395574fee7a7",
+    "title": "The model must use a Stripe lookup tool (e.g., stripe_search_charges or stripe_list_charges)."
+  },
+  {
+    "annotations": {
+      "evidence": "Search the trajectory for any quickbooks_search_bills, quickbooks_search_invoices, or similar QuickBooks tool call. At least one must appear.",
+      "justification": "QuickBooks can add extension-fee context but Stripe already records the Flores lock extension (ch_RAiNiO8YCqFxXKxs). Requiring QB alone would fail strong agents; this rubric rewards either QB, repeated Stripe review, or a raw QuickBooks dump.",
+      "rubric_category": "tool selection"
+    },
+    "id": "8baa8207-673c-4aab-8e83-3b0d0c447264",
+    "title": "The trajectory includes quickbooks_search_bills or quickbooks_search_invoices, OR includes at least two distinct stripe_search_charges or stripe_list_charges calls (any parameters), OR quickbooks_show_data."
+  }
+]

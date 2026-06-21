@@ -1,0 +1,299 @@
+[
+  {
+    "annotations": {
+      "evidence": "See OE #18. Look for a send_email or reply_to_email tool call with recipients containing angela.foster.622@gmail.com and sender elena.marchetti@keystonemortgage.com. Confirm the tool response indicates success.\n",
+      "justification": "The prompt says 'Email the borrower from me.' Angela Foster's email is angela.foster.622@gmail.com and the persona (Elena Marchetti) sends from elena.marchetti@keystonemortgage.com. Recipient + sender are tightly coupled parameters of the same send action.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "21755ffd-ec30-4c4a-aa34-66dba52a9174",
+    "title": "An email was sent (via send_email or reply_to_email) to angela.foster.622@gmail.com from elena.marchetti@keystonemortgage.com and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter of the send_email or reply_to_email call to angela.foster.622@gmail.com. Must reference Elena taking over, being the new contact, or handling the file.\n",
+      "justification": "The prompt says 'letting her know I am handling her file now.' The email content must communicate the processor transition.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "0e66bbb0-3457-40e1-8a88-3832b1c5ba4f",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) informs Angela that Elena Marchetti is now handling her file or is her new point of contact (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must reference pay stub or recent pay stub as a needed document.\n",
+      "justification": "The prompt says 'tell her exactly which documents are still outstanding.' The pay stub condition (los_cond_foster_001) is outstanding. This is one of 5 independently verifiable outstanding conditions that must be listed.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "0a8952a1-0093-4c68-891a-7b7c0a0b135c",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) mentions the need for an updated pay stub within 30 days of closing (or similar) as an outstanding document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must reference bank statements or reserve statements as a needed document.\n",
+      "justification": "The prompt says 'tell her exactly which documents are still outstanding.' The bank statements condition (los_cond_foster_002) is outstanding.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "e13dfe9c-c4e0-4a8c-b231-d9fa784284af",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) mentions the need for 2 months of bank statements showing reserves (or similar) as an outstanding document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must reference credit inquiry, letter of explanation, or LOE as a needed document.\n",
+      "justification": "The prompt says 'tell her exactly which documents are still outstanding.' The credit inquiry LOE condition (los_cond_foster_003) is outstanding.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "d30ff50c-726a-486c-ad8e-f977e4298218",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) mentions the need for a letter of explanation for a credit inquiry (or similar) as an outstanding document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must reference homeowners insurance, HOI, insurance binder, or insurance policy as a needed document.\n",
+      "justification": "The prompt says 'tell her exactly which documents are still outstanding.' The HOI binder condition (los_cond_foster_004) is outstanding.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "fc603dc9-6cb7-4288-b0c3-6e9529992d6a",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) mentions the need for a homeowners insurance binder (or similar) as an outstanding document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must reference verification of employment, VOE, or employer verification as a needed document.\n",
+      "justification": "The prompt says 'tell her exactly which documents are still outstanding.' The VOE condition (los_cond_foster_005) is outstanding.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "3466523b-f689-4880-8c95-e9dc514514e0",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) mentions the need for a verification of employment or VOE (or similar) as an outstanding document."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #18. Check content parameter. Must include language about working on the file, getting back on track, moving forward, or similar reassurance.\n",
+      "justification": "The prompt says 'let her know we are working to get this back on track.' The email must contain reassuring language beyond just listing documents.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "e2e73a5c-1060-406b-81d3-a90eb7e5f991",
+    "title": "The email to angela.foster.622@gmail.com (visible in send_email or reply_to_email parameters) includes reassurance that the file is being worked on or that things are getting back on track (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #19. Look for a mortgage_los_add_activity tool call with loan_id parameter containing los_loan_6507d3b85a25. Confirm the tool response indicates success.\n",
+      "justification": "The prompt says 'Add a note to the loan in the system.' The Foster loan ID is los_loan_6507d3b85a25. This checks that the write action was executed on the correct loan.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "8e788619-527a-4c5a-8f28-c7523e84228e",
+    "title": "A loan activity note was added to loan los_loan_6507d3b85a25 using mortgage_los_add_activity and the tool returned success."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #19. Check the detail parameter of the mortgage_los_add_activity call. Must reference Elena picking up the file, taking over, or being assigned as processor.\n",
+      "justification": "The prompt says 'documenting that I have picked up the file.' The activity note detail must reference the file takeover.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "b9681aba-20a0-4014-a990-159d73c56352",
+    "title": "The loan activity note added via mortgage_los_add_activity (visible in the detail parameter) documents that Elena Marchetti has picked up or taken over the file (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #19. Check the detail parameter. Must reference outstanding conditions, condition status, or the number of conditions pending.\n",
+      "justification": "The prompt says 'where conditions stand.' The note must reference the outstanding condition count or status from Caliber.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "e3e65466-52d1-4ee7-8400-14232dc75411",
+    "title": "The loan activity note added via mortgage_los_add_activity (visible in the detail parameter) documents the current condition status, including that there are 5 outstanding conditions (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #19. Check the detail parameter. Must reference rate lock expiration, expired lock, re-lock needed, or lock situation.\n",
+      "justification": "The prompt says 'and that the rate lock situation needs to be addressed.' The note must reference the expired lock or re-lock need.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "cd60b720-2b4c-4aa2-88d3-1f4d374a67d7",
+    "title": "The loan activity note added via mortgage_los_add_activity (visible in the detail parameter) documents the rate lock situation, including that the lock expired or needs to be addressed (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #20. Look for a send_email or reply_to_email call with recipients containing camille.foster@keystonemortgage.com, or a conversations_add_message call referencing the rate lock or Camille. Confirm the tool response indicates success.\n",
+      "justification": "The prompt says 'send Camille a message about the lock.' Camille Foster's email is camille.foster@keystonemortgage.com. The prompt does not specify email vs Slack, so both channels are acceptable.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "8b7cab11-8855-4015-aead-59088330aff6",
+    "title": "A message was sent to [camille.foster@keystonemortgage.com](mailto:camille.foster@keystonemortgage.com) (via send_email or reply_to_email) from [elena.marchetti@keystonemortgage.com](mailto:elena.marchetti@keystonemortgage.com), or a Slack message was posted (via conversations_add_message) referencing Camille or the rate lock on LN-2026-00622."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #20. Check content or payload parameter of the message to Camille. Must reference lock expiration or that the lock lapsed on or around April 26.\n",
+      "justification": "The prompt says 'if it expired without an extension request.' The message must convey that the lock has expired. The rate_lock_expiration in the LOS is 2026-04-26.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "fa8181c5-e839-4eb9-b438-a6e79cae090c",
+    "title": "The message to Camille (visible in send_email content, reply_to_email content, or conversations_add_message payload parameter) references that the rate lock on LN-2026-00622 expired on or around April 26 (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #20. Check content or payload parameter of the message to Camille. Must reference that no extension was filed or requested.\n",
+      "justification": "The prompt says 'if it expired without an extension request.' The no-extension fact comes from Camille's Slack message in #rate-watch (OE #14) and is independently verifiable from the expiration date itself.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "560f01dc-b809-43c5-aeb7-6d3ff86ccfa6",
+    "title": "The message to Camille (visible in send_email content, reply_to_email content, or conversations_add_message payload parameter) references that no extension was requested for the rate lock (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #20. Check content or payload parameter. Must reference re-lock pricing, rate options, current rates, or cost to re-lock.\n",
+      "justification": "The prompt says 'we need to figure out re-lock pricing before I can give the borrower or the realtor a straight answer on closing.' The message must request pricing information.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "5d3d9417-74d7-4d9c-b71b-cdfd1198c021",
+    "title": "The message to Camille (visible in send_email content, reply_to_email content, or conversations_add_message payload parameter) asks about re-lock pricing, re-lock options, or current rates (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2. Read the final response. Must state 5 outstanding conditions or list them individually.\n",
+      "justification": "The prompt says 'I want to know what Caliber asked for' and 'piece together exactly where it stands.' The agent must report the outstanding condition count. There are 5 outstanding conditions (los_cond_foster_001 through 005).\n",
+      "rubric_category": "outcome"
+    },
+    "id": "1372756d-ef31-437b-b4f6-32827a12b088",
+    "title": "The final response identifies that the Foster loan (LN-2026-00622) has 5 outstanding conditions from Caliber."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2. Read the final response. Must note the appraisal condition is cleared or already satisfied.\n",
+      "justification": "The appraisal condition (los_cond_foster_006) was cleared by Elena Marchetti on 2026-04-18. This is independently verifiable from the outstanding count and is a distinct finding the agent should report.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "88c35c0f-9a81-4984-b9c8-e31de987679f",
+    "title": "The final response identifies that the appraisal condition on LN-2026-00622 has been cleared."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #4. Read the final response. Must state the lock expired on or around April 26, 2026.\n",
+      "justification": "The prompt says 'I think Camille may have flagged something about the lock.' The lock expiration date is a critical finding the agent must surface. The rate_lock_expiration in the LOS is 2026-04-26.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "042ca663-e8d3-4048-b0e1-a9cb3e00fff6",
+    "title": "The final response identifies that the rate lock on LN-2026-00622 expired on or around April 26, 2026."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #14. Read the final response. Must state that no extension was requested or filed for the rate lock.\n",
+      "justification": "Camille's Slack message in #rate-watch (OE #14) explicitly states 'No extension was requested.' This is a separate finding from the expiration date itself and comes from a different data source (Slack vs LOS).\n",
+      "rubric_category": "outcome"
+    },
+    "id": "a586bfcc-6d77-4459-b66f-6518d51667a1",
+    "title": "The final response identifies that no rate lock extension was requested for LN-2026-00622."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #6. Read the final response. Must reference Angela claiming to have sent or uploaded her pay stub.\n",
+      "justification": "The prompt says 'what the borrower and her realtor have been sending Todd.' Angela's email (email_foster_docs_002, April 14) states she uploaded her most recent pay stub to the portal.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "0554c51c-dda6-4b88-9b7e-2bee63fe8f25",
+    "title": "The final response identifies that Angela Foster claims to have submitted her pay stub via email or the portal."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #6. Read the final response. Must reference Angela claiming to have sent or uploaded bank statements or Chase and Wells Fargo statements.\n",
+      "justification": "Angela's email (email_foster_docs_003, April 21) states she uploaded her Chase and Wells Fargo statements to the portal. This is a separate claimed submission from the pay stub, verifiable from a different email.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "10099dd7-d825-4db6-9168-5fbfb1e55baa",
+    "title": "The final response identifies that Angela Foster claims to have submitted bank statements (Chase and Wells Fargo) via email or the portal."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2. Read the final response. Must note the gap between Angela's claimed submissions and the LOS condition statuses showing them still outstanding.\n",
+      "justification": "The prompt says 'what actually made it into the system versus what is still sitting in his inbox unprocessed.' The LOS shows all 5 conditions still outstanding despite Angela's claims. This discrepancy is independently verifiable from the LOS data.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "3f22bcc2-5b0c-4612-a346-bbaf686be252",
+    "title": "The final response identifies that the documents Angela claims to have submitted (pay stub, bank statements) were not logged or cleared as conditions in the LOS."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #6, OE #9, OE #15. Read the final response. Must reference Angela being unable to reach Todd, her unanswered emails, or her escalation.\n",
+      "justification": "The prompt says 'The borrower and her realtor have both been trying to reach Todd and getting nothing.' Angela's emails (OE #6, OE #9) and CRM call log (OE #15) document her inability to reach Todd and her escalation to the general inbox.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "179bb90b-32a5-4595-861d-b05be9a06eae",
+    "title": "The final response identifies that Angela Foster has been unable to reach Todd Jennings and has escalated her concerns (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #7, OE #15. Read the final response. Must reference Brian Foster or the realtor raising concerns about the closing timeline.\n",
+      "justification": "The prompt says the realtor has been 'trying to reach Todd and getting nothing.' Brian's email (OE #7) and CRM call (OE #15) show his separate escalation about the closing timeline.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "36d7cef1-fc50-4f80-b584-21931903dcfd",
+    "title": "The final response identifies that Brian Foster (the realtor) has escalated concerns about the Foster closing timeline (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #7, OE #15. Read the final response. Must reference seller pressure, sellers threatening to walk, or the contingency threat.\n",
+      "justification": "Brian's email (OE #7) states sellers are 'asking daily if this deal is still happening' and the CRM engagement (OE #15) states 'sellers threatening to invoke contract contingency.' This is a critical finding about deal risk that is independently verifiable.\n",
+      "rubric_category": "outcome"
+    },
+    "id": "49390010-0c52-4a1f-b581-37bd3429f0e2",
+    "title": "The final response identifies that the sellers are threatening to walk or invoke a contract contingency if closing is not confirmed (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #1. Look for a mortgage_los_search_loans, mortgage_los_get_loan, or mortgage_los_get_loan_by_id tool call with a query or parameter related to 'Foster,' 'Fairview,' or 'LN-2026-00622' in the trajectory.\n",
+      "justification": "Mortgage LOS is a non-default service. The prompt says 'pull this loan' which requires searching the LOS. The agent must use a mortgage_los tool to find the loan rather than relying only on email or Slack references.\n",
+      "rubric_category": "tool selection"
+    },
+    "id": "7e5b3ac0-8e3a-4db8-b4c2-903fae55daca",
+    "title": "The model must use mortgage_los_search_loans (or mortgage_los_get_loan or mortgage_los_get_loan_by_id) to search for or retrieve the Foster loan in the Mortgage LOS."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2. Look for a mortgage_los_get_conditions tool call with loan_id parameter in the trajectory.\n",
+      "justification": "Mortgage LOS is a non-default service. The prompt says 'I want to know what Caliber asked for' and 'what actually made it into the system.' The agent must query the LOS conditions table to see what conditions exist and their statuses, rather than relying solely on the Caliber email.\n",
+      "rubric_category": "tool selection"
+    },
+    "id": "29937d1c-b318-41dd-b0ae-469f5077a7af",
+    "title": "The model must use mortgage_los_get_conditions to retrieve the underwriting conditions for the Foster loan."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #4. Look for a mortgage_los_get_rate_lock_status tool call with loan_id parameter in the trajectory.\n",
+      "justification": "Mortgage LOS is a non-default service. The prompt says the persona wants to know about the lock situation. The rate lock tool provides the authoritative expiration date (2026-04-26) and rate (6.861%). While Slack messages reference the lock, the LOS tool is the authoritative source.\n",
+      "rubric_category": "tool selection"
+    },
+    "id": "d75d057d-6e28-46a9-a6a8-00e82ba9fa09",
+    "title": "The model must use mortgage_los_get_rate_lock_status to check the rate lock status for the Foster loan."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #15. Look for any crm_* tool call (crm_list_engagements, crm_show_data, crm_search_contacts) in the trajectory.\n",
+      "justification": "CRM is a non-default service. The prompt explicitly says 'If anyone took calls from the borrower or the realtor while Todd was gone there should be notes in CRM.' The agent must check CRM to find the 3 Foster-related engagements.\n",
+      "rubric_category": "tool selection"
+    },
+    "id": "69f3c5a2-d5df-4ab9-a587-daafade322f7",
+    "title": "The model must use a CRM tool (e.g., crm_list_engagements, crm_show_data, or crm_search_contacts) to search for call notes or engagement records related to the Foster file."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #1. Check the query parameter of mortgage_los_search_loans calls. Must include terms related to Foster, Fairview, or the loan number.\n",
+      "justification": "The prompt identifies the loan by borrower name ('Foster') and property ('Fairview Rd'). The agent must construct a search query that targets this specific loan. A generic or unrelated query would miss the loan.\n",
+      "rubric_category": "query construction"
+    },
+    "id": "d1b6f452-f316-44af-8bb1-4ebc4f68b54a",
+    "title": "The model must pass a query related to 'Foster,' 'Fairview,' 'LN-2026-00622,' or 'Angela Foster' (or similar) when calling mortgage_los_search_loans to find the correct loan."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2. Check the loan_id parameter of mortgage_los_get_conditions calls. Must contain los_loan_6507d3b85a25 or LN-2026-00622.\n",
+      "justification": "The agent must infer the correct loan_id from the search results in OE #1. Passing an incorrect loan_id would return conditions for the wrong loan, cascading into incorrect outstanding documents listed in the email to Angela.\n",
+      "rubric_category": "query construction"
+    },
+    "id": "b0783087-cc46-41a9-a7e9-23a87c63e0c4",
+    "title": "The model must pass loan_id 'los_loan_6507d3b85a25' (or the loan number 'LN-2026-00622') when calling mortgage_los_get_conditions to retrieve conditions for the correct loan."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #3. Look for a mortgage_los_get_activity_log tool call with loan_id parameter in the trajectory",
+      "justification": "Mortgage LOS is a non-default service. The activity log contains Grace Yamamoto's reassignment entry confirming Todd's departure and Elena's assignment. This is the authoritative LOS record of the file transition",
+      "rubric_category": "tool selection"
+    },
+    "id": "21ded90f-2119-4b3e-a18c-4725eb010fa4",
+    "title": "The model must use mortgage_los_get_activity_log to check the loan activity log for the Foster loan"
+  }
+]

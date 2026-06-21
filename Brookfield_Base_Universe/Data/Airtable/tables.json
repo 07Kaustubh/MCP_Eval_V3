@@ -1,0 +1,665 @@
+[
+  {
+    "id": "airtable_1a80ff5c1ed3",
+    "name": "Close Blocker Triage Log",
+    "views": [
+      {
+        "id": "viw5587c4efd8434a",
+        "name": "Today High Priority",
+        "type": "grid"
+      },
+      {
+        "id": "viw58f0aa2390974f",
+        "name": "Bank Feed Exceptions",
+        "type": "grid"
+      }
+    ],
+    "fields": [
+      {
+        "id": "fldf68a8cb8e23540",
+        "name": "blocker_title",
+        "type": "singleLineText",
+        "description": "Short label for the close blocker or exception under review."
+      },
+      {
+        "id": "fldac426100fed544",
+        "name": "created_at",
+        "type": "dateTime",
+        "description": "Record creation timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld04dcc2c3a8fa49",
+        "name": "updated_at",
+        "type": "dateTime",
+        "description": "Last update timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld5ae265a883ac4c",
+        "name": "target_date",
+        "type": "dateTime",
+        "description": "Target resolution date for the blocker.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld79293fa692a341",
+        "name": "workflow_theme",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "daily_operations"
+            },
+            {
+              "name": "incident"
+            },
+            {
+              "name": "weekly_recurring"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld0fedc53f256345",
+        "name": "exception_id",
+        "type": "singleLineText",
+        "description": "Reference to the accounting exception being triaged."
+      },
+      {
+        "id": "fld75e49f33f44442",
+        "name": "recon_id",
+        "type": "singleLineText",
+        "description": "Reference to related reconciliation item if applicable."
+      },
+      {
+        "id": "fldd54b3df8f99144",
+        "name": "gl_account",
+        "type": "singleLineText",
+        "description": "Primary GL account affected."
+      },
+      {
+        "id": "flda8c6f525141d4f",
+        "name": "owner",
+        "type": "singleLineText",
+        "description": "Assigned accountant or advisor."
+      },
+      {
+        "id": "fld9e1a27f4508a45",
+        "name": "priority",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "high"
+            },
+            {
+              "name": "medium"
+            },
+            {
+              "name": "low"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld9cc6de5f078343",
+        "name": "status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "open"
+            },
+            {
+              "name": "investigating"
+            },
+            {
+              "name": "awaiting_partner_review"
+            },
+            {
+              "name": "resolved"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld55bf4879cfcc4d",
+        "name": "notes",
+        "type": "multilineText",
+        "description": "Context on bank feed issues, cash posting follow-up, and client communications."
+      }
+    ],
+    "base_id": "airtable_e86eaf439d1d",
+    "description": "Operational tracker for daily outsourced accounting close blockers tied to bank feed exceptions, cash posting delays, and reconciliation follow-up for partner-led client service teams."
+  },
+  {
+    "id": "airtable_d2d6dfe7c4b3",
+    "name": "Annual Report Filing Control",
+    "views": [
+      {
+        "id": "viwa55e2d8ef88e46",
+        "name": "Overdue Catch-Up",
+        "type": "grid"
+      },
+      {
+        "id": "viw6e47069cd6044a",
+        "name": "Ready for Partner Signoff",
+        "type": "grid"
+      }
+    ],
+    "fields": [
+      {
+        "id": "fldf8482364fe1c4d",
+        "name": "entity_task",
+        "type": "singleLineText",
+        "description": "Specific filing or readiness task for a client entity."
+      },
+      {
+        "id": "fld2a392f9cbddb4e",
+        "name": "created_at",
+        "type": "dateTime",
+        "description": "Record creation timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fldbf18adf926cc45",
+        "name": "start_date",
+        "type": "dateTime",
+        "description": "Task start date.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld917ec10cdf4b48",
+        "name": "due_date",
+        "type": "dateTime",
+        "description": "State filing or internal completion due date.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "flddaf3b706b52d4e",
+        "name": "updated_at",
+        "type": "dateTime",
+        "description": "Last update timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld89e376d9665746",
+        "name": "project_theme",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "active_project"
+            },
+            {
+              "name": "daily_operations"
+            },
+            {
+              "name": "weekly_recurring"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fldb1a3cb71155a47",
+        "name": "invoice_id",
+        "type": "singleLineText",
+        "description": "Reference to filing or vendor support invoice where applicable."
+      },
+      {
+        "id": "fld61f58cee323a49",
+        "name": "period_id",
+        "type": "singleLineText",
+        "description": "Reference fiscal period used for readiness or billing context."
+      },
+      {
+        "id": "fld6737f2a3761645",
+        "name": "owner",
+        "type": "singleLineText",
+        "description": "Assigned team member managing the filing follow-up."
+      },
+      {
+        "id": "fldced3c8e247a34c",
+        "name": "review_partner",
+        "type": "singleLineText",
+        "description": "Partner overseeing final readiness approval."
+      },
+      {
+        "id": "fld1b0eab236e5a4c",
+        "name": "status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "not_started"
+            },
+            {
+              "name": "in_progress"
+            },
+            {
+              "name": "awaiting_client_docs"
+            },
+            {
+              "name": "ready_to_file"
+            },
+            {
+              "name": "submitted"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fldc927798b87124a",
+        "name": "notes",
+        "type": "multilineText",
+        "description": "Details on state exceptions, missing documentation, or readiness blockers."
+      }
+    ],
+    "base_id": "airtable_6ac18f5d342c",
+    "description": "Control-center table for multi-state annual report catch-up, overdue entity filing follow-up, and readiness checks before state submission windows."
+  },
+  {
+    "id": "airtable_11c1e4c6585d",
+    "name": "Weekly Tax and Review Cadence",
+    "views": [
+      {
+        "id": "viwffb0cf398ece47",
+        "name": "Wednesday Pipeline Review",
+        "type": "grid"
+      },
+      {
+        "id": "viw725800047c4849",
+        "name": "Graduate Assignment Review",
+        "type": "grid"
+      }
+    ],
+    "fields": [
+      {
+        "id": "fld75be32a026e74e",
+        "name": "meeting_title",
+        "type": "singleLineText",
+        "description": "Name of the recurring review cadence item."
+      },
+      {
+        "id": "fldc034b1bb438645",
+        "name": "created_at",
+        "type": "dateTime",
+        "description": "Record creation timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld00178c4a962a48",
+        "name": "updated_at",
+        "type": "dateTime",
+        "description": "Last update timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fldbaa704cb3c684b",
+        "name": "target_date",
+        "type": "dateTime",
+        "description": "Next review or decision date.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fldee631a1e80b84f",
+        "name": "cadence_theme",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "weekly_recurring"
+            },
+            {
+              "name": "monthly_quarterly"
+            },
+            {
+              "name": "administrative"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fldc2af4816ce304b",
+        "name": "journal_entry_id",
+        "type": "singleLineText",
+        "description": "Reference to a journal entry discussed in the review cycle if relevant."
+      },
+      {
+        "id": "fldbeeccc4ae44146",
+        "name": "owner",
+        "type": "singleLineText",
+        "description": "Primary coordinator for the recurring review."
+      },
+      {
+        "id": "fld52cbda44647c42",
+        "name": "participants",
+        "type": "multilineText",
+        "description": "Named participants in the review thread or standup."
+      },
+      {
+        "id": "fld83d4140801b34c",
+        "name": "status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "scheduled"
+            },
+            {
+              "name": "in_review"
+            },
+            {
+              "name": "escalated"
+            },
+            {
+              "name": "completed"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld94888575e34847",
+        "name": "notes",
+        "type": "multilineText",
+        "description": "Agenda notes, escalation items, and preparer-reviewer comments."
+      }
+    ],
+    "base_id": "airtable_e86eaf439d1d",
+    "description": "Recurring workflow table for Wednesday tax pipeline review, trainee work review loops, and return-review threads ahead of filing windows."
+  },
+  {
+    "id": "airtable_8ee8b6013413",
+    "name": "AP Workflow Exceptions",
+    "views": [
+      {
+        "id": "viw33a58e6f8cc048",
+        "name": "Pending Approval Bottlenecks",
+        "type": "grid"
+      },
+      {
+        "id": "viw064960a357104e",
+        "name": "Standardization Workstream",
+        "type": "grid"
+      }
+    ],
+    "fields": [
+      {
+        "id": "fldf3c2bd27410e4e",
+        "name": "issue_title",
+        "type": "singleLineText",
+        "description": "Short title for the AP workflow issue or standardization item."
+      },
+      {
+        "id": "fldd13c28dce25245",
+        "name": "created_at",
+        "type": "dateTime",
+        "description": "Record creation timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld708761b5d3ba49",
+        "name": "updated_at",
+        "type": "dateTime",
+        "description": "Last update timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld97e5bb54b4c548",
+        "name": "due_date",
+        "type": "dateTime",
+        "description": "Internal due date for remediation or partner decision.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld71ac66c8ab9444",
+        "name": "theme",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "active_project"
+            },
+            {
+              "name": "incident"
+            },
+            {
+              "name": "daily_operations"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld61761234f11c4b",
+        "name": "invoice_id",
+        "type": "singleLineText",
+        "description": "Related vendor invoice from the AP queue."
+      },
+      {
+        "id": "fldd653279ee37248",
+        "name": "gl_account",
+        "type": "singleLineText",
+        "description": "Affected GL account."
+      },
+      {
+        "id": "fldb72182934de44a",
+        "name": "owner",
+        "type": "singleLineText",
+        "description": "Assigned AP process lead."
+      },
+      {
+        "id": "fld273e4719704f42",
+        "name": "severity",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "critical"
+            },
+            {
+              "name": "high"
+            },
+            {
+              "name": "medium"
+            },
+            {
+              "name": "low"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld711b8e6db76c49",
+        "name": "status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "open"
+            },
+            {
+              "name": "pending_client_approval"
+            },
+            {
+              "name": "remediating"
+            },
+            {
+              "name": "closed"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld2f9f8907375a4e",
+        "name": "notes",
+        "type": "multilineText",
+        "description": "Narrative on approval-chain breakdowns, payment timing, and standardization steps."
+      }
+    ],
+    "base_id": "airtable_e86eaf439d1d",
+    "description": "Issue log for managed-client accounts payable workflow standardization, vendor approval delays, and invoice-related payment misses affecting outsourced accounting operations."
+  },
+  {
+    "id": "airtable_f9ea4c4c150d",
+    "name": "Client Access and Onboarding Admin",
+    "views": [
+      {
+        "id": "viwec250b1bdc5e4c",
+        "name": "Monday Kickoff Queue",
+        "type": "grid"
+      },
+      {
+        "id": "viw20c479d5bad74e",
+        "name": "Restricted Vault Access",
+        "type": "grid"
+      }
+    ],
+    "fields": [
+      {
+        "id": "fld1f7780d91c744c",
+        "name": "admin_item",
+        "type": "singleLineText",
+        "description": "Administrative onboarding or access-control task."
+      },
+      {
+        "id": "fld3ad01380ddf144",
+        "name": "created_at",
+        "type": "dateTime",
+        "description": "Record creation timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld0937eebc872c4b",
+        "name": "start_date",
+        "type": "dateTime",
+        "description": "Task kickoff date.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld4a3adf3d7f214a",
+        "name": "updated_at",
+        "type": "dateTime",
+        "description": "Last update timestamp.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "flda30ebaa4f27a4b",
+        "name": "target_date",
+        "type": "dateTime",
+        "description": "Expected completion date.",
+        "options": {
+          "timeFormat": "24hour",
+          "dateFormat": "iso"
+        }
+      },
+      {
+        "id": "fld4193e9a3f2d046",
+        "name": "theme",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "administrative"
+            },
+            {
+              "name": "weekly_recurring"
+            },
+            {
+              "name": "narrative_event"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld37665983cf1742",
+        "name": "journal_entry_id",
+        "type": "singleLineText",
+        "description": "Optional reference for onboarding or access requests connected to accounting setup review."
+      },
+      {
+        "id": "fldf0747d8c70e343",
+        "name": "owner",
+        "type": "singleLineText",
+        "description": "Operations or engagement admin owner."
+      },
+      {
+        "id": "flddfa1514178d74d",
+        "name": "status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "queued"
+            },
+            {
+              "name": "in_progress"
+            },
+            {
+              "name": "waiting_access"
+            },
+            {
+              "name": "completed"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fld0ec7f46fe38f4d",
+        "name": "notes",
+        "type": "multilineText",
+        "description": "Includes Monday onboarding review notes, access provisioning details, and confidentiality restrictions."
+      }
+    ],
+    "base_id": "airtable_6ac18f5d342c",
+    "description": "Administrative table for client onboarding kickoff follow-up, document-request review, new starter access scheduling, and confidential-records vault restrictions by assigned team."
+  }
+]

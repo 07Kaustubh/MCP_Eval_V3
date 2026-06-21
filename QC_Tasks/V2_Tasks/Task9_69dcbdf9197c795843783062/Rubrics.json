@@ -1,0 +1,236 @@
+[
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a send_email call with recipients including grace.yamamoto@keystonemortgage.com and sender elena.marchetti@keystonemortgage.com.",
+      "justification": "The prompt explicitly asks Elena's agent to send Grace a summary email covering every at-risk file with recommendations. This checks that the send_email or reply_to_email tool was called with Grace as the recipient.",
+      "rubric_category": "outcome"
+    },
+    "id": "174e0ddf-c97c-4a35-b244-f9686c10ef28",
+    "title": "The agent sent an email to grace.yamamoto@keystonemortgage.com from elena.marchetti@keystonemortgage.com summarizing the pipeline status of the at-risk files."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the send_email call to Grace for references to all five borrower names or loan numbers.",
+      "justification": "The prompt asks for a summary covering every at-risk file. Camille's email lists five specific loans. The agent must include all five in the summary to Grace.",
+      "rubric_category": "outcome"
+    },
+    "id": "e28309ea-167c-47c7-8155-c0ddb351e4d9",
+    "title": "The email sent to Grace includes information about all five at-risk files identified in Camille's lock report: the Singh VA loan (LN-2026-00009), the Pham conventional loan (LN-2026-00610), the Fletcher conventional loan (LN-2026-00628), the Gonzalez FHA loan (LN-2026-00550), and the Turner conventional loan (LN-2026-00556)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content parameter of the email to Grace for recommendation language on each of the five files.",
+      "justification": "The prompt says \"with my recommendation for each\" referring to the lock decisions.",
+      "rubric_category": "outcome"
+    },
+    "id": "2428bd35-c23e-4a38-a174-236b21a2da7b",
+    "title": "The email to Grace includes a recommendation for each file (extend, relock, or withdraw)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a conversations_add_message call with channel_id \"C002\" and payload containing pipeline status information.",
+      "justification": "The prompt explicitly asks for a status update posted in the loan processing channel so the team has visibility.",
+      "rubric_category": "outcome"
+    },
+    "id": "ac3ccd39-dde4-4021-b35a-85f6ed1ff742",
+    "title": "The agent posted a status update in the #loan-processing Slack channel (channel ID C002) using conversations_add_message."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a send_email or reply_to_email call with recipients or email_id targeting Darren Singh (darren.singh@gmail.com) and sender elena.marchetti@keystonemortgage.com.",
+      "justification": "The prompt says \"Reply to Singh with an honest update and clear next steps.\"",
+      "rubric_category": "outcome"
+    },
+    "id": "3bffb184-a8e3-46a8-9de3-785e141fdd15",
+    "title": "The agent sent an email or reply to darren.singh@gmail.com from elena.marchetti@keystonemortgage.com with a status update on his loan."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content of the email to Singh for a reference to the wrong bank statements or document mix-up",
+      "justification": "The prompt asks for an honest update. The central discovery is the bank statement name mismatch. The borrower needs to know a document error was identified and is being corrected.",
+      "rubric_category": "outcome"
+    },
+    "id": "81d99f8d-e1f5-4c36-8c82-8e3211c66e73",
+    "title": "The email or reply to Darren Singh includes an acknowledgment of the document issue (wrong bank statements were uploaded, showing Destiny Pham's name instead of Darren Singh's)"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a send_email call with recipients including carlos.rivera@keystonemortgage.com and content referencing the Singh rate lock.",
+      "justification": "The prompt says \"Carlos needs a separate heads up about the rate situation on Singh since he is the loan officer.\"",
+      "rubric_category": "outcome"
+    },
+    "id": "5ec07ec1-6cf2-4703-85b7-f13a8ad92f20",
+    "title": "The agent sent an email to carlos.rivera@keystonemortgage.com from elena.marchetti@keystonemortgage.com about the rate lock situation on the Singh loan."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content of the email to Carlos for the expired lock date (April 15) and the failed $500 charge",
+      "justification": "The key discovery is that the lock expired and the extension charge failed. Carlos needs these specific facts to understand the rate situation",
+      "rubric_category": "outcome"
+    },
+    "id": "56670cb4-28ae-4f5e-abf7-87c8b8ae4254",
+    "title": "The email to Carlos mentions that the rate lock on the Singh loan expired on April 15 and that the $500 extension charge failed"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a send_email call with recipients including camille.foster@keystonemortgage.com and content containing lock decisions.",
+      "justification": "The prompt says \"Email Camille with my lock decisions for each file.\"",
+      "rubric_category": "outcome"
+    },
+    "id": "a22b8929-900d-487f-bd8c-13610a436e0e",
+    "title": "The agent sent an email to camille.foster@keystonemortgage.com from elena.marchetti@keystonemortgage.com with lock decisions for each file."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a mortgage_los_add_activity call with the loan_id for LN-2026-00009 and detail text referencing the bank statement name mismatch.",
+      "justification": "The prompt asks to log activity notes on every affected loan. The bank statement mix-up is the central finding on the Singh file and must be documented in the LOS",
+      "rubric_category": "outcome"
+    },
+    "id": "058d3d3c-6e2e-43e5-9abc-527cf09730ab",
+    "title": "The agent added an activity note on the Singh loan (LN-2026-00009) using mortgage_los_add_activity, documenting the bank statement name mismatch (Destiny Pham documents uploaded instead of Darren Singh"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for mortgage_los_add_activity calls targeting the loan IDs for at least three of these four loans.",
+      "justification": "The prompt asks to log activity notes on every affected loan so there is a paper trail.",
+      "rubric_category": "outcome"
+    },
+    "id": "0356adcc-5bde-4a3a-905b-85f4fc8d472d",
+    "title": "The agent added activity notes on at least three of the other four at-risk loans (LN-2026-00610, LN-2026-00628, LN-2026-00550, LN-2026-00556) using mortgage_los_add_activity."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a mortgage_los_update_condition call targeting the bank statements condition on LN-2026-00009 with notes referencing the name mismatch.",
+      "justification": "The prompt says \"update the condition records on the Singh file to reflect whatever you find about the documents.\"",
+      "rubric_category": "outcome"
+    },
+    "id": "c6d90129-36c3-4a43-b718-415fb2c0720c",
+    "title": "The agent updated the bank statements condition on the Singh loan using mortgage_los_update_condition, reflecting that the uploaded documents belonged to the wrong borrower (Destiny Pham instead of Darren Singh)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a crm_create_engagement call with engagement_type \"NOTE\" and body containing timeline information about the Singh loan.",
+      "justification": "The prompt says \"add a CRM note on Singh documenting the full timeline of what happened with his file.\"",
+      "rubric_category": "outcome"
+    },
+    "id": "75dd0b2b-d9b4-4661-986b-0b39ede3c64e",
+    "title": "The agent created a CRM engagement note using crm_create_engagement with engagement_type \"NOTE\" documenting the timeline of the Singh file situation."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's final response or email communications for explicit mention that the bank statements belonged to Destiny Pham, not Darren Singh.",
+      "justification": "This is the central discovery of the task. The agent must connect the lender's suspension email (naming Destiny Pham) with Sofia's Slack confession about mixing up Pham and Singh files.",
+      "rubric_category": "outcome"
+    },
+    "id": "2927f5f5-5828-4b0a-b243-deda1efe429b",
+    "title": "The agent correctly identified that the bank statements on the Singh file (LN-2026-00009) were uploaded with the wrong borrower name (Destiny Pham instead of Darren Singh), as confirmed by Freedom Mortgage's email and Sofia's Slack message."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's response, emails, or activity notes for mention of the failed Stripe charge and/or the discrepancy with the CRM note.",
+      "justification": "This is a critical cross-service discovery. The CRM says the extension was handled; Stripe shows it failed. The agent must discover both sources and identify the contradiction.",
+      "rubric_category": "outcome"
+    },
+    "id": "1b03748a-116d-49e3-89d1-4b6317431728",
+    "title": "The agent correctly identified that the $500 rate lock extension charge on the Singh loan failed in Stripe, contradicting the CRM note from April 20 that said the extension was processed."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's communications for the correct lock expiration date of April 15 for the Singh loan.",
+      "justification": "The rate lock expiration is a key fact needed for the borrower response, the Carlos email, and Camille's lock decisions.",
+      "rubric_category": "outcome"
+    },
+    "id": "e64b97fe-ce06-4250-a540-62e7ff312e7f",
+    "title": "The agent correctly identified that the rate lock on LN-2026-00009 expired on April 15, 2026 and has not been extended."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the agent's response or email to Grace for identification of LN-2026-00550 as Amy's file.",
+      "justification": "The prompt asks about Amy's files and whether they need to be formally reassigned. The agent should identify which files are Amy's.",
+      "rubric_category": "outcome"
+    },
+    "id": "2f911c1c-3e86-4f86-856a-70ad878cee2d",
+    "title": "The agent correctly identified that LN-2026-00550 (Gonzalez, FHA) is on Amy Chen's pipeline (Amy is the loan officer)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a mortgage_los_get_conditions call targeting the Singh loan. ",
+      "justification": "The prompt asks the agent to figure out the actual condition status with the lender. The LOS conditions table is the source of truth for outstanding conditions.",
+      "rubric_category": "query construction"
+    },
+    "id": "33b04dc4-c3b8-4261-92b4-9b0c8595d7bf",
+    "title": "The agent queried the mortgage LOS for conditions on the Singh loan using mortgage_los_get_conditions with the loan ID for LN-2026-00009 (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content of the email to Singh for a reference to the rate lock expiration, extension status, or rate change",
+      "justification": "The prompt asks for an honest update and clear next steps. The borrower asked about the rate lock in his frustrated email. The agent must address the lock status",
+      "rubric_category": "outcome"
+    },
+    "id": "505f4080-2d54-4686-b435-206df2d2df29",
+    "title": "The email or reply to Darren Singh includes information about the rate lock situation (lock expired, extension not completed, or potential rate change)"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the content of the email to Carlos for language about needing to discuss rates or re-lock pricing with the borrower",
+      "justification": "Camille's email explicitly states Carlos needs to have the rate conversation with the borrower before she can do anything on the lock. The email to Carlos must include this action item.",
+      "rubric_category": "outcome"
+    },
+    "id": "0c393395-2113-482d-b2da-a5aebd66bcc2",
+    "title": "The email to Carlos conveys that he needs to discuss the rate increase (or re-lock pricing) with the borrower before Camille can proceed with lock actions"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the detail text of the mortgage_los_add_activity call for LN-2026-00009 for references to the expired rate lock or failed extension charge",
+      "justification": "The rate lock expiration and failed extension charge are critical findings that must be part of the paper trail on the Singh loan",
+      "rubric_category": "outcome"
+    },
+    "id": "528590b7-fb1e-4509-b8b8-acf117c4c52b",
+    "title": "The activity note on the Singh loan (LN-2026-00009) also documents the expired rate lock situation (expired April 15, $500 extension charge failed)."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for mortgage_los_add_activity calls targeting the loan IDs for each of these four loans",
+      "justification": "The prompt asks to log activity notes on every affected loan so there is a paper trail. All four remaining loans must have activity notes",
+      "rubric_category": "outcome"
+    },
+    "id": "40340bc0-5401-48f6-ae8b-26ac84ed6275",
+    "title": "The agent added activity notes on each of the other four at-risk loans (LN-2026-00610, LN-2026-00628, LN-2026-00550, LN-2026-00556) using mortgage_los_add_activity"
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for mortgage_los_get_loan or mortgage_los_get_pipeline calls referencing at least three of the five loan numbers.",
+      "justification": "The prompt requires investigating the real status of each file Camille listed. The mortgage LOS is the source of truth for loan status, rate locks, and conditions. The agent must use LOS tools rather than relying solely on email/Slack secondhand information.",
+      "rubric_category": "tool selection"
+    },
+    "id": "655041bf-c6cf-4ee9-8e27-5b4b2cd5e513",
+    "title": "The agent queried the mortgage LOS to look up loan details (using mortgage_los_get_loan or mortgage_los_get_pipeline or similar) for at least three of the five at-risk loans."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for any Stripe tool call that surfaces the failed $500 charge on the Singh loan.",
+      "justification": "The prompt asks what happened with the rate lock extension. The failed Stripe charge is the key evidence that the extension was never completed. The agent must query Stripe to discover this rather than relying on the CRM note which incorrectly states the extension was processed.",
+      "rubric_category": "tool selection"
+    },
+    "id": "8a3e0f92-b26a-4d82-b8fd-8df387c1a16d",
+    "title": "The agent queried Stripe (using stripe_list_charges, stripe_search_charges, stripe_search_customers, or similar) to investigate the rate lock extension payment status for the Singh loan."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for any CRM tool call that surfaces the April 20 engagement note about Singh.",
+      "justification": "The CRM contains an outdated engagement note from April 20 that says the extension was processed and Clear to Close was expected by April 24. Discovering this note is important for understanding the full timeline and the contradiction with Stripe.",
+      "rubric_category": "tool selection"
+    },
+    "id": "b6d64534-b953-43db-bd3b-97f9f6580dd3",
+    "title": "The agent queried the CRM (using crm_list_engagements, crm_search_contacts, or similar) to find engagement notes related to the Singh file."
+  },
+  {
+    "annotations": {
+      "evidence": "Check the trajectory for a conversations_search_messages call with a query that would surface Sofia's message in #loan-processing about the Singh bank statements.",
+      "justification": "The prompt says Elena has a nagging memory that Sofia said something in Slack about a document problem. The agent must search Slack to find Sofia's specific message about mixing up the Pham and Singh bank statement uploads.",
+      "rubric_category": "query construction"
+    },
+    "id": "78d41780-d311-448b-8857-c5d9a55c6ed1",
+    "title": "The agent searched Slack for Sofia's message about the document problem on the Singh file, using conversations_search_messages with a query related to \"Singh,\" \"bank statements,\" \"document,\" or \"wrong file\" (or similar)."
+  }
+]

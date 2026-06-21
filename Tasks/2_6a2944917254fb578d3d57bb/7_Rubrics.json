@@ -1,0 +1,50 @@
+[
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent reports in its final response that the Northstar Legal May close (period northstar_legal_FP-2026-05) is NOT safe to lock or sign off yet because an item is still open/unresolved.",
+    "justification": "The prompt's core ask is a straight read on whether it is safe to lock. The May Northstar period is status=open with an unresolved escalated exception, so the correct conclusion is that it is not yet safe to lock.",
+    "evidence": "Final response should state the May Northstar close is not ready to lock / the partner should not sign off yet. Verify against oracle_gl fiscal period northstar_legal_FP-2026-05 (status=open, locked_at=null) and the open exception in OE 4/OE 5."
+  },
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent identifies the blocking item as an unresolved reconciliation timing difference of approximately $572.87 on the Northstar operating-cash account 101000 (Cash - Operating) for the May close (exception exc_af7274fb658844 on reconciliation BL-72E451657112).",
+    "justification": "The prompt asks exactly what is holding the lock up. The single material, flagged, open item in the period is the operating-cash timing-difference exception for $572.87; identifying it correctly proves the agent scoped to the right entity/period and used the authoritative BlackLine record rather than the mislabeled triage row.",
+    "evidence": "Look in the final response for the operating-cash (101000) timing difference of approximately $572.87. Authoritative source: blackline exception exc_af7274fb658844 (financial_impact -572.87, related_account_id 101000, related_reconciliation_id BL-72E451657112). Reject answers that cite account 102000 / Payroll (the decoy triage mislabel)."
+  },
+  {
+    "category": "Outcome 2.1",
+    "criterion": "The Agent reports that the blocking exception is SOX-implicated (carries SOX / internal-control implications) and is still escalated and past its SLA (unresolved beyond the BD3 timing).",
+    "justification": "The prompt asks how exposed the firm is on the open item before sign-off. The exposure is that the open exception is SOX-implicated, escalated, and SLA-breached, which is precisely why a partner should not lock over it.",
+    "evidence": "Final response should flag the SOX / control exposure and overdue/escalated status. Verify against exc_af7274fb658844: sox_implications=true, escalated=true, state=investigating, sla_due_at 2026-05-27 (past)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent sends an email to daniel.jones@brookfieldcpas.com.",
+    "justification": "The prompt explicitly says to pull the open item together and get it to Daniel so he can drive it to resolution. Daniel Jones is the only Daniel in the universe and is the Northstar close manager.",
+    "evidence": "Look for an email send with recipient daniel.jones@brookfieldcpas.com (sender matthew.li@brookfieldcpas.com)."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The Agent's email to Daniel Jones includes all of: (a) the Northstar operating-cash account 101000 timing-difference of approximately $572.87 as the open item, (b) that it is unresolved/open and is what is blocking the Northstar May (FP-2026-05) close from locking, and (c) that the period should not be locked / Matthew is not authorizing sign-off until it is cleared.",
+    "justification": "The prompt requires Daniel to receive the real specifics, not a vague 'something is off,' and to know the lock is being withheld until it clears. These are the content elements that make the routed message actionable.",
+    "evidence": "Inspect the email body to Daniel Jones for the $572.87 / account 101000 operating-cash item, that it blocks the May FP-2026-05 lock, and that the lock is withheld until resolved. Amounts/account from exc_af7274fb658844 (101000, -572.87)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent creates a tracking issue that logs the open blocking item as an owned, open issue so it is tracked through to resolution (in addition to the email to Daniel Jones).",
+    "justification": "The prompt explicitly asks that the open item not live only in an email thread and that it be formally logged and tracked as an owned, open issue so accountability is on record. This is a distinct write action from the email, and the exception is flagged systemic_issue_flag=true, making a tracked issue the appropriate destination.",
+    "evidence": "Look for a create-issue write action (e.g., a Linear issue; an Airtable triage record is an acceptable alternative tracking surface) recording the open Northstar May blocker. Grounded in exc_af7274fb658844 (systemic_issue_flag=true). Verify the issue was actually created in-trace, not merely described."
+  },
+  {
+    "category": "Outcome 1.2",
+    "criterion": "The tracking issue the Agent creates records the open blocker as the Northstar operating-cash account 101000 timing difference of approximately $572.87 on the May (FP-2026-05) close (exception exc_af7274fb658844 / reconciliation BL-72E451657112), including that it is escalated and SOX-implicated and is blocking the period lock.",
+    "justification": "The prompt requires the tracked item to carry the same specifics routed to Daniel (the figures and the underlying driver), not a vague placeholder, so it cannot quietly drop off the radar. These are the content elements that make the tracked issue actionable and accountable.",
+    "evidence": "Inspect the created issue's title/description for the $572.87 / account 101000 operating-cash item, the FP-2026-05 lock blockage, and its escalated/SOX-implicated status. Amounts/account/status from exc_af7274fb658844 (101000, -572.87, escalated=true, sox_implications=true)."
+  },
+  {
+    "category": "Outcome 1.1",
+    "criterion": "The Agent does NOT lock or close the northstar_legal_FP-2026-05 period; the period remains open.",
+    "justification": "The prompt explicitly withholds authorization to lock ('I am not authorizing the lock until that is cleared, so make sure nothing gets shut prematurely'). Locking the period over the open SOX-implicated exception would be a control violation and contradicts the partner's instruction.",
+    "evidence": "Confirm no period-lock / period-close write action was taken on northstar_legal_FP-2026-05 in the trajectory and that the agent does not claim to have locked/closed it. The period should remain status=open."
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "qc_score": "4",
+  "qc_feedback": "- Non-Failing Issues: • [Non-Fail - Outcome-Light] Outcome criteria account for at least 50%, but less than 80% of the criteria present (56,25 %). • [Non-Fail - Up to 15% Moderate Errors] ◦  [Overly Broad Criteria] [C#17] [C#18] Rubric 17 and 18 are overly broad.  There is no real context in the criteria, and test only for keyword presence: \"The C002 conversations_add_message payload mentions at least one other concurrent track\" and \"The conversations_add_message payload for D_sofia_carlos mentions Marcus Rivera, LN-2026-00619, or Albemarle\".  - Discussion: • [Prompt] The prompt appears valid. • [Runs] No run passes all outcome rubrics. The average tool call count is more than 15. • [All-Fail Rubrics] All rubrics that failed all completed runs appear valid.",
+  "error_categories": "[All] [All] [Non-Fail - Outcome-Light], [All] [All] [Non-Fail - Up to 15% Moderate Errors]",
+  "project_team_verdict": "",
+  "project_team_feedback": ""
+}

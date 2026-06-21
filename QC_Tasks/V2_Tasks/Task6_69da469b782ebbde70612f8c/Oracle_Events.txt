@@ -1,0 +1,47 @@
+OE 1: Search CRM using crm_show_data to browse raw lead records and identify all leads with leadsource "Realtor referral - Alicia Grant." Note: crm_search_leads only supports filtering by full_name, company_id, and status it cannot filter by leadsource directly, so the agent must use crm_show_data to discover leads by referral source or iterate individual lead lookups. Discover 17 leads across various statuses and ratings 5 hot (Deepa Jackson, Deborah Levine, Catherine Shah, Tonya Chen, Ravi Lincoln), 9 warm (Danielle Park, Eugene Reyes, Matthew Davis, Frank Young, Brianna Lincoln, Curtis Murphy, Matthew Rosenberg, Janet O'Connor, Jamal Lopez), and 3 cold (Kendra Lawson, Kimberly Hayes, Sanjay Brennan). Kendra Lawson is involved in an active commission dispute between Derek and Carlos Rivera over referral attribution, discoverable via CRM engagements and Slack #sales-pipeline (C006), and should be excluded from cold outreach.
+
+OE 2: Search emails with a query related to "Alicia Grant" or the names of stale leads (or similar) using search_emails to check whether any prior outreach has been sent to the leads identified in OE 1. Discover that most leads have no email correspondence from Derek or any LO.
+
+OE 3: Search the mortgage LOS using mortgage_los_search_borrowers with queries related to stale lead names to check whether any already have an active loan application. Discover that most stale leads have no active applications and do not exist as borrowers in the LOS.
+
+OE 4: Look up Derek Moss's contact details using contacts_search_contacts or contacts_get_contacts to get his email address (derek.moss@keystonemortgage.com) for sending outreach emails.
+
+OE 5: Send personalized intro/follow-up emails (via send_email) from derek.moss@keystonemortgage.com to stale hot/warm Alicia Grant leads. Lead email addresses are discoverable from the CRM lead records found in OE 1 (e.g., deepa.jackson@outlook.com, catherine.shah@gmail.com, tonya.chen@gmail.com, deborah.levine@gmail.com, ravi.lincoln@gmail.com). Each email should reference what the lead was looking for based on CRM lead notes.
+
+OE 6: Post a Slack message (via conversations_add_message) to #sales-pipeline (C006) updating Jordan that Derek has reviewed Alicia Grant's referral pipeline and is doing outreach on stale leads.
+
+OE 7: Search CRM contacts with a query related to "Danielle Harrison" (or similar) using crm_search_contacts to find her contact record (danielle.harrison@gmail.com, 11824 James Richard Dr, Charlotte).
+
+OE 8: Search CRM engagements using crm_list_engagements filtered by Danielle Harrison's contact ID to find the complaint history. Discover: "Borrower upset over payment jump" (payment ~$400/mo higher, wants written breakdown by EOW or filing state complaint), "Escrow increase context" (about $402/mo increase, Mecklenburg County reassessed taxes after closing, original escrow calc matched closing figures), and "Angry follow-up call from borrower" (she gave until Friday or she is escalating).
+
+OE 9: Search emails with a query related to "Danielle Harrison" or "escrow" or "Harrison" (or similar) using search_emails to find Hana Kim's email to Derek (subject "Harrison escrow analysis", from hana.kim@keystonemortgage.com, payment up ~$402/mo due to Mecklenburg County tax reassessment after closing) and Derek's partial reply to Danielle (subject "Re: Why is my payment suddenly $400 higher?").
+
+OE 10: Search Slack messages with a query related to "Danielle Harrison" or "escrow" (or similar) using conversations_search_messages to find Derek's messages in #loan-processing (C002) asking someone to pull the original tax/escrow calc, and Hana Kim's response confirming the original escrow calc looked right for close date with roughly +$402/mo from county tax reassessment.
+
+OE 11: Search the mortgage LOS using mortgage_los_search_loans or mortgage_los_search_borrowers with a query related to "Harrison" (or similar) to find Danielle's closed loan record. Discover: LN-2025-00633, conventional, $346,500, closed 2026-02-27, assigned to Derek Moss, property at 11824 James Richard Dr. Loan notes state original escrow was based on Mecklenburg County tax record of $3,840/yr at closing.
+
+OE 12: Send an email (via send_email) from derek.moss@keystonemortgage.com to danielle.harrison@gmail.com with a written explanation of the escrow/payment increase original tax estimate matched county records at closing ($3,840/yr), Mecklenburg County reassessed after closing, not a Keystone error. Empathetic but factual, no admission of fault.
+
+OE 13: Search emails with a query related to "Abigail Clark" or "transfer" or "Marcus" (or similar) using search_emails to find Abigail's email to Grace Yamamoto (subject "Please transfer my loan to Marcus") requesting to transfer her loan file (LN-2026-00008) to Marcus Webb at his new company.
+
+OE 14: Search the mortgage LOS using mortgage_los_search_loans or mortgage_los_get_loan with a query related to "Abigail Clark" or "Morehead" (or similar) to find her loan record. Discover: LN-2026-00008, FHA, $276,400, conditional approval, assigned to Derek Moss, processor Sofia Reyes, 8032 Morehead St.
+
+OE 15: Search CRM using crm_search_contacts for Abigail Clark to find her contact record (abigail.clark@gmail.com, 8032 Morehead St), then use crm_list_engagements filtered by her contact ID to find the engagement "Transfer request from Abigail Clark" asked to move LN-2026-00008 with Marcus at new company.
+
+OE 16: Look up Abigail Clark's contact details using contacts_search_contacts to get her email (abigail.clark@gmail.com).
+
+OE 17: Send an email (via send_email) from derek.moss@keystonemortgage.com to abigail.clark@gmail.com acknowledging Marcus's departure, reassuring Abigail that Derek is personally handling her Morehead property file, and communicating that closing will proceed without disruption.
+
+OE 18: Update CRM with a note (via crm_create_engagement) on Abigail Clark's contact record documenting Derek's direct retention outreach.
+
+OE 19: Search emails with a query related to "transfer" or "Marcus Webb" or "Marcus" (or similar) using search_emails to check if any other borrowers besides Abigail have requested file transfers. Discover inbound emails from Stephen Hamilton (requesting LN-2026-00009 be moved to Marcus), Keisha Perry (requesting transfer of LN-2026-00525), and Joshua Cruz (requesting LN-2026-00527 be sent to Marcus).
+
+OE 20: Search CRM engagements using crm_list_engagements filtered by Abigail Clark's contact ID to find additional transfer requests logged under her contact record: "Transfer request from Stephen Hamilton" (LN-2026-00009), "Transfer request from Keisha Perry" (LN-2026-00525), and "Transfer request from Joshua Cruz" (LN-2026-00527).
+
+OE 21: Search the mortgage LOS using mortgage_los_search_loans with a query related to "Derek Moss" (or similar), or use mortgage_los_get_pipeline filtered by assigned LO and status, to find Derek's closed loans from the last six months. Derek has 13 closed loans in this window. Exclude Danielle Harrison (LN-2025-00633, closed 2026-02-27) since she is already being handled as an active complaint case. The two most recent remaining closed borrowers are Timothy Edwards (LN-2026-00241, closed 2026-04-23) and Daniel Allen (LN-2026-00210, closed 2026-03-17).
+
+OE 22: Search emails for prior post-close outreach to the identified closed borrowers using search_emails to confirm Derek hasn't already emailed them recently.
+
+OE 23: Look up closed borrowers' email addresses using mortgage_los_search_borrowers (query: "Timothy Edwards" or "Daniel Allen" or similar). Timothy Edwards (timothy.edwards.241@gmail.com) and Daniel Allen (daniel.allen.210@gmail.com) are discoverable via the LOS borrower records. Note: these borrowers do not exist in the contacts directory, so contacts_search_contacts would not return results the LOS is the source of truth for their contact information.
+
+OE 24: Send check-in emails (via send_email) from derek.moss@keystonemortgage.com to the two most recent closed borrowers (excluding Danielle Harrison) casual, non-salesy, checking in and asking for referrals.

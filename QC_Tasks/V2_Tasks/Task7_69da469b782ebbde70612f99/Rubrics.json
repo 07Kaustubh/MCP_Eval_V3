@@ -1,0 +1,173 @@
+[
+  {
+    "annotations": {
+      "evidence": "See OE #3, #17. Look for any Stripe read tool call in the trajectory.",
+      "justification": "The prompt requires investigating Stripe charges for both the Gupta duplicate appraisal and the Mercer lock extensions. Stripe is a non-default service the agent must choose to use.",
+      "rubric_category": "tool selection"
+    },
+    "id": "3b82dcf9-e200-4a52-b758-61188b8513bd",
+    "title": "The model must use a Stripe read tool (e.g., stripe_search_charges, stripe_list_charges, stripe_get_charge) to look up borrower payment charges."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #2, #8. Look for any mortgage_los_* read tool call in the trajectory.",
+      "justification": "The prompt references loans by borrower name, requiring the agent to search the LOS to find loan numbers, assigned LOs, and lender information. Mortgage LOS is a non-default service.",
+      "rubric_category": "tool selection"
+    },
+    "id": "a2dd61e9-bfef-4297-b3d7-ed1c915218b4",
+    "title": "The model must use a Mortgage LOS read tool (e.g., mortgage_los_search_loans, mortgage_los_get_loan) to look up loan details."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #9, #13, #18. Look for any QuickBooks read tool call in the trajectory.",
+      "justification": "The prompt requires checking QuickBooks for the Ibrahim comp invoice, the REV-IMPACT entry, and existing Mercer lock extension bills. QuickBooks is a non-default service.",
+      "rubric_category": "tool selection"
+    },
+    "id": "3bfccf77-4d78-4ed2-933f-8c5cf7f5dd85",
+    "title": "The model must use a QuickBooks read tool (e.g., quickbooks_search_invoices, quickbooks_search_bills, quickbooks_show_data) to look up existing financial records."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #13. Look for a quickbooks_search_invoices or quickbooks_show_data call with query containing 'REV-IMPACT' or 'revenue' or similar.",
+      "justification": "The prompt says Grace flagged 'something with REV-IMPACT in the name.' The agent must construct a query using this vague clue to find invoice REV-IMPACT-0318 among thousands of QB records. The agent had to infer 'REV-IMPACT' from the prompt's description, and a bad query would miss the entry entirely.",
+      "rubric_category": "query construction"
+    },
+    "id": "e2368461-4b6a-43cf-a8ec-5b9422525774",
+    "title": "When searching QuickBooks for the mystery revenue entry, the model must pass a query related to 'REV-IMPACT' or 'revenue impact' (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #4. Look for a stripe_create_refund tool call with charge_id matching ch_UNmjnIRaZ942m2pE or ch_RQIayJoG7xaHKn9m.",
+      "justification": "The prompt says to refund the extra duplicate appraisal charge for the Gupta borrower. There are two identical $575 appraisal fee charges on LN-2024-00034; one must be refunded. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "f5fd964f-eb6e-4ce1-bc52-6cf0542e90b1",
+    "title": "A Stripe refund was created (via stripe_create_refund) for one of the duplicate Gupta appraisal charges (ch_UNmjnIRaZ942m2pE or ch_RQIayJoG7xaHKn9m), each $575."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #5. Look for a send_email or reply_to_email call with recipient takeshi.gupta@gmail.com and content about a refund.",
+      "justification": "The prompt says 'I need the borrower to get a reply confirming the refund has been processed.' The borrower is Takeshi Gupta on LN-2024-00034. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "d879be1b-a4d3-4e67-81f1-edf570290eae",
+    "title": "An email was sent (via send_email or reply_to_email) to [takeshi.gupta@gmail.com](mailto:takeshi.gupta@gmail.com) confirming the appraisal refund has been processed (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #6. Look for a send_email call with recipient james.thornton@keystonemortgage.com and content mentioning Gupta or appraisal refund.",
+      "justification": "The prompt says the loan officer 'needs a heads-up so he is not caught off guard if the client calls.' The LO on LN-2024-00034 is James Thornton. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "5853e479-db5d-4c97-836b-5a05d6d20766",
+    "title": "An email was sent (via send_email) to [james.thornton@keystonemortgage.com](mailto:james.thornton@keystonemortgage.com) about the Gupta appraisal refund so the loan officer is not caught off guard (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #11. Look for a quickbooks_create_invoice or quickbooks_create_bill call referencing approximately $150 or Ibrahim or LN-2024-00192.",
+      "justification": "The prompt says to create a corrective entry in QuickBooks for the shortfall if Freedom Mortgage waived the deduction. Invoice KMP-00192 shows $5,434.79 but the full comp owed is $5,584.79 -- a $150 gap. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "f3a5db78-f33d-4206-b5fb-6bc5be5bbca4",
+    "title": "A QuickBooks write action was taken (via quickbooks_create_invoice or quickbooks_create_bill) to create a corrective entry for approximately $150 on the Ibrahim comp shortfall."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #12. Look for a send_email call with recipient wholesale@freedommortgage.com and content about updating records or the Ibrahim comp.",
+      "justification": "The prompt says to 'send a confirmation to Freedom Mortgage's wholesale team so they know we have updated our records.' [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "bac1072e-1111-47b8-84b4-29228a0e6564",
+    "title": "An email was sent (via send_email) to [wholesale@freedommortgage.com](mailto:wholesale@freedommortgage.com) confirming that Keystone has updated records for the Ibrahim comp adjustment (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #12. Look for a send_email call mentioning Ibrahim comp adjustment, sent to marcus.webb@keystonemortgage.com or another Keystone staff member.",
+      "justification": "The prompt says to 'let the loan officer on that deal know the comp has been adjusted.' The assigned LO on LN-2024-00192 is Marcus Webb. The agent may discover Webb has departed and email an alternative. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "14aea40c-339e-4580-b1d1-0a32333ce312",
+    "title": "An email was sent (via send_email) to [marcus.webb@keystonemortgage.com](mailto:marcus.webb@keystonemortgage.com) (the LO on LN-2024-00192) or an alternative contact about the Ibrahim comp adjustment (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #14, #15. Check the final response or send_email content for characterization of REV-IMPACT as an estimate, placeholder, or non-transaction entry.",
+      "justification": "The prompt says to 'figure out whether it is tied to an actual transaction or just a planning estimate.' The invoice line says 'Estimated commission/revenue drag' and Victor Osei's email describes it as 'directional, not a formal forecast.' The customer is an internal shell. [2.1 -- key finding]",
+      "rubric_category": "outcome"
+    },
+    "id": "8e3b6ef3-c137-4fd0-aa17-1188efcf7843",
+    "title": "The model identifies that the REV-IMPACT-0318 entry (approximately $15,000, dated March 18, 2026) is a planning estimate and not tied to an actual transaction (or similar characterization)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #15. Look for a quickbooks_create_invoice or quickbooks_create_bill call referencing REV-IMPACT, reversal, credit, or approximately $15,000.",
+      "justification": "The prompt says 'if it is a placeholder that does not belong on the books, reverse it.' Since the entry is an estimate, it should be reversed. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "eb8c2557-a7d4-42a4-bf62-1761e6184260",
+    "title": "A QuickBooks write action was taken (via quickbooks_create_invoice or quickbooks_create_bill) to reverse or offset the REV-IMPACT-0318 entry of approximately $15,000."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #16. Look for a send_email call with recipient victor.osei@keystonemortgage.com and content about REV-IMPACT reversal.",
+      "justification": "The prompt says 'make sure whoever originated it knows what you did.' Victor Osei is the originator based on his email and Slack messages about the ~$15k revenue drag estimate. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "d92463bb-e619-4dff-a633-c2debe5a5783",
+    "title": "An email or message was sent to [victor.osei@keystonemortgage.com](mailto:victor.osei@keystonemortgage.com) notifying that the REV-IMPACT-0318 entry has been reversed (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #19. Look for a quickbooks_create_bill call referencing Mercer, lock extension, or LN-2026-00184.",
+      "justification": "The prompt says to find the Mercer Stripe charges and 'get them properly recorded in QuickBooks before we close out the month.' Three lock extension charges exist in Stripe totaling $1,250. The agent must reconcile against existing messy QB entries and fill any gaps. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "ad7f7fa9-d505-4443-998b-e9baf905f0e8",
+    "title": "A QuickBooks write action was taken (via quickbooks_create_bill) to record or correct Mercer lock extension billing. The total Stripe charges are $375 + $375 + $500 = approximately $1,250."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #20. Look for a send_email call with recipient carlos.rivera@keystonemortgage.com and content about Mercer billing or lock extension reconciliation.",
+      "justification": "The prompt says to 'let the loan officer on that file know the billing has been reconciled.' The LO on LN-2026-00184 is Carlos Rivera. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "1954bf84-0fc2-45a4-8465-79fd35eb5f04",
+    "title": "An email was sent (via send_email) to [carlos.rivera@keystonemortgage.com](mailto:carlos.rivera@keystonemortgage.com) about the Mercer lock extension billing reconciliation (or similar)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #21. Look for a mortgage_los_add_activity call on any of: LN-2024-00034, LN-2024-00192, LN-2026-00184 (or their internal loan IDs).",
+      "justification": "The prompt says to 'add detailed notes to every affected loan file documenting what was found and what corrective action was taken -- auditors need to be able to follow the trail.' [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "965c34b1-6065-4751-96f3-2cca08cded9b",
+    "title": "A loan activity note was added (via mortgage_los_add_activity) on at least one affected loan file documenting findings and corrective actions."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #22. Look for a send_email call with recipient grace.yamamoto@keystonemortgage.com.",
+      "justification": "The prompt says to 'send Grace one consolidated email covering all four items with the findings, corrections, and anything still outstanding.' [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "454afd8d-57a6-4db8-97e6-6cf10747f3b3",
+    "title": "An email was sent (via send_email) to [grace.yamamoto@keystonemortgage.com](mailto:grace.yamamoto@keystonemortgage.com) with a consolidated report."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #22. Check the send_email content to grace.yamamoto@keystonemortgage.com for mention of all four topics: Gupta/appraisal/refund, Ibrahim/comp/Freedom, REV-IMPACT/reversal, Mercer/lock extension/billing.",
+      "justification": "The prompt explicitly asks for one consolidated email covering all four items. Each item should be mentioned with its findings and corrections. [1.2 -- action content]",
+      "rubric_category": "outcome"
+    },
+    "id": "daa541f8-6295-4967-aeaf-f9d2b612c3c5",
+    "title": "The email to Grace covers all four items: Gupta appraisal refund, Ibrahim comp adjustment, REV-IMPACT reversal, and Mercer lock extension billing (or similar descriptions for each)."
+  },
+  {
+    "annotations": {
+      "evidence": "See OE #23. Look for a conversations_add_message call with channel_id C002.",
+      "justification": "The prompt says to 'post a summary in the loan-processing channel so Sofia and the rest of the ops team can close the loop on their end.' Channel C002 is #loan-processing. [1.1 -- write action]",
+      "rubric_category": "outcome"
+    },
+    "id": "f497a55a-4e95-444d-b5a1-cb76975cd471",
+    "title": "A message was posted (via conversations_add_message) in channel C002 (#loan-processing) with a summary for the ops team (or similar)."
+  }
+]

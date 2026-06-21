@@ -1,0 +1,20 @@
+[
+  {
+    "code": "public",
+    "entity_id": "brookfield",
+    "description": "Publicly available; no access restrictions.",
+    "requires_elevated_role": false
+  },
+  {
+    "code": "internal",
+    "entity_id": "brookfield",
+    "description": "Internal company use only; no external sharing.",
+    "requires_elevated_role": false
+  },
+  {
+    "code": "restricted",
+    "entity_id": "brookfield",
+    "description": "Restricted - VP-level or above; covers executive compensation, trading positions, pre-release earnings.",
+    "requires_elevated_role": true
+  }
+]

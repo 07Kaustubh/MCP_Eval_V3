@@ -1,0 +1,73 @@
+-- UNIVERSE INJECT: Fixed Injection for Current Task OR A New Business Scenario Data Injection
+
+
+--
+-- PURPOSE:
+-- This file contains SQL INSERT/UPDATE statements that inject a completely new
+-- business scenario into the base universe. Running these statements against
+-- the universe database adds the scenario data so the task becomes solvable.
+--
+-- HOW TO CREATE THIS (use Cursor with Claude Opus 4.6):
+--
+-- 1. UNDERSTAND THE SCHEMA
+--    Read every JSON file in MCP_Eval_V2.2/Mortgage_Base_Universe/Data/ to understand:
+--    - Table structures and column types (parse row_data fields)
+--    - ID formats and naming conventions (e.g., rec*, issue_*, deal_*, inv_*, etc.)
+--    - Relationships between tables (foreign keys, shared identifiers)
+--    - Existing data patterns (dates, statuses, amounts, assignments)
+--
+-- 2. DESIGN A NEW SCENARIO
+--    Create a business scenario that is:
+--    - Completely different from existing scenarios (not a rehash)
+--    - Aligned with one of the business functions: Operations, Customer Engagement, Engineering, Finance, or Executive
+--    - Natural and realistic - something that would actually happen at MoveOps Inc.
+--    - Complex enough to require cross-service investigation (3+ MCP services)
+--
+-- 3. INJECT DATA ACROSS ALL RELEVANT SERVICES
+--    The scenario MUST have consistent data in EVERY service it touches.
+--    If a relocation exists in Airtable, there must also be:
+--    - A CRM deal (crm_deals) with matching amounts and employee names
+--    - Contact records (contacts, crm_contacts) for all people involved
+--    - Email threads (emails) with relevant correspondence
+--    - Slack messages (slack_messages) in appropriate channels
+--    - Linear tickets (linear_issues) if engineering/tracking is involved
+--    - QuickBooks records (invoices, bills) if money is involved
+--    - Calendar events if meetings are referenced
+--
+--    DO NOT inject partial data. Every entity referenced anywhere must exist
+--    everywhere it logically should. Incomplete injection = broken task.
+--
+-- 4. CONSISTENCY RULES (MUST FOLLOW)
+--    - Names must be spelled identically across all services
+--    - Dollar amounts must match between CRM deals and QuickBooks records
+--    - Dates must be consistent (no email from April referencing a May event as past)
+--    - Status fields must align (Airtable "In Progress" ↔ Linear "in_progress")
+--    - Coordinator/AM assignments must match across Airtable, CRM, and contacts
+--    - Email addresses must match contacts records exactly
+--    - Slack channel IDs must reference real channels from slack_channels
+--    - Company names must match between CRM companies, deals, and Airtable records
+--    - Record IDs must follow existing format conventions
+--    - New people must have entries in contacts AND crm_contacts if they are clients
+--
+-- 5. COMPLETENESS CHECKLIST
+--    Before finalizing, verify:
+--    [ ] Every person mentioned has a contacts record
+--    [ ] Every company mentioned has a CRM company record
+--    [ ] Every deal mentioned has matching QuickBooks invoice/bill records
+--    [ ] Every email thread has sender AND recipient in contacts
+--    [ ] Every Slack message references a valid channel ID and user
+--    [ ] Every Linear issue references a valid project and assignee
+--    [ ] Every Airtable record has all required fields populated
+--    [ ] No orphan references (nothing points to data that doesn't exist)
+--    [ ] Timeline is internally consistent across all services
+--    [ ] Dollar amounts balance across CRM, QuickBooks, and any Airtable references
+--
+-- 6. VALIDATE
+--    After writing the SQL, re-read it and ask:
+--    - If an agent searches for any entity in this scenario, will it find it?
+--    - If an agent follows any relationship chain, does every link exist?
+--    - Does any existing universe data contradict this new scenario?
+--
+-- PASTE YOUR SQL STATEMENTS BELOW:
+-- ----------------------------------------------------------------------------
+

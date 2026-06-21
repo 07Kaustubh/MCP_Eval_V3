@@ -1,0 +1,7 @@
+{
+  "qc_score": "4",
+  "qc_feedback": "Non-Failing Issues: [Non-Fail - Up to 15% Moderate Errors] (Borderline) Overlapping or Redundant Criteria Repetitive rubrics 13 and rubrics 5/6. The prompt says \"whether Denise ever came back with her read on the regulatory and investor risk. If that compliance question is still hanging, get it in front of her now with the specifics.\" Rubrics 5 and 6 have to do with contacting Denise, while rubric 13 confirms that the question is still hanging... Per the prompt, Denise is only to be contacted if the compliance question is still hanging, so rubric 13 seems a bit repetitive. Unless the model totally loses context, rubrics 5 and 13 will always be graded the same.... The actual model trajectory ratings confirm this behavior. Notes: Trajectories not loaded in UI, audited using task lookup. No other major issues.",
+  "error_categories": "[All] [All] [Non-Fail - Up to 15% Moderate Errors]",
+  "project_team_verdict": "",
+  "project_team_feedback": ""
+}
