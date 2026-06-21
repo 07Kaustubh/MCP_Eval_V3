@@ -22,7 +22,7 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 ## PIPELINE DISPATCH
 
-> **Supersedes the legacy `command workflow.txt`.** The 8 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
+> **Supersedes the legacy `command workflow.txt`.** The 10 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
@@ -34,8 +34,10 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + linter paste | [Reference/Sessions/S1.5.md](Reference/Sessions/S1.5.md) | Handle linter blocker: revise / justify / pivot |
 | `PIPELINE S2 — Tasks/<TASK_DIR>` | [Reference/Sessions/S2.md](Reference/Sessions/S2.md) | Draft `6_Oracle_Events.txt`, validate, two councils |
 | `PIPELINE S3 — Tasks/<TASK_DIR>` | [Reference/Sessions/S3.md](Reference/Sessions/S3.md) | Draft `7_Rubrics.json`, validate, two councils (heaviest pass) |
+| `PIPELINE FINAL — Tasks/<TASK_DIR>` | [Reference/Sessions/FINAL.md](Reference/Sessions/FINAL.md) | Cross-artifact holistic council — answer-leakage scan, entity-drift check, lever-preservation end-to-end. **Required before platform upload.** |
 | `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste | [Reference/Sessions/S4.md](Reference/Sessions/S4.md) | Classify verifier fails, draft AF justifications |
-| `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md` |
+| `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md`, generate `13_Feedback.txt` + optional `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` |
+| `PIPELINE COMPARE — Tasks/<TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
 
 ## Project layout
 
@@ -53,10 +55,13 @@ MCP_Eval_V3/
 │   ├── Strict_Convention_Inventory.json
 │   ├── OE_Convention_Inventory.json
 │   └── Sessions/
-│       ├── S0.md  HARDNESS.md  S1.md  S1.5.md  S2.md  S3.md  S4.md  REVIEW.md
+│       ├── S0.md  HARDNESS.md  S1.md  S1.5.md  S2.md  S3.md  S4.md  REVIEW.md  COMPARE.md
 ├── Validators/
 │   ├── split_universe.py           # per-task data.py wrapper
 │   ├── build_universe_index.py     # per-task summaries
+│   ├── build_fact_ledger.py        # per-task atom surface (emails, amounts, dates, ids, accounts, personas)
+│   ├── build_graph_report.py       # per-task compact density map (people, periods, exceptions, AP, docs)
+│   ├── compare_rubrics.py          # local vs platform-paste-back rubric diff
 │   └── validate.py                 # phase-aware validator (prompt | oe | rubrics | all)
 ├── Brookfield_Base_Universe/       # STALE except 8_Server_Tools_Details.json + 2_Persona_Briefs.md
 │   ├── 1_Summary.md ... 7_*.md     # stale reference, do not trust over per-task data
@@ -73,13 +78,18 @@ MCP_Eval_V3/
 ├── Tasks_Template/                 # platform-paste-target template
 ├── Tasks/                          # live tasks
 │   ├── <TASK_DIR>/                 # per-task work
-│   │   ├── 1_Business_Function.txt ... 8_Verifier_Fails.txt
+│   │   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
+│   │   ├── 10_Rubrics_Platform.json   # optional, user pastes for COMPARE
+│   │   ├── 13_Feedback.txt            # REVIEW flow only — candidate-facing rating
+│   │   ├── 14_Updated_Oracle_Events.txt  # REVIEW flow only, IFF OE fixes Applied
+│   │   ├── 15_Updated_Rubrics.json       # REVIEW flow only, IFF rubric fixes Applied
 │   │   ├── PersonaBrief.txt
 │   │   ├── changes.md              # review-tasks only
 │   │   ├── Agent_Responses/        # 6 trajectory JSONs (user-pasted)
 │   │   └── _aux/                   # pipeline working directory
 │   │       ├── Universe_Split/     # per-task universe split
-│   │       ├── Universe_Index/     # per-task summaries
+│   │       ├── Universe_Index/     # service_inventory, entities_personas, key_facts, today_horizon, accounts_per_entity, graph_report
+│   │       ├── Fact_Ledger.json    # per-task verifiable atom surface (emails, $, dates, IDs, accounts, personas)
 │   │       ├── Hardness_Plan.md
 │   │       ├── S0_Setup_Report.md
 │   │       ├── Linter_Decision.md

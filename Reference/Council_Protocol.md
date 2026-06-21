@@ -107,6 +107,20 @@ If any lever is no longer triggered, flag `HARDNESS_REGRESSION` — the delivera
 ### B5 — Tool-leak / phrasing scan (lightweight)
 Search the deliverable for tool names in forbidden positions, internal IDs in the prompt, em-dashes / en-dashes, "at least N" phrases, "approximately" misuse, "(or similar)" near exact values. Report each hit.
 
+### Role-Lens Anchoring (apply across B1-B5)
+
+Each B perspective is reviewed through five role lenses — read the deliverable five times, once per lens, and combine findings. This is a single sub-agent call but the prompt forces multi-perspective coverage so single-model blind spots are caught.
+
+| Lens | Question to ask | Maps strongest to |
+|---|---|---|
+| **Architect** | Does the deliverable's structure fit the V3 framework cleanly? Are the abstractions right? | B1, B4 |
+| **Implementer** | Will this actually run? Every tool name real, every ID format valid, every recipient resolvable? | B5 |
+| **Red-team** | How do I break this? What's the most adversarial valid agent path? What's the second valid reading? | B2 |
+| **Ground-truth** | Is every claim in the deliverable grounded in this task's universe (per-task SSoT)? Any base-universe assumption? | B1, B5 |
+| **Integration** | Does this deliverable hold together with the upstream ones? Prompt-OE-rubrics consistency? Hardness levers preserved end to end? | B3, B4 |
+
+A `BLOCK` from any lens propagates to the perspective it maps to. The verdict is the union of all five lens reads, not the average.
+
 **Prompt template:**
 
 ```
@@ -122,6 +136,17 @@ PHASE EVAL: Evals/<n>_<phase>_Eval.md
 UNIVERSE INDEX: Tasks/<TASK_DIR>/_aux/Universe_Index/
 
 TASK:
+
+Apply five role lenses across the perspectives below. Read the deliverable
+five times, once per lens, and combine findings (the verdict is the union):
+
+  Architect     - structural fit to V3 framework, abstractions, cohesion
+  Implementer   - will it run? real tool names, valid ID formats, resolvable recipients
+  Red-team      - how to break it? adversarial valid path? second valid prompt reading?
+  Ground-truth  - every claim grounded in PER-TASK universe (Fact_Ledger.json, Universe_Split/)?
+  Integration   - prompt-OE-rubrics consistency, hardness levers preserved end-to-end
+
+A BLOCK from any lens propagates to its mapped perspective (B1-B5).
 
 [B1] QC sub-dim scoring. For each sub-dim in the QC spec, output:
 SUB-DIM -> SCORE (1-5) -> ONE-LINE REASON. Bar is 5 on every dim.
@@ -160,6 +185,35 @@ Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 - B5: returns "no hits".
 
 ---
+
+## Opt-in: True multi-model Council B (`COUNCIL_MODE=multi`)
+
+The default Council B is one `oracle` sub-agent call applying 5 lenses in sequence. The lenses overlay catches most of what 5 separate model invocations would catch, at 1/5 the cost.
+
+For maximum rigor on a critical task (final deliverable for a benchmark seat, a task that has already been bounced by the platform reviewer, or a 5/5-or-die deliverable), invoke the multi-model variant by prefixing the trigger: `PIPELINE S3 — Tasks/<TASK_DIR> COUNCIL_MODE=multi`. The runbook does this instead:
+
+1. **Spawn 5 sub-agents in parallel**, one per lens, each `read-only`. Each gets the same brief (deliverable + upstream + Hardness_Plan + QC spec + relevant inventory). The model + role assignment:
+
+   | Seat | Lens | Sub-agent | What it owns |
+   |---|---|---|---|
+   | 1 | Architect | `oracle` | Structural fit to V3 framework, abstractions, cohesion. Maps to B1 + B4. |
+   | 2 | Implementer | `oracle` | Will it run? Real tool names, valid ID formats, resolvable recipients. Maps to B5. |
+   | 3 | Red-team | `ultrabrain` | How to break it. Adversarial valid path. Second valid prompt reading. Maps to B2. |
+   | 4 | Ground-truth | `oracle` | Every claim grounded in PER-TASK universe (`_aux/Fact_Ledger.json`). Maps to B1 + B5. |
+   | 5 | Integration | `oracle` | Prompt-OE-rubrics consistency, hardness levers preserved end-to-end. Maps to B3 + B4. |
+
+2. **Each seat returns the same output contract** as the single-call Council B (B1-B5 perspectives), plus a `LENS: <name>` header so the consensus knows the origin.
+
+3. **Crash / empty / quorum.** If a seat errors or returns empty, re-spawn it (up to 2 retries). The round needs ≥ 4 successful seats. If fewer, the round is INVALID — do NOT synthesize a PASS; escalate to the user.
+
+4. **Consensus synthesis.** Spawn a 6th `oracle` sub-agent with the role of CONSENSUS. It receives all 5 seat outputs labeled by lens. Its job:
+   - Deduplicate findings across seats.
+   - Rank by severity (BLOCKER > MAJOR > MINOR).
+   - Resolve disagreements by citing repo evidence (the per-task universe, the QC spec). A seat's verdict without cited evidence is ignored.
+   - **Veto propagation.** Any single seat BLOCKER forces REVISE unless the consensus disproves it with cited evidence. Any `UNKNOWN` on a hard constraint counts as REVISE.
+   - Output: `VERDICT: PASS | REVISE`, `ROUND VALID: yes/no`, deduped issue list with per-issue fix, proceed recommendation.
+
+5. **Cost note.** Multi-mode is 6 sub-agent calls per Council B invocation vs 1 in default. Use it when the stakes justify the spend.
 
 ## Both councils must GO before the deliverable ships
 

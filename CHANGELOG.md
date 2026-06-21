@@ -1,5 +1,67 @@
 # Changelog
 
+## 2026-06-21 — v4: Learnings Log + Final Council + Multi-Model Opt-In + STOP Gates
+
+Adopted the remaining 4 gaps from the sibling reviewer pipeline (excluding the SQL-inject layer the user explicitly skipped). Closes the empirical-calibration gap and the cross-artifact gate gap. Pipeline is now decisively ahead overall.
+
+### New files
+- `Tasks/_meta/Learnings.md` — append-only empirical Opus 4.8 failure-mode log. 22 numbered findings (L1-L22) distilled from the Archive's two-task iteration evidence: which patterns reliably fail Opus 4.8 (L8 three reductions across services, L9 authority-figure dismissal, L10 SAP subledger invisibility) and which do not (L1 confirm-already-done, L6 stated-answer correction emails, L7 binary "is it posted?" traps). HARDNESS phase reads this BEFORE drafting; every lever pick must cite an entry that justifies it.
+- `Reference/Sessions/FINAL.md` — new `PIPELINE FINAL — Tasks/<TASK_DIR>` runbook. Cross-artifact holistic council reading prompt + OE + rubrics together, plus Hardness_Plan and Fact_Ledger. 4 lenses (Truthfulness / Rubric binding / Cross-artifact holism / Red-team adversarial) catch what per-phase councils cannot: answer leakage (correct figure appearing verbatim in artifact text), entity drift across artifacts, hardness-lever regression after S2/S3 edits, integrated tool-call density. Required before platform upload — STOP gate at end of S3 points here.
+
+### Council changes
+- `Reference/Council_Protocol.md` adds opt-in `COUNCIL_MODE=multi` mode: 5 separate sub-agent calls (one per role lens) + 6th consensus synthesizer. Default Council B stays as 1-call with 5 lenses overlaid. Multi-mode is for critical deliverables where the 5x token spend is justified.
+
+### Runbook changes
+- `Reference/Sessions/S1.md` / `S2.md` / `S3.md` — explicit `STOP gate` sections at end. Each phase ends, the chat closes, user invokes the next phase in a fresh chat. S3 STOP now points to `PIPELINE FINAL` (mandatory) before any platform upload.
+- `Reference/Sessions/HARDNESS.md` — step 1 is now "Read `Tasks/_meta/Learnings.md` end to end" before any sub-agent spawn. Every lever pick cites a Learnings entry. Step 4 (lever selection) defaults to the L8 + L9 + L10 anatomy. Step 6 (stump hypothesis) cites Learnings entries in the reasoning.
+
+### Dispatch + index updates
+- Root `AGENTS.md` PIPELINE DISPATCH adds `PIPELINE FINAL` between S3 and S4, marked "Required before platform upload".
+- `Reference/AGENTS.md` runbook table adds `FINAL.md`.
+- `Tasks/_meta/AGENTS.md` table adds `Learnings.md` with note "Read this BEFORE every PIPELINE HARDNESS run".
+
+### What this closes
+
+| Gap from prior comparison | Status |
+|---|---|
+| Their `Learnings.md` empirical calibration | Closed — mine is seeded from theirs + designed for ongoing append after every S4 |
+| Their Final Council cross-artifact gate | Closed — `PIPELINE FINAL` is a binding gate before platform upload |
+| Their true multi-model reviewer diversity | Closed — opt-in mode for critical deliverables |
+| Their explicit pause-between-phases discipline | Closed — STOP gates in S1/S2/S3 |
+| Their universe-inject SQL workflow | Intentionally skipped per user spec |
+
+The only remaining advantages on their side are universe-edit Phase 1.5 (out of scope) and one-task-at-a-time `clear_task_folder.sh` discipline (incompatible with parallel batch QC).
+
+
+
+Adopted 6 improvements from a sibling reviewer pipeline. Closes the grounding-rigor gap (their strongest dimension) and adds compounding cross-task value.
+
+### New scripts
+- `Validators/build_fact_ledger.py` — emits `_aux/Fact_Ledger.json`: a flat surface of every verifiable atom per task (emails, money amounts canonicalized to 2dp, ISO dates with day-of-week, typed ID buckets, accounts-by-entity, fiscal periods with lock state, personas with aliases). Replaces grep-based grounding with O(1) set lookups. Source hash tracks regenerate trigger.
+- `Validators/build_graph_report.py` — emits `_aux/Universe_Index/graph_report.md`: compact discovery map for HARDNESS (people-by-density top 30, periods-by-JE-count top 20, exceptions/recons by entity×state, pending-AP by vendor top 20, docs by kind/classification, densest person×period pairs top 15). Summary tables only, no edge-list bloat.
+- `Validators/compare_rubrics.py` — per-index diff between `7_Rubrics.json` and `10_Rubrics_Platform.json`. Catches silent platform-side mutations.
+
+### Validator changes
+- `validate.py --phase rubrics` now uses `_aux/Fact_Ledger.json` for groundedness when available (falls back to raw blob substring match). O(1) set lookups instead of substring scanning. The dollar-amount false-positive class on formatted floats is permanently eliminated.
+- New naturalness heuristics adopted from rubric_naturalness.py: subjective terms (`thorough`, `professional`, `helpful`, `properly`, `appropriately`, `sufficiently`, `enough`) are FAIL; non-agent eval-voice (`the email mentions`, `(via `, `tool call`, `trajectory shows`, `the model must use`, `as expected`, `should obviously`) is WARN; awkward negation (`does not fail`, `never fails`, `must not be wrong`) is WARN.
+
+### Council changes
+- Council B gets a Role-Lens Anchoring layer overlaying the existing B1-B5 perspectives. Five lenses (Architect / Implementer / Red-team / Ground-truth / Integration) read the deliverable five times each, with each lens mapped to the strongest perspective. Single sub-agent call, multi-perspective coverage. BLOCK from any lens propagates to its mapped perspective.
+
+### Pipeline changes
+- S0 runbook now produces `_aux/Fact_Ledger.json` and `_aux/Universe_Index/graph_report.md` automatically.
+- New `PIPELINE COMPARE — Tasks/<TASK_DIR>` trigger + `Reference/Sessions/COMPARE.md` runbook for platform paste-back verification.
+- REVIEW runbook now emits `13_Feedback.txt` (candidate-facing rating, concise human voice, no em-dashes, no guide references) and conditionally emits `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` ONLY when corresponding `changes.md` rows are Applied. Originals `5/6/7` stay pristine for rating.
+
+### Docs updated
+- Root `AGENTS.md` — dispatch table adds COMPARE, project layout adds 5 new files in `_aux/` and 13/14/15 in per-task root, validator inventory adds 3 new scripts.
+- `Validators/AGENTS.md` — full documentation for the 3 new scripts + ledger / naturalness mentions on `validate.py --phase rubrics`.
+- `Reference/Sessions/S0.md` — steps 4-5 added for fact ledger + graph report.
+- `Reference/Sessions/REVIEW.md` — steps 7-8 added for `13_Feedback.txt` + conditional 14/15, plus updated exit criteria.
+- `Reference/Council_Protocol.md` — Role-Lens Anchoring section + lens instructions woven into the Council B prompt template.
+
+
+
 All notable changes to the MCP Eval V3 automated pipeline. Newest first.
 
 ## 2026-06-21 — v2: Tool-Call Density Gate + OE Inventory + Multi-Perspective Councils

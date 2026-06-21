@@ -29,7 +29,9 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 | [Sessions/S2.md](Sessions/S2.md) | `PIPELINE S2 — Tasks/<TASK_DIR>` |
 | [Sessions/S3.md](Sessions/S3.md) | `PIPELINE S3 — Tasks/<TASK_DIR>` |
 | [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste |
+| [Sessions/FINAL.md](Sessions/FINAL.md) | `PIPELINE FINAL — Tasks/<TASK_DIR>` (cross-artifact holistic council, required before platform upload) |
 | [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
+| [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (diff local rubrics vs platform paste-back) |
 
 ## Update protocol
 

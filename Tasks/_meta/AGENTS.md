@@ -6,6 +6,7 @@ Append-only logs that capture cross-task patterns. Each entry references one tas
 
 | File | Written by | Captures |
 |---|---|---|
+| [Learnings.md](Learnings.md) | S4 verifier-fails (append on new finding) | Empirical Opus 4.8 failure-mode evidence. Numbered findings L1.. that future HARDNESS phases consult before drafting. Read this BEFORE every PIPELINE HARDNESS run. |
 | [Similarity_Log.md](Similarity_Log.md) | S1.5 (Class B) | Every 40%+ similarity hit: linter excerpt, matched-task reference, pivot levers used, outcome after resubmit |
 | [Linter_Justifications.md](Linter_Justifications.md) | S1.5 (Class A) | Every justification sent back to the platform: full text, reviewer's decision (placeholder until known), reason if rejected |
 | [Hardness_Patterns_Log.md](Hardness_Patterns_Log.md) | HARDNESS (predicted) + S4 (actual) | Per task: which 3-5 levers were selected, which rubrics Opus 4.8 actually failed |

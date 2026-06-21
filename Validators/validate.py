@@ -42,8 +42,9 @@ import argparse
 import json
 import re
 import sys
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
-from typing import List, Tuple
+from typing import List
 
 ROOT = Path(__file__).resolve().parent.parent
 TOOL_DEFS = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
@@ -67,6 +68,14 @@ RELATIVE_DATE = re.compile(r"\b(?:tomorrow|yesterday|today|next\s+(?:week|month|
 QC_SAMPLE_CLICHE = re.compile(r"\b(?:go through everything and surface every|i need the full picture[:,]|dig through our emails,?\s+slack|email me the full|loop in [a-z]+|cc our ceo|flag the biggest risks|brief [a-z]+ and [a-z]+ with what you found)\b", re.IGNORECASE)
 OVER_SIGNAL_INVESTIGATION = re.compile(r"\b(?:check our (?:messages|emails)[\s,]+slack[\s,]+(?:and project records|project tickets)|across (?:emails|email),?\s+slack[\s,]+linear|get into emails,?\s+slack[\s,]+linear|emails[\s,]+slack[\s,]+linear[\s,]+(?:crm|airtable))\b", re.IGNORECASE)
 GENERIC_URGENCY = re.compile(r"\b(?:before it blows up|keeping me up at night|i can't tell you what the net position is|i'?m getting paged|something changed in the last few days)\b", re.IGNORECASE)
+
+# Rubric naturalness heuristics (from Archive/rubric_naturalness.py)
+# SUBJECTIVE = FAIL: terms the QC spec explicitly bans in rubric criteria.
+RUBRIC_SUBJECTIVE = re.compile(r"\b(?:enough|professional|thorough|helpful|properly|appropriately|sufficiently)\b|\bgood\s+(?:enough|job)\b", re.IGNORECASE)
+# SOFT = WARN: non-agent voice or eval-internal language.
+RUBRIC_SOFT_VOICE = re.compile(r"(?:the summary mentions|the email mentions|the response mentions|\(via\s|via the tool|\(visible in|trajectory shows|the model must use|as expected|should obviously)", re.IGNORECASE)
+# NEGATION = WARN: awkward inverted phrasing.
+RUBRIC_NEGATION = re.compile(r"(?:does not fail|never fails|must not be wrong)", re.IGNORECASE)
 
 
 class Report:
@@ -131,6 +140,28 @@ def load_universe_blob(task_dir: Path) -> str:
             continue
         chunks.append(p.read_text(encoding="utf-8"))
     return "\n".join(chunks)
+
+
+def load_fact_ledger(task_dir: Path) -> dict:
+    f = task_dir / "_aux" / "Fact_Ledger.json"
+    if not f.is_file():
+        return {}
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+
+
+def amount_in_ledger(amt_raw: str, ledger: dict) -> bool:
+    if not ledger.get("amounts"):
+        return False
+    amt = amt_raw.replace(" ", "").lstrip("$").replace(",", "")
+    try:
+        d = Decimal(amt).quantize(Decimal("0.01"))
+    except (InvalidOperation, ValueError):
+        return False
+    target = str(d)
+    return target in ledger["amounts"]
 
 
 def validate_prompt(task_dir: Path, rep: Report) -> None:
@@ -239,8 +270,13 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
     if pf.is_file():
         prompt_text = pf.read_text(encoding="utf-8").lower()
 
-    universe_blob = load_universe_blob(task_dir)
+    ledger = load_fact_ledger(task_dir)
+    universe_blob = load_universe_blob(task_dir) if not ledger else ""
     tool_names = load_tool_names()
+    if ledger:
+        rep.note(f"using Fact_Ledger.json for groundedness ({ledger.get('meta', {}).get('atom_counts', {}).get('amounts', 0)} amounts, {ledger.get('meta', {}).get('atom_counts', {}).get('emails', 0)} emails indexed)")
+    else:
+        rep.note("Fact_Ledger.json not present — falling back to raw blob substring match")
 
     outcome_n = 0
     process_n = 0
@@ -292,25 +328,51 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             if not prompt_mandates_min:
                 rep.fail(f"{loc}: title uses `at least N` but the prompt does not mandate a minimum — split into atomic rubrics")
 
+        for m in RUBRIC_SUBJECTIVE.finditer(title):
+            rep.fail(f"{loc}: subjective term `{m.group(0)}` in title (QC spec bans these)")
+        for m in RUBRIC_SOFT_VOICE.finditer(title):
+            rep.warn(f"{loc}: non-agent voice or eval-internal phrase `{m.group(0)}` in title (use agent-centric phrasing)")
+        for m in RUBRIC_NEGATION.finditer(title):
+            rep.warn(f"{loc}: awkward negation `{m.group(0)}` in title (state the positive expectation)")
+
         if re.search(r"approximately\s+(?:\d{4}-\d{2}-\d{2}|[A-F0-9]{12}|exc_|VEN-)", title):
             rep.fail(f"{loc}: `approximately` used in front of an ID/date — restrict to calculated/rounded values")
 
         if re.search(r"\([^)]*or\s+similar[^)]*\)\s*[^.]{0,30}@\w", title):
             rep.warn(f"{loc}: `(or similar)` near an email — emails must be exact-match")
 
-        if universe_blob:
+        if ledger:
+            for m in MONEY_RE.finditer(title):
+                if not amount_in_ledger(m.group(0), ledger):
+                    rep.warn(f"{loc}: dollar amount `{m.group(0)}` not in Fact_Ledger amounts (verify against universe by hand)")
+            email_set = set(ledger.get("emails", []))
+            for m in EMAIL_RE.finditer(title):
+                if m.group(0).lower() not in email_set:
+                    rep.fail(f"{loc}: email `{m.group(0)}` not in Fact_Ledger")
+            id_buckets = ledger.get("ids", {})
+            for pat, label, bucket in (
+                (JE_ID, "JE", "je"),
+                (EXC_ID, "exception", "exception"),
+                (DOC_ID, "doc", "doc"),
+                (VENDOR_ID, "vendor", "vendor"),
+                (APINV_ID, "apinv", "apinv"),
+                (RECON_ID, "recon", "recon"),
+            ):
+                bucket_set = set(id_buckets.get(bucket, []))
+                for m in pat.finditer(title):
+                    if m.group(0) not in bucket_set:
+                        rep.fail(f"{loc}: {label} id `{m.group(0)}` not in Fact_Ledger.ids.{bucket}")
+        elif universe_blob:
             for m in MONEY_RE.finditer(title):
                 amt = m.group(0).replace(" ", "")
                 amt_no_dollar = amt.lstrip("$")
                 amt_no_commas = amt_no_dollar.replace(",", "")
                 amt_int = amt_no_commas.split(".")[0]
-                # Try multiple representations: with $, without $, without commas, integer-only, float form
                 variants = {amt, amt_no_dollar, amt_no_commas, amt_int}
-                # Also try as float with .0 (universe stores 117000.0 etc.)
                 if "." not in amt_no_commas and amt_int.isdigit():
                     variants.add(amt_int + ".0")
                 if not any(v in universe_blob for v in variants):
-                    rep.warn(f"{loc}: dollar amount `{amt}` not found verbatim in Universe_Split (tried: {sorted(variants)})")
+                    rep.warn(f"{loc}: dollar amount `{amt}` not found verbatim in Universe_Split")
             for m in EMAIL_RE.finditer(title):
                 if m.group(0).lower() not in universe_blob.lower():
                     rep.fail(f"{loc}: email `{m.group(0)}` not found in Universe_Split")

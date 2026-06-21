@@ -1,6 +1,6 @@
 # Validators
 
-Three Python scripts. All take `<path_to_task_dir>` or `--task <path>`. All exit non-zero on FAIL so runbooks can block.
+Six Python scripts. All take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block.
 
 ## Scripts
 
@@ -31,6 +31,49 @@ Produces in `_aux/Universe_Index/`:
 - `today_horizon.json` — universe today + last_event_timestamp_seen + records_dated_after_today
 - `accounts_per_entity.md` — Oracle GL chart of accounts grouped by entity
 
+### `build_fact_ledger.py`
+
+Emits the per-task atom surface that Council A and `validate.py --phase rubrics` use for groundedness.
+
+```
+python Validators/build_fact_ledger.py Tasks/<TASK_DIR>
+```
+
+Produces `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json`:
+- `emails` — every email address present anywhere (lowercased, deduped)
+- `amounts` — canonical 2dp strings (Decimal-rounded)
+- `dates` — every ISO date with day-of-week
+- `ids` — typed buckets: je, exception, recon, doc, vendor, apinv, linear_issue, reminder, conversation, airtable_record, calendar_event, slack_channel, contact, persona
+- `accounts_by_entity` — every Oracle GL account number → name, grouped per entity (captures the `105000` Brookfield/Northstar/Acme trap directly)
+- `fiscal_periods` — status / locked_at / locked_by / bd3_lock_at / bd5_close_at / period_label / entity_id per period
+- `personas` — email → name / title / contact_id / is_user
+- `aliases` — first_name / last_name / full_name → emails (for fuzzy person lookups)
+- `meta.source_hash` — sha256 of `3_UniverseDataForThisTask.json` (regenerate when this changes)
+
+The ledger is the authoritative source for "does this email / amount / ID exist in this task?" — never re-grep the raw split.
+
+### `build_graph_report.py`
+
+Compact discovery map for HARDNESS lever selection.
+
+```
+python Validators/build_graph_report.py Tasks/<TASK_DIR>
+```
+
+Produces `Tasks/<TASK_DIR>/_aux/Universe_Index/graph_report.md` with: people-by-artifact-density (top 30), periods-by-JE-density (top 20), exceptions-by-entity-state, recons-by-entity-state, pending-AP-by-vendor (top 20), documents-by-kind / by-classification, densest (person, period) pairs (top 15).
+
+HARDNESS reads this to pick the persona × period × system intersection with the most stump-able artifact density. No 30MB edge JSON — summary tables only.
+
+### `compare_rubrics.py`
+
+Per-index diff between local rubrics and platform paste-back.
+
+```
+python Validators/compare_rubrics.py Tasks/<TASK_DIR>/7_Rubrics.json Tasks/<TASK_DIR>/10_Rubrics_Platform.json
+```
+
+Catches silent platform-side mutations (reformatting, field stripping, reordering). Triggered by `PIPELINE COMPARE — Tasks/<TASK_DIR>`. Exits 0 on match, non-zero on any count mismatch or per-field diff.
+
 ### `validate.py`
 
 Phase-aware validator. Block on any FAIL.
@@ -47,7 +90,7 @@ Checks per phase:
 |---|---|
 | **prompt** | em-dash / en-dash, 500-word cap, tool-name leakage, MCP-server mention, internal-ID leakage, pre-solving phrases (warn), relative date phrases (note), Prompt_Guidelines.md anti-patterns: QC-sample clichés / over-signaling / generic urgency (warn) |
 | **oe** | em-dash / en-dash, numbered-prose format, OE step count >= 8 (warn), opening-verb coverage >= 60% (warn), tool-name existence vs `8_Server_Tools_Details.json`, `body` vs `content` for email tools, `text` vs `payload` for Slack |
-| **rubrics** | schema (nested or flat), agent-centric phrasing, no tool names in title, no "at least N" without prompt mandate, category in {outcome, process}, outcome > process count, "approximately" / "(or similar)" usage rules, groundedness sweep against Universe_Split (with float / comma / dollar-sign variants) |
+| **rubrics** | schema (nested or flat), agent-centric phrasing, no tool names in title, no "at least N" without prompt mandate, category in {outcome, process}, outcome > process count, "approximately" / "(or similar)" usage rules, naturalness heuristics (subjective terms FAIL, non-agent voice WARN, awkward negation WARN), groundedness sweep against `_aux/Fact_Ledger.json` when present (falls back to raw blob substring match) |
 
 ## Adding a check
 

@@ -17,36 +17,43 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 | `Tasks/<TASK_DIR>/1_Business_Function.txt` | user-pasted |
 | `Tasks/<TASK_DIR>/_aux/Universe_Split/*` | S0 produced |
 | `Tasks/<TASK_DIR>/_aux/Universe_Index/*` | S0 produced |
+| `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 produced |
 | `Reference/Hardness_Playbook.md` | the 11-lever catalog with per-lever tool-call costs |
+| `Tasks/_meta/Learnings.md` | **READ FIRST** — empirical Opus 4.8 failure-mode evidence. Every lever picked in this phase must cite a Learnings entry that justifies it (or you document a new finding if you try a novel pattern). |
 
 ## Procedure
 
-1. **Spawn a deep-reasoning sub-agent** (`oracle` or `ultrabrain`). Pass it:
+1. **Read `Tasks/_meta/Learnings.md` end to end.** This is the mandatory first action of HARDNESS. The entries (L1, L2, ...) calibrate which levers actually fail Opus 4.8 and which are wasted effort. The L1-L7 "does not reliably fail" block is just as important as the L8-L14 "reliably fails" block — picking a single-hop reduction or a near-miss-entity-only trap wastes the task budget.
+
+2. **Spawn a deep-reasoning sub-agent** (`oracle` or `ultrabrain`). Pass it:
    - The 11-lever catalog from `Reference/Hardness_Playbook.md` with tool-call costs
-   - All 5 files in `_aux/Universe_Index/`
+   - The full text of `Tasks/_meta/Learnings.md`
+   - All 6 files in `_aux/Universe_Index/` (including `graph_report.md`)
+   - `_aux/Fact_Ledger.json` for atom verification
    - Direct access to grep `_aux/Universe_Split/`
    - The persona brief, persona name, business function
 
-2. **Sub-agent task: lever scan.** For each of the 11 levers, the sub-agent answers:
+3. **Sub-agent task: lever scan.** For each of the 11 levers, the sub-agent answers:
    - Is this lever present in the per-task universe? (yes / no / partial)
    - If yes, what specific records back it? Cite by file + record index (or inner row id).
    - One short paragraph: how would the prompt engineer this lever into a natural ask?
+   - Which Learnings entry justifies picking this lever? (cite L<n>).
 
-3. **Sub-agent task: select levers.** Pick the 3 to 5 strongest. Maximize independence (don't pick 3 latching variants). Pair structured-DB-skip with multi-write where possible.
+4. **Sub-agent task: select levers.** Pick the 3 to 5 strongest. Default to the L8 + L9 + L10 anatomy (3 reductions across 3 services + authority-figure dismissal + subledger reduction). Maximize independence (don't pick 3 latching variants). Never rely solely on L4 (near-miss entity) or L5 (action-incompleteness) — Learnings says they are ineffective alone.
 
-4. **Sub-agent task: tool-call density projection.** Sum:
+5. **Sub-agent task: tool-call density projection.** Sum:
    - Base discovery: 5 to 8 tool calls
    - Per selected lever: use the cost ranges from `Reference/Hardness_Playbook.md`
    - Write actions: 9 to 12 (assuming 3+ writes × ~3 supporting reads each)
    - Cross-service triangulation buffer: 5 to 8
    - **Total range estimate.** Use the midpoint of each range.
 
-5. **Sub-agent task: stump hypothesis.** Given the available levers, predict 2 to 4 specific rubric outcomes Opus 4.8 will most likely miss across the 6 final runs. Each prediction needs:
+6. **Sub-agent task: stump hypothesis.** Given the available levers, predict 2 to 4 specific rubric outcomes Opus 4.8 will most likely miss across the 6 final runs. Each prediction needs:
    - The specific failure (which fact, which write action, which entity confusion).
-   - Confidence (high / med / low) with one-line reasoning citing levers.
-   - The mechanism (latching, structured-DB skip, missing reply, etc.).
+   - Confidence (high / med / low) with one-line reasoning citing levers and the Learnings entry.
+   - The mechanism (latching, structured-DB skip, missing reply, authority dismissal, etc.).
 
-6. **Produce `_aux/Hardness_Plan.md`** with these sections:
+7. **Produce `_aux/Hardness_Plan.md`** with these sections:
 
    ```markdown
    # Hardness Plan
@@ -88,7 +95,7 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
    <one tight paragraph the S1 sub-agent will use, naming the selected levers and the projected tool-call density target>
    ```
 
-7. **Gates.** Stop the pipeline if any of:
+8. **Gates.** Stop the pipeline if any of:
    - **Fewer than 3 levers available** → `INSUFFICIENT_LEVERS (n/5)` — user must edit the universe or pick a different task.
    - **Projected tool-call midpoint < 40** → `INSUFFICIENT_DENSITY (n/40)` — pick more levers (4-5 instead of 3), expand the write-action mix (add Records Vault / Linear / Airtable writes), or both. If even the maximum lever combination cannot reach 40, the per-task universe is too thin and the user must decide whether to continue.
    - Print a clear `STOP: <reason>` message to the chat.

@@ -52,9 +52,35 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
    Severity from QC spec: Major / Moderate / Minor.
    Status starts as Pending. The user later marks Applied / Dismissed-with-proof / Pending.
 
-7. **Apply only fixes the user has marked Applied** in `changes.md`. Do NOT apply fixes unilaterally — the user is rating the original candidate; pre-applying fixes erases the evidence.
+7. **Write the candidate-facing feedback** to `Tasks/<TASK_DIR>/13_Feedback.txt`. This is the human-readable rating + what was strong + what was weak + the top 5 issues by severity. Write it in the persona of a senior reviewer giving direct, professional feedback. Concise. No em-dashes. No reference to the eval docs, the QC spec by file name, or the council process. Plain narrative.
 
-8. **Score each phase against QC.** Write a final score summary in `_aux/Council_Reports/REVIEW_score.md`:
+   Structure:
+   ```
+   Overall: <FAIL | NON-FAIL | PASS> on QC (worst dimension: <X>).
+
+   Strengths
+   - <one sentence per strength, max 3>
+
+   Issues
+   - <issue 1, named with severity>: <one sentence explaining what was wrong and what it should have been>
+   - <issue 2>: ...
+
+   Recommended next steps for the candidate
+   - <action 1>
+   - <action 2>
+   ```
+
+8. **Materialize the corrected deliverables** in separate files so the originals stay pristine for rating:
+   - `Tasks/<TASK_DIR>/14_Updated_Oracle_Events.txt` — written ONLY if any OE-phase row in `changes.md` is Applied. Contains the full corrected OE list.
+   - `Tasks/<TASK_DIR>/15_Updated_Rubrics.json` — written ONLY if any rubric-phase row in `changes.md` is Applied. Contains the full corrected rubric JSON.
+
+   Do NOT touch `5_Prompt.txt`, `6_Oracle_Events.txt`, or `7_Rubrics.json`. The originals are the rated artifact. 14/15 are the candidate-correct version that the user can ship to the platform.
+
+   If no rows are Applied at REVIEW time, skip 14/15. They are generated on a subsequent pass once the user marks rows Applied in `changes.md`.
+
+9. **Apply only fixes the user has marked Applied** in `changes.md`. Do NOT apply fixes unilaterally — the user is rating the original candidate; pre-applying fixes erases the evidence.
+
+10. **Score each phase against QC.** Write a final score summary in `_aux/Council_Reports/REVIEW_score.md`:
 
    ```markdown
    # REVIEW score summary
@@ -83,10 +109,15 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
 ## Exit criteria
 
 - `_aux/Universe_Split/` and `_aux/Universe_Index/` exist.
+- `_aux/Fact_Ledger.json` exists.
 - `_aux/Validator_Reports/` populated.
 - `_aux/Council_Reports/REVIEW_*.md` populated (one per phase).
 - `changes.md` exists with every confirmed finding as a row.
 - `_aux/Council_Reports/REVIEW_score.md` exists with per-phase QC scores.
+- `13_Feedback.txt` exists with the candidate-facing rating.
+- `14_Updated_Oracle_Events.txt` exists IFF any OE-phase row is Applied.
+- `15_Updated_Rubrics.json` exists IFF any rubric-phase row is Applied.
+- Originals `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` are UNTOUCHED.
 
 ## Next step
 
