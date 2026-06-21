@@ -244,7 +244,7 @@ def build_ledger(task_dir):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("task_dir", help="path to Tasks/<TASK_DIR>")
+    ap.add_argument("task_dir", help="path to <TASK_DIR>")
     args = ap.parse_args()
     task_dir = Path(args.task_dir).resolve()
     if not task_dir.is_dir():

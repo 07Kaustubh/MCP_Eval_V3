@@ -44,8 +44,8 @@ def field(item, name):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("local", help="local rubrics (e.g. Tasks/<id>/7_Rubrics.json)")
-    ap.add_argument("platform", help="platform paste-back (e.g. Tasks/<id>/10_Rubrics_Platform.json)")
+    ap.add_argument("local", help="local rubrics (e.g. <id>/7_Rubrics.json)")
+    ap.add_argument("platform", help="platform paste-back (e.g. <id>/10_Rubrics_Platform.json)")
     args = ap.parse_args()
 
     a = load(args.local)

@@ -5,20 +5,20 @@
 Adopted the remaining 4 gaps from the sibling reviewer pipeline (excluding the SQL-inject layer the user explicitly skipped). Closes the empirical-calibration gap and the cross-artifact gate gap. Pipeline is now decisively ahead overall.
 
 ### New files
-- `Tasks/_meta/Learnings.md` — append-only empirical Opus 4.8 failure-mode log. 22 numbered findings (L1-L22) distilled from the Archive's two-task iteration evidence: which patterns reliably fail Opus 4.8 (L8 three reductions across services, L9 authority-figure dismissal, L10 SAP subledger invisibility) and which do not (L1 confirm-already-done, L6 stated-answer correction emails, L7 binary "is it posted?" traps). HARDNESS phase reads this BEFORE drafting; every lever pick must cite an entry that justifies it.
-- `Reference/Sessions/FINAL.md` — new `PIPELINE FINAL — Tasks/<TASK_DIR>` runbook. Cross-artifact holistic council reading prompt + OE + rubrics together, plus Hardness_Plan and Fact_Ledger. 4 lenses (Truthfulness / Rubric binding / Cross-artifact holism / Red-team adversarial) catch what per-phase councils cannot: answer leakage (correct figure appearing verbatim in artifact text), entity drift across artifacts, hardness-lever regression after S2/S3 edits, integrated tool-call density. Required before platform upload — STOP gate at end of S3 points here.
+- `Submitted-Tasks/_meta/Learnings.md` — append-only empirical Opus 4.8 failure-mode log. 22 numbered findings (L1-L22) distilled from the Archive's two-task iteration evidence: which patterns reliably fail Opus 4.8 (L8 three reductions across services, L9 authority-figure dismissal, L10 SAP subledger invisibility) and which do not (L1 confirm-already-done, L6 stated-answer correction emails, L7 binary "is it posted?" traps). HARDNESS phase reads this BEFORE drafting; every lever pick must cite an entry that justifies it.
+- `Reference/Sessions/FINAL.md` — new `PIPELINE FINAL — <TASK_DIR>` runbook. Cross-artifact holistic council reading prompt + OE + rubrics together, plus Hardness_Plan and Fact_Ledger. 4 lenses (Truthfulness / Rubric binding / Cross-artifact holism / Red-team adversarial) catch what per-phase councils cannot: answer leakage (correct figure appearing verbatim in artifact text), entity drift across artifacts, hardness-lever regression after S2/S3 edits, integrated tool-call density. Required before platform upload — STOP gate at end of S3 points here.
 
 ### Council changes
 - `Reference/Council_Protocol.md` adds opt-in `COUNCIL_MODE=multi` mode: 5 separate sub-agent calls (one per role lens) + 6th consensus synthesizer. Default Council B stays as 1-call with 5 lenses overlaid. Multi-mode is for critical deliverables where the 5x token spend is justified.
 
 ### Runbook changes
 - `Reference/Sessions/S1.md` / `S2.md` / `S3.md` — explicit `STOP gate` sections at end. Each phase ends, the chat closes, user invokes the next phase in a fresh chat. S3 STOP now points to `PIPELINE FINAL` (mandatory) before any platform upload.
-- `Reference/Sessions/HARDNESS.md` — step 1 is now "Read `Tasks/_meta/Learnings.md` end to end" before any sub-agent spawn. Every lever pick cites a Learnings entry. Step 4 (lever selection) defaults to the L8 + L9 + L10 anatomy. Step 6 (stump hypothesis) cites Learnings entries in the reasoning.
+- `Reference/Sessions/HARDNESS.md` — step 1 is now "Read `Submitted-Tasks/_meta/Learnings.md` end to end" before any sub-agent spawn. Every lever pick cites a Learnings entry. Step 4 (lever selection) defaults to the L8 + L9 + L10 anatomy. Step 6 (stump hypothesis) cites Learnings entries in the reasoning.
 
 ### Dispatch + index updates
 - Root `AGENTS.md` PIPELINE DISPATCH adds `PIPELINE FINAL` between S3 and S4, marked "Required before platform upload".
 - `Reference/AGENTS.md` runbook table adds `FINAL.md`.
-- `Tasks/_meta/AGENTS.md` table adds `Learnings.md` with note "Read this BEFORE every PIPELINE HARDNESS run".
+- `Submitted-Tasks/_meta/AGENTS.md` table adds `Learnings.md` with note "Read this BEFORE every PIPELINE HARDNESS run".
 
 ### What this closes
 
@@ -50,7 +50,7 @@ Adopted 6 improvements from a sibling reviewer pipeline. Closes the grounding-ri
 
 ### Pipeline changes
 - S0 runbook now produces `_aux/Fact_Ledger.json` and `_aux/Universe_Index/graph_report.md` automatically.
-- New `PIPELINE COMPARE — Tasks/<TASK_DIR>` trigger + `Reference/Sessions/COMPARE.md` runbook for platform paste-back verification.
+- New `PIPELINE COMPARE — <TASK_DIR>` trigger + `Reference/Sessions/COMPARE.md` runbook for platform paste-back verification.
 - REVIEW runbook now emits `13_Feedback.txt` (candidate-facing rating, concise human voice, no em-dashes, no guide references) and conditionally emits `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` ONLY when corresponding `changes.md` rows are Applied. Originals `5/6/7` stay pristine for rating.
 
 ### Docs updated
@@ -113,7 +113,7 @@ First-pass automated pipeline supplanting the manual `command workflow.txt` work
 
 ### Added — Validators (3 scripts)
 
-- **`Validators/split_universe.py`** — patched `data.py` wrapper. Writes the per-task universe split into `Tasks/<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/`. Prevents cross-task collisions.
+- **`Validators/split_universe.py`** — patched `data.py` wrapper. Writes the per-task universe split into `<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/`. Prevents cross-task collisions.
 - **`Validators/build_universe_index.py`** — builds quick lookup summaries from `_aux/Universe_Split/` (service_inventory.md, entities_personas.md, key_facts.md, today_horizon.json, accounts_per_entity.md). Parses `row_data` JSON-encoded strings correctly.
 - **`Validators/validate.py`** — phase-aware validator. Supports both nested (`{annotations: {...}}`) and flat (`{evidence, justification, category}`) rubric schemas. Exits non-zero on any FAIL.
 
@@ -139,7 +139,7 @@ First-pass automated pipeline supplanting the manual `command workflow.txt` work
 - **`Reference/Sessions/S4.md`** — verifier-fails classification (Rubric-Invalid / Judge-Error / Legit-Fail) + AF justifications.
 - **`Reference/Sessions/REVIEW.md`** — review-type task intake + `changes.md` initialization.
 
-### Added — Cross-task learning (`Tasks/_meta/`)
+### Added — Cross-task learning (`Submitted-Tasks/_meta/`)
 
 - **`Similarity_Log.md`** — per-task pivot history.
 - **`Linter_Justifications.md`** — justification history with reviewer outcomes.
@@ -148,7 +148,7 @@ First-pass automated pipeline supplanting the manual `command workflow.txt` work
 
 ### Added — AGENTS.md hierarchy (25 files)
 
-- Root + Brookfield_Base_Universe + Brookfield_Base_Universe/Data + 13 per-service + 9 infrastructure (Docs, Evals, Guide, QC_Tasks, Reference, Tasks, Tasks/_meta, Tasks_Template, Validators).
+- Root + Brookfield_Base_Universe + Brookfield_Base_Universe/Data + 13 per-service + 9 infrastructure (Docs, Evals, Guide, QC_Tasks, Reference, Tasks, Submitted-Tasks/_meta, Tasks_Template, Validators).
 - All carry the staleness warning where applicable: per-task `3_UniverseDataForThisTask.json` is the only source of truth; base universe is stale except `8_Server_Tools_Details.json` and persona briefs.
 
 ### Pipeline contract

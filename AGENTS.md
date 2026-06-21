@@ -11,7 +11,7 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 ## Hard rules (apply to every phase, every chat)
 
 1. **Opus 4.8 is the model under test.** All hardness engineering targets known Opus 4.8 failure modes from `Docs/4_Prompt_Hard_Tips.md` and `Reference/Hardness_Playbook.md`.
-2. **Per-task `3_UniverseDataForThisTask.json` is the ONLY universe source of truth.** Always work from the split written to `Tasks/<TASK_DIR>/_aux/Universe_Split/` for the current task.
+2. **Per-task `3_UniverseDataForThisTask.json` is the ONLY universe source of truth.** Always work from the split written to `<TASK_DIR>/_aux/Universe_Split/` for the current task.
 3. **`Brookfield_Base_Universe/` is stale by default.** The one stable file is `8_Server_Tools_Details.json` (tool definitions). Persona briefs in `2_Persona_Briefs.md` are also stable (personas do not change per task). Everything else in that directory describes a snapshot that may not match the per-task universe.
 4. **No universe edits in this pipeline.** Hardness comes from levers already present in the per-task data. If S0/HARDNESS finds fewer than 3 levers, stop and ask the user to decide.
 5. **500-word cap on prompts. No em-dashes anywhere.** Validator blocks both.
@@ -28,21 +28,23 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
+**Folder convention:** the active task lives in a folder at the repo **root** (e.g. `25_6a35abc123def...`), so `<TASK_DIR>` is just that folder name and the trigger reads `PIPELINE S0 — <TASK_DIR>`. Once a task ships, move its whole folder into `Submitted-Tasks/`. Cross-task learning logs live in `Submitted-Tasks/_meta/`.
+
 | Trigger phrase | Runbook | What it does |
 |---|---|---|
 | `PIPELINE NEW — <TASK_ID>` (or `PIPELINE NEW REVIEW — <TASK_ID>`) | [Reference/Sessions/NEW.md](Reference/Sessions/NEW.md) | Create fresh task folder + scaffold the input files. CB mode scaffolds 1/2/3 + nudges to S0. Review mode scaffolds 1/2/3/5/6/7/8 + nudges to REVIEW. Accepts `<hex>` (auto-index) or `<index>_<hex>` (explicit). |
-| `PIPELINE S0 — Tasks/<TASK_DIR>` | [Reference/Sessions/S0.md](Reference/Sessions/S0.md) | Extract PersonaBrief, split universe, build Universe_Index |
-| `PIPELINE HARDNESS — Tasks/<TASK_DIR>` | [Reference/Sessions/HARDNESS.md](Reference/Sessions/HARDNESS.md) | Scan for Opus-4.8 stumping levers, produce Hardness_Plan and Stump Hypothesis |
-| `PIPELINE S1 — Tasks/<TASK_DIR>` | [Reference/Sessions/S1.md](Reference/Sessions/S1.md) | Draft `5_Prompt.txt`, validate, two councils |
-| `PIPELINE S1.5 — Tasks/<TASK_DIR>` + linter paste | [Reference/Sessions/S1.5.md](Reference/Sessions/S1.5.md) | Handle linter blocker: revise / justify / pivot |
-| `PIPELINE S2 — Tasks/<TASK_DIR>` | [Reference/Sessions/S2.md](Reference/Sessions/S2.md) | Draft `6_Oracle_Events.txt`, validate, two councils |
-| `PIPELINE S3 — Tasks/<TASK_DIR>` | [Reference/Sessions/S3.md](Reference/Sessions/S3.md) | Draft `7_Rubrics.json`, validate, two councils (heaviest pass) |
-| `PIPELINE FINAL — Tasks/<TASK_DIR>` | [Reference/Sessions/FINAL.md](Reference/Sessions/FINAL.md) | Cross-artifact holistic council — answer-leakage scan, entity-drift check, lever-preservation end-to-end. **Required before platform upload.** |
-| `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste | [Reference/Sessions/S4.md](Reference/Sessions/S4.md) | Classify verifier fails, draft AF justifications |
-| `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md`, generate `13_Feedback.txt` + optional `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` |
-| `PIPELINE REDO — Tasks/<TASK_DIR>` | [Reference/Sessions/REDO.md](Reference/Sessions/REDO.md) | Reviewer redo: REVIEW done + fixes applied but trajectory failed on difficulty (pass@1 > 40%) or density (avg tool calls < 40). Archives candidate originals + rebuilds 5/6/7 from scratch as a full CB build. Also used when a CB's own task came back failing density / difficulty. |
-| `PIPELINE COMPARE — Tasks/<TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
-| `PIPELINE CLOSE — Tasks/<TASK_DIR>` | [Reference/Sessions/CLOSE.md](Reference/Sessions/CLOSE.md) | Final read-only sanity check. Audits required artifacts + FINAL verdict + trajectory verdict; refuses to greenlight if anything is missing. Nudges to append cross-task learnings before exit. |
+| `PIPELINE S0 — <TASK_DIR>` | [Reference/Sessions/S0.md](Reference/Sessions/S0.md) | Extract PersonaBrief, split universe, build Universe_Index |
+| `PIPELINE HARDNESS — <TASK_DIR>` | [Reference/Sessions/HARDNESS.md](Reference/Sessions/HARDNESS.md) | Scan for Opus-4.8 stumping levers, produce Hardness_Plan and Stump Hypothesis |
+| `PIPELINE S1 — <TASK_DIR>` | [Reference/Sessions/S1.md](Reference/Sessions/S1.md) | Draft `5_Prompt.txt`, validate, two councils |
+| `PIPELINE S1.5 — <TASK_DIR>` + linter paste | [Reference/Sessions/S1.5.md](Reference/Sessions/S1.5.md) | Handle linter blocker: revise / justify / pivot |
+| `PIPELINE S2 — <TASK_DIR>` | [Reference/Sessions/S2.md](Reference/Sessions/S2.md) | Draft `6_Oracle_Events.txt`, validate, two councils |
+| `PIPELINE S3 — <TASK_DIR>` | [Reference/Sessions/S3.md](Reference/Sessions/S3.md) | Draft `7_Rubrics.json`, validate, two councils (heaviest pass) |
+| `PIPELINE FINAL — <TASK_DIR>` | [Reference/Sessions/FINAL.md](Reference/Sessions/FINAL.md) | Cross-artifact holistic council — answer-leakage scan, entity-drift check, lever-preservation end-to-end. **Required before platform upload.** |
+| `PIPELINE S4 — <TASK_DIR>` + verifier-fails paste | [Reference/Sessions/S4.md](Reference/Sessions/S4.md) | Classify verifier fails, draft AF justifications |
+| `PIPELINE REVIEW — <TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: score existing deliverables, initialize `changes.md`, generate `13_Feedback.txt` + optional `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` |
+| `PIPELINE REDO — <TASK_DIR>` | [Reference/Sessions/REDO.md](Reference/Sessions/REDO.md) | Reviewer redo: REVIEW done + fixes applied but trajectory failed on difficulty (pass@1 > 40%) or density (avg tool calls < 40). Archives candidate originals + rebuilds 5/6/7 from scratch as a full CB build. Also used when a CB's own task came back failing density / difficulty. |
+| `PIPELINE COMPARE — <TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
+| `PIPELINE CLOSE — <TASK_DIR>` | [Reference/Sessions/CLOSE.md](Reference/Sessions/CLOSE.md) | Final read-only sanity check. Audits required artifacts + FINAL verdict + trajectory verdict; refuses to greenlight if anything is missing. Nudges to append cross-task learnings before exit. |
 
 ## Project layout
 
@@ -81,28 +83,30 @@ MCP_Eval_V3/
 │   ├── V3_Tasks/                   # on-framework reference tasks (Task11..Task14)
 │   └── V2_Tasks/                   # legacy V2/Keystone — study craft, not framework
 ├── Tasks_Template/                 # platform-paste-target template
-├── Tasks/                          # live tasks
-│   ├── <TASK_DIR>/                 # per-task work
-│   │   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
-│   │   ├── 10_Rubrics_Platform.json   # optional, user pastes for COMPARE
-│   │   ├── 13_Feedback.txt            # REVIEW flow only — candidate-facing rating
-│   │   ├── 14_Updated_Oracle_Events.txt  # REVIEW flow only, IFF OE fixes Applied
-│   │   ├── 15_Updated_Rubrics.json       # REVIEW flow only, IFF rubric fixes Applied
-│   │   ├── PersonaBrief.txt
-│   │   ├── changes.md              # review-tasks only
-│   │   ├── Agent_Responses/        # 6 trajectory JSONs (user-pasted)
-│   │   └── _aux/                   # pipeline working directory
-│   │       ├── Universe_Split/     # per-task universe split
-│   │       ├── Universe_Index/     # service_inventory, entities_personas, key_facts, today_horizon, accounts_per_entity, graph_report
-│   │       ├── Fact_Ledger.json    # per-task verifiable atom surface (emails, $, dates, IDs, accounts, personas)
-│   │       ├── Hardness_Plan.md
-│   │       ├── S0_Setup_Report.md
-│   │       ├── Linter_Decision.md
-│   │       ├── Linter_Justifications.md
-│   │       ├── Council_Reports/
-│   │       ├── Validator_Reports/
-│   │       └── Reasoning/
+├── <TASK_DIR>/                     # ACTIVE task — lives at the repo ROOT (e.g. 25_6a35abc...)
+│   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
+│   ├── 10_Rubrics_Platform.json   # optional, user pastes for COMPARE
+│   ├── 13_Feedback.txt            # REVIEW flow only — candidate-facing rating
+│   ├── 14_Updated_Oracle_Events.txt  # REVIEW flow only, IFF OE fixes Applied
+│   ├── 15_Updated_Rubrics.json       # REVIEW flow only, IFF rubric fixes Applied
+│   ├── PersonaBrief.txt
+│   ├── changes.md                  # review-tasks only
+│   ├── Agent_Responses/            # 6 trajectory JSONs (user-pasted)
+│   └── _aux/                       # pipeline working directory
+│       ├── Universe_Split/         # per-task universe split
+│       ├── Universe_Index/         # service_inventory, entities_personas, key_facts, today_horizon, accounts_per_entity, graph_report
+│       ├── Fact_Ledger.json        # per-task verifiable atom surface (emails, $, dates, IDs, accounts, personas)
+│       ├── Hardness_Plan.md
+│       ├── S0_Setup_Report.md
+│       ├── Linter_Decision.md
+│       ├── Linter_Justifications.md
+│       ├── Council_Reports/
+│       ├── Validator_Reports/
+│       └── Reasoning/
+├── Submitted-Tasks/                # archived tasks — move the active folder here after it ships
+│   ├── <NN>_<hash>/                # one folder per submitted task
 │   └── _meta/                      # cross-task learning logs
+│       ├── Learnings.md
 │       ├── Similarity_Log.md
 │       ├── Linter_Justifications.md
 │       ├── Hardness_Patterns_Log.md
@@ -124,12 +128,12 @@ MCP_Eval_V3/
 
 ## Where to start
 
-- **Brand-new task (CB creation):** `PIPELINE NEW — <TASK_ID>` → paste 3 inputs → `PIPELINE S0 — Tasks/<TASK_DIR>`
-- **Brand-new task (review-type, deliverables prefilled):** `PIPELINE NEW REVIEW — <TASK_ID>` → paste 7 inputs → `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+- **Brand-new task (CB creation):** `PIPELINE NEW — <TASK_ID>` → paste 3 inputs → `PIPELINE S0 — <TASK_DIR>`
+- **Brand-new task (review-type, deliverables prefilled):** `PIPELINE NEW REVIEW — <TASK_ID>` → paste 7 inputs → `PIPELINE REVIEW — <TASK_DIR>`
 - **Already-scaffolded task, continuing mid-pipeline:** invoke the next-trigger phrase the previous phase's STOP gate printed
-- **Stuck on a linter block:** `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste the linter output
-- **Verifier results came back:** `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails
-- **Wrapping up:** `PIPELINE CLOSE — Tasks/<TASK_DIR>` (read-only final audit)
+- **Stuck on a linter block:** `PIPELINE S1.5 — <TASK_DIR>` + paste the linter output
+- **Verifier results came back:** `PIPELINE S4 — <TASK_DIR>` + paste verifier fails
+- **Wrapping up:** `PIPELINE CLOSE — <TASK_DIR>` (read-only final audit)
 
 ## Anti-patterns (this project)
 

@@ -23,18 +23,18 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 | File | Trigger phrase |
 |---|---|
 | [Sessions/NEW.md](Sessions/NEW.md) | `PIPELINE NEW — <TASK_ID>` (scaffold a fresh task folder) |
-| [Sessions/S0.md](Sessions/S0.md) | `PIPELINE S0 — Tasks/<TASK_DIR>` |
-| [Sessions/HARDNESS.md](Sessions/HARDNESS.md) | `PIPELINE HARDNESS — Tasks/<TASK_DIR>` |
-| [Sessions/S1.md](Sessions/S1.md) | `PIPELINE S1 — Tasks/<TASK_DIR>` |
-| [Sessions/S1.5.md](Sessions/S1.5.md) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + linter paste |
-| [Sessions/S2.md](Sessions/S2.md) | `PIPELINE S2 — Tasks/<TASK_DIR>` |
-| [Sessions/S3.md](Sessions/S3.md) | `PIPELINE S3 — Tasks/<TASK_DIR>` |
-| [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste |
-| [Sessions/FINAL.md](Sessions/FINAL.md) | `PIPELINE FINAL — Tasks/<TASK_DIR>` (cross-artifact holistic council, required before platform upload) |
-| [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — Tasks/<TASK_DIR>` |
-| [Sessions/REDO.md](Sessions/REDO.md) | `PIPELINE REDO — Tasks/<TASK_DIR>` (reviewer redo: trajectory failed on difficulty / density, rebuild from scratch as CB) |
-| [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (diff local rubrics vs platform paste-back) |
-| [Sessions/CLOSE.md](Sessions/CLOSE.md) | `PIPELINE CLOSE — Tasks/<TASK_DIR>` (final read-only sanity check before declaring a task done) |
+| [Sessions/S0.md](Sessions/S0.md) | `PIPELINE S0 — <TASK_DIR>` |
+| [Sessions/HARDNESS.md](Sessions/HARDNESS.md) | `PIPELINE HARDNESS — <TASK_DIR>` |
+| [Sessions/S1.md](Sessions/S1.md) | `PIPELINE S1 — <TASK_DIR>` |
+| [Sessions/S1.5.md](Sessions/S1.5.md) | `PIPELINE S1.5 — <TASK_DIR>` + linter paste |
+| [Sessions/S2.md](Sessions/S2.md) | `PIPELINE S2 — <TASK_DIR>` |
+| [Sessions/S3.md](Sessions/S3.md) | `PIPELINE S3 — <TASK_DIR>` |
+| [Sessions/S4.md](Sessions/S4.md) | `PIPELINE S4 — <TASK_DIR>` + verifier-fails paste |
+| [Sessions/FINAL.md](Sessions/FINAL.md) | `PIPELINE FINAL — <TASK_DIR>` (cross-artifact holistic council, required before platform upload) |
+| [Sessions/REVIEW.md](Sessions/REVIEW.md) | `PIPELINE REVIEW — <TASK_DIR>` |
+| [Sessions/REDO.md](Sessions/REDO.md) | `PIPELINE REDO — <TASK_DIR>` (reviewer redo: trajectory failed on difficulty / density, rebuild from scratch as CB) |
+| [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — <TASK_DIR>` (diff local rubrics vs platform paste-back) |
+| [Sessions/CLOSE.md](Sessions/CLOSE.md) | `PIPELINE CLOSE — <TASK_DIR>` (final read-only sanity check before declaring a task done) |
 
 ## Update protocol
 

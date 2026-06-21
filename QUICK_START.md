@@ -25,19 +25,19 @@ Review-mode files to paste (CB list + 4 more):
 ## The 7 mandatory commands (each in a NEW chat, in order)
 
 ```
-PIPELINE S0       — Tasks/<TASK_DIR>
-PIPELINE HARDNESS — Tasks/<TASK_DIR>
-PIPELINE S1       — Tasks/<TASK_DIR>
+PIPELINE S0       — <TASK_DIR>
+PIPELINE HARDNESS — <TASK_DIR>
+PIPELINE S1       — <TASK_DIR>
 ```
 ↓ submit prompt to platform ↓
 ```
-PIPELINE S2       — Tasks/<TASK_DIR>
-PIPELINE S3       — Tasks/<TASK_DIR>
-PIPELINE FINAL    — Tasks/<TASK_DIR>
+PIPELINE S2       — <TASK_DIR>
+PIPELINE S3       — <TASK_DIR>
+PIPELINE FINAL    — <TASK_DIR>
 ```
 ↓ upload deliverables, run 6 trajectories on platform ↓
 ```
-PIPELINE S4       — Tasks/<TASK_DIR>
+PIPELINE S4       — <TASK_DIR>
 ```
 
 Paste `8_Verifier_Fails.txt` into the task folder + 6 trajectories into `trajectory-runs/` (or `Agent_Responses/`) before S4.
@@ -47,10 +47,10 @@ Paste `8_Verifier_Fails.txt` into the task folder + 6 trajectories into `traject
 ## Closing the task
 
 ```
-PIPELINE CLOSE — Tasks/<TASK_DIR>
+PIPELINE CLOSE — <TASK_DIR>
 ```
 
-Read-only audit. Refuses to greenlight unless required artifacts are present + FINAL verdict = PASS + (if trajectories) verdict = OK. Nudges to append any novel finding to `Tasks/_meta/Learnings.md` before exit.
+Read-only audit. Refuses to greenlight unless required artifacts are present + FINAL verdict = PASS + (if trajectories) verdict = OK. Nudges to append any novel finding to `Submitted-Tasks/_meta/Learnings.md` before exit.
 
 ---
 
@@ -58,19 +58,19 @@ Read-only audit. Refuses to greenlight unless required artifacts are present + F
 
 | When | Command |
 |---|---|
-| Platform linter blocked the prompt (CB-mode OR Review-mode where prompt is stuck) | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. Review-mode routes the fix to scratch draft; CB-mode revises 5_Prompt.txt in place. |
-| Platform paste-back rubrics suspected mutated | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (after dropping `10_Rubrics_Platform.json`) |
+| Platform linter blocked the prompt (CB-mode OR Review-mode where prompt is stuck) | `PIPELINE S1.5 — <TASK_DIR>` + paste linter output. Review-mode routes the fix to scratch draft; CB-mode revises 5_Prompt.txt in place. |
+| Platform paste-back rubrics suspected mutated | `PIPELINE COMPARE — <TASK_DIR>` (after dropping `10_Rubrics_Platform.json`) |
 | Task came prefilled (review-type, not CB) | See **Reviewer flow** below |
-| Task came back failing difficulty (pass@1 > 40%) or density (< 40 tool calls) — REVIEW fix not enough, OR your own CB task came back too easy/thin | `PIPELINE REDO — Tasks/<TASK_DIR>` (archives candidate-original 5/6/7 + reviewer 14/15 to `_aux/Candidate_Originals/`, then runs full CB rebuild HARDNESS→S1→S2→S3→FINAL writing fresh 5/6/7) |
+| Task came back failing difficulty (pass@1 > 40%) or density (< 40 tool calls) — REVIEW fix not enough, OR your own CB task came back too easy/thin | `PIPELINE REDO — <TASK_DIR>` (archives candidate-original 5/6/7 + reviewer 14/15 to `_aux/Candidate_Originals/`, then runs full CB rebuild HARDNESS→S1→S2→S3→FINAL writing fresh 5/6/7) |
 
 ---
 
 ## Reviewer flow (task came prefilled with 5/6/7)
 
-Paste the same 3 inputs (`1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json`) plus the candidate's prefilled `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` into `Tasks/<TASK_DIR>/`. Then one new chat:
+Paste the same 3 inputs (`1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json`) plus the candidate's prefilled `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` into `<TASK_DIR>/`. Then one new chat:
 
 ```
-PIPELINE REVIEW — Tasks/<TASK_DIR>
+PIPELINE REVIEW — <TASK_DIR>
 ```
 
 What it does (single chat, runs the full review end-to-end):
@@ -99,7 +99,7 @@ Originals stay pristine throughout. Same 4-layer defense (validator → Council 
 If the candidate's prompt is blocked by the platform linter (any class: business function / data / similarity) so you can't get to the prefilled OE/rubrics, handle it FIRST before running REVIEW:
 
 ```
-PIPELINE S1.5 — Tasks/<TASK_DIR>
+PIPELINE S1.5 — <TASK_DIR>
 <paste linter output>
 ```
 

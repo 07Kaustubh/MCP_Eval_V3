@@ -6,13 +6,13 @@ Eight Python scripts. All take `<path_to_task_dir>` or `--task <path>` (compare_
 
 ### `split_universe.py`
 
-Patched wrapper around the legacy `data.py`. Writes the per-task universe split into `Tasks/<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/` directory.
+Patched wrapper around the legacy `data.py`. Writes the per-task universe split into `<TASK_DIR>/_aux/Universe_Split/` instead of the shared `Brookfield_Base_Universe/Data/` directory.
 
 ```
-python Validators/split_universe.py Tasks/<TASK_DIR>
+python Validators/split_universe.py <TASK_DIR>
 ```
 
-Reads `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<service>.<table>.json` files + `Universe_complete_data.json` + `_aux/data_hash.txt` (sha256 of the input).
+Reads `<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<service>.<table>.json` files + `Universe_complete_data.json` + `_aux/data_hash.txt` (sha256 of the input).
 
 `data.py` at the project root is now a smart forwarder that routes to `Validators/split_universe.py` when given a per-task input file. The original behavior is preserved in `data.legacy.py` — do **not** call `data.legacy.py` directly; it writes to the shared `Brookfield_Base_Universe/Data/` and will overwrite parallel work.
 
@@ -21,7 +21,7 @@ Reads `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<s
 Builds quick lookup summaries from `_aux/Universe_Split/`.
 
 ```
-python Validators/build_universe_index.py Tasks/<TASK_DIR>
+python Validators/build_universe_index.py <TASK_DIR>
 ```
 
 Produces in `_aux/Universe_Index/`:
@@ -36,10 +36,10 @@ Produces in `_aux/Universe_Index/`:
 Emits the per-task atom surface that Council A and `validate.py --phase rubrics` use for groundedness.
 
 ```
-python Validators/build_fact_ledger.py Tasks/<TASK_DIR>
+python Validators/build_fact_ledger.py <TASK_DIR>
 ```
 
-Produces `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json`:
+Produces `<TASK_DIR>/_aux/Fact_Ledger.json`:
 - `emails` — every email address present anywhere (lowercased, deduped)
 - `amounts` — canonical 2dp strings (Decimal-rounded)
 - `dates` — every ISO date with day-of-week
@@ -57,10 +57,10 @@ The ledger is the authoritative source for "does this email / amount / ID exist 
 Compact discovery map for HARDNESS lever selection.
 
 ```
-python Validators/build_graph_report.py Tasks/<TASK_DIR>
+python Validators/build_graph_report.py <TASK_DIR>
 ```
 
-Produces `Tasks/<TASK_DIR>/_aux/Universe_Index/graph_report.md` with: people-by-artifact-density (top 30), periods-by-JE-density (top 20), exceptions-by-entity-state, recons-by-entity-state, pending-AP-by-vendor (top 20), documents-by-kind / by-classification, densest (person, period) pairs (top 15).
+Produces `<TASK_DIR>/_aux/Universe_Index/graph_report.md` with: people-by-artifact-density (top 30), periods-by-JE-density (top 20), exceptions-by-entity-state, recons-by-entity-state, pending-AP-by-vendor (top 20), documents-by-kind / by-classification, densest (person, period) pairs (top 15).
 
 HARDNESS reads this to pick the persona × period × system intersection with the most stump-able artifact density. No 30MB edge JSON — summary tables only.
 
@@ -69,17 +69,17 @@ HARDNESS reads this to pick the persona × period × system intersection with th
 Per-index diff between local rubrics and platform paste-back.
 
 ```
-python Validators/compare_rubrics.py Tasks/<TASK_DIR>/7_Rubrics.json Tasks/<TASK_DIR>/10_Rubrics_Platform.json
+python Validators/compare_rubrics.py <TASK_DIR>/7_Rubrics.json <TASK_DIR>/10_Rubrics_Platform.json
 ```
 
-Catches silent platform-side mutations (reformatting, field stripping, reordering). Triggered by `PIPELINE COMPARE — Tasks/<TASK_DIR>`. Exits 0 on match, non-zero on any count mismatch or per-field diff.
+Catches silent platform-side mutations (reformatting, field stripping, reordering). Triggered by `PIPELINE COMPARE — <TASK_DIR>`. Exits 0 on match, non-zero on any count mismatch or per-field diff.
 
 ### `parse_trajectories.py`
 
 Parses real Claude Code SDK trajectories + verifier-fails text. Computes empirical hardness metrics — no manual JSON parsing.
 
 ```
-python Validators/parse_trajectories.py Tasks/<TASK_DIR>
+python Validators/parse_trajectories.py <TASK_DIR>
 ```
 
 Reads `trajectory-runs/trajectory-run-*.json` (platform export) or falls back to `Agent_Responses/Run*.json` (template path). Counts `tool_use` blocks in assistant `message.content[]`, separates MCP (`mcp__*`) from internal scaffolding (Task, TaskCreate, TaskUpdate, etc.).
@@ -95,7 +95,7 @@ Used by `PIPELINE REVIEW` step 3 (hardness pre-assessment) and `PIPELINE S4` pha
 Refuses to start a phase if upstream artifacts are missing. Architectural enforcement layer on top of the STOP-gate convention — catches the case where an agent silently skipped a previous phase.
 
 ```
-python Validators/phase_ready.py --phase {hardness|s1|s1.5|s2|s3|final|s4|review|redo|compare} --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase {hardness|s1|s1.5|s2|s3|final|s4|review|redo|compare} --task <TASK_DIR>
 ```
 
 Every runbook except S0 invokes this as step 1. If it STOPs with a missing-artifact list, the agent must run the named upstream phase before continuing. Exits 0 when all required artifacts exist + are non-empty, non-zero otherwise.
@@ -105,7 +105,7 @@ Every runbook except S0 invokes this as step 1. If it STOPs with a missing-artif
 Phase-aware validator. Block on any FAIL.
 
 ```
-python Validators/validate.py --phase {prompt|oe|rubrics|all} --task Tasks/<TASK_DIR>
+python Validators/validate.py --phase {prompt|oe|rubrics|all} --task <TASK_DIR>
 ```
 
 Writes `_aux/Validator_Reports/<phase>.md`. Exits 0 clean, non-zero on any FAIL.

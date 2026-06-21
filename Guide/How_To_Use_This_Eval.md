@@ -51,9 +51,9 @@ MCP_Eval_V3/
 │   │   └── TaskXX_XXXXX/          # Each has: Prompt, OEs, Rubrics, Quality_Scores, Task_Info
 │   └── V2_Tasks/                  # V2/Keystone samples - study structure/craft only, apply the V3 framework
 ├── Tasks_Template/                 # Templates for task files (includes Agent_Responses/ for run trajectories)
-└── Tasks/                          # Actual tasks to evaluate
-    └── TaskXX_XXXXX/              # Each task folder with its files
-        └── Agent_Responses/      # Per-run agent trajectories (Run1_Trajectory.json … Run6_Trajectory.json) - feed the Verifier Fails eval
+├── TaskXX_XXXXX/                   # ACTIVE task folder — lives at repo ROOT
+│   └── Agent_Responses/           # Per-run agent trajectories (Run1_Trajectory.json … Run6_Trajectory.json) - feed the Verifier Fails eval
+└── Submitted-Tasks/                # Archived tasks — move the active folder here after it ships
 ```
 
 ---
@@ -66,7 +66,7 @@ MCP_Eval_V3/
 
 ## Step 1: Set Up the Task Folder
 
-Create a folder under `Tasks/` for the task (e.g., `Tasks/Task30_69c1cf16a2f45785f047023e/`) and populate it:
+Create a folder at the repo root for the task (e.g., `Task30_69c1cf16a2f45785f047023e/`) and populate it:
 
 
 | Step | What to Do                                                                                                                      | Target File                                                                   |
@@ -94,7 +94,7 @@ Evaluate tasks in this order: **Prompt → Oracle Events → Rubrics**. Each pha
 Point the agent to the task's prompt file and the eval guide:
 
 ```
-Lets evaluate the quality of @Tasks/TaskXX_XXXXX/5_Prompt.txt using @MCP_Eval_V3/Evals/1_Prompt_Eval.md
+Lets evaluate the quality of @TaskXX_XXXXX/5_Prompt.txt using @MCP_Eval_V3/Evals/1_Prompt_Eval.md
 ```
 
 The agent checks persona coherence, feasibility, truthfulness, structural anti-patterns, date/time grounding, and grammar/typos - then scores across all QC dimensions.
@@ -110,7 +110,7 @@ Fix any issues found, then move to Phase 2.
 ### 2.2 Oracle Events Evaluation
 
 ```
-Okay so now lets evaluate the quality of @Tasks/TaskXX_XXXXX/6_Oracle_Events.txt using @MCP_Eval_V3/Evals/2_OE_Eval.md
+Okay so now lets evaluate the quality of @TaskXX_XXXXX/6_Oracle_Events.txt using @MCP_Eval_V3/Evals/2_OE_Eval.md
 ```
 
 The agent verifies every tool name, parameter, and value against `8_Server_Tools_Details.json` and universe data, checks completeness, accuracy, and date/time consistency.
@@ -120,7 +120,7 @@ Run completeness and accuracy rechecks after the initial eval. Fix any issues, t
 ### 2.3 Rubrics Evaluation
 
 ```
-Okay, so now evaluate quality of @Tasks/TaskXX_XXXXX/7_Rubrics.json using @MCP_Eval_V3/Evals/3_Rubrics_Eval.md
+Okay, so now evaluate quality of @TaskXX_XXXXX/7_Rubrics.json using @MCP_Eval_V3/Evals/3_Rubrics_Eval.md
 ```
 
 The agent checks each rubric for atomicity, self-containment, correctness, flexibility, agent-centric phrasing (no tool names in criteria), over-specificity / valid-path preservation, completeness (both forward and reverse), overlap/redundancy, and Outcome/Process category balance - then scores using severity taxonomy and percentage thresholds.
@@ -143,7 +143,7 @@ If you have verifier output from agent runs, use this eval to analyze failures:
 4. Run:
 
 ```
-Analyze the verifier fails using @Tasks/TaskXX_XXXXX/8_Verifier_Fails.txt, the agent trajectories in @Tasks/TaskXX_XXXXX/Agent_Responses/ , and @MCP_Eval_V3/Evals/4_Verifier_Fails_Eval.md
+Analyze the verifier fails using @TaskXX_XXXXX/8_Verifier_Fails.txt, the agent trajectories in @TaskXX_XXXXX/Agent_Responses/ , and @MCP_Eval_V3/Evals/4_Verifier_Fails_Eval.md
 ```
 
 The agent will build a rubric x run matrix, check rubric validity, verify judge accuracy against universe data, and produce a verdict table (Rubric Invalid / Judge Error / Legitimate Fail).
@@ -159,7 +159,7 @@ Use these commands sequentially for each task evaluation. Replace `TaskXX_XXXXX`
 **1.1 Full Prompt Evaluation**
 
 ```
-Lets evaluate the quality of @Tasks/TaskXX_XXXXX/5_Prompt.txt using @MCP_Eval_V3/Evals/1_Prompt_Eval.md . Must create and follow all to-dos very regressively. . Lets also focus more on checking for feasibility and truthfulness - every factual claim the persona makes must exist in the universe data. 
+Lets evaluate the quality of @TaskXX_XXXXX/5_Prompt.txt using @MCP_Eval_V3/Evals/1_Prompt_Eval.md . Must create and follow all to-dos very regressively. . Lets also focus more on checking for feasibility and truthfulness - every factual claim the persona makes must exist in the universe data. 
 ```
 
 **1.2 Deep Feasibility + Truthfulness**
@@ -173,7 +173,7 @@ deep check for feasibility. verify every entity, event, scenario, and data point
 **2.1 Full OE Evaluation**
 
 ```
-Okay so now lets evaluate the quality of @Tasks/TaskXX_XXXXX/6_Oracle_Events.txt using @MCP_Eval_V3/Evals/2_OE_Eval.md . Must create and follow all to-dos regressively. focus deeply on: feasibility (every tool name, parameter, value must exist and be correct), completeness (every prompt ask has a corresponding OE step), accuracy (every entity, amount, ID matches universe data exactly), verify each tool and parameter exists in 8_Server_Tools_Details.json, no required parameters missing.
+Okay so now lets evaluate the quality of @TaskXX_XXXXX/6_Oracle_Events.txt using @MCP_Eval_V3/Evals/2_OE_Eval.md . Must create and follow all to-dos regressively. focus deeply on: feasibility (every tool name, parameter, value must exist and be correct), completeness (every prompt ask has a corresponding OE step), accuracy (every entity, amount, ID matches universe data exactly), verify each tool and parameter exists in 8_Server_Tools_Details.json, no required parameters missing.
 ```
 
 **2.2 Completeness + Accuracy Re-check**
@@ -187,7 +187,7 @@ lets recheck completeness and accuracy. decompose the prompt sentence by sentenc
 **3.1 Full Rubric Evaluation**
 
 ```
-Okay, so now evaluate quality of @Tasks/TaskXX_XXXXX/7_Rubrics.json using @MCP_Eval_V3/Evals/3_Rubrics_Eval.md . Must create and follow all to-dos regressively. Focus on atomicity, completeness (forward and reverse), self-containment, correctness against universe JSON data, flexibility, no overlapping/extra rubrics, agent-centric phrasing (no tool names in criteria), over-specificity / valid-path preservation, and V3 compliance (Outcome mandatory with write actions in Outcome 1.1; Process optional and only when the three-condition test holds; Outcome must outnumber Process).
+Okay, so now evaluate quality of @TaskXX_XXXXX/7_Rubrics.json using @MCP_Eval_V3/Evals/3_Rubrics_Eval.md . Must create and follow all to-dos regressively. Focus on atomicity, completeness (forward and reverse), self-containment, correctness against universe JSON data, flexibility, no overlapping/extra rubrics, agent-centric phrasing (no tool names in criteria), over-specificity / valid-path preservation, and V3 compliance (Outcome mandatory with write actions in Outcome 1.1; Process optional and only when the three-condition test holds; Outcome must outnumber Process).
 ```
 
 **3.2 Deep Atomicity Recheck**
@@ -228,10 +228,10 @@ Now lets evaluate the prompt, oracle events, and rubrics on each dimensions of Q
 
 ### PHASE 5: VERIFIER FAILS ANALYSIS (if verifier output available)
 
-Paste raw "Run Detail" blocks for failing rubrics into `@Tasks/TaskXX_XXXXX/8_Verifier_Fails.txt` (use `Guide/Verifier_Fails_Template.txt` as reference), export each **successful run's** trajectory into `@Tasks/TaskXX_XXXXX/Agent_Responses/Run{N}_Trajectory.json` (every completed run, not just the failing ones - steps in `Agent_Responses/README.md`), then run:
+Paste raw "Run Detail" blocks for failing rubrics into `@TaskXX_XXXXX/8_Verifier_Fails.txt` (use `Guide/Verifier_Fails_Template.txt` as reference), export each **successful run's** trajectory into `@TaskXX_XXXXX/Agent_Responses/Run{N}_Trajectory.json` (every completed run, not just the failing ones - steps in `Agent_Responses/README.md`), then run:
 
 ```
-Analyze the verifier fails using @Tasks/TaskXX_XXXXX/8_Verifier_Fails.txt, the agent trajectories in @Tasks/TaskXX_XXXXX/Agent_Responses/ , and @MCP_Eval_V3/Evals/4_Verifier_Fails_Eval.md . For each failing rubric, determine if the failure is due to a broken rubric, a judge error, or a legitimate agent failure - using the run's trajectory as direct evidence of what the agent did.
+Analyze the verifier fails using @TaskXX_XXXXX/8_Verifier_Fails.txt, the agent trajectories in @TaskXX_XXXXX/Agent_Responses/ , and @MCP_Eval_V3/Evals/4_Verifier_Fails_Eval.md . For each failing rubric, determine if the failure is due to a broken rubric, a judge error, or a legitimate agent failure - using the run's trajectory as direct evidence of what the agent did.
 ```
 
 ---

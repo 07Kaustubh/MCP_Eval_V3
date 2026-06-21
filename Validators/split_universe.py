@@ -2,7 +2,7 @@
 """
 split_universe.py — patched wrapper around data.py.
 
-Writes per-task split into Tasks/<TASK_DIR>/_aux/Universe_Split/
+Writes per-task split into <TASK_DIR>/_aux/Universe_Split/
 instead of the shared Brookfield_Base_Universe/Data/ directory.
 This prevents cross-task collisions when multiple tasks are in flight.
 
@@ -10,7 +10,7 @@ Usage:
     python Validators/split_universe.py <path_to_task_dir>
 
 Example:
-    python Validators/split_universe.py Tasks/Task01_abc123
+    python Validators/split_universe.py Task01_abc123
 """
 
 import json

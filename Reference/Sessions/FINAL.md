@@ -1,6 +1,6 @@
 # PIPELINE FINAL — Cross-Artifact Holistic Council
 
-**Trigger:** `PIPELINE FINAL — Tasks/<TASK_DIR>`
+**Trigger:** `PIPELINE FINAL — <TASK_DIR>`
 
 **When to run:** AFTER S3 produces `7_Rubrics.json` and BEFORE the user uploads to the platform. This is the last gate. Per-phase councils (S1 / S2 / S3) read each artifact in isolation; this one reads all three TOGETHER and checks cross-artifact consistency + answer leakage + difficulty preservation end-to-end.
 
@@ -19,13 +19,13 @@
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/5_Prompt.txt` | S1 + S1.5 output |
-| `Tasks/<TASK_DIR>/6_Oracle_Events.txt` | S2 output |
-| `Tasks/<TASK_DIR>/7_Rubrics.json` | S3 output |
-| `Tasks/<TASK_DIR>/_aux/Hardness_Plan.md` | HARDNESS output (levers + Stump Hypothesis) |
-| `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 atom surface |
-| `Tasks/<TASK_DIR>/_aux/Universe_Index/` | S0 summaries |
-| `Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure modes |
+| `<TASK_DIR>/5_Prompt.txt` | S1 + S1.5 output |
+| `<TASK_DIR>/6_Oracle_Events.txt` | S2 output |
+| `<TASK_DIR>/7_Rubrics.json` | S3 output |
+| `<TASK_DIR>/_aux/Hardness_Plan.md` | HARDNESS output (levers + Stump Hypothesis) |
+| `<TASK_DIR>/_aux/Fact_Ledger.json` | S0 atom surface |
+| `<TASK_DIR>/_aux/Universe_Index/` | S0 summaries |
+| `Submitted-Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure modes |
 | `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md` | QC scoring |
 | `Reference/Council_Protocol.md` | council instructions |
 
@@ -58,7 +58,7 @@ Use the `oracle` or `ultrabrain` sub-agent. Single call, 4 lenses applied in seq
 ## Phase-readiness gate (run FIRST)
 
 ```
-python Validators/phase_ready.py --phase final --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase final --task <TASK_DIR>
 ```
 
 Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
@@ -67,7 +67,7 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 1. **Verify upstream artifacts exist.** All three deliverables + Hardness_Plan + Fact_Ledger must be in place.
 
-2. **Run validators first.** `python Validators/validate.py --phase all --task Tasks/<TASK_DIR>` must exit 0 before the council runs. If any FAIL, fix and re-run validators before invoking the council.
+2. **Run validators first.** `python Validators/validate.py --phase all --task <TASK_DIR>` must exit 0 before the council runs. If any FAIL, fix and re-run validators before invoking the council.
 
 3. **Spawn the Final Council** as a single `oracle` (or `ultrabrain`) sub-agent. Prompt template:
 
@@ -77,13 +77,13 @@ deliverables TOGETHER and check cross-artifact consistency + answer leakage +
 hardness preservation that per-phase councils cannot see.
 
 INPUTS:
-- Tasks/<TASK_DIR>/5_Prompt.txt
-- Tasks/<TASK_DIR>/6_Oracle_Events.txt
-- Tasks/<TASK_DIR>/7_Rubrics.json
-- Tasks/<TASK_DIR>/_aux/Hardness_Plan.md
-- Tasks/<TASK_DIR>/_aux/Fact_Ledger.json
-- Tasks/<TASK_DIR>/_aux/Universe_Index/
-- Tasks/_meta/Learnings.md
+- <TASK_DIR>/5_Prompt.txt
+- <TASK_DIR>/6_Oracle_Events.txt
+- <TASK_DIR>/7_Rubrics.json
+- <TASK_DIR>/_aux/Hardness_Plan.md
+- <TASK_DIR>/_aux/Fact_Ledger.json
+- <TASK_DIR>/_aux/Universe_Index/
+- Submitted-Tasks/_meta/Learnings.md
 - Docs/7_QC_Spec_Doc1.json + Docs/8_QC_Spec_Doc2.md
 
 Apply four lenses in sequence; the verdict is the union.
@@ -134,24 +134,24 @@ VERDICT:
   PASS   if no BLOCKER hits AND no MAJOR hits >2.
   REVISE otherwise — list each hit as [SEVERITY] <one-line issue> -- <file>:<location> -- <exact fix>.
 
-Save the report to Tasks/<TASK_DIR>/_aux/Council_Reports/FINAL_council.md.
+Save the report to <TASK_DIR>/_aux/Council_Reports/FINAL_council.md.
 ```
 
 4. **Read the verdict.** Two outcomes:
 
 | Verdict | Action |
 |---|---|
-| `PASS` | Task is cleared for platform upload. Append a one-line entry to `Tasks/_meta/Hardness_Patterns_Log.md`: which levers were selected and confirmed end-to-end. |
+| `PASS` | Task is cleared for platform upload. Append a one-line entry to `Submitted-Tasks/_meta/Hardness_Patterns_Log.md`: which levers were selected and confirmed end-to-end. |
 | `REVISE` | Apply the fixes IN PLACE. Re-run validators. Re-run PIPELINE FINAL. Iteration cap: **3 REVISE rounds**. After 3, escalate to the user with the full issue list — do NOT silently downgrade or accept. |
 
-5. **Exit criteria.** `Tasks/<TASK_DIR>/_aux/Council_Reports/FINAL_council.md` exists with `VERDICT: PASS` and PASS evidence cited for every hard rule in the table above.
+5. **Exit criteria.** `<TASK_DIR>/_aux/Council_Reports/FINAL_council.md` exists with `VERDICT: PASS` and PASS evidence cited for every hard rule in the table above.
 
 ## STOP gate
 
 This phase ends here after `VERDICT: PASS` (or after the 3-REVISE iteration cap is hit). End your response.
 
 Two next-trigger paths:
-- `VERDICT: PASS` → user uploads the 4 deliverables to the platform and runs 6 trajectories. After results: `PIPELINE S4 — Tasks/<TASK_DIR>` (paste verifier fails) in a fresh chat, or `PIPELINE REDO — Tasks/<TASK_DIR>` if the task came back too easy / too thin.
+- `VERDICT: PASS` → user uploads the 4 deliverables to the platform and runs 6 trajectories. After results: `PIPELINE S4 — <TASK_DIR>` (paste verifier fails) in a fresh chat, or `PIPELINE REDO — <TASK_DIR>` if the task came back too easy / too thin.
 - 3 REVISE rounds hit without PASS → end your response with the full issue list. The user decides whether to keep iterating (re-invoke FINAL in a fresh chat) or escalate.
 
 Do NOT proceed to platform-upload guidance or `PIPELINE S4` inside this chat.

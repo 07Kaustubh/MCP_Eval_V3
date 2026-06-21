@@ -40,8 +40,8 @@ You are Council A — Grounding and Convention.
 
 DELIVERABLE: <path>
 PHASE: <prompt | oe | rubrics>
-PER-TASK UNIVERSE: Tasks/<TASK_DIR>/_aux/Universe_Split/
-INDEX: Tasks/<TASK_DIR>/_aux/Universe_Index/
+PER-TASK UNIVERSE: <TASK_DIR>/_aux/Universe_Split/
+INDEX: <TASK_DIR>/_aux/Universe_Index/
 FORMAT CARD: Reference/<phase>_Format.md
 INVENTORY: Reference/{Strict_Convention_Inventory.json | OE_Convention_Inventory.json}
 SAMPLES: QC_Tasks/V3_Tasks/Task11..Task14/{Rubrics.json | Oracle_Events.txt | Prompt.txt}
@@ -130,10 +130,10 @@ DELIVERABLE: <path>
 PHASE: <prompt | oe | rubrics>
 PROMPT: <path>
 OE: <path> (if reviewing rubrics)
-HARDNESS PLAN: Tasks/<TASK_DIR>/_aux/Hardness_Plan.md
+HARDNESS PLAN: <TASK_DIR>/_aux/Hardness_Plan.md
 QC SPEC: Docs/7_QC_Spec_Doc1.json + Docs/8_QC_Spec_Doc2.md
 PHASE EVAL: Evals/<n>_<phase>_Eval.md
-UNIVERSE INDEX: Tasks/<TASK_DIR>/_aux/Universe_Index/
+UNIVERSE INDEX: <TASK_DIR>/_aux/Universe_Index/
 
 TASK:
 
@@ -190,7 +190,7 @@ Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 
 The default Council B is one `oracle` sub-agent call applying 5 lenses in sequence. The lenses overlay catches most of what 5 separate model invocations would catch, at 1/5 the cost.
 
-For maximum rigor on a critical task (final deliverable for a benchmark seat, a task that has already been bounced by the platform reviewer, or a 5/5-or-die deliverable), invoke the multi-model variant by prefixing the trigger: `PIPELINE S3 — Tasks/<TASK_DIR> COUNCIL_MODE=multi`. The runbook does this instead:
+For maximum rigor on a critical task (final deliverable for a benchmark seat, a task that has already been bounced by the platform reviewer, or a 5/5-or-die deliverable), invoke the multi-model variant by prefixing the trigger: `PIPELINE S3 — <TASK_DIR> COUNCIL_MODE=multi`. The runbook does this instead:
 
 1. **Spawn 5 sub-agents in parallel**, one per lens, each `read-only`. Each gets the same brief (deliverable + upstream + Hardness_Plan + QC spec + relevant inventory). The model + role assignment:
 

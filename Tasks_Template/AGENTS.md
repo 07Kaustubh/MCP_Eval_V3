@@ -1,6 +1,6 @@
 # Tasks_Template
 
-Empty scaffold for a new task folder. Copy into `Tasks/<TASK_DIR>/` when starting a new task — but the pipeline runbooks will populate `_aux/` and the deliverable files automatically, so most operators don't need to interact with this template directly.
+Empty scaffold for a new task folder. Copy into `<TASK_DIR>/` when starting a new task — but the pipeline runbooks will populate `_aux/` and the deliverable files automatically, so most operators don't need to interact with this template directly.
 
 ## Files
 

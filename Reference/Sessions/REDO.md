@@ -1,6 +1,6 @@
 # PIPELINE REDO — Reviewer Redo as Full CB Build
 
-**Trigger:** `PIPELINE REDO — Tasks/<TASK_DIR>`
+**Trigger:** `PIPELINE REDO — <TASK_DIR>`
 
 **When to run:** REVIEW already ran, fixes were applied to `14_Updated_Oracle_Events.txt` and/or `15_Updated_Rubrics.json`, the corrected version was uploaded to the platform, 6 trajectories ran — and the task failed on **difficulty** (pass@1 > 40%) or **density** (average tool calls < 40). The candidate's structural design is unsalvageable. The reviewer has to rebuild from scratch like a CB.
 
@@ -16,20 +16,20 @@ This is also the trigger when a CB's own task came back failing density / diffic
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/5_Prompt.txt` | candidate's original prompt (was being reviewed) |
-| `Tasks/<TASK_DIR>/6_Oracle_Events.txt` | candidate's original OEs |
-| `Tasks/<TASK_DIR>/7_Rubrics.json` | candidate's original rubrics |
-| `Tasks/<TASK_DIR>/14_Updated_Oracle_Events.txt` (if present) | reviewer's corrected OEs that still failed |
-| `Tasks/<TASK_DIR>/15_Updated_Rubrics.json` (if present) | reviewer's corrected rubrics that still failed |
-| `Tasks/<TASK_DIR>/Agent_Responses/Run*.json` | trajectories proving the difficulty / density failure |
-| `Tasks/<TASK_DIR>/_aux/Universe_Split/`, `_aux/Universe_Index/`, `_aux/Fact_Ledger.json`, `_aux/Universe_Index/graph_report.md` | all present from REVIEW's S0 run |
+| `<TASK_DIR>/5_Prompt.txt` | candidate's original prompt (was being reviewed) |
+| `<TASK_DIR>/6_Oracle_Events.txt` | candidate's original OEs |
+| `<TASK_DIR>/7_Rubrics.json` | candidate's original rubrics |
+| `<TASK_DIR>/14_Updated_Oracle_Events.txt` (if present) | reviewer's corrected OEs that still failed |
+| `<TASK_DIR>/15_Updated_Rubrics.json` (if present) | reviewer's corrected rubrics that still failed |
+| `<TASK_DIR>/Agent_Responses/Run*.json` | trajectories proving the difficulty / density failure |
+| `<TASK_DIR>/_aux/Universe_Split/`, `_aux/Universe_Index/`, `_aux/Fact_Ledger.json`, `_aux/Universe_Index/graph_report.md` | all present from REVIEW's S0 run |
 
 If `_aux/` artifacts are missing (CB redo flow with no prior REVIEW): run `PIPELINE S0` first.
 
 ## Phase-readiness gate (run FIRST)
 
 ```
-python Validators/phase_ready.py --phase redo --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase redo --task <TASK_DIR>
 ```
 
 Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
@@ -42,7 +42,7 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    - If neither failed but FINAL had a BLOCKER that couldn't be patched in 3 REVISE rounds → also redo territory.
    - Document which one(s) in `_aux/REDO_reason.md`: file paths, computed numbers, one-paragraph explanation.
 
-2. **Archive the candidate-original + reviewer-corrected artifacts** to `Tasks/<TASK_DIR>/_aux/Candidate_Originals/`:
+2. **Archive the candidate-original + reviewer-corrected artifacts** to `<TASK_DIR>/_aux/Candidate_Originals/`:
    ```
    cp 5_Prompt.txt _aux/Candidate_Originals/5_Prompt.txt
    cp 6_Oracle_Events.txt _aux/Candidate_Originals/6_Oracle_Events.txt
@@ -79,17 +79,17 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 5. **Run the CB build sequence** in fresh chats:
    ```
-   PIPELINE HARDNESS — Tasks/<TASK_DIR>
-   PIPELINE S1       — Tasks/<TASK_DIR>
-   PIPELINE S2       — Tasks/<TASK_DIR>
-   PIPELINE S3       — Tasks/<TASK_DIR>
-   PIPELINE FINAL    — Tasks/<TASK_DIR>
+   PIPELINE HARDNESS — <TASK_DIR>
+   PIPELINE S1       — <TASK_DIR>
+   PIPELINE S2       — <TASK_DIR>
+   PIPELINE S3       — <TASK_DIR>
+   PIPELINE FINAL    — <TASK_DIR>
    ```
    HARDNESS will read the new Learnings.md entry (you should append one — see step 7) plus the candidate's failure mode from `_aux/REDO_reason.md` so the new build addresses the specific gap.
 
 6. **Re-upload to the platform.** Run 6 trajectories. Verify pass@1 ≤ 0.4 AND average tool calls ≥ 40. If either fails again, repeat REDO with a different lever combination.
 
-7. **Append a new finding to `Tasks/_meta/Learnings.md`.** Document why the candidate's design failed difficulty / density and what the new lever combination did to fix it. This is the highest-value cross-task learning — capturing the redo prevents repeating it.
+7. **Append a new finding to `Submitted-Tasks/_meta/Learnings.md`.** Document why the candidate's design failed difficulty / density and what the new lever combination did to fix it. This is the highest-value cross-task learning — capturing the redo prevents repeating it.
 
 ## Exit criteria
 
@@ -97,18 +97,18 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 - `_aux/REDO_reason.md` documents the failure (pass@1 or tool-call count) with trajectory references.
 - New `5/6/7` exist as fresh CB output (validator + Council A + B + FINAL all GO).
 - `13_Feedback.txt` is the FAIL rating with the specific reason.
-- Optional but encouraged: new `Tasks/_meta/Learnings.md` entry numbered L<n>.
+- Optional but encouraged: new `Submitted-Tasks/_meta/Learnings.md` entry numbered L<n>.
 
 ## STOP gate
 
 This phase ends here after the archive + clear + feedback-update steps. End your response. The user opens fresh chats for each step of the CB rebuild:
 
 ```
-PIPELINE HARDNESS — Tasks/<TASK_DIR>
-PIPELINE S1       — Tasks/<TASK_DIR>
-PIPELINE S2       — Tasks/<TASK_DIR>
-PIPELINE S3       — Tasks/<TASK_DIR>
-PIPELINE FINAL    — Tasks/<TASK_DIR>
+PIPELINE HARDNESS — <TASK_DIR>
+PIPELINE S1       — <TASK_DIR>
+PIPELINE S2       — <TASK_DIR>
+PIPELINE S3       — <TASK_DIR>
+PIPELINE FINAL    — <TASK_DIR>
 ```
 
 Do NOT chain those phases inside the REDO chat. Each must be a fresh chat — the fresh-chat-per-phase contract is what keeps each phase decision-clean.

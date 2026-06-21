@@ -19,7 +19,7 @@ When the platform linter reports **40% or higher similarity** with a previously 
 2. Pick the smallest pivot that breaks the match. Usually 2 of the 6 levers is enough.
 3. Re-confirm the Hardness levers from S0 still apply after the pivot. If a pivot drops below 3 hardness levers, the pivot is wrong; pick a different combination.
 4. Redraft `5_Prompt.txt` from scratch using the new persona / shape / focus. Do NOT incrementally edit the old prompt — surface-level edits leave too much fingerprint.
-5. Log the pivot to `Tasks/_meta/Similarity_Log.md` with the linter excerpt, the previous-task reference, the levers used, and a one-line outcome.
+5. Log the pivot to `Submitted-Tasks/_meta/Similarity_Log.md` with the linter excerpt, the previous-task reference, the levers used, and a one-line outcome.
 
 ## Pivot patterns that empirically work
 

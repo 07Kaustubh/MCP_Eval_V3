@@ -11,7 +11,7 @@
 
 Single command, single chat. Eliminates the manual folder-creation chore at the start of every task.
 
-1. Creates `Tasks/<index>_<task_id>/`.
+1. Creates `<index>_<task_id>/`.
 2. Scaffolds the input files as empty placeholders:
    - **CB mode**: 1, 2, 3 (3 files — business function, persona, universe data)
    - **Review mode**: 1, 2, 3, 5, 6, 7, 8 (7 files — adds candidate-prefilled prompt + OE + rubrics + verifier-fails)
@@ -38,8 +38,8 @@ Single command, single chat. Eliminates the manual folder-creation chore at the 
 
 This phase ends here after the folder is scaffolded. End your response. The user pastes the required files into the folder, then invokes the next trigger per mode:
 
-- **CB mode**: `PIPELINE S0 — Tasks/<TASK_DIR>` in a fresh chat.
-- **Review mode**: `PIPELINE REVIEW — Tasks/<TASK_DIR>` in a fresh chat.
+- **CB mode**: `PIPELINE S0 — <TASK_DIR>` in a fresh chat.
+- **Review mode**: `PIPELINE REVIEW — <TASK_DIR>` in a fresh chat.
 
 Do NOT proceed to the next phase in this chat — the user controls the paste step.
 

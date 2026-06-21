@@ -1,6 +1,6 @@
 # PIPELINE CLOSE — Wrap Up a Finished Task
 
-**Trigger:** `PIPELINE CLOSE — Tasks/<TASK_DIR>`
+**Trigger:** `PIPELINE CLOSE — <TASK_DIR>`
 
 ## What this phase does
 
@@ -24,10 +24,10 @@ None needed — CLOSE is a read-only audit. It tells you what's missing instead 
 
 1. Run:
    ```
-   python Validators/close_task.py Tasks/<TASK_DIR>
+   python Validators/close_task.py <TASK_DIR>
    ```
 2. The script prints the per-artifact checklist + flow detection + FINAL verdict + trajectory verdict + READY/NOT-READY conclusion.
-3. If READY: read the recommended next actions and append any novel finding to `Tasks/_meta/Learnings.md` before closing the chat. Also confirm the cross-task logs (Linter_Justifications, Similarity_Log, Hardness_Patterns_Log, Stump_Hypotheses) reflect anything this task surfaced.
+3. If READY: read the recommended next actions and append any novel finding to `Submitted-Tasks/_meta/Learnings.md` before closing the chat. Also confirm the cross-task logs (Linter_Justifications, Similarity_Log, Hardness_Patterns_Log, Stump_Hypotheses) reflect anything this task surfaced.
 4. If NOT READY: fix the items the script listed before re-running CLOSE.
 
 ## STOP gate

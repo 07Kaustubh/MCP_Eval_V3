@@ -1,6 +1,6 @@
 # PIPELINE HARDNESS — Lever Scan + Stump Hypothesis + Tool-Call Density
 
-Triggered by: `PIPELINE HARDNESS — Tasks/<TASK_DIR>`
+Triggered by: `PIPELINE HARDNESS — <TASK_DIR>`
 
 ## What this phase does
 
@@ -12,32 +12,32 @@ Reads the per-task universe and identifies which Opus-4.8 stumping levers are pr
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/PersonaBrief.txt` | S0 produced |
-| `Tasks/<TASK_DIR>/2_Persona.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/1_Business_Function.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/_aux/Universe_Split/*` | S0 produced |
-| `Tasks/<TASK_DIR>/_aux/Universe_Index/*` | S0 produced |
-| `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 produced |
+| `<TASK_DIR>/PersonaBrief.txt` | S0 produced |
+| `<TASK_DIR>/2_Persona.txt` | user-pasted |
+| `<TASK_DIR>/1_Business_Function.txt` | user-pasted |
+| `<TASK_DIR>/_aux/Universe_Split/*` | S0 produced |
+| `<TASK_DIR>/_aux/Universe_Index/*` | S0 produced |
+| `<TASK_DIR>/_aux/Fact_Ledger.json` | S0 produced |
 | `Reference/Hardness_Playbook.md` | the 11-lever catalog with per-lever tool-call costs |
-| `Tasks/_meta/Learnings.md` | **READ FIRST** — empirical Opus 4.8 failure-mode evidence. Every lever picked in this phase must cite a Learnings entry that justifies it (or you document a new finding if you try a novel pattern). |
-| `Tasks/<TASK_DIR>/_aux/REDO_reason.md` | **READ IF PRESENT** — when HARDNESS is invoked as part of a `PIPELINE REDO` rebuild, this file documents the previous attempt's specific failure (pass@1 > 40% / density < 40 / FINAL BLOCKER). The new lever selection MUST address that specific failure — don't pick the same lever combination that already failed. |
-| `Tasks/<TASK_DIR>/_aux/Candidate_Originals/` | **READ IF PRESENT** — when invoked via REDO, the archived candidate's originals reveal what the previous attempt looked like. Useful to avoid repeating the same scenario shape. |
+| `Submitted-Tasks/_meta/Learnings.md` | **READ FIRST** — empirical Opus 4.8 failure-mode evidence. Every lever picked in this phase must cite a Learnings entry that justifies it (or you document a new finding if you try a novel pattern). |
+| `<TASK_DIR>/_aux/REDO_reason.md` | **READ IF PRESENT** — when HARDNESS is invoked as part of a `PIPELINE REDO` rebuild, this file documents the previous attempt's specific failure (pass@1 > 40% / density < 40 / FINAL BLOCKER). The new lever selection MUST address that specific failure — don't pick the same lever combination that already failed. |
+| `<TASK_DIR>/_aux/Candidate_Originals/` | **READ IF PRESENT** — when invoked via REDO, the archived candidate's originals reveal what the previous attempt looked like. Useful to avoid repeating the same scenario shape. |
 
 ## Phase-readiness gate (run FIRST)
 
 ```
-python Validators/phase_ready.py --phase hardness --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase hardness --task <TASK_DIR>
 ```
 
 Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
 
 ## Procedure
 
-1. **Read `Tasks/_meta/Learnings.md` end to end.** This is the mandatory first action of HARDNESS. The entries (L1, L2, ...) calibrate which levers actually fail Opus 4.8 and which are wasted effort. The L1-L7 "does not reliably fail" block is just as important as the L8-L14 "reliably fails" block — picking a single-hop reduction or a near-miss-entity-only trap wastes the task budget.
+1. **Read `Submitted-Tasks/_meta/Learnings.md` end to end.** This is the mandatory first action of HARDNESS. The entries (L1, L2, ...) calibrate which levers actually fail Opus 4.8 and which are wasted effort. The L1-L7 "does not reliably fail" block is just as important as the L8-L14 "reliably fails" block — picking a single-hop reduction or a near-miss-entity-only trap wastes the task budget.
 
 2. **Spawn a deep-reasoning sub-agent** (`oracle` or `ultrabrain`). Pass it:
    - The 11-lever catalog from `Reference/Hardness_Playbook.md` with tool-call costs
-   - The full text of `Tasks/_meta/Learnings.md`
+   - The full text of `Submitted-Tasks/_meta/Learnings.md`
    - All 6 files in `_aux/Universe_Index/` (including `graph_report.md`)
    - `_aux/Fact_Ledger.json` for atom verification
    - Direct access to grep `_aux/Universe_Split/`
@@ -120,7 +120,7 @@ Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
 
 ## STOP gate
 
-This phase ends here. End your response. Wait for the user to invoke `PIPELINE S1 — Tasks/<TASK_DIR>` in a fresh chat.
+This phase ends here. End your response. Wait for the user to invoke `PIPELINE S1 — <TASK_DIR>` in a fresh chat.
 
 If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to edit the universe, swap the task, or accept a lower hardness target before invoking S1.
 

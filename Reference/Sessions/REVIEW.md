@@ -1,6 +1,6 @@
 # PIPELINE REVIEW — Review-Type Task Intake
 
-Triggered by: `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+Triggered by: `PIPELINE REVIEW — <TASK_DIR>`
 
 ## What this phase does
 
@@ -10,23 +10,23 @@ Review-type tasks arrive with `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.
 
 | File | Source |
 |---|---|
-| `Tasks/<TASK_DIR>/1_Business_Function.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/2_Persona.txt` | user-pasted |
-| `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json` | user-pasted |
-| `Tasks/<TASK_DIR>/5_Prompt.txt` | candidate's prompt |
-| `Tasks/<TASK_DIR>/6_Oracle_Events.txt` | candidate's OEs |
-| `Tasks/<TASK_DIR>/7_Rubrics.json` | candidate's rubrics |
+| `<TASK_DIR>/1_Business_Function.txt` | user-pasted |
+| `<TASK_DIR>/2_Persona.txt` | user-pasted |
+| `<TASK_DIR>/3_UniverseDataForThisTask.json` | user-pasted |
+| `<TASK_DIR>/5_Prompt.txt` | candidate's prompt |
+| `<TASK_DIR>/6_Oracle_Events.txt` | candidate's OEs |
+| `<TASK_DIR>/7_Rubrics.json` | candidate's rubrics |
 | `Reference/Prompt_Format.md`, `OE_Format.md`, `Rubric_Format.md` | format cards |
 | `Reference/Council_Protocol.md` | council instructions |
 | `Reference/Strict_Convention_Inventory.json` | allowed phrasings |
 | `Reference/OE_Convention_Inventory.json` | OE conventions |
-| `Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure-mode catalog — used by triage to recognize known-bad patterns (L1 confirm-already-done, L6 stated-answer, L7 binary "is it posted?") faster than re-deriving them |
+| `Submitted-Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure-mode catalog — used by triage to recognize known-bad patterns (L1 confirm-already-done, L6 stated-answer, L7 binary "is it posted?") faster than re-deriving them |
 | `Docs/7_QC_Spec_Doc1.json`, `8_QC_Spec_Doc2.md` | QC scoring |
 
 ## Phase-readiness gate (run FIRST)
 
 ```
-python Validators/phase_ready.py --phase review --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase review --task <TASK_DIR>
 ```
 
 Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
@@ -37,14 +37,14 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 2. **Run the full assessment.** Always all three phases, regardless of any outcome — the candidate's rating depends on shortcomings across every artifact.
    ```
-   python Validators/validate.py --phase all --task Tasks/<TASK_DIR>
+   python Validators/validate.py --phase all --task <TASK_DIR>
    ```
    Then Council A grounding sweep on `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json`. Then Council B (5 perspectives × 5 lenses) on each. Then Final Council cross-artifact per `Reference/Sessions/FINAL.md` (Truthfulness lens, Cross-artifact Holism lens, Rubric Binding lens, Red-team lens). Every finding lands in `changes.md`.
 
 3. **Pre-assess hardness (measured if possible).** Two paths:
-   - **Trajectories present** (`Tasks/<TASK_DIR>/trajectory-runs/trajectory-run-*.json` OR `Tasks/<TASK_DIR>/Agent_Responses/Run*.json` non-empty): run the parser to compute real numbers:
+   - **Trajectories present** (`<TASK_DIR>/trajectory-runs/trajectory-run-*.json` OR `<TASK_DIR>/Agent_Responses/Run*.json` non-empty): run the parser to compute real numbers:
      ```
-     python Validators/parse_trajectories.py Tasks/<TASK_DIR>
+     python Validators/parse_trajectories.py <TASK_DIR>
      ```
      Output lands in `_aux/Trajectory_Stats.json`: per-run tool-call totals (with MCP-only subcount), `avg_tool_calls_total`, `pass_at_1`, `density_ok_at_40`, `difficulty_ok_at_40pct`, and an OK / REBUILD_CANDIDATE verdict. The script also parses `8_Verifier_Fails.txt` when present.
    - **No trajectories yet**: use Council B-B3's projected density + Council B-B4's lever-coverage report + FINAL Truthfulness lens's answer-leakage check. These are predictions — note them as predicted, not measured.
@@ -69,7 +69,7 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 5. **Verify every finding against the per-task universe BEFORE writing it to `changes.md`.** The candidate may be right and the council's first instinct may be wrong. Re-grep `_aux/Universe_Split/`. If the council was wrong, do not add the finding — note it in `_aux/Council_Reports/REVIEW_dismissed.md` instead.
 
-6. **Initialize `Tasks/<TASK_DIR>/changes.md`** (or update if it exists) with one row per confirmed finding:
+6. **Initialize `<TASK_DIR>/changes.md`** (or update if it exists) with one row per confirmed finding:
 
    ```markdown
    # changes.md
@@ -84,7 +84,7 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    Severity from QC spec: Major / Moderate / Minor.
    Status starts as Pending. The user later marks Applied / Dismissed-with-proof / Pending.
 
-7. **Write the candidate-facing feedback** to `Tasks/<TASK_DIR>/13_Feedback.txt`. This is the human-readable rating + what was strong + what was weak + the top 5 issues by severity. Write it in the persona of a senior reviewer giving direct, professional feedback. Concise. No em-dashes. No reference to the eval docs, the QC spec by file name, or the council process. Plain narrative.
+7. **Write the candidate-facing feedback** to `<TASK_DIR>/13_Feedback.txt`. This is the human-readable rating + what was strong + what was weak + the top 5 issues by severity. Write it in the persona of a senior reviewer giving direct, professional feedback. Concise. No em-dashes. No reference to the eval docs, the QC spec by file name, or the council process. Plain narrative.
 
    Structure:
    ```
@@ -103,10 +103,10 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    ```
 
 8. **Materialize the corrected deliverables (triage-aware)**:
-   - **If triage = REBUILD**: do NOT emit 14/15 even if rows are Applied. The scenario is the problem — patching OE / rubric on top would ship a half-fixed task. `13_Feedback.txt` carries the FAIL verdict + full shortcoming list, and the user invokes `PIPELINE REDO — Tasks/<TASK_DIR>` to rebuild from scratch.
+   - **If triage = REBUILD**: do NOT emit 14/15 even if rows are Applied. The scenario is the problem — patching OE / rubric on top would ship a half-fixed task. `13_Feedback.txt` carries the FAIL verdict + full shortcoming list, and the user invokes `PIPELINE REDO — <TASK_DIR>` to rebuild from scratch.
    - **If triage = SALVAGEABLE**:
-     - `Tasks/<TASK_DIR>/14_Updated_Oracle_Events.txt` — written ONLY if any OE-phase row in `changes.md` is Applied. Contains the full corrected OE list.
-     - `Tasks/<TASK_DIR>/15_Updated_Rubrics.json` — written ONLY if any rubric-phase row in `changes.md` is Applied. Contains the full corrected rubric JSON.
+     - `<TASK_DIR>/14_Updated_Oracle_Events.txt` — written ONLY if any OE-phase row in `changes.md` is Applied. Contains the full corrected OE list.
+     - `<TASK_DIR>/15_Updated_Rubrics.json` — written ONLY if any rubric-phase row in `changes.md` is Applied. Contains the full corrected rubric JSON.
      - If any prompt-phase row in `changes.md` is Applied (minor fixes that don't change the scenario shape): write the corrected prompt to `_aux/REVIEW_prompt_draft.txt`. The user pastes it back to the platform if they want to ship the corrected prompt alongside 14/15.
 
    Do NOT touch `5_Prompt.txt`, `6_Oracle_Events.txt`, or `7_Rubrics.json`. The originals are the rated artifact. 14/15 (and the draft) are the candidate-correct version that the user can ship to the platform.
@@ -164,15 +164,15 @@ Next-trigger paths (per triage verdict + platform outcome):
 
 | Scenario | Next trigger |
 |---|---|
-| **SALVAGEABLE + rows Applied** | Re-invoke `PIPELINE REVIEW — Tasks/<TASK_DIR>` in a fresh chat — the runbook materializes `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` (and a corrected prompt draft if any prompt-phase row was Applied) and re-runs all gates on the corrected set. |
-| **REBUILD** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. The corrected deliverables were intentionally not emitted because the scenario itself needs a rebuild. The candidate rating + feedback are already complete in `changes.md` + `13_Feedback.txt`. |
-| **Shipped corrected version → platform linter blocks** | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. |
-| **Shipped corrected version → trajectories ran → verifier-fails** | `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails. |
-| **Shipped corrected version → platform paste-back may have mutated `7_Rubrics.json`** | `PIPELINE COMPARE — Tasks/<TASK_DIR>` after dropping `10_Rubrics_Platform.json` into the task folder. |
-| **Shipped corrected version → trajectory failed difficulty (pass@1 > 40%) or density (avg < 40 tool calls)** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. |
-| **Review closed, candidate rated, task shipped clean** | EXIT. Append any novel finding to `Tasks/_meta/Learnings.md` if the review surfaced a new Opus 4.8 failure pattern. |
+| **SALVAGEABLE + rows Applied** | Re-invoke `PIPELINE REVIEW — <TASK_DIR>` in a fresh chat — the runbook materializes `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` (and a corrected prompt draft if any prompt-phase row was Applied) and re-runs all gates on the corrected set. |
+| **REBUILD** | `PIPELINE REDO — <TASK_DIR>` in a fresh chat. The corrected deliverables were intentionally not emitted because the scenario itself needs a rebuild. The candidate rating + feedback are already complete in `changes.md` + `13_Feedback.txt`. |
+| **Shipped corrected version → platform linter blocks** | `PIPELINE S1.5 — <TASK_DIR>` + paste linter output. |
+| **Shipped corrected version → trajectories ran → verifier-fails** | `PIPELINE S4 — <TASK_DIR>` + paste verifier fails. |
+| **Shipped corrected version → platform paste-back may have mutated `7_Rubrics.json`** | `PIPELINE COMPARE — <TASK_DIR>` after dropping `10_Rubrics_Platform.json` into the task folder. |
+| **Shipped corrected version → trajectory failed difficulty (pass@1 > 40%) or density (avg < 40 tool calls)** | `PIPELINE REDO — <TASK_DIR>` in a fresh chat. |
+| **Review closed, candidate rated, task shipped clean** | EXIT. Append any novel finding to `Submitted-Tasks/_meta/Learnings.md` if the review surfaced a new Opus 4.8 failure pattern. |
 
-For maximum rigor on the review (review of a critical candidate's task): append `COUNCIL_MODE=multi` to the trigger — `PIPELINE REVIEW — Tasks/<TASK_DIR> COUNCIL_MODE=multi`. Spawns 5 separate reviewer sub-agents + consensus instead of single 5-lens call.
+For maximum rigor on the review (review of a critical candidate's task): append `COUNCIL_MODE=multi` to the trigger — `PIPELINE REVIEW — <TASK_DIR> COUNCIL_MODE=multi`. Spawns 5 separate reviewer sub-agents + consensus instead of single 5-lens call.
 
 Do NOT pre-apply fixes in this chat.
 

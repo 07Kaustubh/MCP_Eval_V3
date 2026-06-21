@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TASKS_DIR = ROOT / "Tasks"
+TASKS_DIR = ROOT
 
 CB_PASTE_FILES = [
     ("1_Business_Function.txt", "Paste the assigned business function."),
@@ -81,7 +81,6 @@ def main():
     paste_files = REVIEW_PASTE_FILES if args.review else CB_PASTE_FILES
     mode = "REVIEW" if args.review else "CB"
 
-    TASKS_DIR.mkdir(parents=True, exist_ok=True)
     task_dir.mkdir()
     for fname, _ in paste_files:
         (task_dir / fname).touch()
@@ -103,13 +102,13 @@ def main():
         print(f"and parse_trajectories.py will pick them up during REVIEW step 3.")
         print()
         print("Then run, in a fresh chat:")
-        print(f"  PIPELINE REVIEW - Tasks/{name}")
+        print(f"  PIPELINE REVIEW - {name}")
         print()
         print("(REVIEW will produce PersonaBrief, Universe_Split, Universe_Index, Fact_Ledger,")
         print(" graph_report; then validate + run councils + FINAL + triage SALVAGEABLE/REBUILD.)")
     else:
         print("Then run, in a fresh chat:")
-        print(f"  PIPELINE S0 - Tasks/{name}")
+        print(f"  PIPELINE S0 - {name}")
         print()
         print("(S0 will produce PersonaBrief, Universe_Split, Universe_Index, Fact_Ledger, graph_report.)")
 
