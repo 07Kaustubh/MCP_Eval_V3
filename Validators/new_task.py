@@ -38,30 +38,35 @@ REVIEW_PASTE_FILES = CB_PASTE_FILES + [
 ]
 
 
+SUBMITTED_DIR = ROOT / "Submitted-Tasks"
+NAME_PATTERN = re.compile(r"^Task(\d+)_[a-f0-9]+$")
+
+
 def next_index(tasks_dir):
     max_n = 0
-    if not tasks_dir.is_dir():
-        return 1
-    for p in tasks_dir.iterdir():
-        if not p.is_dir():
+    for scan_dir in (tasks_dir, SUBMITTED_DIR):
+        if not scan_dir.is_dir():
             continue
-        m = re.match(r"^(\d+)_[a-f0-9]+$", p.name)
-        if m:
-            n = int(m.group(1))
-            if n > max_n:
-                max_n = n
+        for p in scan_dir.iterdir():
+            if not p.is_dir():
+                continue
+            m = NAME_PATTERN.match(p.name)
+            if m:
+                n = int(m.group(1))
+                if n > max_n:
+                    max_n = n
     return max_n + 1
 
 
 def resolve_task_dir_name(arg):
     arg = arg.strip()
-    m = re.match(r"^(\d+)_([a-f0-9]+)$", arg)
+    m = re.match(r"^Task(\d+)_([a-f0-9]+)$", arg)
     if m:
         return arg
     if re.match(r"^[a-f0-9]{8,}$", arg):
         idx = next_index(TASKS_DIR)
-        return f"{idx}_{arg}"
-    raise SystemExit(f"ERROR: '{arg}' is not a recognized task id (expected hex string or <index>_<hex>)")
+        return f"Task{idx}_{arg}"
+    raise SystemExit(f"ERROR: '{arg}' is not a recognized task id (expected hex string or Task<index>_<hex>)")
 
 
 def main():

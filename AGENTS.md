@@ -28,7 +28,7 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
-**Folder convention:** the active task lives in a folder at the repo **root** (e.g. `25_6a35abc123def...`), so `<TASK_DIR>` is just that folder name and the trigger reads `PIPELINE S0 — <TASK_DIR>`. Once a task ships, move its whole folder into `Submitted-Tasks/`. Cross-task learning logs live in `Submitted-Tasks/_meta/`.
+**Folder convention:** the active task lives in a folder at the repo **root** (e.g. `Task25_6a35abc123def...`), so `<TASK_DIR>` is just that folder name and the trigger reads `PIPELINE S0 — <TASK_DIR>`. Once a task ships, move its whole folder into `Submitted-Tasks/`. Cross-task learning logs live in `Submitted-Tasks/_meta/`.
 
 | Trigger phrase | Runbook | What it does |
 |---|---|---|
@@ -83,7 +83,7 @@ MCP_Eval_V3/
 │   ├── V3_Tasks/                   # on-framework reference tasks (Task11..Task14)
 │   └── V2_Tasks/                   # legacy V2/Keystone — study craft, not framework
 ├── Tasks_Template/                 # platform-paste-target template
-├── <TASK_DIR>/                     # ACTIVE task — lives at the repo ROOT (e.g. 25_6a35abc...)
+├── <TASK_DIR>/                     # ACTIVE task — lives at the repo ROOT (e.g. Task25_6a35abc...)
 │   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
 │   ├── 10_Rubrics_Platform.json   # optional, user pastes for COMPARE
 │   ├── 13_Feedback.txt            # REVIEW flow only — candidate-facing rating
@@ -104,7 +104,7 @@ MCP_Eval_V3/
 │       ├── Validator_Reports/
 │       └── Reasoning/
 ├── Submitted-Tasks/                # archived tasks — move the active folder here after it ships
-│   ├── <NN>_<hash>/                # one folder per submitted task
+│   ├── Task<NN>_<hash>/                # one folder per submitted task
 │   └── _meta/                      # cross-task learning logs
 │       ├── Learnings.md
 │       ├── Similarity_Log.md
