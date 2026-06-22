@@ -51,8 +51,10 @@ Use the `oracle` or `ultrabrain` sub-agent. Single call, 4 lenses applied in seq
 | Every Hardness lever from `Hardness_Plan.md` is still triggered by the final artifact set | Lever regression after S2/S3 edits | BLOCKER |
 | Integrated tool-call density projection ≥ 40 | 40+ is the binding floor | BLOCKER |
 | Outcome > Process count; no rubric has tool name in title; no em-dashes anywhere | V3 framework + project conventions | BLOCKER |
+| Prompt's primary work-content matches the assigned business function category (per `Docs/5_Prompt_Diversity_Business_Function.md`). Persona-fit (whether the persona is plausible for the work) is a SEPARATE Persona-dim check and does NOT satisfy this gate. | Pre-2026-06 misses traced to reasoning "persona fits, therefore function fits"; the two are independent sub-dims in `Docs/7_QC_Spec_Doc1.json` | BLOCKER |
 | Entity references consistent across prompt / OE / rubrics | Drift causes the agent to act on the wrong entity | MAJOR |
 | Implicit-prompt framing preserved (no rubric demands an investigation step the prompt explicitly says not to do) | L15 + L16 framing constraint | MAJOR |
+| Every per-phase Council B report (`_aux/Council_Reports/prompt_B_adversarial.md`, `oe_B_adversarial.md`, `S3_B_adversarial.md`) scored every QC spec sub-dim for its phase. No sub-dim silently dropped; no invented sub-dim substituted. | Council B sub-agents have historically dropped real sub-dims (e.g. Business Function, Alignment with Today's Date) and invented non-spec substitutes (e.g. Pre-Solving, Naturalness, Write-Action Diversity) | MAJOR |
 | OE step count + opening-verb coverage match `OE_Convention_Inventory.json` distribution | Convention drift | MINOR |
 
 ## Phase-readiness gate (run FIRST)
@@ -118,6 +120,15 @@ LENS 3 — Cross-artifact holism
   same entity in the OEs and rubrics. Flag drift.
 - Density: sketch the integrated agent trajectory and count expected tool
   calls. < 40 = BLOCKER.
+- BF map: confirm the prompt's primary work-content falls within the
+  assigned business function category (read 1_Business_Function.txt, then
+  match against Docs/5_Prompt_Diversity_Business_Function.md). Persona-fit
+  alone is NOT sufficient — the WORK must fit the category. Mismatch =
+  BLOCKER. Common pitfall: a persona who plausibly authors the task does
+  not make the task's work-content fit the assigned function.
+- Council coverage: confirm every per-phase Council B report scored every
+  QC spec sub-dim for its phase (12 for prompt, 2 for OE, 5 for rubrics).
+  Any silent drop or invented sub-dim = MAJOR.
 
 LENS 4 — Red-team adversarial
 - Can a shortcut path satisfy the prompt without exercising at least 2 of the

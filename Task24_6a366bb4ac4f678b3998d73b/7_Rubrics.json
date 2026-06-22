@@ -1,0 +1,74 @@
+[
+    {
+        "title": "The Agent's corrective journal entry for $6,328.86 (approximately) against the brookfield_FP-2026-05 period reaches state=posted (or similar).",
+        "category": "outcome",
+        "justification": "Posting through the full lifecycle is the only outcome that reverses the duplicate vendor-invoice posting in the ledger. Stopping at submitted or approved leaves the GL overstated by $6,328.86 and the recon still broken, so the posted endpoint is the load-bearing claim.",
+        "evidence": "The exception's proposed_resolution names a corrective JE in oracle_gl with source_module=manual and the variance has to clear before the May AP External Vendors recon BL-516B536953DA can come off the open queue. A submitted-only or approved-but-not-posted JE leaves the 210000 closing balance at $67,744.03 instead of $61,415.17. The lifecycle has to run all the way to posted."
+    },
+    {
+        "title": "The Agent's posted corrective journal entry attributes the $6,328.86 variance to a duplicate vendor-invoice posting on account 210000 AP External Vendors and not to an FX revaluation drift or a late FX rate refresh (or similar).",
+        "category": "outcome",
+        "justification": "The cause attribution baked into the corrective JE is what auditors and the partner trail key off. Filing under an FX revaluation drift narrative ratifies the wrong story even if the dollar amount lands; the duplicate-posting attribution is what makes the JE the right remediation.",
+        "evidence": "The exception type is duplicate_entry_detected and Hannah's slack post in C005 ties the $6,328.86 to two identical vendor invoices on VEN-441207. The exception's root_cause text saying the FX rate table refresh ran late contradicts the type and contradicts the GL-overstated direction on 210000. An FX-framed JE doesn't reverse a duplicate posting; it reclassifies a phantom translation difference."
+    },
+    {
+        "title": "The Agent's corrective journal entry references exception exc_a0f77f2a19104e by id inside the business_justification or description field (or similar).",
+        "category": "outcome",
+        "justification": "Without the exception_id in business_justification or description, the audit trail loses the explicit link between the ledger correction and the BlackLine exception that drove it, and a reviewer with the entry in hand can't reconstruct the chain.",
+        "evidence": "The exception's proposed_resolution field directly instructs: reference this exception_id in the business_justification. The exception id exc_a0f77f2a19104e is the audit hook tying the JE back to the BlackLine workflow item, the SLA-breach reminder, and Daniel's recap email to Andrea."
+    },
+    {
+        "title": "The Agent updates exception exc_a0f77f2a19104e in BlackLine to overwrite the misleading FX-rate-refresh root_cause text (or similar).",
+        "category": "outcome",
+        "justification": "blackline_update_exception is the only tool path that overwrites the misleading FX-rate-refresh root_cause text. Resolving without updating leaves the next reviewer reading the original contradictory text, and the exception keeps looking orphaned even after closure. The criterion grades the agent's invocation of the update path (intent to correct the root_cause text), not the platform's acceptance: because the exception's SLA is breached, the update tool will return EX.SLA_OVERDUE, and that platform-side error does not disqualify the call attempt for purposes of this criterion.",
+        "evidence": "The exception's existing root_cause text reads 'FX rate table refresh ran 4 hours late on BD2' which contradicts the duplicate_entry_detected type and the description naming a duplicate-posting suspect. The prompt asks Edith to update the exception so it stops looking orphaned. A resolve-only path leaves the contradictory FX text frozen in the audit record; only an explicit update_exception call rewrites the root_cause field."
+    },
+    {
+        "title": "The Agent resolves exception exc_a0f77f2a19104e (state advanced to resolved) and links the resolution to the posted corrective journal entry's entry_id (or similar).",
+        "category": "outcome",
+        "justification": "A not-resolved path leaves the awaiting_approval exception orphaned past the partner sign-off deadline. The link between resolved state and the posted entry_id is the verifiable closure that satisfies the proposed_resolution's audit hook.",
+        "evidence": "The exception is in state awaiting_approval with sla_due_at 2026-05-26T12:54:31-04:00 already breached and a stale SLA-breach reminder still firing. Resolving with the corrective_journal_entry_id populated is what closes the BlackLine workflow loop and ties the resolution back to the ledger."
+    },
+    {
+        "title": "The Agent's review note on BL-516B536953DA identifies the cause as a duplicate vendor-invoice posting on vendor VEN-441207 (or similar).",
+        "category": "outcome",
+        "justification": "A review note that doesn't name VEN-441207 as the vendor leaves the BlackLine audit artifact silent on which vendor was double-billed, which is the specific finding the second-eye disposition turns on.",
+        "evidence": "Edith is the second-eye reviewer and the prompt explicitly names a review note as part of the disposition. Hannah's slack post is the only place in the universe that ties the variance to vendor VEN-441207 with two identical $6,328.86 invoices 11 days apart with consecutive invoice numbers."
+    },
+    {
+        "title": "The Agent's review note on BL-516B536953DA explicitly rejects the FX-revaluation-drift hypothesis as the cause of the $6,328.86 variance (or similar).",
+        "category": "outcome",
+        "justification": "Without an explicit FX-hypothesis rejection in the review note, the next reviewer reading the BlackLine record can't tell whether the FX angle was investigated and dismissed or simply never checked. The rejection is what closes that audit door.",
+        "evidence": "Edith already cross-tied the USD/GBP rate to four decimals on May 26 (per the prompt), so the FX-revaluation-drift hypothesis is the alternative explanation the second-eye review has to dispatch. The exception's misleading root_cause text already plants the FX-rate-refresh story in the audit record, so a silent rejection won't satisfy the audit trail."
+    },
+    {
+        "title": "The Agent uploads a disposition or working-paper memo to Records Vault with a retention policy of AICPA_SQMS_7Y (or similar).",
+        "category": "outcome",
+        "justification": "A Records Vault upload is the durable working-paper artifact that survives after slack threads roll off and emails get archived. The retention policy has to be one of the firm's valid codes, and AICPA_SQMS_7Y is the standard for this disposition class.",
+        "evidence": "The prompt asks Edith to close out corrective accounting through the full lifecycle and circulate a disposition, which is the working-paper-memo pattern the firm files in Records Vault. The valid retention policy code for firm-internal quality management working papers on this disposition class is AICPA_SQMS_7Y."
+    },
+    {
+        "title": "The Agent dismisses or deletes the stale SLA-breach reminder reminder_scen_020_orphan_exception_0000 (or similar).",
+        "category": "outcome",
+        "justification": "The reminder is a load-bearing piece of close-cycle hygiene the prompt names directly. Leaving it firing means the next on-call sees a stale breach alert tied to an already-resolved exception.",
+        "evidence": "The prompt explicitly asks Edith to 'clean up the SLA reminder trail.' The stale reminder reminder_scen_020_orphan_exception_0000 lapsed 2026-06-01 and is still firing as of June 12. Closing the exception without retiring the reminder leaves the SLA-breach alert orphaned in the queue."
+    },
+    {
+        "title": "The Agent's disposition delivered to daniel.jones@brookfieldcpas.com, andrea.phil@brookfieldcpas.com, and ryan.delgado@brookfieldcpas.com references the entry_id of the posted corrective journal entry (or similar).",
+        "category": "outcome",
+        "justification": "Surfacing the posted entry_id inside the disposition lets Andrea close the partner trail and Ryan sign off as approver of record without having to follow up. Without the id, the message is a status update rather than a disposition.",
+        "evidence": "The prompt names Andrea as waiting on the partner trail and Ryan as approver of record, so the disposition has to carry proof the ledger has actually been corrected. A posted JE entry_id is the verifiable artifact; a disposition message that names the cause but skips the JE id forces every recipient to dig into BlackLine or oracle_gl themselves."
+    },
+    {
+        "title": "The Agent identifies the variance cause as a duplicate vendor-invoice posting on vendor VEN-441207 in its final response (or similar).",
+        "category": "outcome",
+        "justification": "The vendor id is the load-bearing fact that distinguishes a real duplicate-posting cause from an unproven duplicate-posting guess. A final response that doesn't name VEN-441207 is either guessing the duplicate-posting story or has lost the thread back to Hannah's discovery.",
+        "evidence": "Hannah Grant's slack post in #monthly-close-coordination on 2026-05-27 is the only place in the universe that names vendor VEN-441207. The prompt asks for the disposition to be buttoned up, which means the final answer has to name the duplicate-posting vendor and not hedge."
+    },
+    {
+        "title": "The Agent's reconciliation BL-516B536953DA advances off the open queue to a submitted or approved state (or similar).",
+        "category": "outcome",
+        "justification": "Recon state advancement is the load-bearing outcome the prompt opens with. A submitted-only-JE trajectory leaves the BlackLine recon orphaned and the May close calendar blocked, even if the GL ties to subledger after the JE posts. Advancing the recon's state past open is the verifiable closure that takes the item off Edith's queue.",
+        "evidence": "The prompt's opener states "the May Brookfield AP external-vendors recon has to come off the open queue today." Recon BL-516B536953DA is on Brookfield account 210000 AP-External-Vendors in period brookfield_FP-2026-05 and starts in state=open. Submitting and approving (or certifying) the recon is the BlackLine state-machine action that advances it off the open queue. A trajectory that posts the corrective JE but never submits the recon leaves the close task ct_c5652cf981724a blocked and the recon still on the open queue."
+    }
+]

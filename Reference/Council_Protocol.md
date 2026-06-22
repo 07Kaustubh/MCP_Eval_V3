@@ -84,7 +84,7 @@ Save to _aux/Council_Reports/<phase>_A_grounding.md.
 **Perspectives covered (single prompt template, all four must pass):**
 
 ### B1 — QC sub-dim scoring
-Score every applicable sub-dimension from `Docs/7_QC_Spec_Doc1.json`. For each: `SUB-DIM → SCORE (1-5) → ONE-LINE REASON`. Bar is 5 on every dim. Any sub-dim < 5 must be explicitly justified against per-task universe state (never against base-universe assumptions).
+Score **every** sub-dimension listed in `Docs/7_QC_Spec_Doc1.json` for this phase. Do NOT invent sub-dims not in the spec; do NOT silently drop any. Output exactly one row per spec sub-dim: `SUB-DIM → SCORE (1-5) → ONE-LINE REASON`. Bar is 5 on every dim. Any sub-dim < 5 must be explicitly justified against per-task universe state (never against base-universe assumptions). If a sub-dim is truly N/A for this phase, output `SUB-DIM → N/A → EXPLICIT REASON WHY IT DOES NOT APPLY` — never omit the row.
 
 ### B2 — Adversarial alt-path
 Sketch a valid agent path that satisfies the prompt intent but would fail an Outcome rubric. If such a path exists, the rubric is over-specific OR the prompt has a second valid reading that the rubric set doesn't cover.
@@ -148,8 +148,37 @@ five times, once per lens, and combine findings (the verdict is the union):
 
 A BLOCK from any lens propagates to its mapped perspective (B1-B5).
 
-[B1] QC sub-dim scoring. For each sub-dim in the QC spec, output:
+[B1] QC sub-dim scoring. Score EVERY sub-dim listed below for this phase.
+Do not invent sub-dims not in the QC spec. Do not silently drop any.
+Output exactly one row per sub-dim:
 SUB-DIM -> SCORE (1-5) -> ONE-LINE REASON. Bar is 5 on every dim.
+If a sub-dim is truly N/A for this phase, output:
+SUB-DIM -> N/A -> EXPLICIT REASON. Never omit a row.
+
+PROMPT PHASE — score all 12 (from Docs/7_QC_Spec_Doc1.json):
+  1. Unique Ground Truth
+  2. Feasibility
+  3. Explicit Tool Mention
+  4. Prompt Clarity and Specificity
+  5. Contrived / Unnatural Prompts
+  6. Truthfulness
+  7. Tool use and Cross-service requirement
+  8. Investigation
+  9. Coherence
+  10. Persona
+  11. Business Function
+  12. Alignment with Today's Date
+
+OE PHASE — score both:
+  1. OE Completeness
+  2. OE Accuracy
+
+RUBRICS PHASE — score all 5:
+  1. Overall Rubric Quality
+  2. All-Failing Rubrics (auto-5 if no AF rubrics exist)
+  3. Rubric Category Balance
+  4. Process Rubrics
+  5. Agent Centric Phrasing
 
 [B2] Adversarial alt-path. Sketch a valid agent path that fails an Outcome
 rubric (or a second valid reading of the prompt that flips a write action).
@@ -178,7 +207,7 @@ Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 ```
 
 **Pass criteria:**
-- B1: every applicable QC sub-dim scores 5 (or 3-4 is explicitly justified against per-task universe state).
+- B1: every QC spec sub-dim for the phase is scored (no silent drops, no invented sub-dims) AND scores 5 (or 3-4 is explicitly justified against per-task universe state; N/A is explicit and reason-cited).
 - B2: returns "no divergence found".
 - B3: projected tool calls ≥ 40.
 - B4: every lever from Hardness_Plan.md is still triggered.
