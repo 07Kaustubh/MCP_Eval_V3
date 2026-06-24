@@ -33,6 +33,10 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 ## Procedure
 
+0. **Linter check FIRST.** If the operator could NOT access the candidate's prefilled OE / rubrics because the candidate's prompt is currently blocked by the platform linter, STOP the REVIEW flow here and route to `PIPELINE S1.5 — Tasks/<TASK_DIR>` in a fresh chat with the linter output. S1.5 will detect Review-mode (presence of candidate-prefilled `6_Oracle_Events.txt` + `7_Rubrics.json`) and handle the linter skeptical-first: invalidate with justification (preferred — preserves the candidate's original prompt for rating) or write a minimal-fix scratch draft to `_aux/REVIEW_prompt_draft.txt` if revision is unavoidable. Once linter is cleared (the platform accepts the prompt — either the candidate's original after pushback, or the scratch-draft fix), the operator returns and re-invokes `PIPELINE REVIEW` in a fresh chat. The original `5_Prompt.txt` stays pristine throughout — any fix lands in `_aux/REVIEW_prompt_draft.txt` for use during materialization (step 8).
+
+   If the candidate's prompt already cleared linter at submission time (operator has full access to prefilled `6_Oracle_Events.txt` + `7_Rubrics.json`), skip step 0 and proceed to step 1.
+
 1. **Run S0 setup in full** — PersonaBrief, `split_universe.py`, `build_universe_index.py`, **`build_fact_ledger.py`**, **`build_graph_report.py`**. The review still needs the per-task universe split, index, ledger, and graph report — they were not produced when the candidate wrote the deliverables. The Fact Ledger is what backs the validator's groundedness sweep and Council A's atom verification; without it the review falls back to slow + less-rigorous substring scanning.
 
 2. **Run the full assessment.** Always all three phases, regardless of any outcome — the candidate's rating depends on shortcomings across every artifact.
@@ -84,21 +88,35 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    Severity from QC spec: Major / Moderate / Minor.
    Status starts as Pending. The user later marks Applied / Dismissed-with-proof / Pending.
 
-7. **Write the candidate-facing feedback** to `Tasks/<TASK_DIR>/13_Feedback.txt`. This is the human-readable rating + what was strong + what was weak + the top 5 issues by severity. Write it in the persona of a senior reviewer giving direct, professional feedback. Concise. No em-dashes. No reference to the eval docs, the QC spec by file name, or the council process. Plain narrative.
+7. **Write the candidate-facing feedback** to `Tasks/<TASK_DIR>/13_Feedback.txt`. This rates the **CANDIDATE'S ORIGINAL** `5_Prompt.txt` / `6_Oracle_Events.txt` / `7_Rubrics.json` **AS SUBMITTED** — the untouched originals. **DO NOT reference `changes.md`. DO NOT reference `14_Updated_*.txt` / `15_Updated_*.json` / `_aux/REVIEW_prompt_draft.txt`. DO NOT reference anything we fixed or corrected.** The candidate is rated on what they delivered, NOT on what we corrected. The most common defect in this step is writing feedback for the fixed task instead of the original — actively guard against it.
+
+   Voice and tone:
+   - Senior reviewer giving direct, professional feedback to the candidate.
+   - Concise. No em-dashes. No internal terminology (no QC dim names, no council references, no script names, no `_aux/` paths, no rubric numbers).
+   - Use `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md` to STRUCTURE the feedback (one paragraph per applicable dim that needs comment) but DESCRIBE the dim in plain language — do NOT name it hard. Loose mapping examples:
+     - "Atomicity" → "rubrics that combine multiple checks into a single line"
+     - "Self-Containment" → "rubrics that require the judge to look up data outside the criterion text"
+     - "Feasibility" → "asks the agent cannot satisfy with the available tools and data"
+     - "Truthfulness" → "factual claims about the universe that do not match the records"
+     - "Atomic-for-multi-write" → "splitting one-rubric-per-item instead of using at-least-N thresholds"
+     - "Outcome-vs-Process category balance" → "process-style rubrics that an outcome could already prove"
+     - "Tool-leak in rubric titles" → "rubrics that name a specific tool the agent had to use"
+     - "Coverage gap" → "asks in the prompt that no rubric checked"
+   - **Voice gate before save**: run `python Validators/check_justification.py Tasks/<TASK_DIR>/13_Feedback.txt` — exit 0 required. If non-zero, strip every forbidden term per the per-hit report and re-save.
 
    Structure:
    ```
-   Overall: <FAIL | NON-FAIL | PASS> on QC (worst dimension: <X>).
+   Overall: <FAIL | NON-FAIL | PASS> on the candidate's original submission.
 
-   Strengths
-   - <one sentence per strength, max 3>
+   What worked
+   - <plain-language strength, max 3>
 
-   Issues
-   - <issue 1, named with severity>: <one sentence explaining what was wrong and what it should have been>
-   - <issue 2>: ...
+   What needs work
+   - <plain-language issue 1>: <one sentence on what was off and what it should have been, citing the original artifact not our fix>
+   - <plain-language issue 2>: ...
 
-   Recommended next steps for the candidate
-   - <action 1>
+   Recommended next steps
+   - <action 1 in plain language>
    - <action 2>
    ```
 

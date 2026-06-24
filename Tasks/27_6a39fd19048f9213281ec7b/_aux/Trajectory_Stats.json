@@ -1,0 +1,98 @@
+{
+  "task": "27_6a39fd19048f9213281ec7b",
+  "per_run": [
+    {
+      "run": 1,
+      "file": "trajectory-runs/trajectory-run-1 (17).json",
+      "status": "ok",
+      "tool_calls_total": 53,
+      "tool_calls_mcp_only": 34
+    },
+    {
+      "run": 2,
+      "file": "trajectory-runs/trajectory-run-2 (17).json",
+      "status": "ok",
+      "tool_calls_total": 56,
+      "tool_calls_mcp_only": 45
+    },
+    {
+      "run": 3,
+      "file": "trajectory-runs/trajectory-run-3 (19).json",
+      "status": "ok",
+      "tool_calls_total": 30,
+      "tool_calls_mcp_only": 30
+    },
+    {
+      "run": 4,
+      "file": "trajectory-runs/trajectory-run-4 (17).json",
+      "status": "ok",
+      "tool_calls_total": 63,
+      "tool_calls_mcp_only": 50
+    },
+    {
+      "run": 5,
+      "file": "trajectory-runs/trajectory-run-5 (17).json",
+      "status": "ok",
+      "tool_calls_total": 47,
+      "tool_calls_mcp_only": 47
+    },
+    {
+      "run": 6,
+      "file": "trajectory-runs/trajectory-run-6 (17).json",
+      "status": "ok",
+      "tool_calls_total": 69,
+      "tool_calls_mcp_only": 56
+    }
+  ],
+  "runs_evaluated": 6,
+  "avg_tool_calls_total": 53,
+  "avg_tool_calls_mcp_only": 43.7,
+  "min_tool_calls_total": 30,
+  "max_tool_calls_total": 69,
+  "density_ok_at_40": true,
+  "verifier_fails": {
+    "runs": [
+      {
+        "run": 1,
+        "passed": 10,
+        "total": 13,
+        "passes_all": false
+      },
+      {
+        "run": 2,
+        "passed": 11,
+        "total": 13,
+        "passes_all": false
+      },
+      {
+        "run": 3,
+        "passed": 11,
+        "total": 13,
+        "passes_all": false
+      },
+      {
+        "run": 4,
+        "passed": 10,
+        "total": 13,
+        "passes_all": false
+      },
+      {
+        "run": 5,
+        "passed": 11,
+        "total": 13,
+        "passes_all": false
+      },
+      {
+        "run": 6,
+        "passed": 11,
+        "total": 13,
+        "passes_all": false
+      }
+    ],
+    "runs_total": 6,
+    "runs_passing_all_rubrics": 0,
+    "pass_at_1": 0.0
+  },
+  "difficulty_ok_at_40pct": true,
+  "verdict": "OK"
+}

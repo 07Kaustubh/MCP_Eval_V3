@@ -6,7 +6,7 @@ Triggered by: `PIPELINE HARDNESS — Tasks/<TASK_DIR>`
 
 Reads the per-task universe and identifies which Opus-4.8 stumping levers are present without any universe edits. Projects expected tool-call density across the 6 final runs. Produces a `Hardness_Plan.md` that the S1 prompt-writing phase consumes verbatim.
 
-**Two hard gates: INSUFFICIENT_LEVERS (< 3 levers) and INSUFFICIENT_DENSITY (< 40 projected tool calls).** Either stops the pipeline and forces user intervention.
+**Two hard gates: INSUFFICIENT_LEVERS (< 3 levers) and a tiered density gate.** Density bands: midpoint ≥ 50 = PASS (design target — produces ~40+ tool calls in real platform runs); midpoint 40-49 = THIN_DENSITY (operator may continue with explicit per-task justification, but the task is at risk of underflow on real runs); midpoint < 40 = INSUFFICIENT_DENSITY (STOPs the pipeline — operator must expand levers or write actions). INSUFFICIENT_LEVERS or INSUFFICIENT_DENSITY both force user intervention.
 
 ## Required inputs
 
@@ -94,7 +94,7 @@ Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
    | Cross-service buffer | 5-8 | 6.5 |
    | **TOTAL projected** | <low>-<high> | <midpoint> |
 
-   **Gate:** midpoint ≥ 40 = PASS. Midpoint < 40 = INSUFFICIENT_DENSITY.
+   **Gate (tiered):** midpoint ≥ 50 = PASS (design target); midpoint 40-49 = THIN_DENSITY (continue with per-task justification documented under `## THIN density acceptance` subsection); midpoint < 40 = INSUFFICIENT_DENSITY (STOP).
 
    ## Stump Hypothesis (2 to 4 predictions)
    1. [HIGH] <prediction>. Mechanism: <lever>. Reasoning: <one line>.
@@ -107,16 +107,18 @@ Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
    <one tight paragraph the S1 sub-agent will use, naming the selected levers and the projected tool-call density target>
    ```
 
-8. **Gates.** Stop the pipeline if any of:
-   - **Fewer than 3 levers available** → `INSUFFICIENT_LEVERS (n/5)` — user must edit the universe or pick a different task.
-   - **Projected tool-call midpoint < 40** → `INSUFFICIENT_DENSITY (n/40)` — pick more levers (4-5 instead of 3), expand the write-action mix (add Records Vault / Linear / Airtable writes), or both. If even the maximum lever combination cannot reach 40, the per-task universe is too thin and the user must decide whether to continue.
-   - Print a clear `STOP: <reason>` message to the chat.
+8. **Gates.** Tiered handling:
+   - **Fewer than 3 levers available** → `INSUFFICIENT_LEVERS (n/5)` — STOP. User must edit the universe or pick a different task.
+   - **Projected tool-call midpoint < 40** → `INSUFFICIENT_DENSITY (n/40)` — STOP. Pick more levers (4-5 instead of 3), expand the write-action mix (add Records Vault / Linear / Airtable writes), or both. If even the maximum lever combination cannot reach 40, the per-task universe is too thin and the user must decide whether to continue.
+   - **Projected tool-call midpoint 40-49** → `THIN_DENSITY (n/50)` — operator decision: either expand to push midpoint to ≥ 50 (preferred — design target produces ~40+ on real runs), OR continue with explicit per-task justification documenting why this task cannot reach 50 (e.g., universe is structurally thin on a specific service). Document the choice in `Hardness_Plan.md` under a new subsection `## THIN density acceptance` if continuing.
+   - **Projected tool-call midpoint ≥ 50** → PASS. Proceed to S1.
+   - Print a clear `STOP: <reason>` or `PASS` or `THIN: <justification required>` message to the chat.
 
 ## Exit criteria
 
 - `_aux/Hardness_Plan.md` exists with all 6 sections.
 - At least 3 levers selected (PASS) OR explicit `INSUFFICIENT_LEVERS`.
-- Projected tool-call midpoint ≥ 40 (PASS) OR explicit `INSUFFICIENT_DENSITY`.
+- Projected tool-call midpoint ≥ 50 (PASS) OR explicit `INSUFFICIENT_DENSITY` (< 40, STOP) OR explicit `THIN_DENSITY` (40-49) with per-task justification documented in `Hardness_Plan.md` under `## THIN density acceptance`.
 
 ## STOP gate
 

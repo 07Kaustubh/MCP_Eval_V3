@@ -13,9 +13,49 @@ The linter cites a specific QC dimension: persona mismatch, business-function mi
 3. **Linter is wrong →** write a justification (template below), send it back, log to `_aux/Linter_Justifications.md`.
 4. **Both →** revise the part that's clearly wrong, justify the rest.
 
-## Class B — Similarity ≥ 40%
+## Class B — Similarity Invalidation Justifications (preferred) OR Pivot (fallback)
 
-A previously submitted task overlaps too closely. Use `Reference/Similarity_Pivot.md` to pivot. No justification path — pivots are the only valid response.
+When the platform linter flags similarity ≥ 40% with a prior submission, the project allows two responses: **invalidate** the linter with a 2-3 sentence justification (low cost — preferred, since the platform reviewer evaluates similarity justifications by reading them, not by re-running the similarity score) OR **pivot** the prompt via `Reference/Similarity_Pivot.md` (high cost — full redraft, only when constants genuinely match).
+
+S1.5 Class B decision flow (simplified, two bands — composite already weighs contextual differentiators heavily via multiplicative model):
+1. Run `python Validators/calc_similarity.py Tasks/<TASK_DIR> --explain <matched_prior_task_dir>` to get per-dimension breakdown vs the matched prior task (lexical, token, word-count, persona, business function, universe).
+2. **Composite < 40** → **INVALIDATE** using the template below. Move on. The context multiplier (BF differs × 0.6, persona × 0.6, universe × 0.7) already discounted the score for any differentiators — sub-40 means invalidation is defensible.
+3. **Composite ≥ 40** → **PIVOT** via `Reference/Similarity_Pivot.md`. Constants align even after the multiplier was applied — structural similarity is genuine, not just lexical surface overlap.
+
+### Hard rules (stricter than Class A)
+
+- **2-3 sentences max.** Anything longer reads as overshooting.
+- **Concise humanlike voice.** Write like an operator who has compared the two prompts and explains the substantive differences in one breath.
+- **Cite the differentiating dimensions** named by `calc_similarity.py --explain` (different persona, different business function, different universe entities — whatever is genuinely different).
+- **No em-dashes.**
+- **No internal terminologies, no stats, no script names.** Do NOT write "the composite similarity is 32%" or "`calc_similarity.py` says". Just describe the difference in plain words.
+- **No bullet points.** Single short paragraph.
+
+### Template (for a Class B invalidation)
+
+> The prompts share <surface element, e.g., 'similar wording around the close-period deadline'> but the scenarios are structurally different. <Concrete differentiator: e.g., 'this one runs through the AR clerk handling a Northstar IOLTA reconciliation; the prior one was the controller handling Acme Cloud deferred commissions'>. The investigation paths differ. Happy to revise if you see a closer match I missed.
+
+### Example — different persona, same business function
+
+> Both prompts cover a month-close coordination ping, but the personas and entities are different. This one is Naomi (Brookfield's close coordinator) chasing a JE on account 105000 for the Brookfield trust; the matched prior task is Aanya (Northstar's controller) chasing an IOLTA reconciliation on the same account number, which is a completely different role in a different entity. The investigation paths diverge across both the records and the channels involved. Happy to revise if you see a closer match I missed.
+
+### Example — same persona, different business function
+
+> The persona is the same but the scenarios run through different parts of the practice. The matched prior task was Andrea handling a vendor onboarding gap; this one is Andrea handling a SOX FX-revaluation drift on a different account family with a different upstream document trail. The agent's tools-and-records path here barely overlaps with the prior one. Happy to revise if you see a closer match I missed.
+
+### Pre-ship check (Class B invalidations)
+
+Before submitting any Class B invalidation, run:
+
+```
+python Validators/check_justification.py Tasks/<TASK_DIR>/_aux/Linter_Justifications.md
+```
+
+Non-zero exit = revise + re-run. Same rule as Class A: zero process leakage allowed in reviewer-facing text.
+
+### When to PIVOT instead
+
+Only when `calc_similarity.py --explain` shows composite ≥ 40 (the context-weighted threshold). The multiplicative context modifier (BF differs × 0.6, persona × 0.6, universe × 0.7) has already discounted the score for any differentiators — if the composite still lands ≥ 40, constants align with the prior task and the structural similarity is genuine. Invalidation is structurally indefensible at that point; the only honest move is a fresh scenario via `Reference/Similarity_Pivot.md`'s 6-lever menu. Pick the smallest combination that breaks the match while preserving the Hardness Plan levers. Log the pivot to `Tasks/_meta/Similarity_Log.md`.
 
 ## Justification style (Class A only)
 

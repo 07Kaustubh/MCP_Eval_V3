@@ -92,9 +92,12 @@ Sketch a valid agent path that satisfies the prompt intent but would fail an Out
 For S1 prompt phase: also attempt a second-reading attack. Read the prompt with a different but reasonable interpretation. Does it produce a different set of write actions, a different recipient, or a different final universe state? If yes, the prompt fails Unique Ground Truth or Clarity & Specificity.
 
 ### B3 — Tool-call density projection
-Sketch the trajectory a competent Opus 4.8 agent would take to satisfy the deliverable. Count expected tool calls. The bar is **40+ on average across 6 runs**. The HARDNESS phase produced a projected midpoint; this perspective re-validates that the deliverable as written still hits that target.
+Sketch the trajectory a competent Opus 4.8 agent would take to satisfy the deliverable. Count expected tool calls. The design target is **50+ on average across 6 runs**; the absolute floor is **40+**. The HARDNESS phase produced a projected midpoint; this perspective re-validates that the deliverable as written still hits that target.
 
-If sketch produces < 40 tool calls: flag as `INSUFFICIENT_DENSITY` — the deliverable does not meet the tool-call baseline. For S1 prompt phase, this means the prompt is too lean and must be expanded with more asks or more service breadth. For S2 OE phase, this means the OE list is too thin (a competent agent would not need all the steps). For S3 rubrics phase, the rubric set under-covers the trajectory.
+Tiered output:
+- Sketch produces 50+ → PASS.
+- Sketch produces 40-49 → `THIN_DENSITY` — the deliverable meets the absolute floor but misses the design target. Real platform runs are at risk of underflow. For S1 prompt phase, suggest expanding asks or service breadth; for S2 OE phase, suggest expanding the OE list; for S3 rubrics phase, surface that the rubric set under-covers the trajectory. THIN is acceptable if the HARDNESS plan already documented a `## THIN density acceptance` per-task justification, otherwise it BLOCKS.
+- Sketch produces < 40 → `INSUFFICIENT_DENSITY` — BLOCKER. The deliverable does not meet the absolute floor. For S1 prompt phase, the prompt is too lean and must be expanded with more asks or more service breadth. For S2 OE phase, the OE list is too thin. For S3 rubrics phase, the rubric set fundamentally under-covers the trajectory.
 
 ### B4 — Hardness preservation
 For each lever selected in `_aux/Hardness_Plan.md`, verify the deliverable still triggers it.
@@ -171,7 +174,9 @@ rubric (or a second valid reading of the prompt that flips a write action).
 If found, name the divergence.
 
 [B3] Tool-call density projection. Sketch the trajectory and count expected
-tool calls. The bar is 40+. If sketch produces < 40, flag INSUFFICIENT_DENSITY.
+tool calls. Design target 50+; absolute floor 40. < 40 = INSUFFICIENT_DENSITY
+(BLOCKER); 40-49 = THIN_DENSITY (acceptable only if HARDNESS plan documented
+per-task justification, otherwise BLOCKS); 50+ = PASS.
 
 [B4] Hardness preservation. For each lever in Hardness_Plan.md, verify the
 deliverable still triggers it. If any lever is no longer triggered, flag
@@ -205,7 +210,7 @@ Save to _aux/Council_Reports/<phase>_B_adversarial.md.
 **Pass criteria:**
 - B1: every applicable QC sub-dim scores 5 (or 3-4 is explicitly justified against per-task universe state).
 - B2: returns "no divergence found".
-- B3: projected tool calls ≥ 40.
+- B3: projected tool calls ≥ 50 (design target) OR 40-49 with explicit `THIN_DENSITY` justification carried from HARDNESS. < 40 BLOCKS.
 - B4: every lever from Hardness_Plan.md is still triggered.
 - B5: returns "no hits".
 - B6: returns "no upstream propagation flags". If any `PROPAGATE TO <upstream>` flag is raised, the deliverable is BLOCK — the operator must re-run the named upstream phase, then re-run the current phase against the fresh upstream output. Patching downstream is not an acceptable resolution.

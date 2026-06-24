@@ -1,0 +1,19 @@
+Overall: FAIL on QC (worst dimensions: rubric groundedness and JSON validity, both critical).
+
+Strengths
+- The persona and seat are right. A bookkeeper on a senior's variance check, anchoring the read against the systems before disposition, is on-pattern for Ben Arinzo and the prompt voice is natural.
+- The multi-thread setup is well-constructed: the Slack triage thread, the disposition email to the manager, the messaging conversation, the FX-rate workbook attached to the recon, and the recon's own variance_explanations note all line up around the same -$28.59 in a way that earns the "discussed in more than one place" framing.
+- Multi-service coverage is real: BlackLine recon, BlackLine exception, GL feeds, GL feed runs, SAP subledger, Slack, email, messaging, and a reminder. The trajectory data shows runs averaging 53 tool calls, comfortably above the density floor.
+
+Issues
+- (Major) The "true cause" the rubric demands does not exist in the data. The OE blueprint and rubrics 6 and 7 require the agent to identify a SAP subledger transaction brookfield_6000001115 carrying a $28.59 payroll-funding adjustment on account 102000 with no GL counterpart, and to recommend booking that item to the GL. A direct sweep across the SAP subledger, AP invoices, and Oracle GL journal entries returns zero hits for either the transaction ID or the dollar amount. The discriminator that the OE blueprint disqualifies the "easy" trajectory for missing is itself absent from the universe. No agent can pass these two rubrics honestly, and the trajectory data confirms it: 0 of 6 runs cleared all 13 criteria, each missing 2 or 3 rubrics, with the fabricated rubrics in the failed set across runs.
+- (Major) 7_Rubrics.json does not parse. Rubric 3's title contains the literal substring \~$42, which is not a valid JSON string escape. The platform paste-back step would reject the file as invalid JSON before any rubric grading runs. The fix is to drop the backslash (tilde does not need escaping in JSON strings); the substantive content of rubric 3 is otherwise grounded.
+- (Major) OE10's final-response specification inherits the fabricated discriminator. The agent is required to restate as "the REAL cause" something that is not in any system they have access to. This makes the response-shape rubric unearnable too.
+- (Moderate) The FP-2025-11 payroll-feed precedent is shaded slightly. The 119/119/0 row counts are correct, but the universe records that run with status "retried" rather than "success", so the verbal claim that the feed "ran clean" is loose. The right framing is to anchor on the row counts and treat the status label as a finer point.
+- (Minor) Only 3 of the 12 OE lines lead with an action verb. The V3 reference tasks lead with Search / Send / Call / Post / Set / Reply / Verify / Confirm consistently. This is style polish, not a blocker.
+
+Recommended next steps for the candidate
+- Before writing OEs that name specific records, sweep the per-task universe for those records with a direct grep. The blueprint-first habit ("the true cause is X, now where in the data does X live?") is backwards: derive the true cause from what is actually in the data, then write the OE.
+- If the scenario you want is "thread story is wrong, real cause is a hidden SAP item," make sure the SAP item is in the per-task universe before you build the rubric around it. If it isn't, pivot the true cause to something the data does support: a misposted JE on an adjacent account, an unrecorded liability, a stale closing rate that does hit GL, etc.
+- Always parse the rubric JSON yourself before submission. A single backslash-tilde in a title silently invalidates the entire file at paste-back.
+- Lead every OE with an action verb. It's a one-line style change but it signals OE discipline.

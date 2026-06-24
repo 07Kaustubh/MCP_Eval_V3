@@ -1,0 +1,163 @@
+[
+  {
+    "id": "7c8e5a12-4b3f-4d8a-9e5c-2f1a3b4d5e60",
+    "title": "The Agent posts a closed-period journal entry in northstar_legal_FP-2025-12 with DR account 530000 SALT expense $4,820.30 and CR account 230000 accrued SALT payable $4,820.30.",
+    "category": "outcome",
+    "justification": "The prompt asks the agent to 'stage the closed-period entry on the Northstar December period' and the follow-up email to Hannah/William must confirm 'the booking is live'. The accounts and amount are anchored in William's authorization of record (email_scen_068_northstar_annual_corp_tax_0008).",
+    "evidence": "Per OE7: look for an oracle_gl_create_journal_entry call with entity_id 'northstar_legal', period_id 'northstar_legal_FP-2025-12', posting_date inside the closed Dec 2025 window, lines DR 530000 $4,820.30 / CR 230000 $4,820.30, total_debit 4820.30, total_credit 4820.30, followed by oracle_gl_submit_journal_entry, oracle_gl_approve_journal_entry, and oracle_gl_post_journal_entry on the returned JE id. Confirm each call returned a success response and the JE ended in posted status."
+  },
+  {
+    "id": "8d9f6b23-5c4a-4e9b-af6d-3a2b4c5d6e71",
+    "title": "The Agent's posted journal entry binds to email_scen_068_northstar_annual_corp_tax_0008 as the late-post authorization of record.",
+    "category": "outcome",
+    "justification": "northstar_legal_FP-2025-12 is closed (locked 2026-01-05), so an in-period JE requires a late_post_authorization_id. The prompt explicitly says 'bind it back to William's reply as the authorization basis'. The binding is the single hardest discriminating attribute of the JE.",
+    "evidence": "Per OE7: check the late_post_authorization_id parameter on the oracle_gl_create_journal_entry call. The value must be 'email_scen_068_northstar_annual_corp_tax_0008' (William White's reply to Hannah)."
+  },
+  {
+    "id": "9e0a7c34-6d5b-4fac-bf7e-4b3c5d6e7f82",
+    "title": "The Agent uploads a SALT support memo to the Records Vault with kind 'memo', classification 'restricted', retention_policy_code 'IRS_TAX_7Y', and related_resource_type 'journal_entry' linked to the posted JE id.",
+    "category": "outcome",
+    "justification": "The prompt asks to 'file a short support memo to the vault under the restricted classification with our long tax-return retention, tied to the entry so the audit trail is clean'. IRS_TAX_7Y is the long tax-return retention code in this universe.",
+    "evidence": "Per OE8: look for a records_vault_upload_document call with kind='memo', classification='restricted', retention_policy_code='IRS_TAX_7Y', entity_id='northstar_legal', related_resource_type='journal_entry', and related_resource_id set to the posted JE id from OE7. Confirm the tool returned a success response."
+  },
+  {
+    "id": "af1b8d45-7e6c-40bd-c08f-5c4d6e7f8093",
+    "title": "The Agent's SALT support memo content includes the $4,820.30 shortfall figure and the GL trace against account 230000 versus year-end state estimated payments through account 103000.",
+    "category": "outcome",
+    "justification": "The prompt asks for 'a figure the records support' before booking. The memo is the audit-trail artifact that documents the trace, so the trace facts must appear in the memo body.",
+    "evidence": "Per OE8: decode the content_b64 of the records_vault_upload_document call. The memo body must record the $4,820.30 figure and the GL trace (account 230000 in-period activity versus account 103000 state estimated payments outflows) that supports the booking number."
+  },
+  {
+    "id": "b02c9e56-8f7d-41ce-d190-6d5e7f80a1a4",
+    "title": "The Agent's SALT support memo content references William White's email_scen_068_northstar_annual_corp_tax_0008 as the authorization of record and references the posted journal entry id and entry number.",
+    "category": "outcome",
+    "justification": "The prompt requires the memo to be 'tied to the entry so the audit trail is clean'. The link works in both directions: the JE record carries late_post_authorization_id and the memo body must cite the same authorization plus the JE it supports.",
+    "evidence": "Per OE8: decode the content_b64 of the records_vault_upload_document call. The memo body must reference 'email_scen_068_northstar_annual_corp_tax_0008' (William's reply) as the authorization of record, and must reference the posted JE id and entry_number returned by OE7."
+  },
+  {
+    "id": "c13d0f67-9080-42df-e2a1-7e6f8091b2b5",
+    "title": "The Agent sends an email to hannah.grant@brookfieldcpas.com with william.white@brookfieldcpas.com in CC (or replies on email_scen_068_northstar_annual_corp_tax_0008 keeping both on the thread).",
+    "category": "outcome",
+    "justification": "The prompt says 'ping Hannah and William so they know the booking is live and the package can move to the client for signature'. Both recipients are explicit in the prompt.",
+    "evidence": "Per OE9: look for an email_send_email call with recipient hannah.grant@brookfieldcpas.com and cc containing william.white@brookfieldcpas.com, or an email_reply_to_email call on parent_email_id 'email_scen_068_northstar_annual_corp_tax_0008' with both Hannah and William on the thread. Confirm the tool returned a success response."
+  },
+  {
+    "id": "d24e1078-a191-43e0-f3b2-8f70a1a2c3c6",
+    "title": "The Agent's email to Hannah and William confirms the $4,820.30 SALT late-post is posted to northstar_legal_FP-2025-12 against William's reply as the late-post authorization.",
+    "category": "outcome",
+    "justification": "The prompt requires the audit-trail ping to confirm 'the booking is live' and bind to William's reply as the authorization basis. Atomic on the posting-confirmation fact so an agent that hits the figure but omits the JE reference receives appropriate partial credit.",
+    "evidence": "Per OE9: check the content parameter of the email_send_email or email_reply_to_email call for the $4,820.30 figure, posting confirmation against northstar_legal_FP-2025-12, and William's reply as the late-post authorization."
+  },
+  {
+    "id": "7e8d9c2b-1a4f-4e5d-9c3f-2a1b3c4d5e60",
+    "title": "The Agent's email to Hannah and William references the posted journal entry id and entry number returned by the SALT late-post booking.",
+    "category": "outcome",
+    "justification": "The audit trail email must carry the booked JE identifiers so the downstream signature/e-file workflow can cite them. Splitting from the posting-confirmation fact preserves partial-credit granularity per V3 reference voice.",
+    "evidence": "Per OE9: check the content parameter of the email_send_email or email_reply_to_email call for an explicit reference to the posted JE id and entry_number returned by OE7."
+  },
+  {
+    "id": "e35f2189-b2a2-44f1-04c3-9081b2b3d4d7",
+    "title": "The Agent's email to Hannah and William references the SALT support memo filed under restricted classification with IRS_TAX_7Y retention.",
+    "category": "outcome",
+    "justification": "The audit-trail ping must surface the memo and its protected classification/retention so Hannah and William can locate the support record. Atomic on the memo-reference fact for partial-credit granularity.",
+    "evidence": "Per OE9: check the content parameter of the email for a reference to the support memo document id (from OE8) with its restricted classification and IRS_TAX_7Y retention."
+  },
+  {
+    "id": "8f9e0d3c-2b5f-4f6e-0d4f-3b2c4d5e6f71",
+    "title": "The Agent's email to Hannah and William confirms the return package can move to client signature and the e-file path is unblocked.",
+    "category": "outcome",
+    "justification": "The prompt says the e-file path 'shouldn't be sitting behind accrual housekeeping' and the package needs to 'move to the client for signature'. Both clearance statements share one semantic intent and stay bundled, but split from the memo-reference fact for partial-credit granularity.",
+    "evidence": "Per OE9: check the content parameter of the email for an explicit confirmation that the return package can move to client signature and the e-file path is unblocked."
+  },
+  {
+    "id": "f46a328a-c3b3-45a2-15d4-a192c3c4e5e8",
+    "title": "The Agent updates exception exc_652c0931bb2546 to record the reclassification disposition under 4-eyes approval, not dismissal under materiality.",
+    "category": "outcome",
+    "justification": "The BlackLine record's documented proposed_resolution is 'Reclassify to the correct cost center via standard 4-eyes approval'. The persona's relayed dismissal framing is wrong and the documented disposition must override it. This is the lever 9 universe-grounded gotcha.",
+    "evidence": "Per OE10/OE12: look for a blackline_update_exception call with exception_id 'exc_652c0931bb2546' carrying a resolution_summary or disposition payload that reclassifies the $9.61 timing item to the correct cost center via 4-eyes approval (Tom Chang as preparer, Daniel Jones as approver). Reject any update that records 'dismiss under materiality' as the disposition."
+  },
+  {
+    "id": "a57b439b-d4c4-46a3-26e5-b2a3d4d5f6f9",
+    "title": "The Agent deletes reminder_scen_012_orphan_exception_0000 ('Follow up on BlackLine exception exc_652c0931bb2546 approval').",
+    "category": "outcome",
+    "justification": "The prompt asks to clear the May timing reconciliation off the queue. The June 2 SLA already fired without a Daniel reply, so the orphan reminder must be cleared once the underlying exception is routed via the correct disposition.",
+    "evidence": "Per OE12: look for a reminder_delete_reminder call with reminder_id 'reminder_scen_012_orphan_exception_0000'. Confirm the tool returned a success response."
+  },
+  {
+    "id": "b68c54ac-e5d5-47a4-37f6-c3b4e5e607aa",
+    "title": "The Agent deletes reminder_scen_001_orphan_exception_0000 ('SLA: BlackLine exception exc_151b0bee7e374e on 110000 ($647.97)').",
+    "category": "outcome",
+    "justification": "The prompt asks to clear the older stale tickler that 'keeps firing on the Brookfield intercompany variance from last summer'. The underlying exception is closed since 2025-08-06 and partner-level dismissal authorization exists from March 2026.",
+    "evidence": "Per OE15: look for a reminder_delete_reminder call with reminder_id 'reminder_scen_001_orphan_exception_0000'. Confirm the tool returned a success response."
+  },
+  {
+    "id": "c79d65bd-f6e6-48a5-4807-d4c5f6f718bb",
+    "title": "The Agent adds a follow-up comment on the open Linear operational tracker for the BlackLine stale-tickler polling bug (creating the issue first under the closest active ops project if no dedicated tracker exists).",
+    "category": "outcome",
+    "justification": "The prompt asks to 'add a quick follow-up note on the open ops ticket for that polling bug so the running record reflects what is happening this week'. Matthew Li's March 16 reply (email_scen_001_orphan_exception_0007) specifically asked for the polling-bug ops ticket to be pushed up the priority list.",
+    "evidence": "Per OE16: look for a linear_create_comment call on an existing polling-bug or stale-tickler ops issue (discovered via linear_list_projects and linear_list_issues filtered for 'polling', 'tickler', 'orphan', or 'BlackLine'), or a linear_create_issue call opening the tracker followed by a linear_create_comment on the new issue id. Confirm a success response on the comment."
+  },
+  {
+    "id": "d8ae76ce-07f7-49a6-590a-e5d607082acc",
+    "title": "The Agent's Linear comment references this week's occurrence on exception exc_151b0bee7e374e, the March 16, 2026 partner-level dismissal authorization from James Randall and Matthew Li, and the disposal of reminder_scen_001_orphan_exception_0000 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires the running record to reflect 'what is happening this week' and Matthew Li's escalation ask. Without these references the comment fails to deliver the documentary value the prompt requires.",
+    "evidence": "Per OE16: check the body parameter of the linear_create_comment call for references to (a) this week's stale-tickler occurrence on exc_151b0bee7e374e, (b) the March 16, 2026 dismissal authorization chain (James Randall in email_scen_001_orphan_exception_0006 and Matthew Li in email_scen_001_orphan_exception_0007), and (c) the disposal of reminder_scen_001_orphan_exception_0000."
+  },
+  {
+    "id": "e9bf87df-1808-4ab7-6a1b-f6e7180a3bdd",
+    "title": "The Agent posts a status in channel C006 (#tax-prep-and-filings).",
+    "category": "outcome",
+    "justification": "The prompt says 'drop a confirmation in the tax channel so Hannah and the team know the FY2025 close is moving and my exception backlog is clear'. #tax-prep-and-filings is C006 in this universe.",
+    "evidence": "Per OE17: look for a slack_conversations_add_message call with channel_id 'C006'. Confirm the tool returned a success response."
+  },
+  {
+    "id": "0a008e90-2919-4bc8-7b2c-07f8290b4cee",
+    "title": "The Agent's status in channel C006 covers the $4,820.30 SALT late-post posted to northstar_legal_FP-2025-12 against William's reply authorization, the support memo filed under restricted classification with IRS_TAX_7Y retention and tied to the journal entry, and the return package cleared for client signature and e-file (or similar).",
+    "category": "outcome",
+    "justification": "The prompt frames the channel post around the FY2025 close moving forward. Splitting the SALT close-out cluster from the exception backlog cluster gives appropriate partial credit when one group is covered and the other omitted.",
+    "evidence": "Per OE17: check the payload parameter of the slack_conversations_add_message call for: the $4,820.30 SALT late-post posted to FP-2025-12 with William's reply as the late-post authorization, the memo filed under restricted classification with IRS_TAX_7Y retention tied to the journal entry, and the return package cleared for client signature and e-file."
+  },
+  {
+    "id": "1b119fa1-3a2a-4cd9-8c3d-1809a30c5dff",
+    "title": "The Agent's status in channel C006 covers exception exc_652c0931bb2546 routed for reclassification per the documented proposed resolution with the orphan-side reminder cleared, and exception exc_151b0bee7e374e dismissed per the March partner sign-off chain with the polling-bug ops ticket updated (or similar).",
+    "category": "outcome",
+    "justification": "The prompt requires the channel post to confirm Tom's exception backlog is clear. Both exception cleanups must appear in the same post so Hannah and the tax team see the full state.",
+    "evidence": "Per OE17: check the payload parameter of the slack_conversations_add_message call for: exc_652c0931bb2546 routed for reclassification (per the documented BlackLine proposed_resolution) with the orphan-side reminder cleared, and exc_151b0bee7e374e dismissed per the March partner sign-off chain with the polling-bug ops ticket updated."
+  },
+  {
+    "id": "2c220ab2-4b3b-4dea-9d4e-291ab41d600a",
+    "title": "The Agent identifies that the $4,820.30 SALT shortfall is supported by Northstar's own general ledger, with account 230000 in northstar_legal_FP-2025-12 carrying only the opening-balance carry and the gap aligning with year-end state estimated payments through account 103000 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt explicitly says 'I want the shortfall traced back through our own records on the Northstar side so the number we book is one we can ourselves stand behind, not one we copied off the messaging trail'. This is the lever 2 structured-DB skip check and the lever 8 multi-link chain.",
+    "evidence": "Per OE5: check the trajectory for oracle_gl_list_accounts or oracle_gl_get_account calls on northstar_legal accounts 230000, 103000, and 530000, plus oracle_gl_list_journal_entries on northstar_legal_FP-2025-12 inspecting 230000 activity and 103000 estimated-payment outflows. Check the final response, memo, or email for the conclusion that the records support $4,820.30 and that 230000 carries only the opening-balance carry in-period."
+  },
+  {
+    "id": "3d331bc3-5c4c-4efb-ae5f-3a2bc52e711b",
+    "title": "The Agent identifies that northstar_legal_FP-2025-12 is closed (locked 2026-01-05) and any in-period booking requires a late-post authorization, with William White's email_scen_068_northstar_annual_corp_tax_0008 serving as that authorization.",
+    "category": "outcome",
+    "justification": "The prompt frames William's reply as 'the authorization of record we needed for a closed-period booking'. The agent must recognize the closed-period mechanics and tie the authorization to the right email_id. This is lever 9 universe-grounded gotcha.",
+    "evidence": "Per OE4 and OE2: check the trajectory for oracle_gl_get_fiscal_period on northstar_legal_FP-2025-12 (confirming status='closed', locked_at 2026-01-05) and email_get_email_by_id on email_scen_068_northstar_annual_corp_tax_0008 (William's reply). Check the final response or memo for the explicit statement that the period is closed, a late-post authorization is required, and William's reply is that authorization."
+  },
+  {
+    "id": "4e442cd4-6d5d-4f0c-bf60-4b3cd63f822c",
+    "title": "The Agent identifies that the existing Records Vault document doc_8f821bbad10c4eb4 (Northstar Legal FY2025 Federal Form 1065 + State Returns, Signed/E-Filed) is a title-only placeholder and that the underlying SALT late-post journal entry has not yet been booked (or similar).",
+    "category": "outcome",
+    "justification": "This is the lever 10 reversal/supersession trap (Learnings L25): a prior 'Signed/E-Filed' upload superficially reads as 'filing complete' and most agents refuse to stage further bookings. The agent must reconcile the stub against the missing JE.",
+    "evidence": "Per OE6: check the trajectory for records_vault_list_documents (entity_id 'northstar_legal', kind 'tax_return') and records_vault_get_document on 'doc_8f821bbad10c4eb4' (and optionally records_vault_download_document_content). Check the final response or memo for the explicit recognition that the 'Signed/E-Filed' label is a forward-looking stub and the SALT late-post JE has not yet been booked."
+  },
+  {
+    "id": "5f553de5-7e6e-40ad-c071-5c4de740933d",
+    "title": "The Agent identifies that the documented disposition for exception exc_652c0931bb2546 is reclassification to the correct cost center via 4-eyes approval, overriding the persona's framing of dismissal under materiality (or similar).",
+    "category": "outcome",
+    "justification": "The persona-relayed 'Jones and I had landed on dismissing under materiality' contradicts the BlackLine record. This is the lever 9 universe-grounded gotcha plus L27 soft-instruction over-compliance trap. The agent must recognize the override.",
+    "evidence": "Per OE10 and OE11: check the trajectory for blackline_get_exception on 'exc_652c0931bb2546' (confirming proposed_resolution='Reclassify to the correct cost center via standard 4-eyes approval'), plus the email_get_email_by_id / email_get_thread checks confirming no Daniel Jones reply to email_scen_012_orphan_exception_0006 exists. Check the final response for the explicit statement that the documented disposition is reclassification and that the persona's dismissal framing must be overridden."
+  },
+  {
+    "id": "60664ef6-8f7f-41be-d182-6d5ef851a44e",
+    "title": "The Agent identifies that exception exc_151b0bee7e374e has been closed since 2025-08-06 and that James Randall (email_scen_001_orphan_exception_0006) and Matthew Li (email_scen_001_orphan_exception_0007) authorized dismissal of the stale reminder on 2026-03-16 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt anchors the older tickler dismissal on 'partner-level confirmation back in March'. The two scen_001 reply emails are the authority of record and must be surfaced despite the 60+ in-flight mentions of the exception id across other threads. This is lever 4 search-result-cap eviction plus lever 5 thread-reply blindness.",
+    "evidence": "Per OE13 and OE14: check the trajectory for blackline_get_exception on 'exc_151b0bee7e374e' (confirming state='closed', resolution_executed_at 2025-08-06) and email_search_emails / email_get_thread surfacing email_scen_001_orphan_exception_0006 (James Randall) and email_scen_001_orphan_exception_0007 (Matthew Li two replies deep). Check the final response for the explicit recognition that the underlying item is closed and the partner-level dismissal authorization chain exists."
+  }
+]

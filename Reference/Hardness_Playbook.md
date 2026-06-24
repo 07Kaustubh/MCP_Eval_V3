@@ -29,11 +29,11 @@ The single biggest lever for QC pass rates is **hardness without contrivance**. 
 | Write actions (target 3+ writes × ~3 supporting reads each) | 9-12 |
 | Cross-service triangulation buffer | 5-8 |
 
-**Bar: average projected tool-call count must be ≥ 40 to greenlight S1.** Below 40 = `INSUFFICIENT_DENSITY` — the prompt writer must add levers, expand write-action mix, or both.
+**Design target: average projected tool-call count must be ≥ 50 to greenlight S1 cleanly.** Three bands: midpoint ≥ 50 = PASS; midpoint 40-49 = `THIN_DENSITY` (operator can continue with per-task justification but task is at risk of underflow on real platform runs); midpoint < 40 = `INSUFFICIENT_DENSITY` (STOP — must add levers, expand write-action mix, or both). The 50+ midpoint design target produces ~40+ tool calls in real platform runs, which is the empirical floor below which tasks come back failing density.
 
 ## Composition rules
 
-- **3-to-5 levers per task.** Fewer and the task is too easy; more and the prompt becomes contrived.
+- **4-to-5 levers per task is the design default.** 3 is acceptable only if the chosen 3 include high-cost levers (L7 multi-write 9-12, L8 multi-link 6-9, L11 net-vs-gross 4-7 — sum 19-28) AND the operator documents in `Hardness_Plan.md` why expanding wasn't possible (universe constraint). To hit the 50+ midpoint design target consistently, default to 4-5 levers — 3 levers will frequently land in the THIN band (40-49) or below.
 - **Levers must be discoverable, not buried.** Difficulty comes from connecting evidence, not hiding it. The first link of every chain must be findable through a normal broad search.
 - **Each lever must be grounded in this task's `_aux/Universe_Split/`.** If a lever doesn't have backing data, drop it.
 - **Stack with discipline.** Pair structured-DB-skip with multi-write so the agent has to query the source AND act on it. Pair missing-reply with latching so the agent has to override its first read.
@@ -45,7 +45,7 @@ Per task, HARDNESS produces `_aux/Hardness_Plan.md` containing:
 
 1. **Levers Available** — which of the 11 the per-task data supports, with a one-line evidence pointer per lever (`<file>:<row_id>` or `<file>:<index>`).
 2. **Selected Levers** — the 3 to 5 chosen, with rationale + projected tool-call cost per lever.
-3. **Tool-Call Density Projection** — sum of base discovery + selected lever costs + write-action cost + buffer. Must be ≥ 40 OR the phase exits with `INSUFFICIENT_DENSITY`.
+3. **Tool-Call Density Projection** — sum of base discovery + selected lever costs + write-action cost + buffer. PASS at ≥ 50 (design target), THIN_DENSITY at 40-49 (continue with per-task justification), INSUFFICIENT_DENSITY at < 40 (STOP).
 4. **Stump Hypothesis** — the 2 to 4 specific rubric outcomes most likely to fail across the 6 Opus runs, with confidence (high / med / low) and reasoning citing the levers.
 5. **Hardness Score** — `selected / 5`. If fewer than 3 levers are available, output `INSUFFICIENT_LEVERS`.
 6. **Hardness Brief for the Prompt Writer** — a tight paragraph the S1 runbook hands directly to the prompt-drafting sub-agent.

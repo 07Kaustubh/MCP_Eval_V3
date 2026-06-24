@@ -49,7 +49,7 @@ Use the `oracle` or `ultrabrain` sub-agent. Single call, 4 lenses applied in seq
 | Correct derived figure is NEVER stated verbatim in prompt / OE / rubric title / email body / Slack body / document body / Records Vault content | L6 (Learnings.md): agents read full thread depth 100% — stated answer = 100% pass | BLOCKER |
 | Every tight identifier in any artifact exists in `Fact_Ledger.json` | Phantom IDs cause hallucinated tool calls or wrong-entity actions | BLOCKER |
 | Every Hardness lever from `Hardness_Plan.md` is still triggered by the final artifact set | Lever regression after S2/S3 edits | BLOCKER |
-| Integrated tool-call density projection ≥ 40 | 40+ is the binding floor | BLOCKER |
+| Integrated tool-call density projection ≥ 50 (design target) / ≥ 40 (absolute floor) | 50+ is the design target; 40+ is the absolute floor below which task fails density on real platform runs | < 40 BLOCKER, 40-49 THIN (per-task justification required from HARDNESS) |
 | Outcome > Process count; no rubric has tool name in title; no em-dashes anywhere | V3 framework + project conventions | BLOCKER |
 | Entity references consistent across prompt / OE / rubrics | Drift causes the agent to act on the wrong entity | MAJOR |
 | Implicit-prompt framing preserved (no rubric demands an investigation step the prompt explicitly says not to do) | L15 + L16 framing constraint | MAJOR |
@@ -117,7 +117,8 @@ LENS 3 — Cross-artifact holism
 - Entity map: every named persona / entity / account in the prompt is the
   same entity in the OEs and rubrics. Flag drift.
 - Density: sketch the integrated agent trajectory and count expected tool
-  calls. < 40 = BLOCKER.
+  calls. < 40 = BLOCKER. 40-49 = THIN_DENSITY (acceptable only if HARDNESS
+  plan documented per-task justification, otherwise BLOCKS). 50+ = PASS.
 
 LENS 4 — Red-team adversarial
 - Can a shortcut path satisfy the prompt without exercising at least 2 of the

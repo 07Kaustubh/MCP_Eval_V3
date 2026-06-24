@@ -1,0 +1,17 @@
+Poor 2/5
+Scored by a reviewer on the project.
+Scored by a reviewer on the project.
+Reviewer (c063b7)
+Overall Feedback
+
+Hello Contributor, thanks for your effort on this task. There is a truthfulness issue in the prompt that is causing consistent agent failures across runs. The prompt says "Andrea is wrapping up her certification of the May Acme close package" and "before she finalizes it," implying the certification is still in progress. However, the universe data shows Andrea already sent her sign-off email on June 10 (email_scen_028_monthly_close_0012: "I have signed off on the Acme Cloud May package"), two days before today's date of June 12. This falls under the Truthfulness QC dimension, the prompt describes an in-progress state that contradicts the actual universe data. This directly causes the communication and artifact failures. When agents discover Andrea's existing sign-off during investigation, they conclude the process is already closed and defer action to Matthew rather than executing. Run 4 states it explicitly: "I've kept this to a review and haven't altered the file or messaged the team, since Andrea has already signed and these are partner-level calls." The same logic appears in Run 3 ("kept this to you rather than messaging Andrea or Jones"), Run 5 ("Andrea has already emailed her sign-off"), and Run 6 ("I've left the next step and any communication to you"). This is why stakeholder communication fails in 5/6 runs and the Records Vault artifact fails in 6/6 runs, agents will not override an existing partner sign-off without explicit authority to do so.
+
+Additional Feedback
+
+Level of Fixes
+
+major fixes
+
+Parts of Task Fixed
+
+oracle events,prompt,rubrics

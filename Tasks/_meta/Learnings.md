@@ -188,3 +188,45 @@ Task 24, rubric R22 (routing-fix-did-not-land). Fail rate moved from 3/6 (50%) t
 **Rule:** Default to soft verbs ("was supposed to land", "should have shipped") for prompt-side L9 authority-dismissal anchors. Reserve hard verbs ("was patched", "shipped last sprint") only when difficulty headroom is needed AND the QC reviewer is known to be permissive on persona-relayed assertions.
 
 **Source:** Tasks/24_6a36e84723508b4e3f391cfc/trajectory-runs/ verifier-fails analysis on 2026-06-21 (cycle 1 hard verb 50% fail rate; cycle 2 soft verb 33% fail rate; same agent population, same universe).
+
+### L25. Existing-output anchor trap (NEW pattern, HIGHEST-yield novel stump on Brookfield)
+Task 25 (May WIP recognition). All 6 trajectory runs found the previously posted JE je_53962aed96fe4b67 sitting in brookfield_FP-2026-05 and refused to stage the required new $147,825 entry on double-booking grounds. The existing JE was a distractor: it lacked the per-service-line schedule, the business justification tying it to Andrea Phil's stage-completion review, and routing to Daniel Jones for review. The refusal cascaded into 5 of 8 always-failing rubrics (stage JE, JE justification, Slack notes staged, vault upload linked to staged JE, email confirms staged). This is the strongest single-mechanism stump observed across V3 tasks to date — the agent's "do not double-book" instinct overrides every rubric that requires the staged write.
+
+**Rule:** When you need a high-confidence AF stump, plant a previously posted artifact (JE / doc / message / thread) in the universe that superficially matches the requested write but lacks one or two rubric-tested fields (per-line schedule, business justification, classification, related_resource_id, routing target). Write the rubrics around the gap between the distractor and the spec'd write. Expect 100% failure on the staging rubric and 80-100% failure on every downstream rubric that depends on it.
+
+**Source:** Tasks/25_6a366bc27d66eaedcae82ab4/trajectory-runs/ verifier-fails analysis on 2026-06-22.
+
+### L26. Decoy parent thread (NEW pattern, reliable Slack-write stump)
+Task 25 (May WIP recognition). 5 of 6 runs posted to Slack thread_ts 1780230660.000000 instead of the canonical 1780248600.000000. Both threads live in the same #monthly-close-coordination channel (C005), both touch the same incident keywords (WIP / BL-75810CD0FEE4 / exc_1ddfc978ce5a4d / partial-feed), and the wrong one is roughly 5 hours more recent. Agents that did pull the thread list still picked the more recent or more keyword-matching parent ts. Stronger than the L4 search-result-cap eviction lever predicted — the wrong thread doesn't need to be evicted, it just needs to look more plausible.
+
+**Rule:** For any Slack-write rubric anchored to a specific thread_ts, plant a decoy parent in the same channel on an overlapping topic with a more-recent timestamp. The canonical thread must be named only in the OE (or in a less-recent Slack search result). Expect 80%+ failure on the thread_ts check.
+
+**Source:** Tasks/25_6a366bc27d66eaedcae82ab4/trajectory-runs/ verifier-fails analysis on 2026-06-22.
+
+### L27. Soft-instruction over-compliance (NEW pattern)
+Task 25 (May WIP recognition). All 6 runs skipped the blackline_update_exception write on exc_1ddfc978ce5a4d entirely, reading Hannah Grant's "leave the underlying exception trail referenced as-is for now" as a blanket no-op on the exception record. The correct scoped read was "do not resolve the exception, but record the accept-timing disposition while keeping state as investigating." No agent reached the scoped read. Cascaded into two AF rubrics (exception update + exception update refs Hannah/BD3).
+
+**Rule:** When the prompt requires the agent to take a scoped write under a soft authority instruction ("leave X as-is", "do not touch Y", "park Z"), make the scope explicit ("update X with the disposition but do not resolve it") OR add a second authority sentence that endorses the scoped write. Otherwise expect 0/6 on the write rubric.
+
+**Source:** Tasks/25_6a366bc27d66eaedcae82ab4/trajectory-runs/ verifier-fails analysis on 2026-06-22.
+
+### L28. Tool-variant trap (NEW pattern, reliable Records Vault stump)
+Task 25 (May WIP recognition). All 6 runs chose records_vault_add_document_version on the existing doc_42c851aed8fb40ab over records_vault_upload_document for a fresh memo. The "similar doc already exists" signal triggered the version-bump path 100% of the time even though the OE expected a fresh upload tied to a new related_resource_id (the staged JE).
+
+**Rule:** For Records Vault rubrics that require a fresh upload, plant a similar restricted doc in the vault with overlapping title scope and require classification + retention + related_resource_id on the new upload to differ from the existing one. The agent will default to version-bump and miss the related_resource_id requirement, which is the rubric-tested field.
+
+**Source:** Tasks/25_6a366bc27d66eaedcae82ab4/trajectory-runs/ verifier-fails analysis on 2026-06-22.
+
+### L29. Escape-valve prompt clauses neutralize L2 structured-DB skip
+Task 25 (May WIP recognition). The Hardness_Plan predicted [HIGH] that agents would skip ogl_subledger_feed_runs and never surface the partial-feed contradiction. All 6 runs queried the feed run, found run_e33ed2561f2c46 (success / 2083 / 0 rejected), and surfaced the contradiction in their final response (R11 6/6 pass; R17 in S4 matrix). The reason: the prompt's escape-valve sentence "If anything in what you pull together changes the read on this before I take it to Daniel, say so plainly. I would rather hear it from you before the package moves than from Andrea after." directly invites the agent to look for and surface contradictions. The lever still fired on the SECONDARY structured-DB surface (blackline_review_notes — Edith Banda's open note) but only 1/6.
+
+**Rule:** If your hardness anatomy depends on L2 structured-DB skip on a load-bearing surface, do NOT include an escape-valve clause in the prompt that invites contradiction-surfacing. The escape-valve is useful for Truthfulness 5 and for keeping the persona's voice realistic, but it neutralizes L2 on the surface it points at. Reserve escape-valves for tasks where L2 fires on a different (truly obscure) surface than the load-bearing one.
+
+**Source:** Tasks/25_6a366bc27d66eaedcae82ab4/trajectory-runs/ verifier-fails analysis on 2026-06-22.
+
+### L30. REVIEW REBUILD triage from rubric-binding cascade (NEW pattern)
+Task 26 (April close controls review REDO). Raw 6-trajectory metrics looked clean: avg tool calls 59.3, pass@1 0/6, both inside the difficulty and density windows. But the 0/6 was entirely driven by two rubrics checking for a clean-branch note "to Andrea" when the prompt explicitly named Peter Sanchez as the addressee. Rebinding those two rubrics to Peter raises projected effective pass@1 to ~3/6 (50%), above the 40% ceiling. Combined with two more rubrics naming the wrong persona (Daniel vs Matthew Li), 6 of 8 titles starting with "If" instead of "The Agent" (platform-linter block), and zero coverage of the prompt's five closing deliverables (timeline, ranking, evidence, classification, clean-branch memo), the deliverable set was past patchable.
+
+**Rule:** Apparent 0/6 difficulty is suspect when one or more rubrics name a person the prompt does not. Before greenlighting a low-pass-rate task, sanity-check every rubric's named recipients against the prompt's explicit recipients. If the named-recipient mismatch is in the load-bearing write-action rubric, the 0/6 is artefactual and the task must be triaged REBUILD rather than approved on raw pass@1. Also extend the check to persona names (rubric "Daniel" vs prompt persona "Matthew Li") and to title format (titles starting with "If" rather than "The Agent" block the platform linter).
+
+**Source:** Tasks/26_6a390b7b8e3ad2bcdcfa90b3/_aux/Candidate_Originals/changes.md (row 18) + Tasks/26_6a390b7b8e3ad2bcdcfa90b3/_aux/REDO_reason.md on 2026-06-22.

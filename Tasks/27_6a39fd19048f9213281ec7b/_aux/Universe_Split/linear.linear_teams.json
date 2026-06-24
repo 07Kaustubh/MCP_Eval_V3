@@ -1,0 +1,26 @@
+[
+  {
+    "row_data": "{\"id\": \"team_comp\", \"key\": \"COMP\", \"name\": \"Compliance\", \"created_at\": \"2021-04-20T19:10:00Z\", \"updated_at\": \"2021-04-20T19:10:00Z\", \"description\": \"AML, privacy, and policy oversight\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  },
+  {
+    "row_data": "{\"id\": \"team_audit\", \"key\": \"AUD\", \"name\": \"Audit\", \"created_at\": \"2023-02-24T17:31:00Z\", \"updated_at\": \"2023-02-24T17:31:00Z\", \"description\": \"Audit support, workpapers, and engagement review\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  },
+  {
+    "row_data": "{\"id\": \"team_tax\", \"key\": \"TAX\", \"name\": \"Tax\", \"created_at\": \"2023-10-19T07:43:00Z\", \"updated_at\": \"2023-10-19T07:43:00Z\", \"description\": \"Corporate tax review, filings, and tax-accounting coordination\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  },
+  {
+    "row_data": "{\"id\": \"team_acctops\", \"key\": \"ACCT\", \"name\": \"Accounting Operations\", \"created_at\": \"2023-11-10T17:55:00Z\", \"updated_at\": \"2023-11-10T17:55:00Z\", \"description\": \"Accounting services delivery, review chains, and portfolio execution\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  },
+  {
+    "row_data": "{\"id\": \"linear_5477c0808ac2\", \"key\": \"CAO\", \"name\": \"Client Accounting Operations\", \"created_at\": \"2026-03-03T08:45:00Z\", \"updated_at\": \"2026-05-20T17:10:00Z\", \"description\": \"Partner-led outsourced accounting team handling daily close blocker triage, client bank feed exceptions, cash posting follow-up, AP workflow reviews, and bookkeeping remediation for external clients. The team regularly works through reconciliation items like BL-18FFAE0E20D0 on 117000 Allowance for Doubtful Accounts, investigates open exceptions such as exc_af7274fb658844 and exc_4d5d3582698946, and coordinates invoice processing across items including VEN-019-583136 and VEN-012-211225 during monthly close and onboarding cycles.\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  },
+  {
+    "row_data": "{\"id\": \"linear_7d4b3f1127cd\", \"key\": \"TCD\", \"name\": \"Tax & Compliance Delivery\", \"created_at\": \"2026-04-14T09:20:00Z\", \"updated_at\": \"2026-05-31T15:35:00Z\", \"description\": \"External client tax, entity compliance, and filing readiness team overseeing tax document chase lists, annual report catch-up, filing calendar exceptions, and audit/PBC support. The team reviews due-date risk tied to vendor support items like VEN-004-799133, follows period-specific adjustments including JE-brookfield-FP-2026-05-0004 and JE-northstar_legal-FP-2026-05-0002, and escalates unresolved approval items such as exc_abd8e711f5f347 and exc_cb0a9a94a3084c when they affect filing readiness or advisory delivery.\", \"is_archived\": false}",
+    "source": "linear.linear_teams"
+  }
+]

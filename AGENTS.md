@@ -20,7 +20,7 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 8. **Outcome must outnumber Process in rubrics.** All 4 V3 reference tasks have zero process rubrics. Default to zero. Three-condition test before adding any.
 9. **Platform similarity ≥ 40% is not allowed.** Pivot the prompt using `Reference/Similarity_Pivot.md`.
 10. **5 of 5 on every QC sub-dim is the bar.** Both councils must return GO before any deliverable ships.
-11. **40+ tool calls average across 6 runs is the maximalism floor.** Council B-B3 (tool-call density projection) blocks any deliverable that projects below 40. HARDNESS phase also gates at 40 before allowing S1.
+11. **50+ tool calls midpoint is the design target; 40 is the absolute floor.** Council B-B3 (tool-call density projection), HARDNESS, AUDIT, and FINAL all use this tiered scheme: midpoint ≥ 50 = PASS; midpoint 40-49 = THIN_DENSITY (operator can continue with explicit per-task justification, but the task is at risk of underflow on real platform runs); midpoint < 40 = INSUFFICIENT_DENSITY (BLOCKER, STOPs the pipeline). The 50+ design target was set after tasks shipped with 40+ projected density came back from the platform failing density on real runs — designing for 50+ produces ~40+ tool calls in reality.
 12. **Strict veteran AUDIT runs after every per-phase deliverable.** S1/S2/S3 (and S1.5 on prompt revise, and REVIEW on corrected materialization) auto-fire an AUDIT sub-agent inline after Council A + Council B pass. `PASS (STRICT)` is a required exit criterion for those phases. `REVISE` iterates the producing phase (cap 3 rounds); `REBUILD` STOPs to `PIPELINE REDO`. Catching defects at the producing phase is the project policy — downstream re-iteration at FINAL or platform-reviewer time is more expensive than the ~3 additional sub-agent calls per task that auto-AUDIT costs.
 
 ## PIPELINE DISPATCH
@@ -45,6 +45,10 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 | `PIPELINE COMPARE — Tasks/<TASK_DIR>` | [Reference/Sessions/COMPARE.md](Reference/Sessions/COMPARE.md) | Diff local `7_Rubrics.json` vs platform paste-back `10_Rubrics_Platform.json` to catch silent platform-side mutations |
 | `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt\|oe\|rubrics\|all}` | [Reference/Sessions/AUDIT.md](Reference/Sessions/AUDIT.md) | Veteran QC second-opinion under the STRICTEST possible interpretation (5/5 only, density bar 50+, every "should" read as "must"). **Auto-fires inline from S1/S2/S3 (and S1.5 on prompt revise, REVIEW on corrected materialization)** as the per-phase exit gate. Also available **on-demand** in a fresh chat via this trigger for high-stakes pre-upload sanity checks, post-platform-rejection retros, or post-pipeline-change re-audits. Read-only. Not a substitute for FINAL — complementary. |
 | `PIPELINE CLOSE — Tasks/<TASK_DIR>` | [Reference/Sessions/CLOSE.md](Reference/Sessions/CLOSE.md) | Final read-only sanity check. Audits required artifacts + FINAL verdict + trajectory verdict; refuses to greenlight if anything is missing. Nudges to append cross-task learnings before exit. |
+
+## Knowledge flow + file nomenclature
+
+For the cross-cutting dependency chart (which phase reads / produces what), file-naming conventions (`<phase>_<council>_<purpose>.md`, `AUDIT_<phase>.md`, `S4_<bucket>.md`, etc.), single-source ownership map (Fact_Ledger SSOT, Universe_Split SSOT, etc.), and the cross-phase re-run map (when an artifact changes, what downstream phases must re-run), see [`Reference/Knowledge_Flow.md`](Reference/Knowledge_Flow.md). A fresh-chat agent invoking any phase should read that doc + the phase runbook to know every file path it will touch.
 
 ## Project layout
 

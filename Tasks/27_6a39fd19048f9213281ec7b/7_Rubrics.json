@@ -1,0 +1,218 @@
+[
+  {
+    "id": "a1f6c2d8-7e4b-4f3a-bc92-d104a8e29f01",
+    "title": "The Agent uploads a write-up to the Records Vault with kind reconciliation_support, retention AICPA_SQMS_7Y, classification internal, related to reconciliation BL-333FF9956BC6, and uploaded by ben.arinzo@brookfieldcpas.com.",
+    "annotations": {
+      "evidence": "Look for a records-vault upload tool call in the trajectory with kind=reconciliation_support, retention_policy_code=AICPA_SQMS_7Y, classification=internal, related_resource_type=reconciliation, related_resource_id=BL-333FF9956BC6, and uploaded_by=ben.arinzo@brookfieldcpas.com. Confirm the tool returned a success response.",
+      "justification": "The prompt asks Ben to 'drop a write-up of what you saw on the prior-period record and the documents into the vault under the close-cycle file so it is on hand for George.' Per OE 20, this is the required compliance-grade vault upload tied to the open Cash-Payroll reconciliation, with the persona as uploader.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "b2c75e1a-3d8f-4c1b-9234-7e6f0a5d92b3",
+    "title": "The Agent's Records Vault write-up identifies exc_d8fc13aa2cc742 in brookfield_FP-2025-12 (type unrecorded_invoice, financial impact $617.63, closed by a corrective journal entry on reconciliation BL-782A2EC69343) as the actual recent prior-period precedent on account 102000 (or similar).",
+    "annotations": {
+      "evidence": "Check the content_b64 parameter of the records-vault upload call. The decoded content must name exc_d8fc13aa2cc742, brookfield_FP-2025-12, type unrecorded_invoice, financial impact $617.63, and a corrective journal entry close-out on reconciliation BL-782A2EC69343 (or similar). All five facts come from the same exception record so they pass or fail together.",
+      "justification": "The prompt asks Ben to surface 'the real prior-period shape on this account, not the framing in the thread,' and to leave the write-up 'on hand for George.' Per OE 13 and OE 20, the load-bearing finding is the FP-2025-12 unrecorded_invoice precedent that supersedes the FP-2025-11 feed-drop story George cited.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "b2c75e1a-3d8f-4c1b-9234-7e6f0a5d92c4",
+    "title": "The Agent's Records Vault write-up notes that the FP-2025-11 102000 reconciliation BL-8DCA6908E272 actually carried a variance of $3.42 with no variance_explanations and no attachments recorded (or similar).",
+    "annotations": {
+      "evidence": "Check the content_b64 parameter of the records-vault upload call. The decoded content must reference reconciliation BL-8DCA6908E272, the variance of $3.42, and the absence of variance_explanations and attachments on that record (or similar).",
+      "justification": "Per OE 10 and OE 20(a), the close-cycle write-up for George must lay the actual FP-2025-11 102000 record next to the thread's '$42 feed-drop' framing. The recon carried a variance about a tenth of the claimed figure and no feed-drop story was ever recorded on it; this is the on-the-record refutation of the cited number that must travel into the vault as well as the email and final response.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "c3d84f2b-4e9a-4d2c-a345-8f7e1b6c03c4",
+    "title": "The Agent's Records Vault write-up notes that evid_6cbb5c1605904b labelled fx_rate_workbook points to doc_01b7c6e1cbe94529 titled 'Supporting documentation for Marketing / business development' rather than to a workbook supporting the recon's FX-revaluation cause (or similar).",
+    "annotations": {
+      "evidence": "Check the content_b64 parameter of the records-vault upload call. The decoded content must name evid_6cbb5c1605904b, the label fx_rate_workbook, doc_01b7c6e1cbe94529, and the underlying document title 'Supporting documentation for Marketing / business development' (or similar), and note that the label does not describe the document.",
+      "justification": "The prompt asks Ben to drop a write-up 'on the prior-period record and the documents' into the vault. Per OE 15 and OE 16, the first attachment's label-vs-content mismatch is one of the two evidence findings the persona explicitly wants captured in the close-cycle write-up. Splitting the two attachments into separate rubrics lets an agent who catches one but misses the other receive appropriate partial credit.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "c3d84f2b-4e9a-4d2c-a345-8f7e1b6c03d5",
+    "title": "The Agent's Records Vault write-up notes that evid_6969ca2fd0a345 labelled subledger_export points to doc_b3633a2899a04e9e titled 'Supporting documentation for AICPA / state society dues' rather than to a subledger export of the dropped payroll rows (or similar).",
+    "annotations": {
+      "evidence": "Check the content_b64 parameter of the records-vault upload call. The decoded content must name evid_6969ca2fd0a345, the label subledger_export, doc_b3633a2899a04e9e, and the underlying document title 'Supporting documentation for AICPA / state society dues' (or similar), and note that the label does not describe the document.",
+      "justification": "Per OE 15 and OE 17, the second attachment's label-vs-content mismatch is the other evidence finding the persona explicitly wants captured in the close-cycle write-up. Kept as a separate rubric from the first attachment so that each attachment is scored independently.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "c3d84f2b-4e9a-4d2c-a345-8f7e1b6c03e6",
+    "title": "The Agent's Records Vault write-up notes that account 102000 is brookfield's USD Cash - Payroll account so the recon's FX-revaluation explanation cannot apply on principle (or similar).",
+    "annotations": {
+      "evidence": "Check the content_b64 parameter of the records-vault upload call. The decoded content must identify account 102000 as brookfield's Cash - Payroll account (USD-denominated) and state that an FX-revaluation cause cannot apply to a USD-denominated cash account on principle (or similar).",
+      "justification": "Per OE 4 and OE 20(c), the close-cycle write-up for George must include the grounding note that 102000 is brookfield's USD Cash - Payroll account so the recon's own FX-revaluation explanation cannot stand. The P9 universe-grounded gotcha must trace through the vault surface alongside the email (R10) and the final response (R20).",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "d4e95a3c-5f1b-4e3d-b456-9a8f2c7d14d5",
+    "title": "The Agent posts a thread reply on the Slack #monthly-close-coordination channel (channel_id C005) on the precedent-raising thread (thread_ts 1780147500.000000), not as a standalone channel-level post.",
+    "annotations": {
+      "evidence": "Look for a Slack add-message tool call in the trajectory with channel_id=C005 (or channel name monthly-close-coordination) and thread_ts=1780147500.000000. Confirm the tool returned a success response and that thread_ts is set (the post is a reply on the precedent-raising thread, not a new top-level message).",
+      "justification": "The prompt asks Ben to 'drop a short note into the channel the precedent was raised in so the thread sees something was checked against the records.' Per OE 6 and OE 21, the precedent-raising thread is C005 / thread_ts 1780147500.000000 and the note must land there as a reply, not as a separate channel post.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "e5fa6b4d-6a2c-4f4e-c567-ab9034ea25e6",
+    "title": "The Agent's Slack thread reply on #monthly-close-coordination references exc_aade06f6129e43 and BL-333FF9956BC6 and summarises that the precedent claim and the recon's supporting evidence were re-checked against the records (or similar).",
+    "annotations": {
+      "evidence": "Check the payload parameter of the Slack add-message call to channel_id C005 / thread_ts 1780147500.000000. It must reference exc_aade06f6129e43 and BL-333FF9956BC6 and convey that the precedent and the recon's evidence were re-checked against the actual records (or similar).",
+      "justification": "Per OE 21, the thread note must give the disposition cluster visibility that the records check was performed and tie the note to the open exception and reconciliation. The note should not pre-empt the disposition decision; it records that the verification was done.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "f60b7c5e-7b3d-4a5f-d678-bc1145fb36f7",
+    "title": "The Agent sends an email from ben.arinzo@brookfieldcpas.com to george.mcadam@brookfieldcpas.com.",
+    "annotations": {
+      "evidence": "Look for an email send tool call in the trajectory with sender=ben.arinzo@brookfieldcpas.com and recipients containing george.mcadam@brookfieldcpas.com. Confirm the tool returned a success response.",
+      "justification": "The prompt explicitly asks Ben to 'send George a direct line letting him know what the records actually show on each piece, so he has it before he takes the disposition.' Per OE 19 and OE 22, the direct line is a one-to-one email from the persona to George McAdam (Accounts Senior).",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "071c8d6f-8c4e-4b6a-e789-cd2256ac4708",
+    "title": "The Agent's email to george.mcadam@brookfieldcpas.com identifies exc_d8fc13aa2cc742 in brookfield_FP-2025-12 (type unrecorded_invoice, financial impact $617.63, closed by a corrective journal entry on reconciliation BL-782A2EC69343) as the actual recent prior-period precedent on account 102000 (or similar).",
+    "annotations": {
+      "evidence": "Check the content parameter of the email send call to george.mcadam@brookfieldcpas.com. The content must name exc_d8fc13aa2cc742, brookfield_FP-2025-12, type unrecorded_invoice, financial impact $617.63, and a corrective journal entry close-out on reconciliation BL-782A2EC69343 (or similar). All five facts come from the same exception record so they pass or fail together.",
+      "justification": "Per OE 22, George needs the real recent 102000 precedent named in the direct line so he can take the disposition with the correct comparison in hand. The discriminating substance is the FP-2025-12 unrecorded_invoice / corrective-JE record that supersedes the FP-2025-11 feed-drop story he cited.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "182d9e70-9d5f-4c7b-f89a-de3367bd5819",
+    "title": "The Agent's email to george.mcadam@brookfieldcpas.com notes that the FP-2025-11 102000 reconciliation BL-8DCA6908E272 actually carried a variance of $3.42 with no variance_explanations recorded (or similar).",
+    "annotations": {
+      "evidence": "Check the content parameter of the email send call to george.mcadam@brookfieldcpas.com. The content must reference reconciliation BL-8DCA6908E272, the variance of $3.42, and the absence of any variance_explanations on that record (or similar).",
+      "justification": "Per OE 10 and OE 22, the four-pillar refutation of George's claim requires laying the actual FP-2025-11 102000 record next to the thread's '$42 feed-drop' framing. The recon carried a variance about a tenth of the claimed figure and no explanation was ever recorded, which is the direct on-the-record refutation of the cited number.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "293ea081-ae60-4d8c-09ab-ef447ace692a",
+    "title": "The Agent's email to george.mcadam@brookfieldcpas.com notes that evid_6cbb5c1605904b labelled fx_rate_workbook points to doc_01b7c6e1cbe94529 titled 'Supporting documentation for Marketing / business development' rather than to a workbook supporting the recon's FX-revaluation cause (or similar).",
+    "annotations": {
+      "evidence": "Check the content parameter of the email send call to george.mcadam@brookfieldcpas.com. The content must name evid_6cbb5c1605904b, the label fx_rate_workbook, doc_01b7c6e1cbe94529, and the underlying document title 'Supporting documentation for Marketing / business development' (or similar), and note that the label does not describe the document.",
+      "justification": "Per OE 15, OE 16, and OE 22, the first attachment's label-vs-content mismatch is one of the two evidence findings George needs alongside the precedent finding to take the disposition. Splitting the two attachments into separate rubrics lets an agent who catches one but misses the other receive appropriate partial credit.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "293ea081-ae60-4d8c-09ab-ef447ace693b",
+    "title": "The Agent's email to george.mcadam@brookfieldcpas.com notes that evid_6969ca2fd0a345 labelled subledger_export points to doc_b3633a2899a04e9e titled 'Supporting documentation for AICPA / state society dues' rather than to a subledger export of the dropped payroll rows (or similar).",
+    "annotations": {
+      "evidence": "Check the content parameter of the email send call to george.mcadam@brookfieldcpas.com. The content must name evid_6969ca2fd0a345, the label subledger_export, doc_b3633a2899a04e9e, and the underlying document title 'Supporting documentation for AICPA / state society dues' (or similar), and note that the label does not describe the document.",
+      "justification": "Per OE 15, OE 17, and OE 22, the second attachment's label-vs-content mismatch is the other evidence finding George needs to take the disposition. Kept as a separate rubric from the first attachment so that each attachment is scored independently.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "3a4fb192-bf71-4e9d-1abc-f0558bdf7a3b",
+    "title": "The Agent's email to george.mcadam@brookfieldcpas.com notes that account 102000 is brookfield's USD Cash - Payroll account so the recon's FX-revaluation explanation cannot apply on principle (or similar).",
+    "annotations": {
+      "evidence": "Check the content parameter of the email send call to george.mcadam@brookfieldcpas.com. The content must state that 102000 on brookfield is the USD Cash - Payroll account and that an FX-revaluation cause does not apply to a USD-denominated cash account (or similar phrasing).",
+      "justification": "Per OE 4 and OE 22, the recon's own variance_explanation (authored by the persona) cites FX-revaluation rates refreshed after the closing snapshot. The account being USD-denominated means FX revaluation cannot create a variance on principle, which is the structural disproof of the recon's explanation independent of the precedent and evidence findings.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "4b50c2a3-c082-4f0e-2bcd-016690a08b4c",
+    "title": "The Agent creates a reminder for ben.arinzo@brookfieldcpas.com to chase George McAdam on exc_aade06f6129e43 / BL-333FF9956BC6 before the FP-2026-05 period certifies, with a due date ahead of the period close (approximately mid-June 2026).",
+    "annotations": {
+      "evidence": "Look for a reminder add tool call in the trajectory with a title or description referencing chasing George (or the disposition / accept-timing call) on exc_aade06f6129e43 and/or BL-333FF9956BC6 before the FP-2026-05 period certifies, and a due_datetime ahead of the period close (approximately mid-June 2026, for example 2026-06-11). Confirm the tool returned a success response.",
+      "justification": "The prompt asks Ben to 'set me a reminder to chase this with George before the period certifies.' Per OE 23, this is the persona's own follow-up cadence on the records-check finding ahead of FP-2026-05 certification.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "5c61d3b4-d193-4f1f-3cde-12779b19ac5d",
+    "title": "The Agent's reminder is framed distinctly from the two existing reminders on exc_aade06f6129e43 (reminder_scen_009_orphan_exception_0000 covering triage and reminder_scen_009_orphan_exception_0008 covering the post-June-2 feed retry recheck), naming the chase-before-period-certifies disposition follow-up rather than duplicating the triage or post-retry cadence (or similar).",
+    "annotations": {
+      "evidence": "Check the title and description parameters of the reminder add call. The framing must be on the chase-before-FP-2026-05-certifies records-check follow-up (referencing the precedent / evidence findings), not a re-statement of the existing 'Triage BlackLine exception exc_aade06f6129e43' or 'Re-check exc_aade06f6129e43 after June 2 feed retry' framings.",
+      "justification": "Per OE 18 and OE 23, two reminders already exist on the exception and the persona's new reminder must be a distinct cadence (the chase against George on the records-check finding before the period certifies). Without this distinction the rubric collapses to the existing-output anchor trap (agent observes two reminders exist, skips adding a third).",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "6d72e4c5-e2a4-4f20-4def-2388ac2abd6e",
+    "title": "The Agent reports in the final response that the actual recent prior-period precedent on account 102000 is exc_d8fc13aa2cc742 in brookfield_FP-2025-12 (not the FP-2025-11 the thread cited).",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must name exc_d8fc13aa2cc742 and locate it in brookfield_FP-2025-12, contrasted against the FP-2025-11 period the thread claimed (or similar).",
+      "justification": "The prompt asks Ben to 'tell me which recent prior-period record on this account is the closer fit.' Per OE 13 and OE 24, the load-bearing discriminator is identifying the actual recent 102000 precedent (FP-2025-12), against George's mistaken FP-2025-11 framing.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "7e83f5d6-f3b5-4321-5ef0-3499bd3bce7f",
+    "title": "The Agent reports in the final response that the actual recent 102000 precedent carried a financial impact of $617.63, not $42 as the thread claimed.",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must state the precedent's financial impact as $617.63 (the value on exc_d8fc13aa2cc742) and contrast it against the $42 figure the thread cited (or similar).",
+      "justification": "Per the four-pillar refutation in OE 13 and OE 24, the precedent figure is one of the four discrete facts the persona asked to be checked against the records. Approximately $617.63 vs approximately $42 is a roughly fifteen-times mismatch; the agent must surface the actual number.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "8f94060e-0406-4432-60a1-45a0ce4cdf80",
+    "title": "The Agent reports in the final response that the actual recent 102000 precedent's cause label is unrecorded_invoice (an intercompany clearing journal that did not sweep on schedule), not subledger_feed_drop as the thread claimed.",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must state the precedent's type as unrecorded_invoice (or describe the cause as an intercompany clearing journal that did not sweep on schedule) and contrast it against the subledger_feed_drop framing the thread used (or similar).",
+      "justification": "Per the four-pillar refutation in OE 13 and OE 24, the cause label is one of the four discrete facts the persona asked to be checked against the records. The actual recent precedent is an unrecorded_invoice case, not a feed drop, which changes the entire remediation playbook.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "9005171f-1517-4543-71b2-56b1df5de091",
+    "title": "The Agent reports in the final response that the actual recent 102000 precedent was closed by a corrective journal entry posted in the next period (related to reconciliation BL-782A2EC69343), not by accept-timing pending a next-period retry as the thread claimed.",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must state that the precedent's close-out path was a corrective journal entry posted (referencing reconciliation BL-782A2EC69343) and contrast it against the accept-timing / next-period retry framing the thread used (or similar).",
+      "justification": "Per the four-pillar refutation in OE 13 and OE 24, the close-out path is one of the four discrete facts the persona asked to be checked against the records. The actual precedent was closed by a corrective journal entry plus a next-period control-test flag, not by accepting timing on a retry.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "a1162820-2628-4654-82c3-67c2e06ef1a2",
+    "title": "The Agent reports in the final response that the FP-2025-11 102000 reconciliation BL-8DCA6908E272 actually carried a variance of $3.42 with no variance_explanations and no attachments recorded (or similar).",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must name reconciliation BL-8DCA6908E272 (the FP-2025-11 102000 record George cited), the variance of $3.42, and the absence of variance_explanations and attachments on that record (or similar).",
+      "justification": "The prompt asks Ben to 'pull the record for the period that was named and lay it next to the claim.' Per OE 10 and OE 24, the actual FP-2025-11 record is the direct refutation of the thread's '$42 feed-drop' framing: the variance is about a tenth of the claimed figure and no feed-drop story was ever recorded on it.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "b2273931-3739-4765-93d4-78d31f70f2b3",
+    "title": "The Agent reports in the final response that evid_6cbb5c1605904b labelled fx_rate_workbook points to doc_01b7c6e1cbe94529 titled 'Supporting documentation for Marketing / business development' rather than to a workbook supporting the recon's FX-revaluation cause.",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must name evid_6cbb5c1605904b, the label fx_rate_workbook, doc_01b7c6e1cbe94529, and the underlying document title 'Supporting documentation for Marketing / business development' (or similar) and note that the label does not describe the document.",
+      "justification": "The prompt asks Ben to 'read what each piece is labelled as. Then open the underlying documents and see what they cover. If the contents do not back the cause the recon is asserting, say so plainly.' Per OE 15 and OE 16, the first attachment's label-vs-content mismatch is one of the two evidence findings the persona explicitly wants surfaced.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "c3384a42-484a-4876-a4e5-89e42081031c",
+    "title": "The Agent reports in the final response that evid_6969ca2fd0a345 labelled subledger_export points to doc_b3633a2899a04e9e titled 'Supporting documentation for AICPA / state society dues' rather than to a subledger export of the dropped payroll rows.",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must name evid_6969ca2fd0a345, the label subledger_export, doc_b3633a2899a04e9e, and the underlying document title 'Supporting documentation for AICPA / state society dues' (or similar) and note that the label does not describe the document.",
+      "justification": "Per OE 15 and OE 17, the second attachment's label-vs-content mismatch is the other evidence finding the persona explicitly wants surfaced. Keeping it as a separate rubric from the first attachment (instead of bundling) lets an agent who catches one but misses the other receive appropriate partial credit.",
+      "rubric_category": "outcome"
+    }
+  },
+  {
+    "id": "d4495b53-595b-4987-b5f6-9a05319214d4",
+    "title": "The Agent reports in the final response that account 102000 is brookfield's USD Cash - Payroll account, so the recon's FX-revaluation explanation cannot apply on principle (or similar).",
+    "annotations": {
+      "evidence": "Check the agent's final response text. It must identify account 102000 as brookfield's Cash - Payroll account (USD-denominated) and state that an FX-revaluation cause cannot apply to a USD-denominated cash account on principle (or similar).",
+      "justification": "Per OE 4 and OE 24, the recon's own variance_explanation (authored by the persona) cites FX-revaluation rates refreshed after the closing snapshot. The account being USD-denominated is the structural disproof of the explanation independent of the precedent and evidence findings; the persona is recanting the explanation against the universe grounding.",
+      "rubric_category": "outcome"
+    }
+  }
+]

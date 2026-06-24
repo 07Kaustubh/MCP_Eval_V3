@@ -1,0 +1,50 @@
+{
+  "task": "26_6a390e724c34487b95645dcc",
+  "this_prompt": "Tasks/26_6a390e724c34487b95645dcc/5_Prompt.txt",
+  "corpus_size": 28,
+  "top10": [
+    {
+      "path": "Tasks/11_6a2d0b401b5f42afec452859/5_Prompt.txt",
+      "score": 5.5
+    },
+    {
+      "path": "Tasks/22_6a34355a0c0eddf0b0195e43/5_Prompt.txt",
+      "score": 4.0
+    },
+    {
+      "path": "Tasks/25_6a366bc27d66eaedcae82ab4/5_Prompt.txt",
+      "score": 3.7
+    },
+    {
+      "path": "Tasks/4_6a2ac225ec64f75fedd6412c/5_Prompt.txt",
+      "score": 3.2
+    },
+    {
+      "path": "Tasks/7_6a2a699ed252e6d02307f823/5_Prompt.txt",
+      "score": 3.2
+    },
+    {
+      "path": "QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b/Prompt.txt",
+      "score": 3.2
+    },
+    {
+      "path": "Tasks/10_6a2d9411aa26e656b0eff46b/5_Prompt.txt",
+      "score": 3.0
+    },
+    {
+      "path": "Tasks/24_6a36e84723508b4e3f391cfc/5_Prompt.txt",
+      "score": 2.8
+    },
+    {
+      "path": "Tasks/6_6a2afda4bf9d03982582c83a/5_Prompt.txt",
+      "score": 2.8
+    },
+    {
+      "path": "Tasks/13_6a2d0b391b5f42afec451fd7/5_Prompt.txt",
+      "score": 2.7
+    }
+  ],
+  "over_40_ceiling": [],
+  "near_25_to_40": [],
+  "max_score": 5.5
+}
