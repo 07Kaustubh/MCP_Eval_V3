@@ -211,3 +211,23 @@ The prior entry above was written against an earlier verifier-fails paste. The p
 **New lesson for the lever catalog:**
 - L-cross-document-anchoring (cite a prior memo by title in a new memo body) is a WEAK 1-in-6 Opus 4.8 lever when the platform serves the precedent — most runs surface the prior memo naturally once the prompt nudges them toward precedent linkage. Treat as a density patch, not a stump lever, unless paired with a content-discovery cost the catalog metadata cannot shortcut.
 - **NEW pattern: lever-platform-coupling defect.** When a rubric requires successful content retrieval from a seeded Records Vault document, smoke-test the actual `records_vault_download_document_content` call against that document during S0/Universe verification before promoting the rubric. Metadata-layer success (`current_version: 1, status: "active"`) does NOT guarantee content-layer success. Two seeded memos in this task (`doc_38a8236a0c4546e2`, `doc_fb028c9124e146c5`) exhibit the contradiction and force the rubric into a Bucket 1 rewrite.
+
+
+## Tasks/31_6a3f7eecacba1ccbe57db14d — 2026-06-27
+
+REVIEW-flow task. No original hardness plan exists to calibrate against; this is a post-trajectory pattern observation only.
+
+**Observed stumping levers (from `_aux/Council_Reports/S4_verdict.md`):**
+- Pred (inferred): Section 179 / bonus depreciation inference where the tax rate is not stored in the asset records → CONFIRMED at 4/6 fail rate on the final M-1 figure
+- Pred (inferred): Per-period subledger row aggregation (FY2025 window FP-2025-07 through FP-2025-12) versus all-period total → CONFIRMED at 4/6 fail rate on the book depreciation offset
+- Pred (inferred): Asset-scope filtering by account class (150100/150200 IT vs 152000 leasehold) plus in-service window (excluding fiscal-year-2026 January-June additions) → CONFIRMED at 3/6 fail rate
+- Pred (inferred): External client signatory routing when the contact is not in the directory but the engagement manager is the available forwarding path → CONFIRMED at 4/6 fail rate
+- Pred (inferred): Workflow-completion follow-through when uncertainty exists (vault filing + client circulation + team note + reminder all gated on "Once the reconciliation is settled") → CONFIRMED — 3 of 6 runs read the conditional as indefinite hold, blocking the entire downstream chain
+
+**Hit rate:** 5/5 inferred levers fired as legitimate stumping mechanisms. Pass@1 16.7% is healthy for a multi-system reconciliation task.
+
+**Lesson for the lever catalog:**
+- L-tax-election-inference (Section 179 / bonus where the rate is agent-supplied, not stored) is a HIGH-confidence Opus 4.8 lever — even when the underlying cost base and book depreciation are recoverable, the model declines to elect the favorable treatment because the rate is "not in the records". Two of six runs (the strongest) treat the absent rate as an inference task and pass; the rest refuse or substitute wrong aggregations. Pair this lever with a clear "report the figure and how you got there" prompt instruction to avoid epistemic-hedging fails.
+- L-workflow-gate-cascade (a conditional like "Once X is settled, do Y, Z, W") is a MEDIUM-confidence cascade lever — when the agent decides X is not settled, it tends to hold Y, Z, AND W as a block. This produces correlated failures across multiple action rubrics (vault filing, client circulation, slack note) and shows up as a striking pattern in the run matrix (Runs 3, 4, 6 all held the same cascade). Atomic action rubrics catch this cleanly because each cascade step fails independently.
+- L-engagement-manager-routing-when-client-absent is a MEDIUM-confidence judgment lever — over half the runs default to refusing rather than taking the operationally-normal handoff via the engagement manager. Two pass paths in the grading line (direct role-addressed external email OR engagement-manager forwarding with the missing-contact note) prevents this from becoming an over-strict line while still rewarding the agent that picks up the right path.
+

@@ -32,23 +32,35 @@ import sys
 from pathlib import Path
 
 PHASES = {
-    "s0":       [],
-    "hardness": ["_aux/Universe_Split", "_aux/Universe_Index", "_aux/Fact_Ledger.json"],
-    "s1":       ["_aux/Hardness_Plan.md"],
-    "s1.5":     ["5_Prompt.txt"],
-    "s2":       ["5_Prompt.txt"],
-    "s3":       ["5_Prompt.txt", "6_Oracle_Events.txt"],
-    "final":    ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
-                 "_aux/Hardness_Plan.md", "_aux/Fact_Ledger.json"],
-    "s4":       ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
-                 "8_Verifier_Fails.txt"],
-    "review":   ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
-                 "3_UniverseDataForThisTask.json"],
-    "redo":     ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json"],
-    "compare":  ["7_Rubrics.json", "10_Rubrics_Platform.json"],
+    "s0":          [],
+    "hardness":    ["_aux/Universe_Split", "_aux/Universe_Index", "_aux/Fact_Ledger.json"],
+    "s1":          ["_aux/Hardness_Plan.md"],
+    "s1.5":        ["5_Prompt.txt"],
+    "s2":          ["5_Prompt.txt"],
+    "s3":          ["5_Prompt.txt", "6_Oracle_Events.txt"],
+    "final":       ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
+                    "_aux/Hardness_Plan.md", "_aux/Fact_Ledger.json"],
+    "s4":          ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
+                    "8_Verifier_Fails.txt"],
+    "review":      ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
+                    "3_UniverseDataForThisTask.json"],
+    "materialize": ["changes.md", "5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json",
+                    "_aux/Universe_Split", "_aux/Fact_Ledger.json",
+                    "_aux/Council_Reports/REVIEW_triage.md"],
+    "redo":        ["5_Prompt.txt", "6_Oracle_Events.txt", "7_Rubrics.json"],
+    "compare":     ["7_Rubrics.json", "10_Rubrics_Platform.json"],
 }
 
-TODO_PHASES = {"s0", "hardness", "s1", "s1.5", "s2", "s3", "final", "s4", "review", "redo"}
+TODO_PHASES = {"s0", "hardness", "s1", "s1.5", "s2", "s3", "final", "s4", "review", "materialize", "redo"}
+
+VERIFICATION_DEPS = {
+    "hardness": ["s0"],
+    "s1": ["hardness"],
+    "s2": ["s1"],
+    "s3": ["s2"],
+    "final": ["s3"],
+    "s4": ["final"],
+}
 
 
 def check(task_dir, path_str):
@@ -98,6 +110,16 @@ def main():
     print(f"[OK] {args.phase}: all {len(required)} upstream artifacts present")
     for path in required:
         print(f"  - {path}")
+
+    if args.phase in VERIFICATION_DEPS:
+        for upstream_phase in VERIFICATION_DEPS[args.phase]:
+            verif_path = task_dir / "_aux" / f"Verification_{upstream_phase}.md"
+            if verif_path.exists() and verif_path.stat().st_size > 0:
+                print(f"[OK] upstream _aux/Verification_{upstream_phase}.md present — cross-source verification confirmed")
+            else:
+                print(f"[REMIND] Upstream phase {upstream_phase.upper()} should have produced _aux/Verification_{upstream_phase}.md before this phase runs.")
+                print(f"         The v16 cross-source verification discipline requires each phase to declare what it verified against data + eval spec + QC spec.")
+                print(f"         If missing, the upstream phase did not record its cross-source check; consider re-running it.")
 
     if args.phase in TODO_PHASES:
         todo_path = task_dir / "_aux" / f"Todos_{args.phase}.md"

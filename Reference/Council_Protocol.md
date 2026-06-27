@@ -91,12 +91,12 @@ Source of truth: `_aux/Fact_Ledger.json` + `_aux/Universe_Split/`. For each erro
 Read `Brookfield_Base_Universe/2_Persona_Briefs.md` end-to-end. For the assigned persona, grade prompt-fit 1-5. Then identify any OTHER persona from the 28 that would fit the prompt BETTER. If a better fit exists, output:
 `PERSONA_FIT_MISMATCH: assigned=<name> (fit=<n>/5) better_candidate=<name> (fit=<n>/5) reason=<one-line>`.
 
-Decision: better-fit candidate with delta ≥ 2 = NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. No better fit = PASS. Acceptance rule: CBs may swap persona for a better-fitting one (without changing assigned business function), so flag for operator-decision, not auto-block.
+Decision: better-fit candidate with delta ≥ 2 = NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. No better fit = PASS. Acceptance rule: **both CB and REVIEW authors may swap persona for a better-fitting one (without changing assigned business function)**. This is a common fallback when the assigned persona does not yield a strong scenario / fails the hardness gate. Flag for operator-decision, not auto-block. The business function is the fixed scope anchor; persona is the flexible variable.
 
 ### A10 — Business Function Match (prompt phase)
 Read `Docs/5_Prompt_Diversity_Business_Function.md` (or `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` as fallback) to enumerate the 10 Brookfield business functions: Accounting Operations, Bookkeeping, Tax, Compliance & Internal Controls, Audit, AP / Vendor Operations, BlackLine Close-Discipline & Variance, Engagement Mgmt & Client Operations, Executive / Partner Oversight, HR & People Operations.
 
-For the assigned business function, verify the prompt's primary scenario is genuinely within that category. Output: `BUSINESS_FUNCTION: assigned=<n> prompt_primary=<n> match=<true|ambiguous|false>`. Ambiguous (could reasonably belong to either) = NON-FAIL. False = consider escalating to BLOCK (since CBs cannot change assigned business function).
+For the assigned business function, verify the prompt's primary scenario is genuinely within that category. Output: `BUSINESS_FUNCTION: assigned=<n> prompt_primary=<n> match=<true|ambiguous|false>`. Ambiguous (could reasonably belong to either) = NON-FAIL. **False = BLOCK in both CB and REVIEW flows — the business function is the FIXED scope anchor and cannot be reassigned.** This is the hard counterpart to A9's flexible persona rule: persona may be swapped, business function may not. Applies symmetrically to both CB and REVIEW flows.
 
 ### A11 — End-to-End Solvability (prompt + OE phase)
 Walk the dependency chain from `_aux/Hardness_Plan.md` (the projected agent trajectory). For each step, verify the required source row is materialized in `_aux/Universe_Split/`. Specifically: every contact lookup resolvable, every JE / exception / recon / invoice / vendor id present, every fiscal period / account / Slack channel valid. The Fact_Ledger groundedness sweep proves named atoms EXIST; this perspective proves the FULL DEPENDENCY CHAIN connects.
@@ -193,7 +193,7 @@ Fact_Ledger + Universe_Split. 1+ MAJOR or 2+ MINOR = FAIL; 1 MINOR = NON-FAIL.
 
 [A9 — Persona Fit Comparison] (prompt phase) Read 2_Persona_Briefs.md.
 Grade assigned persona fit 1-5. Identify a better-fit candidate. Delta >= 2
-= NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. CBs may swap persona, so
+= NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. Both CB and REVIEW authors may swap persona, so
 flag for decision not auto-block.
 
 [A10 — Business Function Match] (prompt phase) Read

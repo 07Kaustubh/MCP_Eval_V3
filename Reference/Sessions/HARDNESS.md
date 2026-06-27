@@ -35,6 +35,35 @@ Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
 
 Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_hardness.md` listing every step in the Procedure below as a discrete atomic todo. Mark `in_progress` / `completed` as you progress. v11 E1 operator-discipline gate.
 
+## Step 0.5: Cross-Source Verification (v16 — MANDATORY before exit)
+
+Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` declaring the cross-source check:
+
+```
+## Data sources consulted
+- _aux/Universe_Split/ :: <which tables sampled for lever scanning>
+- _aux/Fact_Ledger.json :: <amount/email/id counts checked for lever feasibility>
+- _aux/Universe_Index/graph_report.md :: <density signals consulted>
+
+## Reference docs consulted
+- Reference/Hardness_Playbook.md :: <which of the 11 levers were considered + selected>
+- Tasks/_meta/Learnings.md :: <which L<n> entries cited as lever rationale>
+
+## Eval spec sub-dims relevant to this phase
+- Trajectory dim Tool Call Count (≥ 15 floor; pipeline targets 50+ midpoint) :: <projected midpoint>
+
+## QC spec sub-dims relevant to this phase
+- Trajectory T1 Tool Call Count :: <projected midpoint, band>
+
+## Verification statements
+- [ ] At least 3 levers selected; each cites a Learnings.md entry.
+- [ ] Density midpoint projection is one of {PASS ≥ 50, THIN 40-49, INSUFFICIENT < 40}.
+- [ ] Service breadth table populated (v11 G1).
+
+## Discrepancies surfaced (if any)
+- <none / list>
+```
+
 ## Procedure
 
 1. **Read `Tasks/_meta/Learnings.md` end to end.** This is the mandatory first action of HARDNESS. The entries (L1, L2, ...) calibrate which levers actually fail Opus 4.8 and which are wasted effort. The L1-L7 "does not reliably fail" block is just as important as the L8-L14 "reliably fails" block — picking a single-hop reduction or a near-miss-entity-only trap wastes the task budget.
@@ -133,7 +162,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_hardness.md` listin
    ```
 
 8. **Gates.** Tiered handling:
-   - **Fewer than 3 levers available** → `INSUFFICIENT_LEVERS (n/5)` — STOP. User must edit the universe or pick a different task.
+   - **Fewer than 3 levers available** → `INSUFFICIENT_LEVERS (n/5)` — STOP. User has three fallback options: (a) edit the universe to surface more levers, (b) swap to a different persona within the SAME business function (this is allowed in both CB and REVIEW flows — the business function is the fixed scope anchor but persona is flexible; pick a persona whose role surfaces more hardness levers, document the swap in `Hardness_Plan.md` under `## Persona swap`), or (c) pick a different task.
    - **Projected tool-call midpoint < 40** → `INSUFFICIENT_DENSITY (n/40)` — STOP. Pick more levers (4-5 instead of 3), expand the write-action mix (add Records Vault / Linear / Airtable writes), or both. If even the maximum lever combination cannot reach 40, the per-task universe is too thin and the user must decide whether to continue.
    - **Projected tool-call midpoint 40-49** → `THIN_DENSITY (n/50)` — operator decision: either expand to push midpoint to ≥ 50 (preferred — design target produces ~40+ on real runs), OR continue with explicit per-task justification documenting why this task cannot reach 50 (e.g., universe is structurally thin on a specific service). Document the choice in `Hardness_Plan.md` under a new subsection `## THIN density acceptance` if continuing.
    - **Projected tool-call midpoint ≥ 50** → PASS. Proceed to S1.
@@ -149,7 +178,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_hardness.md` listin
 
 This phase ends here. End your response. Wait for the user to invoke `PIPELINE S1 — Tasks/<TASK_DIR>` in a fresh chat.
 
-If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to edit the universe, swap the task, or accept a lower hardness target before invoking S1.
+If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to (a) edit the universe, (b) swap the persona to a different one within the SAME business function (allowed in both CB and REVIEW flows), (c) swap the task, or (d) accept a lower hardness target before invoking S1.
 
 Do NOT proceed to prompt drafting in this chat.
 

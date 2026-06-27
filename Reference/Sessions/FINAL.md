@@ -74,6 +74,41 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 
 Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_final.md` listing every step in the Procedure below as a discrete atomic todo. Mark `in_progress` / `completed` as you progress. v11 E1 operator-discipline gate.
 
+## Step 0.5: Cross-Source Verification (v16 — MANDATORY before exit)
+
+Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_final.md` with the cross-artifact + cross-source re-check:
+
+```
+## Data sources consulted
+- All 3 artifacts (5_Prompt, 6_Oracle_Events, 7_Rubrics) read together
+- _aux/Universe_Split/ :: cross-verified end-to-end dependency chain
+- _aux/Fact_Ledger.json :: every atom in artifacts traced to ledger
+- _aux/Hardness_Plan.md :: lever preservation traced through artifact set
+- _aux/Verification_s1.md / Verification_s2.md / Verification_s3.md :: prior phase verifications cross-referenced
+
+## All 4 eval specs verified
+- Evals/1_Prompt_Eval.md :: Prompt phase eval re-applied at integration layer
+- Evals/2_Oracle_Events_Eval.md :: OE phase eval re-applied
+- Evals/3_Rubrics_Eval.md :: Rubrics phase eval re-applied
+- Evals/4_Verifier_Fails_Eval.md :: Lens 6 simulates verifier-fails bucket classification
+
+## QC spec full coverage check (Docs/7_QC_Spec_Doc1.json + Docs/8_QC_Spec_Doc2.md)
+- All Prompt sub-dims (12) :: scored
+- All Universe sub-dims (2) :: scored
+- All OE sub-dims (2) :: scored
+- All Rubric sub-dims (5) :: scored
+- Trajectory sub-dims (T1 only at this phase; T2/T3 deferred to S4)
+
+## Verification statements
+- [ ] Validator (validate.py --phase all) exit 0 across all 3 artifacts.
+- [ ] 6 FINAL lenses returned PASS (Truthfulness / Rubric Binding / Cross-Artifact Holism / Red-team / Narrative-State + Action-Prescription / Verifier-Fails-Spec Pre-Upload).
+- [ ] Zero answer leakage (correct figure not stated verbatim anywhere).
+- [ ] Every Hardness lever still triggers end-to-end.
+
+## Discrepancies surfaced
+- <none / list>
+```
+
 ## Procedure
 
 1. **Verify upstream artifacts exist.** All three deliverables + Hardness_Plan + Fact_Ledger must be in place.

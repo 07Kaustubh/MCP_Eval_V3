@@ -43,11 +43,19 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
 1. **Run S0 setup in full** — PersonaBrief, `split_universe.py`, `build_universe_index.py`, **`build_fact_ledger.py`**, **`build_graph_report.py`**. The review still needs the per-task universe split, index, ledger, and graph report — they were not produced when the candidate wrote the deliverables. The Fact Ledger is what backs the validator's groundedness sweep and Council A's atom verification; without it the review falls back to slow + less-rigorous substring scanning.
 
-2. **Run the full assessment.** Always all three phases, regardless of any outcome — the candidate's rating depends on shortcomings across every artifact.
+2. **Run the full assessment with parity to CB's per-phase gates.** Always all three phases, regardless of any outcome — the candidate's rating depends on shortcomings across every artifact.
+
    ```
    python Validators/validate.py --phase all --task Tasks/<TASK_DIR>
    ```
-   Then Council A grounding sweep on `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json`. Then Council B (5 perspectives × 5 lenses) on each. Then Final Council cross-artifact per `Reference/Sessions/FINAL.md` (Truthfulness lens, Cross-artifact Holism lens, Rubric Binding lens, Red-team lens). Every finding lands in `changes.md`.
+
+   Then in sequence:
+   1. **Council A** grounding sweep on `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` (all 13 perspectives A1-A13).
+   2. **Council B** adversarial QC on each artifact (all 11 perspectives B1-B11).
+   3. **AUDIT on each ORIGINAL artifact (v17 — parity with CB's per-phase auto-fire)**: invoke `PIPELINE AUDIT --phase prompt`, `--phase oe`, `--phase rubrics` on the candidate's originals. Reports → `_aux/Council_Reports/AUDIT_prompt_original.md`, `AUDIT_oe_original.md`, `AUDIT_rubrics_original.md`. This applies the strictest-interpretation lens that CB gets per-phase via the v7 inline-AUDIT mandate; REVIEW previously skipped this on the originals and only ran AUDIT on the corrected 14/15.
+   4. **Final Council** cross-artifact per `Reference/Sessions/FINAL.md` (all 6 lenses).
+
+   Every finding from Council A + Council B + AUDIT + FINAL lands in `changes.md` (Step 6).
 
 3. **Pre-assess hardness (measured if possible).** Two paths:
    - **Trajectories present** (`Tasks/<TASK_DIR>/trajectory-runs/trajectory-run-*.json` OR `Tasks/<TASK_DIR>/Agent_Responses/Run*.json` non-empty): run the parser to compute real numbers:
@@ -59,14 +67,31 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
    Write the numbers + source (measured | predicted) to `_aux/Council_Reports/REVIEW_hardness.md`.
 
+3.5. **Deep trajectory analysis with S4-style bucket classification (v17).** If `Agent_Responses/Run*.json` exists, walk every failing rubric trajectory across all runs and classify each into a bucket — same procedure as PIPELINE S4, but applied to the candidate's ORIGINAL rubric set, not the corrected one.
+
+   For every rubric that failed in any run, build a trajectory walk record covering ALL completed runs:
+   - **Bucket 1 — Rubric Invalid**: the rubric is the problem (e.g., locked-in channel when prompt said "notify", fabricated value, fake tool name, evidence stricter than criterion, overly broad accepting invalid options). Action: each Bucket 1 finding AUTO-POPULATES a `changes.md` row tagged `[trajectory-bucket-1]` with the concrete failure evidence (Run X, trajectory citation showing why the rubric fails the candidate's correct action). The materialization step will fix or remove the rubric.
+   - **Bucket 2 — Judge Error**: the rubric is correct but the judge misread the trajectory. Trajectory citation proves the agent satisfied it. Action: log to `_aux/Council_Reports/REVIEW_bucket_classification.md` as POSITIVE evidence of rubric soundness.
+   - **Bucket 3 — Legitimate Model Failure**: the rubric is correct and the agent really failed. This is desired difficulty. Action: log as POSITIVE evidence of rubric quality + hardness.
+
+   Then run the same T2 + T3 hard gates from S4 on the ORIGINAL trajectories:
+   - **T2 (pass@1 ≤ 40%)**: across completed runs, count how many passed all valid rubrics. > 40% = task is too easy on the original; this strengthens the case for REBUILD.
+   - **T3 (error_runs ≤ 2)**: count runs that errored out. ≥ 3 = trajectory set unreliable; flag for re-run before final scoring.
+
+   **All-Failing Rubrics sub-dim scoring (same threshold as S4 D2)**: compute `Bucket 1 ratio = Bucket 1 count / total failing rubrics count`. > 50% = 1/5 FAIL on All-Failing Rubrics sub-dim; 25-50% = 3/5 NON-FAIL; < 25% = 5/5 PASS. Record in `_aux/Council_Reports/REVIEW_bucket_classification.md` AND feed into the triage decision in Step 4 (high Bucket 1 ratio = rubric set is fragile, weighs toward REBUILD).
+
+   This closes the gap where REVIEW used trajectory data only for hardness numbers (pass@1, tool calls) and never walked the trajectories to distinguish rubric defects from genuine model failures.
+
 4. **Binary triage decision, mapped strictly to QC scoring.** The bar is clean 5/5 on every applicable QC sub-dimension. No score below 5 ships — either fix it to 5 in-place, or REBUILD. No issue is overlooked.
 
    First, produce a per-sub-dim QC scoresheet for the prompt (12 sub-dims from `Docs/7_QC_Spec_Doc1.json` Prompt + Universe sections). Then apply this decision table:
 
    | Trigger (apply in order) | Verdict | Action |
    |---|---|---|
-   | ANY QC sub-dim on prompt or universe scores **1-2 (FAIL band)** — feasibility, unique-ground-truth end-state divergence, persona / business-function major mismatch, coherence bolt-on, contrived, investigation pre-solved, single-service tool use, ≥2 Major truthfulness errors, universe data missing | **REBUILD** | Cannot be fixed in-place — the scenario itself is the problem. Do NOT emit 14/15. Recommend `PIPELINE REDO`. |
-   | Hardness fails: `pass_at_1 > 0.40` OR `avg_tool_calls_total < 40` (measured) OR Council B-B3 projected density < 40 OR Council B-B4 says levers don't trigger OR FINAL caught answer leakage | **REBUILD** | Hardness can't be patched by OE/rubric edits — needs new lever combination. Recommend `PIPELINE REDO`. |
+   | **Business function mismatch** — the prompt's primary scenario does not match the assigned business function (one of the 10 Brookfield categories) | **REBUILD** | Business function is the FIXED scope anchor and cannot be reassigned in either CB or REVIEW flow. Do NOT emit 14/15. Recommend `PIPELINE REDO`. |
+   | **Persona mismatch (business function still valid)** — the assigned persona's role does not credibly fit the prompt, but a different persona within the SAME business function would | **SALVAGEABLE (persona-swap)** | Both CB and REVIEW authors may swap persona for a better-fitting one within the same business function. Add a `## Persona swap` row in `changes.md` naming the new persona + role + reason. Update 2_Persona.txt + minor prompt edits in `_aux/REVIEW_prompt_draft.txt` if persona name appears in prompt body. Re-score after the swap. |
+   | ANY OTHER QC sub-dim on prompt or universe scores **1-2 (FAIL band)** — feasibility, unique-ground-truth end-state divergence, coherence bolt-on, contrived, investigation pre-solved, single-service tool use, ≥2 Major truthfulness errors, universe data missing | **REBUILD** | Cannot be fixed in-place — the scenario itself is the problem. Do NOT emit 14/15. Recommend `PIPELINE REDO`. |
+   | Hardness fails: `pass_at_1 > 0.40` OR `avg_tool_calls_total < 40` (measured) OR Council B-B3 projected density < 40 OR Council B-B4 says levers don't trigger OR FINAL caught answer leakage | **REBUILD (or persona-swap retry)** | First check: would a persona-swap within the SAME business function unlock more hardness levers (e.g., a Compliance Officer persona surfaces more cross-service AML levers than the assigned Accounts Manager)? If yes, swap persona and re-run HARDNESS before declaring REBUILD. If no, hardness can't be patched — recommend `PIPELINE REDO`. |
    | Otherwise (every sub-dim scores 3-5, no hardness failure) | **SALVAGEABLE** | Fix every sub-dim < 5 in-place via `changes.md`. The fix MUST raise the score to 5 — a 3-4 (NON-FAIL band) score is still unacceptable for ship. Minor prompt edits land in `_aux/REVIEW_prompt_draft.txt`; OE + rubric edits land in 14/15. Re-score after Applied rows to confirm 5/5 before ship. |
 
    Document the verdict in `_aux/Council_Reports/REVIEW_triage.md`. Include:
@@ -84,13 +109,13 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
    | # | Phase | Dimension | Severity | Before | After (proposed) | Why | Verified | Status |
    |---|---|---|---|---|---|---|---|---|
-   | 1 | Prompt | Truthfulness | Major | "<exact quote from candidate>" | "<proposed text>" | <one-line why, citing the per-task record> | yes — checked <file>:<row_id> | Pending |
-   | 2 | OE | Accuracy | Major | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0099" | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0075" | the JE-0099 entry does not exist in this task's universe; the actual ID is JE-0075 | yes — confirmed in oracle_gl.ogl_journal_entries.json | Pending |
-   | 3 | Rubrics | Atomicity | Moderate | rubric[12] bundles 'sends email AND creates Linear issue' | split into two rubrics | bundling violates atomicity (two failure modes for one rubric) | yes — flagged by validator and Council B | Pending |
+   | 1 | Prompt | Truthfulness | Major | "<exact quote from candidate>" | "<proposed text>" | <one-line why, citing the per-task record> | yes — checked <file>:<row_id> | Applied |
+   | 2 | OE | Accuracy | Major | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0099" | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0075" | the JE-0099 entry does not exist in this task's universe; the actual ID is JE-0075 | yes — confirmed in oracle_gl.ogl_journal_entries.json | Applied |
+   | 3 | Rubrics | Atomicity | Moderate | rubric[12] bundles 'sends email AND creates Linear issue' | split into two rubrics | bundling violates atomicity (two failure modes for one rubric) | yes — flagged by validator and Council B | Applied |
    ```
 
    Severity from QC spec: Major / Moderate / Minor.
-   Status starts as Pending. The user later marks Applied / Dismissed-with-proof / Pending.
+   **Status defaults to `Applied` (v17 auto-apply)** so the operator can invoke `PIPELINE MATERIALIZE` in a fresh chat directly without manual marking. If the operator wants to reject a specific row, they can manually edit `changes.md` and change `Applied` → `Dismissed` (with one-line proof) before invoking MATERIALIZE. Trajectory-bucket-1 findings auto-populated in Step 3.5 are tagged `[trajectory-bucket-1]` in the issue column for traceability.
 
 7. **Defer the candidate-facing feedback to PIPELINE FEEDBACK.** Do NOT write `13_Feedback.txt` inside REVIEW. The feedback step has been lifted into a dedicated fresh-chat phase (`PIPELINE FEEDBACK — Tasks/<TASK_DIR>`) that runs AFTER REVIEW and BEFORE CLOSE.
 
@@ -98,20 +123,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
    REVIEW step 7 is therefore a NO-OP. Skip to step 8 (materialization). `13_Feedback.txt` gets written when the operator invokes `PIPELINE FEEDBACK` in a fresh chat after REVIEW completes.
 
-8. **Materialize the corrected deliverables (triage-aware)**:
-   - **If triage = REBUILD**: do NOT emit 14/15 even if rows are Applied. The scenario is the problem — patching OE / rubric on top would ship a half-fixed task. `13_Feedback.txt` carries the FAIL verdict + full shortcoming list, and the user invokes `PIPELINE REDO — Tasks/<TASK_DIR>` to rebuild from scratch.
-   - **If triage = SALVAGEABLE**:
-     - `Tasks/<TASK_DIR>/14_Updated_Oracle_Events.txt` — written ONLY if any OE-phase row in `changes.md` is Applied. Contains the full corrected OE list.
-     - `Tasks/<TASK_DIR>/15_Updated_Rubrics.json` — written ONLY if any rubric-phase row in `changes.md` is Applied. Contains the full corrected rubric JSON.
-     - If any prompt-phase row in `changes.md` is Applied (minor fixes that don't change the scenario shape): write the corrected prompt to `_aux/REVIEW_prompt_draft.txt`. The user pastes it back to the platform if they want to ship the corrected prompt alongside 14/15.
-
-   Do NOT touch `5_Prompt.txt`, `6_Oracle_Events.txt`, or `7_Rubrics.json`. The originals are the rated artifact. 14/15 (and the draft) are the candidate-correct version that the user can ship to the platform.
-
-   If no rows are Applied at REVIEW time, skip 14/15. They are generated on a subsequent pass once the user marks rows Applied in `changes.md`.
-
-9. **Apply only fixes the user has marked Applied** in `changes.md`. Do NOT apply fixes unilaterally — the user is rating the original candidate; pre-applying fixes erases the evidence.
-
-10. **Score each phase against QC.** Write a final score summary in `_aux/Council_Reports/REVIEW_score.md`:
+8. **Score each phase against QC.** Write a final score summary in `_aux/Council_Reports/REVIEW_score.md`:
 
    ```markdown
    # REVIEW score summary
@@ -137,30 +149,25 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
    - Overall: ...
    ```
 
-11. **Re-run gates on the corrected `14_Updated_Oracle_Events.txt` and `15_Updated_Rubrics.json` if emitted.** Treat the corrected versions as a fresh shipment: run `python Validators/validate.py --phase oe` and `--phase rubrics` against them (point the validator at temp copies named `6_Oracle_Events.txt` / `7_Rubrics.json` in a scratch dir if needed), then re-run Council A + Council B + **AUDIT (`--phase oe` for 14, `--phase rubrics` for 15)** + FINAL against the corrected set.
+   Include the All-Failing Rubrics sub-dim score from Step 3.5 if trajectories were available.
 
-   AUDIT auto-fires on the corrected materialization for the same reason it auto-fires in S1/S2/S3: catching defects at the producing phase (here, the corrected version is the produced artifact) is cheaper than catching them at FINAL or at platform-reviewer time. Save reports to `_aux/Council_Reports/AUDIT_oe.md` and `_aux/Council_Reports/AUDIT_rubrics.md` (overwrite any prior audit since the artifact has changed). Verdict handling matches S2/S3: `PASS (STRICT)` → proceed; `REVISE` → apply fixes + re-run gate set (cap 3 rounds); `REBUILD` → STOP, recommend the original triage REBUILD verdict was correct and `PIPELINE REDO` is mandatory after all.
-
-   Same rule for the corrected prompt draft in `_aux/REVIEW_prompt_draft.txt` if any prompt-phase row was Applied: run AUDIT `--phase prompt` on it (`_aux/Council_Reports/AUDIT_prompt.md`).
-
-   Any BLOCKER on the corrected version means the fix introduced a new issue — iterate until clean. Originals 5/6/7 stay untouched throughout.
+9. **STOP — materialization handed off to PIPELINE MATERIALIZE (v17).** REVIEW no longer materializes the corrected 14/15 inline. It produces the analysis + change-list + auto-marked changes.md, then the operator invokes `PIPELINE MATERIALIZE — Tasks/<TASK_DIR>` in a fresh chat to apply Applied rows and re-run the gates on the corrected set. This split keeps the REVIEW chat context clean (analysis only) and the MATERIALIZE chat focused (apply + verify only).
 
 ## Exit criteria
 
 - `_aux/Universe_Split/` and `_aux/Universe_Index/` exist.
 - `_aux/Fact_Ledger.json` exists.
 - `_aux/Validator_Reports/` populated.
-- `_aux/Council_Reports/REVIEW_*.md` populated (one per phase).
-- `changes.md` exists with every confirmed finding as a row.
+- `_aux/Council_Reports/REVIEW_*.md` populated (one per phase + AUDIT_*_original.md per artifact + REVIEW_bucket_classification.md if trajectories were present).
+- `changes.md` exists with every confirmed finding as a row, all rows auto-marked `Applied` (operator may manually flip individual rows to `Dismissed` before invoking MATERIALIZE).
 - `_aux/Council_Reports/REVIEW_score.md` exists with per-phase QC scores.
 - `13_Feedback.txt` is NOT written by this phase (deferred to `PIPELINE FEEDBACK` in a fresh chat — see step 7).
-- `14_Updated_Oracle_Events.txt` exists IFF any OE-phase row is Applied.
-- `15_Updated_Rubrics.json` exists IFF any rubric-phase row is Applied.
+- `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` are NOT written by this phase (deferred to `PIPELINE MATERIALIZE`).
 - Originals `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` are UNTOUCHED.
 
 ## STOP gate
 
-This phase ends here. End your response. The user reviews `changes.md` and marks each row Applied / Dismissed / Pending. The candidate-facing feedback `13_Feedback.txt` is written separately by `PIPELINE FEEDBACK` in a fresh chat (see step 7) — that phase runs AFTER REVIEW and BEFORE CLOSE.
+This phase ends here. End your response. The operator can optionally edit `changes.md` to flip specific Applied rows to Dismissed before next step. Then invoke `PIPELINE MATERIALIZE — Tasks/<TASK_DIR>` in a fresh chat to apply the Applied rows + re-run gates on the corrected 14/15 + prompt draft. After MATERIALIZE, invoke `PIPELINE FEEDBACK` then `PIPELINE CLOSE`.
 
 Next-trigger paths (per triage verdict + platform outcome):
 

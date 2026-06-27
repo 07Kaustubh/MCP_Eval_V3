@@ -1,5 +1,118 @@
 # Changelog
 
+## 2026-06-27 — v17: REVIEW Flow Parity with CB + Auto-Apply + New MATERIALIZE Trigger (4-Item Plan)
+
+Closes the two parity gaps where REVIEW had lighter scrutiny than CB, adds auto-apply for `changes.md`, and splits REVIEW into two phases (analysis + materialization) to keep each chat context clean.
+
+### Item 1 — Inline AUDIT on candidate's ORIGINAL artifacts
+
+CB runs AUDIT inline after every per-phase deliverable (v7 mandate). REVIEW previously ran AUDIT only on the corrected 14/15 at the materialization step — never on the candidate's originals. v17 adds Step 2 sub-step 3: `PIPELINE AUDIT --phase prompt`, `--phase oe`, `--phase rubrics` on the candidate's originals. Reports → `_aux/Council_Reports/AUDIT_<phase>_original.md`. Findings feed `changes.md` alongside Council A/B findings. This applies the same strictest-interpretation lens to the original that CB gets per-phase.
+
+### Item 2 — Deep trajectory analysis: S4-style bucket classification on ORIGINAL trajectories
+
+REVIEW Step 3 used trajectory data only for hardness numbers (pass@1, avg tool calls) — never walked the trajectories to distinguish rubric defects from genuine model failures. v17 adds new Step 3.5: if `Agent_Responses/Run*.json` exists, walk every failing rubric trajectory across completed runs and classify into Bucket 1 (Rubric Invalid) / Bucket 2 (Judge Error) / Bucket 3 (Legit Fail) — same procedure as PIPELINE S4, applied to the candidate's ORIGINAL rubric set. Bucket 1 findings AUTO-POPULATE `changes.md` rubric-fix rows tagged `[trajectory-bucket-1]` with the concrete failure evidence. Bucket 2/3 are noted in `_aux/Council_Reports/REVIEW_bucket_classification.md` as positive evidence of rubric soundness (feeds into FEEDBACK score). T2 (pass@1 ≤ 40%) + T3 (error_runs ≤ 2) hard gates from S4 also run here on the original. All-Failing Rubrics sub-dim scoring (Bucket 1 ratio threshold 50% / 25%) applies the same scoring scheme as S4 D2.
+
+### Item 3 — Auto-mark changes.md + new PIPELINE MATERIALIZE trigger
+
+REVIEW previously tried to do everything in one phase: analysis + change-list + materialization + re-gates. Two problems: (1) operator friction (had to manually mark every `changes.md` row as Applied before materialization), (2) chat context bloat (analysis + materialization in one chat made it hard to keep separate concerns clear). v17 split:
+
+- **PIPELINE REVIEW (new shape):** runs analysis Steps 0-7 + Step 6 auto-marks all new rows as `Applied` (instead of leaving them `Pending`) + Step 8 writes the score summary + STOPs with next-trigger `PIPELINE MATERIALIZE` in fresh chat. Materialization Steps 8-11 removed from REVIEW.
+- **PIPELINE MATERIALIZE (NEW trigger, new runbook `Reference/Sessions/MATERIALIZE.md`):** reads triage verdict → if REBUILD, STOPs with REDO recommendation; if SALVAGEABLE, applies Applied rows to produce corrected `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` / `_aux/REVIEW_prompt_draft.txt`, then re-runs full gate set (validator + Council A + Council B + AUDIT + FINAL) on the corrected materialization with 3-round REVISE cap. AUDIT verdict REBUILD on the corrected version means triage was wrong → STOPs with REDO recommendation.
+
+Trigger count: 15 → **16**. Operator-decision preserved: between REVIEW and MATERIALIZE, operator can manually edit `changes.md` and flip specific rows `Applied` → `Dismissed` to reject individual fixes; auto-apply is the default, manual override is one-edit away.
+
+### Item 4 — Docs + infrastructure
+
+- `Validators/phase_ready.py` — new `materialize` phase with preconditions (`changes.md` exists, has Applied rows, REVIEW_triage.md present, S0 outputs present); MATERIALIZE added to TODO_PHASES.
+- `AGENTS.md` PIPELINE DISPATCH — REVIEW row description updated to reflect new (analysis-only) shape; new MATERIALIZE row inserted between REVIEW and REDO; trigger count statement updated 15 → 16.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 33 / 33 PASS (no validator code changes; runbook-only updates) |
+| `Validators/phase_ready.py --phase materialize --task Tasks/24_...` | STOPs correctly (no `changes.md` or `REVIEW_triage.md` on Task 24) + emits E1/E2 REMINDs once preconditions present |
+| `Validators/validate.py --phase all --task Tasks/24_...` | unchanged from v15 baseline (prompt 0F/2W/2N, OE 0F/0W/1N, rubrics 3F/8W/3N) |
+| `grep -cE "^\| \`PIPELINE" AGENTS.md` | 16 ✓ |
+
+### Files changed
+
+- `Reference/Sessions/REVIEW.md` — Step 2 expanded with inline AUDIT on originals (4 sub-steps: Council A → Council B → AUDIT-on-originals → FINAL); new Step 3.5 with full S4-style bucket classification; Step 6 status default flipped to `Applied`; Steps 8-11 (materialization) removed and replaced with Step 9 STOP pointer to PIPELINE MATERIALIZE; Exit criteria + STOP gate updated to reflect new flow shape.
+- `Reference/Sessions/MATERIALIZE.md` — NEW runbook. Phase-readiness gate refuses without `changes.md` + REVIEW_triage.md; Step 0 TODO mandate; Procedure reads triage verdict + partitions Applied rows by phase + materializes 14/15 + draft + re-runs full gate set on corrected; STOP gate routes to FEEDBACK then CLOSE.
+- `Validators/phase_ready.py` — `materialize` phase preconditions + TODO_PHASES extension.
+- `AGENTS.md` — PIPELINE DISPATCH MATERIALIZE row + trigger count 15 → 16.
+
+### What this closes
+
+REVIEW now has full parity with CB's per-phase gate set: validator + Council A (13 perspectives) + Council B (11 perspectives) + AUDIT (9 lenses) + FINAL (6 lenses) — all running on the candidate's ORIGINAL artifacts, not just the corrected materialization. Deep trajectory analysis (S4-style bucket classification) runs on the original trajectories when present; Bucket 1 findings auto-populate `changes.md` rubric fixes with concrete failure evidence. Auto-apply removes the manual marking step — operator invokes `PIPELINE MATERIALIZE` directly in a new chat to apply fixes and verify the corrected materialization. Phase split keeps each chat context tight (REVIEW = analysis only; MATERIALIZE = apply + verify only).
+
+REVIEW flow as of v17:
+```
+PIPELINE REVIEW          → analysis + auto-marked changes.md (no 14/15 yet)
+PIPELINE MATERIALIZE     → apply Applied rows + re-run gates on 14/15 + draft
+PIPELINE FEEDBACK        → write 13_Feedback.txt rating ORIGINAL against QC spec
+PIPELINE CLOSE           → final audit
+```
+
+CB flow unchanged. Both flows now share the same scrutiny depth (Council A + B + AUDIT + FINAL per artifact) and the same trajectory-walk discipline (S4-style bucket classification when trajectories are available).
+
+---
+
+## 2026-06-27 — v16: Cross-Source Verification Discipline
+
+Operator feedback after v15: the fresh-chat principle was meant to prevent agents from overlooking prior attempts that the current relies on — but each phase was implicitly trusting upstream outputs rather than independently re-verifying against the source data + eval spec + QC spec doc. v16 formalizes the discipline.
+
+### What changed
+
+Every build phase (S0, HARDNESS, S1, S2, S3, FINAL, S4, AUDIT) gets a mandatory `Step 0.5: Cross-Source Verification` that produces `_aux/Verification_<phase>.md` declaring exactly what was verified against:
+
+| Source | What the phase declares |
+|---|---|
+| **Per-task data** (`_aux/Universe_Split/` + `_aux/Fact_Ledger.json` + universe records) | Specific records / atoms consulted; ground-truth values re-confirmed |
+| **Eval spec doc** (`Evals/1-4`) | Sub-dim verdicts for this phase's eval spec |
+| **QC spec doc** (`Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md`) | QC sub-dim scores re-applied at this phase |
+| **Prior phase verification** (`_aux/Verification_<prior>.md`) | Upstream cross-check confirmed independently |
+| **Reference cards** (`Reference/*_Format.md` + inventories) | Format conventions re-checked |
+| **Verification statements** (checklist) | Per-phase guarantees enumerated as checkboxes |
+| **Discrepancies** | Any source-conflict surfaced and resolved |
+
+### Why this matters
+
+The fresh-chat principle (each phase in a clean chat) protects against carrying forward stale assumptions. But without explicit re-verification, a fresh-chat agent could draft a deliverable that trusts prior phase outputs blindly. v16 forces each phase to RE-verify against the three sources of truth: data, evals, QC spec. This catches:
+- The case where prior phase output was correct against its sources, but the new phase's interpretation of those sources differs
+- The case where eval spec or QC spec wasn't actually consulted during drafting (the Reads_<phase>.md gate from v11 is necessary but not sufficient)
+- The case where downstream phases pile up implicit assumptions about upstream outputs
+
+### Phase_ready.py extension
+
+`Validators/phase_ready.py` gains a `VERIFICATION_DEPS` map and emits a `[REMIND]` when an upstream phase's `Verification_<phase>.md` is missing:
+
+```
+[REMIND] Upstream phase HARDNESS should have produced _aux/Verification_hardness.md before this phase runs.
+         The v16 cross-source verification discipline requires each phase to declare what it verified against data + eval spec + QC spec.
+```
+
+The reminder is non-blocking (the phase can proceed if the operator confirms it ran with prior context), but it surfaces the missing artifact for downstream audit-trail purposes.
+
+### Files changed
+
+- `Validators/phase_ready.py` — VERIFICATION_DEPS map + per-phase reminder emission.
+- `Reference/Sessions/S0.md` / `HARDNESS.md` / `S1.md` / `S2.md` / `S3.md` / `FINAL.md` / `S4.md` / `AUDIT.md` — Step 0.5 Cross-Source Verification block added before Procedure, with phase-specific source lists + checklist.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 33 / 33 PASS (no validator code changes, runbook + phase_ready discipline only) |
+| `Validators/validate.py --phase all --task Tasks/24_...` | Unchanged from v15 baseline |
+| `Validators/phase_ready.py --phase s1 --task Tasks/24_...` | Emits new v16 REMIND for missing Verification_hardness.md + existing E1/E2 reminders |
+
+### What this closes
+
+Operator-pain pattern: fresh-chat agent in S2 draws OE conclusions from S1's prompt without independently re-verifying against the universe. v16 forces S2 to write `Verification_s2.md` declaring which Universe_Split records each OE step grounds in, which Eval spec sub-dims for OE were re-applied, and which QC spec OE sub-dims were re-scored. The same pattern applies to every build phase. Cross-source consistency is now an explicit exit artifact, not an implicit assumption.
+
+---
+
 ## 2026-06-27 — v15: Final Wrap-Up — AF Justification Reference + FEEDBACK 4-Field Form
 
 Two surgical runbook updates closing the last operator-pain gaps before the pipeline is fully feature-complete against every QC docs requirement.

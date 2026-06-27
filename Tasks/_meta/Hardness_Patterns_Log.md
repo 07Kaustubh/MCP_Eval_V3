@@ -275,3 +275,31 @@ The prior entry above was written against an earlier verifier-fails paste. Platf
 - Lever 3 (precedent linkage): partially fired but confounded by platform bug on rubric #25; only the memo-content half (#26) produced a legitimate AF, and only at 1/6
 
 **Revised lesson:** When a lever depends on the platform serving content for a seeded Records Vault document, the lever is brittle — pin a smoke-test against `records_vault_download_document_content` during S0/Universe verification before shipping. The metadata layer reporting `current_version: 1` is not sufficient evidence that the content endpoint will serve it. This is now the second time we've seen lever-platform coupling defects masked as model failures — promote to a default S0 check next CB cycle.
+
+
+## Tasks/31_6a3f7eecacba1ccbe57db14d — 2026-06-27
+
+REVIEW-flow task. No original hardness plan to calibrate against — this entry is a pattern observation from the trajectory matrix only.
+
+**Trajectory facts:**
+- pass@1: 16.7% (1/6 runs passed all 13 grading lines; Run 2 was the clean run)
+- avg total tool calls: 59.8 (range 42-78); avg MCP tool calls: 41.8 — comfortably above the 40+ floor
+- Distinct failing lines: 8 of 13; total failure instances: 23
+- Most-failing lines (4/6 fail each): M-1 final figure, FY2025 book depreciation offset, external client circulation
+- All Bucket 3 (legitimate model failure); 0 Bucket 1, 0 Bucket 2
+- All-Failing-Rubrics sub-dim: 5/5 PASS (Bucket 1 ratio 0%)
+
+**Levers that fired:**
+- Section 179 / bonus depreciation tax-election inference (4/6 fail) — the dominant difficulty driver
+- Per-period subledger row aggregation vs all-period substitution (4/6 fail) — paired with the figure lever
+- External client signatory routing (4/6 fail) — when the contact is absent from the directory
+- Workflow-completion cascade gating (3/6 fail) — when the agent decides the reconciliation has not tied
+- IT-equipment asset-scope filtering by account class + in-service window (3/6 fail) — paired with the scope lever
+
+**Levers that did NOT fire (already-pinned grading lines never failed):**
+- SALT closed-period late-post gate — every run recognized FP-2025-12 was locked and staged rather than force-posting (0/6 fail)
+- 530000 account-class mismatch recognition — every run flagged the authorization's "DR 530000 SALT expense" as wrong (0/6 fail)
+- Premature Signed/E-Filed vault placeholder discrimination — every run flagged the same-day 107-byte doc as not real evidence of filing (0/6 fail)
+- Reminder setting for e-file confirmation (0/6 fail)
+
+**Lesson for next task:** When a reconciliation task has a quantitative key-fact response, the dominant stumping lever is consistently the model declining to make an inference that the data alone cannot fully ground (here, the Section 179 rate). Pair the inference lever with a workflow-completion cascade so a single epistemic-hedge decision cascades into multiple action fails — this multiplies the hardness signal without requiring multiple independent levers. The 5/5 All-Failing-Rubrics sub-dim score with pass@1 16.7% is what this pairing buys, and is repeatable on future quantitative-key-fact tasks.

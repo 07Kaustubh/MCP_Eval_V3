@@ -69,6 +69,50 @@ python Validators/phase_ready.py --phase final --task Tasks/<TASK_DIR>
 
 Re-uses the FINAL gate (same upstream artifact requirements). If it STOPs, run the upstream phase first. AUDIT cannot run on incomplete tasks.
 
+## Step 0.5: Cross-Source Verification (v16 — MANDATORY before exit)
+
+Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.md` (where `<phase>` is prompt / oe / rubrics) with the strictest-interpretation cross-source check:
+
+```
+## Strictest interpretation re-applied
+- Every "should" in the QC spec read as "must".
+- Every NON-FAIL middle band collapsed to REVISE.
+- Density floor at 50 (not 40).
+- Every soft convention treated as binding.
+
+## Data sources consulted (re-verified from source — NOT trusting prior phase outputs)
+- _aux/Universe_Split/ :: <which records re-checked>
+- _aux/Fact_Ledger.json :: <atoms re-grounded>
+- Brookfield_Base_Universe/8_Server_Tools_Details.json :: <tool catalog re-verified>
+
+## Eval spec verified for this phase
+- Evals/<n>_<phase>_Eval.md :: <strictest reading applied>
+
+## QC spec re-verified
+- Docs/7_QC_Spec_Doc1.json :: <all relevant sub-dims rescored under strict interpretation>
+- Docs/8_QC_Spec_Doc2.md :: <appendix issue taxonomy re-applied>
+
+## All 9 lenses status
+- Lens 1 strict QC scoring :: <PASS/REVISE/REBUILD>
+- Lens 2 answer-leakage sweep :: <verdict>
+- Lens 3 hardness end-to-end :: <verdict>
+- Lens 4 strict density :: <verdict>
+- Lens 5 adversarial review :: <verdict>
+- Lens 6 lifecycle + narrative state :: <verdict>
+- Lens 7 anti-rationalization :: <verdict>
+- Lens 8 regression-anchor verification :: <X/33 PASS>
+- Lens 9 unique ground truth middle-band :: <verdict>
+
+## Verification statements
+- [ ] Validator (validate.py --phase <phase>) re-run during audit; exit 0.
+- [ ] Regression-anchor suite executed; all 33 anchors PASS.
+- [ ] Anti-rationalization output check passed; no "I considered flagging X but decided it's fine because..." lines.
+- [ ] Verdict (PASS STRICT / REVISE / REBUILD) recorded with explicit per-issue trail.
+
+## Discrepancies surfaced
+- <none / list>
+```
+
 ## Procedure
 
 1. **Parse the phase argument.** `--phase prompt`, `--phase oe`, `--phase rubrics`, or `--phase all`. For each phase scope, prepare the inputs table above.

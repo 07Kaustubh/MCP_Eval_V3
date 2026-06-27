@@ -1,0 +1,206 @@
+{
+  "task": "31_6a3f7eecacba1ccbe57db14d",
+  "this_prompt": "Tasks/31_6a3f7eecacba1ccbe57db14d/5_Prompt.txt",
+  "corpus_size": 33,
+  "scoring_method": "composite = raw_lexical * context_multiplier (context dominates word stats)",
+  "weights": {
+    "lexical_bigram": 0.4,
+    "token_unigram": 0.4,
+    "word_count_similarity": 0.2
+  },
+  "multipliers_when_differs": {
+    "business_function": 0.6,
+    "persona": 0.6,
+    "universe_hash": 0.7
+  },
+  "bands": {
+    "below_40": "INVALIDATE \u2014 write 2-3 sentence justification, move on",
+    "at_or_above_40": "PIVOT \u2014 high overlap that survives contextual weighting"
+  },
+  "top10": [
+    {
+      "path": "Tasks/11_6a2d0b401b5f42afec452859/5_Prompt.txt",
+      "task_dir": "Tasks/11_6a2d0b401b5f42afec452859",
+      "raw_lexical": 30.1,
+      "dimensions": {
+        "lexical_bigram": 3.8,
+        "token_unigram": 24.4,
+        "word_count_similarity": 94.0,
+        "business_function_match": true,
+        "persona_match": true,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 1.0,
+      "composite": 30.1,
+      "differentiating": [],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "QC_Tasks/V3_Tasks/Task14_6a29448b7e4c641c30eb3875/Prompt.txt",
+      "task_dir": "QC_Tasks/V3_Tasks/Task14_6a29448b7e4c641c30eb3875",
+      "raw_lexical": 29.5,
+      "dimensions": {
+        "lexical_bigram": 1.9,
+        "token_unigram": 21.8,
+        "word_count_similarity": 100.0,
+        "business_function_match": null,
+        "persona_match": null,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 1.0,
+      "composite": 29.5,
+      "differentiating": [],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "QC_Tasks/V3_Tasks/Task13_6a2202b85b24c47c08dd2e79/Prompt.txt",
+      "task_dir": "QC_Tasks/V3_Tasks/Task13_6a2202b85b24c47c08dd2e79",
+      "raw_lexical": 23.1,
+      "dimensions": {
+        "lexical_bigram": 2.9,
+        "token_unigram": 20.9,
+        "word_count_similarity": 67.8,
+        "business_function_match": null,
+        "persona_match": null,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 1.0,
+      "composite": 23.1,
+      "differentiating": [],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "QC_Tasks/V3_Tasks/Task12_6a29448b7e4c641c30eb3890/Prompt.txt",
+      "task_dir": "QC_Tasks/V3_Tasks/Task12_6a29448b7e4c641c30eb3890",
+      "raw_lexical": 21.8,
+      "dimensions": {
+        "lexical_bigram": 2.7,
+        "token_unigram": 16.4,
+        "word_count_similarity": 70.6,
+        "business_function_match": null,
+        "persona_match": null,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 1.0,
+      "composite": 21.8,
+      "differentiating": [],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "Tasks/18_6a310a854b7c9a9e5a7859c9/5_Prompt.txt",
+      "task_dir": "Tasks/18_6a310a854b7c9a9e5a7859c9",
+      "raw_lexical": 29.4,
+      "dimensions": {
+        "lexical_bigram": 2.4,
+        "token_unigram": 22.3,
+        "word_count_similarity": 97.7,
+        "business_function_match": true,
+        "persona_match": false,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 0.6,
+      "composite": 17.7,
+      "differentiating": [
+        "persona"
+      ],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b/Prompt.txt",
+      "task_dir": "QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b",
+      "raw_lexical": 17.6,
+      "dimensions": {
+        "lexical_bigram": 3.3,
+        "token_unigram": 16.9,
+        "word_count_similarity": 47.5,
+        "business_function_match": null,
+        "persona_match": null,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 1.0,
+      "composite": 17.6,
+      "differentiating": [],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "Tasks/6_6a2afda4bf9d03982582c83a/5_Prompt.txt",
+      "task_dir": "Tasks/6_6a2afda4bf9d03982582c83a",
+      "raw_lexical": 27.2,
+      "dimensions": {
+        "lexical_bigram": 3.1,
+        "token_unigram": 22.4,
+        "word_count_similarity": 84.7,
+        "business_function_match": true,
+        "persona_match": false,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 0.6,
+      "composite": 16.3,
+      "differentiating": [
+        "persona"
+      ],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "Tasks/16_6a309b54df1cfe3b2734dec3/5_Prompt.txt",
+      "task_dir": "Tasks/16_6a309b54df1cfe3b2734dec3",
+      "raw_lexical": 23.8,
+      "dimensions": {
+        "lexical_bigram": 2.8,
+        "token_unigram": 21.0,
+        "word_count_similarity": 71.4,
+        "business_function_match": true,
+        "persona_match": false,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 0.6,
+      "composite": 14.3,
+      "differentiating": [
+        "persona"
+      ],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "Tasks/26_6a390e724c34487b95645dcc/5_Prompt.txt",
+      "task_dir": "Tasks/26_6a390e724c34487b95645dcc",
+      "raw_lexical": 32.5,
+      "dimensions": {
+        "lexical_bigram": 5.0,
+        "token_unigram": 28.0,
+        "word_count_similarity": 96.6,
+        "business_function_match": true,
+        "persona_match": false,
+        "universe_hash_match": false
+      },
+      "context_multiplier": 0.42,
+      "composite": 13.7,
+      "differentiating": [
+        "persona",
+        "universe"
+      ],
+      "recommendation": "INVALIDATE"
+    },
+    {
+      "path": "Tasks/19_6a330602403d7729c6b34431/5_Prompt.txt",
+      "task_dir": "Tasks/19_6a330602403d7729c6b34431",
+      "raw_lexical": 21.7,
+      "dimensions": {
+        "lexical_bigram": 4.0,
+        "token_unigram": 20.5,
+        "word_count_similarity": 59.3,
+        "business_function_match": true,
+        "persona_match": false,
+        "universe_hash_match": null
+      },
+      "context_multiplier": 0.6,
+      "composite": 13.0,
+      "differentiating": [
+        "persona"
+      ],
+      "recommendation": "INVALIDATE"
+    }
+  ],
+  "pivot_band": [],
+  "max_composite": 30.1,
+  "max_score": 30.1
+}
