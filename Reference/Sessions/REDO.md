@@ -34,6 +34,10 @@ python Validators/phase_ready.py --phase redo --task Tasks/<TASK_DIR>
 
 Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
 
+## Step 0: Create your TODO list (MANDATORY)
+
+Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_redo.md` listing every step in the Procedure below as a discrete atomic todo. Mark `in_progress` / `completed` as you progress. v11 E1 operator-discipline gate.
+
 ## Procedure
 
 1. **Confirm the failure reason** from the trajectories:

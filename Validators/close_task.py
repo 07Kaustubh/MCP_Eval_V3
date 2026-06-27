@@ -72,15 +72,39 @@ def main():
 
     traj_stats = task_dir / "_aux" / "Trajectory_Stats.json"
     traj_verdict = None
+    pass_at_1 = None
+    error_runs = None
     if traj_stats.is_file():
         try:
             data = json.loads(traj_stats.read_text(encoding="utf-8"))
             traj_verdict = data.get("verdict")
-            print(f"Trajectory stats: verdict={traj_verdict}  avg_tool_calls={data.get('avg_tool_calls_total')}  pass@1={data.get('verifier_fails', {}).get('pass_at_1') if data.get('verifier_fails') else 'n/a'}")
+            vf = data.get("verifier_fails") or {}
+            pass_at_1 = vf.get("pass_at_1")
+            error_runs = data.get("error_runs") or data.get("erroneous_runs")
+            print(f"Trajectory stats: verdict={traj_verdict}  avg_tool_calls={data.get('avg_tool_calls_total')}  pass@1={pass_at_1 if pass_at_1 is not None else 'n/a'}  error_runs={error_runs if error_runs is not None else 'n/a'}")
         except json.JSONDecodeError:
             print(f"Trajectory stats: file exists but invalid JSON")
     else:
         print(f"Trajectory stats: not run (no {traj_stats.relative_to(task_dir)})")
+
+    t2_ok = True
+    t3_ok = True
+    if pass_at_1 is not None:
+        try:
+            p1 = float(pass_at_1)
+            if p1 > 0.40:
+                t2_ok = False
+                print(f"  [FAIL] T2 — pass@1 = {p1:.2%} > 40%. Task is too easy. Route to PIPELINE REDO.")
+        except (TypeError, ValueError):
+            pass
+    if error_runs is not None:
+        try:
+            er = int(error_runs)
+            if er >= 3:
+                t3_ok = False
+                print(f"  [FAIL] T3 — {er} erroneous runs (need at most 2). Re-run trajectories.")
+        except (TypeError, ValueError):
+            pass
 
     review_missing = []
     if flow == "REVIEW":
@@ -97,7 +121,7 @@ def main():
             print(f"  [{mark}] {f}")
 
     print()
-    ready = (not missing) and (not review_missing) and (final_pass or not final_report.exists()) and (traj_verdict in (None, "OK"))
+    ready = (not missing) and (not review_missing) and (final_pass or not final_report.exists()) and (traj_verdict in (None, "OK")) and t2_ok and t3_ok
     if ready:
         print("READY TO CLOSE.")
         print()

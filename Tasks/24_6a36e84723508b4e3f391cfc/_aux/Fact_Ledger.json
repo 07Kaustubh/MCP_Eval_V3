@@ -17625,5 +17625,58 @@
         "marcus.knell@brookfieldcpas.com"
       ]
     }
+  },
+  "empty_in_base_tables_populated_in_task": [
+    "linear.linear_comments",
+    "linear.linear_issues",
+    "linear.linear_projects",
+    "linear.linear_team_memberships",
+    "linear.linear_teams",
+    "linear.linear_users"
+  ],
+  "lifecycle": {
+    "today": null,
+    "closed_periods": [
+      "acme_cloud_FP-2025-07",
+      "acme_cloud_FP-2025-08",
+      "acme_cloud_FP-2025-09",
+      "acme_cloud_FP-2025-10",
+      "acme_cloud_FP-2025-11",
+      "acme_cloud_FP-2025-12",
+      "acme_cloud_FP-2026-01",
+      "acme_cloud_FP-2026-02",
+      "acme_cloud_FP-2026-03",
+      "acme_cloud_FP-2026-04",
+      "brookfield_FP-2025-07",
+      "brookfield_FP-2025-08",
+      "brookfield_FP-2025-09",
+      "brookfield_FP-2025-10",
+      "brookfield_FP-2025-11",
+      "brookfield_FP-2025-12",
+      "brookfield_FP-2026-01",
+      "brookfield_FP-2026-02",
+      "brookfield_FP-2026-03",
+      "brookfield_FP-2026-04",
+      "northstar_legal_FP-2025-07",
+      "northstar_legal_FP-2025-08",
+      "northstar_legal_FP-2025-09",
+      "northstar_legal_FP-2025-10",
+      "northstar_legal_FP-2025-11",
+      "northstar_legal_FP-2025-12",
+      "northstar_legal_FP-2026-01",
+      "northstar_legal_FP-2026-02",
+      "northstar_legal_FP-2026-03",
+      "northstar_legal_FP-2026-04"
+    ],
+    "open_periods": [
+      "acme_cloud_FP-2026-05",
+      "brookfield_FP-2026-05",
+      "northstar_legal_FP-2026-05"
+    ],
+    "fiscal_periods_count": {
+      "closed": 30,
+      "open": 3,
+      "total": 36
+    }
   }
 }

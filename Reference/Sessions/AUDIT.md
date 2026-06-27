@@ -183,6 +183,124 @@ You have audited 200+ Brookfield tasks. Apply pattern recognition:
   - For REVIEW flow only — does 13_Feedback.txt contain forbidden
     internal terms? (run check_justification.py mentally; flag hits.)
 
+LENS 6 — Lifecycle + Narrative State (strictest)
+Under the STRICTEST interpretation, re-verify every Lens 5 (FINAL) check at
+a higher bar:
+- Every state-implying claim in the deliverable MUST verify against universe
+  lifecycle atoms in Fact_Ledger.json. ANY contradiction = REVISE (no NON-FAIL
+  band tolerance — even a single off-by-one-day "approaching the SLA" when
+  today is past it).
+- Every action prescribed by the deliverable MUST be lifecycle-feasible.
+  Posting to a closed period without unlock or `late_post_authorization_id`
+  parameter = REVISE. Overriding a completed sign-off without explicit
+  authority grant in the prompt body = REVISE.
+- Every tool-parameter binding MUST match the EXACT parameter list of the
+  named tool in 8_Server_Tools_Details.json. Parameter on wrong tool =
+  REBUILD (the OE chain cannot be patched in place; the structural error
+  invalidates the downstream rubric set, and all 6 platform runs fail on
+  structural API rejection).
+- Every action verb in the prompt MUST align with the relevant universe
+  record's `proposed_resolution` / `recommended_action` / `next_step` field,
+  OR the prompt MUST include explicit override language ("override the
+  proposed resolution because Z"). Silent divergence = REVISE. Two divergent
+  end-states without disambiguation = REBUILD if the prompt's framing makes
+  the conflict unfixable in place.
+
+LENS 7 — Anti-Rationalization Rule (apply across every prior lens)
+The #1 documented failure mode for veteran auditors is RATIONALIZING AWAY
+findings — excusing them with "it's the most likely interpretation", "the
+natural channel for substantive outreach", "what the agent probably meant",
+or "a QC-passed task does the same".
+
+Do NOT do this. The decision rule:
+- If a pattern matches (over-specification, narrative-state contradiction,
+  lifecycle precondition missing, tool-parameter wrong-binding, action-
+  divergence, persona-scope error, etc.), LOG the finding regardless of how
+  likely the alternative interpretation seems.
+- If the prompt named a GOAL (reach out / notify / update) and the rubric
+  locked in a METHOD (email / Slack / specific channel) AND a valid
+  alternative path exists that the rubric would fail → it is ALWAYS a
+  finding, never "the operator probably meant email."
+- If the OE bound a parameter to the wrong tool but "the right tool is
+  obvious from context" → STILL log it. The platform reviewer will not
+  apply your context-inference; the rubric stays brittle.
+- If an action diverges from the universe's `proposed_resolution` and the
+  prompt has no explicit override language → STILL log it. The agent will
+  fork two valid end-states.
+- If a rubric value is "technically correct at the invoice level" but the
+  prompt scoped to "my X" → STILL log it. The persona's portion ≠ invoice
+  total (see Rubrics Eval 2.3 persona-scope, $2,650 vs $850 example).
+
+Anti-rationalization output check: before declaring `PASS (STRICT)`, re-scan
+your audit reasoning for any "I considered flagging X but decided it's fine
+because..." line. EACH such line is a candidate finding you talked yourself
+out of. Promote each to REVISE unless the reasoning cites a hard exclusion
+(matched pattern is on a noun-context phrase per validator regex, not an
+imperative action; or the value is a structured one-correct-value field per
+the V3 flexibility table).
+
+LENS 8 — Regression Anchor Verification (v11 C4)
+Before declaring `PASS (STRICT)`, the operator MUST have run the regression-
+anchor suite at least once during this audit pass:
+
+```
+python3 Validators/test_regression_anchors.py
+```
+
+The suite runs validate.py against 10 synthetic mini-task fixtures each
+exhibiting a documented platform-rejection anti-pattern (R7 NPC persona,
+action-decision ambiguity, command-list, em-dash ban, R9 channel lock-in,
+subjective term, AND-bundling, invalid retention code, invalid Slack
+channel, mislabeled Process write-action). All 10 MUST flag with the
+expected pattern. Any anchor that fails to fire = a SILENT REGRESSION in
+the validator. The audit cannot pass until the regression is fixed (either
+the validator regex was inadvertently weakened, or the expected pattern
+text changed and the anchor's expect-string needs updating).
+
+This lens closes the gap where validator changes during pipeline iteration
+silently disable an anti-pattern catch. Without Lens 8, an operator could
+ship a task where the validator is broken in a way that allows the exact
+platform-rejection pattern it was designed to catch.
+
+Record the suite's pass/fail counts in the audit report:
+```
+LENS 8 regression-anchor verification: 10/10 PASS (or X/10 with names of
+failed anchors and the suspected validator regression).
+```
+
+LENS 9 — Unique Ground Truth Middle-Band (v12 P1)
+Re-read the prompt asking specifically: does it permit a "leading
+interpretation that the majority would pick" AND a SECOND defensible
+interpretation that diverges materially? The QC spec Unique Ground Truth
+sub-dim has a NON-FAIL middle band: when both readings exist, but a small
+logically-defensible assumption clarifies which was intended.
+
+For each candidate ambiguity, write out BOTH readings explicitly:
+- Reading A (leading): <one-line description of what the agent would do>
+- Reading B (alternate): <one-line description of what the agent would do>
+- Disambiguating assumption: <one-line — what would a reasonable person assume to choose A>
+
+If readings A and B produce different WRITE actions or different final
+universe states, and no disambiguating assumption is small enough that a
+majority of experts would converge on the same reading, mark as MAJOR
+(Unique Ground Truth FAIL band). If they only differ in framing of the
+response but produce the same write actions, mark as NON-FAIL middle band.
+
+This lens forces the audit to surface candidate ambiguities that exist
+between the validator's ACTION_AMBIGUITY regex (which catches "X / Y" and
+"X or Y" patterns) and the genuinely-ambiguous prompts where the multiple
+readings emerge from compound asks rather than action verbs in disjunction.
+
+Record:
+```
+LENS 9 unique ground truth middle-band: <PASS | NON-FAIL band | MAJOR FAIL>
+- Candidate ambiguity: <quote>
+- Reading A: <action set>
+- Reading B: <action set>
+- Disambiguating assumption: <one-line>
+- Verdict: <reasoning>
+```
+
 VERDICT:
   PASS (STRICT)  if zero BLOCKER hits AND zero LENS-1 sub-dims < 5 AND
                  every lever traces end-to-end AND density >= 50.

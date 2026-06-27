@@ -1,0 +1,47 @@
+OE01
+Action: Look up the Acme Cloud journal entry from late April that triggered the AML wire-monitoring flag.
+Tool: oracle_gl_list_journal_entries (then oracle_gl_get_journal_entry)
+Parameters: period_id="acme_cloud_FP-2026-04", min_amount=57077
+Target Data: The posted settlement receipt entry showing DR Cash / CR AR for $57,077.69, tying back to the enterprise SaaS customer payment.
+
+OE02
+Action: Locate the CDD clearance trail across email and Slack to confirm the review was completed and the rationale documented.
+Tool: email_search_emails / slack_conversations_search_messages
+Parameters: query="Acme Cloud AML clearance" or "JE-acme_cloud-FP-2026-04-0052" (email); search_query="Acme Cloud wire" or "AML", filter_in_channel="C008" (Slack)
+Target Data: The full clearance chain: Farah's analyst findings, Marina's supervisory request to Anita, and Steven's partner sign-off, all confirming CLEAR with no SAR.
+
+OE03
+Action: Check for any open reminders still tied to this AML case.
+Tool: reminder_get_all_reminders
+Parameters: (none required)
+Target Data: An overdue AML monitoring reminder for the April wire entry that was never dismissed after clearance.
+
+OE04
+Action: Dismiss the stale monitoring reminder.
+Tool: reminder_delete_reminder
+Parameters: reminder_id="reminder_scen_041_audit_compliance_0000"
+Target Data: Reminder removed, confirming the monitoring flag is formally closed.
+
+OE05
+Action: Check whether a disposition memo for this clearance has been filed in Records Vault.
+Tool: records_vault_list_documents
+Parameters: entity_id="acme_cloud", kind="memo"
+Target Data: Existing AML documents found (BO refresh, risk assessment) but no disposition memo specific to this wire-monitoring clearance, confirming a documentation gap.
+
+OE06
+Action: File the AML clearance disposition memo with appropriate retention and classification.
+Tool: records_vault_upload_document
+Parameters: title="Acme Cloud AML CDD Clearance Disposition Memo - JE-acme_cloud-FP-2026-04-0052 (April 2026)" (or equivalent), kind="memo", retention_policy_code="AICPA_SQMS_7Y", classification="restricted", content_b64 referencing the verified ledger entry, CDD rationale, and clearance chain (Farah, Marina, Anita, Steven)
+Target Data: New document on record with 7-year retention and restricted access, completing the audit trail.
+
+OE07
+Action: Post a recap as a threaded reply under the original AML case thread in #compliance-and-registrations.
+Tool: slack_conversations_add_message
+Parameters: channel_id="C008", thread_ts="1776969000.000000", payload summarising: GL entries verified consistent with CDD rationale, stale monitoring reminder dismissed, disposition memo filed in Records Vault under AICPA_SQMS_7Y / restricted
+Target Data: A threaded reply in the existing case thread giving the compliance team visibility on the closure actions taken.
+
+OE08
+Action: Email Matthew Li and Steven Perry confirming the file is fully closed, CC Farah Dlamini.
+Tool: email_send_email
+Parameters: sender="marina.soko@brookfieldcpas.com", recipients=["matthew.li@brookfieldcpas.com", "steven.perry@brookfieldcpas.com"], cc=["farah.dlamini@brookfieldcpas.com"], subject referencing Acme Cloud AML compliance close-out (April 2026), content confirming the file is fully closed on the compliance side
+Target Data: Confirmation email delivered to both partners with Farah copied.

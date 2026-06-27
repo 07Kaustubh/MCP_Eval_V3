@@ -210,6 +210,21 @@ def build_ledger(task_dir):
     dated = sorted(dates)
     dates_with_dow = [{"date": d, "day_of_week": _weekday(d)} for d in dated]
 
+    EMPTY_IN_BASE_TABLE_SUFFIXES = {
+        "linear_issues", "linear_projects", "linear_teams",
+        "linear_comments", "linear_users", "linear_team_memberships",
+        "threads", "mailboxes", "jmap_emails",
+        "ogl_transactions",
+        "blackline_sox_controls",
+        "rv_chain_of_custody", "rv_legal_holds",
+        "_changelog",
+    }
+    empty_in_base_populated_in_task = sorted(
+        src for src in by_source
+        if any(src.endswith(suffix) for suffix in EMPTY_IN_BASE_TABLE_SUFFIXES)
+        and len(by_source[src]) > 0
+    )
+
     ledger = {
         "meta": {
             "task_dir": str(task_dir.relative_to(task_dir.parent.parent)),
@@ -237,6 +252,34 @@ def build_ledger(task_dir):
             "first_name": {k: sorted(v) for k, v in aliases_first.items()},
             "last_name": {k: sorted(v) for k, v in aliases_last.items()},
             "full_name": {k: sorted(v) for k, v in aliases_full.items()},
+        },
+        "empty_in_base_tables_populated_in_task": empty_in_base_populated_in_task,
+    }
+
+    closed_periods_list = sorted(
+        pid for pid, info in fiscal_periods.items()
+        if isinstance(info, dict) and (info.get("status") or "").lower() in ("closed", "locked")
+    )
+    open_periods_list = sorted(
+        pid for pid, info in fiscal_periods.items()
+        if isinstance(info, dict) and (info.get("status") or "").lower() in ("open", "draft", "active")
+    )
+    today_str = None
+    today_horizon_path = task_dir / "_aux" / "Universe_Index" / "today_horizon.json"
+    if today_horizon_path.is_file():
+        try:
+            th = json.loads(today_horizon_path.read_text(encoding="utf-8"))
+            today_str = th.get("today")
+        except json.JSONDecodeError:
+            pass
+    ledger["lifecycle"] = {
+        "today": today_str,
+        "closed_periods": closed_periods_list,
+        "open_periods": open_periods_list,
+        "fiscal_periods_count": {
+            "closed": len(closed_periods_list),
+            "open": len(open_periods_list),
+            "total": len(fiscal_periods),
         },
     }
     return ledger

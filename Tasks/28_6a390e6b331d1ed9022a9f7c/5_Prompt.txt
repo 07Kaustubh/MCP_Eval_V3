@@ -1,0 +1,11 @@
+My one recon item from Brookfield's May FX refresh is still sitting open and now it's blocking the period lock. I ran the currency refresh on our AP-external-vendors recon on the 25th and isolated a $6,328.86 variance against the GL. April close USD/GBP was 0.7191 and May close was 0.7838, and my drill tied the swing cleanly to one Acme Research Ltd UK subscription line that was booked at the March invoice-date spot rate and missed the April closing-day revaluation. The workings are already up in Vault under the title Brookfield May 2026 AP-external-vendors FX variance workings, so the audit trail is in place.
+
+We're a week past the bd3 lock and the bd5 sign-off on our own books, and Andrea's partner sign-off that was meant to land last Friday never came through. I want to land the corrective entry today and close my piece of the recon ahead of the close review next week.
+
+Stage the entry in the right place against the right period referencing the exception that's been sitting on this recon since the 25th, with the business justification spelling out what the support shows. Update the recon's variance notes so the next person picking it up doesn't have to retrace, and add the same reference into the exception on the recon so Ryan can see the corrective when he comes back to it. Don't resolve the exception itself, since the disposition is sitting with Ryan and I don't want to step on his sign-off.
+
+Once it's staged, write Ryan a formal note with the picture: what the recon is, what the entry does, what's still on his desk, and ask him to confirm he's happy before I action anything that needs his name on it. Copy Daniel and Andrea so they see what's gone through, and Hannah too since she opened the exception. Drop a short summary in the close channel so the team has the same picture going into the rest of the week.
+
+I also need a fresh memo filed in Vault on the corrective itself, covering the entry's reasoning, the rate sources, and who reviewed, and pull the underlying invoice line into it so anyone reviewing can retrace the figure end to end. Tag it the way journal-entry support memos normally go.
+
+And one last thing. There's a reminder on me about dispositioning one of my open May exceptions before bd3 that I let slip because I was on this. Push it out to tomorrow so I actually get to it before close. Thanks.

@@ -2,23 +2,7 @@
 
 ## Schema
 
-Each rubric is a JSON object. Two on-disk shapes are accepted (the platform reads both):
-
-**Nested shape (used by V3 reference tasks):**
-
-```json
-{
-  "id": "uuid-v4-string",
-  "title": "The Agent ...",
-  "annotations": {
-    "evidence": "...",
-    "justification": "...",
-    "rubric_category": "outcome"
-  }
-}
-```
-
-**Flat shape (commonly used in live tasks):**
+Each rubric is a JSON object in the FLAT shape — exactly four fields, nothing else:
 
 ```json
 {
@@ -29,7 +13,9 @@ Each rubric is a JSON object. Two on-disk shapes are accepted (the platform read
 }
 ```
 
-Pick one shape per task and stick with it. The validator accepts both.
+**No `id` field, no `annotations` wrapper, no extras.** Pure flat.
+
+The validator still ACCEPTS the legacy nested shape (`{id, title, annotations: {evidence, justification, rubric_category}}`) for back-compat with V3 reference tasks and older shipped tasks, but emits a WARN — `nested schema is deprecated, convert to flat`. New tasks ship flat. `15_Updated_Rubrics.json` in the REVIEW flow must also be flat.
 
 ## Hard rules
 
@@ -131,3 +117,17 @@ If any condition fails, drop the Process or tighten the Outcome.
 - "At least 5 follow-up issues" without prompt mandate → one rubric per issue grounded in ground truth.
 - "(or similar)" near an exact email or ID → drop the qualifier; emails / IDs are strict.
 - A Process rubric that names a specific tool path → delete it. If the work is provable from an Outcome value, tighten the Outcome.
+
+## Threshold math + dilution prevention
+
+The QC spec's Overall Rubric Quality scoring uses % of total criteria as the denominator. A 5-rubric set with 1 Major = 20% FAIL; a 100-rubric set with 1 Major = 1% PASS. To prevent the dilution incentive (adding filler rubrics to lower the %), the pipeline applies ADDITIONAL absolute-count gates alongside the % thresholds:
+
+| Condition | Result |
+|---|---|
+| Major > 10% OR Major absolute count >= 3 | **FAIL** |
+| (Major + Moderate) > 15% OR (Major + Moderate) absolute count >= 5 | **FAIL** |
+| (Major + Moderate + Minor) > 20% OR (Major + Moderate + Minor) absolute count >= 8 | **FAIL** |
+| No Major AND no Moderate AND < 5% Minor (and absolute Minor < 3) | **PASS (5)** |
+| Otherwise | **NON-FAIL (3-4)** |
+
+The absolute-count gates are a pipeline extension to prevent gaming. They activate ONLY when the rubric count is < 30; above 30, the % thresholds alone are reliable. AUDIT Lens 1 applies both the % and absolute gates strictly.

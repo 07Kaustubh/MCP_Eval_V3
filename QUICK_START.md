@@ -46,11 +46,20 @@ Paste `8_Verifier_Fails.txt` into the task folder + 6 trajectories into `traject
 
 ## Closing the task
 
+For CB tasks (you authored from scratch):
 ```
 PIPELINE CLOSE — Tasks/<TASK_DIR>
 ```
 
-Read-only audit. Refuses to greenlight unless required artifacts are present + FINAL verdict = PASS + (if trajectories) verdict = OK. Nudges to append any novel finding to `Tasks/_meta/Learnings.md` before exit.
+For review-type tasks (candidate-prefilled), run feedback FIRST, then close:
+```
+PIPELINE FEEDBACK — Tasks/<TASK_DIR>   # writes 13_Feedback.txt rating the ORIGINAL candidate against QC spec baseline
+PIPELINE CLOSE    — Tasks/<TASK_DIR>
+```
+
+**Why FEEDBACK is separate**: when feedback was written inline at the end of REVIEW, the chat context was saturated with fix-related work and the feedback consistently drifted to rating what we fixed instead of what the candidate submitted. FEEDBACK runs in a fresh chat with a strict input allowlist (originals only — no `changes.md`, no `14/15`, no `_aux/Council_Reports/*`, no draft) and evaluates against the QC SPEC BASELINE only (not our internal exceeds-spec bar).
+
+CLOSE is a read-only audit. Refuses to greenlight unless required artifacts are present + FINAL verdict = PASS + (if trajectories) verdict = OK + (for review tasks) `13_Feedback.txt` exists. Nudges to append any novel finding to `Tasks/_meta/Learnings.md` before exit.
 
 ---
 

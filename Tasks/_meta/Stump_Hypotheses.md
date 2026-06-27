@@ -136,3 +136,78 @@ Append-only. Per-task record of HARDNESS predictions vs S4 actuals. Drives lever
 **Lesson for the lever catalog:** Three new lever patterns to add (see `Tasks/_meta/Hardness_Patterns_Log.md` for the L16/L17/L18 catalog entries).
 
 **Consolidated mechanism:** The dominant Opus-4.8 stump on this task was NOT the predicted L25 write-refusal but a parameter-contract failure (L17 free-text shelter) cascading through 5+ rubrics. L9+L27 (Pred 2) fired exactly as predicted at 0/6 on both R11 and R22 — this combo remains the single most reliable persona-relayed-misinstruction stump. Future tasks combining L17 + L9+L27 + L25 (recognition gap) routinely drive pass@1 to 0.0.
+
+---
+
+## Task 30 (6a3de5194c34125ef86fb36f) — REVIEW task — measured S4 outcome
+
+This was a review-type task with persona "Marina Soko, Compliance Officer" coordinating an Acme Cloud AML wire-monitoring clearance close-out. Pre-test predictions came from `REVIEW_hardness.md` and the corrected REVIEW2 + REVIEW3 + REVIEW4 lever set.
+
+**Predictions (3 explicit levers from the corrected design):**
+1. [HIGH] Marina-as-CDD-coordinator role attribution in the disposition memo body — Mechanism: persona-as-coordinator framing is implicit ("I coordinated the CDD package through to clearance with Anita and Steven") rather than mandated, expected default to "Prepared by:" header boilerplate.
+2. [MED] Email subject must contain the JE id `JE-acme_cloud-FP-2026-04-0052` — Mechanism: prompt re-frame added a JE-id-in-subject tag instruction; expected partial drop on the JE id.
+3. [MED] Cross-memo precedent retrieval + memo content references the FY2026 BO Refresh / AML Risk Assessment — Mechanism: precedent-discovery cost.
+
+**Actuals (from `S4_verdict.md`):**
+- pass@1 = 0.333 (2/6 runs passed all 26 rubrics). Density 47.2 avg (above 40 floor, below 50+ target). Both inside the OK band.
+- Rubric 12 (Marina coordination): FAILED 4/6 runs (Runs 1, 2, 4, 5). PASSED 2/6 runs (Runs 3, 6).
+- Rubric 24 (precedent retrieval): FAILED 1/6 runs (Run 1 only) — but this was a Bucket 2 judge inconsistency on top of a Bucket 1 universe-data defect (every run got `IMG.VERSION_NOT_FOUND` on both precedent doc IDs).
+- Other 24 rubrics: 6/6 PASS on every row.
+
+**Hit rate:** 1/3 clean (Pred 1 CONFIRMED exactly). 1/3 over-predicted (Pred 2: all 6 runs put the JE id in subject — the re-framed prompt made it obvious enough that no model failed it). 1/3 confounded by universe defect (Pred 3: rubric unsatisfiable because tool returned VERSION_NOT_FOUND universally — see `S4_fixes.md`).
+
+**Pred 1 mechanism confirmation:** The 4/6 fail rate matches the predicted "default to Prepared by:" failure mode exactly. Run 3 and Run 6 used "Compliance coordination: Marina Soko (Compliance Officer)" — the exact pass example pinned into the rubric evidence text. The persona-as-coordinator-via-implicit-framing lever fires reliably on Opus 4.8 at ~67% rate when the rubric evidence pins pass/fail examples to anchor the grader.
+
+**Pred 2 mechanism inversion:** The JE-id-in-subject expectation was met by every run. The cause is the prompt re-frame: "drop Matthew and Steven a quick email tagging the JE in the subject so they can correlate it against the original alert" was direct enough that every Opus 4.8 run included the JE id verbatim. **Conclusion:** explicit-tagging instruction language in the prompt neutralizes the JE-id-in-subject lever — for future tasks needing this lever to fire, the JE id must surface only as a derivable atom from prior records, not via a "tag the JE in the subject" prompt cue.
+
+**Pred 3 confound:** The "retrieve precedent memo content" rubric is unsatisfiable in the current universe because `records_vault_download_document_content` returns `IMG.VERSION_NOT_FOUND` for both `doc_38a8236a0c4546e2` and `doc_fb028c9124e146c5` on every actor_role tested. This blocked the lever from firing as designed. The companion memo-content rubric (reference precedent by title or doc id inside the upload) passed 6/6 — the precedent-anchoring intent was satisfied via vault listing rather than vault download. **Lesson:** any future hardness lever whose rubric evidence depends on a tool's successful response needs a quick pre-platform smoke test that the underlying record actually returns content for the target actor_role.
+
+**Surprises (failed, did not predict):** None. The Marina coordination rubric was the predicted load-bearing lever and it fired as the only true Bucket 3 surface.
+
+**Consolidated mechanism:** The dominant Opus 4.8 stump on this task was the predicted **L-persona-role-attribution-via-implicit-framing** lever. The other two levers either over-predicted (Pred 2 neutralized by explicit prompt cue) or were confounded by universe data (Pred 3). Single-lever hardness held — pass@1 = 0.333 is driven entirely by the Marina rubric.
+
+
+## Entry — Tasks/30_6a3de5194c34125ef86fb36f — 2026-06-27
+
+**Predictions (from `_aux/Council_Reports/REVIEW_hardness.md` + changes.md Rows 6/8/12 — REVIEW-flow task, no `Hardness_Plan.md`):**
+1. [HIGH] Marina-Soko-as-CDD-coordinator memo-content rubric (#13) fires as the load-bearing lever — Mechanism: L-role-collapse (agent flattens four-stage clearance chain analyst → coordinator → supervisor → partner into preparer + supervisor + partner, reducing the narrator's coordinator role to a document authorship credit even when the prompt names "I coordinated the CDD package through to clearance with Anita and Steven")
+2. [MED] Email-subject-JE-id rubric (added in Row 5, re-framed in Row 8) fires as a 2nd lever — Mechanism: L-derived-id surfacing (agent must reproduce a discovered identifier in a downstream artifact subject line)
+3. [MED] Memo precedent linkage rubrics (added in Row 12) fire as a 3rd lever — Mechanism: L-cross-document anchoring (agent must retrieve existing AML memos and cite their substantive conclusions in the new disposition memo)
+
+**Actuals (from `_aux/Council_Reports/S4_verdict.md`):**
+- AF rubrics: 1 legitimate (Marina coordinator role rubric at 4/6 fail)
+- Marina coordinator role: 4 of 6 runs collapsed the clearance chain to "Prepared by: Marina Soko" header attribution + Anita + Steven gates; 2 of 6 runs (#3, #6) added "Compliance coordination: Marina Soko" in the approval chain and passed
+- Email-subject-JE-id rubric: 0 of 6 runs failed — every agent reproduced `JE-acme_cloud-FP-2026-04-0052` in the email subject after discovering it from the GL
+- Memo precedent linkage rubrics (download + reference): 0 of 6 runs failed — every agent retrieved both prior AML memos and cited them by document ID in the new memo
+
+**Hit rate:** 1/3 (Pred 1 CONFIRMED; Pred 2 OVER-PREDICTED; Pred 3 OVER-PREDICTED)
+
+**Misses (predicted, did not fail):**
+- Email-subject-JE-id rubric — every agent surfaced the JE id naturally; not a lever
+- Memo precedent linkage rubrics — every agent retrieved BO Refresh + AML Risk Assessment and cited them; not a lever
+
+**Surprises (failed, did not predict):** none — Marina coordinator role was the only consistently failing rubric, exactly as REVIEW_hardness predicted
+
+**Lesson for the lever catalog:**
+- L-role-collapse on first-person-narrated coordinator stages in a 4+ role chain is a HIGH-confidence Opus-4.8 lever — the model treats "I coordinated" as document authorship even when the chain has distinct analyst/supervisor/partner roles flanking it. Pin pass/fail evidence examples in the rubric (changes.md Row 6 pattern) to freeze grader interpretation across platform runs.
+- Density-lift levers added for THIN_DENSITY remediation (Row 12 cross-document anchoring) do their job on density but DO NOT add new failure modes — the model handles cross-document retrieval cleanly once the prompt nudges toward it. Treat these as density patches, not difficulty levers.
+- Derived-id-in-subject-line levers (Row 5 / 8) are weak difficulty levers when the id is the most-frequent identifier in the discovery surface — the agent surfaces it naturally without prompting.
+
+
+## Correction — Tasks/30_6a3de5194c34125ef86fb36f — 2026-06-27
+
+The prior entry above was written against an earlier verifier-fails paste. The platform regenerated the verifier output (8_Verifier_Fails.txt timestamp newer than the meta entry) and the fresh matrix changes the calibration on Pred 3.
+
+**Updated actuals (from refreshed `_aux/Council_Reports/S4_verdict.md`):**
+- AF rubrics: 2 legitimate (Marina coordinator at 4/6 fail + memo references AML precedent at 1/6 fail) + 1 platform-bug rubric (precedent retrieval at 2/6 fail strict / 0/6 fail lenient, judges inconsistent)
+- Marina coordinator: 4/6 fail — unchanged from earlier entry
+- Email-subject-JE-id: 0/6 fail — unchanged
+- Memo precedent linkage rubrics: Pred 3 partially fired
+  - Precedent retrieval rubric (download call): platform data-state bug — metadata reports `current_version: 1` but content layer returns `version 1 not found` for both seeded AML memos. R1/R2 judges scored FAIL (strict), R3/R4/R5/R6 judges scored PASS (lenient or hallucinated). Bucket 1 fix queued.
+  - Memo references precedent rubric: R2 only — agent did not surface BO Refresh or AML Risk Assessment memo titles in the new memo body. Bucket 3 AF.
+
+**Revised hit rate:** Pred 1 CONFIRMED, Pred 2 OVER-PREDICTED, Pred 3 PARTIAL (memo-references half fired 1/6; download half blocked by platform bug).
+
+**New lesson for the lever catalog:**
+- L-cross-document-anchoring (cite a prior memo by title in a new memo body) is a WEAK 1-in-6 Opus 4.8 lever when the platform serves the precedent — most runs surface the prior memo naturally once the prompt nudges them toward precedent linkage. Treat as a density patch, not a stump lever, unless paired with a content-discovery cost the catalog metadata cannot shortcut.
+- **NEW pattern: lever-platform-coupling defect.** When a rubric requires successful content retrieval from a seeded Records Vault document, smoke-test the actual `records_vault_download_document_content` call against that document during S0/Universe verification before promoting the rubric. Metadata-layer success (`current_version: 1, status: "active"`) does NOT guarantee content-layer success. Two seeded memos in this task (`doc_38a8236a0c4546e2`, `doc_fb028c9124e146c5`) exhibit the contradiction and force the rubric into a Bucket 1 rewrite.

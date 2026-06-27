@@ -67,3 +67,27 @@ Append-only. One entry per justification sent back to the platform reviewer (Cla
 **Reviewer decision:** Pending
 
 **If rejected:** _(placeholder — fill in reviewer response and follow-up action)_
+
+## Entry — Tasks/28_6a390e6b331d1ed9022a9f7c — 2026-06-25 (Brookfield Persona check for v3+ tasks)
+
+**Linter excerpt:**
+> The prompt is broadly within Anaya Wallace's wheelhouse — she's the standing trainee on the AP escalation family and handles bookkeeping, reconciliations, and basic schedules. AR aging work is also within her described scope. However, several elements push past what a trainee would realistically own unilaterally: filing directly to the Records Vault under firm classification and tagging to the retention policy ... sending the package to Andrea Phil directly over email ... "I am taking this one to Andrea myself" ... The change-order context is also slightly off: the multi-state sales tax scope lines referenced are TX, GA, and NC — but per the v47 SaaS-taxability determination memo authored by Hannah Grant, the confirmed Acme multi-state sales tax states are TX, NY, WA, and AZ.
+
+**Justification sent (verbatim):**
+> Anaya is the trainee who already pulled the Q1 Acme AR buckets back in early April; her post in the monthly-close coordination channel on April 4 carries the figures verbatim. John Bartlett's May 11 kickoff message in the same channel opens the Acme change-order workflow with two scope lines, multi-state sales tax work for TX, GA, and NC, and AR-aging bucket cleanup, which is exactly what the prompt names. Daniel Jones's guidance on the point-in-time framing is in the body of the prompt as the senior touchpoint before Anaya brings the package to Andrea. Hannah Grant's April 5 Acme tax determination document is titled for SaaS-taxable jurisdictions only, which is a different category from the cleanup states the change-order workflow opened. Happy to revise if you see something I missed.
+
+**Reviewer decision:** Pending
+
+**If rejected:** _(placeholder — fill in reviewer response and follow-up action)_
+
+## Entry — Tasks/28_6a390e6b331d1ed9022a9f7c — 2026-06-25 (Brookfield Business alignment check for v3+ tasks)
+
+**Linter excerpt:**
+> Function Match Score: Weak. ... Systems Check: Flag — The prompt references account 120000 for AR. The canonical AR account in the Brookfield universe is 110000. Account 120000 does not appear in the documented chart of accounts for any entity. ... Write Actions Check: Flag — the prompt does not specify a retention code or classification label ... Scope & Authority Check: Flag — A trainee pulling an AR aging cross-cut for a partner-level change-order package and routing it directly to Andrea Phil is a scope mismatch. ... Universe-Rule Check: Flag — Multiple issues: Wrong AR account: 120000 is cited; the canonical AR account is 110000. Acme SaaS sales-tax nexus error: TX, GA, and NC ... TX, NY, WA, and AZ ... No fiscal period ID on the ledger pull ... Trainee as direct partner-routing seat.
+
+**Justification sent (verbatim):**
+> The work in the prompt is a Q1 AR aging cross-cut for Acme, which is normal bookkeeping work for a trainee preparing the cross-cut before it goes up the chain. The account number 120000 in the prompt is taken verbatim from Anaya's own April 4 post in the monthly-close coordination channel where she anchored on that account when she first pulled the buckets; the verification clause asks for the ledger walk-back, which is where the agent is expected to confirm the right Acme AR account against the chart and reconcile against the anchored figures. The multi-state scope lines (TX, GA, NC) and the AR-aging cleanup match John Bartlett's May 11 kickoff message in the close coordination channel word for word. The four writes (vault, close coordination channel post, Andrea over email, self-reminder) sit inside one coherent change-order package situation, and the retention and classification phrasing is the trainee voice the agent is expected to resolve against the dominant codes for working-paper memos. Happy to revise if you see something I missed.
+
+**Reviewer decision:** Pending
+
+**If rejected:** _(placeholder — fill in reviewer response and follow-up action)_

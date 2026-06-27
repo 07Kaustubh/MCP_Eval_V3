@@ -31,6 +31,10 @@ python Validators/phase_ready.py --phase review --task Tasks/<TASK_DIR>
 
 Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase first.
 
+## Step 0: Create your TODO list (MANDATORY)
+
+Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing every step in the Procedure below as a discrete atomic todo. Mark `in_progress` / `completed` as you progress. v11 E1 operator-discipline gate.
+
 ## Procedure
 
 0. **Linter check FIRST.** If the operator could NOT access the candidate's prefilled OE / rubrics because the candidate's prompt is currently blocked by the platform linter, STOP the REVIEW flow here and route to `PIPELINE S1.5 — Tasks/<TASK_DIR>` in a fresh chat with the linter output. S1.5 will detect Review-mode (presence of candidate-prefilled `6_Oracle_Events.txt` + `7_Rubrics.json`) and handle the linter skeptical-first: invalidate with justification (preferred — preserves the candidate's original prompt for rating) or write a minimal-fix scratch draft to `_aux/REVIEW_prompt_draft.txt` if revision is unavoidable. Once linter is cleared (the platform accepts the prompt — either the candidate's original after pushback, or the scratch-draft fix), the operator returns and re-invokes `PIPELINE REVIEW` in a fresh chat. The original `5_Prompt.txt` stays pristine throughout — any fix lands in `_aux/REVIEW_prompt_draft.txt` for use during materialization (step 8).
@@ -88,37 +92,11 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
    Severity from QC spec: Major / Moderate / Minor.
    Status starts as Pending. The user later marks Applied / Dismissed-with-proof / Pending.
 
-7. **Write the candidate-facing feedback** to `Tasks/<TASK_DIR>/13_Feedback.txt`. This rates the **CANDIDATE'S ORIGINAL** `5_Prompt.txt` / `6_Oracle_Events.txt` / `7_Rubrics.json` **AS SUBMITTED** — the untouched originals. **DO NOT reference `changes.md`. DO NOT reference `14_Updated_*.txt` / `15_Updated_*.json` / `_aux/REVIEW_prompt_draft.txt`. DO NOT reference anything we fixed or corrected.** The candidate is rated on what they delivered, NOT on what we corrected. The most common defect in this step is writing feedback for the fixed task instead of the original — actively guard against it.
+7. **Defer the candidate-facing feedback to PIPELINE FEEDBACK.** Do NOT write `13_Feedback.txt` inside REVIEW. The feedback step has been lifted into a dedicated fresh-chat phase (`PIPELINE FEEDBACK — Tasks/<TASK_DIR>`) that runs AFTER REVIEW and BEFORE CLOSE.
 
-   Voice and tone:
-   - Senior reviewer giving direct, professional feedback to the candidate.
-   - Concise. No em-dashes. No internal terminology (no QC dim names, no council references, no script names, no `_aux/` paths, no rubric numbers).
-   - Use `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md` to STRUCTURE the feedback (one paragraph per applicable dim that needs comment) but DESCRIBE the dim in plain language — do NOT name it hard. Loose mapping examples:
-     - "Atomicity" → "rubrics that combine multiple checks into a single line"
-     - "Self-Containment" → "rubrics that require the judge to look up data outside the criterion text"
-     - "Feasibility" → "asks the agent cannot satisfy with the available tools and data"
-     - "Truthfulness" → "factual claims about the universe that do not match the records"
-     - "Atomic-for-multi-write" → "splitting one-rubric-per-item instead of using at-least-N thresholds"
-     - "Outcome-vs-Process category balance" → "process-style rubrics that an outcome could already prove"
-     - "Tool-leak in rubric titles" → "rubrics that name a specific tool the agent had to use"
-     - "Coverage gap" → "asks in the prompt that no rubric checked"
-   - **Voice gate before save**: run `python Validators/check_justification.py Tasks/<TASK_DIR>/13_Feedback.txt` — exit 0 required. If non-zero, strip every forbidden term per the per-hit report and re-save.
+   **Why this is a separate phase.** By the time REVIEW reaches feedback-time, the chat context is saturated with fix-related work (changes.md rows, council reports, fix proposals, the materialized 14/15). The feedback then consistently drifts to rating what we fixed instead of what the candidate submitted — even with explicit guardrails in the runbook. The new phase has a clean fresh-chat context AND a strict input allowlist (originals 5/6/7 only — no `changes.md`, no `14_*`, no `15_*`, no `_aux/Council_Reports/*`, no draft). It also evaluates the candidate against the QC SPEC BASELINE only, NOT against our internal exceeds-spec bar (50+ density, strictest AUDIT, B6 propagation, etc.). See `Reference/Sessions/FEEDBACK.md` for full procedure.
 
-   Structure:
-   ```
-   Overall: <FAIL | NON-FAIL | PASS> on the candidate's original submission.
-
-   What worked
-   - <plain-language strength, max 3>
-
-   What needs work
-   - <plain-language issue 1>: <one sentence on what was off and what it should have been, citing the original artifact not our fix>
-   - <plain-language issue 2>: ...
-
-   Recommended next steps
-   - <action 1 in plain language>
-   - <action 2>
-   ```
+   REVIEW step 7 is therefore a NO-OP. Skip to step 8 (materialization). `13_Feedback.txt` gets written when the operator invokes `PIPELINE FEEDBACK` in a fresh chat after REVIEW completes.
 
 8. **Materialize the corrected deliverables (triage-aware)**:
    - **If triage = REBUILD**: do NOT emit 14/15 even if rows are Applied. The scenario is the problem — patching OE / rubric on top would ship a half-fixed task. `13_Feedback.txt` carries the FAIL verdict + full shortcoming list, and the user invokes `PIPELINE REDO — Tasks/<TASK_DIR>` to rebuild from scratch.
@@ -175,21 +153,22 @@ Refuses if upstream artifacts are missing. If it STOPs, run the upstream phase f
 - `_aux/Council_Reports/REVIEW_*.md` populated (one per phase).
 - `changes.md` exists with every confirmed finding as a row.
 - `_aux/Council_Reports/REVIEW_score.md` exists with per-phase QC scores.
-- `13_Feedback.txt` exists with the candidate-facing rating.
+- `13_Feedback.txt` is NOT written by this phase (deferred to `PIPELINE FEEDBACK` in a fresh chat — see step 7).
 - `14_Updated_Oracle_Events.txt` exists IFF any OE-phase row is Applied.
 - `15_Updated_Rubrics.json` exists IFF any rubric-phase row is Applied.
 - Originals `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` are UNTOUCHED.
 
 ## STOP gate
 
-This phase ends here. End your response. The user reviews `changes.md`, marks each row Applied / Dismissed / Pending, and rates the original candidate.
+This phase ends here. End your response. The user reviews `changes.md` and marks each row Applied / Dismissed / Pending. The candidate-facing feedback `13_Feedback.txt` is written separately by `PIPELINE FEEDBACK` in a fresh chat (see step 7) — that phase runs AFTER REVIEW and BEFORE CLOSE.
 
 Next-trigger paths (per triage verdict + platform outcome):
 
 | Scenario | Next trigger |
 |---|---|
+| **Standard REVIEW intake done (any triage path)** | `PIPELINE FEEDBACK — Tasks/<TASK_DIR>` in a fresh chat to write `13_Feedback.txt`. Then `PIPELINE CLOSE — Tasks/<TASK_DIR>`. |
 | **SALVAGEABLE + rows Applied** | Re-invoke `PIPELINE REVIEW — Tasks/<TASK_DIR>` in a fresh chat — the runbook materializes `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` (and a corrected prompt draft if any prompt-phase row was Applied) and re-runs all gates on the corrected set. |
-| **REBUILD** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. The corrected deliverables were intentionally not emitted because the scenario itself needs a rebuild. The candidate rating + feedback are already complete in `changes.md` + `13_Feedback.txt`. |
+| **REBUILD** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. The corrected deliverables were intentionally not emitted because the scenario itself needs a rebuild. The candidate rating is captured in `changes.md`; invoke `PIPELINE FEEDBACK` to write the FAIL-verdict `13_Feedback.txt`. |
 | **Shipped corrected version → platform linter blocks** | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. |
 | **Shipped corrected version → trajectories ran → verifier-fails** | `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails. |
 | **Shipped corrected version → platform paste-back may have mutated `7_Rubrics.json`** | `PIPELINE COMPARE — Tasks/<TASK_DIR>` after dropping `10_Rubrics_Platform.json` into the task folder. |

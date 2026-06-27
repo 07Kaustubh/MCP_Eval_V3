@@ -1,0 +1,53 @@
+OE01
+Get the Acme Cloud journal entry that tripped the AML wire-monitoring threshold earlier this quarter.
+Tool: oracle_gl_list_journal_entries (then oracle_gl_get_journal_entry)
+Parameters: period_id="acme_cloud_FP-2026-04", filter on a customer settlement receipt against AR; cross-referenced from the open AML monitoring reminder title in OE03.
+Target Data: The posted settlement-receipt entry JE-acme_cloud-FP-2026-04-0052 (je_b2c2b939a1244823) showing DR 101000 Cash - Operating / CR 110000 AR - Trade for $57,077.69 on 2026-04-22, tying back to the enterprise SaaS customer payment.
+
+OE02
+Search emails and Slack for the CDD clearance trail to confirm the review was completed and the rationale documented.
+Tool: email_search_emails / slack_conversations_search_messages
+Parameters: query="Acme Cloud AML clearance" or "JE-acme_cloud-FP-2026-04-0052" (email); search_query="Acme Cloud wire" or "AML", filter_in_channel="C008" (Slack).
+Target Data: The full clearance chain: Farah Dlamini's analyst findings, Marina Soko's CDD-package coordination routing to Anita Knowles, Anita's supervisory sign-off, and Steven Perry's partner sign-off, all confirming CLEAR with no SAR.
+
+OE03
+List active reminders to find the AML monitoring tickler still tied to this case.
+Tool: reminder_get_all_reminders
+Parameters: (none required)
+Target Data: An overdue AML monitoring reminder (reminder_scen_041_audit_compliance_0000, due 2026-05-02) for the April wire entry that was never dismissed after clearance.
+
+OE04
+Delete the stale AML monitoring reminder.
+Tool: reminder_delete_reminder
+Parameters: reminder_id="reminder_scen_041_audit_compliance_0000"
+Target Data: Reminder removed, confirming the monitoring flag is formally closed.
+
+OE05
+List Records Vault documents to confirm no AML clearance disposition memo for this case has been filed yet.
+Tool: records_vault_list_documents
+Parameters: entity_id="acme_cloud", kind="memo"
+Target Data: Existing AML-related documents found (FY2026 Beneficial Owner Refresh doc_fb028c9124e146c5, FY2026 AML Risk Assessment Memo doc_38a8236a0c4546e2) but no disposition memo specific to this wire-monitoring clearance, confirming a documentation gap.
+
+OE06
+Look up the content of the existing FY2026 Beneficial Owner Refresh and FY2026 AML Risk Assessment memos for Acme Cloud so the new disposition memo's structure and substantive findings align with the firm's existing AML precedent for this client.
+Tool: records_vault_download_document_content
+Parameters: document_id="doc_fb028c9124e146c5" (FY2026 Beneficial Owner Refresh) and/or document_id="doc_38a8236a0c4546e2" (FY2026 AML Risk Assessment Memo)
+Target Data: The BO Refresh content (beneficial-ownership refresh findings, cleared BO outcome) and AML Risk Assessment content (counterparty risk score, clearance criteria), both anchoring the new disposition memo to the prior compliance work for this client.
+
+OE07
+Upload the AML clearance disposition memo with appropriate retention and classification, anchored to the firm's existing AML precedent reviewed in OE06.
+Tool: records_vault_upload_document
+Parameters: title="Acme Cloud AML/CDD Clearance Disposition Memo - JE-acme_cloud-FP-2026-04-0052 (April 2026)" (or equivalent that includes both "Acme Cloud" and an AML/CDD/wire-monitoring subject keyword), kind="memo", retention_policy_code="AICPA_SQMS_7Y", classification="restricted", content_b64 referencing the verified ledger entry (DR Cash / CR AR for $57,077.69), the CDD rationale (counterparty BO match, contracted SaaS revenue source-of-funds, wire reference reconciliation), the full clearance chain identifying Farah Dlamini (AML analyst), Marina Soko (CDD package coordinator), Anita Knowles (supervisory officer), and Steven Perry (engagement partner), and a precedent reference to the FY2026 Beneficial Owner Refresh memo OR the FY2026 AML Risk Assessment Memo (e.g., naming the prior memo, citing the cleared BO outcome, or referencing the prior risk-tier determination).
+Target Data: New document on record with 7-year retention and restricted access, completing the audit trail and explicitly anchored to the prior AML precedent for Acme Cloud.
+
+OE08
+Post a recap as a threaded reply under the original AML case thread in #compliance-and-registrations.
+Tool: slack_conversations_add_message
+Parameters: channel_id="C008", thread_ts="1776969000.000000", payload summarising: GL entries verified consistent with CDD rationale, stale monitoring reminder dismissed, disposition memo filed in Records Vault under AICPA_SQMS_7Y / restricted.
+Target Data: A threaded reply in the existing case thread giving the compliance team visibility on the closure actions taken.
+
+OE09
+Send the close-out email to Matthew Li and Steven Perry, CC Farah Dlamini, with the JE identifier in the subject line.
+Tool: email_send_email
+Parameters: sender="marina.soko@brookfieldcpas.com", recipients=["matthew.li@brookfieldcpas.com", "steven.perry@brookfieldcpas.com"], cc=["farah.dlamini@brookfieldcpas.com"], subject referencing the Acme Cloud AML compliance close-out AND the JE identifier JE-acme_cloud-FP-2026-04-0052, content confirming the file is fully closed on the compliance side.
+Target Data: Confirmation email delivered to both partners with Farah copied and the JE identifier in the subject line for filterability.

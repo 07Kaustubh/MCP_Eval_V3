@@ -211,3 +211,67 @@ Authority-dismissal layer baked through Andrea (partner) + Hannah (tax counterpa
 - **Task 26 (6a390e724c34487b95645dcc)** — S4 PASS. 14 AF rubrics, 0 Bucket 1, 0 Bucket 2. AF justifications all clean under voice gate. Density 79.8 avg, pass@1 = 0/6. **SHIP.**
 
 - **Task 27 (6a39fd19048f9213281ec7b)** — FINAL PASS. Confirmed levers end-to-end: **P1 (latching, 3-service: Slack thread 1780147500.000000 + Blue↔Daniel email + Blue↔Ryan messaging) + P2 (structured-DB skip via blackline_evidence → records_vault double-chase on evid_6cbb5c1605904b/_6969ca2fd0a345 → doc_01b7c6e1cbe94529/_b3633a2899a04e9e mislabel) + P7 (4 writes: vault + Slack thread reply + George email + reminder) + P8 (load-bearing multi-link precedent dig: George's FP-2025-11/$42/feed-drop claim → blackline_list_exceptions filtered brookfield/102000 → exc_d8fc13aa2cc742 in FP-2025-12, unrecorded_invoice, -$617.63, resolution_summary "Corrective JE posted", related_recon BL-782A2EC69343) + P9 (USD-cash → no FX revaluation principle) + L9-overlay (5-way authority alignment: Ryan/George/Hannah/Daniel/Blue all on accept-timing, demonstrably wrong vs records)**. Density projected 44, baseline trajectory was 53. Zero answer-leakage in the prompt or any artifact the agent reads (correct precedent atoms appear only in the universe records the agent must dig for). 24 outcome / 0 process rubrics, all four-pillar refutation atomized across vault + email + final response. **Cleared for platform upload.**
+
+## Task 30 (6a3de5194c34125ef86fb36f) — calibration delta
+
+**Single-lever single-pivot task (Acme Cloud AML close-out).** Three levers designed in the corrected materialization; only one fired.
+
+- **Lever 1 (Marina-as-CDD-coordinator role attribution in memo body): CONFIRMED at 4/6 fail rate.** This is the persona-as-coordinator-via-implicit-framing pattern. The prompt names "I coordinated the CDD package through to clearance with Anita and Steven" but the rubric expects the disposition memo body to record her active coordination role inside the clearance chain, not the memo header authorship. 4/6 runs defaulted to "Prepared by: Marina Soko, Compliance Officer"; 2/6 used "Compliance coordination: Marina Soko" between the analyst pass and the supervisory sign-off. Pinning explicit pass/fail examples into the rubric evidence ("Pass examples: 'Marina Soko (CDD coordinator)', 'CDD package routed by Marina'. Fail examples: 'Prepared by Marina Soko', 'Author: Marina Soko'") was load-bearing — without those pinned examples, grader drift toward the lenient reading is likely. **Pattern remains in the catalog; pin pass/fail examples by default.**
+
+- **Lever 2 (JE id verbatim in email subject): OVER-PREDICTED.** The prompt re-frame "drop Matthew and Steven a quick email tagging the JE in the subject so they can correlate it against the original alert" was direct enough that every run included the JE id verbatim. **Conclusion:** a JE-id-in-subject lever needs the JE id to surface only as a derivable atom from records the agent reads, not as a "tag the JE in the subject" cue in the prompt. With the cue present, the lever neutralizes.
+
+- **Lever 3 (precedent retrieval via records_vault_download_document_content): CONFOUNDED by universe-side `IMG.VERSION_NOT_FOUND` errors.** Every run got the error on both precedent doc IDs across every actor_role tested. The companion content-reference rubric still passed 6/6 because agents discovered the precedent docs via `records_vault_list_documents` and cited them by title/doc_id inside the upload anyway. **Pattern adjustment:** a rubric whose evidence text requires `returning a successful response` from a tool is fragile to universe-side data defects. Prefer "the tool was invoked against the named target" framing unless a pre-platform smoke test confirms the tool returns content for the target actor_role on every per-task universe.
+
+**NEW lever pattern (no new entries this task):** the Marina coordination lever is a refinement of the existing persona-relayed-misinstruction family — specifically, "persona-as-coordinator framing implicit in the prompt cue, with the rubric expecting active-role attribution in the artifact body and rejecting passive authorship credit." Not a new L-letter; treat as a calibration data point on the persona-attribution sub-family.
+
+**Hardness prediction hit rate this task:** 1/3 clean (Pred 1). 1/3 over-predicted (Pred 2 neutralized by explicit prompt cue). 1/3 confounded by universe defect (Pred 3 — universe data prevents the tool path from succeeding).
+
+**Lesson for next task:**
+
+- **Persona-as-coordinator with implicit framing remains a reliable Opus 4.8 stump at ~67% fail rate** when the rubric evidence pins pass/fail examples. Without the pinned examples, expect grader drift toward lenient reading + the lever yield collapsing.
+- **A prompt cue that directly instructs the agent to include a derived atom (JE id, amount, doc id) in a downstream artifact neutralizes that atom as a hardness lever.** Either make the cue oblique (the agent must infer the atom is required) or rely on a different lever entirely.
+- **Pre-platform smoke test mandate for tool-success rubrics:** before shipping a rubric whose evidence text requires `returning a successful response`, dry-run the tool call manually against the target record with the actor_role the agent is most likely to pass. If the response is an error, either widen the rubric evidence to "tool invoked against the named target" or change the lever.
+- **Density observation:** projected midpoint 45-50, measured 47.2 avg. Three of six runs sat above 45; three sat at 39-43. The 40 floor held, but the 50+ design target was missed. The corrected materialization's Lever 3 was designed to lift density via cross-memo precedent retrieval — but because the tool returns errors universally, agents bailed on follow-up retrieval calls after two tries, neutralizing the density lift the lever was supposed to provide. **Pattern:** a hardness lever planted for density that depends on a broken tool path collapses both the lever AND the density it was supposed to drive.
+
+
+## Entry — Tasks/30_6a3de5194c34125ef86fb36f — 2026-06-27
+
+**Persona / Business function:** Marina Soko (Compliance Officer) / Compliance & Internal Controls
+
+**Selected levers (from `_aux/Council_Reports/REVIEW_hardness.md` + changes.md Rows 6 / 8 / 12 — REVIEW-flow task):**
+- Lever 1 — Marina-as-CDD-coordinator memo-content rubric (#13), pinned with explicit pass/fail evidence examples (Row 6)
+- Lever 2 — Email-subject-JE-id rubric (#5), re-framed with explicit prompt nudge "tagging the JE in the subject so they can correlate it against the original alert" (Row 8)
+- Lever 3 — Memo precedent linkage via BO Refresh + AML Risk Assessment retrieval and citation (Row 12; added 2 new outcome rubrics for download + memo content reference)
+
+**Actual failures (from `_aux/Council_Reports/S4_verdict.md`):**
+- Marina coordinator role rubric (#13): Bucket 3 — Legitimate AF, 4 of 6 runs fail
+- Email-subject-JE-id rubric (#5): no fail
+- Memo precedent linkage rubrics: no fail
+- All 23 other rubrics: no fail
+
+**Calibration:**
+- Levers that fired as predicted: Lever 1 (Marina coordinator)
+- Levers that did NOT fire: Lever 2 (email-subject-JE-id), Lever 3 (precedent linkage)
+- Failures that came from un-predicted sources: none
+
+**Lesson for next task:** Pinning pass/fail evidence examples on a single high-confidence role-collapse rubric is enough to carry a task's difficulty bar — the other two levers added for diversification served density but did not contribute to pass@1 (density 47.2 from 43.2; pass@1 0.333 from 0.167, but the lift in failure rate came almost entirely from the same single rubric tripping fewer agents post-fix). For future tasks with thin work surface, prioritize ONE well-pinned role-collapse / chain-completeness rubric over THREE shallow content-anchor rubrics.
+
+
+## Correction — Tasks/30_6a3de5194c34125ef86fb36f — 2026-06-27
+
+The prior entry above was written against an earlier verifier-fails paste. Platform regenerated the verifier output and the fresh matrix changes Lever 3 calibration.
+
+**Revised actual failures (from refreshed `_aux/Council_Reports/S4_verdict.md`):**
+- Marina coordinator rubric (#13): Bucket 3 AF, 4/6 fail — unchanged
+- Email-subject-JE-id (#5): no fail — unchanged
+- Memo precedent linkage:
+  - Precedent retrieval rubric (#25): Bucket 1 — platform data-state bug (`IMG.VERSION_NOT_FOUND` despite metadata `current_version: 1`). 2/6 strict-judge fail, 0/6 lenient-judge fail. Bucket 2 also logged for grader inconsistency.
+  - Memo references precedent (#26): Bucket 3 AF, 1/6 fail (R2)
+- All 23 other rubrics: no fail
+
+**Revised calibration:**
+- Lever 1 (Marina coordinator): fired as predicted — 4/6 fail rate
+- Lever 2 (email-subject-JE-id): did NOT fire — every agent surfaced the JE id naturally
+- Lever 3 (precedent linkage): partially fired but confounded by platform bug on rubric #25; only the memo-content half (#26) produced a legitimate AF, and only at 1/6
+
+**Revised lesson:** When a lever depends on the platform serving content for a seeded Records Vault document, the lever is brittle — pin a smoke-test against `records_vault_download_document_content` during S0/Universe verification before shipping. The metadata layer reporting `current_version: 1` is not sufficient evidence that the content endpoint will serve it. This is now the second time we've seen lever-platform coupling defects masked as model failures — promote to a default S0 check next CB cycle.

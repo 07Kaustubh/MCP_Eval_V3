@@ -1,5 +1,322 @@
 # Changelog
 
+## 2026-06-27 — v15: Final Wrap-Up — AF Justification Reference + FEEDBACK 4-Field Form
+
+Two surgical runbook updates closing the last operator-pain gaps before the pipeline is fully feature-complete against every QC docs requirement.
+
+### Item A — S4 AF Justification 5-Point Checklist + Reference Examples
+
+Operator pain: when writing all-fail justifications, the agent had the bucket classification + trajectory walk + voice gate, but not the QC docs' explicit 5-point checklist that distinguishes "genuine model failure" from "rubric issue masquerading as model failure". v15 adds the checklist directly to S4.md Bucket 3 step:
+
+1. Is the criterion self-contained, atomic, and grounded in the universe's ground truth?
+2. Is it flexible enough to allow valid alternative approaches without unfairly penalizing the agent?
+3. Is the criterion actually required by the prompt, rather than asking for something extra?
+4. Does it use real tool names and valid parameters?
+5. Could a capable agent realistically pass this task?
+
+If all 5 = YES → write AF justification (Bucket 3). If any = NO → reclassify as Bucket 1 (Rubric Invalid) and fix the rubric, do not write an AF justification.
+
+Plus 2 GOOD AF justification examples ("entity confusion", "cross-service reasoning failure") and 4 BAD-pattern examples (`search_crm` not a real tool, exact-phrase rigidity, channel lock-in, "all N tickets" without GT verification) lifted from the QC docs as concrete reference.
+
+### Item B — FEEDBACK 4-Field Candidate-Facing Form
+
+Operator pain: the candidate-facing review form has 4 specific fields, but the prior `13_Feedback.txt` structure was a 3-section narrative that didn't map cleanly to the form. v15 restructures `13_Feedback.txt` to mirror the form exactly:
+
+| Form field | `13_Feedback.txt` section | Derived from |
+|---|---|---|
+| Quality: Overall Task (1-5) | `## Quality: Overall Task` | Rate ORIGINAL against QC spec |
+| Overall Task Feedback (text) | `## Overall Task Feedback` | Rate ORIGINAL against QC spec, plain humanlike voice |
+| Level of Fixes (4-option) | `## Level of Fixes` | DERIVED from `changes.md` Applied row count |
+| Parts of Task Fixed (multi-select) | `## Parts of Task Fixed` | DERIVED from `changes.md` section headings |
+
+Level-of-Fixes auto-map: 0 Applied → `No edits / Approved as is`; 1-3 → `Minor Fixes`; 4-10 → `Major Fixes`; 11+ or full rewrite → `Full Redo`.
+
+Parts-of-Task-Fixed auto-map: changes.md `Prompt` / `Persona` sections → `Prompt`; `Oracle Events` / `OE` → `Oracle Events`; `Rubrics` / `Rubric` → `Rubrics`; `Tool` / `Universe` / `Engineering` → `Eng. Issues/Taxonomy Issues`; zero rows → `None`.
+
+This is the ONE allowed exception to the "do not read changes.md" rule — strictly for the mechanical metadata of fields 3 + 4. Fields 1 + 2 (score + qualitative feedback) still rate ONLY the original submission and ignore changes.md entirely, preserving the v9 design intent that the candidate is rated on their work, not on our fixes.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 33 / 33 PASS (no validator code changes; runbook-only updates) |
+| `Validators/validate.py --phase all --task Tasks/24_...` | unchanged from v14 baseline (prompt 0F/2W/2N, OE 0F/0W/1N, rubrics 3F/8W/3N) |
+
+### Files changed
+
+- `Reference/Sessions/S4.md` — Bucket 3 step inserts the 5-point pre-write checklist + GOOD/BAD reference examples.
+- `Reference/Sessions/FEEDBACK.md` — step 6 (new) derives mechanical metadata from changes.md; step 7 (renumbered) writes the 4-field structured form; denylist row for changes.md updated to allowlist for fields 3 + 4 mechanical metadata only; step 8 (voice gate, renumbered) unchanged.
+
+### What this closes
+
+S4 AF justifications now have the explicit pre-write checklist + reference examples directly inline — the agent no longer needs to remember 5 conditions or recall what good vs bad AF justifications look like. FEEDBACK output now maps 1-to-1 to the candidate-facing review form, so the operator can paste fields directly without manual translation. Pipeline is now feature-complete against every QC docs requirement the user surfaced through v11 → v15.
+
+---
+
+## 2026-06-27 — v14: Formatting Anti-Patterns Coverage (12-Item Plan Across 3 Sprints)
+
+Closes the formatting gap that v11–v13 left open. Operator pain: prompts with bullets, markdown headers, code blocks, and AI-style closings were passing the validator because the prior catches were content-only (em-dashes, tool names, "at least N", pre-solving). v14 enforces the V3 reference convention: prompts/OEs/rubrics are plain prose throughout, with zero markdown formatting.
+
+### Sprint 1 — Prompt formatting catches (8 items)
+
+F1 bullets at line start (`F1_BULLETS` matches `•·‣▪●*-` at line start with following content — FAIL). F2 markdown headers (`F2_MD_HEADER` matches `#`-`######` at line start — FAIL). F3 markdown bold/italic (`F3_MD_BOLD_ITALIC` matches `**text**`, `__text__`, `*word*`, `_word_` — FAIL). F4 code blocks (` ``` ` — FAIL; real prompts never contain fenced code). F5 AI-style section headers (`Key Points:` / `Summary:` / `Action Items:` / `Background:` / `Context:` / `Objective:` / `Deliverables:` / `Requirements:` / `Tasks:` / `Steps:` / `Overview:` / `Goal:` — FAIL when on a line by itself). F6 AI-style closings (`Let me know if you need anything else` / `I hope this helps` / `Happy to assist` / `Please don't hesitate` / `Looking forward to your response` / `Best regards` / `Kind regards` — FAIL). F7 AI-style openings (`As requested` / `Please find below` / `I am writing to` / `Per our discussion` / `Pursuant to` / `Following up on` — FAIL). F8 3+ consecutive blank lines (AI-formatting padding tell — WARN).
+
+### Sprint 2 — OE + Rubric formatting catches (3 items)
+
+F9 OE step bullets/markdown (per-step regex within OE body: bullets at non-`OE<n>:` lines + markdown bold/italic + markdown headers — FAIL). F10 rubric title formatting (newline in title / markdown bold-italic / bullet characters — FAIL; V3 reference convention requires single-line plain-prose titles). F11 rubric evidence anchoring (evidence must reference either an OE step `Per OE<n>` / `See OE<n>` / `OE<n>` OR use trajectory-anchoring phrasing `Look for` / `Check the` / `Verify that` / `Inspect` / `Confirm` / `payload` / `final response` — WARN; calibrated against V3 references which use both styles).
+
+### Sprint 3 — Regression anchors (1 item, 7 new fixtures)
+
+26 → 33 anchors: F1 bullets in prompt, F2 markdown header in prompt, F3 markdown bold in prompt, F4 code block in prompt, F5 AI-style section header, F6 AI-style closing, F7 AI-style opening. All 33 pass.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 33 / 33 PASS |
+| `Validators/validate.py --phase all --task Tasks/24_...` | prompt PASS (0F/2W/2N), OE PASS (0F/0W/1N), rubrics FAIL (3F/8W/3N — same baseline: 1 v11 AND-bundling true-positive + 2 v13 V3 vague-connector true-positives; zero false positives introduced by v14 after F11 calibration to accept both V3 evidence-anchoring styles) |
+
+### Files changed
+
+- `Validators/validate.py` — Sprint 1 catches (F1-F8 in `validate_prompt`); Sprint 2 catches (F1/F2/F3 inside `validate_oe`; F10/F11 inside `validate_rubrics`).
+- `Validators/test_regression_anchors.py` — 7 new anchors (26 → 33).
+
+### What this closes
+
+Prompts can no longer ship with: bullets, markdown headers, markdown bold/italic, code blocks, AI-style section headers, AI-style closings ("Let me know if you need anything else"), AI-style openings ("As requested"), or 3+ blank-line padding. OE step bodies can no longer contain bullets or markdown. Rubric titles must be single-line plain prose. Rubric evidence must explicitly anchor to either an OE step or trajectory-grading phrasing.
+
+Coverage is now: 100% of QC spec sub-dims + 100% of eval specs + 100% of candidate-facing QC instructions + 100% of formatting conventions from V3 reference tasks (`QC_Tasks/V3_Tasks/Task11..Task14/`). The pipeline catches the formatting tells of AI-generated prompts that previously slipped through content-only validation.
+
+---
+
+## 2026-06-27 — v13: QC Doc Cross-Reference Coverage (7-Item Plan)
+
+Closes the 7 patterns explicitly named in the candidate-facing QC docs (Goal / Writing Guideline / Rubric Writing Guidelines / All-Fail Justification) that v11 + v12 didn't enforce. These are the patterns a candidate sees in their task interface — the pipeline now catches violations of every pattern named in those instructions.
+
+### Sprint 1 — Deterministic validator catches (4 items)
+
+V1 Investigation + Action two-phase (`V1_INVESTIGATION_CUES` matches "figure out / find out / look into / investigate / work through / dig into / get to the bottom / what's going on / tell me where / where it lands / check / see / verify / determine / trace / reconcile" + `V1_ACTION_VERBS` matches 30 write verbs; FAIL if both absent, WARN if only one present — closes the QC docs requirement that "The richest tasks have two phases: Figure out what's happening + Do something about it"). V2 First-person voice (`V2_FIRST_PERSON` matches "I / me / my / we / our / let's / can you / please"; FAIL if absent — closes the QC docs Core Requirement #6 "Must Sound Natural"). V3 forbidden vague connector in rubric (`V3_VAGUE_CONNECTOR` catches "such as / for example / e.g. / like" followed by capitalized or dollar-amount tokens — closes the QC docs rule "Never use 'such as,' 'like,' or 'for example' when defining what counts as correct"). V7 multi-value phrasing (`V7_MULTI_VALUE_AMBIGUOUS` detects "A, B, or C" patterns without one of the 3 canonical phrasings: "must be one of:" / "including but not limited to:" / "at least one of:" — closes the QC docs rule on multi-value acceptance phrasing).
+
+### Sprint 2 — Council perspectives (3 items)
+
+V4 = Council B-B10 OE Write-Action → Outcome 1.1 forward map (for every OE write step, verify ≥ 1 Outcome 1.1 rubric checks the action; closes the QC docs "Step 1: write all Outcome rubrics first — for every action in your OEs, write 1.1 + 1.2"). V5 = Council B-B11 Prompt "tell-me" cue → Outcome 2.1 forward map (for every "tell me X / report back / let me know / walk me through" cue in prompt, verify ≥ 1 Outcome 2.1 rubric covers the requested fact; closes the QC docs "For every key fact the user asked to be told directly, write 2.1"). V6 = Council A-A13 Open-Ended Write Ask Atomicity (when prompt asks for multiple write actions of the same type, the rubric set must contain one atomic rubric per ground-truth item, never "at least N"; closes the QC docs "At least N is reward-hackable. Go to the universe, identify the actual GT items, and write one rubric per item").
+
+### Sprint 3 — Regression anchors (1 item)
+
+4 new anchors added (22 → 26): V1 single-phase prompt (action without investigation), V2 first-person voice missing, V3 forbidden vague connector in rubric, V7 ambiguous multi-value phrasing. All 26 pass.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 26 / 26 PASS |
+| `Validators/validate.py --phase all --task Tasks/24_...` | prompt PASS (0F/2W/2N), OE PASS (0F/0W/1N), rubrics FAIL (3F/8W/3N — 1 v11 AND-bundling true-positive + 2 v13 V3 vague-connector true-positives on rubrics 6 & 17 which use "for example VEN-X" parenthetically; zero false positives introduced by v13) |
+| Sprint 2 council additions | A13 + B10 + B11 wired into prompt templates + verdict + pass criteria |
+
+### Files changed
+
+- `Validators/validate.py` — Sprint 1 catches (V1/V2 in `validate_prompt`; V3/V7 in `validate_rubrics`).
+- `Validators/test_regression_anchors.py` — 4 new anchors (22 → 26).
+- `Reference/Council_Protocol.md` — A13 (Council A), B10 + B11 (Council B), prompt templates + verdict + pass criteria updated through A13 / B11.
+
+### What this closes
+
+The pipeline now enforces every pattern named in the candidate-facing QC docs that the v11 + v12 sprints didn't already cover. Specifically: the Investigation + Action two-phase rule, the first-person natural-voice rule, the forbidden-vague-connector rule, the canonical multi-value phrasing rule, the OE-write-action → Outcome 1.1 forward map, the prompt-tell-me → Outcome 2.1 forward map, and the open-ended-write-ask atomicity rule. Eight gates per phase (validator with R1 percentage gates + new V1/V2/V3/V7 + Council A with 13 perspectives + Council B with 11 perspectives + AUDIT with 9 lenses + FINAL with 6 lenses + S1 similarity + S4 T2/T3 + CLOSE T2/T3 + FEEDBACK for review-type). Coverage = 100% of QC spec sub-dims + 100% of eval specs + 100% of candidate-facing QC instructions.
+
+---
+
+## 2026-06-27 — v12: QC Spec Doc Full Coverage (24-Item Plan Across 4 Sprints)
+
+Closes the gap between the pipeline and `Docs/7_QC_Spec_Doc1.json` + appendix — the **scoring bible** that the 4 evaluator specs derive from. v11 closed the eval specs; v12 closes the upstream sub-dim definitions and rubric-quality issue taxonomy that the eval specs reference but never re-define. Every named sub-dim now has at least one validator catch, council perspective, or runbook gate enforcing it.
+
+### Sprint 1 — Deterministic validator catches (12 items, ~1.5 days)
+
+P2 feasibility (`P2_CONFLICTING` regex + `P2_IMPOSSIBLE_FUTURE` regex — catches "do X but don't X" contradictions and future-event asks about a past universe today). P5 extended contrived catches (`P5_EXACT_TIMESTAMP` for "at exactly 3:47 PM", `P5_ARBITRARY_FORMAT` for "respond in exactly 3 sentences using passive voice", `P5_TEST_ERROR_HANDLING` for "intentionally trigger an error"). P7 cross-service requirement (counts distinct service mentions in prompt using SERVICE_KEYWORDS dict for gl/email/slack/blackline/vault/linear/airtable/sap/contacts — FAIL on ≤ 1 service). P8 pre-solving extension (adds "we already know", "the issue is clearly", "we've confirmed", "we've identified", "it's definitely" to PRE_SOLVE_HINT). R1 Overall Rubric Quality threshold gate (per-rubric severity tally + QC-spec exact bands: > 10% major / > 15% moderate+ / > 20% any / 3+ rubrics with Major all = FAIL). X1 missing-Outcome candidate detection (WRITE_VERB_PROMPT_RE scans prompt for "send / post / create / approve / certify / file / upload / update / void / reverse / submit / archive / notify / email / dismiss / escalate / reclassify / forward / schedule / reply / draft / log / add" — for each found, verifies an Outcome rubric title contains the verb). X2 positional-reference self-containment (X2_POSITIONAL_REFS catches "the right person / the partner / the Managing Partner / the appropriate recipient" etc.; FAIL if title lacks an email address or proper-noun name; framing tokens like "Managing Partner" explicitly excluded from the name-fallback). X4 universe-contradicting (cross-references rubric amounts against Hardness_Plan.md ground-truth atoms + prompt; flags amounts absent from both as candidates for X4 Incorrect-Criteria). X7 overly-broad list detection (X7_OVERLY_BROAD_LIST catches "any of A, B, or C" / "one of A, B, or C" — WARN with operator verification ask). X8 freetext exact-wording detection (X8_FREETEXT_QUOTED catches quoted strings on subject / body / title / description / summary / message_text fields without "(or similar)" marker — FAIL). X9 wording-mismatch (X9_SYNONYM_PAIRS list of 13 known synonym pairs; flags rubric titles using one term when prompt uses the other — account/ledger and issue/ticket removed after false-positive corpus calibration). T3 error rate gate (S4 runbook adds Step 0.5: count error runs in Agent_Responses/, FAIL if ≥ 3).
+
+### Sprint 2 — Council perspectives (8 items, ~3 days)
+
+Council A gains 6 new perspectives: **A7 Clarity & Specificity holistic** (re-read with no prior context, surface second valid interpretations that produce different write-actions), **A8 Truthfulness deep tally** (per-claim Major/Minor classification; 1+ Major or 2+ Minor = FAIL), **A9 Persona Fit Comparison** (grade assigned persona 1-5; identify better-fit candidate; delta ≥ 2 = NON-FAIL for operator decision), **A10 Business Function Match** (read `Docs/5_Prompt_Diversity_Business_Function.md`, verify primary scenario matches assigned function from the 10 Brookfield categories), **A11 End-to-End Solvability** (walk Hardness_Plan trajectory + verify every step's source row is materialized in `_aux/Universe_Split/`), **A12 Cross-Service Coherence** (for entities in 2+ services, verify name/ID/date consistency). Council B gains 2 new perspectives: **B8 OE Completeness semantic** (walk dependency chain; per missing must-take step emit `OE_INCOMPLETE: prompt requires <step> but no OE covers it`), **B9 OE Service Mapping** (verify each OE step targets the correct service for the data type it requests — reconciliations → BlackLine, AP → SAP, JEs → Oracle GL, retention → Records Vault, tickets → Linear, HR → Airtable, chat → Slack). Council A prompt template, verdict, and pass-criteria updated through A12; Council B updated through B9.
+
+### Sprint 3 — Runbook + post-platform gates (3 items, ~1 day)
+
+P1 AUDIT Lens 9 (Unique Ground Truth Middle-Band): re-read prompt asking "does it permit a leading interpretation AND a second defensible interpretation?"; surface candidate ambiguities with both readings written out + disambiguating assumption; MAJOR if readings produce different write-actions, NON-FAIL if same. T2 + T3 CLOSE.md enforcement: `close_task.py` now reads `Trajectory_Stats.json` and gates `ready` on pass@1 ≤ 40% (T2) + error_runs ≤ 2 (T3); fails CLOSE with explicit redirect to PIPELINE REDO if pass@1 > 40%. S4 Step 0.5 adds the same gates earlier in the flow with explicit STOP if either fails.
+
+### Sprint 4 — Regression anchors (1 item, ~0.5 day)
+
+`Validators/test_regression_anchors.py` extended from 10 to **22 anchors** covering the v12 catches: P2 conflicting instructions, P5 exact-timestamp demand, P5 arbitrary format constraint, P5 test-error-handling contrivance, P7 single-service prompt, P8 pre-solving extended, X2 positional reference without name, X7 overly-broad list, X8 exact wording on freetext, X9 wording mismatch, X1 missing-Outcome candidate, R1 Overall Rubric Quality threshold (3+ Major rubrics). All 22 PASS.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 22 / 22 PASS |
+| `Validators/validate.py --phase all --task Tasks/24_...` | prompt PASS (0F/2W/2N), OE PASS (0F/0W/1N), rubrics FAIL (1F/8W/3N — 1 true-positive AND-bundling on rubric[21], 8 legit WARNs including 3 X4 amount-not-in-Hardness_Plan catches + 1 X1 missing-Outcome candidate + existing v11 catches; zero false positives introduced by v12 after synonym-pair calibration) |
+| Sprint 2 council additions | A7-A12 + B8-B9 wired into prompt templates + verdict + pass criteria |
+| Sprint 3 AUDIT Lens 9 | added before VERDICT block |
+| Sprint 3 CLOSE T2/T3 gates | `close_task.py` reads `pass_at_1` + `error_runs` from `Trajectory_Stats.json`; refuses to greenlight on > 40% pass@1 or ≥ 3 error runs |
+
+### Files changed
+
+- `Validators/validate.py` — Sprint 1 catches (P2/P5/P7/P8 in `validate_prompt`; R1/X1/X2/X4/X7/X8/X9 in `validate_rubrics`; per-rubric severity tally wired onto AND-bundling/channel-lock-in/write-verb-process/Jaccard checks).
+- `Validators/test_regression_anchors.py` — 12 new anchors (10 → 22).
+- `Validators/close_task.py` — T2 + T3 gates.
+- `Reference/Council_Protocol.md` — A7-A12 (Council A), B8-B9 (Council B), prompt templates + verdict + pass criteria updated through A12 / B9.
+- `Reference/Sessions/AUDIT.md` — Lens 9 Unique Ground Truth Middle-Band.
+- `Reference/Sessions/S4.md` — Step 0.5 T2 + T3 hard gates before classification.
+
+### What this closes
+
+Every named sub-dim in `Docs/7_QC_Spec_Doc1.json` now enforced. The 9 issue-types in the QC spec appendix (Missing Outcome, Self-Containment, Atomicity, Incorrect Criteria, Overlap/Redundancy, Mislabeled Category, Overly Broad, Overly Specific, Wording Errors) all have at least one pipeline catch. Trajectory-dimension checks (T2 pass@1, T3 error rate) wired into CB-build flow at S4 + CLOSE, not just REVIEW. 22 regression anchors cover every major v11 + v12 catch.
+
+The bar is now: validator (with R1 percentage gates) + Council A (12 perspectives) + Council B (9 perspectives) + AUDIT (9 lenses) + FINAL (6 lenses) + S1 similarity gate + S4 T2/T3 hard gates + CLOSE T2/T3 verification + FEEDBACK (review-type tasks). Eight gates per phase. Coverage = 100% of QC spec sub-dims AND 100% of eval specs.
+
+---
+
+## 2026-06-27 — v11: 100% Spec Parity (38-Item Plan Across 4 Sprints)
+
+Closes every named check in the 4 evaluator specs (`Evals/1_Prompt_Eval.md` ... `Evals/4_Verifier_Fails_Eval.md`) by enforcing it through at least one of: a validator script catch, a council / AUDIT / FINAL sub-agent perspective, or a runbook procedural gate. Resolves the 20+ internal contradictions in the eval specs by either picking the stricter interpretation in the pipeline OR documenting the deviation explicitly in the new `AGENTS.md "Pipeline Deviations from Eval Specs"` section.
+
+### Sprint 1 — Mechanical wins (15 items, validator regex + doc clarifications)
+
+A1 retention-code whitelist (`AICPA_SQMS_7Y` / `IRS_TAX_7Y` / `FIRM_INTERNAL` / `INDEFINITE` — FAIL on `SOX_7Y` / `SEC_PERMANENT` / unlisted). A2 Slack channel ID whitelist (`C001-C010` + `C012` — FAIL on `C011`). A4 classifications enum (`public` / `internal` / `restricted`). A5 BlackLine exception-type whitelist (6 types + state machine). A7 parameter-trap exhaustion (extends v6's 3 traps to cover the full set from `8_Server_Tools_Details.json`). B4 command-list detection (numbered-step + sequential `First/Then/Finally` regex). B6 structured-value lock-in (channel_id pinned alone without channel name → WARN to accept either form). B8 write-action-mislabeled-as-Process (Process rubric with write-verb in title → FAIL re-classify as Outcome 1.1). B9 AND-bundling atomicity (regex requiring BOTH sides to be action verbs to eliminate noun-phrase false positives). B11 overlap/redundancy detection (Jaccard ≥ 70% on rubric criterion text). C3 AUDIT Lens 7 anti-rationalization rule (explicit "do not excuse a finding by claiming most-likely-interpretation"). E3 severity-tally rule formalization (highest-only-per-criterion + Process Rubrics double-count resolution). E4 sub-dim scoring scheme documentation (per-sub-dim 1/3/5 vs 1/5 vs 1/2/5 map in Council B-B1 prompt template). E5 threshold math normalization (absolute-count gates: Major ≤ 2, Moderate ≤ 4). E6 new `AGENTS.md "Pipeline Deviations from Eval Specs"` section documenting 8 resolved spec contradictions.
+
+### Sprint 2 — Medium-cost validators + cross-artifact (13 items)
+
+A3 28-authoring-persona whitelist (FAIL prompts voiced by 7 known NPCs: Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac). A6 account-number entity-trap (WARN when account `105000` etc. mentioned near entity name but not in Fact_Ledger.accounts_by_entity for that entity — closes the Cash-Trust vs IOLTA vs Short-term Investments confusion). B1 channel/method lock-in in rubrics (FAIL rubric requiring email when prompt used `notify` / `reach out` / `let X know` open-goal verbs). B3 bolt-on detection extended to OE steps + rubric criteria (was prompt-only in v6 — now per-step + per-rubric entity overlap check). B5 evidence-stricter-than-criterion (WARN when evidence carries dates / IDs / amounts absent from the criterion title). B7 reverse-groundedness with OE-aware fix (universe-valid IDs in rubric title only WARN if absent from BOTH prompt AND OE — prompts that explicitly ask the agent to DISCOVER vendor IDs no longer trigger false positives). B10 service metadata completeness (email rubric without recipient = FAIL; Slack rubric without channel name or channel_id = FAIL). B12 OE dependency chain (sends email to specific address without earlier contact-lookup OE step = WARN). B13 `(or similar)` validity in OEs (when OE says `tool X or similar`, verify another tool in same service exists). D2 S4 explicit All-Failing Rubrics sub-dim scoring (Bucket-1 ratio > 50% = 1/5 FAIL; 25-50% = 3/5 NON-FAIL; < 25% = 5/5 PASS — closes the verifier-stage scoring gap). D3 empty-in-base-tables awareness (Fact_Ledger tracks tables empty in base universe but populated per-task; e.g., `linear.*` tables on Task 24). D4 date alignment unification (Fact_Ledger.lifecycle.today is the single source for Prompt 2.8 + OE 2.5 + Rubrics 2.11 alignment — collapses 3 disjoint checks into one validator pass). F1 Council B-B1 scoring template formalization (per-sub-dim scheme table in `Reference/Council_Protocol.md` with format example + AUDIT Lens 1 inheritance).
+
+### Sprint 3 — Council perspectives + operational discipline (6 items)
+
+B2 + C2 Council A-A6 persona-scope check (for prompts using possessive scope `my X` / `our X`, every universe-grounded rubric value must belong to the persona's assignment set per `_aux/Universe_Split/`; out-of-scope = BLOCK unless prompt explicitly broadens to firm-wide). C1 Council A-A5 persona authorship whitelist (positive-whitelist verification that assigned persona is one of the 28 authoring personas in `Brookfield_Base_Universe/2_Persona_Briefs.md` — complements the validator's negative-blocklist of 7 NPCs). C5 Council B-B7 per-rubric cross-artifact consistency (for every rubric criterion, verify the value matches the value in the matching OE step exactly; mismatch = BLOCK with optional `PROPAGATE TO S2`). D1 FINAL Lens 6 verifier-fails-spec pre-upload check (simulates `Evals/4_Verifier_Fails_Eval.md` bucket classification for every rubric — > 20% Bucket_1_Risk = REVISE; ≤ 20% = MAJOR notes; 0% = PASS). E1 TODO enforcement (every runbook adds a Step 0 mandating `_aux/Todos_<phase>.md` creation; `phase_ready.py` emits a `[REMIND]` for missing TODO files; AUDIT confirms presence at exit).
+
+### Sprint 4 — Infrastructure + the heaviest item (4 items)
+
+C4 regression-anchor verification (new `Validators/test_regression_anchors.py` runs validate.py against 10 synthetic mini-task fixtures each exhibiting a documented platform-rejection anti-pattern: R7 NPC persona, action-decision ambiguity, command-list, em-dash ban, R9 channel lock-in, subjective term, AND-bundling, invalid retention code, invalid Slack channel, mislabeled Process write-action; all 10 MUST flag with the expected pattern or AUDIT cannot pass — added as AUDIT Lens 8). E2 reference-doc reading log (`phase_ready.py` extends `[REMIND]` to also enforce `_aux/Reads_<phase>.md` listing each QC spec / Reference / Eval doc actually read in this phase — catches the "agent never opened the spec" failure mode). F2 unified verdict format (every council / AUDIT / FINAL report ends with a fenced JSON block with phase + council + verdict + perspectives + scores + density_projection + lever_preservation + bucket_1_risk_pct fields — enables cross-task aggregation via future `Validators/aggregate_verdicts.py`). G1 HARDNESS breadth-vs-depth check (density projection now also emits Service Breadth table; ≥ 4 distinct services each ≥ 5% of total = PASS; ≤ 2 distinct services OR dominant > 60% = `THIN_BREADTH` — catches the false-positive density pattern where 50+ calls all land on one service).
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 10 / 10 PASS |
+| `Validators/validate.py --phase all --task Tasks/24_...` | prompt PASS (0F/2W/1N), OE PASS (0F/0W/1N), rubrics FAIL (1F/3W/2N — 1 true-positive AND-bundling, 3 legit WARNs, 0 false positives introduced by v11) |
+| `Validators/phase_ready.py --phase s1 --task Tasks/24_...` | OK + emits E1 `[REMIND] Todos_s1.md` + E2 `[REMIND] Reads_s1.md` |
+
+### Files changed
+
+- `Validators/validate.py` — Sprint 1 + Sprint 2 catches (A1-A7, B1-B13 deterministic side, D3, D4 inline). B3 extended to OE step + rubric criterion bolt-on detection.
+- `Validators/phase_ready.py` — E1 TODO reminder + E2 Reads reminder per phase.
+- `Validators/test_regression_anchors.py` — NEW. 10 synthetic mini-task fixtures + runner.
+- `Reference/Council_Protocol.md` — A5 / A6 / B7 perspectives, prompt-template updates, sub-dim scoring scheme table (F1), unified verdict JSON schema (F2).
+- `Reference/Sessions/FINAL.md` — Lens 6 verifier-fails-spec pre-upload check + roster table + Hard rules row.
+- `Reference/Sessions/AUDIT.md` — Lens 8 regression-anchor verification.
+- `Reference/Sessions/HARDNESS.md` — Service Breadth table (G1).
+- `Reference/Sessions/{S0,S1,S2,S3,S4,FINAL,HARDNESS,REVIEW,REDO}.md` — Step 0 TODO mandate (E1).
+- `Reference/Sessions/S4.md` — All-Failing Rubrics sub-dim explicit scoring (D2, already done in v11 mid-sprint commit).
+- `Validators/build_fact_ledger.py` — empty-in-base-tables tracking (D3, already done in v11 mid-sprint commit).
+- `AGENTS.md` — "Pipeline Deviations from Eval Specs" section (E6, already done in v11 mid-sprint commit).
+
+### What this closes
+
+All 4 evaluator-spec named checks now enforced. All 20+ documented spec contradictions either resolved or explicitly noted. Real platform-rejection patterns (R7 persona, R9 channel lock-in, account-entity trap, structured-value lock-in, action-decision ambiguity, late-post without unlock, tool-parameter wrong-binding, narrative-state contradiction) all caught by validator unaided. TODO + Reads logging makes Phase 0 spec-reading verifiable. Unified verdict format enables cross-task QC trend analysis.
+
+The bar is now: validator + Council A + Council B + AUDIT (with 8 lenses) + FINAL (with 6 lenses) all GO per phase + S1 similarity gate + S4 trajectory walk + FEEDBACK before CLOSE for review-type tasks. Six gates per phase, much higher catch rate per gate.
+
+---
+
+## 2026-06-21 — v10: Prompt Foundation Strengthening (Narrative State + Action Prescription + Tool-Parameter Strictness + Lifecycle Preconditions)
+
+Eight pipeline-level fixes driven by two real platform rejections on `opposite_classic` tasks (6a3998c2 and 6a34253220) that escaped v9's gates. Both failures share a common root cause: the pipeline checks LEXICAL groundedness (does this value exist in the universe?) but not SEMANTIC consistency (does the prompt's narrative state match the universe's actual state? is the OE's tool-parameter binding valid per-tool? is the lifecycle precondition for the action present?).
+
+### Diagnosis of the escapes
+
+**Task 6a3998c2 (opposite_classic)** — three structural failures rated Poor 2/5 by platform reviewer:
+1. Prompt says "Dismiss under materiality / push it through" but universe record's `proposed_resolution = "Reclassify via 4-eyes"` — two divergent end states, Major Unique Ground Truth issue.
+2. OE7 binds `late_post_authorization_id` to `oracle_gl_create_journal_entry` — parameter exists only on `oracle_gl_post_journal_entry`. All 6 runs hit `OGL.PERIOD_CLOSED` because the period was never unlocked.
+3. Period `northstar_legal_FP-2025-12` is closed; no unlock or `late_post_authorization_id` precondition step in the OE chain.
+
+**Task 6a34253220 (opposite_classic)** — narrative-state contradiction, rated Poor 2/5:
+- Prompt: "Andrea is wrapping up her certification ... before she finalizes it"
+- Universe: Andrea's sign-off email dated June 10 (today = June 12) — certification ALREADY complete
+- Result: agents discovered the existing sign-off, deferred to partner-level, 5/6 runs failed stakeholder comms, 6/6 failed Vault artifact.
+
+### Eight v10 fixes
+
+1. **Council A A3 — Narrative State Consistency** (`Reference/Council_Protocol.md`): new perspective. For every state-implying claim in the deliverable (verbs like "is wrapping up", "before X finalizes", "is pending", "the period is open", "SLA approaches"), identify the universe record AND verify the claimed state matches the universe's actual lifecycle state (Fact_Ledger lifecycle atoms + Universe_Split records). Any contradiction = BLOCK.
+
+2. **Council A A4 — Action-vs-Universe-Prescription** (`Reference/Council_Protocol.md`): new perspective. For every action verb the prompt asks for, identify the universe record AND check for `proposed_resolution` / `recommended_action` / `next_step` / `assigned_to` fields prescribing a DIFFERENT action. Silent divergence = BLOCK. Explicit override language ("override the proposed resolution because Z") = ACCEPT. Also catches authority/permission gaps (persona lacks role for asked action).
+
+3. **Validator: per-tool parameter strictness** (`Validators/validate.py` `validate_oe`): new check. New helper `load_tool_param_map()` walks `8_Server_Tools_Details.json` and builds `{tool_name: set(parameter_names)}`. For every OE step that names a tool + parameters (snake_case tokens), verify each parameter is on THAT specific tool, not just any tool. Catches the Task 1 OE7 class of failure (`late_post_authorization_id` mentioned alongside `oracle_gl_create_journal_entry` instead of `_post_`).
+
+4. **Validator: lifecycle precondition check** (`Validators/validate.py` `validate_oe`): new check. For every OE step that posts a JE to a fiscal period (post verb + JE reference + period_id), look up the period's lock state in `Fact_Ledger.lifecycle.closed_periods`. If closed, require either (a) an earlier unlock step in the OE chain OR (b) the `late_post_authorization_id` parameter on the post call. Missing precondition = FAIL with `OGL.PERIOD_CLOSED` explanation.
+
+5. **Validator: action-decision ambiguity scan** (`Validators/validate.py` `validate_prompt`): new check. New regex `ACTION_AMBIGUITY` scans prompt for action verbs separated by `/` or ` or ` ("dismiss / push through", "approve or deny", "reclassify, dismiss, or escalate"). FAIL with explicit fix suggestion (add decision criteria OR pick one action). Catches the Task 1 Major Clarity / Action Decision Ambiguity failure.
+
+6. **FINAL Lens 5 — Narrative-State + Action-Prescription Cross-Artifact Consistency** (`Reference/Sessions/FINAL.md`): new lens added to the Final Council prompt template. Cross-artifact re-verification of A3 + A4 at the prompt/OE/rubric integration layer. Plus per-tool parameter strictness + lifecycle precondition checks against all 3 artifacts together. Four new BLOCKER rows added to the FINAL Hard Rules table.
+
+7. **AUDIT Lens 6 — Lifecycle + Narrative State (strictest)** (`Reference/Sessions/AUDIT.md`): new lens added to the AUDIT prompt template. Under strictest interpretation, ANY narrative-state contradiction = REVISE; ANY lifecycle-infeasible action = REVISE; ANY tool-parameter binding to wrong tool = REBUILD (structurally unrecoverable in place); ANY action-prescription divergence without explicit override = REVISE.
+
+8. **Fact_Ledger augmentation** (`Validators/build_fact_ledger.py`): new `lifecycle` section in the ledger emitting:
+   - `today`: the universe today (from `Universe_Index/today_horizon.json`)
+   - `closed_periods`: fiscal periods with status `closed` or `locked`
+   - `open_periods`: fiscal periods with status `open` / `draft` / `active`
+   - `fiscal_periods_count`: tally of closed / open / total
+
+   Used by item 4 (lifecycle precondition check) and items 1+6+7 (narrative-state checks). Future iterations can add signoff-language detection, past-SLA flags, completed-actions list.
+
+### What this closes
+
+| Operator-pain failure mode | Items that close it |
+|---|---|
+| Prompt narrative state contradicts universe completion state (Task 6a34253220) | A3 + Lens 5 + Lens 6 + Fact_Ledger lifecycle atoms |
+| Prompt action contradicts universe's `proposed_resolution` (Task 6a3998c2 #1) | A4 + Lens 5 + Lens 6 |
+| Action-decision ambiguity ("dismiss / push through") (Task 6a3998c2 #1) | Validator action-ambiguity FAIL |
+| OE binds parameter to wrong tool (Task 6a3998c2 #2 `late_post_authorization_id`) | Validator per-tool param strictness FAIL |
+| OE posts to closed period without unlock (Task 6a3998c2 #3) | Validator lifecycle precondition FAIL + Fact_Ledger lifecycle atoms |
+| Persona lacks authority for asked action (latent risk) | A4 authority-gap check |
+| Stale time-anchored claims (latent risk) | Fact_Ledger.lifecycle.today + A3 |
+| Implicit-vs-explicit framing mismatch (handled in v6 by B6 propagation) | Existing B6 + Lens 5 reinforcement |
+
+---
+
+## 2026-06-21 — v9: PIPELINE FEEDBACK Phase + Flat Rubric Schema Mandate
+
+Two operator-pain fixes raised after the v8 ship.
+
+### PIPELINE FEEDBACK lifted into a dedicated fresh-chat phase (issue 1)
+
+The v8 guardrails on REVIEW step 7 (explicit "rate the ORIGINAL not the fixed task" + plain-language QC dim mapping + voice gate) were not enough. By the time the agent reached the feedback step inside REVIEW, the chat context was saturated with fix-related work (changes.md rows, council reports, materialized 14/15) and the feedback still consistently drifted to rating what we fixed instead of what the candidate submitted.
+
+Fix: lift feedback into a dedicated fresh-chat phase with a clean context AND a strict input allowlist.
+
+- **New runbook** `Reference/Sessions/FEEDBACK.md` + trigger `PIPELINE FEEDBACK — Tasks/<TASK_DIR>`. Runs AFTER `PIPELINE REVIEW`, BEFORE `PIPELINE CLOSE`.
+- **Strict input allowlist**: reads ONLY candidate originals `5_Prompt.txt` / `6_Oracle_Events.txt` / `7_Rubrics.json` + user-pasted `3_UniverseDataForThisTask.json` (for spot-checking truthfulness) + `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md` + `Reference/Linter_Playbook.md` (voice rules).
+- **Strict denylist**: explicitly forbidden to read `changes.md`, `14_Updated_*`, `15_Updated_*`, `_aux/REVIEW_prompt_draft.txt`, `_aux/Council_Reports/*`, `_aux/REVIEW_*`. None of these are the candidate's work; reading them was the source of the drift.
+- **Evaluates against QC SPEC BASELINE only** — the candidate is rated against `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md`, NOT against our internal exceeds-spec bar (50+ density, strictest AUDIT, B6 propagation, multi-dim similarity, etc.). We hold ourselves to a higher standard internally; the rating is fair only when measured against the publicly-defined criteria the candidate had access to. A candidate prompt that projects to 42 tool calls passes the spec's investigation-breadth dim even though our internal HARDNESS phase would flag THIN.
+- **Plain-language QC dim mapping** — 12-entry table in the runbook for translating internal QC dim names ("Atomicity", "Self-Containment", etc.) into plain-language descriptions the candidate can act on without needing the QC spec doc.
+- **Voice gate**: `python Validators/check_justification.py Tasks/<TASK_DIR>/13_Feedback.txt` must exit 0 before save.
+- `Reference/Sessions/REVIEW.md` step 7 simplified to a NO-OP pointer to FEEDBACK.
+- `Reference/Sessions/REVIEW.md` exit criteria updated (no longer requires `13_Feedback.txt`).
+- `Reference/Sessions/REVIEW.md` STOP gate adds top-row next-trigger: "Standard REVIEW intake done → `PIPELINE FEEDBACK` in fresh chat → then `PIPELINE CLOSE`".
+- Root `AGENTS.md` PIPELINE DISPATCH adds FEEDBACK row between AUDIT and CLOSE. Trigger count 14 → 15.
+- `QUICK_START.md` Closing-the-task section split: CB tasks → CLOSE directly; review-type tasks → FEEDBACK first, then CLOSE.
+- `Reference/Sessions/CLOSE.md` already requires `13_Feedback.txt` for review-type tasks — will auto-flag if FEEDBACK was skipped.
+
+### Flat rubric schema mandated for new tasks (issue 2)
+
+Previously the validator accepted both nested (`{id, title, annotations: {evidence, justification, rubric_category}}`) and flat (`{title, category, justification, evidence}`). The duality was creating drift in new tasks. Operator preference: always create rubrics in flat JSON with exactly four fields, nothing else.
+
+- `Reference/Sessions/S3.md` step 4 rewritten: rubrics must use the FLAT schema — `{title, category, justification, evidence}` — exactly four fields, no `id`, no `annotations` wrapper, no extras. The previous "pick either nested or flat" guidance was eliminated.
+- `Reference/Rubric_Format.md` Schema section rewritten: flat only. Legacy nested shape documented as back-compat-deprecated.
+- `Validators/validate.py` rubric phase: emits a WARN when nested schema is detected (`nested schema is deprecated — convert to flat {title, category, justification, evidence}. New tasks must ship flat.`) — does NOT fail, to preserve back-compat with already-shipped tasks.
+- `15_Updated_Rubrics.json` in REVIEW flow also mandated flat.
+
+### Smoke-test evidence
+
+- `FEEDBACK.md` runbook in place + cross-referenced from REVIEW (step 7), AGENTS.md (dispatch), QUICK_START.md (closing).
+- `validate.py` WARN logic added at the rubric schema-detection branch; existing tasks with nested schema will now surface a deprecation warning on next validator run without breaking.
+- Trigger count is 15 (NEW / S0 / HARDNESS / S1 / S1.5 / S2 / S3 / FINAL / S4 / REVIEW / REDO / COMPARE / AUDIT / FEEDBACK / CLOSE).
+
+---
+
 ## 2026-06-21 — v8: Trajectory-Mandatory S4 + REVIEW Linter Branch + Original-Candidate Feedback + Skeptical-First Linter + Multi-Dim Similarity + Class B Invalidation + Knowledge Flow + Density Target Raised to 50+
 
 Eight follow-up improvements from operator-pain debrief on Tasks 23-24 and the legacy `command workflow.txt` parity review. Closes operator pain points that the v6/v7 sprint did not address.

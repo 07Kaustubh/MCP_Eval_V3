@@ -1,0 +1,14 @@
+Overall: PASS on the candidate's original submission.
+
+What worked
+- Strong scope discipline. The prompt names three reviews that all surface under the same compliance searches (the Acme enterprise wire, the Northstar adverse-media match, the quarterly partner sign-off control test) and explicitly holds the agent to only the Acme one. This is the kind of front-loaded disambiguation that separates a careful submission from one that lets the agent drift onto a similar-looking lead.
+- The classification ask is well anchored. Asking that the close-out be held "classified to match the comparable Acme AML records already on file, not whatever a new document defaults to" forces the agent to ground its choice in comparable on-file records rather than accept the routine default. That is a discriminating lever, not a stylistic ask.
+- Good action-not-flag framing on the open reminder. Telling the agent to "deal with it rather than simply flag it" turns the cleanup of the now-moot AML threshold alert into a write action the check set can verify, not a soft narrative claim.
+- Document-kind acceptance is correctly grounded. Accepting either of the two real kinds used for control evidence on this firm (the kind the comparable Acme AML records use, and the firm's standing kind for audit and control evidence) is more accurate than locking to a single value, and the rubric body says so.
+- Calendar placement check fits the firm's calendar surface. The prompt's "recurring item" intent is captured by requiring a future placement whose title or description names the standing AML control-effectiveness review, because the firm's calendar surface does not carry a separate recurrence flag.
+
+What needs work
+- Nothing material to flag. The submission verifies cleanly against the records, the comparable on-file documents, and the available tool surfaces.
+
+Recommended next steps
+- Ship as is.

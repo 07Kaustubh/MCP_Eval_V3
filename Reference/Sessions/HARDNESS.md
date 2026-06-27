@@ -31,6 +31,10 @@ python Validators/phase_ready.py --phase hardness --task Tasks/<TASK_DIR>
 
 Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
 
+## Step 0: Create your TODO list (MANDATORY)
+
+Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_hardness.md` listing every step in the Procedure below as a discrete atomic todo. Mark `in_progress` / `completed` as you progress. v11 E1 operator-discipline gate.
+
 ## Procedure
 
 1. **Read `Tasks/_meta/Learnings.md` end to end.** This is the mandatory first action of HARDNESS. The entries (L1, L2, ...) calibrate which levers actually fail Opus 4.8 and which are wasted effort. The L1-L7 "does not reliably fail" block is just as important as the L8-L14 "reliably fails" block — picking a single-hop reduction or a near-miss-entity-only trap wastes the task budget.
@@ -95,6 +99,27 @@ Refuses if S0 hasn't run. If it STOPs, invoke `PIPELINE S0` first.
    | **TOTAL projected** | <low>-<high> | <midpoint> |
 
    **Gate (tiered):** midpoint ≥ 50 = PASS (design target); midpoint 40-49 = THIN_DENSITY (continue with per-task justification documented under `## THIN density acceptance` subsection); midpoint < 40 = INSUFFICIENT_DENSITY (STOP).
+
+   ## Service Breadth (v11 G1)
+   List each service the projected trajectory exercises with the projected call count per service. Cross-service breadth is a hardness multiplier — 50 calls across 5 services is structurally harder for Opus 4.8 than 50 calls in one service (single-service traps allow context lock-in; multi-service forces persistent cross-correlation).
+
+   | Service | Calls | % of total |
+   |---|---|---|
+   | oracle_gl | <n> | <pct> |
+   | email | <n> | <pct> |
+   | slack | <n> | <pct> |
+   | records_vault | <n> | <pct> |
+   | blackline | <n> | <pct> |
+   | linear | <n> | <pct> |
+   | airtable | <n> | <pct> |
+   | sap | <n> | <pct> |
+   | contacts | <n> | <pct> |
+   | other | <n> | <pct> |
+   | **Distinct services** | **<count>** | — |
+
+   **Breadth gate:** ≥ 4 distinct services with each ≥ 5% of total = PASS; 3 distinct services with the dominant one < 60% = ACCEPTABLE (mark NOTE in plan); ≤ 2 distinct services OR dominant > 60% = `THIN_BREADTH` — the density may meet the floor but the task is structurally lever-thin. Document why the prompt cannot pull in more services (e.g., persona's role is single-domain) under `## THIN breadth acceptance` subsection.
+
+   This catches the false-positive density pattern where the projected 50+ midpoint is achieved by stacking 50 GL calls (a single-service deep trap) instead of the cross-correlation chains that Opus 4.8 actually fails on.
 
    ## Stump Hypothesis (2 to 4 predictions)
    1. [HIGH] <prediction>. Mechanism: <lever>. Reasoning: <one line>.

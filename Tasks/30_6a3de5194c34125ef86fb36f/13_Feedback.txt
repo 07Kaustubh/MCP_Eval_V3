@@ -1,0 +1,16 @@
+Overall: NON-FAIL on the original submission. Adequate work with a small set of focused issues that needed to be cleaned up before ship.
+
+What worked
+- The prompt reads naturally from the compliance officer's seat and ties the close-out housekeeping into a single coherent investigation that touches the ledger, the case thread, the reminder queue, the document vault, and the partner email in one cohesive request.
+- The oracle events cover the full critical path end to end. Every write action has a clear discovery step that feeds it, the parameter choices match the universe, and the expected data points are accurate against the per-task records.
+- The rubric set is uniformly outcome style and agent centric. Each criterion is observable in the trajectory, names the right participants by full email or role, and embeds the expected values directly inside the criterion text instead of asking the judge to look elsewhere.
+
+What needs work
+- The rubric file does not parse as valid JSON. The criterion that checks the disposition memo title for the client identifier contains unescaped double quotes around the example client variants inside the evidence field, which breaks the file partway through. Strict parsers reject the file, and the same defect would block any downstream tool that needs to load structured rubrics. Escape the inner quotes or switch the examples to single quotes so the file parses cleanly.
+- The prompt narrows the investigation more than it needs to. Naming the exact dollar amount and pinning the date to "late April" hands the agent the lookup keys for the journal entry up front, which trims the discovery span. The close-out housekeeping is still a real investigation, but the prompt sits on the borderline of telling the agent where to look. Trimming the dollar amount and softening the date anchor (for example, "earlier this quarter") would push the prompt back to a full pass on investigation depth.
+- Two of the title-content criteria overlap on the same parameter. One checks the disposition memo title for the client identifier and the other checks the same title for the AML or compliance subject term. Both inspect substrings of the same title parameter on the same upload call, and neither carries useful signal independent of the other. Collapsing them into one combined criterion with both conditions cleans up the redundancy and frees a rubric slot for an additional outcome check.
+
+Recommended next steps
+- Fix the JSON escaping in the rubric evidence field so the file parses cleanly.
+- Trim the dollar amount and the date anchor from the prompt so the agent has to discover the underlying transaction rather than receiving the lookup keys upfront.
+- Combine the two title-content criteria into one combined check and use the freed slot for a different outcome criterion that adds coverage rather than restating an existing one.

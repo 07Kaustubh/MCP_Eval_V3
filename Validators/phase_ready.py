@@ -48,6 +48,8 @@ PHASES = {
     "compare":  ["7_Rubrics.json", "10_Rubrics_Platform.json"],
 }
 
+TODO_PHASES = {"s0", "hardness", "s1", "s1.5", "s2", "s3", "final", "s4", "review", "redo"}
+
 
 def check(task_dir, path_str):
     p = task_dir / path_str
@@ -96,6 +98,24 @@ def main():
     print(f"[OK] {args.phase}: all {len(required)} upstream artifacts present")
     for path in required:
         print(f"  - {path}")
+
+    if args.phase in TODO_PHASES:
+        todo_path = task_dir / "_aux" / f"Todos_{args.phase}.md"
+        if todo_path.exists() and todo_path.stat().st_size > 0:
+            print(f"[OK] _aux/Todos_{args.phase}.md present ({todo_path.stat().st_size} bytes) — agent TODO discipline confirmed")
+        else:
+            print(f"[REMIND] Create _aux/Todos_{args.phase}.md as your FIRST action of this phase.")
+            print(f"         List atomic todos for every step the runbook prescribes; mark in_progress / completed as you go.")
+            print(f"         This is the v11 E1 operator-discipline gate. AUDIT will check this file exists before exit.")
+
+        reads_path = task_dir / "_aux" / f"Reads_{args.phase}.md"
+        if reads_path.exists() and reads_path.stat().st_size > 0:
+            print(f"[OK] _aux/Reads_{args.phase}.md present ({reads_path.stat().st_size} bytes) — reference-doc reading log confirmed")
+        else:
+            print(f"[REMIND] Create _aux/Reads_{args.phase}.md as your SECOND action of this phase.")
+            print(f"         Log every QC spec doc / Reference card / Eval spec you read with one line each:")
+            print(f"         `Docs/7_QC_Spec_Doc1.json :: <one-line summary of what you confirmed>`")
+            print(f"         This is the v11 E2 compliance gate — agents that skip the spec docs are caught here.")
     sys.exit(0)
 
 
