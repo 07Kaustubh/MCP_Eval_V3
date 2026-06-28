@@ -1,0 +1,3224 @@
+{
+  "servers": [
+    {
+      "name": "Email MCP",
+      "tools": [
+        {
+          "name": "email_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "list_emails",
+          "description": "List emails in a folder with pagination support.",
+          "parameters": [
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "get_email_by_id",
+          "description": "Get an email by its unique ID.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "get_email_by_index",
+          "description": "Get an email by its index position in a folder.",
+          "parameters": [
+            {
+              "name": "idx",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "send_email",
+          "description": "Send an email to the specified recipients.",
+          "parameters": [
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "recipients",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "subject",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "cc",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "attachment_paths",
+              "type": "array | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "reply_to_email",
+          "description": "Reply to an existing email.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "cc",
+              "type": "array | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "forward_email",
+          "description": "Forward an existing email to new recipients.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "recipients",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "move_email",
+          "description": "Move an email from one folder to another.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "from_folder",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "to_folder",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "delete_email",
+          "description": "Delete an email by moving it to the TRASH folder.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "search_emails",
+          "description": "Search for emails in a folder based on a query string.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "show_data",
+          "description": "Show raw email data as JSON.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        },
+        {
+          "name": "list_jmap_emails",
+          "description": "List emails in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "get_jmap_email",
+          "description": "Get single email in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "set_email_keywords",
+          "description": "Update email keywords/flags.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "keywords",
+              "type": "object",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "list_mailboxes",
+          "description": "Get all mailboxes with counts and metadata.",
+          "parameters": []
+        },
+        {
+          "name": "get_mailbox",
+          "description": "Get mailbox by ID with current counts.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "get_thread",
+          "description": "Get conversation thread with all related emails.",
+          "parameters": [
+            {
+              "name": "thread_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "get_email_threads",
+          "description": "List threads in a specific mailbox.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Contacts MCP",
+      "tools": [
+        {
+          "name": "contacts_get_contacts",
+          "description": "Get contacts list with pagination.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "contacts_get_contact",
+          "description": "Get a specific contact by ID.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_add_new_contact",
+          "description": "Add a new contact.",
+          "parameters": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "gender",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "age",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "nationality",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "city_living",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "country",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "job",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "email",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "contacts_edit_contact",
+          "description": "Edit a contact's fields.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "updates",
+              "type": "any",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_delete_contact",
+          "description": "Delete a contact.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_search_contacts",
+          "description": "Search contacts by name, phone, or email.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_show_data",
+          "description": "Show raw contacts data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mortgage Los MCP",
+      "tools": [
+        {
+          "name": "mortgage_los_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "mortgage_los_login",
+          "description": "Log in as a staff member by email and establish current authored-user context.",
+          "parameters": [
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_pipeline",
+          "description": "Return active pipeline loans with dashboard fields.",
+          "parameters": [
+            {
+              "name": "assigned_to",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "sort_by",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_pipeline_summary",
+          "description": "Return aggregate pipeline metrics.",
+          "parameters": []
+        },
+        {
+          "name": "mortgage_los_search_loans",
+          "description": "Search loans by borrower name, loan number, property address, or lender.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_create_loan",
+          "description": "Create a new loan from application data.",
+          "parameters": [
+            {
+              "name": "borrower_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "loan_type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "loan_purpose",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "property_address",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "purchase_price",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "loan_amount",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "down_payment_pct",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "rate",
+              "type": "number",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "rate_lock_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "rate_lock_expiration",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "ltv",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "dti",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "lender_id",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "assigned_lo",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "assigned_processor",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "closing_date",
+              "type": "string",
+              "required": false,
+              "default": ""
+            },
+            {
+              "name": "le_sent_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "cd_sent_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "realtor_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "realtor_email",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "title_company",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_loan_by_id",
+          "description": "Get full loan detail by internal loan ID.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_update_loan",
+          "description": "Update mutable loan fields and apply side effects.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "rate",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "rate_lock_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "rate_lock_expiration",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "closing_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "lender_id",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "le_sent_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "cd_sent_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_loan",
+          "description": "Get full loan detail by loan number.",
+          "parameters": [
+            {
+              "name": "loan_number",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_search_borrowers",
+          "description": "Search borrowers by name, email, or status.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_create_borrower",
+          "description": "Create a new borrower record.",
+          "parameters": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "ssn_last_four",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "credit_score",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "annual_income",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "employer",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "co_borrower_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "co_borrower_email",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "assigned_loan_officer",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "referral_source",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_borrower_by_id",
+          "description": "Get borrower profile by ID.",
+          "parameters": [
+            {
+              "name": "borrower_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_update_borrower",
+          "description": "Update borrower profile fields.",
+          "parameters": [
+            {
+              "name": "borrower_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "first_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "last_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "email",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "ssn_last_four",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "credit_score",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "annual_income",
+              "type": "number | null",
+              "required": false
+            },
+            {
+              "name": "employer",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "co_borrower_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "co_borrower_email",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "assigned_loan_officer",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "referral_source",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_borrower",
+          "description": "Get borrower profile by email.",
+          "parameters": [
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_conditions",
+          "description": "List conditions for a loan.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_add_condition",
+          "description": "Add a new underwriting condition to a loan.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "condition_type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_update_condition",
+          "description": "Update a condition status and notes.",
+          "parameters": [
+            {
+              "name": "condition_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_documents",
+          "description": "List document checklist items for a loan.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_update_document",
+          "description": "Update document status, file path, and notes.",
+          "parameters": [
+            {
+              "name": "document_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "file_path",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_outstanding_documents",
+          "description": "Return required/requested documents across active loans.",
+          "parameters": [
+            {
+              "name": "assigned_to",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_milestones",
+          "description": "Return stage transition history for a loan.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_activity_log",
+          "description": "Return loan activity in reverse chronological order.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "action",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_add_activity",
+          "description": "Add a note or event to a loan activity feed.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "detail",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "author",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_compliance_alerts",
+          "description": "Return loans with approaching/missed LE/CD deadlines and expiring rate locks.",
+          "parameters": []
+        },
+        {
+          "name": "mortgage_los_get_rate_lock_status",
+          "description": "Get rate lock details for a loan.",
+          "parameters": [
+            {
+              "name": "loan_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_list_staff",
+          "description": "List staff members.",
+          "parameters": [
+            {
+              "name": "role",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "active_only",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_get_staff",
+          "description": "Get a staff member by ID.",
+          "parameters": [
+            {
+              "name": "staff_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_list_lenders",
+          "description": "List lenders.",
+          "parameters": [
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "mortgage_los_list_vendors",
+          "description": "List vendors.",
+          "parameters": [
+            {
+              "name": "vendor_type",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stripe MCP",
+      "tools": [
+        {
+          "name": "stripe_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "stripe_get_account_info",
+          "description": "Get information about the connected Stripe account.",
+          "parameters": []
+        },
+        {
+          "name": "stripe_create_customer",
+          "description": "Create a new Stripe customer.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "metadata",
+              "type": "object | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_customer",
+          "description": "Retrieve a customer by ID.",
+          "parameters": [
+            {
+              "name": "customer_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_customers",
+          "description": "List all customers with pagination.",
+          "parameters": [
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_search_customers",
+          "description": "Search customers by name, email, phone, or description.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_payment_method",
+          "description": "Retrieve a payment method by ID.",
+          "parameters": [
+            {
+              "name": "payment_method_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_payment_methods",
+          "description": "List payment methods for a customer.",
+          "parameters": [
+            {
+              "name": "customer_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_charge",
+          "description": "Retrieve a charge by ID.",
+          "parameters": [
+            {
+              "name": "charge_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_charges",
+          "description": "List charges with optional filters.",
+          "parameters": [
+            {
+              "name": "customer_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "payment_intent_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_search_charges",
+          "description": "Search charges by ID, PaymentIntent ID, customer ID, or description.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "stripe_create_refund",
+          "description": "Create a refund for a charge. Amount is in cents; omit for full refund. Reason can be 'duplicate', 'fraudulent', or 'requested_by_customer'.",
+          "parameters": [
+            {
+              "name": "charge_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "required": false
+            },
+            {
+              "name": "reason",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_refund",
+          "description": "Retrieve a refund by ID.",
+          "parameters": [
+            {
+              "name": "refund_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_refunds",
+          "description": "List refunds with optional charge filter.",
+          "parameters": [
+            {
+              "name": "charge_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_dispute",
+          "description": "Retrieve a dispute by ID.",
+          "parameters": [
+            {
+              "name": "dispute_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_disputes",
+          "description": "List disputes with optional status filter.",
+          "parameters": [
+            {
+              "name": "status",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_update_dispute",
+          "description": "Update dispute evidence.",
+          "parameters": [
+            {
+              "name": "dispute_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "evidence",
+              "type": "object | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_create_connected_account",
+          "description": "Create a connected account (for platforms using Stripe Connect).",
+          "parameters": [
+            {
+              "name": "email",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": false,
+              "default": "standard"
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "default": "US"
+            },
+            {
+              "name": "business_type",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "metadata",
+              "type": "object | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_connected_account",
+          "description": "Retrieve a connected account by ID.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_connected_accounts",
+          "description": "List connected accounts.",
+          "parameters": [
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_create_transfer",
+          "description": "Create a transfer to a connected account. Amount is in cents.",
+          "parameters": [
+            {
+              "name": "amount",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "name": "destination_account_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "currency",
+              "type": "string",
+              "required": false,
+              "default": "usd"
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "metadata",
+              "type": "object | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_transfer",
+          "description": "Retrieve a transfer by ID.",
+          "parameters": [
+            {
+              "name": "transfer_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_transfers",
+          "description": "List transfers with optional destination filter.",
+          "parameters": [
+            {
+              "name": "destination_account_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_fc_account",
+          "description": "Retrieve a linked Financial Connections account by ID.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_fc_accounts",
+          "description": "List linked Financial Connections accounts.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "stripe_disconnect_fc_account",
+          "description": "Disconnect a linked Financial Connections account.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_get_fc_transaction",
+          "description": "Retrieve a Financial Connections transaction by ID.",
+          "parameters": [
+            {
+              "name": "transaction_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "stripe_list_fc_transactions",
+          "description": "List Financial Connections transactions.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 10
+            },
+            {
+              "name": "starting_after",
+              "type": "string",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CRM MCP",
+      "tools": [
+        {
+          "name": "crm_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "crm_search_contacts",
+          "description": "Search contacts by full name.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_get_contact",
+          "description": "Get a contact by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_create_contact",
+          "description": "Create a new contact.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "company_id",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "company",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "city",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "state",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "country",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "zip",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "mobilephone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "jobtitle",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "website",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_contact",
+          "description": "Delete a contact by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_search_companies",
+          "description": "Search companies by name.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_get_company",
+          "description": "Get a company by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_create_company",
+          "description": "Create a new company.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "contact_ids",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "domain",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address2",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "city",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "state",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "country",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "zip",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "industry",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "type",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_company",
+          "description": "Delete a company by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_search_deals",
+          "description": "Search deals by name and/or company ID.",
+          "parameters": [
+            {
+              "name": "dealname",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "company_id",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_get_deal",
+          "description": "Get a deal by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_create_deal",
+          "description": "Create a new deal.",
+          "parameters": [
+            {
+              "name": "dealname",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "dealstage",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "pipeline",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "company_id",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "amount",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "closedate",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_update_deal_stage",
+          "description": "Update the stage of a deal.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "dealstage",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_deal",
+          "description": "Delete a deal by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_create_lead",
+          "description": "Create a new lead.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "company_id",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "mobilephone",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "company",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "jobtitle",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "address",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "city",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "state",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "zip",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "country",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "website",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "industry",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "leadsource",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "rating",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "notes",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_search_leads",
+          "description": "Search leads by name, company ID, and/or status.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "company_id",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "status",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_get_lead",
+          "description": "Get a lead by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_update_lead_status",
+          "description": "Update a lead's status. Valid statuses: new, contacted, qualified, converted, lost.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_lead",
+          "description": "Delete a lead by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_create_engagement",
+          "description": "Create a new engagement.",
+          "parameters": [
+            {
+              "name": "engagement_type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "body",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "contact_ids",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "company_ids",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "title",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "phone",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_list_engagements",
+          "description": "List engagements, optionally filtered by contact or company IDs.",
+          "parameters": [
+            {
+              "name": "contact_ids",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "company_ids",
+              "type": "array | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_engagement",
+          "description": "Delete an engagement by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "crm_show_data",
+          "description": "Show raw CRM data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Filesystem MCP",
+      "tools": [
+        {
+          "name": "filesystem_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "filesystem_list_directory",
+          "description": "List files and subdirectories at the given path. Use an empty string for the root.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": false,
+              "default": ""
+            }
+          ]
+        },
+        {
+          "name": "filesystem_read_file",
+          "description": "Read a file by its relative path. Text files return content directly.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_write_file",
+          "description": "Write text content to a file. Creates parent directories automatically.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "mode",
+              "type": "string",
+              "required": false,
+              "default": "w"
+            }
+          ]
+        },
+        {
+          "name": "filesystem_create_directory",
+          "description": "Create a directory (and any missing parent directories).",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_delete_file",
+          "description": "Delete a file.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_delete_directory",
+          "description": "Delete a directory.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "recursive",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "filesystem_move_file",
+          "description": "Move or rename a file or directory.",
+          "parameters": [
+            {
+              "name": "source_path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "destination_path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_copy_file",
+          "description": "Copy a file or directory.",
+          "parameters": [
+            {
+              "name": "source_path",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "destination_path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_get_file_info",
+          "description": "Get metadata for a file or directory: size, type, created/modified/accessed",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "filesystem_show_data",
+          "description": "List all files and directories in the filesystem (recursive). Supports",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Slack MCP",
+      "tools": [
+        {
+          "name": "slack_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "channels_list",
+          "description": "List Slack channels, DMs, and Group DMs.",
+          "parameters": [
+            {
+              "name": "channel_types",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            },
+            {
+              "name": "sort",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "conversations_history",
+          "description": "Get messages from a Slack channel or DM.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "conversations_replies",
+          "description": "Get an entire Slack message thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "thread_ts",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "cursor",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "conversations_search_messages",
+          "description": "Search across Slack messages.",
+          "parameters": [
+            {
+              "name": "search_query",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "cursor",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 20
+            },
+            {
+              "name": "filter_date_on",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_date_during",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_date_after",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_date_before",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_in_channel",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_in_im_or_mpim",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_threads_only",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "filter_users_from",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "filter_users_with",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "conversations_add_message",
+          "description": "Post a message to a Slack channel or thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "payload",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "content_type",
+              "type": "string",
+              "required": false,
+              "default": "text/markdown"
+            },
+            {
+              "name": "thread_ts",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "user_id",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quickbooks MCP",
+      "tool_count": 17,
+      "tools": [
+        {
+          "name": "quickbooks_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "quickbooks_create_customer",
+          "description": "Create a new customer in QuickBooks.",
+          "parameters": [
+            {
+              "name": "DisplayName",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "GivenName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "MiddleName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "FamilyName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "CompanyName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "PrintOnCheckName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "BillAddr",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "ShipAddr",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "Notes",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "Taxable",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            },
+            {
+              "name": "SalesTermRef",
+              "type": "null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_customer",
+          "description": "Get a customer by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_customers",
+          "description": "Search for customers using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "desc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_vendor",
+          "description": "Create a new vendor in QuickBooks.",
+          "parameters": [
+            {
+              "name": "DisplayName",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "GivenName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "FamilyName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "CompanyName",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "required": false,
+              "default": true
+            },
+            {
+              "name": "Vendor1099",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "null",
+              "required": false
+            },
+            {
+              "name": "BillAddr",
+              "type": "null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_vendor",
+          "description": "Get a vendor by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_vendors",
+          "description": "Search for vendors using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "desc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_account",
+          "description": "Create a new account in the Chart of Accounts.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "sub_type",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "description",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_update_account",
+          "description": "Update an existing account. AccountType and Classification are immutable.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "patch",
+              "type": "any",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_accounts",
+          "description": "Search for accounts using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "desc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_invoice",
+          "description": "Create a new invoice with line items.",
+          "parameters": [
+            {
+              "name": "customer_ref",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "line_items",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "txn_date",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "doc_number",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_read_invoice",
+          "description": "Get an invoice by ID.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_invoices",
+          "description": "Search for invoices using criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_bill",
+          "description": "Create a new bill (accounts payable).",
+          "parameters": [
+            {
+              "name": "VendorRef",
+              "type": "any",
+              "required": true
+            },
+            {
+              "name": "Line",
+              "type": "array",
+              "required": true
+            },
+            {
+              "name": "DueDate",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "Balance",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "TotalAmt",
+              "type": "number",
+              "required": true
+            },
+            {
+              "name": "TxnDate",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "DocNumber",
+              "type": "string | null",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_bill",
+          "description": "Get a bill by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_bills",
+          "description": "Search for bills using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array | null",
+              "required": false
+            },
+            {
+              "name": "limit",
+              "type": "integer | null",
+              "required": false
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "desc",
+              "type": "string | null",
+              "required": false
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_show_data",
+          "description": "Show raw QuickBooks data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

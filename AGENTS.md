@@ -139,16 +139,44 @@ MCP_Eval_V3/
 └── data.legacy.py                  # original script (writes to shared Data/, can corrupt parallel work)
 ```
 
-## Universe constants (per-task may differ)
+## Universe constants (multi-universe — v18)
 
-- **Universe today:** 2026-06-12 (US/Eastern). Always confirm from `_aux/Universe_Index/today_horizon.json` per task.
+Pipeline supports **two universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
+
+### Brookfield CPAs & Advisors (default — public accounting / business advisory)
+
+- **Base path:** `Brookfield_Base_Universe/` · Tool catalog: `8_Server_Tools_Details.json` · Persona briefs: `2_Persona_Briefs.md`
+- **Universe today:** 2026-06-12 (US/Eastern). Confirm from `_aux/Universe_Index/today_horizon.json`.
 - **Three client entities:** `brookfield` (the firm itself), `northstar_legal` (law firm), `acme_cloud` (SaaS).
-- **Account-number trap:** `105000` is Cash-Trust on Brookfield, IOLTA on Northstar, Short-term Investments on Acme. `120000` is Client Cost Advances on Northstar, Deferred Commissions on Acme, absent on Brookfield. Always verify the per-entity role.
-- **Valid Records Vault retention codes:** `AICPA_SQMS_7Y`, `IRS_TAX_7Y`, `FIRM_INTERNAL`, `INDEFINITE`. Never `SOX_7Y` or `SEC_PERMANENT`.
+- **Account-number trap (HARDCODED LANDMINE):** `105000` is Cash-Trust on Brookfield, IOLTA on Northstar, Short-term Investments on Acme. `120000` is Client Cost Advances on Northstar, Deferred Commissions on Acme, absent on Brookfield. Always query `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E` — never trust prose role labels.
+- **Records Vault retention codes:** `AICPA_SQMS_7Y`, `IRS_TAX_7Y`, `FIRM_INTERNAL`, `INDEFINITE`. Never `SOX_7Y` or `SEC_PERMANENT`.
 - **Classifications:** `internal` (default), `restricted` (elevated role required), `public` (defined but unused).
-- **Slack channels:** C001 #general · C002 #water-cooler · C003 #announcements · C004 #client-onboarding · C005 #monthly-close-coordination · C006 #tax-prep-and-filings · C007 #audit-engagements · C008 #compliance-and-registrations · C009 #cash-management-and-banking · C010 #vendor-bills-and-ap · C012 (auto-created placeholder, not used).
-- **Parameter traps:** email + messaging use `content` (not `body`). Slack uses `payload` (not `text`). Linear comments use `issueId` + `body`.
+- **Slack channels:** C001 #general · C002 #water-cooler · C003 #announcements · C004 #client-onboarding · C005 #monthly-close-coordination · C006 #tax-prep-and-filings · C007 #audit-engagements · C008 #compliance-and-registrations · C009 #cash-management-and-banking · C010 #vendor-bills-and-ap · C012.
+- **Parameter traps:** email + messaging use `content` (not `body`). Slack uses `payload` (not `text`). Linear comments use `issueId` + `body`. Records Vault upload uses `content_b64` (not `file`/`data`).
 - **JE lifecycle:** `draft → submitted → approved → posted → reversed`. Minimum 300 seconds between transitions. Closed-period posting requires `late_post_authorization_id`.
+- **Services:** oracle_gl, sap_subledger, blackline, records_vault, airtable, linear, email, slack, contacts.
+- **Docs:** `Docs/` · Evals: `Evals/` · QC ref: `QC_Tasks/V3_Tasks/`.
+
+### Keystone Mortgage Partners (v18 — residential mortgage brokerage)
+
+- **Base path:** `Mortgage_Base_Universe/` · Tool catalog: `6_Server_Tools_Details.json` · Persona briefs: `3_Persona_Briefs.md`
+- **Single entity:** `keystone` (30-employee mortgage brokerage in Charlotte, NC).
+- **NO account-number trap** (loan-based universe, not GL-based). `mortgage_los.loans` is source of truth for loan-level data; CRM holds the marketing / referral funnel only.
+- **TRID timing (HARDCODED LANDMINE):** Loan Estimate must be sent within 3 business days of application; Closing Disclosure must be delivered 3 business days before closing. Query `mortgage_los.disclosures` for actual sent_date vs application_date / closing_date.
+- **Departed-employee trap:** Marcus Webb (scenario_7da8f37a — evidence of pre-resignation data exfiltration). Do not author tasks expecting Marcus active.
+- **NO Records-Vault-style retention codes / classifications** (mortgage industry uses filesystem PDFs without explicit retention metadata).
+- **Slack channels:** C001 #general · C002 #loan-processing · C003 #closings · C004 #compliance-alerts · C005 #rate-watch · C006 #sales-pipeline · C007 #random · C008 #it-support.
+- **Loan statuses:** `application → conditional_approval → processing → underwriting → clear_to_close → closed` (or `denied` / `withdrawn`).
+- **Condition statuses:** `outstanding` → `cleared`.
+- **Parameter traps:** email + messaging use `content` (not `body`). Slack uses `payload` (not `text`). `mortgage_los_add_condition` requires `loan_id`. `stripe_create_charge` requires `amount`.
+- **Services:** mortgage_los, stripe, filesystem, crm, quickbooks, email, slack, contacts.
+- **Docs:** `Docs_keystone/` · Evals: `Evals_keystone/` · QC ref: `QC_Tasks/V3.1_Tasks/`.
+
+### Universe detection
+
+- Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents).
+- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield` or `keystone`).
+- Every validator / council / AUDIT / FINAL reads `_aux/Universe.txt` and routes constants/paths accordingly.
 
 ## Where to start
 

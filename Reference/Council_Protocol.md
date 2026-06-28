@@ -2,7 +2,15 @@
 
 Every deliverable (S1 prompt, S2 OEs, S3 rubrics, REVIEW intake) must pass two councils before shipping. Validators run first as a cheap gate. Councils run after. Both councils must return GO with zero Major issues.
 
-Each council is one sub-agent call but enumerates **multiple perspectives** in its prompt template. As of v13: Council A covers 13 perspectives (A1 Grounding, A2 Convention, A3 Narrative-State, A4 Action-vs-Universe-Prescription, A5 Persona Authorship, A6 Persona Scope, A7 Clarity & Specificity, A8 Truthfulness Tally, A9 Persona Fit, A10 Business Function Match, A11 End-to-End Solvability, A12 Cross-Service Coherence, A13 Open-Ended Write Ask Atomicity). Council B covers 11 perspectives (B1 QC Scoring, B2 Adversarial Alt-Path, B3 Tool-Call Density, B4 Hardness Preservation, B5 Tool-Leak / Phrasing Scan, B6 Upstream Propagation, B7 Per-rubric Cross-artifact Consistency, B8 OE Completeness, B9 OE Service Mapping, B10 OE Write-Action → Outcome 1.1, B11 Prompt Tell-me → Outcome 2.1). This is the "multi-council" coverage from every perspective without paying for separate sub-agent calls per perspective.
+Each council is one sub-agent call but enumerates **multiple perspectives** in its prompt template.
+
+**v18 bloat trim:** Council A reduced 13 → **9 perspectives**; Council B reduced 11 → **8 perspectives**. Total LLM perspectives across A + B + AUDIT + FINAL: 39 → 24 (net -15). Programmatic floor (`Validators/verify_universe_atoms.py`) added beneath every LLM gate. Quality over quantity: the 5-gate-stack failure that caught us in v17 happened because LLM councils trusted upstream "atoms verified" claims without re-querying universe data. v18 puts the deterministic query first; LLM perspectives focus on semantic gaps the programmatic check can't reach.
+
+**Active Council A perspectives (9):** A1 Grounding+Truthfulness+Cross-Service (consolidated — backed by `verify_universe_atoms.py` evidence), A2 Convention, A3 Narrative-State, A4 Action-vs-Universe-Prescription, A6 Persona Scope, A7 Clarity & Specificity, A10 Business Function Match, A11 End-to-End Solvability, A13 Open-Ended Write Ask Atomicity.
+
+**Active Council B perspectives (8):** B1 QC Scoring, B2 Adversarial Alt-Path, B3 Tool-Call Density, B4 Hardness Preservation, B6 Upstream Propagation, B7 Per-rubric Cross-artifact Consistency, B8 OE Completeness, B9 OE Service Mapping.
+
+**Removed / moved in v18:** A5 Persona Authorship Whitelist (validator A3 NPC blocklist covers); A8 Truthfulness Tally (merged into A1, now backed by atom-verifier); A9 Persona Fit Comparison (moved to on-demand `PIPELINE AUDIT --lens persona-fit`); A12 Cross-Service Coherence (merged into A1); B5 Tool-Leak / Phrasing Scan (validator regex covers); B10 OE Write-Action → Outcome 1.1 (converted to deterministic validator X1 forward-map); B11 Prompt Tell-me → Outcome 2.1 (converted to validator regex+check).
 
 ---
 

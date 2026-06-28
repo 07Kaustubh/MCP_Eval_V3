@@ -1,0 +1,195 @@
+[
+    {
+        "Dimension": "Prompt",
+        "Sub-Dimensions": [
+            {
+                "Sub- Dimension": "Unique Ground Truth",
+                "Notes for Auditors": "The prompts are open-ended in this project, so there cannot be one possible response to the user (For example, wording can differ), BUT it should not be the case that the prompt leads to distinct outcomes. It’s okay if there’s multiple possible paths the agent could take to arrive at the answer, but the key points in the answer, as requested in the prompt, should be the same. \\ 05/05 NOTE: Please be extra vigilant in checking this dimension as we want to provide more visibility regarding these potential issues! (That's not to say to apply this more liberally, per se, but rather a reminder to keep this possibility in mind.) \\ 06/09 NOTE: Having a 'leading interpretation' no longer rescues a prompt. If two reasonable readings of the prompt lead the agent to two different final universe states (e.g., file now vs. defer, write A vs. write B), it is a FAIL even if most people would pick the same reading. Path/wording differences that converge on the same end-state are still NOT multiple valid answers (the path-vs-outcome distinction is preserved). \\ 06/09 Example: the loan file submission scenario — under the old spec this could pass on a leading interpretation (literal text says 'submit'); under the new spec it FAILs because there are two correct end-states: (a) submit the loan package now per literal text, (b) defer until underwriting conditions are cleared per universe state.",
+                "Fail (1/2 Rating)": "[Fail - Multiple Valid Answers] - The prompt can reasonably produce two or more different correct answers (06/09: even if a leading interpretation exists), and the prompt does not clearly indicate which answer is intended.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Multiple Valid Answers] REMOVED 06/09 - There is no longer a passing middle band for Unique Ground Truth. The prompt either has a single ground-truth end-state (5) or it is a Fail (1-2). The previous band that rescued prompts with a leading interpretation, or where a small logically-defensible assumption could disambiguate, no longer applies.",
+                "Pass (5 Rating)": "The prompt has a unique ground truth answer. All the experts on the subject would come to the same conclusion"
+            },
+            {
+                "Sub- Dimension": "Feasibility",
+                "Notes for Auditors": "NA",
+                "Fail (1/2 Rating)": "[Fail - Prompt Impractical Request] - Prompt contains an impractical request that can't be answered by an LLM in a single response. OR \\ [Fail - Prompt Impossible Request] - Prompt has at least one request that can't be fulfilled at all. OR \\ [Fail - Prompt Conflicting Instructions] - Prompt gives instructions that conflict/contradict with itself that can't be fulfilled simultaneously. OR \\ [Fail - Prompt Feasibility with Tools] - Prompt contains an impractical or impossible request that can't be answered by the tools available or enabled for the task",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Prompt Impractical Secondary Request] - There are multiple requests in the prompt and it's verging on being impractical for a model to answer it in a single response, but the core request of the prompt can be fulfilled with minor concessions on the secondary requests",
+                "Pass (5 Rating)": "- The prompt is completely actionable by an LLM agent. - The prompt contains no conflicting instructions/statements"
+            },
+            {
+                "Sub- Dimension": "Explicit Tool Mention",
+                "Notes for Auditors": "NA",
+                "Fail (1/2 Rating)": "[Fail - Explicit Tool Mention] - The prompt explicitly mentions an MCP tool name (e.g., mortgage_los_create_loan, email_send_email, crm_create_deal, quickbooks_create_bill)",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Tool/MCP Server Mentioned] \n - The prompt references an MCP server by name (e.g., \"use the QuickBooks MCP server\", \"via the Stripe MCP server\") \n - The prompt refers to any system as a \"tool\" (e.g., \"use the CRM tool\", \"use the Mortgage LOS tool\")",
+                "Pass (5 Rating)": "- The prompt does not explicitly state the use of tools"
+            },
+            {
+                "Sub- Dimension": "Prompt Clarity and Specificity",
+                "Notes for Auditors": "06/09 Example: the loan file submission scenario - previously could pass on a leading interpretation; now a FAIL under [Fail - Action Decision Ambiguity] because the prompt is open to submit-now vs. defer, which lead to different write actions.",
+                "Fail (1/2 Rating)": "[Fail - Major Clarity / Specificity Issues] - It's not clear what is being asked, the prompt is extremely difficult to follow, or is overly vague; the user intent cannot be reasonably understood from the prompt. OR \\ - Major details are missing that are needed to answer the prompt and cannot be reasonably assumed. \\ [Fail - Action Decision Ambiguity] (06/09) - The prompt is open to two or more reasonable interpretations that lead to different write actions (or to write vs. no-write / act vs. defer), and the prompt does not clearly indicate which is intended. See the corresponding non-failing band for exceptions/examples.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Minor Clarity / Specificity Issues] (06/09) - The prompt is open to multiple reasonable interpretations, but all reasonable interpretations lead to the same set of write actions / external side effects; only wording, framing, channel-of-delivery to the same recipient, or non-action details vary (e.g., 'send a quick note to Carlos' - email vs. Slack DM to the same person; 'the partner' - minor referent ambiguity that doesn't change the action taken). The previous broader 'could be interpreted multiple ways' band was narrowed on 06/09.",
+                "Pass (5 Rating)": "- There is little to no room for misinterpretation of the specific request. \\ - Prompt has a specific request that doesn't require more than one minor assumption to answer it"
+            },
+            {
+                "Sub- Dimension": "Contrived / Unnatural Prompts",
+                "Notes for Auditors": "This should check for artificial difficulty vs. natural complexity. Contrived examples include: demanding exact timestamps ('Find the email from January 15th at 3:47 PM'), requiring arbitrary format constraints ('Respond in exactly 3 sentences using passive voice'), or asking the agent to do something no real employee would do ('Intentionally post an incorrect journal entry to test error handling'). Natural difficulty comes from entity confusion, scattered information, conflicting data across services, and hidden root causes. Prompts written as step-by-step command lists ('First search emails, then check QuickBooks…') should also be considered contrived.",
+                "Fail (1/2 Rating)": "[Fail - Contrived / Unnatural Prompt] - Prompt is contrived or otherwise unnatural. \\ note: prompts such as riddles that are intentionally constraints/details laden should not be considered contrived",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Somewhat Contrived / Unnatural Prompt] - Prompt is somewhat contrived or is somewhat unnatural. \\ note: prompts such as riddles that are intentionally constraints/details laden should not be considered contrived",
+                "Pass (5 Rating)": "- The prompt is neither contrived or unnatural"
+            },
+            {
+                "Sub- Dimension": "Truthfulness",
+                "Notes for Auditors": "NOTES ADDED 06/10 - How to classify a naming/identifier error as major or minor: \\ - Major: errors in tight identifiers - channel names, document IDs, loan IDs, vendor or company entity names, account numbers, dollar amounts, dates, fiscal periods, ticket/issue IDs. These are passed literally into tool calls and don't tolerate near-matches. \\ - Minor: errors in loose descriptors - person first-name-only references where the universe context disambiguates, role titles, casual entity references. These tolerate natural language. \\ - Escalation rule: a 'minor' error escalates to 'major' if it actually causes agent failure (e.g., wrong first name in a universe where two people share it).",
+                "Fail (1/2 Rating)": "[Fail - Major Factual Errors] - The prompt contains 1 or more major factual errors. \\ [Fail - Minor Factual Errors] - The prompt contains 2 or more minor factual errors (e.g., statements irrelevant to the fulfillment of the prompt's request)",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Minor Factual Errors] - The prompt contains 1 minor factual errors.",
+                "Pass (5 Rating)": "- The prompt has no factual errors. \\ - The prompt has no misleading statements"
+            },
+            {
+                "Sub- Dimension": "Tool use and Cross-service requirement",
+                "Notes for Auditors": "NA",
+                "Fail (1/2 Rating)": "[Fail - Tool Dependence] - The prompt can be answered without having to make any tool calls (either through basic reasoning or general knowledge). \\ [Fail - Cross-service Requirement] - Prompt can be fully resolved within a single service (e.g., just email or just QuickBooks), or only trivially touches a second service.",
+                "Non-Fail (3/4 Rating)": "N/A",
+                "Pass (5 Rating)": "Prompt requires investigation across 2+ services to answer correctly (e.g., facts needed are scattered and must be reconciled)."
+            },
+            {
+                "Sub- Dimension": "Investigation",
+                "Notes for Auditors": "NA",
+                "Fail (1/2 Rating)": "[Fail - Pre-solved] - Prompt tells agent the root cause and no investigation is needed.",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "Prompt clearly requires investigation, and it logically follows from investigation."
+            },
+            {
+                "Sub- Dimension": "Coherence",
+                "Notes for Auditors": "An example of failing bolt-on requests: 'Check the weather, send a Slack reminder for next week, email Carlos about the Thompson close, and pull the escrow balance.' \\ Why it fails: Four unrelated requests stapled together. Each sub-request should causally flow from the same situation. How to tell if your prompt is 'bolted': Remove any one sentence. If the rest still makes perfect sense without it, that sentence is a bolt-on",
+                "Fail (1/2 Rating)": "[Fail - Bolt-on requests] - Contains unrelated bolt-on requests; removing a sentence doesn’t change the rest.",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "One cohesive situation; stacked asks all tie back to the same purpose."
+            },
+            {
+                "Sub- Dimension": "Persona",
+                "Notes for Auditors": "See the list of personas in the instructions doc or in Mortgage_Base_Universe/3_Persona_Briefs.md. MAKE SURE YOU'RE USING THE CORRECT UNIVERSE FOR YOUR TASK (v3 = Keystone Mortgage).",
+                "Fail (1/2 Rating)": "[Fail - Persona Mismatch] The prompt written by the CB does not read like it could have been written by the persona selected. \\ 03/24 NOTE: Do not penalize with a failure if the prompt aligns with multiple Personas, so long as the assigned Persona is also applicable for the prompt.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Persona Mismatch] The prompt written by the CB is plausible for the persona selected, but fits a different persona better",
+                "Pass (5 Rating)": "The prompt written by the CB aligns with the persona selected"
+            },
+            {
+                "Sub- Dimension": "Business Function",
+                "Notes for Auditors": "Each task is assigned a business function / task category. The Keystone Mortgage (v3) universe uses task categories defined in Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md. The prompt should reflect a realistic scenario that falls within that category. \\ This dimension applies to v2.1 and v3 tasks (the task version - v2, v2.1, or v3 - is noted at the top of each task); this project authors v3 tasks against the Keystone Mortgage universe. MAKE SURE YOU'RE USING THE CORRECT UNIVERSE FOR YOUR TASK. \n Reference: Docs/5_Prompt_Diversity_Business_Function.md or Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md",
+                "Fail (1/2 Rating)": "NA",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Business Function Mismatch] The prompt's primary scenario is ambiguous - it could reasonably belong to either the assigned function or a different one.",
+                "Pass (5 Rating)": "The prompt clearly reflects a realistic scenario within the assigned business function."
+            },
+            {
+                "Sub- Dimension": "Alignment with Today’s Date",
+                "Notes for Auditors": "NOTE: The Keystone Mortgage (v3) universe has a fixed date for “today” – Apr 28, 2026 (US/Eastern). This date is fed to the agent in the system prompt (we can’t see the system prompt). The prompt and universe should make sense in the context of this date. \\ 04/15 NOTE: Universe not aligned with the correct date should not fail if it did not cause an agent failure. \\ 05/02 NOTE: The \"timestamp\" column in \"Database > Tables > _changelog\" is auto-generated and should not be evaluated for date alignment.",
+                "Fail (1/2 Rating)": "[Fail - Prompt Misaligned with Today] - The prompt’s request does not make sense or can’t be fulfilled, given “today’s” date (Apr 28, 2026). E.g., “What happened in July 2026 that caused revenue to drop 30% month over month?” is nonsensical because it’s asking about the future. \\ [Fail - Universe Misaligned with Today] - CB modified the universe in a way such that it’s incoherent with “today’s” date (Apr 28, 2026). For example, adding a new Slack message sent on July 1, 2026 AND it caused an agent failure. (05/05) \\ - The default universe data is not aligned with “today’s” date AND it caused an agent failure. (05/05) \\ Note: Events that are meant to be in the future are still okay to be present. For example, a calendar event scheduled to be in July is okay because it’s meant to be future facing.",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "Prompt does not contradict “today’s” date. \\ The default universe data is not aligned with “today’s” date BUT it did not cause an agent failure. (04/15)"
+            }
+        ]
+    },
+    {
+        "Dimension": "Universe",
+        "Sub-Dimensions": [
+            {
+                "Sub- Dimension": "Universe Feasibility (Data Exists)",
+                "Notes for Auditors": "Auditors should check the Universe Explorer or Sandbox to verify that key data needed for the prompt exists.",
+                "Fail (1/2 Rating)": "[Fail - Missing Universe Data] - Task depends on key facts/entities/events that do not exist in the universe (or cannot be retrieved with available tools), making the task unsolvable.",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "All core facts required to solve the task exist in the universe and are retrievable via tools."
+            },
+            {
+                "Sub- Dimension": "Cross-service Coherence",
+                "Notes for Auditors": "Auditors should refer to the _changelog table in the sandbox to check changes that were made to the universe (if edits were made).",
+                "Fail (1/2 Rating)": "[Fail - Incoherent Universe Changes] - Universe edits create contradictions that break solvability or realism AND it causes an agent failure. (05/06) (e.g., mismatched names across email vs CRM, impossible dates, entities referenced in one service but not elsewhere when required). \\ Note: When evaluating a contradiction, if there is sufficient supporting evidence to support one piece of information against a contradicting low-supported piece of information, do not count that as a contradiction. \\ Note: This only applies to inconsistencies within the date range that cause a model failure. Issues after the cut-off date need not be flagged. (05/06) \\ [Fail - Task Relies on Misaligned Data] (05/07) - At least one verifier revolves around misaligned data. This incoherency must feature data that's misaligned between two or more sources, and it must not be clear what the “correct” truth is (this largely applies to misaligned data found within the base Universe-unedited by the CB). E.g., an email cites a loan origination fee of $12,400 for the Thompson file, but QuickBooks shows $14,200 for the same charge. It's unclear where the clerical error was made, and there's not enough corroborating evidence to confidently say one way or the other. The task would fail if the rubric was written with only one interpretation in mind (as it would fail valid model trajectories that took the other route).",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "Universe edits (if any) are internally consistent and coherent across services, including dates, names, and storyline continuity."
+            }
+        ]
+    },
+    {
+        "Dimension": "Oracle Event (OE)",
+        "Sub-Dimensions": [
+            {
+                "Sub- Dimension": "OE Completeness",
+                "Notes for Auditors": "Additional Notes: OEs are the key steps a correct agent would take. They serve two purposes: (1) prove solvability, and (2) drive rubric writing across both categories - Outcome, or Process (05/22). \\ Each OE should note: what action happens, what info is discovered, what tool is used, and what parameters matter. OEs describe steps - not what the final response should say.",
+                "Fail (1/2 Rating)": "NA",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Incomplete Oracle Events] - OEs are missing critical steps needed to solve the task (e.g., no step describing how key info is retrieved, or how required action is executed).",
+                "Pass (5 Rating)": "OEs describe the full critical path: key discovery steps + dependency chain(s) + required write action(s)."
+            },
+            {
+                "Sub- Dimension": "OE Accuracy",
+                "Notes for Auditors": "Auditors should verify OEs against the universe data using the Explorer or Sandbox. Each OE should reference the correct tool, correct service, correct parameters, and correct expected data. An OE that describes 'look up the Thompson loan details in QuickBooks' when the loan records actually live in the Mortgage LOS is inaccurate - the data exists but the OE points to the wrong place. OE Accuracy is distinct from OE Completeness: completeness checks whether steps are missing; accuracy checks whether the steps that exist are correct.",
+                "Fail (1/2 Rating)": "NA",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Minor OE Inaccuracies] OEs are substantively correct but contain minor imprecisions (e.g., slightly wrong parameter name that doesn't change the outcome, approximate rather than exact expected values for freetext fields). \\ [Non-Fail - Inaccurate Oracle Events] One or more OEs reference the wrong tool, wrong service, wrong parameters, or wrong expected data. The described steps would not produce the correct results if followed literally (e.g., searching the wrong service for data that lives elsewhere, expecting data that doesn't match the universe, specifying incorrect entity names or identifiers).",
+                "Pass (5 Rating)": "All OEs are factually accurate. Tools, services, parameters, and expected data match the universe. Following the OEs literally would produce a correct trajectory."
+            }
+        ]
+    },
+    {
+        "Dimension": "Rubric",
+        "Sub-Dimensions": [
+            {
+                "Sub- Dimension": "Overall Rubric Quality",
+                "Notes for Auditors": "",
+                "Fail (1/2 Rating)": "Use the number of criteria that the CB wrote as the denominator while calculating % values. See the additional notes section for the numerator. Do NOT double count criteria while tallying even if it has multiple issues. \\ [Fail - 10%+ Major Rubric Errors] - More than 10% (>10%) of the criteria contain major issues. \\ [Fail - 15%+ Moderate Rubric Errors] - More than 15% (>15%) of the criteria contain moderate or major issues. \\ [Fail - 20%+ Minor Rubric Errors] - More than 20% (>20%) of the criteria contain minor or moderate or major issues",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Up to 10% Major Errors] - Up to 10% (<=10%) of the criteria contain major issues. \\ [Non-Fail - Up to 15% Moderate Errors] - Up to 15% (<=15%) of criteria contain moderate or major issues (with major issues contributing lower than 10%). \\ [Non-Fail - 5-20% Minor Errors] - Between 5 and 20% (>=5% and <=20%) of criteria contain minor or moderate or major issues (with major issues contributing lower than 10% and moderate issues contributing lower than 15%)",
+                "Pass (5 Rating)": " Less than 5% (<5%) of the rubrics have minor issues. - No major or moderate issues"
+            },
+            {
+                "Sub- Dimension": "All-Failing Rubrics",
+                "Notes for Auditors": "After rubric verifiers run, CBs are required to review any rubric that failed all completed runs (namely “All-failing” rubrics or AF rubrics) and add a 1–2 line justification confirming the failure is a genuine model failure and not a rubric quality issue. “All completed runs” means only runs that finished without an error - if 4 of 6 completed, the rubric must have failed all 4. If none of the rubrics failed all completed runs, this step is empty and no justification is needed. \\ In some tasks, this will be in a text box at the end of the rubric run step and in most new tasks (this is the format we’re backfilling tasks to), this will be in the rubric rating step at the end of the verifier runs. If no AF rubrics exist, this dimension doesn’t need to be audited.",
+                "Fail (1/2 Rating)": "[Fail - 2+ Invalid All-Fail Rubrics] Two or more all-failing rubrics have a quality issue that causes the failure - e.g., fictional tool name, overly specific wording, beyond prompt scope, unfairly penalizes a valid agent approach, or not grounded in GT. The CB either did not notice the rubric problem or provided a justification that inadvertently reveals it. This indicates a false negative - the task may appear harder than it is due to a bad rubric.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Poor All-Fail Rubric Justification] The all-fail rubric is good quality (i.e., the model failures for that rubric in all the runs are genuine fails), but the explanation provided by the CB is either unfactual, irrelevant or doesn’t support the validity of the all-failing rubric. \\ [Non-Fail - One Invalid All-Fail Rubric] Exactly one all-failing rubric has a quality issue that causes the failure - e.g., fictional tool name, overly specific wording, beyond prompt scope, unfairly penalizes a valid agent approach, or not grounded in GT. The CB either did not notice the rubric problem or provided a justification that inadvertently reveals it. This indicates a false negative - the task may appear harder than it is due to a bad rubric. \\ (Note: There may be more all-failing rubrics, but only one of them has to have a quality issue for the non-fail to apply. If more all-failing rubrics have quality issues that cause failure, then the task fails)",
+                "Pass (5 Rating)": "All rubrics that failed all completed runs are valid - self-contained, grounded in GT, within prompt scope, and using real tools. The CB’s justifications confirm the failures reflect genuine model reasoning or execution gaps, not rubric artifacts. If no rubrics failed all completed runs, this dimension is automatically a 5."
+            },
+            {
+                "Sub- Dimension": "Rubric Category Balance",
+                "Notes for Auditors": "(Updated 06/03) Outcome rubrics check final correctness (was the result right?). Process rubrics = Whether the agent did necessary work that outcomes alone cannot prove.",
+                "Fail (1/2 Rating)": "[Fail - No Outcome Rubrics] - The rubric set contains zero Outcome rubrics. \\ [Fail - Process-Heavy] - More than 50% of rubrics are Process, with Outcome rubrics underrepresented.",
+                "Non-Fail (3/4 Rating)": "N/A",
+                "Pass (5 Rating)": "The number of Outcome Rubrics is greater than Process Rubrics. (05/22)"
+            },
+            {
+                "Sub- Dimension": "Process Rubrics",
+                "Notes for Auditors": "(Updated 06/03) All 3 conditions below need to be true for all process criteria: \\ 1. Required by every valid path - The behavior is necessary for trustworthy completion AND every valid solution path requires it - or the rubric is phrased broadly enough to pass any valid path (e.g., prompt says 'notify the partner before posting' → rubric says 'Agent notifies the partner', not 'Agent emails the partner'). \\ 2. Outcome can't cover it - A stricter outcome rubric cannot capture the same requirement. When the outcome can check precise values pulled from structured sources (a loan amount, a PDF figure, derived math), the agent cannot fake the outcome without doing the underlying work - and the outcome alone is preferable. \\ 3. The rubric describes a verification, not an execution trace - The rubric describes what the agent did or verified in a way the judge can confirm from the trajectory - not which specific tool was called, in what order, or what the agent was 'thinking.' \\ Example: ✅ 'The Agent confirms the vendor bank details in the invoice match the vendor master record on file before posting the payment.' ❌ 'The Agent called quickbooks_get_bill and then contacts_get_contact before posting.' (locks in one tool path; a valid agent using different tools would fail).",
+                "Fail (1/2 Rating)": "[Fail - Process Rubric Not Needed] Two or more process rubrics fail one of the three conditions: Required by every valid path; Outcome rubric can't cover it; The rubric describes a verification, not an execution trace. \\ Examples: Process rubrics that reformulate something an Outcome rubric already proves (e.g., 'Agent searches the CRM' when Outcome rubrics already check specific CRM results). Process rubrics that lock in one method when the prompt named a goal. Process rubrics covering something an outcome rubric could verify with stricter values.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Missing Process Rubric] - Any number of process rubrics are missing. Note: if there are process rubrics, they must follow the guidelines listed in the Failing category.",
+                "Pass (5 Rating)": "The Process Rubric passes the three conditions test."
+            },
+            {
+                "Sub- Dimension": "Agent Centric Phrasing",
+                "Notes for Auditors": "(05/22) Despite being an Outcome or a Process rubric, the writing style revolves around actions performed by the agent, following the structure ['Agent' + action + necessary context]. MCP tools must not be mentioned either. \\ Components: 'Agent' - Criteria must explicitly mention the agent, e.g., 'The Agent sends...' Omission or alternative phrasing ('The model...' 'The response...') is penalizable. \\ Action - 'What' the agent is doing. \\ Necessary Context - Additional context/information/values needed to flesh out the action. \\ Example: ❌ 'An email was sent (via email_send_email) to Elena...' ✅ 'The Agent sends the summary to Elena Marchetti at elena.marchetti@keystonemortgage.com.'",
+                "Fail (1/2 Rating)": "[Fail - Rubric is not written as an action performed by the agent] - 1+ criteria are not written as an action performed by an agent (see notes) and/or mentions a tool name explicitly. \\ Note (06/09): Criteria do not need to strictly adhere to the ['Agent' + action + context] structure - being phrased as an action performed by the Agent is enough. See the non-failing band for cases like this.",
+                "Non-Fail (3/4 Rating)": "[Non-Fail - Rubric is agent-centric but does not follow the pattern] (06/09) - In some cases rubrics are written differently from the structure but still depict an action performed by the Agent; these are valid. Reasoning: 'Agent sends a status update covering X' is the same as 'The Agent's status update that covers X.' Valid examples: 'The Agent's status update to Peter Sanchez covers the AML threshold calibration session from June 3, including the finding that no post-session outcomes or action items were formally documented.' / 'The Agent's message to the #compliance-and-registrations channel mentions time-sensitive compliance items for the team going into next week, including at least the untracked AML calibration session follow-up or the new multi-service client compliance intake gap (or both).'",
+                "Pass (5 Rating)": "Rubric is an action performed by the agent."
+            }
+        ]
+    },
+    {
+        "Dimension": "Trajectory (Agent Run)",
+        "Sub-Dimensions": [
+            {
+                "Sub- Dimension": "Tool Call Count",
+                "Notes for Auditors": "Important note for auditors: During the QH audits, this criterion should not be evaluated.",
+                "Fail (1/2 Rating)": "[Fail - Insufficient Tool Calls] - The average tool call count across all trajectories is less than 15",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "The average tool call count across all trajectories is greater than or equal to 15."
+            },
+            {
+                "Sub- Dimension": "Agent Failure Rate",
+                "Notes for Auditors": "At most 40% of the runs should pass the rubrics. If pass@1 > 40%, the task would fail. Given there are supposed to be 6 runs, this translates to at least 4 of the agent runs needing to fail the prompt. \\ Note: You may come across tasks where the rubric verifiers did not run successfully (error or runs indefinitely). In such cases, if you are able to validate that the failed runs that did finish are true failures, and this happens to be at least 60%, that’s sufficient for satisfying this dimension. Otherwise, we might need to manually validate the trajectories to see if they failed.",
+                "Fail (1/2 Rating)": "[Fail - Too Easy] - More than 2 of 6 runs pass all valid rubrics (i.e., pass@1 > 40%)",
+                "Non-Fail (3/4 Rating)": "NA",
+                "Pass (5 Rating)": "0–2 of 6 runs pass all rubrics (pass@1 ≤ 40%), proving the task is sufficiently difficult"
+            },
+            {
+                "Sub- Dimension": "Error Rate",
+                "Notes for Auditors": "Sometimes, runs may error out. CBs are allowed to continue as long as there are at least 4 successful runs (i.e., max of 2 erroneous runs). NOTE: This is not the same as a 'run with rubric failures'.",
+                "Fail (1/2 Rating)": "[Fail - Too Many Erroneous Runs] - At least 3 runs were not successfully completed (resulted in an Error).",
+                "Non-Fail (3/4 Rating)": "N/A",
+                "Pass (5 Rating)": "Fewer than 3 runs were not successfully completed (resulted in an Error)."
+            }
+        ]
+    }
+]

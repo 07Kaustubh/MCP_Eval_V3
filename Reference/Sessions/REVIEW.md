@@ -45,6 +45,23 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
 2. **Run the full assessment with parity to CB's per-phase gates.** Always all three phases, regardless of any outcome — the candidate's rating depends on shortcomings across every artifact.
 
+   **Programmatic floor FIRST (v18):** every assessment starts with a deterministic universe-atom check that walks the original 5/6/7 and runs precise universe queries per atom (account-on-entity, no-response-claims, ID presence, etc.):
+
+   ```
+   python Validators/verify_universe_atoms.py --task Tasks/<TASK_DIR>
+   ```
+
+   Exit non-zero on any atom FAIL with the specific atom + universe row. This is the load-bearing floor the LLM councils trust — if it doesn't run clean, FIX THE ATOMS BEFORE the council assessment (otherwise the councils will narrate "atoms verified" on broken atoms).
+
+   **Per-universe landmines that the programmatic check enforces** (read `_aux/Universe.txt` to know which apply):
+
+   - **Brookfield Landmine 1 — Account-number trap:** 105000 / 120000 differ per entity (Cash-Trust on Brookfield, IOLTA on Northstar, Short-term Investments on Acme). Query `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E` before trusting any prose role label.
+   - **Brookfield / KeyStone Landmine 2 — Email-chain truthfulness:** "X never responded" / "Y has been silent" claims must be proven by trajectory walk: (i) parent_id descendant walk from referenced sender's email; (ii) sender-filter across same subject prefix on `email.emails`. Never trust the candidate's prose "no response" claim without the walk.
+   - **KeyStone Landmine 1 — TRID timing:** Loan Estimate must be sent within 3 business days of application; Closing Disclosure must be delivered 3 business days before closing. Query `mortgage_los.disclosures` for actual sent_date vs application_date / closing_date.
+   - **KeyStone Landmine 3 — Mortgage LOS vs CRM source-of-truth:** loan-level data lives in `mortgage_los`. CRM holds marketing / referral funnel. When a claim references loan state, never trust CRM as the source — query `mortgage_los`.
+
+   Then the validator + council sequence:
+
    ```
    python Validators/validate.py --phase all --task Tasks/<TASK_DIR>
    ```
@@ -109,9 +126,11 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
    | # | Phase | Dimension | Severity | Before | After (proposed) | Why | Verified | Status |
    |---|---|---|---|---|---|---|---|---|
-   | 1 | Prompt | Truthfulness | Major | "<exact quote from candidate>" | "<proposed text>" | <one-line why, citing the per-task record> | yes — checked <file>:<row_id> | Applied |
-   | 2 | OE | Accuracy | Major | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0099" | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0075" | the JE-0099 entry does not exist in this task's universe; the actual ID is JE-0075 | yes — confirmed in oracle_gl.ogl_journal_entries.json | Applied |
-   | 3 | Rubrics | Atomicity | Moderate | rubric[12] bundles 'sends email AND creates Linear issue' | split into two rubrics | bundling violates atomicity (two failure modes for one rubric) | yes — flagged by validator and Council B | Applied |
+   | 1 | Prompt | Truthfulness | Major | "<exact quote from candidate>" | "<proposed text>" | <one-line why, citing the per-task record> | yes — checked <file>:<row_id> | `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E -> 'Actual Role Label'` | Applied |
+   | 2 | OE | Accuracy | Major | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0099" | "OE5: ... entry_number JE-acme_cloud-FP-2026-03-0075" | the JE-0099 entry does not exist in this task's universe; the actual ID is JE-0075 | yes — confirmed in oracle_gl.ogl_journal_entries.json | `verify_universe_atoms.py: JE-...-0099 NOT FOUND; JE-...-0075 verified` | Applied |
+   | 3 | Rubrics | Atomicity | Moderate | rubric[12] bundles 'sends email AND creates Linear issue' | split into two rubrics | bundling violates atomicity (two failure modes for one rubric) | yes — flagged by validator and Council B | `validate.py rubric[12]: AND-bundling FAIL` | Applied |
+
+   **Verification-Evidence column (v18, MANDATORY).** Every "verified" cell must link to the universe query that proved it (e.g., `oracle_gl.ogl_accounts WHERE account_number=120000 AND entity_id=northstar_legal -> 'Client Cost Advances'` or `verify_universe_atoms.py: <atom> -> <result>`). Empty Verification-Evidence cell = the finding is operator-trusted, not data-verified. Reject any row that ships without verification evidence; force the operator to re-query the universe + populate the cell.
    ```
 
    Severity from QC spec: Major / Moderate / Minor.

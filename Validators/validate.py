@@ -47,7 +47,12 @@ from pathlib import Path
 from typing import List
 
 ROOT = Path(__file__).resolve().parent.parent
-TOOL_DEFS = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
+
+try:
+    from Validators.universes import detect_universe, get_universe_constants
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from universes import detect_universe, get_universe_constants
 
 EM_DASH_PATTERN = re.compile(r"[\u2014\u2013]")          # em-dash, en-dash
 TOOL_NAME_HINT = re.compile(r"\b(?:[a-z_]+_(?:list|search|get|create|update|send|add|upload|approve|reject|post|reply|submit|delete|show|history)_[a-z_]+|email_send_email|slack_conversations_add_message)\b")
@@ -250,10 +255,12 @@ class Report:
         return "\n".join(lines)
 
 
-def load_tool_names() -> set:
-    if not TOOL_DEFS.is_file():
+def load_tool_names(tool_catalog_path: Path = None) -> set:
+    if tool_catalog_path is None:
+        tool_catalog_path = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
+    if not Path(tool_catalog_path).is_file():
         return set()
-    with open(TOOL_DEFS, "r", encoding="utf-8") as f:
+    with open(tool_catalog_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     names = set()
 
@@ -271,13 +278,12 @@ def load_tool_names() -> set:
     return names
 
 
-def load_tool_param_map() -> dict:
-    """Returns {tool_name: set(parameter_names)} from 8_Server_Tools_Details.json.
-    Used for per-tool parameter strictness check in OE validation (v10 item 3).
-    Distinct from load_tool_names() which only returns the name set."""
-    if not TOOL_DEFS.is_file():
+def load_tool_param_map(tool_catalog_path: Path = None) -> dict:
+    if tool_catalog_path is None:
+        tool_catalog_path = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
+    if not Path(tool_catalog_path).is_file():
         return {}
-    with open(TOOL_DEFS, "r", encoding="utf-8") as f:
+    with open(tool_catalog_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     out: dict = {}
 
@@ -350,10 +356,15 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
         return
     text = f.read_text(encoding="utf-8")
 
+    universe = detect_universe(task_dir)
+    consts = get_universe_constants(universe)
+    local_npcs = consts["npcs"]
+    rep.note(f"universe: {universe}")
+
     persona_path = task_dir / "2_Persona.txt"
     if persona_path.is_file():
         persona_text = persona_path.read_text(encoding="utf-8").strip()
-        for npc in KNOWN_NPCS:
+        for npc in local_npcs:
             if re.search(rf"\b{re.escape(npc)}\b", persona_text, re.IGNORECASE):
                 rep.fail(f"persona is an NPC: `{npc}` — only the 28 authoring personas can be the acting voice. NPCs (Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac) appear as participants/counterparties, never as task author. See Brookfield_Base_Universe/2_Persona_Briefs.md for valid authoring personas.")
                 break
@@ -483,6 +494,14 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
         return
     text = f.read_text(encoding="utf-8")
 
+    universe = detect_universe(task_dir)
+    consts = get_universe_constants(universe)
+    local_retention_codes = consts["retention_codes"]
+    local_slack_channels = consts["slack_channels"]
+    local_classifications = consts["classifications"]
+    local_bl_exception_types = consts["blackline_exception_types"]
+    local_tool_catalog = ROOT / consts["tool_catalog"]
+
     for m in EM_DASH_PATTERN.finditer(text):
         rep.fail(f"em-dash / en-dash at offset {m.start()}: `{text[max(0,m.start()-20):m.start()+20]}`")
 
@@ -509,14 +528,14 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
     if oe_lines and found_opening / len(oe_lines) < 0.6:
         rep.warn(f"only {found_opening}/{len(oe_lines)} OE lines start with a recognized action verb (Search / Send / Call / etc.). V3 references use action-first openings consistently.")
 
-    tool_names = load_tool_names()
+    tool_names = load_tool_names(local_tool_catalog)
     if not tool_names:
-        rep.warn("could not load 8_Server_Tools_Details.json — skipping tool-name existence check")
+        rep.warn(f"could not load {local_tool_catalog.name} — skipping tool-name existence check")
     else:
         referenced = set(TOOL_NAME_HINT.findall(text))
         unknown = sorted(t for t in referenced if t not in tool_names)
         for t in unknown:
-            rep.fail(f"OE references unknown tool: `{t}` (not in 8_Server_Tools_Details.json)")
+            rep.fail(f"OE references unknown tool: `{t}` (not in {local_tool_catalog.name})")
 
     if re.search(r"email_send_email[^.\n]{0,80}\bbody\s*[:=]", text):
         rep.fail("email_send_email uses `body` — should be `content`")
@@ -530,31 +549,35 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
     if re.search(r"linear_create_issue[^.\n]{0,100}\bteam\s*[:=]", text):
         rep.fail("linear_create_issue uses `team` — should be `teamId`")
 
-    for m in RETENTION_CODE_REF.finditer(text):
-        code = (m.group(1) or "").upper()
-        if code and code not in VALID_RETENTION_CODES:
-            line_no = text.count("\n", 0, m.start()) + 1
-            rep.fail(f"line {line_no}: retention code `{code}` not in valid set {{AICPA_SQMS_7Y, IRS_TAX_7Y, FIRM_INTERNAL, INDEFINITE}}. Common invalid: SOX_7Y, SEC_PERMANENT.")
+    if local_retention_codes:
+        for m in RETENTION_CODE_REF.finditer(text):
+            code = (m.group(1) or "").upper()
+            if code and code not in local_retention_codes:
+                line_no = text.count("\n", 0, m.start()) + 1
+                rep.fail(f"line {line_no}: retention code `{code}` not in valid set {{{', '.join(sorted(local_retention_codes))}}}.")
 
-    for m in SLACK_CHANNEL_REF.finditer(text):
-        chan = m.group(1)
-        if chan and chan not in VALID_SLACK_CHANNELS:
-            line_no = text.count("\n", 0, m.start()) + 1
-            rep.fail(f"line {line_no}: Slack channel `{chan}` not in valid range. Valid: C001-C010 + C012 (no C011).")
+    if local_slack_channels:
+        for m in SLACK_CHANNEL_REF.finditer(text):
+            chan = m.group(1)
+            if chan and chan not in local_slack_channels:
+                line_no = text.count("\n", 0, m.start()) + 1
+                rep.fail(f"line {line_no}: Slack channel `{chan}` not in valid range for {universe}. Valid: {sorted(local_slack_channels)}.")
 
-    for m in CLASSIFICATION_REF.finditer(text):
-        cls = (m.group(1) or "").lower()
-        if cls and cls not in VALID_CLASSIFICATIONS:
-            line_no = text.count("\n", 0, m.start()) + 1
-            rep.fail(f"line {line_no}: classification `{cls}` not in {{public, internal, restricted}}.")
+    if local_classifications:
+        for m in CLASSIFICATION_REF.finditer(text):
+            cls = (m.group(1) or "").lower()
+            if cls and cls not in local_classifications:
+                line_no = text.count("\n", 0, m.start()) + 1
+                rep.fail(f"line {line_no}: classification `{cls}` not in {{{', '.join(sorted(local_classifications))}}}.")
 
-    for m in BL_EXCEPTION_TYPE_REF.finditer(text):
-        ex_type = (m.group(1) or "").lower()
-        if ex_type and ex_type not in VALID_BL_EXCEPTION_TYPES:
-            line_no = text.count("\n", 0, m.start()) + 1
-            rep.warn(f"line {line_no}: BlackLine exception type `{ex_type}` not in known set ({', '.join(sorted(VALID_BL_EXCEPTION_TYPES))}). Verify against universe data.")
+    if local_bl_exception_types:
+        for m in BL_EXCEPTION_TYPE_REF.finditer(text):
+            ex_type = (m.group(1) or "").lower()
+            if ex_type and ex_type not in local_bl_exception_types:
+                line_no = text.count("\n", 0, m.start()) + 1
+                rep.warn(f"line {line_no}: BlackLine exception type `{ex_type}` not in known set ({', '.join(sorted(local_bl_exception_types))}). Verify against universe data.")
 
-    tool_param_map = load_tool_param_map()
+    tool_param_map = load_tool_param_map(local_tool_catalog)
     oe_steps_split = re.split(r"(?m)(?=^OE\s*\d+)", text)
     oe_steps_indexed = [s for s in oe_steps_split if re.match(r"^OE\s*\d+", s)]
     param_to_tools: dict = {}
@@ -698,9 +721,19 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
     if pf.is_file():
         prompt_text = pf.read_text(encoding="utf-8").lower()
 
+    universe = detect_universe(task_dir)
+    consts = get_universe_constants(universe)
+    local_retention_codes = consts["retention_codes"]
+    local_slack_channels = consts["slack_channels"]
+    local_classifications = consts["classifications"]
+    local_bl_exception_types = consts["blackline_exception_types"]
+    local_tool_catalog = ROOT / consts["tool_catalog"]
+    local_entity_map = consts["entity_name_to_id"]
+    local_account_trap = consts["account_trap_check"]
+
     ledger = load_fact_ledger(task_dir)
     universe_blob = load_universe_blob(task_dir) if not ledger else ""
-    tool_names = load_tool_names()
+    tool_names = load_tool_names(local_tool_catalog)
     if ledger:
         rep.note(f"using Fact_Ledger.json for groundedness ({ledger.get('meta', {}).get('atom_counts', {}).get('amounts', 0)} amounts, {ledger.get('meta', {}).get('atom_counts', {}).get('emails', 0)} emails indexed)")
     else:
@@ -832,28 +865,33 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                     rep.warn(f"{loc}: wording mismatch — title uses `{b_word}` but prompt uses `{a_word}`. Align terminology to reduce judge ambiguity.")
                     break
 
-        for rm in RETENTION_CODE_REF.finditer(title):
-            code = (rm.group(1) or "").upper()
-            if code and code not in VALID_RETENTION_CODES:
-                rep.fail(f"{loc}: retention code `{code}` in title not in valid set {{AICPA_SQMS_7Y, IRS_TAX_7Y, FIRM_INTERNAL, INDEFINITE}}.")
-        for rm in SLACK_CHANNEL_REF.finditer(title):
-            chan = rm.group(1)
-            if chan and chan not in VALID_SLACK_CHANNELS:
-                rep.fail(f"{loc}: Slack channel `{chan}` in title not in valid range (C001-C010 + C012).")
-        for rm in CLASSIFICATION_REF.finditer(title):
-            cls = (rm.group(1) or "").lower()
-            if cls and cls not in VALID_CLASSIFICATIONS:
-                rep.fail(f"{loc}: classification `{cls}` in title not in {{public, internal, restricted}}.")
-        for rm in BL_EXCEPTION_TYPE_REF.finditer(title):
-            ex_type = (rm.group(1) or "").lower()
-            if ex_type and ex_type not in VALID_BL_EXCEPTION_TYPES:
-                rep.warn(f"{loc}: BlackLine exception type `{ex_type}` in title not in known set.")
+        if local_retention_codes:
+            for rm in RETENTION_CODE_REF.finditer(title):
+                code = (rm.group(1) or "").upper()
+                if code and code not in local_retention_codes:
+                    rep.fail(f"{loc}: retention code `{code}` in title not in valid set {{{', '.join(sorted(local_retention_codes))}}}.")
+        if local_slack_channels:
+            for rm in SLACK_CHANNEL_REF.finditer(title):
+                chan = rm.group(1)
+                if chan and chan not in local_slack_channels:
+                    rep.fail(f"{loc}: Slack channel `{chan}` in title not in valid range for {universe}: {sorted(local_slack_channels)}.")
+        if local_classifications:
+            for rm in CLASSIFICATION_REF.finditer(title):
+                cls = (rm.group(1) or "").lower()
+                if cls and cls not in local_classifications:
+                    rep.fail(f"{loc}: classification `{cls}` in title not in {{{', '.join(sorted(local_classifications))}}}.")
+        if local_bl_exception_types:
+            for rm in BL_EXCEPTION_TYPE_REF.finditer(title):
+                ex_type = (rm.group(1) or "").lower()
+                if ex_type and ex_type not in local_bl_exception_types:
+                    rep.warn(f"{loc}: BlackLine exception type `{ex_type}` in title not in known set.")
 
-        chan_ids_in_title = SLACK_CHANNEL_REF.findall(title)
-        if chan_ids_in_title and not re.search(r"#[a-z0-9-]+", title):
-            for chan_id in chan_ids_in_title:
-                if chan_id in VALID_SLACK_CHANNELS:
-                    rep.warn(f"{loc}: pins Slack channel_id `{chan_id}` without channel name (#name) — agent passing the name would wrongly fail this rubric. Accept either form.")
+        if local_slack_channels:
+            chan_ids_in_title = SLACK_CHANNEL_REF.findall(title)
+            if chan_ids_in_title and not re.search(r"#[a-z0-9-]+", title):
+                for chan_id in chan_ids_in_title:
+                    if chan_id in local_slack_channels:
+                        rep.warn(f"{loc}: pins Slack channel_id `{chan_id}` without channel name (#name) — agent passing the name would wrongly fail this rubric. Accept either form.")
 
         if cat == "process":
             wm = WRITE_VERB_IN_TITLE.match(title)
@@ -923,15 +961,9 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                     if m.group(0) not in bucket_set:
                         rep.fail(f"{loc}: {label} id `{m.group(0)}` not in Fact_Ledger.ids.{bucket}")
 
-            accounts_by_entity = ledger.get("accounts_by_entity", {})
+            accounts_by_entity = ledger.get("accounts_by_entity", {}) if local_account_trap else {}
             if accounts_by_entity:
-                entity_name_to_id = {
-                    "brookfield": "brookfield",
-                    "acme cloud": "acme_cloud",
-                    "acme": "acme_cloud",
-                    "northstar legal": "northstar_legal",
-                    "northstar": "northstar_legal",
-                }
+                entity_name_to_id = local_entity_map
                 title_lower = title.lower()
                 entities_in_title = []
                 for name, eid in entity_name_to_id.items():

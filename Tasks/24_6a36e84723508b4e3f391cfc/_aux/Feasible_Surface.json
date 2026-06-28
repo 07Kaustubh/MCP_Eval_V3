@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "universe": "brookfield",
+    "tables_scanned": 42
+  },
+  "tables": {
+    "blackline.blackline_audit_trail": {
+      "target_kind": [
+        "close_task",
+        "exception",
+        "reconciliation"
+      ]
+    },
+    "blackline.blackline_close_tasks": {
+      "status": [
+        "blocked",
+        "done",
+        "in_progress",
+        "in_review",
+        "not_started"
+      ]
+    },
+    "blackline.blackline_evidence": {
+      "kind": [
+        "bank_statement",
+        "executive_signoff",
+        "fx_rate_workbook",
+        "intercompany_clearing_log",
+        "reclassification_memo",
+        "subledger_export",
+        "vendor_invoice"
+      ],
+      "target_kind": [
+        "reconciliation"
+      ]
+    },
+    "blackline.blackline_exceptions": {
+      "type": [
+        "duplicate_entry_detected",
+        "fx_revaluation_drift",
+        "missing_accrual_variance",
+        "subledger_feed_drop",
+        "timing_difference_over_sla",
+        "unrecorded_invoice"
+      ],
+      "state": [
+        "awaiting_approval",
+        "closed",
+        "investigating",
+        "logged"
+      ]
+    },
+    "blackline.blackline_reconciliations": {
+      "state": [
+        "approved",
+        "archived",
+        "certified",
+        "in_progress",
+        "open",
+        "overdue",
+        "submitted"
+      ]
+    },
+    "blackline.blackline_review_notes": {
+      "state": [
+        "cleared",
+        "open",
+        "reopened"
+      ],
+      "target_kind": [
+        "reconciliation"
+      ]
+    },
+    "contacts.contacts": {
+      "status": [
+        "Unknown"
+      ]
+    },
+    "linear.linear_issues": {
+      "state_id": [
+        "done",
+        "in_progress",
+        "todo"
+      ]
+    },
+    "linear.linear_projects": {
+      "state": [
+        "active",
+        "in_progress",
+        "planned"
+      ]
+    },
+    "oracle_gl.ogl_accounts": {
+      "type": [
+        "asset",
+        "contra_asset",
+        "contra_equity",
+        "equity",
+        "expense",
+        "liability",
+        "revenue"
+      ],
+      "status": [
+        "active"
+      ]
+    },
+    "oracle_gl.ogl_fiscal_periods": {
+      "status": [
+        "closed",
+        "future",
+        "open"
+      ]
+    },
+    "oracle_gl.ogl_journal_entries": {
+      "status": [
+        "approved",
+        "draft",
+        "posted",
+        "rejected",
+        "submitted"
+      ],
+      "entry_type": [
+        "adjusting",
+        "opening",
+        "reclassification",
+        "standard"
+      ]
+    },
+    "oracle_gl.ogl_subledger_feed_runs": {
+      "status": [
+        "failure",
+        "partial_failure",
+        "retried",
+        "success"
+      ]
+    },
+    "oracle_gl.ogl_subledger_feeds": {
+      "last_run_status": [
+        "failure",
+        "partial_failure",
+        "success"
+      ]
+    },
+    "records_vault.rv_documents": {
+      "kind": [
+        "annual_accounts_package",
+        "audit_evidence",
+        "client_consent_letter",
+        "engagement_change_order",
+        "engagement_letter",
+        "engagement_letter_addendum",
+        "internal_status_update",
+        "internal_strategy",
+        "journal_entry_support",
+        "management_accounts_package",
+        "memo",
+        "quarterly_reporting_package",
+        "receipt",
+        "reconciliation_support",
+        "state_filing_receipts",
+        "tax_determination_memo",
+        "tax_return",
+        "workpaper"
+      ],
+      "status": [
+        "active"
+      ],
+      "classification": [
+        "internal",
+        "restricted"
+      ],
+      "related_resource_type": [
+        "ap_invoice",
+        "client_engagement",
+        "internal_project",
+        "journal_entry",
+        "memo",
+        "receipt",
+        "reconciliation",
+        "tax_return"
+      ],
+      "retention_policy_code": [
+        "AICPA_SQMS_7Y",
+        "FIRM_INTERNAL",
+        "INDEFINITE",
+        "IRS_TAX_7Y"
+      ]
+    },
+    "sap_subledger.ap_invoices": {
+      "status": [
+        "approved",
+        "paid",
+        "pending_approval",
+        "voided"
+      ]
+    },
+    "sap_subledger.fixed_assets": {
+      "status": [
+        "in_service"
+      ]
+    },
+    "sap_subledger.lease_schedules": {
+      "classification": [
+        "finance",
+        "operating"
+      ]
+    },
+    "slack.slack_messages": {
+      "type": [
+        "message"
+      ]
+    }
+  }
+}

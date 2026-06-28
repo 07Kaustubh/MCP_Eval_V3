@@ -1,5 +1,82 @@
 # Changelog
 
+## 2026-06-28 — v18: Multi-Universe + Quality Over Quantity + Programmatic Floor + Deferred Items (19 Items / 5 Phases)
+
+Combined release closing three concurrent tracks: (1) KeyStone Mortgage Partners universe support alongside Brookfield CPAs, (2) programmatic universe-atom verification as load-bearing floor closing the v17-diagnosed failure mode, (3) deferred load-bearing items from v17 briefing. Net effect: pipeline supports two universes, has a deterministic verification floor beneath all LLM gates, sheds 15 redundant LLM perspectives, and ships three previously-deferred infrastructure pieces.
+
+### Phase 1 — Multi-Universe Foundation (4 items)
+
+KeyStone assets dropped in: `Mortgage_Base_Universe/` + `Docs_keystone/` + `Evals_keystone/` + `QC_Tasks/V3.1_Tasks/`. New `Validators/universes.py` registry holds per-universe constants (paths, retention codes, Slack channels, NPCs, services, tool catalog, entity mappings, lifecycle check kind). New `Validators/detect_universe.py` auto-detects per-task via service-name + persona-name + universe-data signals; writes `_aux/Universe.txt`. `Validators/validate.py` refactored: every per-universe constant (retention codes / Slack channels / classifications / BlackLine exception types / NPCs / tool catalog path / entity-name-to-id map / account-trap-check toggle) now reads from registry via `get_universe_constants(detect_universe(task_dir))`. Brookfield-default + skip-if-empty pattern preserves back-compat; KeyStone tasks route through KeyStone constants automatically. **33/33 regression anchors stayed green throughout the refactor.**
+
+### Phase 2 — Programmatic Floor (4 items)
+
+New `Validators/verify_universe_atoms.py` — atom-by-atom universe query script that walks prompt + OE + rubrics, extracts every concrete atom (account-on-entity claim, "X did/did not respond" claim, JE/exception/recon/doc/vendor/apinv/loan IDs, emails, money amounts), and runs a precise universe query per atom. Universe-aware: Brookfield runs account-trap checks via `oracle_gl.ogl_accounts`; KeyStone skips account-trap (loan-based universe) and runs presence checks via mortgage_los tables. Exit non-zero on any FAIL with `STOP: <atom> | claim=<X> | universe-row=<Y> | mismatch`. AUDIT prompts updated (`Reference/Sessions/AUDIT.md` Lens 1) to require per-atom evidence table for any Truthfulness / Accuracy 5/5 score; empty evidence column → forced score ≤ 3. `Validators/phase_ready.py --phase materialize` now runs `verify_universe_atoms.py` as a hard precondition — MATERIALIZE refuses to start the LLM gate sequence until programmatic check exits clean. Per-universe landmines documented in `Reference/Sessions/REVIEW.md` Step 2 + `Reference/Sessions/AUDIT.md` Lens 1 (Brookfield: account-number trap + email-chain truthfulness; KeyStone: TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb).
+
+### Phase 3 — Bloat Trim (5 items, net surface reduction)
+
+Council A reduced **13 → 9 perspectives**: A5 Persona Authorship Whitelist DROPPED (validator A3 NPC blocklist covers); A8 Truthfulness Tally MERGED INTO A1 (now backed by `verify_universe_atoms.py` evidence); A9 Persona Fit Comparison MOVED TO ON-DEMAND `PIPELINE AUDIT --lens persona-fit`; A12 Cross-Service Coherence MERGED INTO A1. Council B reduced **11 → 8 perspectives**: B5 Tool-Leak / Phrasing Scan DROPPED (validator regex covers); B10 OE Write-Action → Outcome 1.1 CONVERTED TO VALIDATOR (X1 forward-map already deterministic); B11 Prompt tell-me → Outcome 2.1 CONVERTED TO VALIDATOR. AUDIT reduced **9 → 7 lenses**: Lens 6 Lifecycle + Narrative State + Lens 9 Unique Ground Truth Middle-Band MERGED INTO Lens 1 (now backed by atom-verifier evidence table). `REVIEW_triage.md` template gains mandatory Verification-Evidence column per finding — each "verified" cell must link to universe query that proved it. Triage authors can't slip shallow "verified" badges. **Total LLM perspectives across A + B + AUDIT + FINAL: 39 → 24 (net -15).** Programmatic floor added beneath every LLM gate.
+
+### Phase 4 — Deferred Load-Bearing (3 items)
+
+`Validators/aggregate_verdicts.py` — cross-task QC trend aggregator. Globs `Tasks/*/_aux/Council_Reports/*.md`, extracts trailing JSON verdict blocks (v12 F2 unified format), emits per-universe portfolio-level tables (verdict distribution / top failing sub-dimensions / most-blocking council perspectives / density-band distribution / lever-preservation misses / Bucket-1-Risk average). Universe-aware: separate trend tables for Brookfield vs KeyStone. `Reference/Templates/Verification_phase.md.template` — Verification_<phase>.md schema with required sections (Sources consulted with 6 source categories / Verification statements checklist / Discrepancies surfaced / Verdict). `Validators/check_verification.py` — validates the file matches template (required sections present + non-empty evidence cells + verdict ∈ {PASS, REVISE, BLOCK}). `Validators/build_feasible_surface.py` — extracts distinct enum-like column values per table (status / state / category / type / classification / kind / lifecycle / phase / milestone) from `_aux/Universe_Split/`. Writes `_aux/Feasible_Surface.json` so validators can flag rubric-tested enum values that don't exist for the entity (e.g., `status = "finalized"` on a Brookfield JE where valid statuses are {draft, submitted, approved, posted, reversed}).
+
+### Phase 5 — Documentation + Regression (3 items)
+
+`AGENTS.md` Universe Constants section split into per-universe sub-sections (Brookfield + KeyStone) + universe detection mechanism documented. Trigger count stays 16 (universe is auto-detected, not a separate trigger). `Validators/test_regression_anchors.py` extended with 5 KeyStone-specific anchors (KS-1 NPC Marcus Webb / KS-2 invalid Slack C009 / KS-3 single-service prompt on KeyStone / KS-4 cross-universe retention-code (Brookfield code on KeyStone universe — verifies skip-if-empty behavior) / KS-5 universe auto-detection via mortgage_los signal). Total: **33 + 5 = 38 anchors, all PASS**. CHANGELOG v18 entry.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 38 / 38 PASS (33 Brookfield + 5 KeyStone) |
+| `Validators/validate.py --phase all --task Tasks/24_...` | prompt PASS (0F/2W/3N — added "universe: brookfield" note), OE PASS (0F/0W/1N), rubrics FAIL (3F/8W/3N — same v17 baseline; zero regression) |
+| `Validators/verify_universe_atoms.py --task Tasks/24_...` | PASS (0F/0W/42 atoms checked, universe: brookfield) |
+| `Validators/aggregate_verdicts.py` | scans 32 tasks; emits per-universe verdict distribution + sub-dim trend tables |
+| `Validators/build_feasible_surface.py Tasks/24_...` | 19 tables with enums, 28 enum columns extracted |
+| `Validators/phase_ready.py --phase materialize --task <task with verify atoms fail>` | hard-blocks with `STOP: verify_universe_atoms.py failed` + recommendation |
+
+### Files added
+
+- `Validators/universes.py` — registry (~210 lines)
+- `Validators/detect_universe.py` — auto-detection helper (inside universes.py)
+- `Validators/verify_universe_atoms.py` — atom-by-atom universe query (~240 lines)
+- `Validators/aggregate_verdicts.py` — cross-task QC trend aggregator (~140 lines)
+- `Validators/check_verification.py` — Verification_<phase>.md template validator (~80 lines)
+- `Validators/build_feasible_surface.py` — per-table enum extractor (~100 lines)
+- `Reference/Templates/Verification_phase.md.template` — Verification file schema
+- `Mortgage_Base_Universe/` — KeyStone universe drop-in (per zip)
+- `Docs_keystone/` — KeyStone-flavored QC + eval docs
+- `Evals_keystone/` — KeyStone-flavored evals
+- `QC_Tasks/V3.1_Tasks/Task1-4` — KeyStone reference passed tasks
+
+### Files changed
+
+- `Validators/validate.py` — universe-aware constants refactor; `load_tool_names()` + `load_tool_param_map()` accept tool_catalog_path; per-function `consts = get_universe_constants(detect_universe(task_dir))` lookup; all hardcoded sets gated by `if local_<set>:` skip-if-empty
+- `Validators/phase_ready.py` — materialize precondition runs verify_universe_atoms.py
+- `Validators/test_regression_anchors.py` — 5 new KeyStone anchors (38 total)
+- `Reference/Council_Protocol.md` — intro rewritten for 9 + 8 perspective counts; deprecated perspective list documented
+- `Reference/Sessions/REVIEW.md` — Step 2 inline AUDIT + landmines section + verify_universe_atoms.py call; changes.md template + Verification-Evidence column
+- `Reference/Sessions/AUDIT.md` — Lens 1 evidence-table requirement; Lens 6 + Lens 9 merge markers
+- `AGENTS.md` — Universe Constants section dual-universe; universe detection mechanism
+
+### What this closes
+
+Pipeline now supports **both Brookfield and KeyStone universes** auto-detected per task. The v17-diagnosed failure mode (5 LLM gates passing a Major universe-truthfulness defect) is **structurally closed**: programmatic verify_universe_atoms.py runs first and hard-blocks MATERIALIZE if any atom fails. AUDIT can no longer narrate verification without evidence. **15 redundant LLM perspectives removed** without losing catches (validator regex / programmatic check covers each dropped item). Three deferred load-bearing items from the v17 briefing shipped. **38 regression anchors covering both universes** all pass.
+
+Coverage stack (v18):
+- 100% QC spec sub-dim coverage (v12, preserved + extended to KeyStone QC spec)
+- 100% eval spec coverage (v11, preserved + extended to KeyStone evals)
+- 100% candidate-facing QC instruction coverage (v13)
+- 100% V3 formatting conventions (v14)
+- AF justification 5-point checklist + FEEDBACK 4-field form (v15)
+- Cross-Source Verification Discipline + Verification_<phase>.md template (v16 + v18 enforcement)
+- REVIEW flow at full parity with CB (v17)
+- Multi-universe + programmatic floor + bloat trim + deferred infrastructure (v18)
+
+Trigger count: 16 (NEW / S0 / HARDNESS / S1 / S1.5 / S2 / S3 / FINAL / S4 / REVIEW / MATERIALIZE / REDO / COMPARE / AUDIT / FEEDBACK / CLOSE — unchanged, universe is auto-detected not a separate trigger).
+
+---
+
 ## 2026-06-27 — v17: REVIEW Flow Parity with CB + Auto-Apply + New MATERIALIZE Trigger (4-Item Plan)
 
 Closes the two parity gaps where REVIEW had lighter scrutiny than CB, adds auto-apply for `changes.md`, and splits REVIEW into two phases (analysis + materialization) to keep each chat context clean.

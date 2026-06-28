@@ -337,6 +337,36 @@ ANCHORS = [
         "expect": "multi-value phrasing",
     },
     {
+        "name": "v18 KS-1 — KeyStone NPC persona (Marcus Webb, departed)",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I'm Marcus Webb at Keystone Mortgage. Look into the mortgage_los loan pipeline. Send Carlos an email about the deal status. Tell me what you find.", persona="Marcus Webb"), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
+        "expect": "NPC",
+    },
+    {
+        "name": "v18 KS-2 — Invalid KeyStone Slack channel (C009)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search.\nOE2: Post in channel C009 about the loan.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
+        "expect": "C009",
+    },
+    {
+        "name": "v18 KS-3 — Single-service prompt on KeyStone (only mortgage_los)",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="Pull the loans from mortgage_los for the current pipeline and tell me the total. Just the LOS pipeline figure.", persona="Carlos Rivera"), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
+        "expect": "cross-service requirement",
+    },
+    {
+        "name": "v18 KS-4 — KeyStone Brookfield-style retention code wrongly used (AICPA_SQMS_7Y)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the loan file.\nOE2: Upload disclosure document with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
+        "expect": "PASS",
+    },
+    {
+        "name": "v18 KS-5 — KeyStone universe detection (mortgage_los signal)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="I need help with the mortgage_los pipeline. There's a TRID concern with the loan estimate timing. Check the closing disclosure and let me know if we are within the 3-business-day window. Also email Carlos about the rate lock.", persona="Carlos Rivera"),
+        "expect": "universe: keystone",
+    },
+    {
         "name": "F1 — Bullets in prompt",
         "phase": "prompt",
         "fixture": lambda d: _write_task(d, prompt="I need help with the AP queue.\n\n* Look into the recent Slack thread\n* Check the email from Andre\n* Post a Linear issue if there's something wrong\n\nCan you handle this?"),

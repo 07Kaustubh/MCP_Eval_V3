@@ -1,0 +1,3556 @@
+{
+  "schemas": [
+    {
+      "name": "contacts",
+      "tables": [
+        {
+          "name": "contacts",
+          "columns": [
+            {
+              "name": "contact_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "first_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "last_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "is_user",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "gender",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "age",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "nationality",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "city_living",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "job",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "contacts.contacts"
+        }
+      ]
+    },
+    {
+      "name": "crm",
+      "tables": [
+        {
+          "name": "crm_companies",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "contact_ids",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "domain",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address2",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "industry",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "createdate",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "crm.crm_companies"
+        },
+        {
+          "name": "crm_contacts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "full_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "company_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "company",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "mobilephone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "jobtitle",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "website",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "createdate",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "crm.crm_contacts"
+        },
+        {
+          "name": "crm_deals",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "dealname",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "dealstage",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "company_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "closedate",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "pipeline",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "createdate",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "crm.crm_deals"
+        },
+        {
+          "name": "crm_engagements",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "engagement_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "body",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "contact_ids",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "company_ids",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "createdate",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "crm.crm_engagements"
+        },
+        {
+          "name": "crm_leads",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "full_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "company_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "mobilephone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "company",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "jobtitle",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "website",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "industry",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "leadsource",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "rating",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "createdate",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "crm.crm_leads"
+        }
+      ]
+    },
+    {
+      "name": "email",
+      "tables": [
+        {
+          "name": "emails",
+          "columns": [
+            {
+              "name": "email_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "folder",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "sender",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "recipients_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "subject",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "content",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "cc_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "parent_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "attachments_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "timestamp",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "is_read",
+              "type": "boolean",
+              "nullable": false
+            }
+          ],
+          "full_name": "email.emails"
+        },
+        {
+          "name": "jmap_emails",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "blob_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "thread_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "mailbox_ids_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "from_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "to_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "cc_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "bcc_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "reply_to_json",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "subject",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "sent_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "received_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "preview",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "text_body_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "html_body_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "attachments_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "keywords_json",
+              "type": "text",
+              "nullable": false
+            }
+          ],
+          "full_name": "email.jmap_emails"
+        },
+        {
+          "name": "mailboxes",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "role",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "total_emails",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "unread_emails",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "total_threads",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "unread_threads",
+              "type": "integer",
+              "nullable": true
+            }
+          ],
+          "full_name": "email.mailboxes"
+        },
+        {
+          "name": "threads",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "email_ids_json",
+              "type": "text",
+              "nullable": false
+            }
+          ],
+          "full_name": "email.threads"
+        }
+      ]
+    },
+    {
+      "name": "filesystem",
+      "tables": []
+    },
+    {
+      "name": "mortgage_los",
+      "tables": [
+        {
+          "name": "activity_log_entries",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "timestamp",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "author",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "action",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "detail",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.activity_log_entries"
+        },
+        {
+          "name": "borrowers",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "first_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "last_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "ssn_last_four",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "credit_score",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "annual_income",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "employer",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "co_borrower_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "co_borrower_email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "assigned_loan_officer",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "referral_source",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.borrowers"
+        },
+        {
+          "name": "conditions",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "condition_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "issued_date",
+              "type": "date",
+              "nullable": false
+            },
+            {
+              "name": "cleared_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "cleared_by",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.conditions"
+        },
+        {
+          "name": "document_checklist_items",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "document_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "due_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "received_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reviewed_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "file_path",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.document_checklist_items"
+        },
+        {
+          "name": "lenders",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "contact_email",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "specialties",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "turnaround_days",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "min_credit_score",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "max_dti",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.lenders"
+        },
+        {
+          "name": "loans",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "borrower_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_number",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_purpose",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "property_address",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "purchase_price",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "loan_amount",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "down_payment_pct",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "rate",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "rate_lock_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "rate_lock_expiration",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "ltv",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "dti",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "lender_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "assigned_lo",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "assigned_processor",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "closing_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "le_sent_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "cd_sent_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "realtor_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "realtor_email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "title_company",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.loans"
+        },
+        {
+          "name": "milestones",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "loan_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "stage",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "entered_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "exited_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "entered_by",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.milestones"
+        },
+        {
+          "name": "staff",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "role",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "nmls_number",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "current_pipeline_count",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "specialization",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "hire_date",
+              "type": "date",
+              "nullable": false
+            },
+            {
+              "name": "termination_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "is_active",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.staff"
+        },
+        {
+          "name": "vendors",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "vendor_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "company_name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "contact_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "license_number",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "preferred",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "full_name": "mortgage_los.vendors"
+        }
+      ]
+    },
+    {
+      "name": "public",
+      "tables": [
+        {
+          "name": "_changelog",
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": false
+            },
+            {
+              "name": "timestamp",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "schema_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "operation",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "row_id",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "changed_fields",
+              "type": "jsonb",
+              "nullable": true
+            }
+          ],
+          "full_name": "public._changelog"
+        }
+      ]
+    },
+    {
+      "name": "quickbooks",
+      "tables": [
+        {
+          "name": "accounts",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "FullyQualifiedName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Classification",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "AccountType",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "AccountSubType",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "CurrentBalance",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "CurrentBalanceWithSubAccounts",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "SubAccount",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.accounts"
+        },
+        {
+          "name": "bills",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DocNumber",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "TxnDate",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DueDate",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "TotalAmt",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "Balance",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "VendorRef",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "Line",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.bills"
+        },
+        {
+          "name": "customers",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DisplayName",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "GivenName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "MiddleName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "FamilyName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "CompanyName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "PrintOnCheckName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Taxable",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Balance",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "Notes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "BillAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "ShipAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "SalesTermRef",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.customers"
+        },
+        {
+          "name": "invoices",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DocNumber",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "TxnDate",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DueDate",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "TotalAmt",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "Balance",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "CustomerRef",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "Line",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "BillEmail",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "BillAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "ShipAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.invoices"
+        },
+        {
+          "name": "items",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "FullyQualifiedName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Type",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Taxable",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "UnitPrice",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "Description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "IncomeAccountRef",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "ExpenseAccountRef",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.items"
+        },
+        {
+          "name": "vendors",
+          "columns": [
+            {
+              "name": "Id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "SyncToken",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "DisplayName",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "GivenName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "FamilyName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "CompanyName",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Vendor1099",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "Balance",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "BillAddr",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "MetaData",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "quickbooks.vendors"
+        }
+      ]
+    },
+    {
+      "name": "slack",
+      "tables": [
+        {
+          "name": "slack_channels",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "is_channel",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_private",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_im",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_mpim",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_archived",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_general",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "num_members",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "topic",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "purpose",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created_ts",
+              "type": "double precision",
+              "nullable": false
+            },
+            {
+              "name": "creator_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "members_json",
+              "type": "text",
+              "nullable": false
+            }
+          ],
+          "full_name": "slack.slack_channels"
+        },
+        {
+          "name": "slack_drafts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "user_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "channel_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "text",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "thread_ts",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "bigint",
+              "nullable": false
+            },
+            {
+              "name": "updated",
+              "type": "bigint",
+              "nullable": false
+            }
+          ],
+          "full_name": "slack.slack_drafts"
+        },
+        {
+          "name": "slack_emojis",
+          "columns": [
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "url",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "alias_for",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "user_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "bigint",
+              "nullable": true
+            }
+          ],
+          "full_name": "slack.slack_emojis"
+        },
+        {
+          "name": "slack_files",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "mimetype",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "filetype",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "size",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "user_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "channel_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "message_ts",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "bigint",
+              "nullable": true
+            },
+            {
+              "name": "is_public",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "url_private",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "permalink",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "preview",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "content_path",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "content_inline",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "full_name": "slack.slack_files"
+        },
+        {
+          "name": "slack_messages",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "ts",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "channel_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "user_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "text",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "thread_parent_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "thread_ts_legacy",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "reply_count",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "reply_users_count",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "latest_reply",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "is_activity_message",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "subtype",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "reactions_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "files_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "attachments_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "edited_ts",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "edited_user",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "bot_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "client_msg_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "permalink",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "metadata_json",
+              "type": "text",
+              "nullable": false
+            }
+          ],
+          "full_name": "slack.slack_messages"
+        },
+        {
+          "name": "slack_scheduled_messages",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "channel_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "user_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "text",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "post_at",
+              "type": "bigint",
+              "nullable": false
+            },
+            {
+              "name": "created",
+              "type": "bigint",
+              "nullable": false
+            },
+            {
+              "name": "thread_ts",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "slack.slack_scheduled_messages"
+        },
+        {
+          "name": "slack_users",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "real_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "display_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "avatar_url",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "is_bot",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "is_admin",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "deleted",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "timezone",
+              "type": "character varying",
+              "nullable": false
+            }
+          ],
+          "full_name": "slack.slack_users"
+        }
+      ]
+    },
+    {
+      "name": "stripe",
+      "tables": [
+        {
+          "name": "balance_transactions",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "source_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "fee",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "net",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.balance_transactions"
+        },
+        {
+          "name": "charges",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "payment_intent_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "paid",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "refunded",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "amount_refunded",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.charges"
+        },
+        {
+          "name": "connected_accounts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "business_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "country",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "business_type",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "charges_enabled",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "payouts_enabled",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.connected_accounts"
+        },
+        {
+          "name": "coupons",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "percent_off",
+              "type": "double precision",
+              "nullable": true
+            },
+            {
+              "name": "amount_off",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "duration",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "duration_in_months",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "max_redemptions",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "times_redeemed",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "valid",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.coupons"
+        },
+        {
+          "name": "credit_notes",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "invoice_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "reason",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "memo",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "voided_at",
+              "type": "integer",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.credit_notes"
+        },
+        {
+          "name": "customers",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "deleted",
+              "type": "boolean",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.customers"
+        },
+        {
+          "name": "disputes",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "charge_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "reason",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "evidence_json",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.disputes"
+        },
+        {
+          "name": "events",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "object_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "object_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "data_json",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.events"
+        },
+        {
+          "name": "fc_account_owners",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "account_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "character varying",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.fc_account_owners"
+        },
+        {
+          "name": "fc_accounts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "session_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "institution_name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "category",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "subcategory",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "last4",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "balance_current",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "balance_available",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.fc_accounts"
+        },
+        {
+          "name": "fc_sessions",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "account_holder_type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "account_holder_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "permissions",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.fc_sessions"
+        },
+        {
+          "name": "fc_transactions",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "account_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "transacted_at",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "posted_at",
+              "type": "integer",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.fc_transactions"
+        },
+        {
+          "name": "invoice_items",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "invoice_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "price_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "quantity",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.invoice_items"
+        },
+        {
+          "name": "invoices",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "subscription_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "total",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "amount_due",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "amount_paid",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "amount_remaining",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "due_date",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "finalized_at",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "paid_at",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "voided_at",
+              "type": "integer",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.invoices"
+        },
+        {
+          "name": "payment_intents",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "payment_method_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "capture_method",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.payment_intents"
+        },
+        {
+          "name": "payment_methods",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "type",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "card_brand",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "card_last4",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "card_exp_month",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "card_exp_year",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.payment_methods"
+        },
+        {
+          "name": "payouts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "arrival_date",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "method",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.payouts"
+        },
+        {
+          "name": "prices",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "product_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "unit_amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "recurring_interval",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "recurring_interval_count",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.prices"
+        },
+        {
+          "name": "products",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "active",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.products"
+        },
+        {
+          "name": "refunds",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "charge_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "payment_intent_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "reason",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.refunds"
+        },
+        {
+          "name": "subscription_items",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "subscription_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "price_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "quantity",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.subscription_items"
+        },
+        {
+          "name": "subscriptions",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "customer_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "current_period_start",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "current_period_end",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "cancel_at_period_end",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "canceled_at",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.subscriptions"
+        },
+        {
+          "name": "transfers",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "destination_account_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.transfers"
+        },
+        {
+          "name": "treasury_financial_accounts",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "supported_currencies",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "balance_cash",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "balance_inbound_pending",
+              "type": "integer",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            }
+          ],
+          "full_name": "stripe.treasury_financial_accounts"
+        },
+        {
+          "name": "treasury_outbound_payments",
+          "columns": [
+            {
+              "name": "id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "financial_account_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "currency",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "destination_payment_method",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "metadata",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "integer",
+              "nullable": false
+            },
+            {
+              "name": "canceled_at",
+              "type": "integer",
+              "nullable": true
+            }
+          ],
+          "full_name": "stripe.treasury_outbound_payments"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "mb_inbox",
+    "name": "Inbox",
+    "role": "inbox",
+    "total_emails": 7440,
+    "total_threads": 0,
+    "unread_emails": 0,
+    "unread_threads": null
+  },
+  {
+    "id": "mb_sent",
+    "name": "Sent",
+    "role": "sent",
+    "total_emails": 9240,
+    "total_threads": 0,
+    "unread_emails": 0,
+    "unread_threads": null
+  },
+  {
+    "id": "mb_drafts",
+    "name": "Drafts",
+    "role": "drafts",
+    "total_emails": 11,
+    "total_threads": 0,
+    "unread_emails": 0,
+    "unread_threads": null
+  },
+  {
+    "id": "mb_trash",
+    "name": "Trash",
+    "role": "trash",
+    "total_emails": 0,
+    "total_threads": 0,
+    "unread_emails": 0,
+    "unread_threads": null
+  }
+]

@@ -179,6 +179,23 @@ For EVERY applicable QC sub-dim in Docs/7_QC_Spec_Doc1.json, score it
 REASON -> WHAT THE PRIOR COUNCIL MISSED (if anything). Any sub-dim < 5
 = REVISE. List the exact change needed to reach 5.
 
+**PER-ATOM EVIDENCE TABLE (v18 — REQUIRED for any Truthfulness / Accuracy 5/5 score).** AUDIT cannot score a universe-grounded sub-dim 5/5 without producing this table:
+
+| Atom asserted | Universe query | Row excerpt | Verdict |
+|---|---|---|---|
+| <e.g., "120000 = AR on Northstar"> | <e.g., `oracle_gl.ogl_accounts WHERE account_number=120000 AND entity_id=northstar_legal`> | <e.g., "120000: Client Cost Advances"> | FAIL — mismatch |
+
+Empty evidence column → forced score ≤ 3. This prevents the v17-diagnosed failure mode where 5 LLM gates passed a Major universe-truthfulness defect because every gate's "universe verification" was indirect (they read upstream reports saying "atoms verified" and trusted it). The v18 contract: narrated verification without proof is not verification.
+
+**Per-universe landmines** (read `Tasks/<TASK_DIR>/_aux/Universe.txt`):
+
+- **Brookfield — Account-number trap:** 105000 / 120000 differ per entity. Query `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E`.
+- **Brookfield / KeyStone — Email-chain truthfulness:** "X never responded" claims proven only by parent_id walk + sender-filter.
+- **KeyStone — TRID timing:** LE within 3 biz days, CD 3 biz days before close. Query `mortgage_los.disclosures`.
+- **KeyStone — Mortgage LOS vs CRM source-of-truth:** loan data lives in `mortgage_los`, not CRM.
+
+The programmatic floor (`Validators/verify_universe_atoms.py`) runs first and catches structural atom defects. AUDIT's evidence-table requirement is the second pass that catches semantic mismatches the programmatic check can't reach (e.g., the role-claim language is ambiguous but the universe row is unambiguous).
+
 LENS 2 — Answer-leakage sweep (deeper than FINAL's)
 Identify the correct/derived answer the task is built around (read
 Hardness_Plan.md + infer from the deliverables). Then:
@@ -227,7 +244,11 @@ You have audited 200+ Brookfield tasks. Apply pattern recognition:
   - For REVIEW flow only — does 13_Feedback.txt contain forbidden
     internal terms? (run check_justification.py mentally; flag hits.)
 
-LENS 6 — Lifecycle + Narrative State (strictest)
+LENS 6 — Lifecycle + Narrative State (strictest) — v18: MERGED INTO LENS 1
+(Lens 1 with the new per-atom evidence-table requirement now subsumes the
+lifecycle + narrative-state contradiction checks. The body below is kept as
+reference for the strictest interpretation; treat Lens 6 findings as Lens 1
+sub-checks.)
 Under the STRICTEST interpretation, re-verify every Lens 5 (FINAL) check at
 a higher bar:
 - Every state-implying claim in the deliverable MUST verify against universe
@@ -312,7 +333,10 @@ LENS 8 regression-anchor verification: 10/10 PASS (or X/10 with names of
 failed anchors and the suspected validator regression).
 ```
 
-LENS 9 — Unique Ground Truth Middle-Band (v12 P1)
+LENS 9 — Unique Ground Truth Middle-Band (v12 P1) — v18: MERGED INTO LENS 1
+(Lens 1 strict QC scoring of the Unique Ground Truth sub-dim now covers
+both the FAIL band and the NON-FAIL middle band. Treat Lens 9 findings as
+Lens 1 sub-step on the Unique Ground Truth sub-dim.)
 Re-read the prompt asking specifically: does it permit a "leading
 interpretation that the majority would pick" AND a SECOND defensible
 interpretation that diverges materially? The QC spec Unique Ground Truth

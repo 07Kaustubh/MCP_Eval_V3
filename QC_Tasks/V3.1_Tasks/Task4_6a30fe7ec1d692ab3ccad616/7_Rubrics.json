@@ -1,0 +1,140 @@
+[
+    {
+        "title": "The Agent reports that the Northstar client-trust (IOLTA) balance for the first quarter ties to the posted general ledger at 2,142,204.13.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the trust number is right; 2,142,204.13 is the correct posted-ledger figure that the trust ties to.",
+        "evidence": "The Agent's final response states the first-quarter Northstar client-trust balance is 2,142,204.13 and ties to the posted ledger."
+    },
+    {
+        "title": "The Agent identifies that the 248,980.95 difference between the trust support and the ledger is driven by the rejected, unposted client-trust deposit recorded as entry JE-northstar_legal-FP-2026-03-0073.",
+        "category": "outcome",
+        "justification": "The prompt asks what is genuinely behind the gap; the difference equals a rejected deposit the preparer wrongly included in the support.",
+        "evidence": "The Agent's final response attributes the 248,980.95 difference to the rejected deposit JE-northstar_legal-FP-2026-03-0073."
+    },
+    {
+        "title": "The Agent determines that the reconciliation support is the side that is in error while the posted ledger is correct.",
+        "category": "outcome",
+        "justification": "The prompt asks which side is correct; because the deposit was rejected and never posted, the ledger is right and the support is the side that is wrong.",
+        "evidence": "The Agent's final response states the posted ledger is correct and the reconciliation support is the side that must change."
+    },
+    {
+        "title": "The Agent identifies that the repaint (12,450.00) and carpet (8,990.00) portions of the Marigold Property Services office-suite refresh are routine repairs and maintenance, not a capital leasehold improvement.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the first-quarter item is recorded in the right place; the repaint and carpet line items are routine maintenance, not capital.",
+        "evidence": "The Agent's final response identifies the repaint and carpet work as routine repairs and maintenance rather than a capital leasehold improvement."
+    },
+    {
+        "title": "The Agent identifies that the conference-room partition build-out portion (5,400.00) of the Marigold office-suite refresh is a legitimate leasehold improvement capitalized in account 152000",
+        "category": "outcome",
+        "justification": "The prompt asks whether the item is recorded in the right place; the new partition build-out is a genuine leasehold improvement and stays in fixed assets (152000), so only the maintenance portion is miscoded.",
+        "evidence": "The Agent's final response identifies the 5,400.00 partition build-out as a legitimate capital leasehold improvement capitalized in account 152000."
+    },
+    {
+        "title": "The Agent quantifies the correction as moving 21,440.00 from leasehold improvements (account 152000) to facilities maintenance / repairs expense (account 551000).",
+        "category": "outcome",
+        "justification": "The prompt asks for the dollar impact, not just a note; only the 21,440.00 maintenance portion reclassifies from capital (152000) to expense (551000).",
+        "evidence": "The Agent's final response states 21,440.00 should move from account 152000 to account 551000."
+    },
+    {
+        "title": "The Agent identifies that Green Spatz (green.spatz@brookfieldcpas.com) can reach the restricted Northstar Q1 partner reporting package but is not on the assigned engagement team (Julia Vance, Ryan Delgado, Edith Banda).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to confirm everyone with access belongs on the engagement; Green Spatz is a trainee accountant who is off the assigned team.",
+        "evidence": "The Agent's final response flags that Green Spatz has access to the Q1 package while not being on the assigned engagement team."
+    },
+    {
+        "title": "The Agent recommends holding the Northstar Q1 interim partner package from client delivery.",
+        "category": "outcome",
+        "justification": "The prompt asks for a plain release-or-hold decision; because the open issues are unresolved, the correct disposition is to hold.",
+        "evidence": "The Agent's final response states the package is held and not cleared for client release."
+    },
+    {
+        "title": "The Agent notifies Daniel Jones (daniel.jones@brookfieldcpas.com) about the Northstar Q1 package.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to pull Daniel in on anything that needs fixing.",
+        "evidence": "The Agent sends a message to daniel.jones@brookfieldcpas.com (by email, Slack, or direct message)."
+    },
+    {
+        "title": "The Agent notifies Ryan Delgado (ryan.delgado@brookfieldcpas.com) about the Northstar Q1 package.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to pull Ryan in on anything that needs fixing.",
+        "evidence": "The Agent sends a message to ryan.delgado@brookfieldcpas.com (by email, Slack, or direct message)."
+    },
+    {
+        "title": "The Agent's notification to Daniel Jones and Ryan Delgado states that the Q1 interim partner package is held from client delivery.",
+        "category": "outcome",
+        "justification": "The decision communication must convey the hold so the package is not released.",
+        "evidence": "The Agent's message to Daniel and Ryan states the package is being held from the client."
+    },
+    {
+        "title": "The Agent's notification to Daniel Jones and Ryan Delgado states that the trust reconciliation support must be corrected to remove the rejected deposit.",
+        "category": "outcome",
+        "justification": "One of the required fixes is correcting the trust support.",
+        "evidence": "The Agent's message to Daniel and Ryan describes correcting the trust support to remove the rejected deposit."
+    },
+    {
+        "title": "The Agent's notification to Daniel Jones and Ryan Delgado states that the posted ledger balance of 2,142,204.13 is correct.",
+        "category": "outcome",
+        "justification": "The ledger figure is right, so the message tells Ryan and Daniel the ledger is correct and the fix belongs on the support side.",
+        "evidence": "The Agent's message to Daniel and Ryan states the posted ledger balance of 2,142,204.13 is correct."
+    },
+    {
+        "title": "The Agent's notification to Daniel Jones and Ryan Delgado states that 21,440.00 must be reclassified from leasehold improvements (152000) to expense (551000).",
+        "category": "outcome",
+        "justification": "One of the required fixes is reclassifying the miscoded maintenance portion to expense.",
+        "evidence": "The Agent's message to Daniel and Ryan describes reclassifying 21,440.00 from 152000 to 551000."
+    },
+    {
+        "title": "The Agent's notification to Daniel Jones and Ryan Delgado states that Green Spatz's off-team access to the package has been removed.",
+        "category": "outcome",
+        "justification": "One of the required fixes is remediating the off-team access to the engagement-confidential package.",
+        "evidence": "The Agent's message to Daniel and Ryan states that Green Spatz's access to the package was removed."
+    },
+    {
+        "title": "The Agent removes Green Spatz's (green.spatz@brookfieldcpas.com) access to the restricted Northstar Q1 partner reporting package.",
+        "category": "outcome",
+        "justification": "The prompt directs the Agent to deal with anyone who can reach the engagement materials but does not belong on the engagement; Green Spatz's access must be removed.",
+        "evidence": "The trajectory shows the Agent revoking Green Spatz's access grant on the Q1 partner package."
+    },
+    {
+        "title": "The Agent creates a written partner record of the Northstar Q1 package decision.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to leave a documented partner record of where Julia landed and why.",
+        "evidence": "The trajectory shows the Agent recording a partner-decision document for the Northstar Q1 package (e.g., filed to the records vault)."
+    },
+    {
+        "title": "The Agent's partner record states the decision to hold the Northstar Q1 package from client delivery.",
+        "category": "outcome",
+        "justification": "The documented record must capture the go/no-go decision.",
+        "evidence": "The Agent's partner record document states the package is being held from the client."
+    },
+    {
+        "title": "The Agent's partner record states that the trust reconciliation support wrongly included rejected entry JE-northstar_legal-FP-2026-03-0073 (248,980.95).",
+        "category": "outcome",
+        "justification": "The documented record must capture the trust finding behind the hold.",
+        "evidence": "The Agent's partner record describes the trust support error and names the rejected entry and its amount."
+    },
+    {
+        "title": "The Agent's partner record states that the posted ledger balance of 2,142,204.13 is correct.",
+        "category": "outcome",
+        "justification": "The documented record must capture that the ledger side is right so the fix is to the support.",
+        "evidence": "The Agent's partner record states the posted ledger balance of 2,142,204.13 is correct."
+    },
+    {
+        "title": "The Agent's partner record states the 21,440.00 capitalization miscoding to be reclassified from leasehold improvements (152000) to expense (551000).",
+        "category": "outcome",
+        "justification": "The documented record must capture the capitalization finding behind the hold.",
+        "evidence": "The Agent's partner record describes the 21,440.00 miscoding and the 152000-to-551000 reclassification."
+    },
+    {
+        "title": "The Agent's partner record states the off-team package access by Green Spatz.",
+        "category": "outcome",
+        "justification": "The documented record must capture the access finding behind the hold.",
+        "evidence": "The Agent's partner record describes the off-team access to the package by Green Spatz."
+    },
+    {
+        "title": "The Agent sets reminders for the outstanding remediation follow-ups on the Northstar Q1 package.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to set whatever reminders are needed so none of it slips.",
+        "evidence": "The trajectory shows the Agent creating reminder(s) for the remediation follow-ups."
+    }
+]

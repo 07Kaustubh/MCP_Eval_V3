@@ -1,0 +1,162 @@
+[
+  {
+    "id": "dp_o2i8NJaikU69lixD",
+    "amount": 5000,
+    "reason": "product_unacceptable",
+    "status": "lost",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_HBw8bgs0pyXD7mIn",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_Ryvjb4vGrd6Byue4",
+    "amount": 5000,
+    "reason": "fraudulent",
+    "status": "won",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_Owy7bIUhspUAwSWy",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_kdRDQvlzt6agz1yp",
+    "amount": 8500,
+    "reason": "not_received",
+    "status": "needs_response",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_A8U8N4xaxaAIi70I",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_yiclrK9ZWm2EPknO",
+    "amount": 3000,
+    "reason": "product_unacceptable",
+    "status": "lost",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_QdPE3jzooswoHYC5",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_7RmBlkJDgHElhRQV",
+    "amount": 4500,
+    "reason": "duplicate",
+    "status": "won",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_ZWDzNFG6jCWK5Xvy",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_8Ly4U0okJvzGGekz",
+    "amount": 50000,
+    "reason": "fraudulent",
+    "status": "under_review",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_uS4cweBKiHiTzSlv",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_75wZlf8uht6w2HUq",
+    "amount": 52500,
+    "reason": "fraudulent",
+    "status": "under_review",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_A9UIhFQ4rg8ctDxu",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_UwxuNc4onEy51omm",
+    "amount": 80000,
+    "reason": "not_received",
+    "status": "needs_response",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_GTTvFAgt5tKwmO2A",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_pdGsLyeXDl82Lede",
+    "amount": 50000,
+    "reason": "fraudulent",
+    "status": "under_review",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_iw2sQXvkgQB7fwON",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_gZ631Ml287IS99VD",
+    "amount": 5500,
+    "reason": "duplicate",
+    "status": "won",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_GRtvZUMpuVAaEWHA",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_ozCT0fGeRIvcakxZ",
+    "amount": 7500,
+    "reason": "fraudulent",
+    "status": "under_review",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_Cv7Ujk66eiRG1XoS",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_69pSqDcVcxnvUVnz",
+    "amount": 40000,
+    "reason": "general",
+    "status": "needs_response",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_RAiNiO8YCqFxXKxs",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_XeWogFizdeymMtew",
+    "amount": 37500,
+    "reason": "fraudulent",
+    "status": "won",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_mxTyGSIGvxqaSnf8",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_eRQ7y24HbNzt0FQm",
+    "amount": 57500,
+    "reason": "product_unacceptable",
+    "status": "lost",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_Uq7QKSJh8m5l9frP",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_TDRZacOoiyqOFsee",
+    "amount": 2500,
+    "reason": "general",
+    "status": "needs_response",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_SmmqqY2zYopPLrNX",
+    "evidence_json": "{}"
+  },
+  {
+    "id": "dp_NRypnIy3e58zZ4d5",
+    "amount": 42500,
+    "reason": "subscription_canceled",
+    "status": "lost",
+    "created": 1775824284,
+    "currency": "usd",
+    "charge_id": "ch_kWH6gFIg7PtZ82WT",
+    "evidence_json": "{}"
+  }
+]

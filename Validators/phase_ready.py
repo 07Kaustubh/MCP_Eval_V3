@@ -111,6 +111,23 @@ def main():
     for path in required:
         print(f"  - {path}")
 
+    if args.phase == "materialize":
+        import subprocess
+        verifier = Path(__file__).resolve().parent / "verify_universe_atoms.py"
+        result = subprocess.run(
+            ["python3", str(verifier), "--task", str(task_dir)],
+            capture_output=True, text=True,
+        )
+        first_line = (result.stdout.splitlines() or [""])[0]
+        if result.returncode != 0:
+            print(f"STOP: verify_universe_atoms.py failed — MATERIALIZE cannot start with universe-atom failures.")
+            print(f"  {first_line}")
+            print("  Review _aux/Council_Reports/verify_universe_atoms.md, fix the failing atoms in OE / rubrics, then re-run.")
+            print("  Override: only with documented justification (the same pattern as Class B linter invalidation).")
+            sys.exit(1)
+        else:
+            print(f"[OK] verify_universe_atoms: clean — {first_line}")
+
     if args.phase in VERIFICATION_DEPS:
         for upstream_phase in VERIFICATION_DEPS[args.phase]:
             verif_path = task_dir / "_aux" / f"Verification_{upstream_phase}.md"
