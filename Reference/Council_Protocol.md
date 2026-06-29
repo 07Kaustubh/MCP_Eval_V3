@@ -64,7 +64,7 @@ Same rule for authority/permission collision: if the prompt asks persona A to do
 
 This perspective prevents the Unique Ground Truth failure where two valid end-states exist (the prompt-prescribed and the universe-prescribed) without disambiguation.
 
-### A5 — Persona Authorship Whitelist (prompt phase)
+### A5 — Persona Authorship Whitelist (prompt phase) — REMOVED in v18 (validator A3 NPC blocklist covers; body kept for reference only — do NOT execute as a council perspective)
 Read `Brookfield_Base_Universe/2_Persona_Briefs.md` end to end. The file enumerates the 28 authoring personas — the only personas valid as the TASK AUTHOR (the voice issuing the prompt). Verify the persona assigned in `Tasks/<TASK_DIR>/2_Persona.txt` matches one of the 28 by name AND role.
 
 Negative blocklist (caught by `Validators/validate.py`): Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac. These are NPCs — counterparties / participants in scenarios, never task authors.
@@ -87,7 +87,7 @@ Output per ambiguity: `CLARITY_GAP: <one-line description> -> reading A produces
 
 This perspective catches the Prompt Clarity & Specificity 1/3/5 NON-FAIL middle band where the prompt has a leading interpretation but is reasonable in two ways.
 
-### A8 — Truthfulness deep tally (prompt phase)
+### A8 — Truthfulness deep tally (prompt phase) — REMOVED in v18 (merged into A1, backed by verify_universe_atoms.py — do NOT execute as a separate perspective)
 For every factual claim in the prompt, classify as MAJOR (claim is core to the request — wrong = the prompt is unanswerable / leads to wrong action) or MINOR (claim is incidental / context-only). Tally:
 - 1+ MAJOR factual error = FAIL
 - 2+ MINOR factual errors = FAIL
@@ -95,7 +95,7 @@ For every factual claim in the prompt, classify as MAJOR (claim is core to the r
 
 Source of truth: `_aux/Fact_Ledger.json` + `_aux/Universe_Split/`. For each error: `TRUTHFULNESS_ERROR: severity=<MAJOR|MINOR> claim=<quote> actual=<value from universe>`. Closes the "no irrelevant-statement check" gap in the existing A1 grounding sweep.
 
-### A9 — Persona Fit Comparison (prompt phase)
+### A9 — Persona Fit Comparison (prompt phase) — MOVED in v18 to on-demand PIPELINE AUDIT --lens persona-fit (do NOT run inline by Council A)
 Read `Brookfield_Base_Universe/2_Persona_Briefs.md` end-to-end. For the assigned persona, grade prompt-fit 1-5. Then identify any OTHER persona from the 28 that would fit the prompt BETTER. If a better fit exists, output:
 `PERSONA_FIT_MISMATCH: assigned=<name> (fit=<n>/5) better_candidate=<name> (fit=<n>/5) reason=<one-line>`.
 
@@ -122,7 +122,7 @@ Exception: when the ground truth is genuinely indeterminate (the prompt asks the
 
 This perspective enforces the QC spec rule: "When the prompt asks for multiple write actions of the same type, write one Outcome rubric per item grounded in ground truth — never bundle into 'at least N' thresholds. 'At least N' is reward-hackable."
 
-### A12 — Cross-Service Coherence (universe phase)
+### A12 — Cross-Service Coherence (universe phase) — REMOVED in v18 (merged into A1 — do NOT execute as a separate perspective)
 For each key entity that appears in 2+ services (persona email in contacts + journal_entries.created_by; vendor in vendors + ap_invoices; recon in blackline_reconciliations + journal_entries; client in clients + email threads + Slack channels), verify name + ID + date consistency across services. Universe edits (per `_changelog` if present) must not have introduced cross-service contradictions.
 
 Output per contradiction: `CROSS_SERVICE: entity <name> referenced as <value_A> in <service_A> but <value_B> in <service_B>. Either edit is inconsistent or service B is stale.` BLOCK if the contradiction would cause an agent failure (e.g., the rubric expects value_A but the agent sees value_B in their primary lookup path).
@@ -204,11 +204,19 @@ Grade assigned persona fit 1-5. Identify a better-fit candidate. Delta >= 2
 = NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. Both CB and REVIEW authors may swap persona, so
 flag for decision not auto-block.
 
-[A10 — Business Function Match] (prompt phase) Read
-Docs/5_Prompt_Diversity_Business_Function.md to enumerate the 10 Brookfield
-categories. Verify assigned business function matches the prompt's primary
-scenario. False = BLOCK (CB cannot change assigned business function).
-Ambiguous = NON-FAIL.
+[A10 — Business Function Match] (prompt phase) Read `_aux/Universe.txt` to
+resolve universe. Then read the universe-correct business-function doc per
+the registry (Brookfield: `Docs/5_Prompt_Diversity_Business_Function.md` or
+`Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` — 10
+categories: Accounting Operations, Bookkeeping, Tax, Compliance & Internal
+Controls, Audit, AP / Vendor Operations, BlackLine Close-Discipline &
+Variance, Engagement Mgmt & Client Operations, Executive / Partner
+Oversight, HR & People Operations. KeyStone:
+`Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md` — 6
+categories: Loan Operations 30%, Compliance 20%, Sales 20%, Finance 15%,
+Executive 10%, IT 5%). Verify assigned business function matches the
+prompt's primary scenario. False = BLOCK (CB cannot change assigned
+business function). Ambiguous = NON-FAIL.
 
 [A11 — End-to-End Solvability] (prompt + OE phase) Walk the dependency
 chain from Hardness_Plan.md. For each step, verify the required source row
@@ -299,7 +307,7 @@ For each lever selected in `_aux/Hardness_Plan.md`, verify the deliverable still
 
 If any lever is no longer triggered, flag `HARDNESS_REGRESSION` — the deliverable lost a lever the prompt was designed around.
 
-### B5 — Tool-leak / phrasing scan (lightweight)
+### B5 — Tool-leak / phrasing scan (lightweight) — REMOVED in v18 (validator regex covers fully — do NOT execute as a council perspective)
 Search the deliverable for tool names in forbidden positions, internal IDs in the prompt, em-dashes / en-dashes, "at least N" phrases, "approximately" misuse, "(or similar)" near exact values. Report each hit.
 
 ### B6 — Upstream propagation
@@ -340,7 +348,7 @@ Output per missing step: `OE_INCOMPLETE: prompt requires <step> (e.g., "resolve 
 
 This perspective catches the OE Completeness sub-dim "missing critical steps" non-fail. Each missing step = NON-FAIL (not BLOCK, per QC spec). Multiple missing steps = FAIL.
 
-### B10 — OE Write-Action → Outcome 1.1 forward map (S3 rubrics phase)
+### B10 — OE Write-Action → Outcome 1.1 forward map (S3 rubrics phase) — CONVERTED in v18 to validator X1 deterministic check — do NOT execute as a council perspective
 For every OE step that performs a write action (send / post / create / approve / file / upload / update / void / reverse / submit / archive / notify / email / schedule / draft / add / certify / dismiss / escalate / forward / publish / stage / circulate), verify there exists at least one Outcome rubric (sub-category 1.1) whose title checks that the action happened.
 
 How to verify: build a map `oe_write_steps -> {action verb, recipient/target}`. For each write step, search the rubric set for an Outcome rubric whose title contains the same action verb directed at the same target. Mismatches:
@@ -352,7 +360,7 @@ This perspective closes the forward-map gap that validator X1 partially covers (
 
 A B10 finding is BLOCKING — every OE write action needs a covering Outcome 1.1 to prove the agent's trajectory executed it.
 
-### B11 — Prompt "Tell-me" cue → Outcome 2.1 forward map (S3 rubrics phase)
+### B11 — Prompt "Tell-me" cue → Outcome 2.1 forward map (S3 rubrics phase) — CONVERTED in v18 to validator regex+check — do NOT execute as a council perspective
 For every cue in the prompt that asks the agent to report a key fact in the final response ("tell me where it lands", "report back", "let me know", "walk me through", "I want to know", "show me", "give me the figures"), verify there exists at least one Outcome rubric (sub-category 2.1) whose title checks that the agent reported the requested fact in the final response.
 
 Output per missing 2.1: `MISSING_OUTCOME_2.1: prompt cue "<quote>" expects final-response report of <fact>, no Outcome 2.1 rubric covers it.`
@@ -461,11 +469,24 @@ write actions, validation steps before posts, final write step. Output per
 missing step: OE_INCOMPLETE: prompt requires <step> but no OE covers it.
 
 [B9] OE Service Mapping (S2 OE phase). For each OE step, verify the named
-tool/service matches the data type the step queries / writes:
-reconciliations -> BlackLine; AP invoices -> SAP; JEs -> Oracle GL;
-retention -> Records Vault; tickets -> Linear; HR -> Airtable;
-chat -> Slack. Output per misaligned step: OE_SERVICE_MISMATCH: OE<n>
-queries <data type> in <wrong service>. Belongs in <correct service>.
+tool/service matches the data type the step queries / writes. Universe-aware
+per `_aux/Universe.txt`:
+
+Brookfield map: reconciliations -> blackline; exceptions -> blackline; AP
+invoices -> sap_subledger; vendor master -> sap_subledger; journal entries ->
+oracle_gl; accounts -> oracle_gl; fiscal periods -> oracle_gl; retention ->
+records_vault; documents -> records_vault; tickets -> linear; issues -> linear;
+HR personnel -> airtable; chat -> slack; email threads -> email.
+
+KeyStone map: loans -> mortgage_los; borrowers -> mortgage_los; conditions ->
+mortgage_los; document_checklist -> mortgage_los; disclosures (TRID) ->
+mortgage_los; AP invoices / vendor bills / accounts -> quickbooks; payments /
+charges / transfers / refunds -> stripe; bank transactions -> stripe;
+borrower PDFs -> filesystem; leads / deals / engagements -> crm; chat -> slack;
+email threads -> email.
+
+Output per misaligned step: OE_SERVICE_MISMATCH: OE<n> queries <data type>
+in <wrong service>. Belongs in <correct service>.
 
 [B10] OE Write-Action -> Outcome 1.1 forward map (S3 rubrics phase). For
 every OE step performing a write action (send / post / create / approve /

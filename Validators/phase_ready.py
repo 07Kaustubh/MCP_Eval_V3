@@ -129,10 +129,25 @@ def main():
             print(f"[OK] verify_universe_atoms: clean — {first_line}")
 
     if args.phase in VERIFICATION_DEPS:
+        verifier = Path(__file__).resolve().parent / "check_verification.py"
         for upstream_phase in VERIFICATION_DEPS[args.phase]:
             verif_path = task_dir / "_aux" / f"Verification_{upstream_phase}.md"
             if verif_path.exists() and verif_path.stat().st_size > 0:
-                print(f"[OK] upstream _aux/Verification_{upstream_phase}.md present — cross-source verification confirmed")
+                if verifier.is_file():
+                    import subprocess
+                    result = subprocess.run(
+                        ["python3", str(verifier), "--task", str(task_dir), "--phase", upstream_phase],
+                        capture_output=True, text=True,
+                    )
+                    if result.returncode == 0:
+                        print(f"[OK] upstream _aux/Verification_{upstream_phase}.md valid — content checked")
+                    else:
+                        print(f"[FAIL] upstream Verification_{upstream_phase}.md malformed:")
+                        for line in result.stdout.splitlines():
+                            print(f"    {line}")
+                        sys.exit(1)
+                else:
+                    print(f"[OK] upstream _aux/Verification_{upstream_phase}.md present")
             else:
                 print(f"[REMIND] Upstream phase {upstream_phase.upper()} should have produced _aux/Verification_{upstream_phase}.md before this phase runs.")
                 print(f"         The v16 cross-source verification discipline requires each phase to declare what it verified against data + eval spec + QC spec.")

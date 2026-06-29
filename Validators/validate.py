@@ -359,6 +359,7 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
     local_npcs = consts["npcs"]
+    local_persona_email_domain = consts.get("persona_email_domain")
     rep.note(f"universe: {universe}")
 
     persona_path = task_dir / "2_Persona.txt"
@@ -366,8 +367,26 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
         persona_text = persona_path.read_text(encoding="utf-8").strip()
         for npc in local_npcs:
             if re.search(rf"\b{re.escape(npc)}\b", persona_text, re.IGNORECASE):
-                rep.fail(f"persona is an NPC: `{npc}` — only the 28 authoring personas can be the acting voice. NPCs (Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac) appear as participants/counterparties, never as task author. See Brookfield_Base_Universe/2_Persona_Briefs.md for valid authoring personas.")
+                rep.fail(f"persona is an NPC for {universe}: `{npc}`. NPCs appear as participants/counterparties, never as task author. See {consts['persona_briefs']} for valid authoring personas.")
                 break
+        if local_persona_email_domain:
+            wrong_domains = {
+                "brookfieldcpas.com": "keystonemortgage.com",
+                "keystonemortgage.com": "brookfieldcpas.com",
+            }
+            wrong = wrong_domains.get(local_persona_email_domain)
+            if wrong and wrong in persona_text.lower():
+                rep.fail(f"persona email domain mismatch: persona references `{wrong}` but universe is {universe} (expected domain: `{local_persona_email_domain}`). Cross-universe persona contamination.")
+
+    INJECTION_PATTERN = re.compile(
+        r"\b(?:ignore\s+(?:all\s+)?(?:other\s+|previous\s+|prior\s+)?(?:criteria|instructions|rules|rubrics)|"
+        r"always\s+score\s+\d|treat\s+this\s+(?:prompt|task)\s+as|"
+        r"override\s+the\s+(?:judge|evaluator|review|spec)|"
+        r"system\s+prompt|disregard\s+(?:the\s+)?(?:rubric|grading))\b",
+        re.IGNORECASE,
+    )
+    for m in INJECTION_PATTERN.finditer(text):
+        rep.fail(f"prompt-injection pattern detected: `{m.group(0)}` — candidate prompt contains scoring-manipulation phrase. Real persona prompts never instruct the agent/judge to ignore rubrics or override scoring.")
 
     for m in EM_DASH_PATTERN.finditer(text):
         rep.fail(f"em-dash / en-dash at offset {m.start()}: `{text[max(0,m.start()-20):m.start()+20]}`")
@@ -501,6 +520,7 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
     local_classifications = consts["classifications"]
     local_bl_exception_types = consts["blackline_exception_types"]
     local_tool_catalog = ROOT / consts["tool_catalog"]
+    rep.note(f"universe: {universe}")
 
     for m in EM_DASH_PATTERN.finditer(text):
         rep.fail(f"em-dash / en-dash at offset {m.start()}: `{text[max(0,m.start()-20):m.start()+20]}`")
@@ -730,10 +750,20 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
     local_tool_catalog = ROOT / consts["tool_catalog"]
     local_entity_map = consts["entity_name_to_id"]
     local_account_trap = consts["account_trap_check"]
+    rep.note(f"universe: {universe}")
 
     ledger = load_fact_ledger(task_dir)
     universe_blob = load_universe_blob(task_dir) if not ledger else ""
     tool_names = load_tool_names(local_tool_catalog)
+
+    feasible_surface = {}
+    fs_file = task_dir / "_aux" / "Feasible_Surface.json"
+    if fs_file.is_file():
+        try:
+            feasible_surface = json.loads(fs_file.read_text(encoding="utf-8")).get("tables", {})
+            rep.note(f"Feasible_Surface loaded: {len(feasible_surface)} tables with enum maps")
+        except (json.JSONDecodeError, OSError):
+            pass
     if ledger:
         rep.note(f"using Fact_Ledger.json for groundedness ({ledger.get('meta', {}).get('atom_counts', {}).get('amounts', 0)} amounts, {ledger.get('meta', {}).get('atom_counts', {}).get('emails', 0)} emails indexed)")
     else:
@@ -854,6 +884,24 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             if not re.search(r"\([^)]*(?:or\s+similar|or\s+equivalent)[^)]*\)", title, re.IGNORECASE):
                 rep.warn(f"{loc}: multi-value phrasing — title lists multiple values via `A, B, or C` without a canonical pattern. QC spec requires `must be one of: ...` (closed set) / `including but not limited to: ...` (open set) / `at least one of: ...` (any one). Use the explicit pattern to clarify acceptance semantics.")
                 rubric_severity[i]["minor"] += 1
+
+        if feasible_surface:
+            enum_value_pattern = re.compile(r"\b(status|state|type|category|kind|classification|milestone|phase)\s*[=:]\s*[\"']?([\w_-]+)[\"']?", re.IGNORECASE)
+            for em in enum_value_pattern.finditer(title):
+                col_hint = em.group(1).lower()
+                val_claimed = em.group(2)
+                if val_claimed.isdigit() or len(val_claimed) < 3:
+                    continue
+                value_found = False
+                for table_name, table_enums in feasible_surface.items():
+                    for col, valid_vals in table_enums.items():
+                        if col_hint in col.lower() and val_claimed in valid_vals:
+                            value_found = True
+                            break
+                    if value_found:
+                        break
+                if not value_found:
+                    rep.warn(f"{loc}: feasible-surface mismatch — `{col_hint}={val_claimed}` not found in any universe table's enum set. Verify the value exists for the entity, or correct the rubric.")
 
         if prompt_text:
             for a_word, b_word in X9_SYNONYM_PAIRS:

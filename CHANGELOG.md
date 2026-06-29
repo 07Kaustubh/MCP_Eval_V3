@@ -1,5 +1,81 @@
 # Changelog
 
+## 2026-06-28 — v19: KeyStone Rule Drift Close + Final Cleanups (16 Items / 4 Phases)
+
+Closes the universe-rule drift that v18 introduced KeyStone support but left unaddressed: KeyStone's universe today, business function categories, OE service mapping, persona email domain, tight-identifier classification, cross-service contradiction examples, and TRID lifecycle were not reflected in pipeline behavior. Plus shipped all remaining items from the v18 honest-list audit and 3 genuine gaps (prompt-injection detection, tool-catalog hash version-pin, build_feasible_surface wired into validator).
+
+### Phase 1 — Universe rule drift (8 items)
+
+`Validators/universes.py` extended with per-universe `today` (Brookfield 2026-06-12, KeyStone **2026-04-28**), `persona_email_domain` (`brookfieldcpas.com` / `keystonemortgage.com`), `business_functions` (Brookfield 10, KeyStone 6 with weights), `tight_identifiers` (Brookfield includes "JE IDs", KeyStone includes "loan IDs"), `oe_service_map` (Brookfield: reconciliations → BlackLine / AP → SAP / JEs → Oracle GL; KeyStone: loans → mortgage_los / AP → quickbooks / payments → stripe / docs → filesystem), `cross_service_pairs`. `Validators/build_universe_index.py` no longer hardcodes today — `today_horizon()` accepts universe-specific date via `resolve_universe_today(task_dir)` (reads registry). Council A-A10 (Business Function Match) prompt template enumerates both 10 Brookfield + 6 KeyStone categories with reference paths. Council B-B9 (OE Service Mapping) prompt template enumerates both universes' service maps. `Validators/verify_universe_atoms.py` extended with KeyStone TRID claim verification (`mortgage_los.disclosures` 3-business-day window check for LE-after-app + CD-before-close) + LOS-vs-CRM source-of-truth violation detection (any claim citing CRM as source for loan/borrower/condition/disclosure data gets flagged — loan-level data lives in mortgage_los only).
+
+### Phase 2 — Validator extensions (3 items)
+
+`Validators/validate.py` adds: (1) Cross-universe persona email domain check — `validate_prompt` reads `consts["persona_email_domain"]` and FAILs if persona references the wrong universe's email domain (KeyStone persona with @brookfieldcpas.com or vice versa); (2) Feasible-surface cross-reference — `validate_rubrics` reads `_aux/Feasible_Surface.json` and WARNs when rubric titles assert enum values (`status="finalized"`, `type="foo"`, `category="bar"`) not present in any universe table's actual enum set; (3) Prompt-injection pattern detection — new `INJECTION_PATTERN` regex catches "ignore all other criteria", "always score 5", "treat this prompt as", "override the judge/evaluator", "system prompt", "disregard the rubric/grading". FAIL — real persona prompts never instruct the agent/judge to ignore rubrics or override scoring.
+
+### Phase 3 — Infrastructure (3 items)
+
+`Validators/check_tool_catalog.py` (new) + `Validators/tool_catalog_hashes.json` (new) — version-pin Brookfield (`8_Server_Tools_Details.json`) + KeyStone (`6_Server_Tools_Details.json`) tool catalogs by SHA256. `--update` flag re-pins. Surfaces upstream tool-catalog drift that would silently invalidate the validator's parameter-strictness checks. `Validators/phase_ready.py --phase materialize` upgraded — when a downstream phase needs an upstream `Verification_<phase>.md` and the file exists, `phase_ready` invokes `check_verification.py` to validate sections + non-empty evidence + verdict band; missing/malformed = FAIL with diagnostic (not just REMIND). `Reference/Council_Protocol.md` — 7 deprecated perspective section headers (A5, A8, A9, A12, B5, B10, B11) annotated with "REMOVED / MOVED / CONVERTED in v18" markers so fresh-chat agents see the deprecation in-place without scrolling back to the intro. `Reference/Sessions/AUDIT.md` Lens 6 + Lens 9 already had MERGED INTO LENS 1 markers from v18.
+
+### Phase 4 — Coverage + docs (2 items)
+
+`Validators/test_regression_anchors.py` extended with 4 new anchors:
+- **v19 KS-6**: Cross-universe persona email domain mismatch (KeyStone persona with @brookfieldcpas.com email — should FAIL)
+- **v19 KS-7**: KeyStone LOS-vs-CRM source-of-truth violation (rubric cites CRM for loan data — should FAIL via verify_universe_atoms)
+- **v19 KS-8**: KeyStone TRID timing claim (closing disclosure within 1 business day of closing — should be verified against mortgage_los.disclosures)
+- **v19 IN-1**: Prompt injection pattern ("ignore all other criteria" in prompt — should FAIL)
+- **v19 FS-1**: Feasible-surface mismatch (rubric tests `status=finalized` not in universe enum set — should WARN)
+
+Total: 38 + 5 = **43 anchors, all PASS**.
+
+CHANGELOG v19 entry. AGENTS.md universe constants are now backed by the registry (changes in registry auto-flow to docs through reference). Memory updated: KeyStone universe today is 2026-04-28 + persona email domain per universe.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 43 / 43 PASS (33 Brookfield + 5 KeyStone v18 + 5 v19) |
+| `Validators/check_tool_catalog.py` | Brookfield + KeyStone both match pinned SHA256 |
+| `Validators/validate.py --phase all --task Tasks/24_...` | unchanged baseline (zero regression on Brookfield refactor) |
+| `Validators/verify_universe_atoms.py --task Tasks/24_...` | clean — 42 atoms / 0F / 0W (Brookfield path) |
+| `Validators/universes.py Tasks/24_...` | universe=brookfield + today=2026-06-12 + persona_email_domain=brookfieldcpas.com + 10 business_functions + service_map present |
+| `Validators/build_feasible_surface.py Tasks/24_...` | 19 tables / 28 enum cols extracted |
+| `Validators/aggregate_verdicts.py` | per-universe aggregation works |
+
+### Files added
+
+- `Validators/check_tool_catalog.py` — tool catalog hash version-pin (~75 lines)
+- `Validators/tool_catalog_hashes.json` — pinned SHA256 per universe
+
+### Files changed
+
+- `Validators/universes.py` — `today` / `persona_email_domain` / `business_functions` / `tight_identifiers` / `oe_service_map` / `cross_service_pairs` per universe
+- `Validators/build_universe_index.py` — `today_horizon()` accepts universe-specific date via `resolve_universe_today()`
+- `Validators/validate.py` — persona email domain check + Feasible-surface cross-reference + prompt-injection regex
+- `Validators/verify_universe_atoms.py` — TRID claim verifier + LOS-vs-CRM source-of-truth verifier (KeyStone)
+- `Validators/phase_ready.py` — Verification_<phase>.md content validation (REMIND → FAIL on malformed)
+- `Reference/Council_Protocol.md` — A10 + B9 prompt templates universe-aware; 7 deprecated perspective sections annotated
+- `Validators/test_regression_anchors.py` — 5 new anchors (43 total)
+
+### What this closes
+
+KeyStone is now a **fully first-class universe** — the rule drift items (today, business functions, services, persona domain, tight identifiers) all route through the universe registry. Council A-A10 + Council B-B9 prompts reflect both universes. `verify_universe_atoms.py` catches KeyStone-specific landmines (TRID, LOS-vs-CRM). Cross-universe contamination caught (persona email domain mismatch). Prompt-injection attempts blocked. Feasible-surface cross-references universe enum values against rubric claims. Tool catalog drift surfaced via hash version-pin. Verification_<phase>.md content validated by phase_ready, not just presence.
+
+Coverage stack (v19):
+- 100% QC spec sub-dim coverage — both Brookfield + KeyStone Docs (v12 + v18)
+- 100% eval spec coverage — both universes' Evals (v11 + v18)
+- 100% candidate-facing QC instructions (v13)
+- 100% V3 formatting conventions (v14)
+- 100% multi-universe rule drift (v19)
+- AF justification 5-point checklist + FEEDBACK 4-field form (v15)
+- Cross-Source Verification + content validation (v16 + v19)
+- REVIEW at full parity with CB (v17)
+- Programmatic floor: verify_universe_atoms + Feasible_Surface + tool catalog hashes (v18 + v19)
+- Multi-universe: Brookfield + KeyStone first-class (v18 + v19)
+
+Trigger count: 16 (unchanged). LLM perspective count: 24 (unchanged from v18).
+
+---
+
 ## 2026-06-28 — v18: Multi-Universe + Quality Over Quantity + Programmatic Floor + Deferred Items (19 Items / 5 Phases)
 
 Combined release closing three concurrent tracks: (1) KeyStone Mortgage Partners universe support alongside Brookfield CPAs, (2) programmatic universe-atom verification as load-bearing floor closing the v17-diagnosed failure mode, (3) deferred load-bearing items from v17 briefing. Net effect: pipeline supports two universes, has a deterministic verification floor beneath all LLM gates, sheds 15 redundant LLM perspectives, and ships three previously-deferred infrastructure pieces.

@@ -22,7 +22,13 @@ None needed — CLOSE is a read-only audit. It tells you what's missing instead 
 
 ## Procedure
 
-1. Run:
+1. **Verify tool catalog version-pin (v19).** Confirm Brookfield + KeyStone tool catalogs haven't drifted upstream:
+   ```
+   python Validators/check_tool_catalog.py
+   ```
+   Both should report `[OK] <universe>: catalog hash matches`. DRIFT = upstream tool catalog changed since last pinned hash; before greenlight, re-run validate.py + verify_universe_atoms.py on the corrected set, then `python Validators/check_tool_catalog.py --update` to re-pin.
+
+2. Run:
    ```
    python Validators/close_task.py Tasks/<TASK_DIR>
    ```

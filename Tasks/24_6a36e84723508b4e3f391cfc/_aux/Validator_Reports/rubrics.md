@@ -1,7 +1,7 @@
 # Validator report: rubrics
 
 **Status:** FAIL  
-**Fails:** 3 · **Warns:** 8 · **Notes:** 3
+**Fails:** 3 · **Warns:** 8 · **Notes:** 5
 
 ## FAIL
 - rubric[6]: forbidden vague connector `for example V` in title — QC spec explicitly forbids `such as` / `for example` / `e.g.` / `like` when defining what counts as correct. Use one of the canonical patterns instead: `must be one of: A, B, or C` (closed set) / `including but not limited to: A, B` (open set) / `at least one of: A, B, or C` (any one).
@@ -19,6 +19,8 @@
 - rubric[16]: amount `$1,040.63` not in Hardness_Plan ground-truth atoms AND not in prompt. Verify it's not a fabricated value that contradicts the universe-derived correct answer.
 
 ## NOTE
+- universe: brookfield
+- Feasible_Surface loaded: 19 tables with enum maps
 - using Fact_Ledger.json for groundedness (6461 amounts, 68 emails indexed)
 - counts: outcome=24, process=0
 - Overall Rubric Quality: 1/24 (4%) with Major, 3/24 (12%) with Moderate+ , 3/24 (12%) with any issue

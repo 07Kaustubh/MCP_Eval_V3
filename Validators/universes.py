@@ -29,6 +29,35 @@ UNIVERSES = {
         "universe_one_pager": "Brookfield_Base_Universe/7_Brookfield_Universe_One_pager.md",
         "qc_reference_path": "QC_Tasks/V3_Tasks",
 
+        "today": "2026-06-12",
+        "today_tz": "US/Eastern",
+        "persona_email_domain": "brookfieldcpas.com",
+        "business_functions": [
+            "Accounting Operations", "Bookkeeping", "Tax", "Compliance & Internal Controls",
+            "Audit", "AP / Vendor Operations", "BlackLine Close-Discipline & Variance",
+            "Engagement Mgmt & Client Operations", "Executive / Partner Oversight",
+            "HR & People Operations",
+        ],
+        "tight_identifiers": [
+            "channel names", "doc IDs", "JE IDs", "vendor names", "company names",
+            "account numbers", "dollar amounts", "dates", "fiscal periods", "ticket IDs",
+        ],
+        "oe_service_map": {
+            "reconciliations": "blackline", "exceptions": "blackline", "variance": "blackline",
+            "ap_invoices": "sap_subledger", "vendor_master": "sap_subledger",
+            "journal_entries": "oracle_gl", "accounts": "oracle_gl", "fiscal_periods": "oracle_gl",
+            "retention": "records_vault", "documents": "records_vault",
+            "tickets": "linear", "issues": "linear",
+            "hr_personnel": "airtable",
+            "chat": "slack", "channels": "slack",
+            "email_threads": "email",
+        },
+        "cross_service_pairs": [
+            ("email", "sap_subledger"), ("email", "oracle_gl"), ("email", "blackline"),
+            ("oracle_gl", "blackline"), ("oracle_gl", "sap_subledger"),
+            ("records_vault", "linear"), ("slack", "linear"),
+        ],
+
         "retention_codes": {"AICPA_SQMS_7Y", "IRS_TAX_7Y", "FIRM_INTERNAL", "INDEFINITE"},
         "slack_channels": {f"C{n:03d}" for n in range(1, 11)} | {"C012"},
         "classifications": {"public", "internal", "restricted"},
@@ -79,6 +108,37 @@ UNIVERSES = {
         "business_function_doc": "Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md",
         "universe_one_pager": "Mortgage_Base_Universe/2_Summary.md",
         "qc_reference_path": "QC_Tasks/V3.1_Tasks",
+
+        "today": "2026-04-28",
+        "today_tz": "US/Eastern",
+        "persona_email_domain": "keystonemortgage.com",
+        "business_functions": [
+            "Loan Operations", "Compliance", "Sales", "Finance", "Executive", "IT",
+        ],
+        "business_function_weights": {
+            "Loan Operations": 0.30, "Compliance": 0.20, "Sales": 0.20,
+            "Finance": 0.15, "Executive": 0.10, "IT": 0.05,
+        },
+        "tight_identifiers": [
+            "channel names", "doc IDs", "loan IDs", "vendor names", "company names",
+            "account numbers", "dollar amounts", "dates", "fiscal periods", "ticket IDs",
+        ],
+        "oe_service_map": {
+            "loans": "mortgage_los", "borrowers": "mortgage_los", "conditions": "mortgage_los",
+            "document_checklist": "mortgage_los", "disclosures": "mortgage_los",
+            "ap_invoices": "quickbooks", "vendor_bills": "quickbooks", "accounts": "quickbooks",
+            "payments": "stripe", "charges": "stripe", "transfers": "stripe", "refunds": "stripe",
+            "bank_transactions": "stripe", "fc_accounts": "stripe",
+            "borrower_documents": "filesystem", "pdfs": "filesystem",
+            "leads": "crm", "deals": "crm", "engagements": "crm",
+            "chat": "slack", "channels": "slack",
+            "email_threads": "email",
+        },
+        "cross_service_pairs": [
+            ("email", "mortgage_los"), ("email", "quickbooks"), ("email", "crm"),
+            ("mortgage_los", "crm"), ("mortgage_los", "filesystem"), ("mortgage_los", "stripe"),
+            ("quickbooks", "stripe"), ("slack", "mortgage_los"),
+        ],
 
         "retention_codes": set(),
         "slack_channels": {f"C{n:03d}" for n in range(1, 9)},

@@ -1,0 +1,23 @@
+# Todos — S1 (Task 33 — Keystone / Loan Operations / Carlos Rivera)
+
+- [x] Phase-readiness gate (`phase_ready.py --phase s1`)
+- [x] Read inputs (1_Business_Function.txt, 2_Persona.txt, PersonaBrief.txt)
+- [x] Read Hardness_Plan.md
+- [x] Read V3 reference prompts (Task11..Task14)
+- [x] Read Reference/Prompt_Format.md, Docs/4_Prompt_Hard_Tips.md, Reference/Council_Protocol.md
+- [x] Verify universe atoms (LN-2026-00211 withdrawn, LN-2026-00009 conditions, LN-2026-00622 Todd, Grace/Carlos/Sofia/Robert grounded)
+- [x] Discover + fix Hardness Plan errors (Robert IS in mortgage_los.staff; D-grace-robert excludes Carlos)
+- [x] Draft 5_Prompt.txt (Carlos voice, mid-thought, trio pipeline-review frame)
+- [x] Run validator (PASS, 0 fails, 0 warns, 397 words)
+- [x] Spawn Council A — Grounding (verdict GO)
+- [x] Spawn Council B — Adversarial QC (round 1 BLOCK — density + D-grace-robert)
+- [x] Apply fixes; re-run Council B (verdict GO, midpoint 52.0)
+- [x] Run similarity gate (max composite 29.4 < 40)
+- [x] AUDIT round 1 (REVISE: Grace contradicts March investigation; CRM ambiguity; density THIN)
+- [x] Apply round 1 fixes: Carlos self-quote (L9→L1+L25); soften "two weeks"; drop "deals"; doc-checklist; Hardness Plan v3
+- [x] AUDIT round 2 (REVISE: 4 sub-dims at 4/5)
+- [x] Apply round 2 fixes: drop "last night"; condition-anchor; rate-lock; Hardness Plan brief v3
+- [x] AUDIT round 3 (REVISE: 2 sub-dims at 4/5; iteration cap hit; escalate)
+- [x] Write Verification_s1.md
+- [x] Final report appended to _aux/Reasoning/prompt_design.md
+- [ ] **OPERATOR DECISION REQUIRED:** PASS-STRICT path (two single-phrase fixes) OR Document-and-proceed path (accept residues, proceed to S2)

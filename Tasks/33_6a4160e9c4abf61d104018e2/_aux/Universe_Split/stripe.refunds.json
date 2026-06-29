@@ -1,0 +1,106 @@
+[
+  {
+    "row_data": "{\"id\": \"re_6bHAknVZoABc91yc\", \"amount\": 29700, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_siyE1ITTSegdOTNy\", \"payment_intent_id\": \"pi_z64TPnhpGGB6EDHG\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_BrSYSA1szja2pdeq\", \"amount\": 31000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_hoDtnerdOPnoOW0U\", \"payment_intent_id\": \"pi_HSoVggwcyyR7skPz\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_UK58kwSKALCjAXeb\", \"amount\": 24100, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_5lpIiqYp8sbKhP2c\", \"payment_intent_id\": \"pi_7impHXyOLpDa7ogg\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_jjVNDxpjq4ctS8ZL\", \"amount\": 33400, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_FfKqQl7uE5f92SMv\", \"payment_intent_id\": \"pi_rTTqKMU47oIKOu6e\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_6t4mbBnEQYvpgDeb\", \"amount\": 60000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_O8HWQ8iFpBbepKsx\", \"payment_intent_id\": \"pi_3hnI00zLzhvikJ3U\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_CqJKZB5seb3Ph5MH\", \"amount\": 26200, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_rdP9o9lxRrU5yNJ1\", \"payment_intent_id\": \"pi_jO3J5UcjrOtTByYd\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_1rpwgJFdgrD8LxsJ\", \"amount\": 45000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_umg8Xkul1SwTQCRg\", \"payment_intent_id\": \"pi_yIOSfWThDIMBNzm2\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_zSBk7BoV5aQtifA9\", \"amount\": 90000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_FvbUljY9GTQotC8Q\", \"payment_intent_id\": \"pi_Uc0v300z4ULe8446\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_XGtGhg22fnWJjP8Q\", \"amount\": 90000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_HQc5kcoijg2O7oc8\", \"payment_intent_id\": \"pi_zm9KVRDhA6tCVSwl\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_BTTwHPhmjxf4L3Hq\", \"amount\": 50000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_Z0vljVaveRxnQ291\", \"payment_intent_id\": \"pi_chdDO9SYRSXy22hn\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_0QDq2dsLYIZNngug\", \"amount\": 100000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_E2mTil8a3qz6ryih\", \"payment_intent_id\": \"pi_miTCJREuIP278CUB\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_T00erUJbG72KYmQS\", \"amount\": 32700, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_17RuyKfytnQr6hMI\", \"payment_intent_id\": \"pi_962APciq3X35NpBL\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_SYpZWfPHt25nptkJ\", \"amount\": 55000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_IYGyoLMv7OoIiUpn\", \"payment_intent_id\": \"pi_yEBvIJixjpxPUjbe\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_JHbhhhyMjJWPXTPe\", \"amount\": 34200, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_uocPqFiojvWB0ODs\", \"payment_intent_id\": \"pi_tJzlfhUuZWGPF7zU\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_vMBEJfSB7hNBjYgW\", \"amount\": 10000, \"reason\": \"fraudulent\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_DCCm3wYFobUuHaVi\", \"payment_intent_id\": \"pi_8VSPdtf9uWUgLXyv\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_2GwS3iyOnArpxdZU\", \"amount\": 60000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_ZcMolLXJI3wjMYAj\", \"payment_intent_id\": \"pi_4o4HZCAVBM9mPA65\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_nmL28rkvMa0dVrP3\", \"amount\": 100000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_IxTZc6sS8flUz16g\", \"payment_intent_id\": \"pi_wVXUqwZssSUFwcgF\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_fAvUH4aD8LEWJZOm\", \"amount\": 50000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_xdKlRQ8yK5KWQhHE\", \"payment_intent_id\": \"pi_18o9JDtt3VVzf67C\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_IpqcRiMRxA460GCS\", \"amount\": 7500, \"reason\": \"duplicate\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_0UthtCvRtYS23TZM\", \"payment_intent_id\": \"pi_lyMBxQmJjmgjoh8x\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_aLdZatUIFXKWdak3\", \"amount\": 60000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_IV2adJxpUhSeQw9D\", \"payment_intent_id\": \"pi_K9ZKtUwGVYjDay1L\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_Rlfg7VHOR7MDxKGp\", \"amount\": 75000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_ZdRoeiE07361qnfp\", \"payment_intent_id\": \"pi_07UQKZzjNqig6Bdj\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_xpLm1oHC4088WrQw\", \"amount\": 2500, \"reason\": \"fraudulent\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_tzr50sOdOfVhvHJ3\", \"payment_intent_id\": \"pi_byWgtpNToiwKxS49\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_qqZ1HO294H427an0\", \"amount\": 10000, \"reason\": \"fraudulent\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_toHqR0lJNnDGy7Ba\", \"payment_intent_id\": \"pi_aFlIoO9tNqYUgWj1\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_Szq3KGe13kSyBkTk\", \"amount\": 32900, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_IKFuhYIA4SXWP0TY\", \"payment_intent_id\": \"pi_1WHRHTWk0E05BLIY\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_QYO6JFlnXghGCoVN\", \"amount\": 50000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_OPioB3BXvUy7BOrc\", \"payment_intent_id\": \"pi_VUXyCwEHQzYt77B9\"}",
+    "source": "stripe.refunds"
+  },
+  {
+    "row_data": "{\"id\": \"re_P7XGapD0TTjmWBYb\", \"amount\": 45000, \"reason\": \"requested_by_customer\", \"status\": \"succeeded\", \"created\": 1782678545, \"currency\": \"usd\", \"charge_id\": \"ch_DOsVZjdlMn1GHPA1\", \"payment_intent_id\": \"pi_f3eG3Pupin5Ke4Bo\"}",
+    "source": "stripe.refunds"
+  }
+]

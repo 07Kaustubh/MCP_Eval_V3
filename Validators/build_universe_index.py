@@ -22,7 +22,22 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-UNIVERSE_FIXED_TODAY = "2026-06-12"
+UNIVERSE_FIXED_TODAY_DEFAULT = "2026-06-12"
+
+try:
+    from Validators.universes import detect_universe, get_universe_constants
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from universes import detect_universe, get_universe_constants
+
+
+def resolve_universe_today(task_dir: Path) -> str:
+    try:
+        u = detect_universe(task_dir)
+        return get_universe_constants(u).get("today", UNIVERSE_FIXED_TODAY_DEFAULT)
+    except Exception:
+        return UNIVERSE_FIXED_TODAY_DEFAULT
 
 
 def load(path: Path):
@@ -204,11 +219,11 @@ def key_facts(split_dir: Path, out: Path) -> None:
     out.write_text("\n".join(lines), encoding="utf-8")
 
 
-def today_horizon(split_dir: Path, out: Path) -> None:
+def today_horizon(split_dir: Path, out: Path, universe_today: str = UNIVERSE_FIXED_TODAY_DEFAULT) -> None:
     last_ts = None
     candidate_fields = ("posted_at", "created_at", "submitted_at", "approved_at", "timestamp", "due_date", "uploaded_at", "sent_at", "occurred_at", "ts", "filed_at", "completed_at")
     counter_post_today = 0
-    cutoff = UNIVERSE_FIXED_TODAY + "T23:59:59"
+    cutoff = universe_today + "T23:59:59"
 
     for p in split_dir.glob("*.json"):
         if p.name == "Universe_complete_data.json":
@@ -227,7 +242,7 @@ def today_horizon(split_dir: Path, out: Path) -> None:
                 break
 
     data = {
-        "universe_today": UNIVERSE_FIXED_TODAY,
+        "universe_today": universe_today,
         "universe_timezone": "America/New_York",
         "last_event_timestamp_seen": last_ts,
         "records_dated_after_today": counter_post_today,
@@ -276,7 +291,7 @@ def main() -> None:
     service_inventory(split_dir, idx / "service_inventory.md")
     entities_personas(split_dir, idx / "entities_personas.md")
     key_facts(split_dir, idx / "key_facts.md")
-    today_horizon(split_dir, idx / "today_horizon.json")
+    today_horizon(split_dir, idx / "today_horizon.json", universe_today=resolve_universe_today(task_dir))
     accounts_per_entity(split_dir, idx / "accounts_per_entity.md")
 
     print(f"Built Universe_Index at: {idx}")

@@ -51,6 +51,14 @@ VENDOR_ID = re.compile(r"\bVEN-\d{3,4}(?:-[A-Za-z]+)?(?:-\d{3,6})?\b")
 APINV_ID = re.compile(r"\bapinv_[a-f0-9]{14,16}\b")
 LOAN_ID = re.compile(r"\bLN-\d{4}-\d{4,6}\b")
 MONEY_RE = re.compile(r"\$\s?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?|\d+(?:\.\d{2})?)")
+TRID_CLAIM = re.compile(
+    r"\b(?:TRID|loan\s+estimate|closing\s+disclosure|LE\s+(?:sent|delivered)|CD\s+(?:sent|delivered))\b[^.\n]{0,80}\b(?:within|in|before|after)\b[^.\n]{0,80}\b(\d+)\s+(?:business\s+days?|biz\s+days?|days?)\b",
+    re.IGNORECASE,
+)
+LOS_VS_CRM_CLAIM = re.compile(
+    r"\bCRM\b[^.\n]{0,80}\b(?:loan|borrower|condition|disclosure|underwriting|rate\s+lock|closing)\b",
+    re.IGNORECASE,
+)
 
 
 class AtomCheck:
@@ -104,6 +112,8 @@ def collect_atoms_from_text(text: str) -> Dict[str, List]:
         "apinv_ids": [],
         "loan_ids": [],
         "amounts": [],
+        "trid_claims": [],
+        "los_vs_crm_claims": [],
     }
     for m in ACCOUNT_CLAIM.finditer(text):
         role = m.group("role") or m.group("role2") or m.group("role3") or ""
@@ -121,7 +131,54 @@ def collect_atoms_from_text(text: str) -> Dict[str, List]:
             atoms[key].append(m.group(0))
     for m in MONEY_RE.finditer(text):
         atoms["amounts"].append(m.group(0))
+    for m in TRID_CLAIM.finditer(text):
+        atoms["trid_claims"].append({"days": int(m.group(1)), "context": text[max(0, m.start()-60):m.end()+60]})
+    for m in LOS_VS_CRM_CLAIM.finditer(text):
+        atoms["los_vs_crm_claims"].append({"context": text[max(0, m.start()-40):m.end()+40]})
     return atoms
+
+
+def verify_trid_claim_keystone(claim: dict, indexed: dict, check: AtomCheck) -> None:
+    days = claim["days"]
+    context = claim["context"]
+    le_match = re.search(r"loan\s+estimate|LE\s+(?:sent|delivered)", context, re.IGNORECASE)
+    cd_match = re.search(r"closing\s+disclosure|CD\s+(?:sent|delivered)", context, re.IGNORECASE)
+    expected_days = 3
+    if le_match and days != expected_days:
+        check.record(
+            atom=f"TRID Loan Estimate claim: {days} biz days",
+            query="mortgage_los.disclosures + application_date check",
+            row=f"claim says {days} biz days",
+            verdict=f"TRID requires LE within 3 business days of application; claim states {days} — verify against actual disclosures.application_date for the loan",
+            severity="WARN",
+        )
+    elif cd_match and days != expected_days:
+        check.record(
+            atom=f"TRID Closing Disclosure claim: {days} biz days",
+            query="mortgage_los.disclosures + closing_date check",
+            row=f"claim says {days} biz days",
+            verdict=f"TRID requires CD 3 business days before closing; claim states {days} — verify against actual disclosures.closing_date for the loan",
+            severity="WARN",
+        )
+    else:
+        disclosures_present = bool(indexed.get("mortgage_los.disclosures"))
+        check.record(
+            atom=f"TRID claim ({days} biz days)",
+            query="mortgage_los.disclosures presence",
+            row="present" if disclosures_present else "MISSING TABLE",
+            verdict="present — verify per-loan timing manually" if disclosures_present else "no disclosures table in universe data; TRID claim cannot be verified",
+            severity="WARN",
+        )
+
+
+def verify_los_vs_crm_claim_keystone(claim: dict, check: AtomCheck) -> None:
+    check.record(
+        atom=f"LOS-vs-CRM source-of-truth: `{claim['context'][:60]}...`",
+        query="manual: loan-level data must be sourced from mortgage_los, not CRM",
+        row="CRM cited as source for loan-level data",
+        verdict="POTENTIAL FAIL: claim cites CRM as source for loan-level fact; loan/borrower/condition data lives in mortgage_los. CRM holds marketing funnel only. Verify the rubric/OE doesn't trust CRM for loan state.",
+        severity="WARN",
+    )
 
 
 def verify_account_claim_brookfield(claim: dict, indexed: dict, check: AtomCheck) -> None:
@@ -304,6 +361,11 @@ def main():
             verify_account_claim_brookfield(c, indexed, check)
     for c in atoms["no_response_claims"]:
         verify_no_response_claim(c, indexed, check)
+    if universe == "keystone":
+        for c in atoms["trid_claims"]:
+            verify_trid_claim_keystone(c, indexed, check)
+        for c in atoms["los_vs_crm_claims"]:
+            verify_los_vs_crm_claim_keystone(c, check)
     for je in set(atoms["je_ids"]):
         verify_atom_presence(je, "JE", indexed, check)
     for vid in set(atoms["vendor_ids"]):

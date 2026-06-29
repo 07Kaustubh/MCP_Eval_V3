@@ -4,6 +4,10 @@ One task = one walk through this list.
 
 ---
 
+## Universe (auto-detected — v18)
+
+Pipeline supports two universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default) and **Keystone Mortgage Partners** (residential mortgage brokerage; v18+). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+
 ## Setup once per task (one trigger does the folder + paths)
 
 | Flow | Trigger | What it scaffolds |
@@ -77,30 +81,22 @@ CLOSE is a read-only audit. Refuses to greenlight unless required artifacts are 
 
 ## Reviewer flow (task came prefilled with 5/6/7)
 
-Paste the same 3 inputs (`1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json`) plus the candidate's prefilled `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` into `Tasks/<TASK_DIR>/`. Then one new chat:
+Paste the same 3 inputs (`1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json`) plus the candidate's prefilled `5_Prompt.txt`, `6_Oracle_Events.txt`, `7_Rubrics.json` into `Tasks/<TASK_DIR>/`. Then 4 sequential triggers in fresh chats:
 
 ```
-PIPELINE REVIEW — Tasks/<TASK_DIR>
+PIPELINE REVIEW       — Tasks/<TASK_DIR>   # analysis + auto-marked changes.md (no 14/15 yet)
+PIPELINE MATERIALIZE  — Tasks/<TASK_DIR>   # apply Applied rows + re-run gates on corrected 14/15 + prompt draft
+PIPELINE FEEDBACK     — Tasks/<TASK_DIR>   # write 13_Feedback.txt rating ORIGINAL against QC spec
+PIPELINE CLOSE        — Tasks/<TASK_DIR>   # final audit + greenlight
 ```
 
-What it does (single chat, runs the full review end-to-end):
-- S0 setup (split, index, fact ledger, graph report)
-- Validator on all 3 phases
-- Council A grounding sweep on prompt + OE + rubrics
-- Council B (5 perspectives × 5 lenses) on prompt + OE + rubrics
-- **Final Council cross-artifact gate** (answer leakage, entity drift, lever regression — same gate the CB flow uses)
-- **Hardness pre-assessment**: if `Agent_Responses/Run*.json` exist, compute measured `pass@1` + `avg_tool_calls`. Otherwise project from Council B-B3.
-- Verifies every finding against the per-task universe before recording
-- Writes `changes.md` (one row per confirmed finding, severity-tagged, status=Pending)
-- Writes `13_Feedback.txt` (candidate-facing rating in plain narrative)
-- Writes `_aux/Council_Reports/REVIEW_score.md` (per-phase QC scores)
+**REVIEW** (v17+ shape): runs S0 setup + universe detect + verify_universe_atoms (programmatic floor) + validator (all 3 phases) + Council A grounding + Council B adversarial + AUDIT on candidate originals + Final Council cross-artifact + S4-style trajectory bucket classification (if Agent_Responses present) + auto-marked `changes.md`. Triage decision (SALVAGEABLE / REBUILD / persona-swap) recorded in `_aux/Council_Reports/REVIEW_triage.md`. **No 14/15 emitted by REVIEW** — that's MATERIALIZE.
 
-**Binary triage outcome (the only if/else):**
+**MATERIALIZE** (v17+ trigger): reads triage verdict. If REBUILD, STOPs with `PIPELINE REDO` recommendation. If SALVAGEABLE, applies Applied rows from `changes.md` to produce corrected `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` / `_aux/REVIEW_prompt_draft.txt`, then re-runs full gate set (validator + Council A + Council B + AUDIT + FINAL) on the corrected materialization. **Phase-readiness gate refuses if `verify_universe_atoms.py` fails** — programmatic floor blocks at front of chat. Operator may flip Applied → Dismissed in `changes.md` between REVIEW and MATERIALIZE.
 
-| Verdict | Trigger | Action |
-|---|---|---|
-| **SALVAGEABLE** | prompt has no Major QC issues (or only minor cosmetic fixes) AND hardness OK (measured pass@1 ≤ 40% AND avg tool calls ≥ 40, OR projected density ≥ 40 + levers trigger + no answer leakage) | Fix OE + rubrics (+ minor prompt edits to scratch draft) via `changes.md`. Mark Applied → re-invoke REVIEW → emits 14/15. Originals stay pristine. |
-| **REBUILD** | prompt fails Major QC dim OR hardness fails | Do NOT emit 14/15. `changes.md` + `13_Feedback.txt` still record everything for the rating. Invoke `PIPELINE REDO`. |
+**FEEDBACK** (v9 separate phase): writes `13_Feedback.txt` rating the candidate's ORIGINAL submission against QC SPEC baseline (4-field form: Score 1-5 / Feedback text / Level of Fixes / Parts Fixed). Fields 3 + 4 auto-derived from `changes.md` Applied row counts; fields 1 + 2 rate originals only.
+
+**CLOSE**: read-only audit — verifies tool catalog hashes + FINAL verdict + T2/T3 trajectory gates + per-artifact checklist. Greenlights or refuses.
 
 Originals stay pristine throughout. Same 4-layer defense (validator → Council A → Council B → FINAL) as the CB flow.
 
@@ -115,7 +111,7 @@ PIPELINE S1.5 — Tasks/<TASK_DIR>
 
 S1.5 detects review-mode (presence of any REVIEW artifact in `_aux/`) and routes accordingly:
 - **Push back (preferred)** — writes a 2-5 sentence justification to `_aux/Linter_Justifications.md` in your voice. You paste it back to the platform.
-- **Minimal prompt fix** — writes the fix to `_aux/REVIEW_prompt_draft.txt` + Pending row in `changes.md`. Originals stay pristine. Validates the draft with same Fact_Ledger groundedness + Council A + B as a fresh S1 prompt.
+- **Minimal prompt fix** — writes the fix to `_aux/REVIEW_prompt_draft.txt` + Applied row in `changes.md` (v17 auto-apply; operator may flip to Dismissed before MATERIALIZE). Originals stay pristine. Validates the draft with same Fact_Ledger groundedness + Council A + B as a fresh S1 prompt.
 
 Once the platform is unblocked, `PIPELINE REVIEW` proceeds normally with the scratch draft as the reference prompt.
 
