@@ -1,0 +1,98 @@
+[
+    {
+        "title": "The Agent approves the Bridgefield Backup Systems invoice VEN-019-583136 (apinv_5618f42fe11e4931, $5,279.87).",
+        "category": "outcome",
+        "justification": "The prompt says to 'get it moving into the next run rather than leaving it parked on someone else's desk' for the one item that 'can still be put right just been left sitting.' Bridgefield Backup Systems invoice VEN-019-583136 (apinv_5618f42fe11e4931, $5,279.87, on Brookfield's own books) is the only exception-set item still in pending_approval with no approver and clean coding, and at $5,279.87 it is within the Accounts Manager's own AP approval band (<= $10K per the firm's AP approval ladder). Approving it is the required write action that clears the stalled sign-off and gets the item into the next payment run; the actual cash disbursement at run time is the controller's step, outside the Accounts Manager persona's authority, so no separate pay action is required.",
+        "evidence": "Look in the trajectory for a sap_subledger_approve_ap_invoice call with invoice_id apinv_5618f42fe11e4931 (Bridgefield VEN-019-583136) that returns success. The invoice starts at status pending_approval with approver null."
+    },
+    {
+        "title": "The Agent updates the AP workflow exception record for VEN-019-583136 (Airtable record airtable_ff019d106853 in the AP Workflow Exceptions table).",
+        "category": "outcome",
+        "justification": "The prompt says to 'bring its records into line with what actually happened, the exception and the standardization tracking both.' The exception record for VEN-019-583136 is Airtable record airtable_ff019d106853 in the AP Workflow Exceptions table (base airtable_e86eaf439d1d). Updating that record is a required write action.",
+        "evidence": "Look in the trajectory for an airtable_update_records call targeting record airtable_ff019d106853 (table_id airtable_8ee8b6013413) that returns success."
+    },
+    {
+        "title": "The Agent updates the AP standardization tracking issue for VEN-019-583136 (Linear issue #3107, linear_6186144f3d1e).",
+        "category": "outcome",
+        "justification": "The prompt says to 'bring its records into line with what actually happened, the exception and the standardization tracking both.' The standardization tracking item for VEN-019-583136 is Linear issue #3107 (linear_6186144f3d1e) in the AP workflow standardization project. Updating it (a comment or an issue update) is a required write action.",
+        "evidence": "Look in the trajectory for a linear_create_comment call with issueId linear_6186144f3d1e, or a linear_update_issue call with id linear_6186144f3d1e, that returns success."
+    },
+    {
+        "title": "The Agent delivers a written briefing to Matthew Li (matthew.li@brookfieldcpas.com), the partner who owns the AP standard, about the AP standardization payment-run misses.",
+        "category": "outcome",
+        "justification": "The prompt says 'take it to Matthew, who owns the standard, with a straight, evidence-backed account.' Matthew Li is matthew.li@brookfieldcpas.com (Accounting Services Partner; his ownership of the managed-client AP standard is confirmed by his adoption email 'we can adopt it as the standard reference point for managed-client AP work'). The prompt names the goal (brief Matthew) rather than a specific channel, so the rubric stays method-agnostic and checks that the Agent delivered a written briefing to Matthew.",
+        "evidence": "Look in the trajectory for a written communication addressed to matthew.li@brookfieldcpas.com (e.g., an email, or a Slack/direct message) that returns success."
+    },
+    {
+        "title": "The Agent schedules a rollout-review meeting on the AP standardization.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'get a short rollout-review on the calendar for early next week.' The prompt explicitly names the calendar, so scheduling the meeting is a required write action, distinct from its content (attendees and timing), which are checked separately.",
+        "evidence": "Look in the trajectory for a calendar_add_calendar_event call that returns success, creating a rollout-review meeting for the AP standardization."
+    },
+    {
+        "title": "The Agent updates the VEN-019-583136 exception record (airtable_ff019d106853) to show the invoice has been cleared/approved and queued for the next payment run (e.g., status moved from Open to resolved/closed, or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'bring its records into line with what actually happened' once the stuck item is moving into the next run. The record (airtable_ff019d106853) starts at status Open; a correct update reflects that VEN-019-583136 has been approved and queued/released into the next payment run (resolved). This is the content check (1.2) for the Airtable write action; the single resolution state implies the prior approval.",
+        "evidence": "Check the fields of the airtable_update_records call on record airtable_ff019d106853: the status moves from Open to a resolved/closed value (the live records use values like 'Resolved'; the table schema enumerates 'closed') and/or the notes state the invoice has been approved and queued/released into the next payment run."
+    },
+    {
+        "title": "The Agent updates the VEN-019-583136 standardization tracking issue (#3107, linear_6186144f3d1e) to state the invoice has been cleared/approved and queued for the next payment run (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'bring its records into line with what actually happened, the exception and the standardization tracking both.' The tracking issue #3107 must reflect that VEN-019-583136 has been approved and queued/released into the next payment run. This is a content check (1.2) for the Linear write action, distinct from the control-gap documentation; the single resolution state implies the prior approval.",
+        "evidence": "Check the body/text of the linear_create_comment or linear_update_issue call on issue linear_6186144f3d1e for a statement that the invoice (VEN-019-583136) has been approved and queued/released into the next payment run (or similar)."
+    },
+    {
+        "title": "The Agent documents the underlying control gap - that clean approvals are completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff (or an equivalent description) - in its update to the exception record or the standardization tracking issue.",
+        "category": "outcome",
+        "justification": "The prompt requires the Agent to 'make sure the real reason these keep missing is written down plainly instead of left to be inferred.' The ground-truth reason (from the Linear comments and issue descriptions) is that clean approvals are completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff. The rubric accepts documentation in either the exception record or the standardization tracking so it does not lock in a single artifact.",
+        "evidence": "Check the notes of the airtable_update_records call on airtable_ff019d106853 or the body of the linear_create_comment / linear_update_issue call on linear_6186144f3d1e for a statement that approvals are landing after the pay-run cutoff at the budget-owner to final/controller sign-off handoff (or an equivalent description of the approval-timing control gap)."
+    },
+    {
+        "title": "The Agent tells Matthew Li (matthew.li@brookfieldcpas.com), in its briefing, that the recurring payment-run misses are caused by approvals completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff (or similar root-cause statement).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to give Matthew 'a straight, evidence-backed account of why these keep missing the run.' The ground-truth cause, established from the tracking-issue comments, is that approvals complete after the payment-run cutoff at the budget-owner to final/controller handoff. This is a content check (1.2) for the partner briefing; the channel is left method-agnostic to match the prompt.",
+        "evidence": "Check the content of the Agent's written briefing to matthew.li@brookfieldcpas.com for a statement that the recurring payment-run misses are caused by approvals landing after the pay-run cutoff at the budget-owner to final/controller sign-off handoff (or similar root-cause statement)."
+    },
+    {
+        "title": "The Agent recommends to Matthew Li (matthew.li@brookfieldcpas.com) one specific control change to prevent the misses (e.g., an earlier pre-cutoff approval deadline, a named backup approver, or a comparable evidence-supported control change).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to give Matthew 'the one change that would actually prevent it.' The prompt deliberately leaves the specific control open (it does not enumerate options), so the rubric accepts any specific, evidence-supported approval-timing control change. The illustrative examples (an earlier pre-cutoff approval deadline, a named backup approver) are drawn from the universe evidence - the Linear comment calls for 'a tighter SLA between initial coding and final approval' - not prescribed by the prompt. The channel is method-agnostic to match the prompt.",
+        "evidence": "Check the content of the Agent's written briefing to matthew.li@brookfieldcpas.com for a specific recommended control change to prevent the misses (e.g., an earlier pre-cutoff approval deadline, a named backup approver, or a comparable evidence-supported approval-timing control)."
+    },
+    {
+        "title": "The Agent includes both matthew.li@brookfieldcpas.com and daniel.jones@brookfieldcpas.com on the scheduled rollout-review meeting (each as an attendee or as the organizer).",
+        "category": "outcome",
+        "justification": "The prompt asks for a rollout-review 'with him and me' - i.e., Matthew Li and the acting persona Daniel Jones. Both must be on the meeting; since Daniel is the natural organizer, the rubric accepts each person either as an attendee or as the organizer (the calendar write action exposes separate organizer and attendees fields). Both are checkable from the same call.",
+        "evidence": "Check the calendar_add_calendar_event call: both matthew.li@brookfieldcpas.com and daniel.jones@brookfieldcpas.com appear on the event - each either in the attendees list or as the organizer."
+    },
+    {
+        "title": "The Agent sets the rollout-review meeting for early the following week (the week of June 15, 2026; e.g., June 15, 16, or 17, 2026).",
+        "category": "outcome",
+        "justification": "The prompt asks for the rollout-review 'on the calendar for early next week ... so we can lock it in before the next run goes out.' From the fixed date Friday June 12, 2026, 'early next week' resolves to the week of June 15-19, 2026. The exact day is agent-chosen, so a range is used.",
+        "evidence": "Check the start_datetime of the calendar_add_calendar_event call: it falls early in the week of June 15, 2026 (e.g., June 15, 16, or 17, 2026)."
+    },
+    {
+        "title": "The Agent reports that the recurring misses share a single consistent point of failure - approvals completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff - rather than several different causes (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to 'tell me where in the chain these keep getting hung up and whether it comes down to one consistent point of failure or several different ones.' The ground truth, from the exception log and the tracking-issue comments, is a single consistent failure point: approvals completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff. The user asked to be told this directly, so it is an Outcome 2.1 final-response rubric.",
+        "evidence": "Check the final response text for a statement that the recurring misses share one consistent point of failure - approvals completing after the payment-run cutoff at the budget-owner to final/controller sign-off handoff - rather than several different causes (or similar)."
+    },
+    {
+        "title": "The Agent identifies the bank-authorization-mismatch item (VEN-029-171481) as not part of the approval-timing pattern and excludes it from the root-cause analysis.",
+        "category": "outcome",
+        "justification": "The prompt says some logged items are 'not ... really the same problem' and instructs the Agent to 'keep them out of the timing story instead of folding them in,' without naming them - the Agent must discover which they are. From the universe data, the bank-signatory-mismatch item VEN-029-171481 (exception airtable_4567a0517f38, status Blocked; subledger apinv_75cb1901e0c74d79, paid) is one of the two non-approval-timing items that must be excluded. This Outcome 2.1 rubric checks the Agent correctly identified and excluded it. Split from the voided-item exclusion for atomicity (each can fail independently).",
+        "evidence": "Check the final response text: the Agent identifies VEN-029-171481 (the bank-authorization / signatory-mismatch item) as not part of the approval-timing pattern and excludes it from the root-cause analysis."
+    },
+    {
+        "title": "The Agent identifies the voided item (VEN-040-991816, Meridian Mailroom Solutions) as not part of the approval-timing pattern and excludes it from the root-cause analysis.",
+        "category": "outcome",
+        "justification": "The prompt instructs the Agent to keep the items that are 'actually something else' out of the timing story, without naming them - the Agent must discover which they are. From the universe data, the voided Meridian Mailroom item VEN-040-991816 (exception airtable_bff5a2082279, status Resolved; subledger apinv_f2b14d86bd3a4fa1, voided) is the other non-approval-timing item that must be excluded. This Outcome 2.1 rubric checks the Agent correctly identified and excluded it. Split from the bank-authorization exclusion for atomicity (each can fail independently).",
+        "evidence": "Check the final response text: the Agent identifies VEN-040-991816 (the voided Meridian Mailroom Solutions invoice) as not part of the approval-timing pattern and excludes it from the root-cause analysis."
+    },
+    {
+        "title": "The Agent makes its exception-record and tracking updates only for the Bridgefield item (VEN-019-583136), not for any other exception-set item.",
+        "category": "outcome",
+        "justification": "The prompt instructs the Agent to bring the Bridgefield item's records into line 'without dragging back open anything that's already been handled.' This guardrail is one scoping property: every exception-record and tracking update the Agent makes is for the Bridgefield item only. Verifying that the update calls target only Bridgefield inherently confirms the already-handled items (the approved MetroShield/Union Square comparators and the bank-authorization and voided distractors) were left untouched.",
+        "evidence": "Check the trajectory: every airtable_update_records / linear_create_comment / linear_update_issue call targets the Bridgefield item's records (airtable_ff019d106853 and linear_6186144f3d1e). There are no update/reopen calls modifying any other exception-set item's records (e.g., those for VEN-012-211225 MetroShield, VEN-014-300659 Union Square, VEN-029-171481, or VEN-040-991816)."
+    }
+]

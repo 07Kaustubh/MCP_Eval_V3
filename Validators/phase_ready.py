@@ -28,6 +28,7 @@ Exits 1 with a clear stop-reason listing what is missing.
 """
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -152,6 +153,47 @@ def main():
                 print(f"[REMIND] Upstream phase {upstream_phase.upper()} should have produced _aux/Verification_{upstream_phase}.md before this phase runs.")
                 print(f"         The v16 cross-source verification discipline requires each phase to declare what it verified against data + eval spec + QC spec.")
                 print(f"         If missing, the upstream phase did not record its cross-source check; consider re-running it.")
+
+    if args.phase in {"s1", "s2", "s3", "s4", "final", "review", "audit"}:
+        eval_hashes_file = Path(__file__).resolve().parent / "eval_file_hashes.json"
+        if eval_hashes_file.is_file():
+            import hashlib
+            pinned = json.loads(eval_hashes_file.read_text(encoding="utf-8"))
+            root = Path(__file__).resolve().parent.parent
+            drift = []
+            missing_files = []
+            placeholders = 0
+            for rel_path, expected in pinned.items():
+                if expected == "PLACEHOLDER_RUN_UPDATE":
+                    placeholders += 1
+                    continue
+                p = root / rel_path
+                if not p.is_file():
+                    missing_files.append(rel_path)
+                    continue
+                actual = hashlib.sha256(p.read_bytes()).hexdigest()
+                if actual != expected:
+                    drift.append((rel_path, expected[:16], actual[:16]))
+            if drift or missing_files:
+                print(f"[WARN] Eval-file hash drift detected for phase {args.phase.upper()}:")
+                for rel_path, exp, act in drift:
+                    print(f"  - {rel_path}: pinned {exp}... vs actual {act}...")
+                for rel_path in missing_files:
+                    print(f"  - {rel_path}: file missing on disk (cannot hash)")
+                print("  Upstream Eval text may have changed since this pipeline's last sync.")
+                print("  Consult AGENTS.md 'Pipeline Deviations from Eval Specs' table for current interpretations,")
+                print("  re-check upstream MCP_Eval_V3_BrookField/Evals/ + KeyStone/MoveOps equivalents, then run:")
+                print("    python3 Validators/check_eval_hashes.py --update")
+                print("  (WARN only — phase proceeds; this is a sync-hygiene signal, not a blocker.)")
+            elif placeholders == len(pinned):
+                print(f"[REMIND] Validators/eval_file_hashes.json contains only PLACEHOLDER_RUN_UPDATE entries.")
+                print(f"         Run `python3 Validators/check_eval_hashes.py --update` to populate the pinned hashes from current Evals/*.md.")
+            else:
+                checked = len(pinned) - placeholders
+                print(f"[OK] Eval-file hashes match pinned baseline ({checked}/{len(pinned)} files checked, {placeholders} placeholders pending)")
+        else:
+            print(f"[REMIND] Validators/eval_file_hashes.json not found — create it with `python3 Validators/check_eval_hashes.py --update`")
+            print(f"         Eval-file hash pinning surfaces silent upstream drift in Evals/*.md across pipeline syncs.")
 
     if args.phase in TODO_PHASES:
         todo_path = task_dir / "_aux" / f"Todos_{args.phase}.md"

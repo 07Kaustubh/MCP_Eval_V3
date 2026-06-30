@@ -1,0 +1,33 @@
+Read the stale overdue list. Use email_search_emails (query "Acme" / "overdue" / "trade AR", folder_name "INBOX") to find Taye Chestnut's email "Acme Cloud trade AR - overdue accounts to chase before partner billing read" (email_acme_ar_overdue_list_0001). It lists seven accounts at gross (Northwind $48,000, Marrow & Vale $52,000, Quill $60,000, Halcyon $42,000, Sable & Finch $31,500, Tessellate $24,500, Cedarpoint $19,800). It is NOT to be trusted as current, and it OMITS at least one genuinely-open account (Brightwater Media), so the ledger - not the list - is the source.
+
+Pull the full Acme trade-AR population from the ledger. Use oracle_gl_list_journal_entries across the relevant Acme periods (period_id "acme_cloud_FP-2026-02", "acme_cloud_FP-2026-03", "acme_cloud_FP-2026-04", "acme_cloud_FP-2026-05"), paginating with offset/limit. The billing entries are all prepared_by "marcus.knell@brookfieldcpas.com", so that filter (or min_amount) isolates the set; otherwise scan each period's entries for lines on account 110000 (Accounts Receivable - Trade). Call oracle_gl_get_journal_entry on each candidate entry (je_acme_ar_*) to read the full lines, descriptions (customer names + invoice numbers), and the status field (watch for "reversed").
+
+Resolve Northwind. Find invoice JE-acme_cloud-FP-2026-03-0901 (debit 110000 $48,000) and cash receipt JE-acme_cloud-FP-2026-05-0901 (credit 110000 $48,000, "paid in full"). Conclude net $0 -> exclude from chase.
+
+Resolve Marrow & Vale (reversed/duplicate). Find invoice JE-acme_cloud-FP-2026-02-0902 (debit 110000 $52,000) and note its status is "reversed" with reversed_by_entry_id "je_acme_ar_marrow_rev". Retrieve the reversing entry JE-acme_cloud-FP-2026-04-0903 (credit 110000 $52,000, "duplicate billing"). Conclude the $52,000 was a duplicate and nets to $0 -> exclude (do not chase).
+
+Resolve Sable & Finch. Find invoice JE-acme_cloud-FP-2026-03-0902 (debit 110000 $31,500); no receipt or adjustment. Conclude $31,500 genuinely open -> chase.
+
+Resolve Quill (ledger). Find invoice JE-acme_cloud-FP-2026-03-0903 (debit 110000 $60,000) and partial cash receipt JE-acme_cloud-FP-2026-05-0902 (credit 110000 $40,000). Ledger net $20,000 - not yet the true position.
+
+Resolve Quill (subledger adjustment). Use sap_subledger_list_subledger_transactions (gl_account_number "110000", sap_module "AR", posting_date_from "2026-05-01") to find SAP document 6000009901, a $5,000 credit memo (CM-ACME-0042) against Quill that exists only in the SAP AR subledger, not in the GL. Conclude Quill's true outstanding = $60,000 - $40,000 - $5,000 = $15,000 -> chase $15,000.
+
+Resolve Brightwater (reversed receipt - the off-list item). In the GL population find invoice JE-acme_cloud-FP-2026-03-0904 (debit 110000 $36,000) and a cash receipt JE-acme_cloud-FP-2026-05-0903 whose status is "reversed" (reversed_by_entry_id "je_acme_ar_brightwater_rcpt_rev"). Retrieve the reversing entry JE-acme_cloud-FP-2026-05-0904 (debit 110000 $36,000, "payment returned NSF; receivable reinstated"). Conclude the receipt did not stick - Brightwater is still open at $36,000 -> chase. (An agent that works only off the stale list misses Brightwater entirely; one that assumes the receipt settled it understates by $36,000.)
+
+Resolve Cedarpoint. Find invoice JE-acme_cloud-FP-2026-04-0901 (debit 110000 $19,800); no receipt/adjustment. Conclude $19,800 open -> chase.
+
+Resolve Tessellate. Find invoice JE-acme_cloud-FP-2026-04-0902 (debit 110000 $24,500); no receipt/adjustment. Conclude $24,500 open -> chase.
+
+Resolve Halcyon (ledger). Find invoice JE-acme_cloud-FP-2026-02-0901 (debit 110000 $42,000); no receipt. Net $42,000 open, quiet two quarters.
+
+Resolve Halcyon (latest direction - superseded call). Use messaging_search_conversations (query "Halcyon") or messaging_get_conversation (conversation_id "conversation_acme_ar_halcyon_0001") to read the Marcus Knell / Daniel Jones thread. An early message (Marcus, 2026-06-02) proposes writing the $42,000 off against the allowance; it is SUPERSEDED by Daniel's later message (2026-06-10): the Acme CFO is standing up a payment plan, do NOT book any write-off or allowance, keep in active collection, allowance is CFO-direction-only. Conclude: do not write off; continue collection.
+
+Look up the recipient. Use contacts_search_contacts (query "Daniel Jones") to confirm daniel.jones@brookfieldcpas.com (Accounts Manager) before briefing him.
+
+Write action - brief Daniel. Use email_send_email to daniel.jones@brookfieldcpas.com (or messaging_send_message) with the consolidated, verified billing status: Northwind paid/$0 (exclude); Marrow & Vale duplicate-reversed/$0 (exclude); Sable & Finch $31,500 (follow up); Quill $15,000 after the $40,000 receipt and $5,000 credit memo (follow up); Brightwater $36,000 - receipt bounced, still open (follow up); Cedarpoint $19,800 (follow up); Tessellate $24,500 (follow up); Halcyon $42,000 held - no write-off, active collection per the Acme CFO payment plan.
+
+Write action - file the record. Use records_vault_upload_document with retention_policy_code "AICPA_SQMS_7Y" (kind e.g. "memo", classification "internal"), title referencing the Acme Cloud trade-AR billing status, content stating the verified current balance per account (not the stale gross list).
+
+Write action - align the team. Resolve the channel via slack_channels_list (channel_types "public_channel") if needed, then post with slack_conversations_add_message to channel_id "C005" (#monthly-close-coordination) a short rundown distinguishing the accounts that are genuinely outstanding (Sable, Quill, Brightwater, Cedarpoint, Tessellate) from those already settled or written back (Northwind paid; Marrow duplicate-reversed) and the held Halcyon item.
+
+Write action - set the follow-up. Use reminder_add_reminder with a due_datetime after June 12, 2026 (the next billing follow-up cycle, e.g. 2026-07-13T09:00:00-04:00), a title referencing the Halcyon Foods Co collection follow-up, and a description noting continue active collection per the CFO payment plan with no write-off booked yet.

@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent updates Airtable record airtable_ddadfe58b867 ('New starter onboarding checklist and access scheduling during month-end close') in the Client Access and Onboarding Admin table.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Correct the tracker to match what you find.' The onboarding tracker record airtable_ddadfe58b867 was last updated 2026-04-03 and shows 'in_progress' \u2014 before the May 12 session Yusuf ran. Updating it is the primary write action for the onboarding thread.",
+        "evidence": "Look for an airtable_update_records call in the trajectory targeting base airtable_6ac18f5d342c, record airtable_ddadfe58b867 (table: Client Access and Onboarding Admin). Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's Airtable update to record airtable_ddadfe58b867 changes the status away from 'in_progress' and adds notes referencing both the March 16, 2026 session and the May 12, 2026 session (organized by Yusuf Demir).",
+        "category": "outcome",
+        "justification": "A tracker correction that does not change the status or that omits session details fails the prompt's instruction to make the tracker 'match what you find.' Both sessions (March 16 organized by Clint Peterson and May 12 organized by Yusuf Demir) must be reflected in the update notes. Either 'completed' or 'waiting_access' is acceptable depending on how the agent interprets the late-May email thread.",
+        "evidence": "Check the fields parameter of the airtable_update_records call targeting record airtable_ddadfe58b867. The status field must be changed from 'in_progress' (e.g., set to 'completed' or 'waiting_access'), and the notes field must reference both the March 16, 2026 session and the May 12, 2026 session."
+    },
+    {
+        "title": "The Agent sends or replies to an email from [clint.peterson@brookfieldcpas.com](mailto:clint.peterson@brookfieldcpas.com) to [rachel.green@brookfieldcpas.com](mailto:rachel.green@brookfieldcpas.com) delivering the decision on the employee file handling guidance.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'deliver it so the guidance can actually move.' Rachel Green's May 26, 2026 message (email 67180e40a24248989435bdf01bcb07ca) confirmed her draft was finalized and awaiting only Clint's confirmation. This rubric checks the write action occurred with the correct sender and recipient.",
+        "evidence": "Look for an email_send_email or email_reply_to_email call in the trajectory with sender clint.peterson@brookfieldcpas.com and recipient rachel.green@brookfieldcpas.com. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's email to [rachel.green@brookfieldcpas.com](mailto:rachel.green@brookfieldcpas.com) gives Rachel an unconditional go-ahead to circulate the employee file handling guidance to managers, without requiring Rachel to first send the final draft to Clint as a condition of circulation.",
+        "category": "outcome",
+        "justification": "Rachel's May 26 message (67180e40a24248989435bdf01bcb07ca) stated she was ready to circulate as finalized pending only Clint's confirmation. The email must give her a direct go-ahead. Adding a prerequisite requiring Rachel to route the draft back to Clint before circulation contradicts the prompt's intent of 'deliver it so the guidance can actually move' and adds a step Rachel did not request.",
+        "evidence": "Check the body or content of the email sent to rachel.green@brookfieldcpas.com. It must give Rachel explicit authorization to circulate the guidance to managers (e.g., 'you are clear to circulate,' 'please send it out as finalized,' or similar). It must NOT contain language requiring Rachel to first send the final draft back to Clint as a prerequisite to circulation (e.g., 'please send me the final draft first so I can file it')."
+    },
+    {
+        "title": "The Agent's email to [rachel.green@brookfieldcpas.com](mailto:rachel.green@brookfieldcpas.com) includes the decision on the named-approver and exception-log question \u2014 confirming that a named HR approver and a simple exception log should be included in the employee file handling guidance (or similar clear decision on the approval mechanism for file access exceptions).",
+        "category": "outcome",
+        "justification": "Rachel's unread May 5 message (aaf8dbe8c25143beaef2016fd6d54450) flagged the specific open point: whether to include a named approver and exception log in the cleanup procedure. Rachel's May 26 message confirmed she was comfortable using the general HR inbox with a named HR approver making the final decision. The email must address this open point \u2014 it is the one thing Clint owed Rachel.",
+        "evidence": "Check the body or content of the email sent to rachel.green@brookfieldcpas.com. It must reference the named approver and/or the exception log (or confirm the approach of including a named HR approver making the final decision and documenting exceptions in a simple log, or similar decision language about the approval mechanism)."
+    },
+    {
+        "title": "The Agent sends an email from [clint.peterson@brookfieldcpas.com](mailto:clint.peterson@brookfieldcpas.com) to [brent.noah@brookfieldcpas.com](mailto:brent.noah@brookfieldcpas.com) (Brent Noah, Director of People and Culture) with a consolidated status summary.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'send Brent a clean summary of where each item stands \u2014 he has been chasing both.' Brent Noah is identified as brent.noah@brookfieldcpas.com in the Brookfield contacts. This rubric confirms the write action occurred with the correct recipient.",
+        "evidence": "Look for an email_send_email call in the trajectory with sender clint.peterson@brookfieldcpas.com and recipient brent.noah@brookfieldcpas.com. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's email to [brent.noah@brookfieldcpas.com](mailto:brent.noah@brookfieldcpas.com) covers the onboarding checklist item, including that the tracker (record airtable_ddadfe58b867) had been stale and was corrected, and summarizing what was confirmed across the two coordination sessions.",
+        "category": "outcome",
+        "justification": "The prompt says to give Brent a clean summary of where each item stands. The onboarding thread is one of the two items. Without coverage of the tracker correction and session findings, the summary is incomplete for the onboarding side.",
+        "evidence": "Check the body or content of the email sent to brent.noah@brookfieldcpas.com. It must reference the onboarding checklist item \u2014 stating that the tracker was stale and has now been corrected, and covering what the two sessions (March 16 and May 12) found."
+    },
+    {
+        "title": "The Agent's email to [brent.noah@brookfieldcpas.com](mailto:brent.noah@brookfieldcpas.com) covers the employee file handling guidance item, including that the outstanding decision has been delivered to Rachel Green and that the guidance is on track to reach managers (or similar statement that the guidance thread has been resolved and Rachel has what she needs to proceed).",
+        "category": "outcome",
+        "justification": "The prompt says to give Brent a clean summary of where each item stands. The guidance thread is the second of the two items. The summary must confirm the decision was delivered to Rachel and that the guidance is moving forward - regardless of whether the agent chose a sequential or parallel workflow for vault filing and circulation.",
+        "evidence": "Check the body or content of the email sent to brent.noah@brookfieldcpas.com. It must reference the employee file handling guidance and state that the outstanding decision has been delivered to Rachel Green, and that the guidance is heading toward circulation to managers (e.g., 'Rachel is folding in the language,' 'guidance will circulate shortly,' 'Rachel has what she needs to proceed,' or similar)."
+    },
+    {
+        "title": "The Agent uploads the employee file handling guidance to the Records Vault with the classification set to 'restricted'.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Before the guidance goes out to managers, file it in the HR vault as restricted.' This is a mandatory write action with a specific classification requirement. Classification of 'restricted' is the only acceptable value per the explicit prompt instruction.",
+        "evidence": "Look for a records_vault_upload_document call in the trajectory. Confirm the classification parameter is set to 'restricted' and the tool returned a success response. The document content should relate to the employee file handling guidance."
+    },
+    {
+        "title": "The Agent creates a calendar event for the next employee file handling policy review, scheduled for a future date after June 12, 2026.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Put the next policy review on the calendar so we are not back in this position.' A calendar event must be created for the next scheduled review of the employee file handling guidance. Any future date is acceptable since the prompt does not specify one.",
+        "evidence": "Look for a calendar_add_calendar_event call in the trajectory with a title or description related to HR policy review, employee file handling review, or policy review scheduling. Confirm the event start date is after June 12, 2026."
+    },
+    {
+        "title": "The Agent sets a follow-up reminder related to the onboarding checklist or access scheduling item (or similar), with a due date after June 12, 2026.",
+        "category": "outcome",
+        "justification": "The prompt says 'set a follow-up reminder on each so nothing falls through.' 'Each' refers to both items. This rubric checks the onboarding-side reminder. Without this reminder, the onboarding thread remains untracked for follow-up.",
+        "evidence": "Look for a reminder_add_reminder call in the trajectory with a title or description related to the onboarding checklist, access scheduling, the replacement hire, or the Airtable tracker. Confirm the due date is after June 12, 2026."
+    },
+    {
+        "title": "The Agent sets a follow-up reminder related to the employee file handling guidance or confirming it has been circulated to managers (or similar), with a due date after June 12, 2026.",
+        "category": "outcome",
+        "justification": "The prompt says 'set a follow-up reminder on each so nothing falls through.' This rubric checks the guidance-side reminder, distinct from the onboarding reminder. Without this reminder, the guidance circulation remains untracked.",
+        "evidence": "Look for a reminder_add_reminder call in the trajectory with a title or description related to the employee file handling guidance, manager circulation, Rachel Green, or confirming the guidance went out. Confirm the due date is after June 12, 2026."
+    },
+    {
+        "title": "The Agent reports in the final response what the March 16, 2026 session covered, including onboarding provisioning, the first-week checklist, or access setup for the replacement hire (or similar content confirming it was the first coordination session).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'what each session actually covered.' Session 1 on March 16, 2026 (calendar event event_fae037566aea) covered laptop provisioning, workflow access, the first-week checklist, and HR-only handling boundaries. This is one of the two key findings the user asked to be told directly.",
+        "evidence": "Check the agent's final response for a description of what the March 16, 2026 session covered. It should reference provisioning, first-week checklist, access setup, or HR-only file handling boundaries (or similar content tied to that session). Session 1 was organized by Clint Peterson and attended by Rachel Green, Reshma Patel, Yusuf Demir, and Daniel Jones."
+    },
+    {
+        "title": "The Agent reports in the final response what the May 12, 2026 session (organized by Yusuf Demir) covered, including access sequencing, confidentiality acknowledgements, or first-week workflow training ownership (or similar content confirming it was the session that settled access scheduling).",
+        "category": "outcome",
+        "justification": "The prompt asks 'what each session actually covered' and specifically references 'Yusuf ran the second one in May to settle the access scheduling.' Session 2 on May 12, 2026 (calendar event event_8609c66b41e1) covered access sequencing, confidentiality acknowledgements, and ownership of first-week workflow training \u2014 the session Clint assumed had closed out the tracker.",
+        "evidence": "Check the agent's final response for a description of what the May 12, 2026 session covered. It should reference access sequencing, confidentiality acknowledgements, or first-week workflow training ownership (or similar). Session 2 was organized by Yusuf Demir and attended by Clint Peterson, Reshma Patel, and Anaya Patel."
+    },
+    {
+        "title": "The Agent identifies in the final response that the outstanding item Rachel was waiting on was a decision on whether to include a named HR approver and a simple exception log in the employee file handling guidance (or similar description of the approval-mechanism open question).",
+        "category": "outcome",
+        "justification": "The prompt says 'Tell me exactly what the final open question is and what I owe her.' The ground truth is that Rachel was waiting on one specific decision: whether to include a named HR approver and a simple exception log in the cleanup procedure. Every other point in the guidance thread had been resolved. Identifying this correctly proves the agent read and synthesized the full email chain.",
+        "evidence": "Check the agent's final response for identification of the open question as the named-approver decision, the exception-log question, or the approval structure for employee file access exceptions (or similar). Reference emails: Rachel's unread May 5 escalation (aaf8dbe8c25143beaef2016fd6d54450) and her May 26 message (67180e40a24248989435bdf01bcb07ca)."
+    },
+    {
+        "title": "The Agent reports in the final response that the direct messages and messaging conversations reviewed contained no substantive HR work content related to either the onboarding checklist or the employee file handling guidance (or similar statement confirming DMs were checked and found to be social or off-topic).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to check 'what came out of the email threads and direct messages afterward.' The four messaging conversations involving Clint Peterson contain only social content (team lunches, birthday cakes). The agent must report this finding to give a complete picture of the investigation, as the prompt specifically asks about DMs.",
+        "evidence": "Check the agent's final response for a statement that messaging or DMs were reviewed and contained nothing substantive, were social-only, or did not contain HR-related content for either work thread."
+    },
+    {
+        "title": "The Agent reports in the final response that the onboarding tracker (Airtable record airtable_ddadfe58b867) was stale and did not reflect what the coordination sessions had established \u2014 e.g., it was still showing 'in_progress' and had not been updated since April 2026, before the May 12 session (or similar statement confirming the tracker was out of date).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'whether the tracker today reflects any of it.' This is a direct request for the agent to report back to Clint on the tracker's accuracy. The ground truth is that the tracker was last updated 2026-04-03 and still showed 'in_progress,' predating both the May 12 session and the late-May email thread. Every agent discovered this during investigation, and the user asked to be told.",
+        "evidence": "Check the agent's final response for a statement that the tracker was stale, out of date, had not been updated, still showed 'in_progress,' or otherwise did not reflect what the sessions established. This is distinct from R1/R2 (which check the write action to correct it) \u2014 this rubric checks that the finding was reported back to the user."
+    }
+]

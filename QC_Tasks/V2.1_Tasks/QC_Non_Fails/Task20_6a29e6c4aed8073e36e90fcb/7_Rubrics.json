@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent sends an escalation summary email from priya.khatri@brookfieldcpas.com to daniel.jones@brookfieldcpas.com.",
+        "category": "outcome",
+        "justification": "The prompt explicitly states 'Daniel needs the full picture on both before I can close out the week.' This rubric confirms the core write action was executed from the correct acting persona. The prompt is authored by Priya Khatri (AP Coordinator), so the email must originate from her address. This is the single hardest discriminating criterion: only an agent that correctly identifies Priya via the contacts directory will pass.",
+        "evidence": "Look for a send_email tool call in the trajectory with the sender field set to priya.khatri@brookfieldcpas.com and the recipient field containing daniel.jones@brookfieldcpas.com. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's email to daniel.jones@brookfieldcpas.com states that the GraniteRack void-and-reissue under SOW-2025-GR-rev1 has not arrived and that the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e, $39,090.56) cannot move through the normal AP release path (or similar statement that the reissue is absent and the invoice remains blocked).",
+        "category": "outcome",
+        "justification": "The prompt explicitly states 'Daniel needs the full picture on both before I can close out the week.' This rubric confirms the core write action was executed from the correct acting persona. The prompt is authored by Priya Khatri (AP Coordinator), so the email must originate from her address. This is the single hardest discriminating criterion: only an agent that correctly identifies Priya via the contacts directory will pass.",
+        "evidence": "Look for a send_email tool call in the trajectory with the sender field set to priya.khatri@brookfieldcpas.com and the recipient field containing daniel.jones@brookfieldcpas.com. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's email to daniel.jones@brookfieldcpas.com states that the TimeLedger Nexus W-9 has not been received, that the payment hold on invoice VEN-010-693199 / apinv_9aa666fc03424902 ($21,777.01) remains in force, and that the vendor soft commitment must now become a hard escalation (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'confirm whether the W-9 ever came in and give me the full picture on where this stands' and specifies 'if it isn't that soft commitment needs to become a hard escalation.' The ground truth is that no refreshed W-9 exists in Records Vault, the invoice remains pending_approval, and Brenda's 2026-05-29 soft commitment lapsed. The email must convey this finding and the hard-escalation disposition.",
+        "evidence": "Check the email body (content parameter of the send_email call to daniel.jones@brookfieldcpas.com) for references to VEN-010-693199 or apinv_9aa666fc03424902 or the $21,777.01 amount, combined with statements that the W-9 was not received and the item is now a hard escalation."
+    },
+    {
+        "title": "The Agent's email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states that the GraniteRack vendor-master has not been confirmed corrected and still references the deprecated contract (SOW-2024-GR-rev3, or stale SOW reference, or old contract reference, or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks: 'Also confirm whether the vendor-master was updated, because it was still showing the old contract reference when this first surfaced and that needs to be corrected before any future GraniteRack billing processes cleanly.' Daniel needs the full picture on both items, and the vendor-master status is a distinct GraniteRack finding that must appear in the email alongside the reissue status. The ground truth from Brenda Abbas's email (scen_031) confirms the vendor-master description still references SOW-2024-GR-rev3 as of 2026-05-19.",
+        "evidence": "Check the email body (content parameter of the send_email call to daniel.jones@brookfieldcpas.com) for a statement that the GraniteRack vendor-master has not been confirmed corrected, referencing the stale SOW (SOW-2024-GR-rev3 or deprecated contract or old SOW reference or similar) and noting that the correction is still pending or unconfirmed."
+    },
+    {
+        "title": "The Agent adds a status comment to Linear issue issue_e5abbb9af74642eeb10a93426b0bbaa2.",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current.' issue_e5abbb9af74642eeb10a93426b0bbaa2 ('Verify GraniteRack AP void-and-rebill for VEN-012-753165 / apinv_6131b7c637aa4b6e') is one of two GraniteRack AP standardization tracking issues that are overdue as of June 12, 2026 (due date 2026-06-05). Each issue must receive its own separate status update.",
+        "evidence": "Look for a linear_create_comment tool call in the trajectory with the issueId parameter equal to issue_e5abbb9af74642eeb10a93426b0bbaa2. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent adds a status comment to Linear issue issue_16b223fecbf14af586d0afa0ce8cc6f4.",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current' and asks to confirm whether the vendor-master was updated. issue_16b223fecbf14af586d0afa0ce8cc6f4 ('Track GraniteRack void-and-rebill and vendor-master sweep') is the companion GraniteRack tracking issue covering the vendor-master sweep, also overdue (due 2026-06-05). It must be updated alongside the rebill issue.",
+        "evidence": "Look for a linear_create_comment tool call in the trajectory with the issueId parameter equal to issue_16b223fecbf14af586d0afa0ce8cc6f4. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent adds a status comment to Linear issue issue_08d1ddb3b3c9419faa29e94436004bd8.",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current' for the TimeLedger item. issue_08d1ddb3b3c9419faa29e94436004bd8 ('Track conditioned release for apinv_9aa666fc03424902 and complete expired W-9 sweep') is the primary TimeLedger W-9 tracking issue, overdue (due 2026-05-30). It must reflect the W-9 non-receipt and the hard-escalation decision as of June 12.",
+        "evidence": "Look for a linear_create_comment tool call in the trajectory with the issueId parameter equal to issue_08d1ddb3b3c9419faa29e94436004bd8. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent adds a status comment to Linear issue issue_0b05ec215a854a439472fb0c6bd3307b.",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current.' issue_0b05ec215a854a439472fb0c6bd3307b ('Run expired W-9 sweep across managed-client vendor master') is the second TimeLedger-related tracking issue, also overdue (due 2026-05-30). All four AP standardization issues relevant to this escalation must each be updated. This is the issue that Runs 4 and 5 missed, making it the critical differentiating rubric for the 3-of-4 Linear-update failure mode.",
+        "evidence": "Look for a linear_create_comment tool call in the trajectory with the issueId parameter equal to issue_0b05ec215a854a439472fb0c6bd3307b. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's status comments to the GraniteRack Linear tracking issues (issue_e5abbb9af74642eeb10a93426b0bbaa2 and/or issue_16b223fecbf14af586d0afa0ce8cc6f4) reflect the current status as of June 12, 2026: that the reissued invoice under SOW-2025-GR-rev1 has not arrived and the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e) remains in pending_approval (or similar statement of current open status).",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current.' Posting any comment satisfies the 1.1 write-action check, but the comment must contain relevant, factually grounded current-status information to actually fulfill the 'bring current' intent. The GraniteRack tracking issues must reflect that the reissue deadline (2026-06-05) passed without a corrected invoice arriving and that the void-and-rebill path remains open.",
+        "evidence": "Check the body/text field of the linear_create_comment calls targeting issue_e5abbb9af74642eeb10a93426b0bbaa2 and/or issue_16b223fecbf14af586d0afa0ce8cc6f4. The comment should reference the reissued invoice not having arrived, the June 5 deadline having passed, or the original invoice still being open/pending \u2014 or similar current-status language. A blank comment or a comment unrelated to GraniteRack AP status fails."
+    },
+    {
+        "title": "The Agent's status comments to the TimeLedger Linear tracking issues (issue_08d1ddb3b3c9419faa29e94436004bd8 and/or issue_0b05ec215a854a439472fb0c6bd3307b) reflect the current status as of June 12, 2026: that the W-9 has not been received, the May 29 soft commitment has lapsed, and the soft commitment is now a hard escalation (or similar statement of current open status).",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the AP standardization tracking issues current.' The TimeLedger tracking issues must reflect that the vendor's May 29 W-9 delivery commitment was missed, the invoice remains in pending_approval, and the escalation disposition has changed from soft to hard. A comment that merely acknowledges the issue exists without reflecting the June 12 escalation decision does not satisfy 'bring current.'",
+        "evidence": "Check the body/text field of the linear_create_comment calls targeting issue_08d1ddb3b3c9419faa29e94436004bd8 and/or issue_0b05ec215a854a439472fb0c6bd3307b. The comment should reference the W-9 not having been received, the missed May 29 commitment, the hard escalation, or similar current-status language. A blank comment or a comment unrelated to the TimeLedger W-9 status fails."
+    },
+    {
+        "title": "The Agent posts a standalone status note to the #vendor-bills-and-ap Slack channel (channel_id C010 or channel name vendor-bills-and-ap), not as a thread reply.",
+        "category": "outcome",
+        "justification": "The prompt explicitly instructs: 'post a note in #vendor-bills-and-ap.' This rubric confirms the Slack write action was executed to the correct channel as a channel-level post, not buried in an existing thread. The channel accepts both its ID (C010) and its name (vendor-bills-and-ap), so either form is valid.",
+        "evidence": "Look for a Slack send-message tool call in the trajectory with either channel_id C010 or channel name vendor-bills-and-ap. Verify the call does not include a thread_ts parameter (which would make it a thread reply rather than a channel-level post) and that the tool returned a success response."
+    },
+    {
+        "title": "The Agent's Slack message to #vendor-bills-and-ap references the GraniteRack Compute Services void-and-reissue, noting that the reissued invoice has not arrived (or similar statement that the reissue is absent and the original invoice remains blocked).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'post a note in #vendor-bills-and-ap' covering both open AP items. This rubric checks the GraniteRack half: the channel note must communicate that the expected void-and-reissue under SOW-2025-GR-rev1 has not been received as of the June 12 escalation date. Splitting GraniteRack and TimeLedger into separate rubrics (instead of one bundled rubric) allows an agent that gets one item right and omits the other to receive appropriate partial credit.",
+        "evidence": "Check the payload parameter of the Slack send-message call to C010 or vendor-bills-and-ap. It must reference GraniteRack (or VEN-012-753165 or the $39,090.56 invoice) with a statement that the reissue has not arrived or the invoice remains blocked (or similar phrasing)."
+    },
+    {
+        "title": "The Agent's Slack message to #vendor-bills-and-ap references the TimeLedger Nexus W-9 status, noting that the W-9 has not been received and the payment hold remains active (or similar statement).",
+        "category": "outcome",
+        "justification": "This rubric checks the TimeLedger half of the required #vendor-bills-and-ap note. The channel note must communicate that the expired W-9 (expired 2026-02-15) has not been refreshed and the payment hold on invoice apinv_9aa666fc03424902 / VEN-010-693199 ($21,777.01) therefore remains in force. Kept as a separate rubric from the GraniteRack Slack content so that each item is scored independently.",
+        "evidence": "Check the payload parameter of the Slack send-message call to C010 or vendor-bills-and-ap. It must reference TimeLedger Nexus (or VEN-010-693199 or the W-9 or the $21,777.01 invoice) with a statement that the W-9 has not been received and/or the payment hold remains active (or similar phrasing)."
+    },
+    {
+        "title": "The Agent reports in the final response that the GraniteRack void-and-reissue invoice has not arrived as of June 12, 2026, and that the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e, $39,090.56) remains in pending_approval status with no clean replacement available for the normal AP release path.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to determine 'if the reissued invoice actually came in and whether it can move through the normal AP release path.' The user needs this fact reported directly. The ground truth, confirmed in the SAP subledger, is that no GraniteRack invoice has posted after 2026-04-05 and the original remains pending_approval, never voided, with no approver and no payment.",
+        "evidence": "Check the agent's final response text for a statement that the GraniteRack reissued invoice has not arrived, referencing the invoice identifiers (VEN-012-753165 or apinv_6131b7c637aa4b6e or the $39,090.56 amount), and noting that the original is still pending_approval and cannot be released through normal AP processing."
+    },
+    {
+        "title": "The Agent reports in the final response that the GraniteRack vendor-master correction has not been confirmed, with the entry still referencing the deprecated contract (SOW-2024-GR-rev3, or stale SOW reference, or old contract reference, or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks: 'confirm whether the vendor-master was updated, because it was still showing the old contract reference when this first surfaced and that needs to be corrected before any future GraniteRack billing processes cleanly.' The ground truth from email evidence (Brenda Abbas's escalation email, scen_031) confirms the vendor-master description still references SOW-2024-GR-rev3. The agent must report this finding directly.",
+        "evidence": "Check the agent's final response text for a statement that the vendor-master was not confirmed corrected, mentioning the stale SOW reference (SOW-2024-GR-rev3 or deprecated contract or old SOW reference or similar) and that the correction is still open or unconfirmed."
+    }
+]

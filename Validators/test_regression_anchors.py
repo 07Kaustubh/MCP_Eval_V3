@@ -460,6 +460,36 @@ ANCHORS = [
         ),
         "expect": "universe: keystone",
     },
+    {
+        "name": "v20 MO-1 — MoveOps auto-detection (PHMSA / Vectral / UrbanNest signals)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="I need you to help me coordinate the Vectral Systems relocation. The hazmat shipment from Swift Relocations needs a PHMSA DOT certificate. Check the Airtable record and email Rachel Whitfield at vectralsystems.com. UrbanNest also needs to confirm the apartment. Post the status in operations.", persona="Elena Rostova — elena.rostova@moveops.com"),
+        "expect": "universe: moveops",
+    },
+    {
+        "name": "v20 MO-2 — MoveOps persona contaminated with Brookfield email domain",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I need help coordinating the Vectral relocation with UrbanNest and Swift. Check Airtable.", persona="Elena Rostova — elena.rostova@brookfieldcpas.com"), (Path(d) / "_aux" / "Universe.txt").write_text("moveops\n", encoding="utf-8")),
+        "expect": "persona email domain mismatch",
+    },
+    {
+        "name": "v20 MO-3 — MoveOps persona contaminated with KeyStone email domain",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I need help coordinating the Vectral relocation with UrbanNest. Check Airtable for the move status.", persona="Marcus Thorne — marcus.thorne@keystonemortgage.com"), (Path(d) / "_aux" / "Universe.txt").write_text("moveops\n", encoding="utf-8")),
+        "expect": "persona email domain mismatch",
+    },
+    {
+        "name": "v20 MO-4 — Marcus Webb blocked as MoveOps persona (NPC / non-staff)",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I need help with relocation coordination for Vectral. Check the Airtable record.", persona="Marcus Webb — marcus.webb@moveops.com"), (Path(d) / "_aux" / "Universe.txt").write_text("moveops\n", encoding="utf-8")),
+        "expect": "persona is an NPC for moveops",
+    },
+    {
+        "name": "v20 MO-5 — Brookfield baseline preserved (no universe contamination from v20 multi-universe registry)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="I need help with the AP queue. The vendor invoice for the SAP subledger reconciliation came in. Post a journal entry to oracle_gl and check the BlackLine variance. Email Andre about it.", persona="Brenda Carter — brenda.carter@brookfieldcpas.com"),
+        "expect": "universe: brookfield",
+    },
 ]
 
 

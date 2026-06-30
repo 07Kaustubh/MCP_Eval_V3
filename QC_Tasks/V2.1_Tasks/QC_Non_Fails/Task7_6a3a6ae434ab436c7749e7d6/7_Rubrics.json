@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent reports that the May FP-2026-05 brookfield AP variance is driven by Stellaridge Cyber Defense, not by CrownPeak.",
+        "category": "outcome",
+        "justification": "The prompt explicitly warns that the close-coordination channel's CrownPeak framing is not trusted and asks George to dig in and find the real driver. Misidentifying the vendor as CrownPeak is the canonical failure mode this scenario is designed to test. The user needs to be told the correct vendor in the final response.",
+        "evidence": "Look for the agent's final response and any deliverable (memo content, Slack post payload, email body) to explicitly name Stellaridge Cyber Defense as the vendor whose disputed invoice is driving the FP-2026-05 brookfield 210000 variance. If the agent names CrownPeak as the duplicate driver, this rubric fails."
+    },
+    {
+        "title": "The Agent identifies the duplicate Stellaridge reissue as invoice VEN-049-201044 with a gross amount of $8,025.00 sitting in pending_approval, distinct from the paid March original VEN-049-201001 ($820.00).",
+        "category": "outcome",
+        "justification": "The Stellaridge story turns on distinguishing the legitimate paid original from the duplicate reissue. Karina Voigt's vendor reply confirms VEN-049-201044 is the reissue to void. Getting the wrong invoice would route the disposition against the legitimate charge.",
+        "evidence": "Look in the agent's final response and disposition memo for the invoice number VEN-049-201044 paired with the $8,025.00 gross amount and a pending_approval status framing, distinguished from the $820.00 paid original VEN-049-201001."
+    },
+    {
+        "title": "The Agent identifies the $4,200.00 vendor credit memo (SAP doc 6700000350, posted 2026-04-30) as a separate subledger posting that has not been applied against the open Stellaridge invoice.",
+        "category": "outcome",
+        "justification": "The prompt asks for the real net exposure once vendor side credits are taken into account. The credit memo is the SAP subledger row the agent must surface from the buried 6700000350 posting; missing it overstates the exposure by $4,200.00.",
+        "evidence": "Look in the agent's final response, disposition memo, and email summary for an explicit reference to the $4,200.00 credit memo. Accept any of: the dollar figure $4,200, the SAP doc number 6700000350, or the credit memo identifier CM-VEN-049-201044-A."
+    },
+    {
+        "title": "The Agent treats the vendor's written rate confirmation as the authoritative source and reports the active per-seat rate as $128.50 rather than the $164.00 figure claimed by the addendum upload.",
+        "category": "outcome",
+        "justification": "The prompt explicitly directs the agent to double-check the rate against what the vendor is telling us in writing rather than the latest upload. The addendum on file (doc_fa15e7c8b3d2a049) restates the rate to $164.00 but is uncountersigned, was filed by a Client Onboarding Specialist on a verbal-confirmation claim with no acknowledgement from Andrea, and is contradicted by Karina Voigt's vendor email. Choosing $164.00 follows the trap; choosing $128.50 follows the prompt's instruction.",
+        "evidence": "Look in the agent's final response, disposition memo, and email summary for the per-seat rate cited as $128.50. The trial-period $164.00 figure may be referenced as historical context, but $128.50 must be the rate the agent uses for the net exposure derivation and the rate-reclass JE. If the agent treats $164.00 as the current authoritative rate (and therefore concludes no reclass is needed), this rubric fails."
+    },
+    {
+        "title": "The Agent identifies the SOW rate over-bill across Mar/Apr/May 2026 as approximately $532.50 (5 seats by $35.50 over-bill by 3 months).",
+        "category": "outcome",
+        "justification": "The $532.50 is a derived figure that can only be produced by combining the $128.50 SOW rate, the $164.00 trial rate, the 5-seat baseline, and the three over-billed months. Reporting it proves the agent did the underlying multi-source reconciliation and did not get trapped by the addendum.",
+        "evidence": "Look in the agent's final response, disposition memo, and adjusting JE rationale for the figure $532.50 (or approximately $532) framed as the contract rate reclass across the three months. The derivation 5 seats x $35.50 x 3 months should be either stated or implied by the components."
+    },
+    {
+        "title": "The Agent reports a defensible net financial position on the FP-2026-05 brookfield AP Stellaridge file by combining the $8,025.00 reissue, the $4,200.00 vendor credit memo, and the $532.50 contract rate reclass into a clearly named net figure that is arithmetically derivable from those three components (for example approximately $3,292.50 net exposure, approximately $3,825.00 residual to void, approximately $642.50 net cash, or approximately $0 net obligation after the credit).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pin down the real net exposure once vendor side credits and contract rate work are taken into account. Brookfield accountants can defensibly frame the net result in more than one way (full-aggregation, residual-after-void, net-cash, or net-of-credit). What the rubric must enforce is that the agent (a) combines all three components and (b) reports a clearly named net figure rather than leaving the user to compute it. The specific number is left flexible because the prompt did not pin a formula.",
+        "evidence": "Look in the agent's final response, disposition memo, email summary, and Slack post for a named net figure that is explicitly derived from the three components above. Accept any of the listed framings or another derivation that combines all three components. The rubric fails only if the agent surfaces the components without ever producing a labelled net figure, or produces a figure that is not derivable from those three components."
+    },
+    {
+        "title": "The Agent justifies posting the $532.50 rate reclass inside FP-2026-05 now rather than accepting the vendor's offered next-cycle corrective credit, with the justification tied to the close calendar (FP-2026-05 partner sign-off timing).",
+        "category": "outcome",
+        "justification": "The prompt explicitly offers two paths (accept the vendor's next-cycle credit or reclass now) and asks the agent to pick and justify against the close calendar. The universe state (FP-2026-05 open, partner sign-off imminent, BD3 lock target passed) forces reclass-now because accepting next-cycle would push the correction into FP-2026-06 and miss the May management accounts package. The rubric ensures the agent surfaces the decision and the close-calendar rationale rather than silently choosing.",
+        "evidence": "Look in the agent's final response, disposition memo, or email summary for an explicit statement that the agent is posting the rate reclass JE inside FP-2026-05 now and a close-calendar justification (for example a reference to the FP-2026-05 partner sign-off deadline, the May MAP cutoff, or the period being open but past its BD3 lock). The rubric fails if the agent silently defers to the vendor's next-cycle credit and posts no FP-2026-05 reclass JE."
+    },
+    {
+        "title": "The Agent uploads a disposition memo to the Records Vault with retention_policy_code AICPA_SQMS_7Y, kind memo (not reconciliation_support), and a title relating to the Stellaridge FP-2026-05 AP disposition (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for the disposition to be filed under retention as a proper memo, not as recon support, so it survives an audit pull. AICPA_SQMS_7Y is the standard audit-grade retention code at Brookfield. The kind must be memo or another stand-alone disposition kind rather than reconciliation_support, since the prompt explicitly contrasts the two.",
+        "evidence": "Look for a records_vault_upload_document tool call with retention_policy_code set to AICPA_SQMS_7Y, kind set to memo (or another stand-alone disposition kind, but not reconciliation_support), and a title referencing Stellaridge or the FP-2026-05 AP disposition. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent creates an adjusting journal entry in Oracle GL for period brookfield_FP-2026-05 with is_standard_entry false and posts $532.50 between accounts 210000 Accounts Payable - External Vendors and 520000 Practice Management Software.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to handle the contract rate reclass on Brookfield's side rather than waiting on the vendor's next cycle. The $532.50 rate reclass is the only adjusting entry the scenario calls for; getting the period, the entry type, and the two accounts right is the core of this write action.",
+        "evidence": "Look for an oracle_gl_create_journal_entry tool call with period_id brookfield_FP-2026-05, is_standard_entry false (adjusting), and lines totaling $532.50 across accounts 210000 and 520000. Either side of the entry may be debit or credit depending on the agent's reading of the over-bill direction; both 210000 and 520000 must appear in the lines."
+    },
+    {
+        "title": "The Agent's rate reclass journal entry is prepared under Anaya Wallace as preparer rather than under George McAdam.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says Anaya is preparer on the recon so JE prep goes through her not me. Anaya Wallace is the verified preparer on BL-516B536953DA. Submitting the JE under George as preparer breaks the segregation-of-duties framing the prompt sets and conflicts with the recon-preparer assignment.",
+        "evidence": "Look at the oracle_gl_create_journal_entry tool call's prepared_by parameter for anaya.wallace@brookfieldcpas.com. The rubric fails if prepared_by is set to george.mcadam@brookfieldcpas.com or any other preparer."
+    },
+    {
+        "title": "The Agent's rate reclass journal entry is moved from draft to submitted state, leaving it in the review queue rather than as a draft.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says get it submitted into review tonight rather than left in draft so Daniel can pick it up. Leaving the JE in draft defeats the partner-sign-off-tomorrow timing the prompt set up.",
+        "evidence": "Look at the trajectory for the rate reclass journal entry. There should be an oracle_gl_submit_journal_entry tool call against the entry_id returned by oracle_gl_create_journal_entry, with a successful tool response. The rubric fails if the JE ends in draft state, is rejected, or is never submitted."
+    },
+    {
+        "title": "The Agent leaves a review note on the existing FP-2026-05 brookfield 210000 reconciliation BL-516B536953DA documenting the Stellaridge disposition plan.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to leave a review note on the recon so the reviewer sees the plan rather than just an attached doc. The Stellaridge variance lives on BL-516B536953DA and the review note is the recon-side artifact that surfaces the plan inline for the reviewer.",
+        "evidence": "Look for a blackline_create_review_note tool call targeting recon BL-516B536953DA. The note content should reference the Stellaridge disposition (the duplicate reissue, the credit memo, the rate reclass, or any combination). Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent posts a message in the #monthly-close-coordination Slack channel (channel_id C005).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to ping the close channel with the figure and flag Anaya's piece is still open. The firm's close-coordination channel is C005 (#monthly-close-coordination). Posting in any other channel does not satisfy the explicit ask.",
+        "evidence": "Look for a slack_conversations_add_message tool call with channel_id C005. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination Slack post names the correct vendor Stellaridge Cyber Defense, explicitly corrects the prior CrownPeak misdirect, and flags that Anaya's older item on the same recon is still open.",
+        "category": "outcome",
+        "justification": "The prompt explicitly flags that the CrownPeak framing in the close channel is wrong and asks the agent to ping the channel with the figure and flag Anaya's piece is still open. The post must (a) correct the misdirect by naming Stellaridge and (b) flag Anaya's still-open item so close coordinators see the remaining open piece on the same recon. Missing either breaks the partner-visibility framing the prompt sets up.",
+        "evidence": "Look at the payload of the slack_conversations_add_message tool call to C005 for the vendor name Stellaridge Cyber Defense, an explicit correction that the duplicate is not CrownPeak (or similar wording disambiguating the two), and a reference to Anaya's still-open item on the same recon (for example a reference to the older variance, the $6,328.86 piece, or Anaya's exception still running through Daniel)."
+    },
+    {
+        "title": "The Agent sends an email from [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com) to [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says email Andrea so partner sign off can move. Andrea Phil is the brookfield close partner who must receive the sign-off ask. Other recipients (for example Daniel Jones as JE reviewer) are acceptable additions but only Andrea is required by the prompt's literal ask.",
+        "evidence": "Look for an email_send_email tool call with sender george.mcadam@brookfieldcpas.com and recipients containing andrea.phil@brookfieldcpas.com. Additional recipients (for example daniel.jones@brookfieldcpas.com) do not cause this rubric to fail. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent's summary email to Andrea includes an explicit request for partner sign-off on the FP-2026-05 close.",
+        "category": "outcome",
+        "justification": "The email is the partner-sign-off-routing artifact the prompt's MAP deadline depends on. The prompt explicitly says email Andrea so partner sign off can move. Andrea cannot certify the close without an explicit ask to sign off.",
+        "evidence": "Look in the content of the Agent's summary email to Andrea for language requesting partner sign-off (for example so partner sign off can move, please sign off, ready for partner certification, or similar phrasing tying the request to the FP-2026-05 close)."
+    },
+    {
+        "title": "The Agent creates a Linear issue on the AP standardization project (project linear_63697b7dff5c) capturing the underlying control gap around the SOW-versus-invoice rate mismatch, or comments on the pre-staged issue on the same project.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to drop the standardisation follow up. The AP standardization project is linear_63697b7dff5c. The follow-up must capture the systemic gap (vendor billing template referencing the deprecated rate, no preventive control catching the mismatch, credit memos not auto-applied, addendum uploaded without countersignature) so the rate problem does not recur. Commenting on the existing pre-staged issue on the same project is a valid alternative path.",
+        "evidence": "Look for either a linear_create_issue tool call with project set to linear_63697b7dff5c with a title or description referencing the SOW-versus-invoice rate mismatch, the Stellaridge contract rate gap, the unapplied credit memo pattern, or the addendum filing gap; or a comment on the existing linear_e4cf6d7f9f18 issue on the same project capturing the same control gap."
+    },
+    {
+        "title": "The Agent sets a reminder with a due_datetime in September 2026 referencing the next quarterly review of the Stellaridge contract rate.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says set the quarterly reminder. The next quarterly review window from June 2026 lands in September 2026. The reminder is the recurring control breadcrumb that protects against the same SOW-versus-invoice drift recurring next quarter.",
+        "evidence": "Look for a reminder_add_reminder tool call with due_datetime in September 2026 and a title or description referencing the Stellaridge contract rate re-check, the SOW-versus-invoice rate review, or the trial rate watch (or similar)."
+    },
+    {
+        "title": "The Agent does not act on the stale SLA reminder for the already-in-flight exception exc_652c0931bb2546 (the $9.61 timing variance on 260000 in brookfield_FP-2026-05).",
+        "category": "process",
+        "justification": "The prompt explicitly directs the agent to leave the SLA reminder still sitting on Tom's $9.61 piece alone because that flow is already running through Daniel. The exc_652c0931bb2546 exception is on a separate flow that Tom Chang has already routed to Daniel Jones for dismissal under materiality. Because the directive is about restraint rather than a write action that produces a verifiable artifact, no Outcome rubric can prove the agent declined to act, so a Process rubric is the correct category. The rubric is phrased broadly so any valid path that leaves exc_652c0931bb2546 untouched passes.",
+        "evidence": "Verify across the agent's trajectory that there is no write tool call targeting exc_652c0931bb2546, BL-1F548113B049, or account 260000 in the disposition flow. The agent may read or mention the reminder for triage, but must not create a journal entry, post a review note, send an email, or otherwise act on that exception."
+    },
+    {
+        "title": "The Agent does not take a disposition action against the existing exc_a0f77f2a19104e exception on BL-516B536953DA (Anaya's older $6,328.86 item already running through Daniel).",
+        "category": "process",
+        "justification": "The prompt explicitly says Anaya's older item on the same recon is running through Daniel so leave it. The existing exc_a0f77f2a19104e is the $6,328.86 variance with Anaya's existing explanation that is already in the review chain with Daniel. Posting a JE against it, re-explaining it, or otherwise double-touching the disposition would conflict with the in-flight workflow. Because the directive is about restraint, no Outcome rubric can prove the agent declined to act on it, so a Process rubric is the correct category. The agent may still surface Anaya's piece for visibility (review note, Slack flag, email mention) without taking disposition action on it.",
+        "evidence": "Verify across the agent's trajectory that the agent does not create a journal entry intended to clear exc_a0f77f2a19104e, does not change its state, and does not produce a corrective adjustment specifically targeting the $6,328.86 variance. Surfacing Anaya's piece for visibility in the Slack post, review note, or email is allowed and does not break this rubric."
+    }
+]

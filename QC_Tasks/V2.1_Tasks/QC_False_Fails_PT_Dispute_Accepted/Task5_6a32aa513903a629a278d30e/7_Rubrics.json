@@ -1,0 +1,362 @@
+[
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-333FF9956BC6 (Brookfield account 102000, exception exc_aade06f6129e43).",
+        "category": "outcome",
+        "justification": "The prompt says to leave a review note on every reconciliation still carrying an exception. BL-333FF9956BC6 carries the open exception exc_aade06f6129e43 (Brookfield account 102000). Each open-exception recon must have its own atomic write-action rubric.",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-333FF9956BC6 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-75810CD0FEE4 (Brookfield account 119000, exception exc_1ddfc978ce5a4d).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-75810CD0FEE4 carries the open exception exc_1ddfc978ce5a4d (Brookfield account 119000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-75810CD0FEE4 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-7085321B04EA (Brookfield account 131000, exception exc_4d5d3582698946).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-7085321B04EA carries the open exception exc_4d5d3582698946 (Brookfield account 131000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-7085321B04EA returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-3978BDB68290 (Brookfield account 132000, exception exc_cb0a9a94a3084c).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-3978BDB68290 carries the open exception exc_cb0a9a94a3084c (Brookfield account 132000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-3978BDB68290 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-516B536953DA (Brookfield account 210000, exception exc_a0f77f2a19104e).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-516B536953DA carries the open exception exc_a0f77f2a19104e (Brookfield account 210000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-516B536953DA returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-433E3BEEFD66 (Brookfield account 240000, exception exc_06b89e3937b04a).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-433E3BEEFD66 carries the open exception exc_06b89e3937b04a (Brookfield account 240000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-433E3BEEFD66 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-1F548113B049 (Brookfield account 260000, exception exc_652c0931bb2546).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-1F548113B049 carries the open exception exc_652c0931bb2546 (Brookfield account 260000).",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-1F548113B049 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-BF341D66FE59 (Northstar Legal account 120000, exception exc_3e121025060b4b).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-BF341D66FE59 carries the open exception exc_3e121025060b4b (Northstar Legal account 120000), one of the three systemic items.",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-BF341D66FE59 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-72E451657112 (Northstar Legal account 101000, exception exc_af7274fb658844).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-72E451657112 carries the open exception exc_af7274fb658844 (Northstar Legal account 101000), one of the three systemic items.",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-72E451657112 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on reconciliation BL-5A8EA3B0B7B2 (Acme Cloud account 101000, exception exc_abd8e711f5f347).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on every reconciliation still carrying an exception. BL-5A8EA3B0B7B2 carries the open exception exc_abd8e711f5f347 (Acme Cloud account 101000), one of the three systemic items.",
+        "evidence": "See OE 9. Look for a blackline_create_review_note call with recon_id BL-5A8EA3B0B7B2 returning success."
+    },
+    {
+        "title": "The Agent's review note on BL-75810CD0FEE4 (exc_1ddfc978ce5a4d, Brookfield account 119000) records that the real disposition is to accept the approximately $4,390.62 variance as a timing difference for FP-2026-05 (signed off by Hannah Grant), not to book a corrective entry (or similar).",
+        "category": "outcome",
+        "justification": "This is the key disposition trap. The on-record BlackLine status is not the real call: although this is a high-urgency, SOX-flagged $4,390.62 item, the correspondence-confirmed disposition is to accept it as timing, not book it. An agent that trusts the record records the wrong call.",
+        "evidence": "See OE 6 and OE 7. Check the body of the Agent's review note on BL-75810CD0FEE4 for a statement that the variance is accepted as a timing difference for FP-2026-05 (Hannah Grant approved), not booked. The off-record call is in Hannah Grant's 2026-06-02 email 'Approved to accept timing for FP-2026-05'."
+    },
+    {
+        "title": "The Agent's review note on BL-433E3BEEFD66 (exc_06b89e3937b04a, Brookfield account 240000) records that the real disposition is to book a corrective journal entry in FP-2026-06 (the call Anaya Wallace and Ryan Delgado aligned on, documented in Anaya's disposition memo to Andrea Phil), not to accept the approximately -$172.62 variance as a timing difference (or similar).",
+        "category": "outcome",
+        "justification": "This is the second materiality-inverting disposition: a small -$172.62 deferred-revenue item that, unlike larger items, must be booked. An agent that infers 'small, so accept' from the record records the wrong call.",
+        "evidence": "See OE 6, OE 7, OE 8. Check the body of the Agent's review note on BL-433E3BEEFD66 for a statement that a corrective journal entry should be booked in FP-2026-06 rather than accepting the variance as timing. The call is in Anaya Wallace's disposition memo email to Andrea Phil and the Slack note 'corrective JE in FP-2026-06 rather than accept-timing'."
+    },
+    {
+        "title": "The Agent's review note on BL-3978BDB68290 (exc_cb0a9a94a3084c, Brookfield account 132000) records that the latest disposition is to book a corrective journal entry for the approximately $435.41 FX drift rather than leave it as acceptable translation noise, with approval still pending James Randall (or similar).",
+        "category": "outcome",
+        "justification": "This is a cross-channel supersession trap: the messaging thread ends on 'acceptable translation noise', but the later Slack and approval email land on a corrective JE. An agent that reads only the messaging thread records the wrong call.",
+        "evidence": "See OE 6, OE 7, OE 8. Check the body of the Agent's review note on BL-3978BDB68290 for a statement that the latest call is to book a corrective journal entry, not leave the $435.41 as translation noise, with approval still pending James Randall. The messaging thread leans to 'translation noise' but the later Slack post and the approval email to James Randall supersede it to a corrective JE in FP-2026-06."
+    },
+    {
+        "title": "The Agent's review note on BL-7085321B04EA (exc_4d5d3582698946, Brookfield account 131000) records that the real disposition is to book a corrective journal entry in FP-2026-05 (approved by Daniel Jones), not to leave the approximately -$6,068.91 duplicate as is (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires each open-item note to capture the real off-record disposition. For exc_4d5d3582698946 the correspondence-confirmed call is to book a corrective journal entry in FP-2026-05, approved by Daniel Jones, not to leave the duplicate as is.",
+        "evidence": "See OE 6. Check the body of the Agent's review note on BL-7085321B04EA for a statement that a corrective journal entry should be booked in FP-2026-05. The off-record call is in Daniel Jones's 2026-05-30 email 'Use FP-2026-05 and book the correction as DR 210000 and CR 131000 for $6,068.91'."
+    },
+    {
+        "title": "The Agent's review note on BL-516B536953DA (exc_a0f77f2a19104e, Brookfield account 210000) records that the real disposition is a corrective journal entry for the approximately $6,328.86 item in FP-2026-05, still awaiting Ryan Delgado's approval (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires each open-item note to capture the real off-record disposition. For exc_a0f77f2a19104e the call is a corrective journal entry in FP-2026-05 that is still waiting on Ryan Delgado's approval, not a settled or accepted item.",
+        "evidence": "See OE 6 and OE 7. Check the body of the Agent's review note on BL-516B536953DA for a statement that a corrective journal entry is planned for FP-2026-05 and is still awaiting Ryan Delgado's approval. The call is in Ben Arinzo's formal approval-request email to Ryan Delgado."
+    },
+    {
+        "title": "The Agent's review note on BL-333FF9956BC6 (exc_aade06f6129e43, Brookfield account 102000) records that the real disposition is to accept the approximately -$28.59 variance as a timing difference for FP-2026-05 (approved by Daniel Jones), not to book it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires each open-item note to capture the real off-record disposition. For exc_aade06f6129e43 the correspondence-confirmed call is to accept the variance as timing for FP-2026-05 (Daniel Jones approved), not to book it.",
+        "evidence": "See OE 6. Check the body of the Agent's review note on BL-333FF9956BC6 for a statement that the variance is accepted as a timing difference for FP-2026-05 pending the June feed retry. The call is in Daniel Jones's 2026-05-30 email 'Approved. Accept-timing for FP-2026-05 is fine'."
+    },
+    {
+        "title": "The Agent's review note on BL-1F548113B049 (exc_652c0931bb2546, Brookfield account 260000) records that the real disposition is to accept / dismiss the approximately $9.61 variance under materiality for FP-2026-05 (Daniel Jones), not to book it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires each open-item note to capture the real off-record disposition. For exc_652c0931bb2546 the correspondence-confirmed call is to accept / dismiss the variance under materiality for FP-2026-05 (Daniel Jones), not to book it.\n",
+        "evidence": "See OE 6. Check the body of the Agent's review note on BL-1F548113B049 for a statement that the variance is accepted / dismissed under materiality for FP-2026-05. The call is in Tom Chang's email 'Approval request to dismiss exc_652c0931 under materiality' to Daniel Jones."
+    },
+    {
+        "title": "The Agent's open-item review notes classify each exception as a recurring breakdown or a genuine one-off, accepting any defensible recurrence basis (the newly-logged item exc_aade06f6129e43 may be marked as having no recurrence basis yet) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires each open-item note to state whether the exception is a recurring breakdown or a genuine one-off. The classification is grain-flexible (under root cause all root-cause-bearing open items map to recurring causes; exc_aade06f6 has a null root cause), so the criterion accepts any defensible call. This is distinct from the closed-history recurring-vs-one-off finding.",
+        "evidence": "Check the bodies of the Agent's open-item review notes for a recurring-versus-one-off label on each of the ten open-exception reconciliations."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-18FFAE0E20D0 (Acme Cloud account 117000, FP-2026-02).",
+        "category": "outcome",
+        "justification": "The prompt says to do the same on the overdue, never-finished reconciliations - leave a review note on each. BL-18FFAE0E20D0 is the overdue Acme Cloud account 117000 reconciliation for FP-2026-02.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-18FFAE0E20D0 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-3EB5B519316B (Acme Cloud account 121000, FP-2025-12).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-3EB5B519316B is the overdue Acme Cloud account 121000 reconciliation for FP-2025-12.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-3EB5B519316B returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-BE53BACC82D5 (Acme Cloud account 210000, FP-2025-09).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-BE53BACC82D5 is the overdue Acme Cloud account 210000 reconciliation for FP-2025-09, carrying a residual variance of $9.19.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-BE53BACC82D5 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-B62A9864AADD (Brookfield account 102000, FP-2025-10).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-B62A9864AADD is the overdue Brookfield account 102000 reconciliation for FP-2025-10, carrying a residual variance of -$8.85.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-B62A9864AADD returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-409A3095FF02 (Brookfield account 132000, FP-2025-11).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-409A3095FF02 is the overdue Brookfield account 132000 reconciliation for FP-2025-11 (one of the two periods that make account 132000 a recurring-overdue account).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-409A3095FF02 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-55151C28DEC1 (Brookfield account 132000, FP-2026-03).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-55151C28DEC1 is the overdue Brookfield account 132000 reconciliation for FP-2026-03 (the second overdue period for account 132000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-55151C28DEC1 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-D058E274A0C2 (Brookfield account 133000, FP-2025-08).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-D058E274A0C2 is the overdue Brookfield account 133000 reconciliation for FP-2025-08.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-D058E274A0C2 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-CBBC1C9D68DD (Brookfield account 227000, FP-2025-09).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-CBBC1C9D68DD is the overdue Brookfield account 227000 reconciliation for FP-2025-09, carrying a residual variance of -$595.28 (a recurring-overdue account).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-CBBC1C9D68DD returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-1D75DEF62AFE (Brookfield account 227000, FP-2026-02).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-1D75DEF62AFE is the overdue Brookfield account 227000 reconciliation for FP-2026-02 (the second overdue period for account 227000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-1D75DEF62AFE returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-6C4B634CDCB8 (Brookfield account 260000, FP-2026-03).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-6C4B634CDCB8 is the overdue Brookfield account 260000 reconciliation for FP-2026-03, carrying a residual variance of -$2.28.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-6C4B634CDCB8 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-293ABED60D4D (Northstar Legal account 101000, FP-2025-10).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-293ABED60D4D is the overdue Northstar Legal account 101000 reconciliation for FP-2025-10, carrying a residual variance of $7.45.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-293ABED60D4D returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-154CAE8E937B (Northstar Legal account 102000, FP-2025-12).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-154CAE8E937B is the overdue Northstar Legal account 102000 reconciliation for FP-2025-12 (one of two overdue periods for NS account 102000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-154CAE8E937B returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-165E8FCE2971 (Northstar Legal account 102000, FP-2026-02).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-165E8FCE2971 is the overdue Northstar Legal account 102000 reconciliation for FP-2026-02 (the second overdue period for NS account 102000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-165E8FCE2971 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-43515365C411 (Northstar Legal account 120000, FP-2025-07).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-43515365C411 is the oldest overdue reconciliation, Northstar Legal account 120000 for FP-2025-07 (open about 10 months).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-43515365C411 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-91589384DD4C (Northstar Legal account 210000, FP-2025-12).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-91589384DD4C is the overdue Northstar Legal account 210000 reconciliation for FP-2025-12, carrying a residual variance of $6.56.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-91589384DD4C returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-81AC25A9C1F7 (Northstar Legal account 219000, FP-2025-11).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-81AC25A9C1F7 is the overdue Northstar Legal account 219000 reconciliation for FP-2025-11 (one of three overdue periods for NS account 219000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-81AC25A9C1F7 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-84508F49343C (Northstar Legal account 219000, FP-2025-12).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-84508F49343C is the overdue Northstar Legal account 219000 reconciliation for FP-2025-12 (the second overdue period for NS account 219000).",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-84508F49343C returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-D2E1A6D4DDF9 (Northstar Legal account 219000, FP-2026-04).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-D2E1A6D4DDF9 is the overdue Northstar Legal account 219000 reconciliation for FP-2026-04 (the third overdue period for NS account 219000), carrying a residual variance of $4.45.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-D2E1A6D4DDF9 returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-A3D7273F3F2F (Northstar Legal account 225000, FP-2026-04).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-A3D7273F3F2F is the overdue Northstar Legal account 225000 reconciliation for FP-2026-04.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-A3D7273F3F2F returning success."
+    },
+    {
+        "title": "The Agent leaves a review note on overdue reconciliation BL-1D27E9BB5152 (Northstar Legal account 235000, FP-2026-03).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on each overdue reconciliation. BL-1D27E9BB5152 is the overdue Northstar Legal account 235000 reconciliation for FP-2026-03.",
+        "evidence": "See OE 10. Look for a blackline_create_review_note call with recon_id BL-1D27E9BB5152 returning success."
+    },
+    {
+        "title": "The Agent's overdue review notes state, for each overdue reconciliation, how long it has been open relative to today (2026-06-12) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the overdue notes to capture how long each reconciliation has been open. The age is computed from each recon's period_due_date or created_at against 2026-06-12 (the oldest, NS 120000 FP-2025-07, is about 10 months).",
+        "evidence": "Check the bodies of the Agent's overdue review notes for the age (days or months open relative to 2026-06-12) of each overdue reconciliation.\n"
+    },
+    {
+        "title": "The Agent's overdue review notes state, for each overdue reconciliation, what is unreconciled - the residual variance, or that the balance ties at 0 for the never-finished ones (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the overdue notes to capture what is unreconciled. 13 of the 20 overdue recons tie at 0 (never finished) and 7 carry a residual variance.",
+        "evidence": "Check the bodies of the Agent's overdue review notes for the unreconciled amount (the residual variance, or that the balance ties at 0)."
+    },
+    {
+        "title": "The Agent identifies Brookfield account 132000 as an account that goes overdue period after period (overdue in more than one period, not just once) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to call out the accounts that go overdue period after period rather than just once. Brookfield account 132000 appears in more than one overdue period in the data, so it is one of exactly four chronic-overdue accounts the Agent must flag (split per item so naming three of four does not pass).",
+        "evidence": "See OE 5 and OE 10. Check the Agent's overdue review notes, final response, or workpaper for a call-out that Brookfield account 132000 is overdue across multiple periods (chronic), not a one-time overdue."
+    },
+    {
+        "title": "The Agent identifies Brookfield account 227000 as an account that goes overdue period after period (overdue in more than one period, not just once) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to call out the accounts that go overdue period after period rather than just once. Brookfield account 227000 appears in more than one overdue period in the data, so it is one of exactly four chronic-overdue accounts the Agent must flag (split per item so naming three of four does not pass).",
+        "evidence": "See OE 5 and OE 10. Check the Agent's overdue review notes, final response, or workpaper for a call-out that Brookfield account 227000 is overdue across multiple periods (chronic), not a one-time overdue."
+    },
+    {
+        "title": "The Agent identifies Northstar Legal account 102000 as an account that goes overdue period after period (overdue in more than one period, not just once) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to call out the accounts that go overdue period after period rather than just once. Northstar Legal account 102000 appears in more than one overdue period in the data, so it is one of exactly four chronic-overdue accounts the Agent must flag (split per item so naming three of four does not pass).",
+        "evidence": "See OE 5 and OE 10. Check the Agent's overdue review notes, final response, or workpaper for a call-out that Northstar Legal account 102000 is overdue across multiple periods (chronic), not a one-time overdue."
+    },
+    {
+        "title": "The Agent identifies Northstar Legal account 219000 as an account that goes overdue period after period (overdue in more than one period, not just once) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to call out the accounts that go overdue period after period rather than just once. Northstar Legal account 219000 appears in more than one overdue period in the data, so it is one of exactly four chronic-overdue accounts the Agent must flag (split per item so naming three of four does not pass).",
+        "evidence": "See OE 5 and OE 10. Check the Agent's overdue review notes, final response, or workpaper for a call-out that Northstar Legal account 219000 is overdue across multiple periods (chronic), not a one-time overdue."
+    },
+    {
+        "title": "The Agent reports that the closed reconciliation exceptions re-log the same corrective action every close but it was never actually implemented (no corrective journal entry was posted), so the same breakdown keeps recurring (or similar).",
+        "category": "outcome",
+        "justification": "This is the core recurrence finding the prompt asks the Agent to evidence: every closed exception promises the same corrective action for the next control test, yet the fix is never made. In the data all 14 closed exceptions carry an identical resolution and lessons-learned with corrective_journal_entry_id null.",
+        "evidence": "See OE 1 and OE 2. Check the Agent's final response, workpaper, or email for a statement that the closed reconciliation exceptions re-log the same corrective action every close and that it was never actually implemented (no corrective journal entry was posted), so the same breakdown keeps recurring."
+    },
+    {
+        "title": "The Agent distinguishes the recurring breakdowns from the genuine one-off, identifying that the same root causes repeat across multiple closed periods while the vendor invoice re-numbering duplicate is the true one-off (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to pin down which breakdowns keep recurring versus the true one-offs. The criterion is phrased to accept any defensible recurrence grouping, but the determinate one-off is the vendor-invoice-renumber duplicate (exc_5221568d4e4047), which appears only once.",
+        "evidence": "See OE 2. Check the Agent's final response, workpaper, or email for a distinction between the breakdowns that keep recurring across periods and the genuine one-off, identifying that the same root causes repeat across multiple closed periods while only one exception (the vendor re-issuing an invoice number, leaving the original posted twice) is a true one-off."
+    },
+    {
+        "title": "The Agent reports that the recurring breakdown spans multiple fiscal periods, from FP-2025-07 through FP-2026-04 (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks how many periods the breakdown spans. The closed exceptions range from FP-2025-07 through FP-2026-04.",
+        "evidence": "Check the Agent's final response, workpaper, or email for the period span of the recurring breakdown (FP-2025-07 through FP-2026-04)."
+    },
+    {
+        "title": "The Agent reports that the recurring breakdown affects all three entities - Brookfield, Northstar Legal, and Acme Cloud (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks which entities the breakdown lands on. The closed exceptions span all three entities (Brookfield 8, Northstar Legal 4, Acme Cloud 2).",
+        "evidence": "Check the Agent's final response, workpaper, or email for a statement that the recurring breakdown affects all three entities (Brookfield, Northstar Legal, Acme Cloud)."
+    },
+    {
+        "title": "The Agent singles out exc_3e121025060b4b (Northstar Legal account 120000) as flagged systemic but still unresolved (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to single out any flagged systemic but still unresolved. exc_3e121025060b4b carries systemic_issue_flag true and remains unresolved; split per item so naming two of three does not pass.",
+        "evidence": "See OE 3, OE 6, OE 7, OE 8. Check the Agent's review note on the related reconciliation and/or final response for singling out exc_3e121025060b4b as systemic and still unresolved."
+    },
+    {
+        "title": "The Agent singles out exc_af7274fb658844 (Northstar Legal account 101000) as flagged systemic but still unresolved (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to single out any flagged systemic but still unresolved. exc_af7274fb658844 carries systemic_issue_flag true and remains unresolved; split per item so naming two of three does not pass.",
+        "evidence": "See OE 3, OE 6, OE 7, OE 8. Check the Agent's review note on the related reconciliation and/or final response for singling out exc_af7274fb658844 as systemic and still unresolved."
+    },
+    {
+        "title": "The Agent singles out exc_abd8e711f5f347 (Acme Cloud account 101000) as flagged systemic but still unresolved (or similar). ",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to single out any flagged systemic but still unresolved. exc_abd8e711f5f347 carries systemic_issue_flag true and remains unresolved; split per item so naming two of three does not pass.",
+        "evidence": "See OE 3, OE 6, OE 7, OE 8. Check the Agent's review note on the related reconciliation and/or final response for singling out exc_abd8e711f5f347 as systemic and still unresolved."
+    },
+    {
+        "title": "The Agent uploads a workpaper (or memo) to the Records Vault documenting the recurring reconciliation-exception review.",
+        "category": "outcome",
+        "justification": "The prompt says to write it up for the workpapers. Filing the workpaper in the Records Vault is a required write action.",
+        "evidence": "See OE 12. Look for a records_vault_upload_document call uploading a workpaper or memo for the recurring reconciliation-exception review, returning success."
+    },
+    {
+        "title": "The Agent's workpaper covers the recurring breakdown finding: the same corrective action is re-logged at each close but never implemented (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to write it up for the workpapers, so the workpaper must actually contain the recurring-breakdown finding it is meant to evidence, not just exist.",
+        "evidence": "Check the content of the Agent's uploaded workpaper for the recurrence finding - the same corrective action re-logged and never implemented (no corrective journal entry posted) across the closed exceptions."
+    },
+    {
+        "title": "The Agent raises exactly one tracked issue for the recurring reconciliation-exception breakdown (not one issue per root cause).",
+        "category": "outcome",
+        "justification": "The prompt says to raise the recurring breakdown as a single tracked issue, not one per cause. Exactly one new issue must be created for the systemic breakdown.",
+        "evidence": "See OE 13. Look for a linear_create_issue call creating exactly one issue for the recurring breakdown (not one issue per root cause), returning success."
+    },
+    {
+        "title": "The Agent's tracked issue is assigned to a real owner (a named assignee) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to raise the issue with a real owner, so the tracked issue must have an assigned owner.",
+        "evidence": "Check the created issue for a named assignee / owner."
+    },
+    {
+        "title": "The Agent's tracked issue has a title or description relating to the recurring close-exception breakdown / the never-implemented corrective action (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to raise the recurring breakdown as the tracked issue, so its subject must be the recurring breakdown, not an unrelated topic.",
+        "evidence": "Check the created issue's title or description for a subject tied to the recurring close-exception breakdown / never-implemented corrective action."
+    },
+    {
+        "title": "The Agent sends an email to julia.vance@brookfieldcpas.com with devon.beale@brookfieldcpas.com in CC.",
+        "category": "outcome",
+        "justification": "The prompt says to send Julia the findings and copy Devon ahead of the review. Julia Vance is the Audit Partner and Devon Beale is the Audit Manager.",
+        "evidence": "See OE 11 and OE 14. Look for an email_send_email call with recipient julia.vance@brookfieldcpas.com and CC devon.beale@brookfieldcpas.com, returning success."
+    },
+    {
+        "title": "The Agent's email to julia.vance@brookfieldcpas.com conveys the recurring reconciliation-exception breakdown finding ahead of the control review (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to send Julia the findings, so the email must convey the recurring-breakdown finding it is meant to deliver, not just reach her inbox.",
+        "evidence": "Check the content of the email to julia.vance@brookfieldcpas.com for the recurring reconciliation-exception breakdown finding it is meant to deliver ahead of the control review."
+    },
+    {
+        "title": "The Agent posts a summary message in the #audit-engagements Slack channel (channel_id C007 or the channel name #audit-engagements).",
+        "category": "outcome",
+        "justification": "The prompt says to post a short summary in the audit channel. The audit channel is #audit-engagements (C007).",
+        "evidence": "See OE 15. Look for a slack_conversations_add_message call to channel C007 (the #audit-engagements channel), returning success."
+    },
+    {
+        "title": "The Agent's #audit-engagements Slack message summarizes the recurring reconciliation-exception breakdown finding ahead of the control review (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a short summary in the audit channel, so the post must actually summarize the finding rather than be empty.",
+        "evidence": "See OE 15. Check the content of the Agent's #audit-engagements message for a summary of the recurring reconciliation-exception breakdown finding ahead of the control review."
+    }
+]

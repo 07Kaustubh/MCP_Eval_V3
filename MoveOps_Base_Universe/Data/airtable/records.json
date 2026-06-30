@@ -1,0 +1,1171 @@
+[
+  {
+    "id": "recAcct000000001",
+    "fields": "{\"Client\": \"Canopy Health\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2024-07-15\", \"Contract Type\": \"Full Package\", \"Monthly Stipend Fee\": 2000, \"Total Relocations\": 4, \"Status\": \"Active\", \"Notes\": \"Longest-standing client. Enterprise healthtech (620 employees). HR contact: Patricia Langford, Director of HR. May be closing Minneapolis satellite \\u2014 more relocations could follow. Large account with recurring needs.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2024-07-15T10:00:00Z",
+    "modified_time": "2026-04-01T09:00:00Z"
+  },
+  {
+    "id": "recAcct000000003",
+    "fields": "{\"Client\": \"GreenStack Energy\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2025-05-28\", \"Contract Type\": \"Full Package\", \"Monthly Stipend Fee\": 2000, \"Total Relocations\": 3, \"Status\": \"Active\", \"Notes\": \"Clean energy tech (340 employees). HR contact: Derek Hollis, People Operations Manager. Venkatesh relocation involved special lab equipment handling \\u2014 highest-margin single relocation this quarter ($7,289 invoiced).\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2025-05-28T10:00:00Z",
+    "modified_time": "2026-04-02T09:00:00Z"
+  },
+  {
+    "id": "recAcct000000004",
+    "fields": "{\"Client\": \"PivotPoint Labs\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2025-09-12\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 2, \"Status\": \"Active\", \"Notes\": \"Small product design firm (32 employees). Contact: Sam Delgado, Co-founder & CEO \\u2014 handles relocation requests directly, no HR department. Very positive feedback on Kovac relocation. Potential summer relocation mentioned.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2025-09-12T10:00:00Z",
+    "modified_time": "2026-04-04T11:00:00Z"
+  },
+  {
+    "id": "recAcct000000005",
+    "fields": "{\"Client\": \"BrightLoop Analytics\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2025-12-18\", \"Contract Type\": \"Full Package\", \"Monthly Stipend Fee\": 2000, \"Total Relocations\": 3, \"Status\": \"Active\", \"Notes\": \"Data analytics company (145 employees). HR contact: Tessa Moreno, Head of People Ops. First relocation in progress (Ekwueme). Client has indicated 4-5 more data scientists to relocate this year if this goes well. High priority \\u2014 first impression matters.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2025-12-18T10:00:00Z",
+    "modified_time": "2026-04-01T13:00:00Z"
+  },
+  {
+    "id": "recAcct000000006",
+    "fields": "{\"Client\": \"Mosaic Robotics\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-28\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 3, \"Status\": \"Onboarding\", \"Notes\": \"Robotics & automation (95 employees). HR contact: Tamara Byrd, HR Manager. Newest client (2 months). First relocation in progress (Washington). Critical for retention \\u2014 must execute flawlessly.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-28T10:00:00Z",
+    "modified_time": "2026-04-02T10:00:00Z"
+  },
+  {
+    "id": "recReloc00000001",
+    "fields": "{\"Name\": \"Dr. Yusuf Abdi\", \"Company\": \"Canopy Health\", \"Status\": \"Completed\", \"Origin\": \"Minneapolis, MN\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-04-18\", \"Move End Date\": \"2026-04-19\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Standing desk, dual-monitor setup, ergonomic chair, bookshelf with medical reference materials. Needs dedicated office room.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-31T10:30:00Z",
+    "modified_time": "2026-04-19T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000002",
+    "fields": "{\"Name\": \"Lily Marchetti\", \"Company\": \"Canopy Health\", \"Status\": \"Completed\", \"Origin\": \"Nashville, TN\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-04-25\", \"Move End Date\": \"2026-04-26\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Has an indoor cat (8 lbs) \\u2014 pet-friendly housing required. Oversized iMac computer needs careful handling.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T09:00:00Z",
+    "modified_time": "2026-04-01T09:00:00Z"
+  },
+  {
+    "id": "recReloc00000003",
+    "fields": "{\"Name\": \"Kevin Tran\", \"Company\": \"Vectral Systems\", \"Status\": \"Completed\", \"Origin\": \"Portland, OR\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-19\", \"Move End Date\": \"2026-04-20\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Road bike requires careful packing. Sit-stand desk.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-31T14:00:00Z",
+    "modified_time": "2026-04-20T15:00:00Z"
+  },
+  {
+    "id": "recReloc00000004",
+    "fields": "{\"Name\": \"Danielle Osei\", \"Company\": \"Vectral Systems\", \"Status\": \"Completed\", \"Origin\": \"Phoenix, AZ\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-26\", \"Move End Date\": \"2026-04-27\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Traveling with small dog (15 lbs) \\u2014 pet-friendly housing and airline pet-in-cabin required. Standing desk converter.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T15:00:00Z",
+    "modified_time": "2026-04-01T15:00:00Z"
+  },
+  {
+    "id": "recReloc00000005",
+    "fields": "{\"Name\": \"Priya Venkatesh\", \"Company\": \"GreenStack Energy\", \"Status\": \"Completed\", \"Origin\": \"Houston, TX\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-21\", \"Move End Date\": \"2026-04-23\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"SPECIAL HANDLING \\u2014 Lab equipment: Keysight oscilloscope (45 lbs, anti-static wrapping), soldering station, custom PCB testing rig (FRAGILE, must remain level), 3 boxes prototype components (temperature-stable transport). All items require static discharge protection. Electronics surcharge applied ($650).\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T10:00:00Z",
+    "modified_time": "2026-04-23T14:00:00Z"
+  },
+  {
+    "id": "recReloc00000006",
+    "fields": "{\"Name\": \"Noah Fitzgerald\", \"Company\": \"GreenStack Energy\", \"Status\": \"Completed\", \"Origin\": \"Philadelphia, PA\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-28\", \"Move End Date\": \"2026-04-29\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T09:00:00Z",
+    "modified_time": "2026-04-02T09:00:00Z"
+  },
+  {
+    "id": "recReloc00000007",
+    "fields": "{\"Name\": \"Ines Kovac\", \"Company\": \"PivotPoint Labs\", \"Status\": \"Completed\", \"Origin\": \"Brooklyn, NY\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-22\", \"Move End Date\": \"2026-04-24\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"5th-floor walkup \\u2014 no elevator. 4-person crew needed, 3-4 hours for haul-down. Walkup surcharge ($350). Heavy items: 6-7 boxes of books, large iMac, Wacom Cintiq drawing tablet.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T11:00:00Z",
+    "modified_time": "2026-04-24T15:00:00Z"
+  },
+  {
+    "id": "recReloc00000008",
+    "fields": "{\"Name\": \"Jordan Ekwueme\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"Completed\", \"Origin\": \"San Diego, CA\", \"Destination\": \"Boston, MA\", \"Move Start Date\": \"2026-04-25\", \"Move End Date\": \"2026-04-26\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Needs 3-4 days temporary housing starting April 22 (arriving early to tour apartments in person). First relocation for this client \\u2014 high priority.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T13:00:00Z",
+    "modified_time": "2026-04-01T13:00:00Z"
+  },
+  {
+    "id": "recReloc00000009",
+    "fields": "{\"Name\": \"Andre Washington\", \"Company\": \"Mosaic Robotics\", \"Status\": \"Completed\", \"Origin\": \"Detroit, MI\", \"Destination\": \"Atlanta, GA\", \"Move Start Date\": \"2026-04-26\", \"Move End Date\": \"2026-04-27\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"3D printer (Prusa XL, ~30 lbs, must stay upright), soldering equipment, robotics tools. First relocation for newest client (2 months) \\u2014 critical for retention.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T10:00:00Z",
+    "modified_time": "2026-04-02T10:00:00Z"
+  },
+  {
+    "id": "recReloc00000000029",
+    "fields": "{\"Name\": \"Rachel Dominguez\", \"Company\": \"Canopy Health\", \"Status\": \"In Progress\", \"Origin\": \"Los Angeles, CA\", \"Destination\": \"Portland, OR\", \"Move Start Date\": \"2026-04-07\", \"Move End Date\": \"2026-04-09\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"1BR furnished apartment near public transit. Equipment stipend: $2,000.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-15T14:30:00Z",
+    "modified_time": "2026-03-20T11:00:00Z"
+  },
+  {
+    "id": "recReloc00000000030",
+    "fields": "{\"Name\": \"Kevin Okafor\", \"Company\": \"Canopy Health\", \"Status\": \"In Progress\", \"Origin\": \"Phoenix, AZ\", \"Destination\": \"Portland, OR\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"2BR apartment (has a partner), pet-friendly. Needs dedicated home office space. Equipment stipend: $2,000.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-15T14:30:00Z",
+    "modified_time": "2026-03-20T11:00:00Z"
+  },
+  {
+    "id": "recReloc00000000031",
+    "fields": "{\"Name\": \"Daniel Reeves\", \"Company\": \"Vectral Systems\", \"Status\": \"In Progress\", \"Origin\": \"Seattle, WA\", \"Destination\": \"San Diego, CA\", \"Move Start Date\": \"2026-04-10\", \"Move End Date\": \"2026-04-12\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Premium package \\u2014 priority apartment sourcing near downtown tech corridor. Business class flight preferred. Equipment stipend: $2,500.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-17T10:00:00Z",
+    "modified_time": "2026-03-22T14:00:00Z"
+  },
+  {
+    "id": "recReloc00000000032",
+    "fields": "{\"Name\": \"Maya Johansson\", \"Company\": \"Vectral Systems\", \"Status\": \"In Progress\", \"Origin\": \"Portland, OR\", \"Destination\": \"San Diego, CA\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Premium package \\u2014 apartment with gym access near tech district. Equipment stipend: $2,500.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-17T10:00:00Z",
+    "modified_time": "2026-03-22T14:00:00Z"
+  },
+  {
+    "id": "recReloc00000000033",
+    "fields": "{\"Name\": \"Tom\\u00e1s Herrera\", \"Company\": \"GreenStack Energy\", \"Status\": \"In Progress\", \"Origin\": \"Chicago, IL\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"1BR furnished apartment near public transit. Sustainability-focused neighborhood preferred. Equipment stipend: $1,750.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-19T09:00:00Z",
+    "modified_time": "2026-03-24T10:00:00Z"
+  },
+  {
+    "id": "recReloc00000000034",
+    "fields": "{\"Name\": \"Sasha Greenwald\", \"Company\": \"PivotPoint Labs\", \"Status\": \"In Progress\", \"Origin\": \"New York, NY\", \"Destination\": \"Nashville, TN\", \"Move Start Date\": \"2026-04-18\", \"Move End Date\": \"2026-04-20\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"1BR or studio with natural light. Walking distance to coffee shops is a must. Equipment stipend: $1,900.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-20T11:00:00Z",
+    "modified_time": "2026-03-25T09:00:00Z"
+  },
+  {
+    "id": "recReloc00000000035",
+    "fields": "{\"Name\": \"Jordan Whitfield\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"In Progress\", \"Origin\": \"Minneapolis, MN\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-21\", \"Move End Date\": \"2026-04-23\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"1BR furnished apartment near downtown. Economy flight. Equipment stipend: $1,800.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-21T14:00:00Z",
+    "modified_time": "2026-03-26T10:00:00Z"
+  },
+  {
+    "id": "recReloc00000000036",
+    "fields": "{\"Name\": \"Preethi Nair\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"In Progress\", \"Origin\": \"Atlanta, GA\", \"Destination\": \"Raleigh, NC\", \"Move Start Date\": \"2026-04-21\", \"Move End Date\": \"2026-04-23\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Studio or 1BR, pet-friendly (has a cat). Economy flight. Equipment stipend: $1,800.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-21T14:00:00Z",
+    "modified_time": "2026-03-26T10:00:00Z"
+  },
+  {
+    "id": "recReloc00000000037",
+    "fields": "{\"Name\": \"Lena Kowalski\", \"Company\": \"Mosaic Robotics\", \"Status\": \"In Progress\", \"Origin\": \"Detroit, MI\", \"Destination\": \"Salt Lake City, UT\", \"Move Start Date\": \"2026-04-22\", \"Move End Date\": \"2026-04-24\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Needs large desk for hardware prototyping. Equipment stipend: $2,200. Robotics tools and 3D printer require careful handling.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-22T10:00:00Z",
+    "modified_time": "2026-03-27T09:00:00Z"
+  },
+  {
+    "id": "recReloc00000000038",
+    "fields": "{\"Name\": \"Andre Mitchell\", \"Company\": \"Mosaic Robotics\", \"Status\": \"In Progress\", \"Origin\": \"Columbus, OH\", \"Destination\": \"Boise, ID\", \"Move Start Date\": \"2026-04-22\", \"Move End Date\": \"2026-04-24\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Garage or workspace-friendly apartment for mechanical prototyping. Equipment stipend: $2,200.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-22T10:00:00Z",
+    "modified_time": "2026-03-27T09:00:00Z"
+  },
+  {
+    "id": "recStip000000001",
+    "fields": "{\"Employee Name\": \"Dr. Yusuf Abdi\", \"Account\": \"Canopy Health\", \"Expense Category\": \"Standing Desk\", \"Amount Requested\": 749, \"Has Receipt\": true, \"Date\": \"2026-04-22\", \"Approval Status\": \"Approved\", \"Approved Amount\": 749, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-22T14:12:00Z",
+    "modified_time": "2026-04-23T09:30:00Z"
+  },
+  {
+    "id": "recStip000000002",
+    "fields": "{\"Employee Name\": \"Dr. Yusuf Abdi\", \"Account\": \"Canopy Health\", \"Expense Category\": \"Dual Monitor Setup\", \"Amount Requested\": 1120, \"Has Receipt\": true, \"Date\": \"2026-04-22\", \"Approval Status\": \"Partially Approved\", \"Approved Amount\": 800, \"Review Notes\": \"Company policy caps monitor expenses at $400 per unit. Approved $800 for two monitors; $320 difference for premium model upgrade is employee's responsibility.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-22T14:18:00Z",
+    "modified_time": "2026-04-23T09:45:00Z"
+  },
+  {
+    "id": "recStip000000003",
+    "fields": "{\"Employee Name\": \"Dr. Yusuf Abdi\", \"Account\": \"Canopy Health\", \"Expense Category\": \"Internet Setup\", \"Amount Requested\": 150, \"Has Receipt\": true, \"Date\": \"2026-04-24\", \"Approval Status\": \"Approved\", \"Approved Amount\": 150, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-24T10:05:00Z",
+    "modified_time": "2026-04-24T16:20:00Z"
+  },
+  {
+    "id": "recStip000000004",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Ergonomic Office Chair\", \"Amount Requested\": 895, \"Has Receipt\": true, \"Date\": \"2026-04-23\", \"Approval Status\": \"Approved\", \"Approved Amount\": 895, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-23T11:30:00Z",
+    "modified_time": "2026-04-24T08:15:00Z"
+  },
+  {
+    "id": "recStip000000005",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Coworking Day Pass (10-pack)\", \"Amount Requested\": 250, \"Has Receipt\": true, \"Date\": \"2026-04-25\", \"Approval Status\": \"Rejected\", \"Approved Amount\": 0, \"Review Notes\": \"Vectral Systems provides dedicated desk space at Denver HQ. Coworking expenses not covered under the relocation stipend per client agreement.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-25T09:40:00Z",
+    "modified_time": "2026-04-25T14:10:00Z"
+  },
+  {
+    "id": "recStip000000006",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Webcam and Microphone\", \"Amount Requested\": 189, \"Has Receipt\": true, \"Date\": \"2026-04-24\", \"Approval Status\": \"Approved\", \"Approved Amount\": 189, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-24T15:22:00Z",
+    "modified_time": "2026-04-25T08:00:00Z"
+  },
+  {
+    "id": "recStip000000007",
+    "fields": "{\"Employee Name\": \"Priya Venkatesh\", \"Account\": \"GreenStack Energy\", \"Expense Category\": \"Lab Workbench\", \"Amount Requested\": 1350, \"Has Receipt\": true, \"Date\": \"2026-04-25\", \"Approval Status\": \"Approved\", \"Approved Amount\": 1350, \"Review Notes\": \"Pre-approved by GreenStack HR \\u2014 employee requires dedicated lab setup at home for hardware prototyping.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-25T10:15:00Z",
+    "modified_time": "2026-04-25T11:00:00Z"
+  },
+  {
+    "id": "recStip000000008",
+    "fields": "{\"Employee Name\": \"Priya Venkatesh\", \"Account\": \"GreenStack Energy\", \"Expense Category\": \"Surge Protector and UPS Battery Backup\", \"Amount Requested\": 285, \"Has Receipt\": true, \"Date\": \"2026-04-26\", \"Approval Status\": \"Approved\", \"Approved Amount\": 285, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-26T08:45:00Z",
+    "modified_time": "2026-04-26T14:30:00Z"
+  },
+  {
+    "id": "recStip000000009",
+    "fields": "{\"Employee Name\": \"Ines Kovac\", \"Account\": \"PivotPoint Labs\", \"Expense Category\": \"Drawing Tablet Stand\", \"Amount Requested\": 210, \"Has Receipt\": true, \"Date\": \"2026-04-26\", \"Approval Status\": \"Approved\", \"Approved Amount\": 210, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-26T13:10:00Z",
+    "modified_time": "2026-04-27T09:00:00Z"
+  },
+  {
+    "id": "recStip000000010",
+    "fields": "{\"Employee Name\": \"Ines Kovac\", \"Account\": \"PivotPoint Labs\", \"Expense Category\": \"Gym Membership (Annual)\", \"Amount Requested\": 960, \"Has Receipt\": false, \"Date\": \"2026-04-28\", \"Approval Status\": \"Rejected\", \"Approved Amount\": 0, \"Review Notes\": \"Gym memberships are not an eligible expense category under the home-office stipend program. Additionally, no receipt was attached.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-28T16:30:00Z",
+    "modified_time": "2026-04-29T10:15:00Z"
+  },
+  {
+    "id": "recStip000000011",
+    "fields": "{\"Employee Name\": \"Ines Kovac\", \"Account\": \"PivotPoint Labs\", \"Expense Category\": \"Desk Lamp\", \"Amount Requested\": 85, \"Has Receipt\": true, \"Date\": \"2026-04-27\", \"Approval Status\": \"Approved\", \"Approved Amount\": 85, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-27T11:20:00Z",
+    "modified_time": "2026-04-28T08:45:00Z"
+  },
+  {
+    "id": "recStip000000012",
+    "fields": "{\"Employee Name\": \"Dr. Yusuf Abdi\", \"Account\": \"Canopy Health\", \"Expense Category\": \"Ergonomic Keyboard\", \"Amount Requested\": 199, \"Has Receipt\": true, \"Date\": \"2026-04-28\", \"Approval Status\": \"Approved\", \"Approved Amount\": 199, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-28T09:50:00Z",
+    "modified_time": "2026-04-28T15:30:00Z"
+  },
+  {
+    "id": "recStip000000013",
+    "fields": "{\"Employee Name\": \"Priya Venkatesh\", \"Account\": \"GreenStack Energy\", \"Expense Category\": \"Noise-Canceling Headphones\", \"Amount Requested\": 379, \"Has Receipt\": false, \"Date\": \"2026-04-29\", \"Approval Status\": \"Pending\", \"Approved Amount\": null, \"Review Notes\": \"Missing receipt. Requested employee resubmit with proof of purchase.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-29T14:00:00Z",
+    "modified_time": "2026-04-29T14:00:00Z"
+  },
+  {
+    "id": "recStip000000014",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Monitor Arm Mount\", \"Amount Requested\": 129, \"Has Receipt\": true, \"Date\": \"2026-04-29\", \"Approval Status\": \"Pending\", \"Approved Amount\": null, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-29T16:45:00Z",
+    "modified_time": "2026-04-29T16:45:00Z"
+  },
+  {
+    "id": "recStip000000015",
+    "fields": "{\"Employee Name\": \"Ines Kovac\", \"Account\": \"PivotPoint Labs\", \"Expense Category\": \"Software License (Figma Professional)\", \"Amount Requested\": 144, \"Has Receipt\": true, \"Date\": \"2026-04-29\", \"Approval Status\": \"Pending\", \"Approved Amount\": null, \"Review Notes\": \"\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-04-29T17:20:00Z",
+    "modified_time": "2026-04-29T17:20:00Z"
+  },
+  {
+    "id": "recStip000000016",
+    "fields": "{\"Employee Name\": \"Danielle Osei\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Ergonomic Chair\", \"Amount Requested\": 475, \"Has Receipt\": true, \"Date\": \"2026-03-04\", \"Approval Status\": \"Approved\", \"Approved Amount\": 475, \"Review Notes\": \"Initially auto-rejected by ExpenseBot (stale $400 default limit). Manually approved by Mina after client complaint. Vectral policy allows $600 for ergonomic equipment.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-04T14:30:00Z",
+    "modified_time": "2026-03-17T10:15:00Z"
+  },
+  {
+    "id": "recStip000000017",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Internet Setup + First Month\", \"Amount Requested\": 185, \"Has Receipt\": true, \"Date\": \"2026-03-05\", \"Approval Status\": \"Approved\", \"Approved Amount\": 185, \"Review Notes\": \"Initially auto-rejected by ExpenseBot (stale $100 default limit). Manually approved by Mina. Vectral policy allows $150 for internet \\u2014 amount exceeded even correct limit but was approved as goodwill.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-05T11:00:00Z",
+    "modified_time": "2026-03-17T10:20:00Z"
+  },
+  {
+    "id": "recStip000000018",
+    "fields": "{\"Employee Name\": \"Maria Santos\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Standing Desk\", \"Amount Requested\": 550, \"Has Receipt\": true, \"Date\": \"2026-03-06\", \"Approval Status\": \"Rejected\", \"Approved Amount\": null, \"Review Notes\": \"Auto-rejected by ExpenseBot (stale $400 default limit). Vectral policy allows $600 for ergonomic equipment. Pending manual correction.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-06T09:45:00Z",
+    "modified_time": "2026-03-06T09:45:00Z"
+  },
+  {
+    "id": "recStip000000019",
+    "fields": "{\"Employee Name\": \"James Okafor\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Ergonomic Keyboard Tray\", \"Amount Requested\": 82, \"Has Receipt\": true, \"Date\": \"2026-03-07\", \"Approval Status\": \"Rejected\", \"Approved Amount\": null, \"Review Notes\": \"Auto-rejected by ExpenseBot \\u2014 double bug: miscategorized as office_supplies (should be ergonomic) AND used stale $50 default limit. Pending manual correction.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-07T15:20:00Z",
+    "modified_time": "2026-03-07T15:20:00Z"
+  },
+  {
+    "id": "recStip000000020",
+    "fields": "{\"Employee Name\": \"Lisa Park\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Mesh WiFi System\", \"Amount Requested\": 130, \"Has Receipt\": true, \"Date\": \"2026-03-08\", \"Approval Status\": \"Rejected\", \"Approved Amount\": null, \"Review Notes\": \"Auto-rejected by ExpenseBot (stale $100 default limit). Vectral policy allows $150 for internet equipment. Pending manual correction.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-08T10:00:00Z",
+    "modified_time": "2026-03-08T10:00:00Z"
+  },
+  {
+    "id": "recStip000000021",
+    "fields": "{\"Employee Name\": \"Andre Washington\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Standing Desk\", \"Amount Requested\": 1200, \"Has Receipt\": true, \"Date\": \"2026-03-05\", \"Approval Status\": \"Approved\", \"Approved Amount\": 1200, \"Review Notes\": \"Auto-approved by ExpenseBot in error. Mosaic policy caps furniture/ergonomic at $800 \\u2014 $400 over limit. Config bug: max_amount stored as string \\\"800\\\", comparison 1200 <= \\\"800\\\" evaluated true. MoveOps absorbing the $400 overage per Elena's directive.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-05T13:15:00Z",
+    "modified_time": "2026-03-20T09:00:00Z"
+  },
+  {
+    "id": "recStip000000022",
+    "fields": "{\"Employee Name\": \"Andre Washington\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Coworking Space Membership\", \"Amount Requested\": 350, \"Has Receipt\": true, \"Date\": \"2026-03-10\", \"Approval Status\": \"Approved\", \"Approved Amount\": 350, \"Review Notes\": \"Auto-approved by ExpenseBot in error. Coworking is explicitly excluded from Mosaic policy. Config bug: excluded_categories stored as string not array, exclusion check skipped. MoveOps absorbing the cost per Elena's directive.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-10T16:30:00Z",
+    "modified_time": "2026-03-20T09:05:00Z"
+  },
+  {
+    "id": "recStip000000023",
+    "fields": "{\"Employee Name\": \"Kenji Nakamura\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Coworking Day Passes (x3)\", \"Amount Requested\": 135, \"Has Receipt\": true, \"Date\": \"2026-03-12\", \"Approval Status\": \"Approved\", \"Approved Amount\": 135, \"Review Notes\": \"Auto-approved by ExpenseBot in error. Same excluded_categories config bug as Andre Washington's coworking membership. MoveOps absorbing the cost per Elena's directive.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-12T11:45:00Z",
+    "modified_time": "2026-03-20T09:10:00Z"
+  },
+  {
+    "id": "recAcct000000007",
+    "fields": "{\"Client\": \"Veridian Software\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-06\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"SaaS / Software. HQ: Austin, TX. 210 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-06T10:00:00Z",
+    "modified_time": "2026-01-06T10:00:00Z"
+  },
+  {
+    "id": "recAcct000000008",
+    "fields": "{\"Client\": \"Helix Biosciences\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-06\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Biotechnology. HQ: San Diego, CA. 320 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-06T11:07:00Z",
+    "modified_time": "2026-01-06T11:07:00Z"
+  },
+  {
+    "id": "recAcct000000009",
+    "fields": "{\"Client\": \"Clearpath Financial\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-07\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Fintech. HQ: New York, NY. 480 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-07T12:14:00Z",
+    "modified_time": "2026-01-07T12:14:00Z"
+  },
+  {
+    "id": "recAcct000000010",
+    "fields": "{\"Client\": \"Arcadia Consulting Group\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-08\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Management Consulting. HQ: Chicago, IL. 650 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-08T13:21:00Z",
+    "modified_time": "2026-01-08T13:21:00Z"
+  },
+  {
+    "id": "recAcct000000011",
+    "fields": "{\"Client\": \"Luminara Health\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-09\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Digital Health. HQ: Boston, MA. 140 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-09T14:28:00Z",
+    "modified_time": "2026-01-09T14:28:00Z"
+  },
+  {
+    "id": "recAcct000000012",
+    "fields": "{\"Client\": \"Stonebridge Legal Partners\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-12\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Legal. HQ: Washington, DC. 390 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-12T15:35:00Z",
+    "modified_time": "2026-01-12T15:35:00Z"
+  },
+  {
+    "id": "recAcct000000013",
+    "fields": "{\"Client\": \"Axiom Precision Manufacturing\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-13\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Manufacturing. HQ: Detroit, MI. 900 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-13T16:42:00Z",
+    "modified_time": "2026-01-13T16:42:00Z"
+  },
+  {
+    "id": "recAcct000000014",
+    "fields": "{\"Client\": \"Driftwood Analytics\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-14\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Data Analytics. HQ: Seattle, WA. 175 employees. Replied with interest \\u2014 asked about pricing tiers and service scope. Mina sent follow-up with proposal.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-14T17:49:00Z",
+    "modified_time": "2026-01-14T17:49:00Z"
+  },
+  {
+    "id": "recAcct000000015",
+    "fields": "{\"Client\": \"Nova Payments\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-15\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Fintech. HQ: Miami, FL. 95 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-15T10:56:00Z",
+    "modified_time": "2026-01-15T10:56:00Z"
+  },
+  {
+    "id": "recAcct000000016",
+    "fields": "{\"Client\": \"Crestline Insurance Tech\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-16\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Insurtech. HQ: Nashville, TN. 260 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-16T11:03:00Z",
+    "modified_time": "2026-01-16T11:03:00Z"
+  },
+  {
+    "id": "recAcct000000017",
+    "fields": "{\"Client\": \"Solaris Energy Tech\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-16\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Cleantech. HQ: Denver, CO. 290 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-16T12:10:00Z",
+    "modified_time": "2026-01-16T12:10:00Z"
+  },
+  {
+    "id": "recAcct000000018",
+    "fields": "{\"Client\": \"Ironclad Cybersecurity\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-19\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Cybersecurity. HQ: Reston, VA. 420 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-19T13:17:00Z",
+    "modified_time": "2026-01-19T13:17:00Z"
+  },
+  {
+    "id": "recAcct000000019",
+    "fields": "{\"Client\": \"Meridian Genomics\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-20\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Genomics / Biotech. HQ: Research Triangle Park, NC. 530 employees. Replied asking about pricing tiers and contract minimums. Awaiting follow-up.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-20T14:24:00Z",
+    "modified_time": "2026-01-20T14:24:00Z"
+  },
+  {
+    "id": "recAcct000000020",
+    "fields": "{\"Client\": \"Pathfinder Logistics\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-21\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Logistics Technology. HQ: Atlanta, GA. 340 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-21T15:31:00Z",
+    "modified_time": "2026-01-21T15:31:00Z"
+  },
+  {
+    "id": "recAcct000000021",
+    "fields": "{\"Client\": \"Cascade Cloud Systems\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-22\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Cloud Infrastructure. HQ: Portland, OR. 230 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-22T16:38:00Z",
+    "modified_time": "2026-01-22T16:38:00Z"
+  },
+  {
+    "id": "recAcct000000022",
+    "fields": "{\"Client\": \"Sterling Capital Advisors\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-23\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Wealth Management. HQ: Charlotte, NC. 570 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-23T17:45:00Z",
+    "modified_time": "2026-01-23T17:45:00Z"
+  },
+  {
+    "id": "recAcct000000023",
+    "fields": "{\"Client\": \"Blueprint Architecture Studio\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-26\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Architecture / Design. HQ: Los Angeles, CA. 120 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-26T10:52:00Z",
+    "modified_time": "2026-01-26T10:52:00Z"
+  },
+  {
+    "id": "recAcct000000024",
+    "fields": "{\"Client\": \"Harbour Pharmaceutical\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-27\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Pharmaceuticals. HQ: Philadelphia, PA. 1400 employees. Replied requesting help with urgent Boston-to-Philadelphia relocation. Catalina sent detailed service overview.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-27T11:59:00Z",
+    "modified_time": "2026-01-27T11:59:00Z"
+  },
+  {
+    "id": "recAcct000000025",
+    "fields": "{\"Client\": \"Trellis EdTech\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-28\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Education Technology. HQ: Austin, TX. 130 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-28T12:06:00Z",
+    "modified_time": "2026-01-28T12:06:00Z"
+  },
+  {
+    "id": "recAcct000000026",
+    "fields": "{\"Client\": \"Quantum Robotics\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-28\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Industrial Robotics. HQ: Pittsburgh, PA. 510 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-28T13:13:00Z",
+    "modified_time": "2026-01-28T13:13:00Z"
+  },
+  {
+    "id": "recAcct000000027",
+    "fields": "{\"Client\": \"Ember Marketing Group\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-29\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Digital Marketing. HQ: Minneapolis, MN. 90 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-29T14:20:00Z",
+    "modified_time": "2026-01-29T14:20:00Z"
+  },
+  {
+    "id": "recAcct000000028",
+    "fields": "{\"Client\": \"Vertex AI Solutions\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-30\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Artificial Intelligence. HQ: San Francisco, CA. 160 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-30T15:27:00Z",
+    "modified_time": "2026-01-30T15:27:00Z"
+  },
+  {
+    "id": "recAcct000000029",
+    "fields": "{\"Client\": \"Oaktree Legal Group\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-02\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Legal. HQ: Houston, TX. 310 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-02T16:34:00Z",
+    "modified_time": "2026-02-02T16:34:00Z"
+  },
+  {
+    "id": "recAcct000000030",
+    "fields": "{\"Client\": \"Summit Health Systems\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-03\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Healthcare Technology. HQ: Columbus, OH. 380 employees. Replied asking about stipend management alongside relocation. Awaiting follow-up.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-03T17:41:00Z",
+    "modified_time": "2026-02-03T17:41:00Z"
+  },
+  {
+    "id": "recAcct000000031",
+    "fields": "{\"Client\": \"Paladin Defense Systems\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-04\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Aerospace / Defense. HQ: Huntsville, AL. 1200 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-04T10:48:00Z",
+    "modified_time": "2026-02-04T10:48:00Z"
+  },
+  {
+    "id": "recAcct000000032",
+    "fields": "{\"Client\": \"Fenwick Media\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-05\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Media / Content. HQ: New York, NY. 220 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-05T11:55:00Z",
+    "modified_time": "2026-02-05T11:55:00Z"
+  },
+  {
+    "id": "recAcct000000033",
+    "fields": "{\"Client\": \"Cobalt Supply Chain\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-06\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Supply Chain Software. HQ: Chicago, IL. 275 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-06T12:02:00Z",
+    "modified_time": "2026-02-06T12:02:00Z"
+  },
+  {
+    "id": "recAcct000000034",
+    "fields": "{\"Client\": \"Aurora Biomedical\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-09\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Medical Devices. HQ: Minneapolis, MN. 590 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-09T13:09:00Z",
+    "modified_time": "2026-02-09T13:09:00Z"
+  },
+  {
+    "id": "recAcct000000035",
+    "fields": "{\"Client\": \"Nimbus DevOps\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-09\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"DevOps Tooling. HQ: Denver, CO. 110 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-09T14:16:00Z",
+    "modified_time": "2026-02-09T14:16:00Z"
+  },
+  {
+    "id": "recAcct000000036",
+    "fields": "{\"Client\": \"Thornfield Capital\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-10\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Private Equity. HQ: Boston, MA. 85 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-10T15:23:00Z",
+    "modified_time": "2026-02-10T15:23:00Z"
+  },
+  {
+    "id": "recAcct000000037",
+    "fields": "{\"Client\": \"Redwood HR Tech\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-11\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"HR Software. HQ: San Francisco, CA. 195 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-11T16:30:00Z",
+    "modified_time": "2026-02-11T16:30:00Z"
+  },
+  {
+    "id": "recAcct000000038",
+    "fields": "{\"Client\": \"Glacier Wealth Management\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-12\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Wealth Management / Fintech. HQ: Salt Lake City, UT. 280 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-12T17:37:00Z",
+    "modified_time": "2026-02-12T17:37:00Z"
+  },
+  {
+    "id": "recAcct000000039",
+    "fields": "{\"Client\": \"Prism Communications\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-13\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Telecom Software. HQ: Dallas, TX. 410 employees. Replied asking about pet relocation and furniture shipping coverage. Awaiting follow-up.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-13T10:44:00Z",
+    "modified_time": "2026-02-13T10:44:00Z"
+  },
+  {
+    "id": "recAcct000000040",
+    "fields": "{\"Client\": \"Halcyon Aerospace\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-16\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Aerospace Engineering. HQ: Tucson, AZ. 720 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-16T11:51:00Z",
+    "modified_time": "2026-02-16T11:51:00Z"
+  },
+  {
+    "id": "recAcct000000041",
+    "fields": "{\"Client\": \"Lodestar Cybersecurity\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-17\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Cybersecurity Consulting. HQ: Washington, DC. 300 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-17T12:58:00Z",
+    "modified_time": "2026-02-17T12:58:00Z"
+  },
+  {
+    "id": "recAcct000000042",
+    "fields": "{\"Client\": \"Kestrel Agritech\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-18\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Agricultural Technology. HQ: Des Moines, IA. 150 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-18T13:05:00Z",
+    "modified_time": "2026-02-18T13:05:00Z"
+  },
+  {
+    "id": "recAcct000000043",
+    "fields": "{\"Client\": \"Brightside Mental Health\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-19\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Mental Health Technology. HQ: San Francisco, CA. 145 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-19T14:12:00Z",
+    "modified_time": "2026-02-19T14:12:00Z"
+  },
+  {
+    "id": "recAcct000000044",
+    "fields": "{\"Client\": \"Ironworks Construction Tech\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-19\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Construction Technology. HQ: Phoenix, AZ. 240 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-19T15:19:00Z",
+    "modified_time": "2026-02-19T15:19:00Z"
+  },
+  {
+    "id": "recAcct000000045",
+    "fields": "{\"Client\": \"Velora Retail Analytics\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-20\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Retail Technology. HQ: Seattle, WA. 155 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-20T16:26:00Z",
+    "modified_time": "2026-02-20T16:26:00Z"
+  },
+  {
+    "id": "recAcct000000046",
+    "fields": "{\"Client\": \"Foxglove Biotech\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-23\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Prospect\", \"Notes\": \"Cell Therapy / Biotech. HQ: San Diego, CA. 270 employees. Replied asking about temporary housing options for Boston-to-San Diego move. Mina sent Executive tier proposal.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-23T17:33:00Z",
+    "modified_time": "2026-02-23T17:33:00Z"
+  },
+  {
+    "id": "recAcct000000047",
+    "fields": "{\"Client\": \"Marengo Financial Services\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-24\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Financial Services. HQ: St. Louis, MO. 450 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-24T10:40:00Z",
+    "modified_time": "2026-02-24T10:40:00Z"
+  },
+  {
+    "id": "recAcct000000048",
+    "fields": "{\"Client\": \"Sequoia Data Labs\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-02-25\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Data Engineering / Consulting. HQ: Austin, TX. 100 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-25T11:47:00Z",
+    "modified_time": "2026-02-25T11:47:00Z"
+  },
+  {
+    "id": "recAcct000000049",
+    "fields": "{\"Client\": \"Pinnacle Insurance Group\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-02-26\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Insurance. HQ: Hartford, CT. 2100 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-26T12:54:00Z",
+    "modified_time": "2026-02-26T12:54:00Z"
+  },
+  {
+    "id": "recAcct000000050",
+    "fields": "{\"Client\": \"Westgate Pharma Solutions\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-02-27\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Pharmaceutical Services. HQ: Princeton, NJ. 950 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-02-27T13:01:00Z",
+    "modified_time": "2026-02-27T13:01:00Z"
+  },
+  {
+    "id": "recAcct000000051",
+    "fields": "{\"Client\": \"Tangent Software Labs\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-03-02\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"B2B SaaS. HQ: Cary, NC. 180 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-02T14:08:00Z",
+    "modified_time": "2026-03-02T14:08:00Z"
+  },
+  {
+    "id": "recAcct000000052",
+    "fields": "{\"Client\": \"Zephyr Electric Vehicles\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-03-03\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Electric Vehicles. HQ: Detroit, MI. 780 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-03T15:15:00Z",
+    "modified_time": "2026-03-03T15:15:00Z"
+  },
+  {
+    "id": "recAcct000000053",
+    "fields": "{\"Client\": \"Northstar Actuarial\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-03-03\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Actuarial Consulting. HQ: Minneapolis, MN. 210 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-03T16:22:00Z",
+    "modified_time": "2026-03-03T16:22:00Z"
+  },
+  {
+    "id": "recAcct000000054",
+    "fields": "{\"Client\": \"Mesa Genomics\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-03-04\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Genomics / Diagnostics. HQ: Phoenix, AZ. 300 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-04T17:29:00Z",
+    "modified_time": "2026-03-04T17:29:00Z"
+  },
+  {
+    "id": "recAcct000000055",
+    "fields": "{\"Client\": \"Willow Mental Health Platform\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-03-05\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Digital Mental Health. HQ: Portland, OR. 115 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-05T10:36:00Z",
+    "modified_time": "2026-03-05T10:36:00Z"
+  },
+  {
+    "id": "recAcct000000056",
+    "fields": "{\"Client\": \"Irongate Real Estate Tech\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-03-06\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Proptech. HQ: New York, NY. 245 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-06T11:43:00Z",
+    "modified_time": "2026-03-06T11:43:00Z"
+  },
+  {
+    "id": "recAcct000000057",
+    "fields": "{\"Client\": \"Harborlight Bioventures\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-03-09\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Biotechnology / Venture. HQ: Cambridge, MA. 60 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-09T12:50:00Z",
+    "modified_time": "2026-03-09T12:50:00Z"
+  },
+  {
+    "id": "recAcct000000058",
+    "fields": "{\"Client\": \"Crosswind Consulting\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-03-10\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Strategy Consulting. HQ: Atlanta, GA. 480 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-10T13:57:00Z",
+    "modified_time": "2026-03-10T13:57:00Z"
+  },
+  {
+    "id": "recAcct000000059",
+    "fields": "{\"Client\": \"Tidemark Maritime Software\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-03-11\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Maritime SaaS. HQ: Houston, TX. 75 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-11T14:04:00Z",
+    "modified_time": "2026-03-11T14:04:00Z"
+  },
+  {
+    "id": "recAcct000000060",
+    "fields": "{\"Client\": \"Fieldstone Capital Markets\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-03-12\", \"Contract Type\": \"\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 0, \"Status\": \"Cold Outreach\", \"Notes\": \"Capital Markets / Fintech. HQ: New York, NY. 520 employees. Cold outreach sent \\u2014 no response yet.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-12T15:11:00Z",
+    "modified_time": "2026-03-12T15:11:00Z"
+  },
+  {
+    "id": "recReloc00000010",
+    "fields": "{\"Name\": \"Sarah Chen\", \"Company\": \"Greenleaf Design Studio\", \"Status\": \"Completed\", \"Origin\": \"Portland, OR\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-02-10\", \"Move End Date\": \"2026-02-12\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Standard package. Furniture delivery delay (5 days late) \\u2014 resolved with $100 goodwill credit.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-16T14:00:00Z",
+    "modified_time": "2026-02-12T17:00:00Z"
+  },
+  {
+    "id": "recReloc00000011",
+    "fields": "{\"Name\": \"Marcus Rivera\", \"Company\": \"Sunbelt Venture Partners\", \"Status\": \"Completed\", \"Origin\": \"Miami, FL\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-02-12\", \"Move End Date\": \"2026-02-14\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Standard+ package. First of two Miami \\u2192 Denver relocations for this client.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-21T14:00:00Z",
+    "modified_time": "2026-02-14T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000012",
+    "fields": "{\"Name\": \"Jade Thompson\", \"Company\": \"Sunbelt Venture Partners\", \"Status\": \"Completed\", \"Origin\": \"Miami, FL\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-02-17\", \"Move End Date\": \"2026-02-19\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Standard+ package. Minor lease discrepancy resolved fairly.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-21T14:30:00Z",
+    "modified_time": "2026-02-19T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000013",
+    "fields": "{\"Name\": \"Denise Hargrove\", \"Company\": \"Palmetto Community Foundation\", \"Status\": \"Completed\", \"Origin\": \"Atlanta, GA\", \"Destination\": \"Raleigh, NC\", \"Move Start Date\": \"2026-02-17\", \"Move End Date\": \"2026-02-18\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Custom nonprofit pricing ($3,200). Program coordinator. Moving company damaged items \\u2014 resolved within 1 day.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-22T14:00:00Z",
+    "modified_time": "2026-02-18T17:00:00Z"
+  },
+  {
+    "id": "recReloc00000014",
+    "fields": "{\"Name\": \"Ryan Caldwell\", \"Company\": \"NorthWind Technologies\", \"Status\": \"Completed\", \"Origin\": \"Detroit, MI\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-02-17\", \"Move End Date\": \"2026-02-18\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Enterprise tier. Phase 1 (3 of 5 relocations). Expedited apartment sourcing \\u2014 extra cost absorbed by MoveOps.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-20T15:00:00Z",
+    "modified_time": "2026-02-18T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000015",
+    "fields": "{\"Name\": \"Lisa Petrosky\", \"Company\": \"NorthWind Technologies\", \"Status\": \"Completed\", \"Origin\": \"Indianapolis, IN\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-02-19\", \"Move End Date\": \"2026-02-20\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Enterprise tier. Phase 1 (3 of 5 relocations). Expedited apartment sourcing.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-20T15:30:00Z",
+    "modified_time": "2026-02-20T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000016",
+    "fields": "{\"Name\": \"Derek Nash\", \"Company\": \"NorthWind Technologies\", \"Status\": \"Completed\", \"Origin\": \"Minneapolis, MN\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-02-24\", \"Move End Date\": \"2026-02-25\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Enterprise tier. Phase 1 (3 of 5 relocations). Expedited apartment sourcing.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-20T16:00:00Z",
+    "modified_time": "2026-02-25T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000017",
+    "fields": "{\"Name\": \"Jamie Reeves\", \"Company\": \"StormCloud Analytics\", \"Status\": \"Completed\", \"Origin\": \"Denver, CO\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-02-24\", \"Move End Date\": \"2026-02-26\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Premium package with furnished apartment upgrade. INCIDENT: Flight booked on wrong date (Feb 25 instead of Feb 28) \\u2014 employee arrived 1 day late. Hotel cost ($180) + $500 goodwill credit covered by MoveOps.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-17T14:00:00Z",
+    "modified_time": "2026-02-26T17:00:00Z"
+  },
+  {
+    "id": "recReloc00000018",
+    "fields": "{\"Name\": \"Sasha Petrov\", \"Company\": \"StormCloud Analytics\", \"Status\": \"Completed\", \"Origin\": \"Denver, CO\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-03-03\", \"Move End Date\": \"2026-03-04\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Premium package with furnished apartment upgrade and neighborhood matching.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-17T14:30:00Z",
+    "modified_time": "2026-03-04T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000019",
+    "fields": "{\"Name\": \"Colin Nakamura\", \"Company\": \"StormCloud Analytics\", \"Status\": \"Completed\", \"Origin\": \"Denver, CO\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-03-05\", \"Move End Date\": \"2026-03-07\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Premium package with furnished apartment upgrade. 30-day post-move support included.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-17T15:00:00Z",
+    "modified_time": "2026-03-07T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000020",
+    "fields": "{\"Name\": \"Amira Okonkwo\", \"Company\": \"NorthWind Technologies\", \"Status\": \"Completed\", \"Origin\": \"St. Louis, MO\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-03-07\", \"Move End Date\": \"2026-03-08\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Enterprise tier. Phase 2 (2 of 5 relocations).\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-20T16:30:00Z",
+    "modified_time": "2026-03-08T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000021",
+    "fields": "{\"Name\": \"Ben Schaefer\", \"Company\": \"NorthWind Technologies\", \"Status\": \"Completed\", \"Origin\": \"Milwaukee, WI\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-03-10\", \"Move End Date\": \"2026-03-11\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Enterprise tier. Phase 2 (2 of 5 relocations).\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-20T17:00:00Z",
+    "modified_time": "2026-03-11T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000022",
+    "fields": "{\"Name\": \"Tyler Briggs\", \"Company\": \"Prairie Data Consulting\", \"Status\": \"Completed\", \"Origin\": \"Milwaukee, WI\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-03-10\", \"Move End Date\": \"2026-03-12\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Basic package \\u2014 apartment sourcing and flights only. Client declined premium upsell.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-22T15:00:00Z",
+    "modified_time": "2026-03-12T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000023",
+    "fields": "{\"Name\": \"Ethan Voss\", \"Company\": \"Mosswood Development\", \"Status\": \"Completed\", \"Origin\": \"Boston, MA\", \"Destination\": \"San Jose, CA\", \"Move Start Date\": \"2026-03-28\", \"Move End Date\": \"2026-03-30\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Standard package. Repeat customer from Q4 2025 \\u2014 fast turnaround. QA lead hire.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-14T12:00:00Z",
+    "modified_time": "2026-03-30T16:00:00Z"
+  },
+  {
+    "id": "recReloc00000024",
+    "fields": "{\"Name\": \"Tom Lindqvist\", \"Company\": \"Greenleaf Design Studio\", \"Status\": \"Completed\", \"Origin\": \"Portland, OR\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-07\", \"Move End Date\": \"2026-04-09\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Standard package. Lead designer. Repeat customer \\u2014 second relocation for this client.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-12T14:00:00Z",
+    "modified_time": "2026-03-12T14:00:00Z"
+  },
+  {
+    "id": "recReloc00000025",
+    "fields": "{\"Name\": \"Daniela Cruz\", \"Company\": \"Sunbelt Venture Partners\", \"Status\": \"Completed\", \"Origin\": \"Chicago, IL\", \"Destination\": \"Miami, FL\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Standard+ package. New hire. Third relocation for repeat customer \\u2014 Emeka closed same day.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-20T12:00:00Z",
+    "modified_time": "2026-03-20T12:00:00Z"
+  },
+  {
+    "id": "recReloc00000026",
+    "fields": "{\"Name\": \"Marco Silva\", \"Company\": \"Tideway Hospitality Tech\", \"Status\": \"Completed\", \"Origin\": \"Tampa, FL\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-07\", \"Move End Date\": \"2026-04-09\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Standard+ package. Software engineer. First of 3 relocations for this client \\u2014 all to be completed by end of May 2026.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-18T14:00:00Z",
+    "modified_time": "2026-03-18T14:00:00Z"
+  },
+  {
+    "id": "recReloc00000027",
+    "fields": "{\"Name\": \"Dana Kowalczyk\", \"Company\": \"Tideway Hospitality Tech\", \"Status\": \"Completed\", \"Origin\": \"Tampa, FL\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-10\", \"Move End Date\": \"2026-04-12\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Standard+ package. Product manager.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-18T14:30:00Z",
+    "modified_time": "2026-03-18T14:30:00Z"
+  },
+  {
+    "id": "recReloc00000028",
+    "fields": "{\"Name\": \"Ravi Sundaram\", \"Company\": \"Tideway Hospitality Tech\", \"Status\": \"Completed\", \"Origin\": \"Tampa, FL\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Standard+ package. Data analyst.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-03-18T15:00:00Z",
+    "modified_time": "2026-03-18T15:00:00Z"
+  },
+  {
+    "id": "recAcct000000062",
+    "fields": "{\"Client\": \"Greenleaf Design Studio\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-16\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 2, \"Status\": \"Active\", \"Notes\": \"Small design studio (12 employees). Contact: Rachel Greenleaf, CEO. First relocation Portland \\u2192 Austin ($4,500). Repeat customer \\u2014 signed 2nd relocation Portland \\u2192 Denver ($4,500) in March. Being considered as reference client.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-16T10:00:00Z",
+    "modified_time": "2026-03-12T14:00:00Z"
+  },
+  {
+    "id": "recAcct000000063",
+    "fields": "{\"Client\": \"StormCloud Analytics\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-01-17\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 3, \"Status\": \"Active\", \"Notes\": \"SaaS analytics company. Contact: Tom Wexler, VP of People. 3 relocations (2 Denver \\u2192 Austin, 1 Denver \\u2192 Seattle) at $8,800 each ($26,400 total). Had quality complaint on Feb 24 (flight booking error) but relationship maintained. Furnished apartment upgrades included.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-17T10:00:00Z",
+    "modified_time": "2026-02-24T16:00:00Z"
+  },
+  {
+    "id": "recAcct000000064",
+    "fields": "{\"Client\": \"NorthWind Technologies\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-20\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 5, \"Status\": \"Active\", \"Notes\": \"150 employees. Contact: Pam Kowalski, Director of HR. 5 relocations at $12,000 each ($60,000 total). Aggressive 3-week timeline promised \\u2014 experienced timeline/quality issues. Catalina's biggest deal this quarter.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-20T10:00:00Z",
+    "modified_time": "2026-02-28T15:00:00Z"
+  },
+  {
+    "id": "recAcct000000065",
+    "fields": "{\"Client\": \"Prairie Data Consulting\", \"Account Manager\": \"Catalina Dubois\", \"Relationship Start Date\": \"2026-01-22\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 1, \"Status\": \"Active\", \"Notes\": \"Small consulting firm (15 employees). Contact: Grant Halverson, Managing Partner. 1 relocation Milwaukee \\u2192 Chicago ($4,800). Declined premium upsell \\u2014 apartment sourcing + flights only.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-22T10:00:00Z",
+    "modified_time": "2026-01-22T14:00:00Z"
+  },
+  {
+    "id": "recAcct000000066",
+    "fields": "{\"Client\": \"Sunbelt Venture Partners\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-21\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 3, \"Status\": \"Active\", \"Notes\": \"Venture capital firm. Contact: Carla Mendes, Head of Operations. Initial deal: 2 relocations Miami \\u2192 Denver ($14,000). Repeat customer \\u2014 signed 3rd relocation Chicago \\u2192 Miami ($7,000) in March. Strong personal relationship via Miami coffee meeting. Mentioned Q2 expansion plans.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-21T10:00:00Z",
+    "modified_time": "2026-03-20T12:00:00Z"
+  },
+  {
+    "id": "recAcct000000067",
+    "fields": "{\"Client\": \"Palmetto Community Foundation\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-01-22\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 1, \"Status\": \"Active\", \"Notes\": \"Nonprofit organization. Contact: Rev. James Whitfield, Executive Director. 1 relocation Atlanta \\u2192 Raleigh ($3,200 \\u2014 custom nonprofit rate, minimal 5% margin). Mission-driven pricing.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-01-22T10:00:00Z",
+    "modified_time": "2026-01-22T14:00:00Z"
+  },
+  {
+    "id": "recAcct000000068",
+    "fields": "{\"Client\": \"Mosswood Development\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2025-10-01\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 2, \"Status\": \"Active\", \"Notes\": \"Repeat customer from Q4 2025. Contact: Aiden Park, CTO. Latest relocation Boston \\u2192 San Jose ($4,800) signed March 2026. Very loyal client.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2025-10-01T10:00:00Z",
+    "modified_time": "2026-03-14T12:00:00Z"
+  },
+  {
+    "id": "recAcct000000069",
+    "fields": "{\"Client\": \"Tideway Hospitality Tech\", \"Account Manager\": \"Emeka Diallo\", \"Relationship Start Date\": \"2026-03-18\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": null, \"Total Relocations\": 3, \"Status\": \"Active\", \"Notes\": \"Hospitality tech company (60 employees). Contact: Yolanda Bridges, VP of People & Culture. 3 relocations Tampa \\u2192 Austin/Seattle/Denver ($7,500 each, $22,500 total). Long sales cycle (2.5 months from outreach to close). All relocations to complete by end of May 2026.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-03-18T10:00:00Z",
+    "modified_time": "2026-03-18T14:00:00Z"
+  },
+  {
+    "id": "rec_stipend_kevin_tran_keyboard",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Ergonomic Keyboard\", \"Amount Requested\": 89.0, \"Has Receipt\": true, \"Date\": \"2026-03-01\", \"Approval Status\": \"Approved\", \"Approved Amount\": 89.0, \"Review Notes\": \"Vendor: TechComfort Supply\\nItem: Ergonomic mechanical keyboard \\u2014 TechComfort ErgoKey Pro\\nApproved by: ExpenseBot (auto)\\nAudit Flag: Duplicate Hash\\nReceipt Hash: a3f7c8d1e9b2f4a6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4\\nPDF Metadata: /Creator(TechComfort Supply Invoice Generator v2.1)/CreationDate(D:20260228)/Template(TC-RECEIPT-STD-041)\\nRelocation: reloc_vectral_tran\\n\\nFLAGGED: Receipt hash identical to Andre Washington (Mosaic Robotics) submission rec_stipend_andre_keyboard. Same vendor (TechComfort Supply), same amount ($89.00), same item description. Hash collision probability negligible \\u2014 these are the same file. Kevin's submission was auto-approved and paid out on 2026-03-08 before the ExpenseBot pause.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-01T14:22:00Z",
+    "modified_time": "2026-03-15T10:45:00Z"
+  },
+  {
+    "id": "rec_stipend_andre_keyboard",
+    "fields": "{\"Employee Name\": \"Andre Washington\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Ergonomic Keyboard\", \"Amount Requested\": 89.0, \"Has Receipt\": true, \"Date\": \"2026-03-04\", \"Approval Status\": \"Pending Approval\", \"Approved Amount\": 0, \"Review Notes\": \"Vendor: TechComfort Supply\\nItem: Ergonomic mechanical keyboard \\u2014 TechComfort ErgoKey Pro\\nAudit Flag: Duplicate Hash\\nReceipt Hash: a3f7c8d1e9b2f4a6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4\\nPDF Metadata: /Creator(TechComfort Supply Invoice Generator v2.1)/CreationDate(D:20260228)/Template(TC-RECEIPT-STD-041)\\nRelocation: reloc_mosaic_washington\\n\\nFLAGGED: Receipt hash identical to Kevin Tran (Vectral Systems) submission rec_stipend_kevin_tran_keyboard. Byte-for-byte identical PDF \\u2014 same SHA-256 hash, same PDF /Creator and /Template metadata. Different employees at different companies submitted the exact same receipt file. Submitted 3 days after Kevin's.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-04T09:17:00Z",
+    "modified_time": "2026-03-15T10:48:00Z"
+  },
+  {
+    "id": "rec_reloc_webb",
+    "fields": "{\"Name\": \"Marcus Webb\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"Completed\", \"Origin\": \"Atlanta\", \"Destination\": \"Denver\", \"Move Start Date\": \"2026-02-22\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Relocation ID: RELOC-2026-011\\nMoving Vendor: Heartland Movers\\nVendor Cost: $1600\\nAccount Manager: Emeka Diallo\\nCoordinator: Suki Patel\\nCompleted on schedule. Standard full-service relocation.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-02-03T09:30:00Z",
+    "modified_time": "2026-02-24T15:00:00Z"
+  },
+  {
+    "id": "rec_reloc_reeves",
+    "fields": "{\"Name\": \"Tanya Reeves\", \"Company\": \"Mosaic Robotics\", \"Status\": \"Completed\", \"Origin\": \"San Diego\", \"Destination\": \"Seattle\", \"Move Start Date\": \"2026-03-08\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Relocation ID: RELOC-2026-016\\nMoving Vendor: Heartland Movers\\nVendor Cost: $1600\\nAccount Manager: Emeka Diallo\\nCoordinator: Fatimah Al-Rashidi\\nCompleted. Long-haul move, two-day delivery window. Arrived on time.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-02-18T10:15:00Z",
+    "modified_time": "2026-03-10T13:45:00Z"
+  },
+  {
+    "id": "rec_stipend_jordan_monitor_stand",
+    "fields": "{\"Employee Name\": \"Jordan Ekwueme\", \"Account\": \"BrightLoop Analytics\", \"Expense Category\": \"Monitor Stand\", \"Amount Requested\": 45.0, \"Has Receipt\": true, \"Date\": \"2026-03-07\", \"Approval Status\": \"Pending Approval\", \"Approved Amount\": 0, \"Review Notes\": \"Vendor: TechComfort Supply\\nItem: Adjustable monitor stand \\u2014 TechComfort StandPro Mini\\nAudit Flag: PDF Template Match\\nReceipt Hash: 7b9e1d3f5a7c9e1b3d5f7a9c1e3b5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b\\nPDF Metadata: /Creator(TechComfort Supply Invoice Generator v2.1)/CreationDate(D:20260306)/Template(TC-RECEIPT-STD-041)\\nRelocation: reloc_brightloop_ekwueme\\n\\nFLAGGED: Different receipt hash than the Kevin Tran / Andre Washington duplicate pair, but PDF /Creator metadata is identical (TechComfort Supply Invoice Generator v2.1) and the /Template field references the exact same template ID (TC-RECEIPT-STD-041). The receipt layout, font metrics, and structural metadata all trace to the same template origin file. This suggests a shared receipt generation tool or template was used across submissions from three different employees at three different client companies.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-07T11:33:00Z",
+    "modified_time": "2026-03-15T10:52:00Z"
+  },
+  {
+    "id": "rec_stipend_danielle_osei_chair",
+    "fields": "{\"Employee Name\": \"Danielle Osei\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Office Chair\", \"Amount Requested\": 475.0, \"Has Receipt\": true, \"Date\": \"2026-02-17\", \"Approval Status\": \"Approved\", \"Approved Amount\": 475.0, \"Review Notes\": \"Vendor: Office Depot\\nItem: Ergonomic office chair \\u2014 Steelcase Leap V2\\nApproved by: Mina Hashimoto (manual override)\\nReceipt Hash: f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2\\nPDF Metadata: /Creator(Adobe InDesign 2025)/CreationDate(D:20260215)\\nRelocation: reloc_vectral_osei\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-02-17T10:05:00Z",
+    "modified_time": "2026-02-20T14:30:00Z"
+  },
+  {
+    "id": "rec_stipend_kevin_tran_internet",
+    "fields": "{\"Employee Name\": \"Kevin Tran\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Internet Setup\", \"Amount Requested\": 185.0, \"Has Receipt\": true, \"Date\": \"2026-02-22\", \"Approval Status\": \"Approved\", \"Approved Amount\": 185.0, \"Review Notes\": \"Vendor: Xfinity/Comcast\\nItem: Internet installation \\u2014 Xfinity Pro Setup + first month\\nApproved by: Mina Hashimoto (manual override)\\nReceipt Hash: c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5\\nPDF Metadata: /Creator(Xfinity Billing System)/CreationDate(D:20260220)\\nRelocation: reloc_vectral_tran\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-02-22T15:10:00Z",
+    "modified_time": "2026-02-25T09:45:00Z"
+  },
+  {
+    "id": "rec_stipend_andre_desk",
+    "fields": "{\"Employee Name\": \"Andre Washington\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Standing Desk\", \"Amount Requested\": 1200.0, \"Has Receipt\": true, \"Date\": \"2026-02-26\", \"Approval Status\": \"Approved\", \"Approved Amount\": 1200.0, \"Review Notes\": \"Vendor: UPLIFT Desk\\nItem: Standing desk \\u2014 UPLIFT V2 Commercial\\nApproved by: ExpenseBot (auto - INCORRECTLY APPROVED)\\nReceipt Hash: d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9\\nPDF Metadata: /Creator(UPLIFT Desk OrderConfirm v3.8)/CreationDate(D:20260225)\\nRelocation: reloc_mosaic_washington\\n\\nPreviously flagged in pilot audit (ENG-216). String comparison bug caused approval despite exceeding $800 limit. Identified and corrected.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-02-26T13:22:00Z",
+    "modified_time": "2026-03-20T00:35:00Z"
+  },
+  {
+    "id": "rec_stipend_jordan_wifi",
+    "fields": "{\"Employee Name\": \"Jordan Ekwueme\", \"Account\": \"BrightLoop Analytics\", \"Expense Category\": \"WiFi System\", \"Amount Requested\": 299.99, \"Has Receipt\": true, \"Date\": \"2026-02-12\", \"Approval Status\": \"Approved\", \"Approved Amount\": 299.99, \"Review Notes\": \"Vendor: Best Buy\\nItem: Mesh WiFi system \\u2014 Google Nest WiFi Pro 3-pack\\nApproved by: Mina Hashimoto\\nReceipt Hash: e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6\\nPDF Metadata: /Creator(BestBuy.com eReceipt Generator)/CreationDate(D:20260210)\\nRelocation: reloc_brightloop_ekwueme\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-02-12T16:40:00Z",
+    "modified_time": "2026-02-14T11:20:00Z"
+  },
+  {
+    "id": "rec_stipend_maria_santos_desk",
+    "fields": "{\"Employee Name\": \"Maria Santos\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"Standing Desk\", \"Amount Requested\": 550.0, \"Has Receipt\": true, \"Date\": \"2026-03-03\", \"Approval Status\": \"Pending Approval\", \"Approved Amount\": 0, \"Review Notes\": \"Vendor: Fully\\nItem: Standing desk \\u2014 Fully Jarvis Bamboo\\nReceipt Hash: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3\\nPDF Metadata: /Creator(Fully.com Order System v4.2)/CreationDate(D:20260301)\\nRelocation: reloc_vectral_santos\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-03T08:55:00Z",
+    "modified_time": "2026-03-03T08:55:00Z"
+  },
+  {
+    "id": "rec_stipend_kenji_nakamura_cowork",
+    "fields": "{\"Employee Name\": \"Kenji Nakamura\", \"Account\": \"Mosaic Robotics\", \"Expense Category\": \"Coworking Passes\", \"Amount Requested\": 135.0, \"Has Receipt\": true, \"Date\": \"2026-03-06\", \"Approval Status\": \"Approved\", \"Approved Amount\": 135.0, \"Review Notes\": \"Vendor: WeWork\\nItem: Coworking day passes x3 \\u2014 WeWork Atlanta\\nApproved by: ExpenseBot (auto - INCORRECTLY APPROVED)\\nReceipt Hash: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2\\nPDF Metadata: /Creator(WeWork Billing Portal v5.0)/CreationDate(D:20260305)\\nRelocation: reloc_mosaic_nakamura\\n\\nPreviously flagged in pilot audit (ENG-216). Coworking excluded from Mosaic policy but exclusion check was skipped due to malformed JSON.\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-06T14:18:00Z",
+    "modified_time": "2026-03-20T00:40:00Z"
+  },
+  {
+    "id": "rec_stipend_lisa_park_wifi",
+    "fields": "{\"Employee Name\": \"Lisa Park\", \"Account\": \"Vectral Systems\", \"Expense Category\": \"WiFi System\", \"Amount Requested\": 130.0, \"Has Receipt\": true, \"Date\": \"2026-03-05\", \"Approval Status\": \"Pending Approval\", \"Approved Amount\": 0, \"Review Notes\": \"Vendor: Amazon\\nItem: Mesh WiFi system \\u2014 TP-Link Deco XE75 Pro\\nReceipt Hash: f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7\\nPDF Metadata: /Creator(Amazon.com Digital Invoice)/CreationDate(D:20260303)\\nRelocation: reloc_vectral_park\"}",
+    "table_id": "tblStipends00001",
+    "created_time": "2026-03-05T11:30:00Z",
+    "modified_time": "2026-03-05T11:30:00Z"
+  },
+  {
+    "id": "rec_reloc_abdi",
+    "fields": "{\"Name\": \"Dr. Yusuf Abdi\", \"Company\": \"Canopy Health\", \"Status\": \"Completed\", \"Origin\": \"Minneapolis\", \"Destination\": \"Chicago\", \"Move Start Date\": \"2026-01-18\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Relocation ID: RELOC-2026-003\\nMoving Vendor: Heartland Movers\\nVendor Cost: $1600\\nAccount Manager: Catalina Dubois\\nCoordinator: Blessing Okafor\\nCompleted on schedule. Special handling for electronics/office equipment. High-rise delivery at 600 W Washington.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-06T10:00:00Z",
+    "modified_time": "2026-01-20T14:30:00Z"
+  },
+  {
+    "id": "rec_reloc_tran",
+    "fields": "{\"Name\": \"Kevin Tran\", \"Company\": \"Vectral Systems\", \"Status\": \"Completed\", \"Origin\": \"Portland\", \"Destination\": \"Denver\", \"Move Start Date\": \"2026-01-26\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Relocation ID: RELOC-2026-005\\nMoving Vendor: Heartland Movers\\nVendor Cost: $1600\\nAccount Manager: Mina Hashimoto\\nCoordinator: Javier Morales\\nCompleted. Standard full-service move. Two-person crew pickup and delivery.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-08T11:00:00Z",
+    "modified_time": "2026-01-28T09:45:00Z"
+  },
+  {
+    "id": "rec_reloc_kovac",
+    "fields": "{\"Name\": \"Ines Kovac\", \"Company\": \"PivotPoint Labs\", \"Status\": \"Completed\", \"Origin\": \"Brooklyn\", \"Destination\": \"Austin\", \"Move Start Date\": \"2026-02-14\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Relocation ID: RELOC-2026-008\\nMoving Vendor: Heartland Movers\\nVendor Cost: $1600\\nAccount Manager: Catalina Dubois\\nCoordinator: Blessing Okafor\\nCompleted. 5th-floor walkup required 4-person crew. Extra handling time but went smoothly.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-22T14:00:00Z",
+    "modified_time": "2026-02-16T11:20:00Z"
+  },
+  {
+    "id": "rec_reloc_marchetti",
+    "fields": "{\"Name\": \"Lily Marchetti\", \"Company\": \"Canopy Health\", \"Status\": \"Cancelled\", \"Origin\": \"Nashville\", \"Destination\": \"Chicago\", \"Move Start Date\": \"\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Relocation ID: RELOC-2026-009\\nMoving Vendor: Heartland Movers\\nVendor Cost: $0\\nAccount Manager: Catalina Dubois\\nCoordinator: Blessing Okafor\\nCANCELLED \\u2014 Employee decided not to relocate. Heartland Movers was initially booked but cancellation sent to Jake Loomis on 2/10. No acknowledgment received from vendor.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-24T09:00:00Z",
+    "modified_time": "2026-02-10T16:30:00Z"
+  },
+  {
+    "id": "rec_reloc_osei",
+    "fields": "{\"Name\": \"Danielle Osei\", \"Company\": \"Vectral Systems\", \"Status\": \"Cancelled\", \"Origin\": \"Phoenix\", \"Destination\": \"Denver\", \"Move Start Date\": \"\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Relocation ID: RELOC-2026-010\\nMoving Vendor: Heartland Movers\\nVendor Cost: $0\\nAccount Manager: Mina Hashimoto\\nCoordinator: Javier Morales\\nCANCELLED \\u2014 Client pulled relocation request due to budget reallocation. Cancellation email sent to Heartland (Jake Loomis) on 2/13. No acknowledgment received from vendor.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-01-24T11:30:00Z",
+    "modified_time": "2026-02-13T14:15:00Z"
+  },
+  {
+    "id": "rec_reloc_venkatesh",
+    "fields": "{\"Name\": \"Priya Venkatesh\", \"Company\": \"GreenStack Energy\", \"Status\": \"Completed\", \"Origin\": \"Houston\", \"Destination\": \"Seattle\", \"Move Start Date\": \"2026-03-07\", \"Move End Date\": \"\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Relocation ID: RELOC-2026-015\\nMoving Vendor: Swift Relocations\\nVendor Cost: $1600\\nAccount Manager: Emeka Diallo\\nCoordinator: Fatimah Al-Rashidi\\nCompleted. Required electronics-specialist crew for lab equipment. Handled by Swift Relocations (NOT Heartland). Swift confirmed pickup April 21 with supervised packing.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-02-12T10:00:00Z",
+    "modified_time": "2026-03-09T11:00:00Z"
+  },
+  {
+    "id": "recSimoneRichterBrightloop",
+    "fields": "{\"Name\": \"Simone Richter\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"In Progress\", \"Origin\": \"Chicago\", \"Destination\": \"Boston\", \"Move Start Date\": \"2026-04-04\", \"Move End Date\": \"2026-04-06\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"URGENT \\u2014 lease ends April 6. 5-day turnaround. Employee needs 2 weeks furnished temp housing on arrival in Boston. Rush surcharge applies. Expedited packing scheduled April 4-5.\\nEmployee Email=simone.richter@brightloopanalytics.com | Account Manager=Mina Hashimoto\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T14:22:00Z",
+    "modified_time": "2026-04-01T14:22:00Z"
+  },
+  {
+    "id": "recMarcusWebbBrightloop",
+    "fields": "{\"Name\": \"Marcus Webb\", \"Company\": \"BrightLoop Analytics\", \"Status\": \"In Progress\", \"Origin\": \"Atlanta\", \"Destination\": \"Boston\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-18\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Employee requesting vehicle shipping for 2019 Honda Civic (VIN: 2HGFC2F53KH123456). Swift Relocations does NOT handle auto transport \\u2014 third-party auto shipper (Road Runner Auto Transport) required as add-on. Client approval for additional vehicle shipping cost (~$1,100) pending. Do not finalize move until BrightLoop confirms vehicle shipping scope.\\nEmployee Email=marcus.webb@brightloopanalytics.com | Account Manager=Mina Hashimoto\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T14:35:00Z",
+    "modified_time": "2026-04-01T14:35:00Z"
+  },
+  {
+    "id": "recKovacsNashvilleToronto",
+    "fields": "{\"Name\": \"Dr. Renata Kovacs\", \"Company\": \"Canopy Health\", \"Status\": \"In Progress\", \"Origin\": \"Nashville, TN\", \"Destination\": \"Toronto, ON\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-17\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"International cross-border move (US\\u2192Canada). Employee is Canadian citizen returning from TN visa (USMCA/NAFTA, Scientist category). Requires: (1) Canopy Health employer letter confirming end of US employment + new Toronto role \\u2014 needed by April 7; (2) Degree verification copy for customs broker records; (3) Canadian customs broker (BorderEase Customs) engaged for CBSA BSF186 Personal Effects declaration \\u2014 est. surcharge $700\\u2013$900; (4) MacBook Pro (~$2,800 CAD) must be declared individually on BSF186; (5) 4 lab notebooks with proprietary research notes \\u2014 advised employee to carry personally (not in shipment); (6) Heartland Movers NOT suitable for cross-border leg \\u2014 Swift Relocations handling full move. Employer letter deadline: April 7. Coordinator: Fatimah Al-Rashidi. AM: Catalina Dubois. Employee email: renata.kovacs@gmail.com | (615) 555-0187.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-03T16:00:00Z",
+    "modified_time": "2026-04-03T16:00:00Z"
+  },
+  {
+    "id": "recMarcusWebbDetroitChicago",
+    "fields": "{\"Name\": \"Marcus Webb\", \"Company\": \"Canopy Health\", \"Status\": \"In Progress\", \"Origin\": \"Detroit, MI\", \"Destination\": \"Chicago, IL\", \"Move Start Date\": \"2026-04-10\", \"Move End Date\": \"2026-04-12\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"SPLIT-VENDOR arrangement: (1) Heartland Movers handles standard household goods only (~300 cu ft, 1-bedroom apartment \\u2014 Detroit pickup, Chicago apartment delivery \\u2014 address TBD). (2) Swift Relocations specialized freight handles 3 cryogenic lab items (Canopy Health property) requiring cold-chain at -20\\u00b0C or below: 2\\u00d7 Thermo CryoPlus 3800 cryogenic sample containers (~65 lbs each, biological tissue samples, shock-sensitive) + 1\\u00d7 MVE SC 20/20 Dewar flask (~30 lbs, liquid nitrogen, must remain upright). Lab equipment delivers to Canopy Health Chicago lab receiving dock (NOT employee apartment \\u2014 dock address TBD from client). Heartland confirmed they CANNOT maintain -20\\u00b0C. Swift freight quote pending \\u2014 needed by April 5. Both delivery addresses outstanding. Coordinator: Blessing Okafor. AM: Catalina Dubois. Employee email: marcus.webb.lab@gmail.com | (313) 555-0294.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-03T16:10:00Z",
+    "modified_time": "2026-04-03T16:10:00Z"
+  },
+  {
+    "id": "recTylerOkonkwoPhillyDenver",
+    "fields": "{\"Name\": \"Tyler Okonkwo\", \"Company\": \"Canopy Health\", \"Status\": \"In Progress\", \"Origin\": \"Philadelphia, PA\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-12\", \"Move End Date\": \"2026-04-14\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"TEMP STORAGE REQUIRED: Employee must vacate Philadelphia apartment by April 18. Denver apartment lease (2150 Lawrence St, Apt 4B, Denver CO 80205) does not begin until May 1 \\u2014 approx. 13-day gap. All household goods (~450 cu ft, 2-bedroom) must go into temporary storage at Denver facility upon arrival; deliver to destination apartment on or after May 1. Employee staying with family during gap \\u2014 no hotel needed from MoveOps. Storage facility quote pending from Javier Morales \\u2014 needed before invoice is finalized. NOTE: Move dates shifted +1 day from original April 11\\u201313 \\u2014 client confirmed April 12\\u201314 is acceptable. High-value items: carbon-frame road bike (~$3,500, requires professional bike boxing) and 65\\\" TV (standard TV boxing). Coordinator: Javier Morales. AM: Catalina Dubois. Employee email: tyler.okonkwo@gmail.com | (267) 555-0431.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-03T16:20:00Z",
+    "modified_time": "2026-04-03T16:20:00Z"
+  },
+  {
+    "id": "recPriyaSureshPortlandDenver",
+    "fields": "{\"Name\": \"Priya Suresh\", \"Company\": \"Vectral Systems\", \"Status\": \"In Progress\", \"Origin\": \"Portland, OR\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-18\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Relocating with emotional support German Shepherd (Atlas, 85 lbs, ESA documentation on file). MUST source pet-friendly housing with fenced yard or nearby dog park \\u2014 landlord must approve 85+ lb dogs specifically. Preferred neighborhoods: RiNo (first choice) or Highlands. Household: 1BR apartment worth of furniture (~3,200 lbs est.), includes motorized standing desk (Uplift V2, ~80 lbs) and dual 27-inch monitor setup with arms. Current address: 2847 NE Hancock St, Portland, OR 97212. Employee Email: priya.suresh@vectralsystems.com | Account Manager: Mina Hashimoto.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T11:45:00Z",
+    "modified_time": "2026-04-02T11:45:00Z"
+  },
+  {
+    "id": "recTerrenceNakamuraAustinSF",
+    "fields": "{\"Name\": \"Terrence Nakamura\", \"Company\": \"Vectral Systems\", \"Status\": \"In Progress\", \"Origin\": \"Austin, TX\", \"Destination\": \"San Francisco, CA\", \"Move Start Date\": \"2026-04-16\", \"Move End Date\": \"2026-04-22\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"ADA-ACCESSIBLE HOUSING REQUIRED: Wheelchair user (since 2019). Needs roll-in shower (not tub with grab bars), 36-inch minimum doorways throughout unit, ground-floor apartment OR building with reliable elevator. Preferred neighborhoods: SoMa or Mission Bay, ideally within a few blocks of BART or Muni for commute. SPLIT SHIPMENT: Estimated total weight 9,200 lbs \\u2014 exceeds single-truck limit. Shipment 1 (Heartland Movers, ~6,000 lbs): primary household goods \\u2014 king bed + mattress, queen bed + mattress (guest room), 2 dressers, L-shaped sectional sofa, dining table with 6 chairs, 2 bookcases, TV console, nightstands (x2), heavy-duty ergonomic desk chair, motorized standing desk (~90 lbs), kitchen cookware/appliances/dishware, 2 large storage bins, wall art (some oversized framed), disassembled weight bench. Shipment 2 (Swift Relocations, ~3,200 lbs): server rack (19-inch, 4-post, ~150 lbs loaded \\u2014 contains sensitive development hardware, REQUIRES padded crating and climate-controlled transport if possible, drives/components sensitive to shock and temperature extremes \\u2014 white-glove/specialty electronics handling preferred) and book collection (~40 banker's boxes, ~80 lbs each). Current address: 4510 S Congress Ave, Apt 208, Austin, TX 78745. Employee Email: terrence.nakamura@vectralsystems.com | Account Manager: Mina Hashimoto.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T11:58:00Z",
+    "modified_time": "2026-04-02T11:58:00Z"
+  },
+  {
+    "id": "recCamilleOduyaBostonSeattle",
+    "fields": "{\"Name\": \"Camille Oduya\", \"Company\": \"Vectral Systems\", \"Status\": \"In Progress\", \"Origin\": \"Boston, MA\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-12\", \"Move End Date\": \"2026-04-14\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"TIGHT TIMELINE: Boston lease officially ends April 15 but early release negotiated for April 12 \\u2014 movers MUST pick up on April 12 (hard date, no flexibility). Employee must start at Vectral Seattle office by April 21. Household goods need to arrive in Seattle by April 16 at latest to allow setup time before start date. Seattle apartment PRE-SECURED by Vectral Seattle office at 1422 Minor Ave, Apt 7B, Seattle, WA 98101 (lease starts April 14) \\u2014 NO apartment sourcing needed on MoveOps end. Flight + movers only. Household: 1BR \\u2014 queen bed frame + mattress, small dresser, desk, desk chair, couch, coffee table, kitchen essentials, ~12 boxes of personal items and clothing. Estimated weight: ~2,800 lbs. ENHANCED STIPEND: $3,500 home-office equipment stipend (vs. standard $2,000) negotiated as part of Camille's offer package \\u2014 MUST be configured in stipend platform from day one so she can order equipment immediately upon arrival in Seattle. Setting up home office from scratch. Current address: 118 Beacon St, Apt 4, Boston, MA 02116. Employee Email: camille.oduya@vectralsystems.com | Account Manager: Mina Hashimoto.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T12:10:00Z",
+    "modified_time": "2026-04-02T12:10:00Z"
+  },
+  {
+    "id": "recMeiLinZhaoHoustonPortland",
+    "fields": "{\"Name\": \"Mei-Lin Zhao\", \"Company\": \"GreenStack Energy\", \"Status\": \"In Progress\", \"Origin\": \"Houston, TX\", \"Destination\": \"Portland, OR\", \"Move Start Date\": \"2026-04-17\", \"Move End Date\": \"2026-04-28\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"HAZMAT: Class 9 lithium-ion battery test modules (~350 lbs across 4 crated modules), UN3481-certified packaging required, climate-controlled transport 15\\u201325\\u00b0C. Carrier must hold valid DOT hazmat certification for Class 9 goods. DOT hazmat shipping permit needed. SPLIT SHIPMENT: household goods + hazmat cargo MUST travel separately \\u2014 standard moving truck for household items, certified hazmat carrier for battery modules. CRITICAL TIMING: Houston lab lease hard-ends April 17 \\u2014 must vacate by EOD. Portland lab buildout delayed to April 28 (originally April 20). 11-day interim storage gap (April 17\\u201328) \\u2014 need DOT-compliant temperature-controlled storage facility in Portland metro area. GreenStack covers interim storage costs; MoveOps to source facility. Household goods are light (furnished sublet, 1BR). Preferred flight: IAH \\u2192 PDX, April 17 or 18. Current address: 4712 Bellaire Blvd, Houston, TX 77401. Employee Email: mei-lin.zhao@greenstackenergy.com | Phone: (713) 555-0819 | Account Manager: Emeka Diallo. INVOICE DEADLINE: All invoices must be submitted by April 25 per GreenStack fiscal year-end.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T15:22:00Z",
+    "modified_time": "2026-04-01T15:22:00Z"
+  },
+  {
+    "id": "recJoaquinReyesPhoenixSeattle",
+    "fields": "{\"Name\": \"Joaqu\\u00edn Reyes\", \"Company\": \"GreenStack Energy\", \"Status\": \"In Progress\", \"Origin\": \"Phoenix, AZ\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-11\", \"Move End Date\": \"2026-04-19\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"SPECIALTY EQUIPMENT: 900-lb rooftop solar panel testing rig \\u2014 dimensions 8ft \\u00d7 4ft \\u00d7 3ft, requires padded custom crating (sensitive calibration instruments mounted on frame). Delivery at GreenStack Seattle HQ (401 Terry Ave N, Suite 200, Seattle WA 98109) requires freight elevator (max capacity 2,500 lbs) and loading dock on north side of building (Terry Ave entrance). Rig goes to 4th floor lab \\u2014 freight elevator only, no stairwell option. CRITICAL SCHEDULING CONFLICT: GreenStack Seattle office full building shutdown April 14\\u201318 for electrical grid upgrades \\u2014 NO building access, NO freight elevator, NO receiving dock during this window. Electrical contractor has exclusive site control per insurance requirements \\u2014 absolutely no exceptions or coordinated early entry. Shutdown begins Monday April 14 at 6:00 AM. Access resumes Saturday April 19 at 8:00 AM, freight elevator available by 10:00 AM. Rig delivery MUST complete by EOD Sunday April 13 OR be scheduled for Saturday April 19 at 10:00 AM or later. Employee flexible on personal move dates \\u2014 rig logistics are the bottleneck. Standard household goods: full 2BR apartment (dining set, couch, queen bed, desk setup, etc.). Preferred flight: PHX \\u2192 SEA, flexible on date \\u2014 align with rig delivery schedule. Current address: 8801 N Central Ave, Unit 412, Phoenix, AZ 85020. Employee Email: joaquin.reyes@greenstackenergy.com | Phone: (480) 555-0237 | Account Manager: Emeka Diallo. NOTE: Chloe Vance flagged that Heartland Movers may not have equipment rated for 900-lb rig \\u2014 verify capacity or consider Swift Relocations as alternative. INVOICE DEADLINE: All invoices must be submitted by April 25 per GreenStack fiscal year-end.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T15:30:00Z",
+    "modified_time": "2026-04-01T15:30:00Z"
+  },
+  {
+    "id": "recNadiaOkonjoSFAustin",
+    "fields": "{\"Name\": \"Nadia Okonjo\", \"Company\": \"PivotPoint Labs\", \"Status\": \"In Progress\", \"Origin\": \"San Francisco, CA\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-18\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"H-1B VISA HOLDER (Nigerian national) \\u2014 address change MUST be coordinated with immigration attorney Lorraine Pham (Pham & Associates, lorraine.pham@phamassociates.com) BEFORE physical move date. USCIS requires notification of address change within 10 days; attorney will file proactively. Do NOT schedule truck until written confirmation from attorney that USCIS filing is handled. Visa expires June 15, 2026. 5TH-FLOOR VICTORIAN WALKUP at origin \\u2014 no elevator, narrow stairwells. Requires 4-person crew minimum and furniture disassembly for oversized L-shaped sectional sofa. Building super requires 48-hour advance notice for all moves; moves restricted to weekdays 8am\\u20135pm only (no exceptions). Walkup surcharge applies ($500). ORIGIN ADDRESS: 1847 Haight St, Apt 5C, San Francisco, CA 94117. Employee role: Senior UX Researcher. Account Manager: Catalina Dubois.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-09T09:30:00Z",
+    "modified_time": "2026-04-09T09:30:00Z"
+  },
+  {
+    "id": "recDiegoCastanedaBrooklynAustin",
+    "fields": "{\"Name\": \"Diego Casta\\u00f1eda\", \"Company\": \"PivotPoint Labs\", \"Status\": \"In Progress\", \"Origin\": \"Brooklyn, NY\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-12\", \"Move End Date\": \"2026-05-02\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"HOME WORKSHOP WITH HEAVY EQUIPMENT: Tormach PCNC 440 benchtop CNC mill (~600 lbs), insured value $42,000 \\u2014 requires vibration-dampened custom crating, climate-controlled transport (temp range 60\\u201380\\u00b0F to prevent thermal warping of precision calibration instruments). Employee requests pre-move crating inspection at Brooklyn apartment (ideally April 10 or 11) \\u2014 wants to be present in person when CNC mill and precision instruments are assessed and crated. Precision calibration tools require anti-static and vibration-protected packaging. STORAGE GAP: Brooklyn lease ends April 15, Austin apartment available May 1 \\u2014 16-day interim storage needed in Austin area. Storage facility MUST have loading dock or ground-floor access for CNC mill (cannot go up ramps or staircases \\u2014 must be rolled off truck at dock height). Climate-controlled storage required. Cargo insurance must cover minimum $50K per shipment (equipment insured for $42,000 through PivotPoint's policy). ORIGIN ADDRESS: 312 Wythe Ave, Unit 4B, Brooklyn, NY 11249 (freight elevator available \\u2014 no walkup issue at pickup). Employee role: Lead Hardware Prototyper. Account Manager: Catalina Dubois.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-09T09:45:00Z",
+    "modified_time": "2026-04-09T09:45:00Z"
+  },
+  {
+    "id": "recZaraOkoyeSavannahAtlanta",
+    "fields": "{\"Name\": \"Zara Okoye\", \"Company\": \"Mosaic Robotics\", \"Status\": \"Completed\", \"Origin\": \"Savannah, GA\", \"Destination\": \"Atlanta, GA\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-16\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"2x proprietary robotic arm prototypes ($180K total insured value) \\u2014 custom anti-vibration foam crating required. Climate-controlled transport (60\\u201380\\u00b0F). Cargo insurance rider + signed vendor liability acknowledgment from Heartland. Control unit (40 lbs) ships separately in padded Pelican case. Mosaic COI on file. $1,200 surcharge for custom crating + climate monitoring. Coordinator: Blessing Okafor. Current address: 1247 Abercorn St, Apt 3B, Savannah, GA 31401. 2BR apartment requested near Midtown Atlanta for home prototyping workspace (second bedroom min 12x12, hardwood/tile floors preferred). Employee Email: zara.okoye@mosaicrobotics.com | Account Manager: Emeka Diallo.\\n\\n--- DAMAGE CLAIM (added 2026-04-15 by Chloe Vance, Operations Manager) ---\\n\\nPHYSICAL MOVE STATUS: Completed with damage. Move delivered April 15, 2026 at 9:15 AM to Atlanta destination.\\n\\nDAMAGE TO PROTOTYPE UNIT #1 ($90,000 value):\\n- Cracked servo motor housing on primary joint assembly (3-inch fracture along lateral face, internal wiring harness exposed)\\n- Joint calibration misalignment (4+ degrees drift on two axes, consistent with shock or sustained vibration during transit)\\n- Unit cannot be safely powered on in current state\\n- Prototype Unit #2 and control unit appear undamaged pending full diagnostic\\n\\nDELIVERY RECEIPT ISSUE: Delivery was signed by Kyle Britten (Mosaic Robotics intern), NOT by Zara Okoye (authorized recipient). Zara was at Mosaic Atlanta office for new employee orientation. No damage inspection was performed at time of delivery. Approximately 3 hours 45 minutes elapsed between delivery acceptance (9:15 AM) and Zara's inspection (~1:00 PM).\\n\\nCRATING VERIFICATION FAILURE: Coordinator Blessing Okafor signed off on Heartland's packing checklist remotely on April 14 at approximately 9:45 AM. She was physically in Philadelphia coordinating a concurrent Canopy Health relocation (Tyler Okonkwo, Philadelphia to Denver) and did not visually verify the anti-vibration foam density against the 4-inch minimum specification in the work order. Crew lead Marcus Delaney (Heartland) provided verbal confirmation only.\\n\\nINSURANCE CLAIM STATUS: Filed. Credit memo CM-2026-0415 applied against INV-2026-0411. Liability accrual ACCRUAL-2026-0415-MOSAIC booked for $90,000 contingent liability.\\n- MoveOps vendor liability coverage: $50,000 per item\\n- Uncovered gap: $40,000 (MoveOps direct exposure if Heartland does not accept fault)\\n- Insurance adjudication: PENDING\\n- Mosaic's broker (Meridian Risk Partners) notified on their end\\n\\nINCIDENT REPORT: Due to Tamara Byrd (Mosaic HR) by EOD April 17, 2026. Rafael Mendes (VP Engineering) has executive visibility.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T09:30:00Z",
+    "modified_time": "2026-04-15T18:10:00Z"
+  },
+  {
+    "id": "recDeshawnHartleyTampaDenver",
+    "fields": "{\"Name\": \"Deshawn Hartley\", \"Company\": \"Mosaic Robotics\", \"Status\": \"In Progress\", \"Origin\": \"Tampa, FL\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-19\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"HARD DEADLINE: Must deliver by April 19 \\u2014 employee is lead presenter at Mosaic Robotics booth at Automate 2026 trade show (April 21\\u201324, Denver Convention Center). Booth setup begins April 20 \\u2014 zero flexibility on delivery date. Standard household goods only, no specialty items. Relatively light load (coming from furnished apartment, mostly personal items/electronics/clothing). Coordinator: Suki Patel. Current address: 8820 N Dale Mabry Hwy, Unit 412, Tampa, FL 33614. Furnished 1BR near downtown Denver preferred (walking distance to Convention Center ideal). NOTE: Employee's partner (Simone Richter) is a BrightLoop Analytics employee currently being relocated by MoveOps (Chicago \\u2192 Boston, managed by Mina Hashimoto) \\u2014 no coordination required per client but flagged for dual-client transparency. Possible consolidated Denver move in Q3/Q4. Employee Email: deshawn.hartley@mosaicrobotics.com | Account Manager: Emeka Diallo.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T09:35:00Z",
+    "modified_time": "2026-04-02T09:35:00Z"
+  },
+  {
+    "id": "recKeikoTanakaColumbusSeattle",
+    "fields": "{\"Name\": \"Keiko Tanaka\", \"Company\": \"Mosaic Robotics\", \"Status\": \"In Progress\", \"Origin\": \"Columbus, OH\", \"Destination\": \"Seattle, WA\", \"Move Start Date\": \"2026-04-15\", \"Move End Date\": \"2026-04-23\", \"Assigned Coordinator\": \"Javier Morales\", \"Special Requirements\": \"Epilog Fusion Pro 48 industrial laser cutter (65\\u2033\\u00d742\\u2033\\u00d744\\u2033, 400 lbs, ~$35K value) \\u2014 contains Class 3B CO2 laser tube (75W). Per DOT 49 CFR Part 173, laser power supply requires hazmat placarding for transport. Swift crew must follow Class 3B laser safety handling procedures (no direct eye exposure to tube assembly, unit powered down with safety interlock engaged and physically taped before loading). Swift MUST sign laser equipment liability waiver acknowledging laser classification before pickup (template in Mosaic Equipment Handling Guidelines, page 7). $800 hazmat handling surcharge. LEASE GAP: Columbus lease ends April 15, Seattle lease starts April 23 \\u2014 8-day interim storage required for ALL household goods + laser cutter at Swift Seattle facility. Laser cutter storage must be climate-controlled (60\\u201380\\u00b0F) and secure. $450 interim storage fee. Seattle delivery address TBD (lease expected signed by April 10). Coordinator: Javier Morales. Current address: 385 E Broad St, Apt 7A, Columbus, OH 43215. 1BR near University District in Seattle preferred \\u2014 freight elevator or ground-floor access needed for laser cutter delivery. Employee Email: keiko.tanaka@mosaicrobotics.com | Account Manager: Emeka Diallo.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-02T09:40:00Z",
+    "modified_time": "2026-04-02T09:40:00Z"
+  },
+  {
+    "id": "recRajPatelChicagoDenver",
+    "fields": "{\"Name\": \"Raj Patel\", \"Company\": \"NorthWind Technologies\", \"Status\": \"In Progress\", \"Origin\": \"Chicago\", \"Destination\": \"Denver\", \"Move Start Date\": \"2026-04-21\", \"Move End Date\": \"2026-04-23\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Home server lab \\u2014 4 rack-mounted servers (~2,400 lbs total). Lithium UPS batteries require Class 9 hazmat handling and DOT-certified transport. CISO-mandated chain-of-custody log required (signed handoff at every transfer point). NorthWind IT security escort must supervise all packing/loading \\u2014 moving crew cannot handle servers unattended. Direct transport only \\u2014 NO interim warehouse storage or overnight facility stops. Real-time GPS tracking must be shared with NorthWind security team. Equipment contains proprietary source code \\u2014 full disk encryption verification required before packing. IMPORTANT: MoveOps has NO prior chain-of-custody experience \\u2014 need to develop template and confirm Swift will accept supervised loading protocol.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T21:30:00Z",
+    "modified_time": "2026-04-01T21:30:00Z"
+  },
+  {
+    "id": "recEmiliaCruzChicagoDenver",
+    "fields": "{\"Name\": \"Emilia Cruz\", \"Company\": \"NorthWind Technologies\", \"Status\": \"In Progress\", \"Origin\": \"Chicago\", \"Destination\": \"Denver\", \"Move Start Date\": \"2026-04-14\", \"Move End Date\": \"2026-04-18\", \"Assigned Coordinator\": \"Blessing Okafor\", \"Special Requirements\": \"Partner's Steinway Model B grand piano (7ft, 480 lbs) \\u2014 requires specialty piano movers (Heartland and Swift do NOT handle pianos). Potential subcontractor: Gentle Giant Piano Movers (Chicago) \\u2014 NO existing vendor agreement. Piano needs climate-controlled transport and professional tuning at Denver destination. Three-vendor coordination required: Heartland for household goods, piano subcontractor TBD, apartment sourcing. 27-day lease overlap: Chicago lease ends May 15 but NorthWind needs employee in Denver by April 18. Employee requests MoveOps assist with early lease termination negotiation \\u2014 this is OUTSIDE standard MoveOps scope. NOTE: Move End Date of April 18 is a hard deadline from NorthWind \\u2014 employee must be operational in Denver office by that date.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-01T21:35:00Z",
+    "modified_time": "2026-04-01T21:35:00Z"
+  },
+  {
+    "id": "recVectralSystems01",
+    "fields": "{\"Client\": \"Vectral Systems\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2024-11-20\", \"Contract Type\": \"Preferred Partner\", \"Monthly Stipend Fee\": 2000, \"Total Relocations\": 11, \"Status\": \"Active\", \"Notes\": \"Q3 2026 contract renegotiation in progress. Client demanded 15% discount citing ExpenseBot false rejection, stipend fraud audit friction, and onboarding timeline issues. Counter-offered 10% loyalty discount on relocation services (Preferred Partner Program) with 12-month extension + 8-relocation minimum. Client counter-proposed 12%, we held at 10% with added sweeteners (dedicated onboarding, priority scheduling, quarterly reviews). Awaiting board decision ~April 23. Status: Renewal Pending.\\n\\nNegotiation Timeline:\\n  April 18 -- Rachel Whitfield (VP of People) sent formal demand for 15% discount across all services, threatened non-renewal. Cited: (1) Danielle Osei $475 ergonomic chair wrongly rejected by ExpenseBot, (2) Kevin Tran $89 keyboard receipt flagged in fraud audit -- turned out legitimate, (3) onboarding timeline commitments missed under Catalina Dubois in Nov 2024.\\n  April 18 -- Internal financial analysis by Alejandro Fuentes: 15% rejected (drops margin to 21%, below 25% floor). CEO approved 10% on relocation services only.\\n  April 18 -- Counter-proposal sent: Preferred Partner Program, 10% relocation discount, 12-month extension, 8-reloc minimum.\\n  April 19 -- Rachel counter-proposed 12%. Accepted all other terms.\\n  April 19 -- Held firm at 10%, added service sweeteners: dedicated onboarding coordinator per employee, 48-hour response SLA, quarterly account reviews.\\n  April 23 -- Vectral board meeting. Final decision expected.\\n\\nActive relocations in flight (3): Priya Suresh (Portland to Denver), Terrence Nakamura (Austin to SF), Camille Oduya (Boston to Seattle).\\n\\nQuickBooks estimate: EST-2026-0419, $58,400 projected 12-month value.\\nCRM deal: Renewal Pending stage. Total revenue to date: $109900.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2024-11-20T10:00:00Z",
+    "modified_time": "2026-04-19T15:30:00Z"
+  },
+  {
+    "id": "recTerraformDigital01",
+    "fields": "{\"Client\": \"Terraform Digital\", \"Account Manager\": \"Mina Hashimoto\", \"Relationship Start Date\": \"2026-03-18\", \"Contract Type\": \"Enterprise Relocation Package\", \"Monthly Stipend Fee\": 2000, \"Total Relocations\": 3, \"Status\": \"Onboarding\", \"Notes\": \"Terraform Digital (also tracked internally as Vantage Distributed in legacy CRM records). 1,200+ employees, $85M annual revenue, Chicago HQ. Enterprise contract signed March 18, 2026 ($1.85M deal) by Julian Brooks (Customer Support Lead). Operated on self-serve stipend platform only ($2,000/month) from March through April 2026.\\n\\nApril 22, 2026 -- Rachel Nguyen (VP of People Operations) submitted first request for end-to-end relocation services: 3 employees. This marks the transition from stipend-only to full Stipend + Relocations contract.\\n\\nRelocations requested:\\n  1. Priya Dasgupta, Sr. Data Engineer -- Austin TX to Chicago IL, move-in May 5\\n  2. Marcus Liu, Product Designer -- Portland OR to New York NY, move-in May 12\\n  3. Samantha Obi, DevOps Engineer -- Denver CO to San Francisco CA, move-in May 8\\n\\nRachel indicated 14 additional employees have expressed interest in relocating over next two quarters. Volume pricing tiers being formalized: standard rate for 1-10 moves/quarter, 8% discount at 11-20 moves, higher tiers TBD pending CEO approval.\\n\\nReply All Incident (April 22): Catalina Dubois accidentally sent internal pricing strategy email to Rachel Nguyen via wrong email thread. Client now has visibility into margin floor (25%), tiered discount structure, and internal pricing debate. Catalina sent personal apology same day. Elena Rostova assigned Mina Hashimoto as dedicated AM and authorized hiring of dedicated Terraform relocation coordinator. Relationship stabilized -- Rachel engaged and providing relocation details as of April 23, but noted she is 'watching closely' for execution quality.\\n\\nPrevious account contact: Julian Brooks (closed deal, managed stipend onboarding). Julian remains available for continuity but Mina is AM of record.\\n\\nContract type: Enterprise (Stipend + Relocations)\\nMonthly stipend platform fee: $2,000\\nRelocation pricing: Standard rate ($2,500/move) for initial batch, volume tiers for future batches\\nDedicated coordinator: Hire authorized, role requirements due end of week (Mina + Chloe Vance) Total revenue to date: $1850000.\"}",
+    "table_id": "tblClientAccts01",
+    "created_time": "2026-04-23T10:15:00Z",
+    "modified_time": "2026-04-23T10:15:00Z"
+  },
+  {
+    "id": "recRajPatelAuditNote0411",
+    "fields": "{\"Name\": \"Raj Patel\", \"Company\": \"NorthWind Technologies\", \"Status\": \"In Progress\", \"Origin\": \"Chicago, IL\", \"Destination\": \"Denver, CO\", \"Move Start Date\": \"2026-04-10\", \"Move End Date\": \"2026-04-10\", \"Assigned Coordinator\": \"Fatimah Al-Rashidi\", \"Special Requirements\": \"Server lab (4 rack-mounted servers, ~2400 lbs). CISO requires supervised IT escort loading, no warehouse storage, signed chain-of-custody log. Escort confirmed for 9:00 AM \\u2014 movers arrived at 7:00 AM and loaded without waiting.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-11T14:35:00Z",
+    "modified_time": "2026-04-11T14:35:00Z"
+  },
+  {
+    "id": "recJaeWonKimStormCloudAustin",
+    "fields": "{\"Name\": \"Jae-won Kim\", \"Company\": \"StormCloud Analytics\", \"Status\": \"In Progress\", \"Origin\": \"Seattle, WA\", \"Destination\": \"Austin, TX\", \"Move Start Date\": \"2026-04-07\", \"Move End Date\": \"2026-04-09\", \"Assigned Coordinator\": \"Suki Patel\", \"Special Requirements\": \"Lease still unsigned \\u2014 UrbanNest flagged landlord holdout on guarantor paperwork. Record incorrectly shows Completed.\"}",
+    "table_id": "tblRelocations01",
+    "created_time": "2026-04-09T10:18:00Z",
+    "modified_time": "2026-04-24T14:21:00Z"
+  }
+]

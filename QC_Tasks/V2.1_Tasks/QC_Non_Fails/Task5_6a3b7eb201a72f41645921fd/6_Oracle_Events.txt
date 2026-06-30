@@ -1,0 +1,33 @@
+OE 1: Search emails using email_search_emails for the IRS notice from priya.singh@brookfieldcpas.com. Find IRS Notice CP161-2026-ACME-0417 (dated 2026-06-09) stating that Acme Cloud's Q1 2026 federal estimated income tax payment of $416,050.00 due 2026-04-15 was not received, assessing a failure-to-pay penalty of $4,160.50 plus interest of $5,547.00 ($9,707.50 total), with a response deadline of 2026-07-09.
+
+OE 2: Search emails using email_search_emails across Priya Singh / IRS correspondence to confirm there is no other outstanding IRS notice or new exposure on Acme Cloud beyond CP161.
+
+OE 3: List Records Vault documents using records_vault_list_documents for Acme Cloud Q1 2026 estimated tax. Find the "acme_cloud Q1 2026 Estimated Tax Projection - Federal + State" projection (doc_053e3c394a4347bf) and the "Acme Cloud Inc - Q1 2026 Federal Estimated Tax EFTPS Payment Confirmation" (doc_63b88f3a9004).
+
+OE 4: Read the EFTPS confirmation content using records_vault_get_document. Confirm confirmation number 270584199630, amount $416,050.00, settled 2026-04-14, status SETTLED, but note the tax period shown is 2026 Q2, not Q1 2026.
+
+OE 5: Pull the Q1 estimated tax journal entries for acme_cloud using oracle_gl_list_journal_entries and oracle_gl_get_journal_entry on period acme_cloud_FP-2026-04. Find the provision accrual je_415a5eb58bec4963 ($498,450 federal plus state, DR 691000 Income Tax Expense / CR 230000 Income Tax Payable, approved by Ming Chang, posted 2026-04-14) and the federal payment je_acme_est_tax_q1_2026_001 ($416,050 DR 230000 Income Tax Payable / CR 103000 Cash - Tax Reserve, posted 2026-04-14, booked internally as Q1). Note the conflict: the books record the payment as Q1, but the EFTPS confirmation shows it applied to Q2.
+
+OE 6: Trace the internal workup and approval using email_search_emails. Find the thread between Sofia Halabi, Hannah Grant, and Ming Chang confirming the $416,050 federal (and $498,450 combined) Q1 estimate was reviewed and approved before the 4/15 wires, including the state breakdown of CA $58,200, NY $14,400, and MA $9,800.
+
+OE 7: Determine from OE 1, OE 4, and OE 5 that the $416,050 federal payment went out on time on 2026-04-14 but was applied to the 2026 Q2 estimated tax period instead of Q1, which is why the IRS shows Q1 as unpaid. This is a misapplication, not a missed payment. The correct position is to request the IRS reapply the payment from 2026 Q2 to Q1 2026 and abate the penalty and interest, with no additional Q1 tax owed.
+
+OE 8: Identify the downstream impact of the fix: reapplying the $416,050 from Q2 to Q1 leaves the 2026 Q2 estimate uncovered, so Q2 will need to be funded separately to avoid creating a new shortfall.
+
+OE 9: Check the state estimates for the quarter. Confirm there is no remittance record in the ledger or Records Vault for the state estimated payments (approximately $82,400: CA $58,200, NY $14,400, MA $9,800), and flag the state portion as an open item to confirm.
+
+OE 9a: Determine the remediation for the state estimates: the approximately $82,400 state portion is accrued but unremitted and past its due date, so recommend remitting it and addressing the resulting state late-payment exposure, not only flagging it.
+
+OE 9b: Recommend a control or process improvement to prevent a recurrence of the period misapplication, for example verifying the EFTPS period designation on estimated-tax payments before they are released.
+
+OE 10: Look up contacts using contacts_search_contacts for Ming Chang (ming.chang@brookfieldcpas.com) and Hannah Grant (hannah.grant@brookfieldcpas.com).
+
+OE 11: Send an email using email_send_email to ming.chang@brookfieldcpas.com with the recommended position and the full picture (reapply Q2 to Q1, abate penalty and interest, address the Q2 shortfall, confirm the state estimates), requesting his partner sign-off before anything goes back to the IRS.
+
+OE 12: Send an email using email_send_email to hannah.grant@brookfieldcpas.com with the same determination for the tax team file.
+
+OE 13: Draft the response to the IRS (timely payment, misapplied to Q2, request reapplication to Q1 and abatement) and upload the workpaper to Records Vault using records_vault_upload_document with retention_policy_code IRS_TAX_7Y.
+
+OE 14: Create an issue using linear_create_issue to track the CP161 matter through to resolution before the 2026-07-09 response deadline.
+
+OE 15: Post a message using slack_conversations_add_message in the tax-prep-and-filings channel that the CP161 notice is being handled.

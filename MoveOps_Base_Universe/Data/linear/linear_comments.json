@@ -1,0 +1,792 @@
+[
+  {
+    "id": "comment_lena_core_engine",
+    "body": "Preliminary architectural considerations for the core engine:\n\n```\nExpenseSubmission → CategoryMatcher → PolicyValidator → DecisionEngine → Result\n```\n\n**CategoryMatcher**: Associates the expense description and amount with a category enumeration. For version one, it will be rule-based — utilizing keyword matching on descriptions with customizable mappings for each client. The interface should be designed abstractly to allow for the integration of machine learning in the future, as requested by Dmitri.\n\n**PolicyValidator**: Retrieves the current policy for the client, verifies that the category is permitted, and compares the amount against the set threshold.\n\n**DecisionEngine**: Based on the output from the PolicyValidator — it will either auto-approve, auto-deny, or flag the submission for further review. It should include a confidence threshold, so if the category match is uncertain, it will flag it instead of making an automatic decision.\n\nWe will elaborate on this further once we have Chloe's requirements.",
+    "issue_id": "issue_core_engine",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-01T18:10:00Z",
+    "updated_at": "2026-02-01T18:10:00Z"
+  },
+  {
+    "id": "comment_arch_decision",
+    "body": "Architecture decision made — opting for a rules-based categorization engine for v1.\n\n**Chosen method:**  \n- `CategoryMatcher` → keyword-driven with weighted scoring, abstract interface for potential future ML integration  \n- `PolicyValidator` → client-specific JSON configuration, verifies permitted categories + limits + exclusions  \n- `DecisionEngine` → auto-approve / auto-deny / flag for review based on pipeline results  \n\nThis will be divided into sub-tickets: ENG-205 (CategoryMatcher), ENG-206 (PolicyValidator), ENG-207 (DecisionEngine).\n\nThe ML-based classifier has been postponed to the v2 backlog (ENG-210).\n\nPending: operational requirements from Chloe for the actual client policy data.",
+    "issue_id": "issue_core_engine",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-03T17:35:00Z",
+    "updated_at": "2026-02-03T17:35:00Z"
+  },
+  {
+    "id": "comment_dmitri_testing_note",
+    "body": "Putting this on hold for now based on the team's decision. Instead, I will concentrate on the testing framework (ENG-204).\n\nReminder for future reference: the initial TF-IDF experiment demonstrated 87% accuracy with 250 samples. It will be necessary to revisit this with additional data after the pilot phase. A crucial question is whether the rules engine has difficulties with unclear receipt descriptions — that's where machine learning could excel.\n\nI will gather accuracy data from the rules engine during the pilot to support the case for version 2.",
+    "issue_id": "issue_ml_v2_backlog",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-03T17:40:00Z",
+    "updated_at": "2026-02-03T17:40:00Z"
+  },
+  {
+    "id": "comment_policy_ingestion_unblocked",
+    "body": "Unblocked — Chloe has provided the complete policy spreadsheet along with specific requirements for all clients.\n\nInitial configurations to create:\n- **Vectral Systems**: equipment $500, furniture $400, ergonomic $600, internet $150/month, coworking EXCLUDED, office supplies $75\n- **Mosaic Robotics**: equipment $1000, furniture $800, ergonomic $800, internet $200/month, coworking EXCLUDED (changed 6 months ago — previously $400/month), office supplies $100\n\nThe policy spreadsheet is attached to the email thread. We are starting the configuration generation today.",
+    "issue_id": "issue_category_matcher",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-05T18:30:00Z",
+    "updated_at": "2026-02-05T18:30:00Z"
+  },
+  {
+    "id": "comment_lena_exclusion_handling",
+    "body": "Revising specifications based on operational needs:\n\n1. The `excluded_categories` in the policy JSON must represent a strict denial path — it should not be treated the same as 'category not found'. If a category is specifically excluded, the PolicyValidator ought to return `{ allowed: false, reason: 'category_excluded', rule: 'coworking in excluded_categories' }`.\n\n2. It's important to carefully differentiate between ergonomic and furniture categories in the CategoryMatcher. We should prioritize keywords, ensuring that multi-word matches such as 'standing desk' and 'ergonomic chair' are scored for ergonomic before furniture is considered.\n\n3. Mosaic's outdated coworking policy illustrates the importance of configuration versioning — we should incorporate a `policy_version` and `last_updated` field into the schema.",
+    "issue_id": "issue_category_matcher",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-05T18:45:00Z",
+    "updated_at": "2026-02-05T18:45:00Z"
+  },
+  {
+    "id": "comment_dmitri_edge_case_tests",
+    "body": "Incorporating test cases based on Chloe's operational requirements:\n\n**Edge cases for category classification:**  \n- 'Standing desk' → ergonomic (not classified as furniture)  \n- 'Desk' → furniture  \n- 'Ergonomic keyboard tray' → ergonomic  \n- 'Keyboard + mouse combo' → equipment (bundled, single price)  \n- 'Monitor arm' → ergonomic  \n- 'Monitor' → equipment  \n\n**Edge cases for policy validation:**  \n- Excluded category (coworking for both Vectral and Mosaic) → outright denial  \n- Boundary amounts: $599 for ergonomic at Vectral (approved) vs $601 (denied)  \n- Internet setup fee combined with the first month's charge on the same receipt  \n- Office supplies below the receipt threshold (Vectral < $25, Mosaic < $50)  \n\n**Detection of outdated configurations:**  \n- TODO: Implement a validation check that alerts when `last_updated` exceeds 90 days. This is not a blocker for version 1 but should be flagged for further discussion.",
+    "issue_id": "issue_integration_testing",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-05T19:00:00Z",
+    "updated_at": "2026-02-05T19:00:00Z"
+  },
+  {
+    "id": "comment_anh_dashboard_done",
+    "body": "The dashboard is operational in staging. Features delivered:\n\n- Expense review queue with filters for client, category, status, and date range\n- Detailed view for each expense displaying category, policy limit, submitted amount, confidence score, and comprehensive decision reasoning\n- Manual override (one-click approve/deny with a mandatory comment field)\n- Audit trail encompassing all automated and manual decisions\n- Rule configuration UI — form-based editor for managing client-specific policies\n\nStill to be completed (not blocking the pilot):\n- Bulk export for reporting purposes\n- Policy version history (stub implemented, complete UI to follow)\n\nChloe has previewed and approved the design. Marking as complete.",
+    "issue_id": "issue_admin_dashboard",
+    "author_id": "moveops_anh_nguyen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-27T15:30:00Z",
+    "updated_at": "2026-02-27T15:30:00Z"
+  },
+  {
+    "id": "comment_lena_engine_staging",
+    "body": "Marking this epic as complete. All three sub-components are developed and operational end-to-end in staging:\n\n- **ENG-205 CategoryMatcher** ✅ — keyword scoring prioritizing multi-word phrases. Manages all 7 standard categories plus an `other` fallback.\n- **ENG-206 PolicyValidator** ✅ — loads per-client JSON configurations, validates categories, checks amount limits, and handles exclusions.\n- **ENG-207 DecisionEngine** ✅ — implements logic for auto-approving, denying, or flagging with comprehensive audit logging.\n\nPipeline latency is approximately 180ms per expense in staging. Tested with synthetic data for both Vectral and Mosaic configurations.\n\nBasic schema validation is implemented during config loading (rejects missing `client_id` or `categories`). More extensive config validation is to be determined under ENG-204.",
+    "issue_id": "issue_policy_config",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-27T16:10:00Z",
+    "updated_at": "2026-02-27T16:10:00Z"
+  },
+  {
+    "id": "comment_dmitri_testing_gaps",
+    "body": "Progress report on testing:\n\n**Completed:**\n- Integration tests for the entire pipeline (all 7 categories, both pilot clients)\n- Unit tests for CategoryMatcher keyword scoring (standard scenarios)\n- Unit tests for PolicyValidator (allowed/denied/excluded paths)\n- Boundary amount tests for the limits of Vectral and Mosaic\n\n**Identified Gaps (reported to team):**\n- ❌ No tests for improperly formatted policy configurations (incorrect types, missing fields in nested objects, malformed exclusion lists)\n- ❌ Lack of thorough tests to ensure that generated configurations align with source data from operations\n- ❌ Limited testing of edge cases for category overlap (ergonomic vs. furniture boundary)\n- ❌ Absence of load testing\n\n**Upcoming Actions:** This week, we will focus on prioritizing tests for policy configuration validation and handling malformed JSON, as directed by Samira. Load testing will be postponed until after the pilot.\n\nI want to be open: the successful path functions well, but the auto-approve/deny processes are critical, and I’m not confident we've addressed all potential failure scenarios in the policy configuration layer.",
+    "issue_id": "issue_integration_testing",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-02-27T17:15:00Z",
+    "updated_at": "2026-02-27T17:15:00Z"
+  },
+  {
+    "id": "comment_dmitri_duplicate_discovery",
+    "body": "**⚠️ Data Quality Concern — Duplicate / Questionable Receipt Anomalies**\n\nIn the audit conducted post-pause of all Airtable stipend entries, I performed SHA-256 hash comparisons and examined PDF metadata fingerprints across the entire receipt collection. I identified three unusual records:\n\n**Finding 1 — Matching Receipt Hash (Duplicate File)**\n| Field | Kevin Tran (Vectral) | Andre Washington (Mosaic) |\n|---|---|---|\n| Submission ID | rec_stipend_kevin_tran_keyboard | rec_stipend_andre_keyboard |\n| Item | Ergonomic mechanical keyboard — TechComfort ErgoKey Pro | Ergonomic mechanical keyboard — TechComfort ErgoKey Pro |\n| Amount | $89.00 | $89.00 |\n| Vendor | TechComfort Supply | TechComfort Supply |\n| SHA-256 | `a3f7c8d1e9b2...` | `a3f7c8d1e9b2...` |\n| PDF Template | TC-RECEIPT-STD-041 | TC-RECEIPT-STD-041 |\n| Status | **Paid** (2026-03-08) | **Pending** |\n\nThese documents are identical. Two employees from different companies submitted a receipt PDF that is byte-for-byte the same. The likelihood of a legitimate SHA-256 collision is virtually nonexistent.\n\n**Finding 2 — Matching PDF Template Metadata**\n| Field | Jordan Ekwueme (BrightLoop) |\n|---|---|\n| Submission ID | rec_stipend_jordan_monitor_stand |\n| Item | Adjustable monitor stand — TechComfort StandPro Mini |\n| Amount | $45.00 |\n| Vendor | TechComfort Supply |\n| SHA-256 | `7b9e1d3f5a7c...` (different from above) |\n| PDF Template | TC-RECEIPT-STD-041 |\n| Status | **Pending** |\n\nWhile the file content and hash are different, the PDF /Creator metadata (`TechComfort Supply Invoice Generator v2.1`) and /Template ID (`TC-RECEIPT-STD-041`) match those of the Tran/Washington receipts. The structural fingerprint — including font metrics, layout coordinates, and field positioning — all originate from the same template source file.\n\n**Summary:**\n- Three questionable receipts from three distinct client companies, all associated with 'TechComfort Supply'\n- Total amount: $223 ($89 + $89 + $45)\n- $89 has already been paid out (Kevin Tran); $134 is pending (Andre Washington $89 + Jordan Ekwueme $45)\n- The existing system lacks a mechanism to detect duplicate receipt hashes or PDF metadata\n\nI will escalate this to Marcus (finance) right away and will also create a separate ticket for the implementation of automated duplicate detection.",
+    "issue_id": "issue_audit_expenses",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-15T10:55:00Z",
+    "updated_at": "2026-03-15T10:55:00Z"
+  },
+  {
+    "id": "comment_dmitri_duplicate_ticket_context",
+    "body": "Filed according to the discussion in #engineering and Elena's policy directive in #executive. Samira has confirmed that this should be a priority for the next sprint.\n\nKey context links:\n- Audit findings are recorded in the ENG-216 comment thread\n- Airtable records identified: `rec_stipend_kevin_tran_keyboard`, `rec_stipend_andre_keyboard`, `rec_stipend_jordan_monitor_stand`\n- QuickBooks holds were placed by Marcus on STIP-2026-0094 and STIP-2026-0097\n- AM verification requests have been sent to Vectral (Mina → Rachel Whitfield), Mosaic (Emeka → Tamara Byrd), and BrightLoop (Emeka → Tessa Moreno)\n\nI will begin the Layer 1 implementation (hash dedup) on Monday morning since Lena has confirmed that the S3 hash data is already accessible. I will work with her on the changes to the ingestion pipeline.",
+    "issue_id": "issue_stipend_duplicate_detection",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-15T16:05:00Z",
+    "updated_at": "2026-03-15T16:05:00Z"
+  },
+  {
+    "id": "comment_false_rejection_incident",
+    "body": "⚠️ **Pilot Incident: Incorrect Denial — Vectral Systems**\n\nA complaint was received through Vectral's HR representative (Rachel Whitfield) to Mina.\n\n**Details:**\n- Employee: Danielle Osei\n- Expense: Ergonomic chair, $475\n- System decision: Automatically denied — 'exceeds category limit'\n- Expected decision: Automatically approved — Vectral's ergonomic threshold is $600\n\nThe amount of $475 is significantly below the $600 limit. There seems to be an issue with either the classification of the category or the policy configuration for Vectral.\n\nWe are currently investigating. Mina is managing the client relationship aspect.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-16T18:45:00Z",
+    "updated_at": "2026-03-16T18:45:00Z"
+  },
+  {
+    "id": "comment_mina_two_incidents",
+    "body": "**Two incidents of false rejection — Vectral Systems**\n\nBoth cases were manually overridden and approved in the dashboard.\n\n**Incident 1: Danielle Osei**  \n- Expense: Ergonomic chair, $475  \n- Auto-denied: 'exceeds category limit' (system applied a $400 limit)  \n- Correct limit: $600 (for ergonomic chairs)  \n- Reported by: Rachel Whitfield (Vectral HR) — client expressed frustration  \n- Manually approved: 2026-03-16  \n\n**Incident 2: Kevin Tran**  \n- Expense: Internet setup fee, $185  \n- Auto-denied: 'exceeds category limit' (system set a $150 monthly limit)  \n- Correct policy: Setup fees are not included in the monthly cap  \n- Reported by: Kevin Tran directly to me  \n- Manually approved: 2026-03-13  \n\nThe $400 limit for ergonomic items does not align with Vectral's policy of $600. This appears to be a configuration issue with the policy. The internet setup fee is a recognized exception — the system fails to differentiate between setup and monthly charges. \n\nAwaiting engineering to look into the root cause.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-16T19:50:00Z",
+    "updated_at": "2026-03-16T19:50:00Z"
+  },
+  {
+    "id": "comment_emeka_false_approvals",
+    "body": "**Two Incorrect Approval Cases — Mosaic Robotics**  \n\n⚠️ These incidents are the opposite of the issues faced by Vectral — the system is approving requests it should reject.  \n\n**Incident 1: Andre Washington — Standing Desk**  \n- Expense: Standing desk, $1,200  \n- System decision: Automatically approved (classified as 'ergonomic')  \n- Mosaic policy: Ergonomic furniture limit set at $800  \n- Exceeded limit by: $400  \n- Financial risk: $400  \n\n**Incident 2: Andre Washington — Coworking Membership**  \n- Expense: Monthly coworking space membership, $350  \n- System decision: Automatically approved  \n- Mosaic policy: Coworking is NOT INCLUDED — entirely excluded from coverage  \n- Financial risk: $350/month (recurs if not addressed)  \n\n**Total identified risk: At least $1,550**  \n\nMosaic HR (Priya) has not yet noticed these issues. A quarterly reconciliation is scheduled in about 6 weeks. Do not reverse any approvals or reach out to the client until the engineering investigation is complete.  \n\nAlong with the false rejections from Vectral, both pilot clients are experiencing configuration issues with their policies. A full audit of all auto-processed expenses is being requested.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_emeka_diallo",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-16T22:30:00Z",
+    "updated_at": "2026-03-16T22:30:00Z"
+  },
+  {
+    "id": "comment_lena_vectral_fix_plan",
+    "body": "Beginning the immediate configuration adjustments now. Updating all Vectral limits from the default template settings to the values confirmed by Chloe. \n\nAdditionally, I will eliminate the try/catch fallback in the ingestion pipeline — any parse errors will result in a complete import failure. No more silent defaults will be accepted.",
+    "issue_id": "issue_p1_vectral_config",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-16T23:50:00Z",
+    "updated_at": "2026-03-16T23:50:00Z"
+  },
+  {
+    "id": "comment_lena_mosaic_fix_plan",
+    "body": "Immediately correct the Mosaic configuration by changing `excluded_categories` to an array and ensuring all `max_amount` fields are set to numbers. \n\nFor strengthening the PolicyValidator, I will implement explicit type guards prior to any comparisons. If `max_amount` is not a number or `excluded_categories` is not an array, the validator should raise a `ConfigValidationError` rather than continue with the validation process. This approach guarantees that even if a faulty configuration bypasses the ingestion pipeline, the engine will reject it instead of making incorrect decisions without any indication. \n\nThe bug regarding JS lexicographic comparison (`1200 <= \\",
+    "issue_id": "issue_p1_mosaic_malformed",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-16T23:55:00Z",
+    "updated_at": "2026-03-16T23:55:00Z"
+  },
+  {
+    "id": "comment_monitoring_rca_update",
+    "body": "**Root Cause Analysis Completed**\n\nBoth client incidents are linked to the policy ingestion pipeline (ENG-209):\n\n- **Vectral false rejections:** Silent parse error fallback → default template limits applied instead of customized values\n- **Mosaic false approvals:** Spreadsheet cells formatted as text → malformed JSON types (string instead of array/number) → exclusion check bypassed, amount comparison disrupted\n\nThe core logic of the rules engine (CategoryMatcher, PolicyValidator, DecisionEngine) is functioning correctly. The issue lies solely within the data pipeline supplying it.\n\nTwo P1 fix tickets have been created:\n- **ENG-214:** Correction of Vectral configuration + handling of pipeline errors\n- **ENG-215:** Correction of Mosaic configuration + strengthening of PolicyValidator types\n\nRecommendation: conduct a comprehensive audit of all 47 auto-processed pilot expenses before reactivating auto-decisions. @Dmitri Volkov's schema validation tests should be expedited as a prerequisite before any future configuration deployment.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-17T00:00:00Z",
+    "updated_at": "2026-03-17T00:00:00Z"
+  },
+  {
+    "id": "comment_marcus_audit_request",
+    "body": "**Finance request — essential before proceeding with further rollout:**\n\n1. Conduct a comprehensive audit of ALL auto-approved expenses for both pilot clients. I require the overall financial risk, not merely the two cases identified by Emeka.\n2. Immediately halt auto-approvals — only categorize and flag expenses, no automated financial decisions should be made.\n3. Do not extend to additional clients until the configuration pipeline has proper validation and the audit results are satisfactory.\n4. A decision is needed on how to handle the $1,550 already approved for Mosaic. Options include: MoveOps absorbing the cost, reversing the approvals, or negotiating with the client. Each option comes with its own implications.\n\nThis has become an issue of financial controls, rather than just an engineering error.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-17T17:20:00Z",
+    "updated_at": "2026-03-17T17:20:00Z"
+  },
+  {
+    "id": "comment_david_client_impact",
+    "body": "**Client Relationship Impact Evaluation**  \n\n**Vectral Systems** — Trust is diminishing  \n- Rachel Whitfield (HR) has faced two incorrect rejections within a week  \n- Concerns about MoveOps' dependability — extending beyond individual expenses  \n- Mina notes a noticeable change to a colder tone in Rachel's communication  \n- Another incident may prompt internal escalation at Vectral  \n- Risk: potential loss of account if this trend persists  \n\n**Mosaic Robotics** — Underlying risk, countdown begins  \n- Priya Delgado has yet to identify any false approvals  \n- The quarterly reconciliation in about six weeks will reveal the $1,550  \n- Ongoing discussions for EMEA expansion might be at risk  \n- Decision required: should we disclose proactively or wait for discovery?  \n\n**AM Confidence**  \n- Both Mina and Emeka are losing faith in the tool  \n- Mina is already manually reviewing every automated decision  \n- Both prefer manual checks over unreliable automation  \n\n**Recommendation:** Halt auto-approve/deny. Reach out proactively to Rachel (via call, not email). Inform Mosaic before the reconciliation. Do not reinstate automation until AMs provide their approval.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-17T23:50:00Z",
+    "updated_at": "2026-03-17T23:50:00Z"
+  },
+  {
+    "id": "comment_elena_directive",
+    "body": "**CEO Directive — 2026-03-17**  \n\nThe project will proceed, but with essential modifications:  \n\n1. **Auto-approve/deny PAUSED** — effective immediately. Only auto-categorization and human review will be conducted.  \n2. **Comprehensive audit of all pilot expenses** — every automatically processed decision will be reviewed. This is due by Wednesday, 3/19.  \n3. **The policy configuration pipeline must be corrected and validated** before reactivating automation.  \n4. **One-page status update required by Friday, 3/21** — including audit findings, status of fixes, timeline, effects on clients, and changes to processes.  \n\n**Financial decision:** MoveOps will cover the $1,550 associated with incorrect approvals. This is our mistake, not the employee's. Approvals made in good faith will not be reversed.  \n\n**Client actions:**  \n- Mina will contact Rachel Whitfield (Vectral) — being transparent about the issue and the resolution.  \n- Emeka will reach out to Priya Delgado (Mosaic) — proactively informing her about the situation this week, without waiting for reconciliation.  \n\n**Process note:** The status update on Friday must detail what adjustments we are making to our launch process to prevent similar issues with future features. Edge case tests were noted as incomplete prior to launch — we need a checkpoint for that.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_elena_rostova",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-18T07:05:00Z",
+    "updated_at": "2026-03-18T07:05:00Z"
+  },
+  {
+    "id": "comment_lena_deploy_verified",
+    "body": "Config corrections have been deployed and confirmed in production.\n\nVerification steps:\n- Reviewed Danielle Osei's $475 ergonomic chair → correctly approved (ergonomic, $475 < $600) ✅\n- Reviewed Kevin Tran's $185 internet → correctly approved (internet, $185 > $150 monthly, but the setup fee edge case still needs to be addressed) ⚠️\n- Reviewed Andre Washington's $1,200 desk → correctly denied ($1,200 > $800 ergonomic cap) ✅\n- Reviewed Andre Washington's coworking → correctly denied (coworking is on the exclusion list) ✅\n\nNote: Automatic decisions are disabled, so all cases route to the review queue anyway. Verification was conducted by assessing what the engine *would* decide.\n\nKevin Tran's internet setup fee remains a known edge case — the system considers all internet expenses against the $150 monthly limit. The distinction between internet setup and monthly charges requires a separate ticket. I'll file that for later.\n\nClosing ENG-214. Now starting on pipeline hardening (ENG-217).",
+    "issue_id": "issue_p1_mosaic_malformed",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-18T18:05:00Z",
+    "updated_at": "2026-03-18T18:05:00Z"
+  },
+  {
+    "id": "comment_samira_pause_confirmed",
+    "body": "**Auto-decisions DISABLED — confirmed deployment on 2026-03-18**\n\nBoth Vectral and Mosaic configurations have been updated with `auto_decisions_enabled: false`. All expenses are now directed to the AM review queue. Adjusted policy limits have also been deployed for both clients.\n\nRemediation plan in progress:\n- ENG-216: Comprehensive audit (Dmitri, due Wed 3/19)\n- ENG-217: Strengthening the pipeline (Lena, due Thu 3/20)\n- ENG-218: Validation of dashboard types (Anh, due Fri 3/21)\n- ENG-212: Test suite for schema validation (Dmitri, due 3/27)\n- ENG-219: Checklist for launch readiness (Samira, due Fri 3/21)\n\nEarliest possible re-enablement: week of 3/30, dependent on all fixes being implemented and AM approval.",
+    "issue_id": "issue_pilot_monitoring",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-18T18:15:00Z",
+    "updated_at": "2026-03-18T18:15:00Z"
+  },
+  {
+    "id": "comment_dmitri_audit_results",
+    "body": "**Audit Completed — Comprehensive Results**  \n\n47 expenses reviewed. 39 accurate, 5 incorrectly rejected, 3 mistakenly approved.  \n\n**Incorrect Rejections (Vectral — 5):**  \n1. Danielle Osei — $475 ergonomic chair (limit was $400, should be $600) — previously manually approved by Mina  \n2. Kevin Tran — $185 internet installation (limit was $100, should be $150) — previously manually approved by Mina  \n3. Maria Santos — $550 standing desk (limit was $400, should be $600) — requires manual intervention  \n4. James Okafor — $82 keyboard tray (misclassified as office supplies, default limit $50; should be ergonomic, limit $600) — requires manual intervention + categorization correction  \n5. Lisa Park — $130 mesh wifi system (limit was $100, should be $150) — requires manual intervention  \n\n**Incorrect Approvals (Mosaic — 3):**  \n1. Andre Washington — $1,200 standing desk (string comparison issue) — $400 over the limit  \n2. Andre Washington — $350 coworking membership (exclusion check overlooked) — $350 out of compliance  \n3. Kenji Nakamura — $135 coworking day passes x3 (same exclusion issue) — $135 out of compliance  \n\n**Financial risk: $885**  \n\nAudit spreadsheet attached with complete details for each expense. Shared with Marcus for financial reconciliation.  \n\n**Additional finding:** James Okafor's keyboard tray revealed a categorization issue — 'keyboard tray' not included in the ergonomic keyword list. This is separate from the configuration problem.",
+    "issue_id": "issue_pipeline_hardening",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-20T00:30:00Z",
+    "updated_at": "2026-03-20T00:30:00Z"
+  },
+  {
+    "id": "comment_dmitri_validation_tests",
+    "body": "Implemented six schema validation tests in the ENG-212 branch:\n\n1. `test_config_field_types` — checks type assertions for all configuration fields\n2. `test_required_fields` — verifies presence and non-null values\n3. `test_config_matches_source` — compares against Chloe's spreadsheet\n4. `test_exclusion_entries_valid` — validates enums in the exclusion list\n5. `test_limit_values_positive` — checks for positive numeric values\n6. `test_no_silent_fallback` — ensures pipeline aborts on parsing errors\n\nAll six tests pass with corrected configurations. However, they all fail with the original production configurations, confirming they would have identified both root causes prior to deployment.\n\nLena is incorporating these tests into the ENG-217 deployment gate. Remaining tasks for ENG-212 include edge case tests for categorization, handling vendor abbreviations, and distinguishing between internet setup and monthly configurations.",
+    "issue_id": "issue_edge_cases_backlog",
+    "author_id": "moveops_dmitri_volkov",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-20T00:45:00Z",
+    "updated_at": "2026-03-20T00:45:00Z"
+  },
+  {
+    "id": "comment_chloe_heartland_recon_context",
+    "body": "Filing this to track the full lifecycle of the Heartland Q1 dispute. The first 3 checklist items are already done — I verified the Airtable records, pulled the cancellation emails, and confirmed the Swift/Venkatesh situation earlier today.\n\nRemaining items are all dependent on Heartland's response. Marcus sent the formal dispute at ~2 PM today. Given Jake's track record of not replying to our February cancellation emails, I want to set a follow-up reminder for April 1 if we haven't heard back.\n\nNote: This is the first billing issue with Heartland. Q4 2025 (HM-2025-Q4-0031) was clean — 4 moves, $6,400, all verified. The problem seems to be a process gap on their end for handling cancellations, not a pattern of overbilling.\n\nKeeping this In Progress until we get the corrected invoice and payment is released.",
+    "issue_id": "issue_heartland_q1_recon",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-03-25T22:35:00Z",
+    "updated_at": "2026-03-25T22:35:00Z"
+  },
+  {
+    "id": "comment_abdi_apt_options",
+    "body": "Received 3 apartment options from UrbanNest:\n1. West Loop 2BR — $2,650/month (10-minute walk to HQ)\n2. South Loop 2BR — $2,400/month (15-minute commute)\n3. River North 1BR+den — $2,750/month\n\nForwarded to Dr. Abdi to choose.",
+    "issue_id": "issue_canopy_abdi_apt",
+    "author_id": "moveops_blessing_okafor",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-02T10:00:00Z",
+    "updated_at": "2026-04-02T10:00:00Z"
+  },
+  {
+    "id": "comment_tran_apt_selected",
+    "body": "Kevin chose the RiNo loft – 2955 Brighton Blvd, Unit 302 ($2,200/mo). Exposed brick, bike storage, close to Great Divide Brewing. A perfect match for his vibe. Lease paperwork is underway. Move-in is April 15. ✅",
+    "issue_id": "issue_vectral_tran_apt",
+    "author_id": "moveops_javier_morales",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-02T11:00:00Z",
+    "updated_at": "2026-04-02T11:00:00Z"
+  },
+  {
+    "id": "comment_abdi_apt_selected",
+    "body": "Dr. Abdi chose Option A — a West Loop 2BR at 600 W Washington Blvd, Unit 1204 ($2,650/mo). 10-minute walk to Canopy HQ. UrbanNest has begun the lease paperwork. Move-in available April 15. ✅",
+    "issue_id": "issue_canopy_abdi_apt",
+    "author_id": "moveops_blessing_okafor",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-02T14:00:00Z",
+    "updated_at": "2026-04-02T14:00:00Z"
+  },
+  {
+    "id": "comment_venkatesh_movers",
+    "body": "Swift Relocations has confirmed an electronics-specialist crew. Key details:\n- Pickup: April 21, 7:00 AM in Houston — Priya must supervise the packing of lab equipment\n- Delivery: April 23, 9:00 AM–1:00 PM in Seattle (includes an extra transit day for careful handling)\n- $4,450 total (base $3,800 + $650 electronics surcharge)\n- Anti-static crating for the oscilloscope and PCB rig\n- Climate-controlled compartment for prototype components\n\nNote: Priya's flight is booked for the afternoon of April 21 after the movers finish loading. This has been coordinated.",
+    "issue_id": "issue_greenstack_venkatesh_movers",
+    "author_id": "moveops_fatimah_alrashidi",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-03T14:00:00Z",
+    "updated_at": "2026-04-03T14:00:00Z"
+  },
+  {
+    "id": "linear_comment_6852da3486e8",
+    "body": "Acknowledged. I’m checking whether we can shift any coordinator coverage this week, but nothing clean to reassign yet. Leaving this open for now while we see how Canopy and existing April moves settle.",
+    "issue_id": "linear_issue_644c3b2e75a6",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-05T10:18:00Z",
+    "updated_at": "2026-04-05T10:18:00Z"
+  },
+  {
+    "id": "linear_comment_77eafc95e169",
+    "body": "Deferring this another cycle. I pulled the attachment-check approach into scoping after the Terraform leak, but I can’t take it this week while we’re still on DOT compliance items tied to Raj Patel’s interstate move paperwork and shipment-state validation. Leaving unassigned for now so Samira can re-slot if risk tolerance changes.",
+    "issue_id": "linear_issue_6b59cce3afc2",
+    "author_id": "moveops_lena_bjorkstrom",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-06T10:16:00Z",
+    "updated_at": "2026-04-06T10:16:00Z"
+  },
+  {
+    "id": "linear_comment_3dfd1f1dd151",
+    "body": "Ack. We need the DOT work clear first, but keeping this in backlog is uncomfortable given why it was opened. Leaving priority where it is for now; we’ll revisit once Raj Patel compliance items are out of the way.",
+    "issue_id": "linear_issue_6b59cce3afc2",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-06T10:19:00Z",
+    "updated_at": "2026-04-06T10:19:00Z"
+  },
+  {
+    "id": "linear_comment_ad9b5b6a0a95",
+    "body": "Batch-closing remaining StormCloud April relocations this morning. Jae-won is in Austin and temp housing was covered, so I’m marking this complete with apartment confirmed on the relocation side. If any residual docs come in from UrbanNest we can handle them async, but nothing else should block closeout.",
+    "issue_id": "linear_issue_c97359216490",
+    "author_id": "moveops_suki_patel",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-10T10:14:00Z",
+    "updated_at": "2026-04-10T10:14:00Z"
+  },
+  {
+    "id": "linear_comment_fc9fd7990fec",
+    "body": "Ops timeline reconstructed and posted internally.\n\nKey facts:\nCrew arrival was 7:00 AM on April 10.\nEscort was confirmed for 9:00 AM in Fatimah's April 9 dispatch email: Raj Patel supervised load — IT escort confirmed for 9:00 AM tomorrow.\nLoad proceeded before escort arrival.\nEquipment was then held overnight at SentinelChain South San Francisco warehouse before onward release.\n\nConclusion: this was not a documentation mix-up. It was an operational breach against the client's stated controls. Next step is confirming whether any custody log exists off-system and who approved early handling.",
+    "issue_id": "linear_issue_c8cdba4408f1",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-11T10:02:00Z",
+    "updated_at": "2026-04-11T10:02:00Z"
+  },
+  {
+    "id": "linear_comment_093d903c5cb9",
+    "body": "Flagging a documentation integrity problem after reviewing the underlying move trail.\n\nThis issue is marked Done and the description states that the chain-of-custody log and signed supervised loading documentation are on file. I cannot locate a signed custody log in the move packet, vendor email trail, or the incident materials tied to Victor Huang's April 10 escalation.\n\nSeparately, the Airtable relocation record for Raj Patel still shows Status = In Progress even though the physical move was already executed. So we currently have one system implying the documentation package is complete and another implying the move itself is still open.\n\nThat mismatch matters because it creates the appearance of closure without actual proof of custody.\n\nSource trail reviewed:\n- Victor Huang incident email: Immediate security incident response required — Raj Patel server lab relocation\n- Escort timing confirmation from Fatimah: Raj Patel supervised load — IT escort confirmed for 9:00 AM tomorrow\n- Ops reconstruction posted today: Ops timeline reconstructed and posted internally.\n\nKey facts:\nCrew arrival was 7:00 AM on April 10.\nEscort was confirmed for 9:00 AM in Fatimah's April 9 dispatch email: Raj Patel supervised load — IT escort confirmed for 9:00 AM tomorrow.\nLoad proceeded before escort arrival.\nEquipment was then held overnight at SentinelChain South San Francisco warehouse before onward release.\n\nConclusion: this was not a documentation mix-up. It was an operational breach against the client's stated controls. Next step is confirming whether any custody log exists off-system and who approved early handling.\n- Airtable record: @existing:airtable:records:recRajPatelChicagoDenver\n\nRequesting direct confirmation from Fatimah on whether a signed custody log ever existed and, if so, where it is stored.",
+    "issue_id": "issue_dot_docs_patel_northwind",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-11T14:32:00Z",
+    "updated_at": "2026-04-11T14:32:00Z"
+  },
+  {
+    "id": "linear_comment_57faf86d23e1",
+    "body": "Posting the same summary here for visibility: this is broader than invoice HM-2026-Q1-0042. Three of the five Q1 Heartland moves have exceptions, and one of them is a storage charge with no contractual authorization. I also checked the earlier dispute ticket before opening this and it has effectively been idle for two weeks. We need one owner and one packet before Jake comes back claiming this is just payment delay.",
+    "issue_id": "linear_issue_6f33a369d77e",
+    "author_id": "moveops_hana_kim",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T09:20:00Z",
+    "updated_at": "2026-04-14T09:20:00Z"
+  },
+  {
+    "id": "linear_comment_64ab4290e225",
+    "body": "Initial note from model setup: I can get to a directional range quickly, but not a defensible forecast until we bridge three systems.\n\nUseful anchors already identified:\n- Airtable relocation records including BrightLoop and other active moves\n- Heartland discrepancy work already documented by Hana in Consolidate Heartland Q1 billing discrepancies into vendor dispute response\n- prior Vectral account analysis in @existing:email:emails:email_alejandro_vectral_analysis for account-level margin sensitivity framing\n\nMain risk if we skip the reconciliation layer: we will present a false level of precision on client margin impact and negotiation options.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_alejandro_fuentes",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-14T15:44:00Z",
+    "updated_at": "2026-04-14T15:44:00Z"
+  },
+  {
+    "id": "linear_comment_3b5c18789606",
+    "body": "Customer-engagement input request posted in #customer-engagement this morning because Alejandro's model needs account-level sensitivity, not just vendor cost deltas.\n\nQuestions I put to the AM team:\n- which active clients would feel Swift pass-through pricing first\n- which clients would react badly if Heartland capacity gets reshuffled or split to backup carriers\n- whether the real risk is budget pressure, timing pressure, specialized handling, or already-fragile trust\n\nI expect immediate feedback from Mina on Vectral/BrightLoop and Emeka on Mosaic. Catalina also needs to weigh in on Midwest exposure if she can get clear of the NorthWind fires.\n\nWill summarize client-by-client risk once replies come in.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T09:19:00Z",
+    "updated_at": "2026-04-15T09:19:00Z"
+  },
+  {
+    "id": "linear_comment_8f8f832ee2a2",
+    "body": "Adding account view from customer engagement.\n\nHighest near-term exposure on my side is Vectral Systems and BrightLoop.\n\nVectral: account is commercially active but trust is thin. Rachel Whitfield stayed with us through a difficult renewal cycle and recent service issues are still fresh in their internal memory. Even a small pass-through increase could revive the argument that our service quality and premium pricing are out of alignment. Operationally, there are already live Denver moves for Kevin Tran and Danielle Osei in flight, so any carrier reshuffle or inconsistent service experience will be noticed quickly.\n\nBrightLoop: less individually sensitive per move, but much more exposed on aggregate volume. Their May expansion was scoped on assumptions that did not include a 15 percent Swift increase plus a 500 dollar DOT documentation surcharge. Greg's note already says two BrightLoop relocations are affected. If that pattern extends across the expansion wave, margin compression or client repricing gets material fast and risks reopening confidence issues with Tessa Moreno's team after the unresolved April relocation cleanup.\n\nIf Marcus needs account-by-account prioritization for Elena's memo, I would put both in the first review tranche for different reasons: Vectral for churn sensitivity, BrightLoop for scale sensitivity.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T10:20:00Z",
+    "updated_at": "2026-04-15T10:20:00Z"
+  },
+  {
+    "id": "linear_comment_bb8e4313d969",
+    "body": "Adding Mosaic Robotics to the client-impact view.\n\nWhy they are exposed:\n\nMosaic has active relocation volume right now, not hypothetical Q3 demand. I forwarded Chloe the three-April-move ops handoff earlier this month, and at least two of those moves have nonstandard requirements. If Heartland's Q3 increase lands while service priority is also getting tighter, these are the kinds of moves where we feel it first because specialized handling and timing matter more than pure transport cost.\n\nSpecific account context from my side:\n- Tamara Byrd's team is generally reasonable on price, but not forgiving on execution misses.\n- Delays tied to vendor reassignment, missed pickup windows, or equipment-handling confusion would create more account risk than a modest pass-through on a standard move.\n- Swift is a poor fallback for anything documentation-heavy until the surcharge/process issue is under control.\n\nMy rough rating is yellow overall, red for any employee move with specialized equipment, home-office buildout dependencies, or fixed start dates.\n\nRelevant context already in system: Customer-engagement input request posted in #customer-engagement this morning because Alejandro's model needs account-level sensitivity, not just vendor cost deltas.\n\nQuestions I put to the AM team:\n- which active clients would feel Swift pass-through pricing first\n- which clients would react badly if Heartland capacity gets reshuffled or split to backup carriers\n- whether the real risk is budget pressure, timing pressure, specialized handling, or already-fragile trust\n\nI expect immediate feedback from Mina on Vectral/BrightLoop and Emeka on Mosaic. Catalina also needs to weigh in on Midwest exposure if she can get clear of the NorthWind fires.\n\nWill summarize client-by-client risk once replies come in.\nPrior Mosaic ops handoff: @existing:email:emails:mosaic_3reloc_ops_handoff_001",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_emeka_diallo",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T10:22:00Z",
+    "updated_at": "2026-04-15T10:22:00Z"
+  },
+  {
+    "id": "linear_comment_f0c737166dc1",
+    "body": "Adding manager context because this is no longer a theoretical backlog discomfort.\n\nWe deprioritized this on Apr 6 while chasing DOT compliance deadlines, and I approved that tradeoff. In hindsight, we left a known control gap open after Terraform and did not even put in a temporary guardrail such as filename/header validation or second-person confirmation for batch invoice sends.\n\nThe current Sunbelt/Palmetto exposure maps directly to the missing control:\n- QB invoice objects were created correctly\n- the wrong rendered PDFs were sent by email\n- there was no system check to stop the mismatch\n\nImmediate ask from engineering:\n1. Treat this as incident follow-up, not normal backlog\n2. Assign an owner today\n3. Define fastest shippable stopgap separately from full workflow validation\n4. Coordinate with Marcus on what audit trail finance now needs preserved\n\nLinking to active reconstruction work in Reconstruct Sunbelt/Palmetto invoice attachment exposure and issue corrected documentation.",
+    "issue_id": "linear_issue_6b59cce3afc2",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T10:24:00Z",
+    "updated_at": "2026-04-15T10:24:00Z"
+  },
+  {
+    "id": "linear_comment_f462f319ec98",
+    "body": "Engineering context for incident reconstruction:\n\nI reviewed the dormant safeguard ticket that came out of the earlier Terraform pricing leak. It had been sitting in backlog for roughly three weeks, unassigned, after we deprioritized it for DOT work. There was no production stopgap in place at the time Hana sent the Apr 10 batch.\n\nSo to be precise about root cause boundaries:\n- Human error triggered this specific incident during batch send\n- Product lacked the validation layer that should have caught or blocked it\n- Engineering knew the failure mode existed from the prior exposure and had not yet closed it\n\nI’ve raised the priority on the safeguard ticket and am treating it as tied follow-up to this incident.",
+    "issue_id": "linear_issue_cd35f1ab6130",
+    "author_id": "moveops_samira_tariq",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T10:26:00Z",
+    "updated_at": "2026-04-15T10:26:00Z"
+  },
+  {
+    "id": "linear_comment_948885261d6e",
+    "body": "Flagging a live consequence of leaving this in backlog. We have a confirmed case where QuickBooks records were correct but the invoice PDFs sent externally appear to have been mismatched between Sunbelt Venture Partners and Palmetto Community Foundation on 2026-04-10. Result is not just billing confusion: one client now has visibility into nonprofit-rate pricing, and the nonprofit client is asking for corrected written support ahead of audit review. Finance is opening incident reconstruction on our side and will need engineering input on whether any attachment-layer safeguard or logging can help us verify scope quickly.",
+    "issue_id": "linear_issue_6b59cce3afc2",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-15T11:27:00Z",
+    "updated_at": "2026-04-15T11:27:00Z"
+  },
+  {
+    "id": "linear_comment_77cf82862642",
+    "body": "Still missing input from Catalina on Midwest enterprise accounts after the April 15 request in #customer-engagement.\n\nI have account-level exposure notes from Mina and Emeka, but nothing yet on Catalina's book. That leaves a real blind spot because several of her accounts lean on Heartland-covered corridors and are exactly where pricing pressure or service de-prioritization could land first.\n\nProceeding with partial account map for now, but the client-impact section is incomplete until we get her coverage.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-16T11:22:00Z",
+    "updated_at": "2026-04-16T11:22:00Z"
+  },
+  {
+    "id": "linear_comment_b38c11307d3a",
+    "body": "Finance draft started for a possible NorthWind retention concession.\n\nI sent Marcus a rough model today proposing a 12% Q3 discount only if NorthWind commits the full Denver expansion volume. This is still incomplete and not ready to socialize. I have not incorporated a final view on the Raj Patel breach exposure or the Emilia Cruz claim cost, and I did not model a split-vendor Denver scenario yet.\n\nFlagging here because if David asks whether finance has anything, the honest answer is yes, but only as a working draft.",
+    "issue_id": "linear_issue_c8cdba4408f1",
+    "author_id": "moveops_alejandro_fuentes",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-16T11:24:00Z",
+    "updated_at": "2026-04-16T11:24:00Z"
+  },
+  {
+    "id": "linear_comment_b703e08dcd49",
+    "body": "Ops view after reviewing Mina's audit:\n\nWe have four separate risk buckets and they should not stay blended into one generic BrightLoop problem.\n\nA. Active service recovery\nMarcus Webb needs same-day vendor acknowledgment and client update. The failure is concrete: Road Runner notified us on Apr 11 and the notice did not turn into action.\n\nB. Housing/vendor trace\nSimone Richter's record integrity is suspect. We need the original UrbanNest request, the vendor confirmation, and the delivered unit type reconciled before we decide remediation.\n\nC. Policy handling\nPriya Naidu's ADA service animal cannot be processed using notes or assumptions from the earlier Vectral ESA dog case. Ops needs clean language and constraints before housing outreach starts.\n\nD. Net-new capability gap\nOliver Bancroft's London move is a true first-time international workflow for us. No standing UK customs process, no visa checklist, no approved partner list.\n\nI'm treating this as both recovery and operating-model exposure. Team is responding in #operations now and I expect named owners today.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T09:24:00Z",
+    "updated_at": "2026-04-22T09:24:00Z"
+  },
+  {
+    "id": "linear_comment_5ba6d01341d4",
+    "body": "Adding detail while it's fresh: Tessa's message makes this more dangerous because BrightLoop is expanding exactly when the old misses are still sitting in the background. If Simone or Marcus escalate to HR before I address this, Tessa will be evaluating six new moves through the lens of two unresolved failures we failed to acknowledge.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T09:28:00Z",
+    "updated_at": "2026-04-22T09:28:00Z"
+  },
+  {
+    "id": "linear_comment_e923ce00f162",
+    "body": "Customer-engagement view: this should be treated as the second pricing-exposure incident in April, not just an invoicing correction.\n\nTerraform showed us that client trust can be damaged when internal pricing context leaks through outbound communications. In Sunbelt/Palmetto, the mechanism was crossed PDF attachments instead of reply-all, but the commercial consequence is converging the same way: Sunbelt now believes materially lower pricing exists and is escalating for portfolio-wide terms, while Palmetto is asking for audit-safe documentation after receiving the wrong amount.\n\nAdding the account-coverage context because it matters operationally: Emeka flagged overload on 4/5 and the follow-up never became an actual reassignment. By the time Raj and Carmen wrote in on 4/14, response latency turned a correctable send error into a broader relationship problem.\n\nFrom CE's side, I need us to capture both the system failure and the delay failure in the incident record. If we only log the attachment swap, we will miss why this became leadership-visible.",
+    "issue_id": "linear_issue_cd35f1ab6130",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T10:24:00Z",
+    "updated_at": "2026-04-22T10:24:00Z"
+  },
+  {
+    "id": "linear_comment_496602223842",
+    "body": "Finance follow-up and owner requests after Emeka’s reconstruction:\n\nThis incident should be closed as a systems/control failure, not summarized as a mistaken attachment send.\n\nRequired remediation:\n- Finance/AM: issue corrected client-facing documentation for both accounts and preserve a dated internal file tying original emails to QB invoice truth.\n- Palmetto: provide a written explanation suitable for audit support confirming INV-2026-0399 was the valid nonprofit invoice and the April 10 attachment was crossed in error.\n- CE: produce a Sunbelt recovery plan now that Victoria has moved this into executive/commercial territory.\n- Engineering: reactivate the dormant safeguard work from Invoice email template safety checks — prevent attachment mismatches and assign an owner/date. We cannot log a second exposure after Terraform without an actual preventive control.\n\nI’m expecting updates in-thread by 4:30 PM. If anyone needs finance wording for the Palmetto record, I can review before it goes out.",
+    "issue_id": "linear_issue_cd35f1ab6130",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T13:43:00Z",
+    "updated_at": "2026-04-22T13:43:00Z"
+  },
+  {
+    "id": "linear_comment_76c40fb4953f",
+    "body": "Escalating priority from finance side.\n\nWe now have a confirmed second pricing-exposure event tied to this unbuilt safeguard: first Terraform, now crossed Sunbelt/Palmetto invoice PDFs. That changes the framing from backlog hygiene to control deficiency.\n\nRequesting that engineering move this back into active ownership with either:\n1) an attachment-to-recipient verification gate before send, or\n2) a manual review checkpoint that blocks batch invoice emails when the rendered customer name and recipient account do not match.\n\nLeaving this dormant again would mean we knowingly accepted repeat exposure after a live client incident.",
+    "issue_id": "linear_issue_6b59cce3afc2",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T13:45:00Z",
+    "updated_at": "2026-04-22T13:45:00Z"
+  },
+  {
+    "id": "linear_comment_1f5055f550ea",
+    "body": "Finance review complete.\n\nConfirmed the missing StormCloud goodwill credit is a posting error on our side.\n\nDetails:\n- Promised credit amount: $500\n- Credit was applied to cancelled estimate EST-2026-0287\n- Active client-facing invoice is INV-2026-0319\n- Result: StormCloud never received the service-recovery credit on the invoice they were actually paying\n\nThis means Liam's note is accurate. We cannot treat the credit complaint as resolved history.\n\nNext step from finance: identify original entry timing/source, then move or recreate the credit against INV-2026-0319 with audit notes so the correction is visible if StormCloud asks for backup.\n\nJulian, please add the original support recovery context so we can tie the promised amount back to the client event.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T14:12:00Z",
+    "updated_at": "2026-04-24T14:12:00Z"
+  },
+  {
+    "id": "comment_chloe_swift_confirmation",
+    "body": "Update: Greg Pallone at Swift Relocations confirmed this morning (April 22) that the DOT hazmat placarding was completed at time of transport for this shipment.\n\nKey details from Greg's response:\n- Swift driver Mike Becerra affixed all required hazmat placards at the Columbus pickup on April 15, per 49 CFR 172.504\n- Placarding certificate was signed by Mike at loading and countersigned at the Swift Seattle storage facility upon arrival\n- The Mosaic Equipment Handling Guidelines laser liability waiver was also signed by Mike at pickup\n- Swift internal reference: job #SR-2026-04-1538\n- Swift maintains all placarding documentation for 3 years per DOT retention requirements\n\nGreg is having their records team pull the originals from their compliance archive. He will send scanned PDFs of:\n1. Signed DOT hazmat placarding certificate\n2. Signed Mosaic laser equipment liability waiver\n3. Swift's current PHMSA registration certificate (#3281074, valid through Sept 2027)\n\nExpected delivery: within 24 hours (by EOD April 23).\n\nHe also offered to pull records for the Mei-Lin Zhao and Raj Patel shipments if needed — I'll take him up on that to have redundant copies for the DOT response package.\n\nMoving status from Urgent to In Progress. Once the signed cert arrives, this goes to Done and we have a complete documentation set for all 4 hazmat moves.",
+    "issue_id": "issue_dot_docs_zhao_greenstack",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-22T17:15:00Z",
+    "updated_at": "2026-04-22T17:15:00Z"
+  },
+  {
+    "id": "linear_comment_29c2695d8368",
+    "body": "Escalating beyond the audit because scope just changed materially after Tessa's Apr 22 note. This is no longer only a cleanup issue.\n\nBrightLoop added six May Boston relocations, but the batch includes:\n- Oliver Bancroft, London -> Boston, with visa/customs ambiguity\n- Jonathan Marsh, incoming CTO, expecting white-glove handling\n- Priya Naidu, ADA service dog accommodation needs\n- Leah Kwon, Daniel Okafor, Sofia Reyes as standard domestic moves\n\nOpen risk stack as of this morning:\n- Simone Richter still unresolved on the 1BR vs studio mismatch despite my Apr 9 promise to respond by end of week\n- Marcus Webb still unresolved on delayed vehicle shipment after Road Runner's Apr 11 notice and two unanswered employee follow-ups\n- No clear pricing model in hand for UK/international or exec white-glove tiers\n- No capacity answer yet on whether Ops can absorb eight BrightLoop relocations total in May once the unresolved April work is counted\n\nPulling in Chloe and David now for combined recovery + expansion planning. If we treat this as net-new revenue without fixing the exposed misses first, Tessa is going to hear about service failure from her employees before she hears a plan from us.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T09:21:00Z",
+    "updated_at": "2026-04-23T09:21:00Z"
+  },
+  {
+    "id": "linear_comment_9a6b9e55f19e",
+    "body": "Adding the concrete root-cause detail on Marcus so we stop speaking about this abstractly.\n\nI missed the Apr 11 Road Runner vendor email entirely. That notice said Marcus Webb’s 2019 Honda Civic had not made the Apr 8 Boston delivery target, was sitting at the Indianapolis transfer hub due to driver shortage, and had a shaky revised window of Apr 18-20. I did not respond to dispatch, did not update the relocation record, and did not alert support.\n\nMarcus then sent two follow-ups asking for a real ETA, and both sat unanswered until Julian took over service recovery. The failure chain is now clear: unread vendor delay notice -> no coordinator action -> no support context -> client-visible silence.\n\nThe workload context is real: that week I was overloaded across NorthWind, Mosaic, and residual BrightLoop tasks. But the operational takeaway is not \"Blessing made one mistake.\" It is that we have no protected escalation path for vendor-delay emails when a coordinator is underwater.\n\nI’ll help write the guardrail, but I want the record to be explicit that this was a capacity failure expressed through my inbox.",
+    "issue_id": "linear_issue_c8cdba4408f1",
+    "author_id": "moveops_blessing_okafor",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T09:24:00Z",
+    "updated_at": "2026-04-23T09:24:00Z"
+  },
+  {
+    "id": "linear_comment_49eca9beab06",
+    "body": "Taking ownership of immediate service recovery on the two active employee-facing failures.\n\nActions completed this morning:\n- Replied to Marcus Webb directly on his unanswered support thread and acknowledged that we missed communicating Road Runner's April 11 delay notice\n- Promised Marcus a same-day update by 2 PM PT with either a firmer ETA or an explicit statement that the carrier still cannot provide one\n- Replied to Simone Richter directly, apologized for the missed follow-up after Mina's Apr 9 note, and set a same-day 3 PM PT update deadline tied to housing-partner confirmation\n\nFraming this as trust repair, not inbox zero. If we still don't have vendor facts by those checkpoints, the fallback is proactive employee updates with named owners and next contact times.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_julian_brooks",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T09:31:00Z",
+    "updated_at": "2026-04-23T09:31:00Z"
+  },
+  {
+    "id": "linear_comment_b4c4aaf6c423",
+    "body": "Adding a specific note on Priya so it is not lost under the broader BrightLoop cleanup work.\n\nWe need to separate ADA service-animal handling from the Vectral ESA precedent people may remember. Priya's intake should not be routed through pet-policy logic. Housing outreach needs to use service-animal accommodation language, avoid unnecessary medical-detail requests, and escalate any landlord pushback before inventory is ruled out. Also asking everyone to stop using ESA and service animal interchangeably in internal notes because that creates both compliance risk and sloppy vendor communication.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T10:14:00Z",
+    "updated_at": "2026-04-23T10:14:00Z"
+  },
+  {
+    "id": "linear_comment_dcd9d3092743",
+    "body": "International read on Oliver Bancroft after reviewing Tessa's request: this should be split from the standard May batch immediately.\n\nWhat we do not know yet is the part that matters most: nationality, actual visa/work authorization path, whether BrightLoop already has immigration counsel involved, and whether his Boston start date is fixed or aspirational. If he is a British citizen, TN looks unlikely. H-1B is not a logistics add-on and the timing risk is real.\n\nOps gap: we do not currently have an in-house UK origin / household goods export workflow. If Oliver is shipping personal effects, we need a specialist partner for export inventory, customs docs, and handoff coordination.\n\nService design implication: temp housing may have to bridge immigration uncertainty, not just a confirmed move-in date. That means more flexible inventory and different pricing assumptions.\n\nRecommendation is an international exception track with its own intake questions and partner plan, not a premium domestic package.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_fatimah_alrashidi",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T10:18:00Z",
+    "updated_at": "2026-04-23T10:18:00Z"
+  },
+  {
+    "id": "linear_comment_dca3b974b53b",
+    "body": "Pressed UrbanNest directly on Simone Richter this morning because we still do not know whether the mismatch started with our intake, their confirmation, or a later inventory substitution.\n\nSent Carmen Reyes a point-blank request for the original booking request, confirmation trail, any unit-change approval, current 1BR availability, and a possible credit path. We need vendor-side facts before deciding whether BrightLoop gets an upgrade, a credit, or both.\n\nEmail sent at 10:18 AM PT and cc'd Mina + Chloe so ops/account have the same paper trail.",
+    "issue_id": "linear_issue_f85be674c9b8",
+    "author_id": "moveops_julian_brooks",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T10:20:00Z",
+    "updated_at": "2026-04-23T10:20:00Z"
+  },
+  {
+    "id": "linear_comment_a1ed1e62cc8b",
+    "body": "Finance pass after reviewing the April 3 Terraform pricing materials and the BrightLoop scope Tessa sent.\n\nWe should separate this batch into three pricing buckets instead of trying to force one blended structure.\n\nStandard domestic: Leah Kwon, Daniel Okafor, and Sofia Reyes can be priced off the existing tier logic as long as service scope stays within our normal relocation package.\n\nWhite-glove executive: Jonathan Marsh is only partially informed by prior work. We have discussed high-touch assumptions before, but we do not have a formalized white-glove tier in system pricing. Missing pieces include labor assumptions for concierge-style coordination, premium housing search load, compressed response expectations, and exception handling.\n\nInternational: Oliver Bancroft is outside the current model. No standing price exists for immigration-related coordination, customs handling, partner pass-through charges, or longer temporary housing due to visa uncertainty.\n\nRecommendation from finance is to let Mina speak to a standard domestic anchor now, while Jonathan and Oliver stay explicitly provisional until we define assumptions and margin floors.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_alejandro_fuentes",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T10:22:00Z",
+    "updated_at": "2026-04-23T10:22:00Z"
+  },
+  {
+    "id": "linear_comment_e322ded09a51",
+    "body": "Found a useful breadcrumb after Fatimah's note on Oliver. In January I received a cold outreach from Meridian Global Mobility about UK→US relocation support and forwarded it once, then never opened a proper evaluation. That's now the quickest credible path we have to external help for Oliver Bancroft's London→Boston move.\n\nI've replied to their partnerships address today asking for a call on pre-move UK coordination, export docs, customs handling, visa-timing dependencies, and indicative pricing. If they respond quickly, this should move from abstract risk to an actual partner assessment within 24 hours.\n\nOriginal outreach: @existing:email:emails:email_email_fb6dd636cc46",
+    "issue_id": "linear_issue_f85be674c9b8",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T11:20:00Z",
+    "updated_at": "2026-04-23T11:20:00Z"
+  },
+  {
+    "id": "linear_comment_585ef0b26b35",
+    "body": "Finance position after Alejandro's pricing pass: we should separate quoteability from urgency.\n\nQuoteable now:\n- Leah Kwon, Daniel Okafor, Sofia Reyes under the existing domestic tier logic.\n\nNot quoteable yet without margin controls:\n- Oliver Bancroft London→Boston. We do not have partner pricing, customs assumptions, shipment contingencies, or a clean definition of what immigration support is and is not included.\n- Jonathan Marsh white-glove. We are still using shorthand like \"Canopy-style\" instead of a scoped service package, which is exactly how premium work gets underpriced.\n\nMy concern is not whether BrightLoop is worth pursuing. It is. My concern is that in a mixed batch we will be tempted to smooth everything into one attractive number and hide risk inside the standard moves. Please keep pricing separated by service tier and require finance approval before anything international or executive leaves MoveOps.",
+    "issue_id": "linear_issue_f85be674c9b8",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T11:22:00Z",
+    "updated_at": "2026-04-23T11:22:00Z"
+  },
+  {
+    "id": "linear_comment_2ae9d960cb7a",
+    "body": "Adding one operational-finance dependency so this does not get lost: I cannot approve Jonathan's white-glove pricing until ops defines the actual service envelope. \"Executive\" is not a scope. If housing search SLA, after-hours support, airport transfers, home setup coordination, or family handling are in play, they need to be named and costed. Same for Oliver: no finance sign-off without partner inputs and explicit exclusions around visa/immigration work.",
+    "issue_id": "linear_issue_f85be674c9b8",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T11:24:00Z",
+    "updated_at": "2026-04-23T11:24:00Z"
+  },
+  {
+    "id": "linear_comment_f5b272d2d598",
+    "body": "UrbanNest responded with three options. All forwarded to Dr. Mehta for selection.\n\nOption A: River North, 750 N Clark St, $1,250/week, available May 1. 5 min to Northwestern, 12 min to Canopy HQ. Second bedroom already configured as office.\n\nOption B (recommended): Streeterville, 400 E Ohio St, $1,350/week, available May 2. 3 blocks from Canopy HQ, 7 min to Northwestern/Prentice. Building quiet-hours policy (10 PM - 8 AM). 1 Gbps fiber. Valet parking included. Office conversion at no extra charge.\n\nOption C: Gold Coast, 1030 N State St, $1,450/week, available May 1. Quietest/most private (boutique building, 60 units). Farthest from Canopy HQ (18-min walk / 8-min cab).\n\nRecommending Option B for best proximity balance and quiet-hours policy (partner is 7 months pregnant, light sleeper). Dr. Mehta has until end of day April 25 to decide before the 48-hour hold expires.\n\nNext step: Lock in booking once Dr. Mehta confirms. Coordinate office-setup conversion in second bedroom if Option B selected.",
+    "issue_id": "linear_issue_bd446671ceed",
+    "author_id": "moveops_fatimah_alrashidi",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T20:20:00Z",
+    "updated_at": "2026-04-23T20:20:00Z"
+  },
+  {
+    "id": "linear_comment_af330662c322",
+    "body": "Equipment inventory confirmed per Dr. Mehta's email (April 22):\n\n1. Eizo RadiForce RX660 x2 (S/N RX660-1147A, RX660-1203A)\n   - ~26 lbs each with stands, 25.5 x 21.7 x 9.8 in\n   - DICOM-calibrated, shock/vibration-sensitive\n   - No original shipping boxes — need custom anti-static crating built on-site\n   - Paper calibration certificates (blue folder on his desk) — must travel physically with monitors, NOT packed separately\n   - Recalibration cost if damaged: ~$1,500/unit + 3-4 week lead time at Eizo factory\n\n2. SentrySafe DH-109E filing cabinet\n   - ~350 lbs, 24 x 20 x 40 in\n   - Dual lock: electronic keypad + backup key (Dr. Mehta holds both)\n   - Contains 14 binders of patient research data from 3 clinical trials\n   - Cabinet must remain locked and sealed for entire transit\n   - Chain-of-custody: signed handoff log at origin (Boston) and destination (Chicago). Direct transport only — no warehouse stops.\n   - Origin is a third-floor walkup with no elevator. Cabinet was assembled in place. Will need disassembly for stairwell — still very heavy. Swift crew needs minimum 3-person team for this.\n\n3. Also noted: Herman Miller Aeron chair (large size) + Uplift V2 72-in sit-stand desk — prefer no disassembly if possible (desk has custom height calibration).\n\nBLOCKER: Chain-of-custody documentation template needed from Canopy Health compliance team. Emailing Patricia Langford to get the right contact and the template. Cannot finalize equipment packing logistics until we have the handoff log format confirmed.\n\nTarget: Template in hand by April 28. Packing crew on-site April 28-29.",
+    "issue_id": "linear_issue_8fe3ff7f9f9a",
+    "author_id": "moveops_fatimah_alrashidi",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-23T23:45:00Z",
+    "updated_at": "2026-04-23T23:45:00Z"
+  },
+  {
+    "id": "linear_comment_34426ff2da15",
+    "body": "Executive direction as of this morning: this needs to turn into a decision memo for Wednesday, not an open-ended model.\n\nRequired decision paths:\n1) negotiate separately with Heartland and Swift\n2) replace one vendor where coverage allows\n3) split volume intentionally to restore leverage\n\nThe output has to include client-by-client financial impact across active accounts, with explicit notes on where we do not yet have reliable data. Marcus is accountable for the final memo. Use Hana's reconciliation findings, Chloe's Lakeline backup read, and the account-team exposure notes already posted. If the dataset is incomplete, say exactly what is missing and what assumptions are being used.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_elena_rostova",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T06:06:00Z",
+    "updated_at": "2026-04-24T06:06:00Z"
+  },
+  {
+    "id": "linear_comment_891703ed5f43",
+    "body": "Taking ownership of this as requested.\n\nWhat I need this issue to produce by Wednesday is not a generic recommendation deck, but a decision memo Elena can act on.\n\nOpen workstreams that need to collapse into one answer:\n\nHeartland\n- We need a defensible negotiation position that accounts for the unresolved HM-2026-Q1-0042 dispute and Hana’s broader recon findings.\n- If we are going to challenge rate changes while disputing prior invoices, we need to be explicit about where our evidence is strong and where it is not.\n\nSwift\n- Immediate margin hit from the 15% increase and $500 DOT surcharge on active shipments.\n- Need ops input on whether any part of the documentation burden is self-inflicted and fixable versus pure pass-through vendor pricing.\n\nReplacement or split-volume option\n- Lakeline appears credible as a partial pressure-release valve, but only for Midwest/Southeast. That is leverage, not full substitution.\n\nClient impact\n- Current account input is useful but incomplete. We have named exposure on Vectral, BrightLoop, and Mosaic, but no full client-by-client map and still no Midwest enterprise detail.\n\nData/model\n- Alejandro’s point stands: no unified source currently ties vendor assignment, actual spend, and projected move volume together. I still need a directional model with assumptions rather than waiting for perfect data.\n\nI’ve asked Chloe, Hana, Alejandro, and David for updated inputs by 1 PM PT today so I can draft the first cut this afternoon.",
+    "issue_id": "linear_issue_d21d94ce9b36",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T08:23:00Z",
+    "updated_at": "2026-04-24T08:23:00Z"
+  },
+  {
+    "id": "linear_comment_e7ec211216dc",
+    "body": "I need this issue reframed from data cleanup to memo support for the next 48 hours.\n\nPlease post the fastest credible version of the model even if it has hard caveats. Specifically I need:\n- current known exposure from Swift increases on in-flight moves\n- directional Q3 downside under Heartland +20%, Swift +15%, and split-volume scenarios\n- explicit list of missing joins/fields that prevent client-level precision\n\nDo not hold for a perfect consolidated dataset. We can caveat assumptions in the memo; we cannot tell Elena we are still waiting on structure.",
+    "issue_id": "linear_issue_c8cd5f52b170",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T08:27:00Z",
+    "updated_at": "2026-04-24T08:27:00Z"
+  },
+  {
+    "id": "linear_comment_0ee1e16c4a70",
+    "body": "Need this dispute workstream tightened today.\n\nPlease convert the reconciliation findings into three buckets:\n1) items we can substantiate cleanly with contracts / shipment records\n2) items that look wrong but still need ops confirmation\n3) items we should not lean on in negotiation because the evidence is weak or messy\n\nHeartland is now explicitly using the unresolved Q1 situation as leverage on Q3 pricing, so our negotiating posture depends on how disciplined this list is.",
+    "issue_id": "linear_issue_6f33a369d77e",
+    "author_id": "moveops_marcus_thorne",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T08:29:00Z",
+    "updated_at": "2026-04-24T08:29:00Z"
+  },
+  {
+    "id": "linear_comment_203d50660411",
+    "body": "Escalated capacity risk to #executive because the BrightLoop recovery work is now inseparable from May staffing.\n\nOps math as of this morning:\n- 2 BrightLoop carryover problems still active: Simone Richter housing mismatch, Marcus Webb vehicle delay recovery\n- 6 new BrightLoop Boston relocations pending intake/scoping\n- NorthWind work still consuming coordinator time\n- Canopy executive move already added this week\n\nThis means we are trying to absorb at least eight BrightLoop workstreams on top of existing May load, including one international case and one white-glove executive case that both require more coordinator touch than standard domestic moves.\n\nRoot issue is no slack capacity. Blessing's missed Road Runner email is now a concrete indicator that we are beyond safe operating load, not just feeling busy. Asked leadership what happened to the Terraform coordinator hire because we need either that backfill or temporary support immediately.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T09:18:00Z",
+    "updated_at": "2026-04-24T09:18:00Z"
+  },
+  {
+    "id": "linear_comment_dd1f4bceee90",
+    "body": "Cross-system picture is now clear enough to stop treating these as separate incidents.\n\nNorthWind sees one vendor failing them in two different ways:\n- Raj Patel: control failure, because chain-of-custody rules were broken and our documentation trail cannot fully prove compliant handling after the fact.\n- Emilia Cruz: care failure, because the piano damage was preventable and support follow-up did not happen when promised.\n\nCommercially, the risk is amplified by timing:\n- Pam already escalated past Catalina.\n- PathFinder has been mentioned in the background.\n- Catalina's April 14 promise created an expectation we did not meet.\n- CRM does not reflect the true severity of the account state, which means anyone checking system-of-record alone would underestimate churn risk.\n\nWhat I need from this ticket is a retention packet that combines facts, ownership, remedy, and commercial consideration in one place. I would rather be blunt internally now than sound surprised when NorthWind moves the business.",
+    "issue_id": "linear_issue_c8cdba4408f1",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T10:21:00Z",
+    "updated_at": "2026-04-24T10:21:00Z"
+  },
+  {
+    "id": "linear_comment_155d3aca8415",
+    "body": "Capacity/revenue angle for leadership visibility: we should treat the unposted Terraform coordinator role as unavailable capacity, not near-term relief.\n\nBrightLoop has become a stacked-risk account in one week:\n- recovery work still active for Simone Richter and Marcus Webb\n- one first-time international move for Oliver Bancroft\n- one white-glove executive move for Jonathan Marsh\n- three standard domestic moves for Leah Kwon, Daniel Okafor, and Sofia Reyes\n- one ADA-sensitive housing flow for Priya Naidu\n\nI asked Elena today to approve a temporary coordinator for 4-6 weeks so we can peel off standard domestic execution and protect the experienced team for the exception paths and service recovery. Without that stopgap, we are effectively betting client retention on a hire process that has not started yet.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T11:18:00Z",
+    "updated_at": "2026-04-24T11:18:00Z"
+  },
+  {
+    "id": "linear_comment_65243eedc4dc",
+    "body": "Support history on the prior StormCloud complaint:\n\nThis was the flight-disruption recovery from earlier in the quarter. The operational fix did happen: support escalated it, traveler was rebooked, and we treated the case as resolved once the itinerary issue was corrected. I separately approved a $500 goodwill credit for the service failure.\n\nMarcus's QuickBooks review explains why StormCloud is saying they never received it. If the credit was applied to cancelled estimate EST-2026-0287 instead of active invoice INV-2026-0319, then the promise existed in practice but never landed where the client could actually see benefit.\n\nSo the client experience is understandably: flight problem, apology, promise, no visible credit.\n\nI should have verified billing application rather than assuming the internal note was enough. Happy to provide exact wording for Mina's response to Liam.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_julian_brooks",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T14:02:00Z",
+    "updated_at": "2026-04-24T14:02:00Z"
+  },
+  {
+    "id": "linear_comment_97dfa287bd32",
+    "body": "Ops audit complete.\n\nThe close decision was invalid. At time of closure, housing had an open landlord dependency and the employee had not transitioned out of temporary lodging.\n\nCross-checks:\n- Vendor escalation on 4/8: Urgent: Jae-won Kim Austin lease still pending guarantor packet\n- Coordinator acknowledgment on 4/9: Re: Urgent: Jae-won Kim Austin lease still pending guarantor packet\n- Support later asked to provide lease docs on 4/15 because employee still had nothing final: Lease paperwork for Austin apartment\n\nThis should have stayed in active ops until countersignature and executed lease delivery were complete. Recommending immediate status correction in Airtable and a same-day owner assignment for guarantor packet delivery.",
+    "issue_id": "linear_issue_c97359216490",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T14:19:00Z",
+    "updated_at": "2026-04-24T14:19:00Z"
+  },
+  {
+    "id": "linear_comment_e3a74d2d5108",
+    "body": "Customer engagement review complete.\n\nConfirmed I created internal excitement around the StormCloud referral on 4/18 in Slack, but I did not create the Ridgeline CRM objects or assign an owner, and Kenji Watanabe's 4/21 follow-up sat unanswered in my inbox until today.\n\nCorrective actions taken now:\n- replied directly to Kenji and offered 4/24 4:30 PM PT or 4/25 9:00 AM PT\n- created Ridgeline Robotics company, lead, and deal records in CRM\n- noting explicitly that this failure came after a warm referral from Anya Petrova, which makes it part of the StormCloud recovery narrative, not just a missed new-business touch\n\nThis one is mine.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_david_chen",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T14:47:00Z",
+    "updated_at": "2026-04-24T14:47:00Z"
+  },
+  {
+    "id": "linear_comment_e1a842dbb3f1",
+    "body": "Source notes for reconstruction:\n\nHousing/vendor side\n- UrbanNest flagged landlord hold on 4/8: Urgent: Jae-won Kim Austin lease still pending guarantor packet\n- Suki acknowledgement on 4/9: Re: Urgent: Jae-won Kim Austin lease still pending guarantor packet\n\nInternal system mismatch\n- Relocation issue closed: StormCloud Relocation – Jae-won Kim – SEA → AUS\n- Airtable record remains in completed state: recJaeWonKimStormCloudAustin\n- Jae-won then asked support for lease paperwork on 4/15: Lease paperwork for Austin apartment\n- Omar's Slack triage relied on Airtable and marked it low priority\n\nClient health impact beyond housing\n- Simone reimbursement escalation: Standing desk reimbursement still pending\n- Marcus confirmed blanket hold remained in place: Re: Fwd: Standing desk reimbursement still pending\n- Anya referral email: Warm intro: Ridgeline Robotics Austin relocation batch\n- Kenji second follow-up after silence: Re: Warm intro: Ridgeline Robotics Austin relocation batch\n- Liam's escalation tying issues together: Urgent before tomorrow's leadership review\n\nRequesting ops, finance, support, and CE comments with what failed and what can be corrected same-day.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T15:03:00Z",
+    "updated_at": "2026-04-24T15:03:00Z"
+  },
+  {
+    "id": "linear_comment_96a13c0fd3d5",
+    "body": "Sent Tessa a measured response instead of waiting for every internal dependency to close. I did not quote pricing or promise start-ready execution yet.\n\nWhat I committed to externally:\n- acknowledged the six May Boston relocations and board visibility\n- framed the batch in three tracks: standard domestic, specialized domestic, and international\n- asked for a roster covering full name, title, origin, manager, target start date, and household scope for all six employees\n- requested specific scoping inputs for Oliver's visa/work authorization path and household goods timing\n- requested specific scoping inputs for Priya's ADA service animal accommodations and Jonathan's white-glove expectations\n- offered a 20-minute working call tomorrow to review employee-by-employee\n\nThis keeps momentum with BrightLoop while buying us room on pricing, vendor, and capacity decisions still in flight.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T15:14:00Z",
+    "updated_at": "2026-04-24T15:14:00Z"
+  },
+  {
+    "id": "linear_comment_1405edd1a572",
+    "body": "Owning the specific handoff failure on Jae-won.\n\nI saw Carmen Reyes's original landlord-hold email on 4/8 and replied in Re: Urgent: Jae-won Kim Austin lease still pending guarantor packet that I would handle the guarantor packet by end of week. I did intend to send it. The same window turned into the Deshawn Hartley trade-show deadline scramble and I mentally downgraded Jae-won to a follow-up item after the rush.\n\nI never returned to it.\n\nThe second mistake was worse because it made the first one harder to catch: I batch-closed StormCloud Relocation – Jae-won Kim – SEA → AUS and left the Airtable relocation marked complete/confirmed even though the guarantor blocker was still open from Urgent: Jae-won Kim Austin lease still pending guarantor packet. After that, the record looked done to everyone downstream.\n\nNo excuse here. This was a dropped commitment and then a false completion signal created by me. If Chloe needs the exact Deshawn file and timing for audit trail, I can pull that next.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_suki_patel",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T16:18:00Z",
+    "updated_at": "2026-04-24T16:18:00Z"
+  },
+  {
+    "id": "linear_comment_c598398d75bd",
+    "body": "Client-facing recovery plan prepared for Liam based on confirmed findings from ops, finance, support, and customer engagement.\n\nCommitments going back to StormCloud:\n- Housing: Reopen Jae-won Kim relocation immediately. Use Carmen Reyes's original 4/8 vendor escalation Urgent: Jae-won Kim Austin lease still pending guarantor packet and Suki's ownership note Re: StormCloud escalation: reconstructing missed handoffs before I reply to Liam as basis for same-day recovery. Ops to transmit guarantor paperwork to UrbanNest before close and confirm whether Barton Creek Flats can countersign on receipt.\n- Temp housing protection: If lease cannot be fully executed tonight, authorize extension of current temporary housing so there is no gap when Jae-won's current booking ends.\n- Source-of-truth correction: Airtable record recJaeWonKimStormCloudAustin and Linear relocation issue StormCloud Relocation – Jae-won Kim – SEA → AUS must remain reopened/in-progress until signed lease is confirmed and docs are delivered.\n- Finance correction: Reapply the previously promised $500 goodwill credit to active StormCloud invoice INV-2026-0319, per Marcus's review in Re: StormCloud escalation: reconstructing missed handoffs before I reply to Liam.\n- Stipend transparency: Simone Richter's $340 standing desk reimbursement is not disputed on legitimacy; it is stalled by the blanket fraud-hold policy described in Re: Fwd: Standing desk reimbursement still pending. I will communicate that clearly instead of implying missing documentation.\n- Referral recovery: Ridgeline referral must be treated as time-sensitive revenue recovery. David has now created the CRM trail, and Kenji needs a same-day human response referencing Anya's original intro Warm intro: Ridgeline Robotics Austin relocation batch and his unanswered follow-up Re: Warm intro: Ridgeline Robotics Austin relocation batch.\n\nRisk framing:\nThis is now an account-at-risk incident with service delivery, support triage, finance posting, and revenue follow-up failures all visible to the same client executive team. Any response to Liam should acknowledge the linked nature of the breakdowns and avoid implying these were isolated mistakes.",
+    "issue_id": "linear_issue_a49b4d199139",
+    "author_id": "moveops_mina_hashimoto",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T17:18:00Z",
+    "updated_at": "2026-04-24T17:18:00Z"
+  },
+  {
+    "id": "linear_comment_ddbe1352ea21",
+    "body": "End-of-day status on Apr 24: still no executive answer on the temporary coordinator request raised in Slack and email today.\n\nWe are proceeding anyway because BrightLoop's timing will not wait for our staffing gap to resolve. Operationally that means we are carrying recovery and expansion simultaneously with existing headcount:\n- service recovery stays active on Simone Richter and Marcus Webb until each is fully closed, not merely answered\n- Oliver Bancroft remains a bespoke international workstream pending Meridian scoping and visa clarification\n- Priya Naidu's ADA housing handling stays tightly controlled\n- Jonathan Marsh white-glove scope remains blocked on pricing and sourcing guardrails\n\nThis is the exact in-between state we were trying to avoid: demand is real, client expectation is real, but staffing and premium pricing decisions are still not real. Logging it here so the record is clear if May execution gets constrained.",
+    "issue_id": "linear_issue_c16357d188c6",
+    "author_id": "moveops_chloe_vance",
+    "is_edited": false,
+    "parent_id": null,
+    "created_at": "2026-04-24T17:52:00Z",
+    "updated_at": "2026-04-24T17:52:00Z"
+  }
+]

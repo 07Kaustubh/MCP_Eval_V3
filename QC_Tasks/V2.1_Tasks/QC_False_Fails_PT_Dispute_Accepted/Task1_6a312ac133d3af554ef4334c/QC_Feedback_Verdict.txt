@@ -1,0 +1,56 @@
+Task: Task1_6a312ac133d3af554ef4334c
+Business Function: Tax
+QC Score: 2
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing issues:
+- [Fail - Prompt Impossible Request] The prompt states "Work out what we actually owe across our filing states for May", this request cannot be completed because the records in the GL/Subledger are not tagged by the jurisdictions, so it is impossible to work out what is owed per state.
+- [Fail - Missing Universe Data] The data needed to answer the prompt "Work out what we actually owe across our filing states for May", does not exist, since the GL/Subledger do not have a per jurisdiction breakdown.
+
+Note: The OE's and Rubrics factor the lack of a jurisdiction breakdown, so the CB knew that the prompt was an impossible request. OE5 specifically states "NOTE for rubric writing: the universe does not pre-state fixed May per-state figures, so the May amounts are agent-derived; grade the act of deriving from FP-2026-05 (and the state set / PA treatment), not an exact dollar value", but this is not enough to satisfy the prompts request.
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Fail - Missing Universe Data]","[All] [All] [Fail - Prompt Impossible Request]"]
+
+============================================================
+
+## Project Team Dispute
+
+Verdict: Disagree
+Proposed Score: 3
+
+Feedback:
+We disagree with both fails. Neither a prompt-feasibility nor a universe-data fail is supported here. The single genuine defect is one over-specified Outcome rubric (R12), which is a non-failing rubric-quality issue.
+
+1) The prompt does not ask for exact per-state May figures - R12 invented that requirement.
+The prompt's quantitative ask, verbatim, is: "Work out what we actually owe across our filing states for May. The one I specifically want you to get right is Pennsylvania." It does not say "from the books," "rather than rolling April forward," or that the May figures must "differ from April's exact totals." That language exists only in R12's justification, not in the prompt. The fail treats R12's gloss as if it were the prompt's requirement.
+
+Read against what the prompt actually asks - "get the May cycle moving and set up correctly before it goes for approval" - "work out what we actually owe across our filing states for May" is fulfillable at the professional, pre-sign-off level: establish the four filing states (NY/NJ/CT/PA), carry PA on the April post-economic-nexus treatment, stage the packet against April's lineage, and flag the May taxable-services cut as the open input pending the billing close and Ming's approval. That is exactly what a Corporate Tax Senior does before a partner sign-off (2_Persona.txt: Hannah Grant, Corporate Tax Senior). So [Fail - Prompt Impossible Request] does not apply; if anything the exact-figure clause is a secondary input, fulfillable with the standard concession of flagging it for sign-off.
+
+2) The universe is sufficient and the task is solvable - so [Fail - Missing Universe Data] (bar: "unsolvable") does not apply.
+Every load-bearing fact exists and is retrievable: the PA economic-nexus crossing (March 2026) and April-first-filing basis; April's packet doc_1af8dfb919a9444d (kind tax_return, IRS_TAX_7Y); the April per-state anchors and Ming's approval thread (email_scen_045_tax_regulatory_0005/0006); the filing set NY/NJ/CT/PA; the deadlines (NY/NJ/CT 2026-06-22, PA 2026-06-25); Ming Chang as approver; channel C006. The only item the universe does not pre-state is the exact per-state May cut - a normal pending input ahead of the billing close and partner sign-off, not a missing fact that breaks solvability. OE5 itself scopes this: "the universe does not pre-state fixed May per-state figures, so the May amounts are agent-derived; grade the act of deriving ... not an exact dollar value." A task whose entire critical path is retrievable, with one downstream input appropriately deferred to sign-off, is not "unsolvable."
+
+3) The actual issue is a single over-specified rubric (R12) - non-failing.
+R12 requires "the reported May figures differ from April's exact totals," built "from FP-2026-05 book activity." This (a) imports a requirement the prompt never states, and (b) grades a per-state breakdown the data cannot support - the subledger has no jurisdiction field and FP-2026-05 carries no per-state May sales-tax accrual. R12 also contradicts the CB's own OE5 ("grade the act of deriving, not an exact dollar value"). That makes R12 one over-specified/ungrounded Outcome criterion - a single rubric-quality issue (1 of 13 = 7.7%), within the Non-Fail band - and it is fixable by rewording R12 to grade the staged May position with the open per-state cut flagged for Ming's sign-off, consistent with OE5.
+
+Request: reverse the prompt-impossible and missing-data fails. The prompt is feasible and the universe is solvable; the only defect is a single over-specified rubric (R12), which is Non-Fail and correctable. Score should be Non-Fail (3-4), not 2.
+
+============================================================
+
+## QC Validation (Response to Dispute)
+
+Decision: Approve
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL
+(Changed from QC score 2 after dispute)

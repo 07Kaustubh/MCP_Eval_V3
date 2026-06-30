@@ -53,12 +53,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_review.md` listing 
 
    Exit non-zero on any atom FAIL with the specific atom + universe row. This is the load-bearing floor the LLM councils trust — if it doesn't run clean, FIX THE ATOMS BEFORE the council assessment (otherwise the councils will narrate "atoms verified" on broken atoms).
 
-   **Per-universe landmines that the programmatic check enforces** (read `_aux/Universe.txt` to know which apply):
-
-   - **Brookfield Landmine 1 — Account-number trap:** 105000 / 120000 differ per entity (Cash-Trust on Brookfield, IOLTA on Northstar, Short-term Investments on Acme). Query `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E` before trusting any prose role label.
-   - **Brookfield / KeyStone Landmine 2 — Email-chain truthfulness:** "X never responded" / "Y has been silent" claims must be proven by trajectory walk: (i) parent_id descendant walk from referenced sender's email; (ii) sender-filter across same subject prefix on `email.emails`. Never trust the candidate's prose "no response" claim without the walk.
-   - **KeyStone Landmine 1 — TRID timing:** Loan Estimate must be sent within 3 business days of application; Closing Disclosure must be delivered 3 business days before closing. Query `mortgage_los.disclosures` for actual sent_date vs application_date / closing_date.
-   - **KeyStone Landmine 3 — Mortgage LOS vs CRM source-of-truth:** loan-level data lives in `mortgage_los`. CRM holds marketing / referral funnel. When a claim references loan state, never trust CRM as the source — query `mortgage_los`.
+   **Per-universe landmines:** the full landmine catalog is codified in `Validators/universes.py` (per-universe `landmines` block) and enforced programmatically by `verify_universe_atoms.py`. Full per-landmine descriptions live in `AGENTS.md` under "Universe constants (multi-universe — v20)" — read the section matching `_aux/Universe.txt` to know which apply to this task. The script runs each landmine check; the LLM REVIEW pass then sanity-checks any flagged atom against the corresponding universe row. **Recurring landmines by universe** (see AGENTS.md for full descriptions): Brookfield → account-number trap (105000/120000 differ per entity) + email-chain truthfulness; KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop analyst, distinct from KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs.
 
    Then the validator + council sequence:
 

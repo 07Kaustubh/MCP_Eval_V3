@@ -1,0 +1,95 @@
+OE1 (Read - discovery): Find and read the IRS examination notice and Alex's forward.
+- Tool: email_search_emails (query "Section 179" / "IRS" / "Acme" / "examination") or email_list_emails.
+  NOTE: these scenario emails sit in Hannah's INBOX, so the default email_search_emails /
+  email_list_emails path surfaces them; email_show_data reads the full body.
+- Finds the IRS notice, email_id 3a1d53d680fb4b43a1f5c60e5ce3be7a, from priya.singh@irs.gov
+  (Corporation Tax Officer, IRS) to alex.cahoon@brookfieldcpas.com: Form 1120 for Acme Cloud
+  Inc, tax year ended 2025-12-31, examination limited to the Section 179 election; Acme
+  expensed $340,000 of IT equipment under s.179; IRS proposes to DISALLOW s.179 and require
+  the property be capitalized and recovered under MACRS; documentation (acquisition invoices +
+  evidence of the date each asset was placed in service) is due 2026-07-07.
+- Also finds Alex Cahoon's forward, email_id 85e2bffbfa2c4ef597ac103e142ce905, to
+  hannah.grant@brookfieldcpas.com handing her ownership and instructing: pull the s.179
+  support, confirm whether the election holds asset by asset, and flag for Ming if any part
+  is weak before anything goes to the Service; respond by July 7.
+-> Read/lookup. The Outcome 2.1 facts below (the $340,000 challenge, MACRS, July 7 deadline)
+   cannot be reported unless the agent reads the notice, so a tightened Outcome already proves
+   this step. No Process rubric.
+
+OE2 (Read - discovery): Pull the firm's own Section 179 support and read the per-asset
+placed-in-service dates.
+- Tool: email_search_emails (query "Section 179 support" / "Acme FY2025" / "179") or
+  email_list_emails (INBOX). Finds Tom
+  Chang's support email, email_id b779c6284f46489cb89a5dab0393bae6, from
+  tom.chang@brookfieldcpas.com to hannah.grant@brookfieldcpas.com: $340,000 total =
+  $245,000 servers/switches placed in service 2025-09-12 + $95,000 network gear (shipped late)
+  placed in service 2026-01-08; s.179 elected on the full $340,000 on the FY2025 return.
+- Optional corroboration: records_vault_list_documents (entity_id "acme_cloud",
+  retention_policy_code "IRS_TAX_7Y") to look for any filed FY2025 engagement support.
+- Note (verified): there are NO separate SAP fixed-asset detail rows for these two tranches
+  in the universe; the determinative placed-in-service dates come from Tom's support email,
+  which the agent must treat as the source of truth for the asset-by-asset call.
+-> Read/lookup. The Outcome 2.1 asset-by-asset facts (the two amounts + two dates + the
+   conclusion) depend on this read; a tightened Outcome proves it. No Process rubric.
+
+OE3 (Read - lookup): Resolve the escalation recipients.
+- Tool: contacts_search_contacts (query "Ming Chang") -> ming.chang@brookfieldcpas.com
+  (Tax Partner); confirm Alex Cahoon -> alex.cahoon@brookfieldcpas.com (already visible as
+  the forward's sender).
+-> Read/lookup. Covered by the OE4 email 1.1 outcome (a wrong recipient fails it). No Process
+   rubric.
+
+OE4 (Write - action): Escalate the position to the tax partner and keep the manager in the loop.
+- Tool: email_send_email, sender hannah.grant@brookfieldcpas.com, recipients
+  [ming.chang@brookfieldcpas.com], cc [alex.cahoon@brookfieldcpas.com]. Content: the $95,000
+  network-gear tranche placed in service 2026-01-08 does not qualify for FY2025 s.179 (placed
+  in service after the 2025-12-31 year-end) while the $245,000 (placed in service 2025-09-12)
+  holds; this is a partner call; hold any response to the IRS until partner sign-off; IRS
+  deadline July 7, 2026.
+-> Outcome 1.1: The Agent sends an email to ming.chang@brookfieldcpas.com (Tax Partner).
+-> Outcome 1.1: The Agent includes alex.cahoon@brookfieldcpas.com on that escalation, as a
+   recipient or cc (covers "keep Alex in the loop").
+-> Outcome 1.2: The Agent's email states that part of the Section 179 election (the $95,000
+   tranche placed in service January 8, 2026) does not hold and needs partner sign-off before
+   any response is sent to the IRS.
+   Process rubrics: None. No ordering rubric is needed - the ground-truth path sends nothing to
+   the IRS, so there is no "before X" sequence between two write actions for Outcome to miss.
+
+OE5 (Write - action): File the firm's position write-up in the document vault.
+- Tool: records_vault_upload_document. Required params: kind (e.g., "memo"),
+  retention_policy_code "IRS_TAX_7Y". Other params: classification "restricted", title
+  referencing the Acme FY2025 Section 179 examination / position, related_resource_type
+  "client_engagement" + related_resource_id "acme_cloud" (or similar). Content records the
+  asset-by-asset position ($245,000 holds, $95,000 conceded), the July 7 deadline, and the
+  closed-year (FY2025) knock-on.
+-> Outcome 1.1: The Agent uploads a document recording the firm's position on the Acme FY2025
+   Section 179 examination.
+-> Outcome 1.2: The Agent files that document under retention policy IRS_TAX_7Y with
+   classification restricted.
+   (Both kind and retention_policy_code are REQUIRED parameters of the upload tool; tax records
+   in this universe use IRS_TAX_7Y + restricted, so the retention/classification rubric is valid.)
+
+OE6 (Write - action): Track the IRS response deadline so it does not slip.
+- Tool: reminder_add_reminder. Required params: title referencing the Acme FY2025 s.179 IRS
+  response deadline, due_datetime "2026-07-07" (e.g., 2026-07-07T09:00:00-04:00), description
+  summarizing the response obligation.
+-> Outcome 1.1: The Agent creates a reminder / tracking item for the IRS response deadline of
+   July 7, 2026.
+   Process rubrics: None.
+
+OE7 (Report to user - key facts the prompt explicitly asked for "piece by piece"):
+- The user (Hannah) asked to be told where the position lands asset by asset, not just whether
+  the total ties. These go into the final response.
+-> Outcome 2.1: The Agent reports that the IRS is challenging the $340,000 Section 179 election
+   on Acme's FY2025 return and is proposing to disallow it and capitalize/recover the property
+   under MACRS.
+-> Outcome 2.1: The Agent reports that the $245,000 placed in service September 12, 2025 is
+   valid FY2025 Section 179 and defensible (it holds).
+-> Outcome 2.1: The Agent reports that the $95,000 placed in service January 8, 2026 does NOT
+   qualify for FY2025 Section 179 because it was placed in service after the December 31, 2025
+   year-end, and should be conceded.
+-> Outcome 2.1: The Agent reports that the IRS response is due July 7, 2026.
+-> Outcome 2.1: The Agent reports that conceding the $95,000 increases FY2025 taxable income
+   and requires a provision true-up / amended-return adjustment for the closed FY2025 year.
+   Process rubrics: None - each fact is a specific value the agent can only state correctly by
+   having done the read + the per-asset analysis, so the tightened Outcomes are sufficient.

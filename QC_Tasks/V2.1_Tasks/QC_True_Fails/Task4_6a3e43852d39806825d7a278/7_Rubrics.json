@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent identifies 1.0925 as the governing confirmed May 2026 period end EUR/USD rate for the reconciliation, rather than the superseded 1.0742 draft rate.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to work off the genuine source of truth for the rate rather than the first number it finds. The confirmed snapshot (version 2) is 1.0925; the 1.0742 draft (version 1) is superseded. Selecting the wrong rate produces the wrong correction.",
+        "evidence": "Per OE2 and OE3: the Records Vault snapshot doc_fa05d9f0898c0526 version 2 (current) is Treasury confirmed 1.0925, superseding version 1 (1.0742), and Edith Banda's email states the same. Check the Agent's final response, working paper, journal entry justification, and email for 1.0925 as the governing rate. All six runs used 1.0925."
+    },
+    {
+        "title": "The Agent reports that the EUR 68,000.00 euro co counsel retainer revalues to approximately USD 74,290.00 at the 1.0925 rate.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks what the euro piece actually revalues to at the rate that officially governs the May close. EUR 68,000.00 at 1.0925 is USD 74,290.00.",
+        "evidence": "Per OE4 and OE6: SAP document 6000004401 shows EUR 68,000.00; at 1.0925 the revalued USD figure is approximately 74,290.00. Check the Agent's final response, working paper, or journal entry justification for this figure."
+    },
+    {
+        "title": "The Agent reports that the resulting foreign exchange revaluation variance on the Accrued Professional Services account is approximately USD 1,244.40.",
+        "category": "outcome",
+        "justification": "The prompt asks what the rate correction does to the variance on the account. The retainer was carried at USD 73,045.60 at 1.0742 and should be USD 74,290.00 at 1.0925, an increase of approximately USD 1,244.40.",
+        "evidence": "Per OE6: 74,290.00 against 73,045.60 carried gives approximately 1,244.40. Check the Agent's final response, working paper, journal entry, or reconciliation variance note for this figure. All six runs reported 1,244.40."
+    },
+    {
+        "title": "The Agent determines that the variance must be corrected in the current May period rather than noted and carried forward, because it exceeds the USD 1,000 materiality threshold.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to decide whether the variance must be put right this period or may simply be noted and carried forward. At approximately USD 1,244.40 it is over the USD 1,000 threshold, so it is material and must be corrected this period.",
+        "evidence": "Per OE6 and the firm variance thresholds (over USD 1,000 is urgent and must be addressed before certification). Check the Agent's final response and email for a conclusion that the variance is material and must be booked this period. All six runs concluded it must be corrected."
+    },
+    {
+        "title": "The Agent creates a journal entry in the open May 2026 period northstar_legal_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to stage the adjusting entry on the May books. The correction belongs in the open May period for Northstar Legal.",
+        "evidence": "Per OE6: an oracle_gl_create_journal_entry call with period_id northstar_legal_FP-2026-05. All six runs created the entry in this period."
+    },
+    {
+        "title": "The Agent's journal entry debits account 593000 (Foreign Exchange Loss) and credits account 220000 (Accrued Professional Services) for approximately USD 1,244.40.",
+        "category": "outcome",
+        "justification": "The prompt asks for the entry to be staged with the right accounts and the right direction. The euro liability is understated, so the liability account 220000 is credited and the offset is a debit to Foreign Exchange Loss 593000, for the USD 1,244.40 revaluation.",
+        "evidence": "Per OE6: the two lines of the same journal entry, which are correct or wrong together. Check the journal entry lines for a 1,244.40 debit to 593000 and a 1,244.40 credit to 220000. All six runs booked these two lines correctly."
+    },
+    {
+        "title": "The Agent records the corrective journal entry as a one off adjusting entry rather than as a standard recurring entry.",
+        "category": "outcome",
+        "justification": "The prompt explicitly calls for an adjusting entry, and the firm convention is that an adjusting or one off correction is a non standard entry (is_standard_entry false), while standard recurring entries such as accruals, depreciation, and prepaid amortization are standard. This correction of a carried rate error is a one off adjusting entry.",
+        "evidence": "Per OE6: check the journal entry is_standard_entry flag. It must be false (one off adjusting), not true (standard recurring). Runs 1, 3, and 4 set is_standard_entry true and fail; runs 2, 5, and 6 set it false and pass."
+    },
+    {
+        "title": "The Agent leaves the journal entry staged for review without approving or posting it, so it remains pending for a separate reviewer (George McAdam) to approve and post.",
+        "category": "outcome",
+        "justification": "The prompt says to stage the entry so that George only has to review it and post it, and firm convention requires the reviewer to be different from the preparer. The Agent, acting as preparer Green Spatz, must not approve or post its own entry.",
+        "evidence": "Per OE7: the entry should reach submitted state via oracle_gl_submit_journal_entry, with no approve or post call by the Agent. All six runs submitted but did not post the entry."
+    },
+    {
+        "title": "The Agent uploads a supporting working paper document to the Records Vault linked to reconciliation BL-AA054D9F0898.",
+        "category": "outcome",
+        "justification": "The prompt asks for the supporting working paper to be filed in the proper place. The working paper documents the rate correction and supports the reconciliation.",
+        "evidence": "Per OE8: a records_vault_upload_document call with related_resource_id BL-AA054D9F0898. Runs 1 through 5 filed the working paper to the Records Vault and pass; run 6 attached evidence to BlackLine only and did not file a Records Vault working paper, so it fails."
+    },
+    {
+        "title": "The Agent files the supporting working paper under the retention policy code AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt asks for the working paper to be filed under the retention these documents are meant to sit under. Reconciliation support working papers use AICPA_SQMS_7Y.",
+        "evidence": "Per OE8: check the retention_policy_code on the records_vault_upload_document call is AICPA_SQMS_7Y. Runs 1 through 5 filed the working paper under AICPA_SQMS_7Y and pass; run 6 did not file a Records Vault working paper and fails."
+    },
+    {
+        "title": "The Agent updates reconciliation BL-AA054D9F0898 with a variance explanation that documents the approximately USD 1,244.40 foreign exchange revaluation correction.",
+        "category": "outcome",
+        "justification": "The prompt asks for the reconciliation to be put back into shape with the variance properly explained. The variance explanation must reflect the rate correction the Agent identified.",
+        "evidence": "Per OE9: a blackline_update_reconciliation_variances call on BL-AA054D9F0898 recording the 1,244.40 FX correction. All six runs updated the variance explanation."
+    },
+    {
+        "title": "The Agent resubmits reconciliation BL-AA054D9F0898 so it returns to submitted state for review.",
+        "category": "outcome",
+        "justification": "The prompt asks for the reconciliation to be put back into the shape it should be in and made ready for George's review. The reconciliation was reopened to in_progress; the preparer's completed deliverable is a submitted reconciliation, which is the state required for the reviewer to act on it.",
+        "evidence": "Per OE10: a blackline_submit_reconciliation call on BL-AA054D9F0898 returning it to submitted state. Runs 1, 2, 3, and 4 resubmitted the reconciliation and pass; runs 5 and 6 left it in in_progress and fail."
+    },
+    {
+        "title": "The Agent notifies George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) that the corrected reconciliation and staged adjusting entry are ready for his review.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to loop George in for the review once the correction is staged. George is the reviewer.",
+        "evidence": "Per OE11: George McAdam reached as the primary recipient, via email_send_email to george.mcadam@brookfieldcpas.com or an equivalent Slack or messaging notification. All six runs notified George."
+    },
+    {
+        "title": "The Agent makes Edith Banda (edith.banda@brookfieldcpas.com) aware of the foreign exchange correction.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to make sure Edith is aware, since Edith owns the rate cross tie.",
+        "evidence": "Per OE11: Edith Banda reached, copied on the email to George or via an equivalent notification. All six runs copied Edith."
+    },
+    {
+        "title": "The Agent makes Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) aware of the foreign exchange correction.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to make sure Daniel is aware, since Daniel signs off the disposition.",
+        "evidence": "Per OE11: Daniel Jones reached, copied on the email to George or via an equivalent notification. All six runs copied Daniel."
+    }
+]

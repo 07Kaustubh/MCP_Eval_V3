@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent sends Andrea Phil (andrea.phil@brookfieldcpas.com) a status summary of the Acme Cloud FP-2026-05 close ahead of the partner review.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'send Andrea a status summary so she knows exactly what is resolved and what is still open going into the partner review.' This verifies the write action was executed to the correct recipient.",
+        "evidence": "Look for a write action (email or message) with recipient andrea.phil@brookfieldcpas.com. Confirm the action completed successfully and the content relates to the Acme FP-2026-05 close status."
+    },
+    {
+        "title": "The Agent sends a dedicated message to Daniel Jones (daniel.jones@brookfieldcpas.com) flagging items that require his approval or review to move the Acme close forward.",
+        "category": "outcome",
+        "justification": "The prompt lists 'flag Daniel on anything that needs his approval or review to move forward' as a separate deliverable from the Andrea status summary. This verifies a dedicated communication was sent to Daniel (not merely a CC on another message).",
+        "evidence": "Look for a dedicated write action directed at Daniel Jones - either an email to daniel.jones@brookfieldcpas.com, a Slack reply to his thread, or a direct message. The content should specifically flag items needing his approval/review. A CC on Andrea's email alone does not satisfy 'dedicated.'"
+    },
+    {
+        "title": "The Agent updates the close blocker log record for the Datadog misclassification (record airtable_e8f2a91c7b34) to reflect where things actually stand.",
+        "category": "outcome",
+        "justification": "The prompt says 'If the close blocker log is out of date then update it to reflect where things actually stand.' The Airtable Close Blocker Triage Log contains record airtable_e8f2a91c7b34 with status='Investigating' which is stale (the first reclass already posted June 1). This verifies the update action was executed.",
+        "evidence": "Look for an Airtable update action targeting record airtable_e8f2a91c7b34 in base airtable_e86eaf439d1d. Confirm the update includes modified fields (status or notes)."
+    },
+    {
+        "title": "The Agent's status summary to Andrea mentions a second Datadog invoice of $34,200 that is still coded to the wrong GL account (500000 instead of 521000).",
+        "category": "outcome",
+        "justification": "The prompt asks Andrea to know 'exactly what is resolved and what is still open.' The second Datadog invoice ($34,200 APM Pro, apinv_d7e241bc05f84a19) is a critical open item - it was routed to GL 500000 (the same wrong account as the first) and has NOT been reclassified. Andrea needs this for the certification decision.",
+        "evidence": "In the Agent's message to andrea.phil@brookfieldcpas.com, look for mention of a second Datadog invoice at $34,200 still on the wrong GL account (500000) or needing reclassification to 521000."
+    },
+    {
+        "title": "The Agent's status summary to Andrea identifies Emily Adekole's Cash-Tax Reserve reconciliation (BL-D603C8DB90D7) as open and not yet submitted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'whether Emily's recon cleared' and Andrea needs to know what is blocking. Emily's reconciliation is in 'open' state with zero variance but has NOT been submitted - it is a direct blocker for close certification.",
+        "evidence": "In the Agent's message to andrea.phil@brookfieldcpas.com, look for mention of Emily Adekole's reconciliation (or BL-D603C8DB90D7 or Cash-Tax Reserve) being open/not submitted and therefore blocking."
+    },
+    {
+        "title": "The Agent's status summary to Andrea mentions Margaret Sullivan's revenue recognition concern regarding the platform renewal and an approximately $20,000 monthly delta.",
+        "category": "outcome",
+        "justification": "The prompt asks whether 'Margaret's revenue recognition question creates a real problem for certification or if it is already handled.' Andrea needs to know this for the partner review. The $20K monthly delta arises from the contract increase ($1.2M vs $960K = $240K/year = $20K/month).",
+        "evidence": "In the Agent's message to andrea.phil@brookfieldcpas.com, look for mention of Margaret's revenue recognition concern, the platform renewal, and an amount near $20,000 monthly delta (or equivalent like $240K annual difference)."
+    },
+    {
+        "title": "The Agent's dedicated message to Daniel mentions the second Datadog invoice ($34,200) that needs a reclassification decision from him.",
+        "category": "outcome",
+        "justification": "The prompt says to 'flag Daniel on anything that needs his approval or review.' The second Datadog invoice ($34,200 APM Pro) was coded to GL 500000 and needs the same reclass to 521000 as the first. Owen flagged this and Jones stated he needs Daniel's confirmation on whether it needs reclassification.",
+        "evidence": "In the Agent's dedicated communication to Daniel, look for mention of the second Datadog invoice at $34,200 needing a reclass decision or approval."
+    },
+    {
+        "title": "The Agent's update to the close blocker log notes includes mention of the second Datadog invoice ($34,200) still coded to GL account 500000.",
+        "category": "outcome",
+        "justification": "The prompt says to update the close blocker log 'to reflect where things actually stand.' The current state includes a newly discovered second Datadog invoice ($34,200) on the same wrong account. Accurate notes must reflect this.",
+        "evidence": "In the Airtable update action for record airtable_e8f2a91c7b34, check the notes or description field for mention of the second Datadog invoice ($34,200) and its GL account 500000 coding."
+    },
+    {
+        "title": "The Agent reports that only 9 of 44 journal entries for Acme Cloud FP-2026-05 have posted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'which entries posted.' The Oracle GL data for acme_cloud_FP-2026-05 contains 44 total JEs of which exactly 9 are in 'posted' status. This is a critical fact for the user to understand how far behind the close is.",
+        "evidence": "In the Agent's final response to the user, look for reporting that 9 (or nine) of 44 journal entries have posted, or equivalent phrasing (e.g., '9/44 posted', 'only 9 have posted out of 44')."
+    },
+    {
+        "title": "The Agent reports that 11 journal entries for Acme Cloud FP-2026-05 are still in draft status.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'which are stuck in draft.' The Oracle GL data shows exactly 11 JEs in 'draft' status for this period. This tells the user how many entries have not yet progressed through the approval workflow.",
+        "evidence": "In the Agent's final response, look for reporting that 11 journal entries are in draft status (or equivalent like '11 still in draft', '11 entries stuck in draft')."
+    },
+    {
+        "title": "The Agent identifies that the Datadog reclass journal entry (je_1ce7247752034cbc) has posted, reclassifying $28,400 from GL account 500000 to 521000.",
+        "category": "outcome",
+        "justification": "The prompt mentions 'the Datadog reclass I did on BD1' and asks 'what the Datadog situation actually looks like end to end.' The user needs confirmation that the first reclass posted successfully. The JE moved $28,400 from 500000 (Cost of Revenue) to 521000 (Engineering Tools & Observability).",
+        "evidence": "In the Agent's final response, look for confirmation that the Datadog reclass entry posted, with the amount ($28,400) and the GL accounts (500000 to 521000). The JE ID je_1ce7247752034cbc may or may not be mentioned."
+    },
+    {
+        "title": "The Agent identifies a second Datadog invoice of $34,200 (APM Pro) flagged by Owen Mercer that was coded to the same wrong GL account 500000 and needs reclassification.",
+        "category": "outcome",
+        "justification": "The prompt says 'I know Owen messaged me a couple days ago about something related to the Datadog vendor routing' and asks for 'the Datadog situation actually looks like end to end including anything Owen raised.' Owen's message (in the Messaging system) reveals a second $34,200 APM Pro invoice auto-routed to 500000 - the same misclassification as the first.",
+        "evidence": "In the Agent's final response, look for identification of a second Datadog invoice at $34,200 (or APM Pro), attributed to Owen Mercer's message, coded to GL 500000 (the wrong account), requiring the same reclassification as the first."
+    },
+    {
+        "title": "The Agent reports that Emily Adekole's Cash-Tax Reserve reconciliation (BL-D603C8DB90D7) is in open state and has not been submitted, making it a blocker for the close certification.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'whether Emily's recon cleared.' It has NOT cleared - the reconciliation BL-D603C8DB90D7 is state='open' with zero variance ($2,487,124.72 GL = $2,487,124.72 support) but has not been submitted for review. This is a direct close blocker",
+        "evidence": "In the Agent's final response, look for reporting that Emily's reconciliation is open/not submitted and is blocking the close. May reference BL-D603C8DB90D7, Cash-Tax Reserve, account 103000, or zero variance with unsubmitted status."
+    },
+    {
+        "title": "The Agent identifies Margaret Sullivan's email about the Acme platform renewal increasing from $960,000 to $1,200,000 annually, with an approximately $20,000 monthly delta that may be unrecognized in the deferred revenue schedule.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether Margaret's revenue recognition question creates a real problem for certification or if it is already handled.' Margaret's email (e7c4a2f9301d48b6a5f82e3c1d9b47a0) flags that the contract went from $960K to $1.2M, creating a ~$20K/month delta ($240K annual / 12). The user needs to know whether this is a real certification risk.",
+        "evidence": "In the Agent's final response, look for mention of Margaret's email, the contract amounts ($960K to $1.2M or equivalent), and the approximately $20K monthly revenue delta. The Agent should indicate whether this creates a real problem or is handled."
+    },
+    {
+        "title": "The Agent reports an overdue reminder for following up on Emily Adekole's reconciliation sign-off, with a due date of June 10, 2026.",
+        "category": "outcome",
+        "justification": "The prompt says 'check if I have any overdue follow-ups I have dropped the ball on.' The reminder reminder_8b4c2e71a3f6 ('Acme May close - follow up on Emily recon sign-off') was due June 10 - 2 days overdue as of June 12. This directly answers the prompt's question about dropped follow-ups.",
+        "evidence": "In the Agent's final response, look for mention of an overdue reminder or dropped follow-up related to Emily's reconciliation, with a due date of June 10 (or described as 2 days overdue)."
+    },
+    {
+        "title": "The Agent identifies a Linear issue tracking the AP autoroute correction for Datadog invoices, with a due date of June 12, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks about 'any outstanding items people have flagged to me' and 'the Datadog situation end to end.' Linear issue linear_c7a4e91f8b23 tracks the permanent fix to the AP autoroute rule that keeps sending Datadog invoices to GL 500000. It is due June 12 (today) and is labeled as a close blocker.",
+        "evidence": "In the Agent's final response, look for mention of a Linear issue (or ticket/task) related to fixing the AP autoroute rule for Datadog invoices, with a due date of June 12 or described as due today."
+    },
+    {
+        "title": "The Agent surfaces specific items that Jones needs to personally act on tonight, including the overdue follow-up on Emily's reconciliation.",
+        "category": "outcome",
+        "justification": "The prompt says 'if there are items I need to act on personally then surface those so I can prioritize tonight.' The overdue Emily recon reminder (due June 10, 2 days ago) is an objectively dropped personal action item. The Agent should highlight this and potentially other items (Owen's DM, Margaret's reply, SAB 99 memo).",
+        "evidence": "In the Agent's final response, look for a section or callout identifying personal action items for Jones, including at minimum the Emily reconciliation follow-up. Other valid personal items include: responding to Owen, replying to Margaret, finalizing the SAB 99 memo."
+    }
+]

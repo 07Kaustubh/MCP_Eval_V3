@@ -2,9 +2,10 @@
 """
 Universe registry — per-universe constants for multi-universe pipeline support.
 
-Two universes:
+Three universes:
 - brookfield: CPAs & business advisory firm (current default)
-- keystone: Residential mortgage brokerage
+- keystone: Residential mortgage brokerage (V3.1)
+- moveops: B2B remote-work relocation services (V2.1)
 
 Every validator + runbook + council prompt should read constants via
 `get_universe_constants(detect_universe(task_dir))` rather than hardcoding
@@ -180,6 +181,90 @@ UNIVERSES = {
             "Persona-scope: 'my borrowers' / 'my pipeline' binds to persona's loan officer assignments (mortgage_los.loans.loan_officer_email = persona email). Verify every rubric value is in scope.",
         ],
     },
+
+    "moveops": {
+        "name": "MoveOps Inc.",
+        "domain": "B2B remote-work relocation services",
+        "base_path": "MoveOps_Base_Universe",
+        "docs_path": "Docs_moveops",
+        "evals_path": "Evals_moveops",
+        "tool_catalog": "MoveOps_Base_Universe/6_Server_Tools_Details.json",
+        "persona_briefs": "MoveOps_Base_Universe/2_Persona_Briefs.md",
+        "business_function_doc": "MoveOps_Base_Universe/3_Task_Categories_Business_Functions.md",
+        "universe_one_pager": "MoveOps_Base_Universe/5_MoveOps_One_Pager.md",
+        "qc_reference_path": "QC_Tasks/V2.1_Tasks",
+
+        "today": "2026-04-26",
+        "today_tz": "US/Pacific",
+        "persona_email_domain": "moveops.com",
+        "business_functions": [
+            "Operations", "Customer Engagement / Support", "Engineering", "Finance", "Executive",
+        ],
+        "business_function_weights": {
+            "Operations": 0.25, "Customer Engagement / Support": 0.30, "Engineering": 0.20,
+            "Finance": 0.15, "Executive": 0.10,
+        },
+        "tight_identifiers": [
+            "channel names", "ticket IDs", "relocation IDs", "vendor names", "company names",
+            "dollar amounts", "dates", "coordinator names", "Airtable record IDs", "CRM deal IDs",
+        ],
+        "oe_service_map": {
+            "relocations": "airtable", "stipends": "airtable", "client_accounts": "airtable",
+            "vendor_records": "airtable",
+            "ap_invoices": "quickbooks", "vendor_bills": "quickbooks", "customers": "quickbooks",
+            "accruals": "quickbooks", "vendor_master": "quickbooks",
+            "deals": "crm", "engagements": "crm", "leads": "crm",
+            "tickets": "linear", "issues": "linear", "linear_projects": "linear",
+            "calendar_events": "calendar",
+            "chat": "slack", "channels": "slack",
+            "email_threads": "email",
+            "contacts": "contacts",
+        },
+        "cross_service_pairs": [
+            ("email", "airtable"), ("email", "crm"), ("email", "quickbooks"),
+            ("airtable", "quickbooks"), ("airtable", "linear"), ("airtable", "crm"),
+            ("slack", "linear"), ("slack", "airtable"), ("slack", "quickbooks"),
+            ("crm", "calendar"), ("crm", "airtable"),
+        ],
+
+        "retention_codes": set(),
+        "slack_channels": {f"C{n:03d}" for n in range(1, 10)},
+        "classifications": set(),
+        "blackline_exception_types": set(),
+        "npcs": {
+            "Marcus Webb",
+        },
+        "services": ["airtable", "calendar", "contacts", "crm", "email", "linear",
+                     "public", "quickbooks", "slack"],
+
+        "account_trap_check": False,
+        "entity_name_to_id": {
+            "moveops": "moveops", "moveops inc": "moveops",
+        },
+        "lifecycle_check_kind": "PHMSA_hazmat",
+        "lifecycle_states_closed": set(),
+        "lifecycle_states_open": set(),
+
+        "tool_param_traps": {
+            "email_send_email": {"content_field": "content", "wrong_field": "body"},
+            "slack_conversations_add_message": {"content_field": "payload", "wrong_field": "text"},
+            "linear_create_issue": {"required": "team", "wrong": "teamId"},
+            "linear_create_comment": {"required": "issueId", "content_field": "body"},
+            "crm_create_engagement": {"required": "engagement_type", "content_field": "body"},
+            "airtable_update_records": {"required": "base_id", "also_required": "table_id"},
+            "quickbooks_create_customer": {"required": "DisplayName"},
+        },
+
+        "landmines": [
+            "PHMSA DOT hazmat compliance: hazmat shipments (cryogenic lab equipment, Class 3B lasers, chemical samples) require a signed DOT certificate from the freight carrier. Verbal driver confirmation does NOT count. When a claim references hazmat documentation, verify the Airtable relocation record AND the Swift / Heartland email thread carry the actual signed certificate reference.",
+            "Email-chain truthfulness: 'X never responded' claims must be proven by (i) parent_id descendant walk from sender's email, (ii) sender-filter across same subject prefix on email.emails. Never trust prose 'no response' claim without the walk.",
+            "Airtable Relocations source-of-truth: relocation state lives in Airtable (tblRelocations01 — status, vendor, coordinator, special handling). CRM holds the deal / engagement funnel. When a claim references relocation state, never trust CRM as the source — query Airtable.",
+            "Vendor cross-reference: Heartland Q1 invoice has multiple cancelled / reassigned moves billed in error. Any vendor-payment-dispute task must cross-reference the invoice line items against tblRelocations01 vendor + status, NOT trust the invoice prose.",
+            "Marcus Webb identity (MoveOps): Marcus Webb here is a BrightLoop Analytics senior analyst (CLIENT employee), distinct from the KeyStone departed-employee Marcus Webb. Same name, different person, different universe — do NOT carry KeyStone's departed-employee logic over.",
+            "ExpenseBot pilot bugs: the stipend auto-categorizer has known policy-config bugs for Vectral and Mosaic (exclusion checks, amount validation, duplicate hash detection). When verifying stipend approval correctness, query Airtable stipend records against the policy + Dmitri's audit findings (linear ticket portfolio).",
+            "Persona-scope: 'my clients' / 'my relocations' binds to persona's CRM assignment or Airtable coordinator field (account_manager_email or coordinator_email = persona email). Verify every rubric value is in scope.",
+        ],
+    },
 }
 
 
@@ -189,17 +274,24 @@ def get_universe_constants(universe_name: str) -> dict:
 
 
 _KEYSTONE_SIGNALS = re.compile(
-    r"\b(?:mortgage_los|TRID|loan\s+estimate|closing\s+disclosure|Keystone\s+Mortgage|borrower|loan\s+officer|underwriting\s+condition|wholesale\s+lender|rate\s+lock|stripe|quickbooks|crm_\w+|filesystem_\w+)\b",
+    r"\b(?:mortgage_los|TRID|loan\s+estimate|closing\s+disclosure|Keystone\s+Mortgage|keystonemortgage\.com|borrower|loan\s+officer|underwriting\s+condition|wholesale\s+lender|rate\s+lock|stripe_create_charge|stripe_create_refund|mortgage_los_\w+|filesystem_\w+)\b",
     re.IGNORECASE,
 )
 _BROOKFIELD_SIGNALS = re.compile(
-    r"\b(?:oracle_gl|BlackLine|Records?\s+Vault|Brookfield\s+CPAs?|journal\s+entr|trial\s+balance|SAP\s+subledger|Linear|Airtable|fiscal\s+period|northstar_legal|acme_cloud)\b",
+    r"\b(?:oracle_gl|BlackLine|Records?\s+Vault|Brookfield\s+CPAs?|brookfieldcpas\.com|journal\s+entr|trial\s+balance|SAP\s+subledger|fiscal\s+period|northstar_legal|acme_cloud|AICPA_SQMS_7Y|IRS_TAX_7Y|late_post_authorization_id)\b",
+    re.IGNORECASE,
+)
+_MOVEOPS_SIGNALS = re.compile(
+    r"\b(?:MoveOps|moveops\.com|Elena\s+Rostova|PHMSA|hazmat|relocation\s+coordinator|stipend\s+platform|UrbanNest|Heartland\s+Movers|Swift\s+Relocations|Atlas\s+Corporate\s+Travel|Vectral\s+Systems|Canopy\s+Health|BrightLoop|Mosaic\s+Robotics|GreenStack\s+Energy|PivotPoint|NorthWind\s+Technologies|StormCloud|airtable_update_records|tblRelocations|tblStipends|ExpenseBot|auto-categorizer)\b",
     re.IGNORECASE,
 )
 
 
 def detect_universe(task_dir: Path) -> str:
-    """Auto-detect universe from task contents. Writes _aux/Universe.txt and returns the name."""
+    """Auto-detect universe from task contents. Writes _aux/Universe.txt and returns the name.
+
+    Highest-signal universe wins. Ties default to brookfield (back-compat).
+    """
     task_dir = Path(task_dir)
     marker = task_dir / "_aux" / "Universe.txt"
     if marker.is_file():
@@ -207,22 +299,31 @@ def detect_universe(task_dir: Path) -> str:
         if cached in UNIVERSES:
             return cached
 
-    keystone_score = 0
-    brookfield_score = 0
+    scores = {"brookfield": 0, "keystone": 0, "moveops": 0}
     for candidate in ("1_Business_Function.txt", "2_Persona.txt", "5_Prompt.txt"):
         f = task_dir / candidate
         if f.is_file():
             text = f.read_text(encoding="utf-8", errors="ignore")
-            keystone_score += len(_KEYSTONE_SIGNALS.findall(text))
-            brookfield_score += len(_BROOKFIELD_SIGNALS.findall(text))
+            scores["keystone"] += len(_KEYSTONE_SIGNALS.findall(text))
+            scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(text))
+            scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(text))
 
     universe_data = task_dir / "3_UniverseDataForThisTask.json"
     if universe_data.is_file():
         sample = universe_data.read_text(encoding="utf-8", errors="ignore")[:50000]
-        keystone_score += len(_KEYSTONE_SIGNALS.findall(sample))
-        brookfield_score += len(_BROOKFIELD_SIGNALS.findall(sample))
+        scores["keystone"] += len(_KEYSTONE_SIGNALS.findall(sample))
+        scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(sample))
+        scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(sample))
 
-    universe = "keystone" if keystone_score > brookfield_score else "brookfield"
+    if all(v == 0 for v in scores.values()):
+        universe = "brookfield"
+    else:
+        max_score = max(scores.values())
+        winners = [u for u, s in scores.items() if s == max_score]
+        if "brookfield" in winners:
+            universe = "brookfield"
+        else:
+            universe = sorted(winners)[0]
 
     marker.parent.mkdir(parents=True, exist_ok=True)
     marker.write_text(universe + "\n", encoding="utf-8")

@@ -1,0 +1,110 @@
+[
+    {
+        "title": "The Agent creates a review note on reconciliation BL-333FF9956BC6 (related to exc_aade06f6129e43, account 102000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to put a note on each Brookfield exception with what was found. exc_aade06f6129e43 is one of the 7 Brookfield May exceptions, a subledger_feed_drop on account 102000 with financial impact -$28.59.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-333FF9956BC6 with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-75810CD0FEE4 (related to exc_1ddfc978ce5a4d, account 119000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_1ddfc978ce5a4d is a missing_accrual_variance on account 119000 with financial impact $4,390.62, one of the 7 Brookfield May exceptions requiring a documented status note.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-75810CD0FEE4 with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-7085321B04EA (related to exc_4d5d3582698946, account 131000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_4d5d3582698946 is a duplicate_entry_detected on account 131000 (Prepaid Software) with financial impact -$6,068.91, one of the two near-twin exceptions the user keeps mixing up.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-7085321B04EA with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-3978BDB68290 (related to exc_cb0a9a94a3084c, account 132000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_cb0a9a94a3084c is an fx_revaluation_drift on account 132000 with financial impact $435.41, one of the 7 Brookfield May exceptions requiring a documented status note.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-3978BDB68290 with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-516B536953DA (related to exc_a0f77f2a19104e, account 210000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_a0f77f2a19104e is a duplicate_entry_detected on account 210000 with financial impact $6,328.86, one of the two near-twin exceptions the user keeps mixing up and the most SLA-overdue item.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-516B536953DA with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-433E3BEEFD66 (related to exc_06b89e3937b04a, account 240000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_06b89e3937b04a is an unrecorded_invoice on account 240000 with financial impact -$172.62, one of the 7 Brookfield May exceptions requiring a documented status note.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-433E3BEEFD66 with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-1F548113B049 (related to exc_652c0931bb2546, account 260000), authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "exc_652c0931bb2546 is a timing_difference_over_sla on account 260000 with financial impact $9.61, one of the 7 Brookfield May exceptions requiring a documented status note.",
+        "evidence": "Look for a write action creating a review note on reconciliation BL-1F548113B049 with author elita.moore@brookfieldcpas.com. The action should return success."
+    },
+    {
+        "title": "The Agent sends an email from [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com) to [edith.banda@brookfieldcpas.com](mailto:edith.banda@brookfieldcpas.com) with a subject relating to the Brookfield May close exceptions (or similar).",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to email Edith the full breakdown by exception. Elita Moore is the persona (sender) and Edith Banda is the Accounts Senior who delegated the work (recipient).",
+        "evidence": "Look for an email send action with sender elita.moore@brookfieldcpas.com and recipient edith.banda@brookfieldcpas.com. The subject should reference Brookfield May exceptions or close status. The action should return success."
+    },
+    {
+        "title": "The Agent posts a message to the #monthly-close-coordination channel.",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to put something in the close coordination channel for Edith since she is in meetings. The #monthly-close-coordination channel (C005) is the firm's close coordination channel referenced throughout the universe.",
+        "evidence": "Look for a message posting action to the #monthly-close-coordination channel (channel_id C005 or channel name monthly-close-coordination). The action should return success."
+    },
+    {
+        "title": "The Agent's email to Edith includes an exception-by-exception breakdown covering all 7 Brookfield May reconciliation exceptions on accounts 102000, 119000, 131000, 132000, 210000, 240000, and 260000.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'the full breakdown by exception.' The ground truth contains exactly 7 open exceptions in the Brookfield May period. The email should cover all of them for Edith to have the complete picture.",
+        "evidence": "Check the email body sent to edith.banda@brookfieldcpas.com. It should reference or organize content around all 7 Brookfield exceptions across the listed accounts. Missing any of the 7 means the breakdown is incomplete."
+    },
+    {
+        "title": "The Agent's email to Edith includes the financial impact amounts for the two near-twin exceptions: $6,328.86 for exc_a0f77f2a19104e on account 210000 and $6,068.91 for exc_4d5d3582698946 on account 131000.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for 'the amounts' in the email and the user specifically mentions two exceptions with close dollar amounts that they keep mixing up. These two ($6,328.86 and $6,068.91) are the near-twins, both typed as duplicate_entry_detected but on different accounts.",
+        "evidence": "Check the email body for the financial impact figures $6,328.86 (or approximately $6,329) and $6,068.91 (or approximately $6,069). Both should be present and associated with their respective accounts (210000 and 131000)."
+    },
+    {
+        "title": "The Agent's email to Edith identifies who is responsible for resolution of each exception, including assigned owners and named approvers where applicable.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'who is responsible' for each exception. Each exception has an assigned_to email and some have named approvers (e.g., ryan.delgado@brookfieldcpas.com, james.randall@brookfieldcpas.com, daniel.jones@brookfieldcpas.com).",
+        "evidence": "Check the email body for references to exception owners and approvers. Look for names or emails such as blue.evans, anaya.wallace, emily.adekole, harry.marks, ben.arinzo, tom.chang, and approvers ryan.delgado, james.randall, daniel.jones."
+    },
+    {
+        "title": "The Agent's email to Edith identifies what is blocking progress on the exceptions, including at least one of: pending formal approvals not yet recorded, null approver fields from auto-assign issues, or vendor-side confirmation needs (or similar blocker descriptions).",
+        "category": "outcome",
+        "justification": "The prompt asks for 'what is holding things up' for each exception. Cross-system investigation reveals blockers including informal email approvals not recorded on BlackLine, auto-assign rule misfires leaving approver fields null, and pending vendor-side confirmations.",
+        "evidence": "Check the email body for descriptions of what is blocking each exception's resolution. Look for references to unanswered approval requests, discrepancies between email-discussed dispositions and BlackLine record states, or pending confirmations."
+    },
+    {
+        "title": "The Agent's email to Edith or message to #monthly-close-coordination identifies a shared root cause pattern across multiple Brookfield exceptions rather than treating them as isolated issues (or similar pattern recognition).",
+        "category": "outcome",
+        "justification": "The prompt says 'If anything points to a shared root cause across the exceptions rather than isolated issues, she said to make sure that comes through.' The ground truth shows two recurring root causes: 'Manual reclassification entry not yet posted before BD3' (affecting 3 exceptions) and 'FX rate table refresh ran 4 hours late on BD2' (affecting 2 exceptions).",
+        "evidence": "Check the email body or Slack message for any reference to shared or recurring root causes, systemic issues, or patterns connecting multiple exceptions. The agent should identify that some exceptions share the same underlying cause rather than being independent."
+    },
+    {
+        "title": "The Agent's message to #monthly-close-coordination provides a status update on the Brookfield May close exceptions, covering what is holding the period open (or similar summary of the close status).",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to 'put something in the close coordination channel for her since she is in meetings' so the team knows where things stand. The message should inform the team about the status of the May close.",
+        "evidence": "Check the Slack message posted to #monthly-close-coordination. It should reference the Brookfield May period and summarize the exception status for team visibility. A bare placeholder with no close-relevant content would not satisfy this."
+    },
+    {
+        "title": "The Agent identifies that the two exceptions the user keeps mixing up are exc_4d5d3582698946 ($6,068.91 on account 131000, Prepaid Software) and exc_a0f77f2a19104e ($6,328.86 on account 210000, Accounts Payable), both typed as duplicate_entry_detected but on different accounts with different root causes.",
+        "category": "outcome",
+        "justification": "The user says 'There are at least two I keep mixing up because the dollar amounts are close but they land on different accounts.' The ground truth identifies these as the two near-twin exceptions: both duplicate_entry_detected type with amounts within $260 of each other but on entirely different accounts (131000 vs 210000) with different root causes.",
+        "evidence": "In the Agent's final response, look for a clear disambiguation of the two near-twin exceptions, identifying their respective amounts ($6,068.91 and $6,328.86), accounts (131000 and 210000), and that they are distinct issues despite the similar amounts."
+    },
+    {
+        "title": "The Agent reports that Daniel Jones approved the corrective entry for exc_4d5d3582698946 (the $6,068.91 reversal, DR 210000 / CR 131000) via email, but the BlackLine exception still shows state 'investigating' with no assigned approver.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to check communications to find 'what has actually happened' beyond what the status field shows, and 'if supposed blockers have already been handled.' Daniel Jones's email approval (email_scen_022_orphan_exception_0007) is the clearest example of an informal approval not reflected in the BlackLine record.",
+        "evidence": "In the Agent's final response, look for a report that the $6,068.91 exception has an email-based approval from Daniel Jones that has not been recorded on the BlackLine exception record (which still shows investigating state and null approver)."
+    },
+    {
+        "title": "The Agent reports that the Northstar cash operating account exception (exc_af7274fb658844 on account 101000, financial impact -$572.87) connects to the Brookfield exceptions through a shared root cause, specifically 'Manual reclassification entry not yet posted before BD3' (or similar description of the reclassification delay)",
+        "category": "outcome",
+        "justification": "The prompt says Edith mentioned Northstar's cash operating account and wants the user to check 'if whatever is going on there connects back to the Brookfield side.' The ground truth confirms the Northstar exception shares the root cause with Brookfield exceptions exc_1ddfc978ce5a4d and exc_652c0931bb2546, and has systemic_issue_flag true.",
+        "evidence": "In the Agent's final response, look for identification of the Northstar exception on account 101000 and a statement that it shares a root cause (reclassification delay or similar) with one or more Brookfield exceptions, confirming the cross-entity connection Edith suspected."
+    }
+]

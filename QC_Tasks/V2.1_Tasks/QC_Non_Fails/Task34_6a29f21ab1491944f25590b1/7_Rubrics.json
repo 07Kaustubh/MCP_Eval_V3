@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent sends George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) a consolidated status on the Brookfield May close, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks Harry to 'pull it together for George so he's got one clean view of what's really blocking the May lock.' This confirms the write action reached the correct recipient. Phrased method-agnostically because the prompt names the goal (get the picture to George) without specifying a channel.",
+        "evidence": "See OE 8, OE 12. Look for an email_send_email call with recipients containing george.mcadam@brookfieldcpas.com, or a messaging_send_message / Slack direct message addressed to George McAdam (george.mcadam@brookfieldcpas.com). Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent follows up with James Randall ([james.randall@brookfieldcpas.com](mailto:james.randall@brookfieldcpas.com)) on the pending approval of the account 132000 exception exc_cb0a9a94a3084c, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt asks Harry to chase 'whoever the sign-off is sitting with' for the items just waiting on an approval. Exception exc_cb0a9a94a3084c (account 132000) is in awaiting_approval state with James Randall as the named approver. Method-agnostic because the prompt says 'give them a polite nudge' without naming a channel.",
+        "evidence": "See OE 3, OE 6, OE 9. Look for an email_send_email, messaging_send_message, or Slack direct message to james.randall@brookfieldcpas.com referencing the account 132000 / exc_cb0a9a94a3084c approval. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent follows up with Ryan Delgado ([ryan.delgado@brookfieldcpas.com](mailto:ryan.delgado@brookfieldcpas.com)) on the pending approval of the account 210000 exception exc_a0f77f2a19104e, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "Exception exc_a0f77f2a19104e (account 210000, $6,328.86) is in awaiting_approval state with Ryan Delgado as the named approver, so the prompt's instruction to chase whoever the sign-off is sitting with applies to him. A distinct write action from the other two chases.",
+        "evidence": "See OE 3, OE 10. Look for an email_send_email, messaging_send_message, or Slack direct message to ryan.delgado@brookfieldcpas.com referencing the account 210000 / exc_a0f77f2a19104e approval. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent follows up with Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) on the pending approval of the account 260000 exception exc_652c0931bb2546, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "Exception exc_652c0931bb2546 (account 260000) is in awaiting_approval state with Daniel Jones as the named approver, so the prompt's instruction to chase the pending sign-offs applies to him. A distinct write action from the other two chases.",
+        "evidence": "See OE 3, OE 11. Look for an email_send_email, messaging_send_message, or Slack direct message to daniel.jones@brookfieldcpas.com referencing the account 260000 / exc_652c0931bb2546 approval. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent's status to George McAdam states that the Brookfield May period (FP-2026-05) is still open and not locked, with the lock target of June 3, 2026 already passed (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to work out 'why the period hasn't been locked yet', so the consolidated view must convey the period is open and overdue. The open status and the June 3 lock target come from the same fiscal-period record.",
+        "evidence": "See OE 1, OE 12. Check the content of the George McAdam message for statements that the Brookfield FP-2026-05 / May 2026 period is open or not locked and that the June 3, 2026 lock target (BD3) has passed (or similar)."
+    },
+    {
+        "title": "The Agent's status to George McAdam itemizes the open FP-2026-05 exceptions blocking the lock, covering accounts 102000, 119000, 131000, 132000, 210000, 240000, and 260000 (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for 'one clean view of what's really blocking the May lock, taken one item at a time.' The seven open Brookfield FP-2026-05 exceptions are the items, all from the same exceptions query.",
+        "evidence": "See OE 2, OE 12. Check the content of the George McAdam message for an item-by-item list of the open exceptions on accounts 102000, 119000, 131000, 132000, 210000, 240000, and 260000 (or similar)."
+    },
+    {
+        "title": "The Agent's status to George McAdam identifies the owner or assignee responsible for each open exception (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for the view to show 'who owns it' for each item. Assignee/approver ownership comes from the same exception records.",
+        "evidence": "See OE 2, OE 12. Check the content of the George McAdam message for the responsible person against each open item (e.g., Harry Marks / James Randall on 132000, Anaya Wallace on 119000 and 240000, Emily Adekole on 131000, Ben Arinzo / Ryan Delgado on 210000, Blue Evans on 102000, Tom Chang / Daniel Jones on 260000) (or similar)."
+    },
+    {
+        "title": "The Agent's status to George McAdam states, for each open item, what it is waiting on to clear, distinguishing those that only need a pending sign-off from those that still need further investigation or a corrective entry (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for the view to show 'what each still needs.' The exception states (awaiting_approval vs investigating/logged) determine what each item is waiting on, all from the same exceptions query.",
+        "evidence": "See OE 2, OE 3, OE 12. Check the content of the George McAdam message for, per item, whether it is waiting on a named approval/sign-off or still needs investigation or a corrective entry before it can clear (or similar)."
+    },
+    {
+        "title": "The Agent's follow-up to James Randall notes that the account 132000 approval is overdue and that the May close is waiting on it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks Harry to 'give them a polite nudge that we're now well past the close date and it's the thing holding the lock.' This checks that the chase conveys that urgency.",
+        "evidence": "See OE 9. Check the content of the follow-up message to james.randall@brookfieldcpas.com for language that the approval is overdue / past the close date and is holding the May lock (or similar)."
+    },
+    {
+        "title": "The Agent's follow-up to Ryan Delgado notes that the account 210000 approval is overdue and that the May close is waiting on it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks Harry to nudge the approver that the item is past the close date and is holding the lock. This checks that the chase conveys that urgency.",
+        "evidence": "See OE 10. Check the content of the follow-up message to ryan.delgado@brookfieldcpas.com for language that the approval is overdue / past the close date and is holding the May lock (or similar)."
+    },
+    {
+        "title": "The Agent's follow-up to Daniel Jones notes that the account 260000 approval is overdue and that the May close is waiting on it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks Harry to nudge the approver that the item is past the close date and is holding the lock. This checks that the chase conveys that urgency.",
+        "evidence": "See OE 11. Check the content of the follow-up message to daniel.jones@brookfieldcpas.com for language that the approval is overdue / past the close date and is holding the May lock (or similar)."
+    },
+    {
+        "title": "The Agent reports that the Brookfield May period (FP-2026-05) remains open and unlocked and that its lock target of June 3, 2026 has already passed (or similar).",
+        "category": "outcome",
+        "justification": "Harry asks the agent to establish why the period has not locked; the agent must surface that the period is still open and overdue. Verifiable from the agent's final response.",
+        "evidence": "See OE 1. Check the agent's final response for statements that the Brookfield FP-2026-05 / May 2026 period is still open or not locked and that the June 3, 2026 lock target has passed (or similar)."
+    },
+    {
+        "title": "The Agent identifies that the open FP-2026-05 exceptions only awaiting an approval/sign-off are those on accounts 132000, 210000, and 260000 (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to separate the items 'just waiting on an approval that someone forgot to action' from the rest. The three exceptions in awaiting_approval state are on accounts 132000, 210000, and 260000, all from the same exceptions query.",
+        "evidence": "See OE 2, OE 3. Check the agent's final response for identification that the awaiting-approval exceptions are on accounts 132000 (exc_cb0a9a94a3084c), 210000 (exc_a0f77f2a19104e), and 260000 (exc_652c0931bb2546) (or similar)."
+    },
+    {
+        "title": "The Agent identifies that the open FP-2026-05 exceptions still under active investigation (not yet ready for sign-off) are those on accounts 102000, 119000, 131000, and 240000 (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to separate items that 'legitimately still need work' from those merely awaiting approval. The four exceptions in logged/investigating state are on accounts 102000, 119000, 131000, and 240000, all from the same exceptions query.",
+        "evidence": "See OE 2. Check the agent's final response for identification that the still-in-progress exceptions are on accounts 102000 (exc_aade06f6129e43, logged), 119000 (exc_1ddfc978ce5a4d), 131000 (exc_4d5d3582698946), and 240000 (exc_06b89e3937b04a) (or similar)."
+    },
+    {
+        "title": "The Agent reports that the latest determination on the account 132000 FX revaluation drift exception (exc_cb0a9a94a3084c, variance approximately $435.41) is that it requires a corrective journal entry rather than being left as acceptable translation noise (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'check what the latest read on it actually is before you assume it's fine.' In the messaging thread an early reply called the variance acceptable noise, but the later, superseding reply concluded a corrective JE is the right call (the GBP London prepaid plus the May FX move created the drift). The agent must report the latest read, not the earlier one.",
+        "evidence": "See OE 5. Check the agent's final response for a statement that the account 132000 / exc_cb0a9a94a3084c variance (about $435.41) needs a corrective journal entry and is not just translation noise (or similar)."
+    },
+    {
+        "title": "The Agent reports that the account 132000 exception (exc_cb0a9a94a3084c) is parked awaiting the named approver James Randall and is past its June 4, 2026 SLA (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to establish 'whose desk it's parked on' and emphasizes Harry's own item. Exception exc_cb0a9a94a3084c is awaiting James Randall's approval with an SLA of June 4, 2026 that has now passed. The approver and SLA come from the same exception record.",
+        "evidence": "See OE 3, OE 6. Check the agent's final response for identification that exc_cb0a9a94a3084c (account 132000) is awaiting James Randall's approval and is past its June 4, 2026 SLA (or similar)."
+    },
+    {
+        "title": "The Agent flags that several of the open FP-2026-05 exceptions share a recurring root-cause pattern, such as subledger feed drops or BD3 cutover/feed-timing issues, with several marked as systemic (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent, 'if you notice the same kind of thing tripping us up close after close, say so plainly.' Multiple open exceptions carry repeating root-cause strings (subledger feed drops, late BD2 FX-rate-table refresh, intercompany clearing journal not sweeping, manual reclass not posted before BD3) and several have systemic_issue_flag set to true.",
+        "evidence": "See OE 2. Check the agent's final response for a flag that several open exceptions share a recurring root-cause pattern (e.g., subledger feed drops or BD3 cutover/feed-timing issues) and that some are marked systemic (or similar)."
+    }
+]

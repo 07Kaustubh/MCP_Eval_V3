@@ -1,0 +1,134 @@
+[
+    {
+        "title": "The Agent delivers the Friday escalation summary covering both open AP items to Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)).",
+        "category": "outcome",
+        "justification": "The prompt requires getting the Friday escalation summary to Daniel and giving him the full picture on both open AP items (GraniteRack void-and-reissue and TimeLedger W-9 hold). This confirms the core write action reached Daniel.",
+        "evidence": "Look for a write action that delivers the escalation summary to daniel.jones@brookfieldcpas.com (an email, a Slack direct message, or a messaging conversation addressed to Daniel). Confirm it succeeded and is the Friday escalation summary covering both items, not an unrelated message. The prompt does not name a channel, so any direct delivery to Daniel is valid."
+    },
+    {
+        "title": "The Agent states in the escalation summary to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) that the GraniteRack void-and-reissue under SOW-2025-GR-rev1 has not arrived and the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e, $39,090.56) remains blocked from the normal AP release path (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks whether the reissued GraniteRack invoice came in and whether it can move through the normal AP release path. Ground truth as of June 12, 2026: no reissued invoice has posted and apinv_6131b7c637aa4b6e remains pending_approval.",
+        "evidence": "In the escalation summary delivered to daniel.jones@brookfieldcpas.com, confirm a statement referencing GraniteRack (or VEN-012-753165 or the $39,090.56 invoice) that the reissue under SOW-2025-GR-rev1 has not arrived and the original invoice remains blocked from normal AP release (or similar)."
+    },
+    {
+        "title": "The Agent states in the escalation summary to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) that the GraniteRack vendor-master has not been confirmed corrected and still references the deprecated contract (SOW-2024-GR-rev3 or stale SOW reference or old contract reference or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to confirm whether the GraniteRack vendor-master was updated, because it was still showing the old contract reference. Ground truth from Brenda Abbas's May 2026 follow-up: the vendor-master description still references SOW-2024-GR-rev3 and the correction is unconfirmed as of June 12, 2026.",
+        "evidence": "In the escalation summary delivered to daniel.jones@brookfieldcpas.com, confirm a statement that the GraniteRack vendor-master has not been confirmed corrected and still references the stale SOW (SOW-2024-GR-rev3 or deprecated contract or old SOW reference or similar)."
+    },
+    {
+        "title": "The Agent states in the escalation summary to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) that the TimeLedger Nexus W-9 has not been received and the payment hold on invoice VEN-010-693199 / apinv_9aa666fc03424902 ($21,777.01) remains in force (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to confirm whether the W-9 ever came in and give the full picture on where the TimeLedger item stands. Ground truth: W-9 expired 2026-02-15, no refreshed W-9 is on file, and apinv_9aa666fc03424902 remains pending_approval.",
+        "evidence": "In the escalation summary delivered to daniel.jones@brookfieldcpas.com, confirm a statement referencing TimeLedger Nexus (or VEN-010-693199 / apinv_9aa666fc03424902 / $21,777.01) that the W-9 has not been received and the payment hold remains in force (or similar)."
+    },
+    {
+        "title": "The Agent states in the escalation summary to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) that the lapsed May 29 vendor soft commitment on the TimeLedger W-9 is now being converted to a hard escalation (or similar).",
+        "category": "outcome",
+        "justification": "The prompt directs that if the TimeLedger block is not cleared, the lapsed soft commitment must become a hard escalation. This disposition is an independent content check, kept separate from the factual W-9 status per atomicity.",
+        "evidence": "In the escalation summary delivered to daniel.jones@brookfieldcpas.com, confirm a statement that the soft commitment (which lapsed on May 29) is now being treated as a hard escalation (or similar)."
+    },
+    {
+        "title": "The Agent reports in the final response that the GraniteRack reissued invoice has not arrived as of June 12, 2026 and the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e, $39,090.56) remains in pending_approval with no clean replacement for the normal AP release path (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to determine whether the reissued invoice came in and whether it can move through normal AP release, and Priya asks to be told directly. Ground truth: no GraniteRack invoice has posted after 2026-04-05 for acme_cloud and apinv_6131b7c637aa4b6e remains pending_approval with no approver and no payment.",
+        "evidence": "In the Agent's final response, confirm a statement that the GraniteRack reissue has not arrived, referencing VEN-012-753165 or apinv_6131b7c637aa4b6e or the $39,090.56 amount, and that the original remains pending_approval and cannot be released through normal AP processing."
+    },
+    {
+        "title": "The Agent reports in the final response that the GraniteRack vendor-master correction has not been confirmed and the entry still references the deprecated contract (SOW-2024-GR-rev3 or stale SOW reference or old contract reference or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to confirm whether the vendor-master was updated, and Priya asks to be told. Email evidence (Brenda Abbas's escalation) confirms the vendor-master description still references SOW-2024-GR-rev3 as of June 12, 2026.",
+        "evidence": "In the Agent's final response, confirm a statement that the vendor-master was not confirmed corrected, mentioning the stale SOW reference (SOW-2024-GR-rev3 or deprecated contract or old SOW reference or similar) and that the correction is still open or unconfirmed."
+    },
+    {
+        "title": "The Agent reports in the final response on the TimeLedger Nexus W-9 item, including: (a) the W-9 has not been received as of June 12, 2026, (b) the May 29 soft commitment has lapsed, (c) invoice VEN-010-693199 / apinv_9aa666fc03424902 ($21,777.01) remains in pending_approval, (d) the item is now a hard escalation, and (e) if a release/approval path is described, it is the documented conditioned-release disposition (release upon receipt of a current W-9 via partner sign-off) and not an unsupported approval tier such as a controller-level / $10,000 AP-manager threshold (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks Priya to confirm whether the W-9 came in and to get the full picture on where the TimeLedger item stands, including converting the lapsed soft commitment to a hard escalation, and notes that if the block clears the invoice must move through the right approval path. The documented disposition (TimeLedger conditioned-release tracking issue) defines that path as: hold release unless a refreshed W-9 is received by the hard date set through partner sign-off, then release under that conditioned-release path. The task data defines no controller-level or $10,000 AP-manager approval tier for this release, so asserting one misstates the approval path. Ground truth: W-9 expired 2026-02-15, none on file, invoice still pending_approval.",
+        "evidence": "In the Agent's final response, confirm statements covering (a) the W-9 not received, (b) the May 29 commitment lapsed, (c) VEN-010-693199 / apinv_9aa666fc03424902 ($21,777.01) still pending_approval, and (d) a hard escalation disposition (or similar)."
+    },
+    {
+        "title": "The Agent posts a status note to the #vendor-bills-and-ap Slack channel (channel_id C010 or channel name vendor-bills-and-ap).",
+        "category": "outcome",
+        "justification": "The prompt explicitly instructs: post a note in #vendor-bills-and-ap. This confirms the Slack write action was executed to the correct channel. The channel accepts both its ID (C010) and its name, so either form is valid.",
+        "evidence": "Look for a Slack channel post addressed to either channel_id C010 or channel name vendor-bills-and-ap, and confirm it succeeded."
+    },
+    {
+        "title": "The Agent references the GraniteRack Compute Services void-and-reissue in the #vendor-bills-and-ap Slack post, noting that the reissued invoice has not arrived and the original invoice remains blocked (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to post a note in #vendor-bills-and-ap covering both open AP items. This checks the GraniteRack half. Kept separate from the TimeLedger half so each item is scored independently.",
+        "evidence": "In the #vendor-bills-and-ap Slack post, confirm a reference to GraniteRack (or VEN-012-753165 or the $39,090.56 invoice) with a statement that the reissue has not arrived or the invoice remains blocked (or similar)."
+    },
+    {
+        "title": "The Agent references the TimeLedger Nexus W-9 status in the #vendor-bills-and-ap Slack post, noting that the W-9 has not been received and the payment hold remains active (or similar).",
+        "category": "outcome",
+        "justification": "This checks the TimeLedger half of the required #vendor-bills-and-ap note: the expired W-9 (expired 2026-02-15) has not been refreshed and the payment hold on apinv_9aa666fc03424902 / VEN-010-693199 ($21,777.01) remains in force. Kept separate from the GraniteRack half for independent scoring.",
+        "evidence": "In the #vendor-bills-and-ap Slack post, confirm a reference to TimeLedger Nexus (or VEN-010-693199 or the W-9 or the $21,777.01 invoice) with a statement that the W-9 has not been received and/or the payment hold remains active (or similar)."
+    },
+    {
+        "title": "The Agent updates the GraniteRack tracking issue issue_e5abbb9af74642eeb10a93426b0bbaa2 with a status comment or issue update (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to bring the AP standardization tracking issues current. issue_e5abbb9af74642eeb10a93426b0bbaa2 (Verify GraniteRack AP void-and-rebill for VEN-012-753165 / apinv_6131b7c637aa4b6e) is one of two GraniteRack tracking issues overdue as of June 12, 2026 (due 2026-06-05).",
+        "evidence": "Look for a successful comment on or update to Linear issue issue_e5abbb9af74642eeb10a93426b0bbaa2."
+    },
+    {
+        "title": "The Agent documents in the update to issue_e5abbb9af74642eeb10a93426b0bbaa2 that the reissued invoice under SOW-2025-GR-rev1 has not arrived, the June 5 reissue target was missed, and the original invoice (VEN-012-753165 / apinv_6131b7c637aa4b6e) remains in pending_approval (or similar).",
+        "category": "outcome",
+        "justification": "Bringing this tracking issue current means recording the June 12 status. Ground truth: no reissued invoice has posted and apinv_6131b7c637aa4b6e remains pending_approval after the missed 2026-06-05 target.",
+        "evidence": "In the comment or issue-update content for issue_e5abbb9af74642eeb10a93426b0bbaa2, confirm it references the reissue not having arrived, the missed June 5 target, or the original invoice still pending (or similar). A blank or unrelated update fails."
+    },
+    {
+        "title": "The Agent updates the GraniteRack tracking issue issue_16b223fecbf14af586d0afa0ce8cc6f4 with a status comment or issue update (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to bring the AP standardization tracking issues current and to confirm whether the GraniteRack vendor-master was updated. issue_16b223fecbf14af586d0afa0ce8cc6f4 (Track GraniteRack void-and-rebill and vendor-master sweep) is the companion GraniteRack tracking issue, also overdue (due 2026-06-05).",
+        "evidence": "Look for a successful comment on or update to Linear issue issue_16b223fecbf14af586d0afa0ce8cc6f4."
+    },
+    {
+        "title": "The Agent documents in the update to issue_16b223fecbf14af586d0afa0ce8cc6f4 that the GraniteRack vendor-master still references the deprecated contract (SOW-2024-GR-rev3 or stale SOW reference or similar) and the void-and-rebill for VEN-012-753165 / apinv_6131b7c637aa4b6e remains open (or similar).",
+        "category": "outcome",
+        "justification": "This issue covers both the rebill follow-up and the vendor-master sweep. Ground truth: the vendor-master description still references SOW-2024-GR-rev3 and the rebill remains unresolved as of June 12, 2026.",
+        "evidence": "In the comment or issue-update content for issue_16b223fecbf14af586d0afa0ce8cc6f4, confirm it references the stale vendor-master SOW (SOW-2024-GR-rev3 or similar) and/or that the GraniteRack rebill remains open (or similar). A blank or unrelated update fails."
+    },
+    {
+        "title": "The Agent updates the TimeLedger tracking issue issue_08d1ddb3b3c9419faa29e94436004bd8 with a status comment or issue update (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to bring the AP standardization tracking issues current; all four issues sit in the same AP-standardization project and this escalation covers both items. issue_08d1ddb3b3c9419faa29e94436004bd8 (Track conditioned release for apinv_9aa666fc03424902 and complete expired W-9 sweep) is the primary TimeLedger tracking issue, overdue (due 2026-05-30).",
+        "evidence": "Look for a successful comment on or update to Linear issue issue_08d1ddb3b3c9419faa29e94436004bd8."
+    },
+    {
+        "title": "The Agent documents in the update to issue_08d1ddb3b3c9419faa29e94436004bd8 that: (a) the TimeLedger Nexus W-9 has not been received, (b) the May 29 soft commitment lapsed, (c) invoice VEN-010-693199 / apinv_9aa666fc03424902 ($21,777.01) remains in pending_approval, and (d) the item is now a hard escalation (or similar).",
+        "category": "outcome",
+        "justification": "Bringing this tracking issue current means recording the June 12 status and disposition. Ground truth: W-9 expired 2026-02-15, none on file, invoice still pending_approval, soft commitment lapsed.",
+        "evidence": "In the comment or issue-update content for issue_08d1ddb3b3c9419faa29e94436004bd8, confirm it covers the W-9 not received, the missed May 29 commitment, apinv_9aa666fc03424902 / VEN-010-693199 still pending, and the hard escalation (or similar). A blank or unrelated update fails."
+    },
+    {
+        "title": "The Agent updates the TimeLedger tracking issue issue_0b05ec215a854a439472fb0c6bd3307b with a status comment or issue update (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to bring the AP standardization tracking issues current. issue_0b05ec215a854a439472fb0c6bd3307b (Run expired W-9 sweep across managed-client vendor master) is the second TimeLedger-related tracking issue, also overdue (due 2026-05-30).",
+        "evidence": "Look for a successful comment on or update to Linear issue issue_0b05ec215a854a439472fb0c6bd3307b."
+    },
+    {
+        "title": "The Agent documents in the update to issue_0b05ec215a854a439472fb0c6bd3307b that the expired W-9 sweep remains open, the TimeLedger Nexus W-9 has not been received, and the disposition is now a hard escalation rather than a soft vendor commitment (or similar).",
+        "category": "outcome",
+        "justification": "This issue tracks the broader expired W-9 sweep opened in connection with the TimeLedger hold. It must reflect that the sweep is still outstanding and the TimeLedger W-9 block has escalated to hard status as of June 12, 2026.",
+        "evidence": "In the comment or issue-update content for issue_0b05ec215a854a439472fb0c6bd3307b, confirm it references the expired W-9 sweep still open, the TimeLedger W-9 not received, and/or the hard escalation disposition (or similar). A blank or unrelated update fails."
+    },
+    {
+        "title": "The Agent schedules a meeting to discuss the TimeLedger Nexus W-9 escalation with Priya Khatri ([priya.khatri@brookfieldcpas.com](mailto:priya.khatri@brookfieldcpas.com)) and Brenda Abbas ([brenda.abbas@brookfieldcpas.com](mailto:brenda.abbas@brookfieldcpas.com)) as attendees.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to set up a meeting with the vendor to make sure they are on the W-9 issue, and to schedule it. The internal attendees are Priya (AP Coordinator) and Brenda (the Account Manager who owns the vendor relationship).",
+        "evidence": "Look for a calendar event referencing the TimeLedger Nexus W-9 follow-up with priya.khatri@brookfieldcpas.com and brenda.abbas@brookfieldcpas.com as attendees, and confirm it succeeded."
+    },
+    {
+        "title": "The Agent asks Brenda Abbas ([brenda.abbas@brookfieldcpas.com](mailto:brenda.abbas@brookfieldcpas.com)) to forward the meeting invite to her contact at TimeLedger Nexus.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks Priya to have Brenda forward the invite to her contact at TimeLedger. Since no TimeLedger contact exists in the contact directory, the path is to request the forward from Brenda, who owns the vendor relationship. The prompt names a goal, not a channel, so any direct request to Brenda is valid.",
+        "evidence": "Look for a message or email to brenda.abbas@brookfieldcpas.com asking her to forward the meeting invite to her TimeLedger Nexus contact, and confirm it succeeded."
+    },
+    {
+        "title": "The Agent, in the escalation summary to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com), states the correct release path for the TimeLedger Nexus invoice (VEN-010-693199 / apinv_9aa666fc03424902, $21,777.01): once a current W-9 is received it is released under the partner-agreed conditioned-release (release-with-condition) disposition, and the Agent does not route the release through an approval authority unsupported by the task data (e.g., a controller-level / $10,000 AP-manager approval threshold).",
+        "category": "outcome",
+        "justification": "The prompt states that if the TimeLedger block clears, the invoice 'needs to move through the right approval path.' The documented disposition (the TimeLedger conditioned-release tracking issue) defines that path explicitly: hold release unless an updated W-9 is received by the hard date set through partner sign-off; on receipt, release under that conditioned-release path; if not received by the deadline, keep the invoice blocked and escalate per AP management direction. No controller-level approval tier or $10,000 AP-manager threshold for this release exists anywhere in the task data, so asserting one is an unsupported (fabricated) statement of the approval path and misinforms Daniel on how the item would clear.",
+        "evidence": "In the summary delivered to daniel.jones@brookfieldcpas.com, confirm the TimeLedger release path is described as the conditioned release / release-with-condition upon receipt of a current W-9 (per partner sign-off). The criterion fails if the summary instead routes the release through an approval authority not in the disposition - e.g., a statement that the $21,777.01 amount requires controller-level approval because it exceeds a $10,000 AP-manager threshold (not supported by the task data)."
+    }
+]

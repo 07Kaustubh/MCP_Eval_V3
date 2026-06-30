@@ -1,0 +1,29 @@
+[
+  {
+    "id": "team_engineering",
+    "key": "ENG",
+    "name": "Engineering",
+    "created_at": "2023-03-15T10:00:00Z",
+    "updated_at": "2026-02-01T09:00:00Z",
+    "description": "MoveOps platform engineering team — builds and maintains the relocation services platform, stipend tools, and client integrations.",
+    "is_archived": false
+  },
+  {
+    "id": "team_operations",
+    "key": "OPS",
+    "name": "Operations",
+    "created_at": "2023-06-01T10:00:00Z",
+    "updated_at": "2026-04-21T12:00:00Z",
+    "description": "MoveOps operations team — manages relocation coordination, vendor relationships, move logistics, DOT compliance, and documentation workflows.",
+    "is_archived": false
+  },
+  {
+    "id": "team_relocations",
+    "key": "TEAM_RELOC",
+    "name": "Team Relocations",
+    "created_at": "2026-02-25T05:23:26Z",
+    "updated_at": "2026-02-25T05:23:26Z",
+    "description": "Auto-created team for team_relocations",
+    "is_archived": false
+  }
+]

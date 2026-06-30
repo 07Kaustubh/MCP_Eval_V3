@@ -1,0 +1,98 @@
+[
+    {
+        "title": "The Agent determines that the correct Northstar Legal FY2025 SALT accrual shortfall is approximately $2,800 (specifically $2,800.00), not the $4,820.30 posted to the ledger and cited in emails and Slack.",
+        "category": "outcome",
+        "justification": "This is the core quantitative trap. The $4,820.30 figure anchors every conversational surface and the posted GL entry. But three credits totaling $2,020.30 hit account 230000 after Tom's calculation: a $1,200.00 estimated payment (GL), a $504.80 R&D credit (subledger), and a $315.50 filing-fee refund (GL). Correct = $4,820.30 - $1,200.00 - $504.80 - $315.50 = $2,800.00. This figure is NEVER stated in any artifact. The agent must compute it. An agent reporting $4,820.30 missed all three reductions; $3,620.30 missed two; $3,115.50 missed one; $3,304.80 missed one; $4,504.80 missed two.",
+        "evidence": "Per OE 3, GL shows $1,200.00 (je_ns068_il_est_payment) and $315.50 (je_ns068_il_filing_refund) reducing 230000. Per OE 5, subledger shows $504.80 (northstar_legal_6000009801). Per OE 9, $4,820.30 - $1,200.00 - $504.80 - $315.50 = $2,800.00."
+    },
+    {
+        "title": "The Agent identifies that a $1,200.00 Illinois estimated state tax payment was posted against account 230000 (Income Tax Payable) for northstar_legal, reducing the SALT shortfall from the originally reported $4,820.30.",
+        "category": "outcome",
+        "justification": "This is reduction 1. The $1,200.00 was posted June 9 by George McAdam as routine year-end work. It does not mention the SALT shortfall calculation. The agent must find it in the GL and recognize it reduces the payable.",
+        "evidence": "Per OE 3, je_ns068_il_est_payment: DR 230000 $1,200.00, posted June 9, description 'Illinois Q4 2025 estimated state income tax payment applied.'"
+    },
+    {
+        "title": "The Agent identifies that a $504.80 state R&D tax credit apportionment was applied against account 230000 for northstar_legal in the subledger, further reducing the SALT shortfall.",
+        "category": "outcome",
+        "justification": "This is reduction 2. The $504.80 was recorded May 28 in the SAP subledger only (not swept to Oracle GL). The description says 'State R&D tax credit apportionment' not 'SALT shortfall reduction.' The agent must query the subledger and connect it to the SALT position.",
+        "evidence": "Per OE 5, northstar_legal_6000009801: DR 230000 $504.80, posted May 28, description 'State R&D tax credit apportionment - Illinois qualified research activities credit.'"
+    },
+    {
+        "title": "The Agent identifies that a $315.50 Illinois filing-fee refund was applied against account 230000 for northstar_legal, further reducing the SALT shortfall.",
+        "category": "outcome",
+        "justification": "This is reduction 3. The $315.50 was deposited June 5 by Ben Arinzo. The description says 'filing-fee refund' not 'SALT shortfall reduction.' The agent must find it in the GL or Records Vault and connect it.",
+        "evidence": "Per OE 3, je_ns068_il_filing_refund: DR 230000 $315.50, posted June 5. Per OE 6, doc_il_drev_filing_refund_068 in Records Vault corroborates."
+    },
+    {
+        "title": "The Agent reports that Tom's $4,820.30 placeholder journal entry needs to be reversed and rebooked at the corrected amount of approximately $2,800 because the posted figure does not reflect the three additional credits against account 230000.",
+        "category": "outcome",
+        "justification": "The placeholder was posted at $4,820.30 before the three reductions were known. An agent that finds the GL entry and reports 'SALT has been booked' without checking for subsequent account activity fails. The correct action is reversal and rebooking at $2,800.00.",
+        "evidence": "Per OE 3, je_ns068_salt_placeholder shows $4,820.30 posted June 10. Per OE 9, the three reductions total $2,020.30, making the correct shortfall $2,800.00."
+    },
+    {
+        "title": "The Agent concludes that the Northstar Legal FY2025 federal partnership return is NOT ready for release because the placeholder journal entry uses the wrong amount and the corrected entry has not been posted.",
+        "category": "outcome",
+        "justification": "The prompt frames the return as 'set to release.' The correct recommendation is NOT ready: $4,820.30 is wrong, $2,800.00 has not been posted. An agent sending a green-light memo fails.",
+        "evidence": "Per OE 3 and OE 9, the GL has $4,820.30 (wrong). The correct $2,800.00 has not been posted. Return cannot be released until corrected."
+    },
+    {
+        "title": "The Agent confirms that the Northstar tax planning work from May (the partnership-distribution planning workshop and its approximately $180K savings recommendation) is FY2026 planning and does not affect the FY2025 return position.",
+        "category": "outcome",
+        "justification": "Alex asks to check 'whether anything from the May planning work touches FY2025.' The May 6 workshop produced FY2026 planning recommendations only.",
+        "evidence": "Per OE 8, scen_047 workshop (May 6) and follow-up (June 24) describe FY2026 planning actions. None affect FY2025."
+    },
+    {
+        "title": "The Agent sends Ming Chang ([ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com)) a pre-filing status communication regarding the Northstar Legal FY2025 federal partnership return.",
+        "category": "outcome",
+        "justification": "Alex says 'Send Ming the status with the final figures.' Ming is the Tax Partner.",
+        "evidence": "Per OE 10 and OE 11. Check for a send action to ming.chang@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's status communication to Ming Chang 1 states the corrected SALT shortfall as approximately $2,800 (specifically $2,800.00), not the stale $4,820.30",
+        "category": "outcome",
+        "justification": "Cascade rubric from the core figure: an agent that derived the wrong shortfall will carry the wrong number into the memo to the Tax Partner. This isolates whether the deliverable to Ming reports the correct, derived figure (~$2,800) rather than the $4,820.30 that anchors the emails, Slack, and the posted placeholder.",
+        "evidence": "Per OE 9 and OE 11, $4,820.30 \u2212 $1,200.00 (GL est. payment) \u2212 $504.80 (subledger R&D credit) \u2212 $315.50 (GL filing-fee refund) = $2,800.00. Check the email to ming.chang@brookfieldcpas.com for ~$2,800 rather than $4,820.30."
+    },
+    {
+        "title": "The Agent's status communication to Ming Chang 1 identifies that the $4,820.30 placeholder journal entry on account 230000 needs to be corrected to the lower amount.",
+        "category": "outcome",
+        "justification": "Distinct from naming the right figure, the memo must flag that the entry already posted to the ledger is overstated and must be fixed. This isolates whether the agent surfaces the placeholder defect to Ming, not just the corrected number.",
+        "evidence": "Per OE 3 and OE 9, je_ns068_salt_placeholder was posted at $4,820.30 before the three reductions ($1,200.00 / $504.80 / $315.50) were known, overstating it by $2,020.30. Check the email to ming.chang@brookfieldcpas.com for a statement that the placeholder needs correcting/reversing."
+    },
+    {
+        "title": "The Agent's status communication to Ming Chang 1 recommends the Northstar Legal FY2025 federal partnership return is NOT ready for release.",
+        "category": "outcome",
+        "justification": "Alex asked for a pre-filing memo with a recommendation. An agent can cite the right figure and even note the placeholder issue yet still green-light filing, so this isolates whether the memo delivers the correct hold decision Alex needs before the return goes out.",
+        "evidence": "Per OE 9 and OE 11, the corrected $2,800.00 has not been posted and the $4,820.30 placeholder is overstated, so the return cannot be released as-is. Check the email to ming.chang@brookfieldcpas.com for a not-ready/hold recommendation."
+    },
+    {
+        "title": "The Agent notifies Hannah Grant ([hannah.grant@brookfieldcpas.com](mailto:hannah.grant@brookfieldcpas.com)) about the filing status. The prompt leaves the channel open (email or messaging both acceptable).",
+        "category": "outcome",
+        "justification": "Alex says 'Let Hannah ... know where we stand.'",
+        "evidence": "Per OE 12. Check for a send action to hannah.grant@brookfieldcpas.com or a messaging action to Hannah Grant."
+    },
+    {
+        "title": "The Agent reaches out to Tom Chang ([tom.chang@brookfieldcpas.com](mailto:tom.chang@brookfieldcpas.com)) regarding the placeholder reversal and filing package. The prompt leaves the channel open (email or messaging both acceptable).",
+        "category": "outcome",
+        "justification": "Alex says 'Let ... Tom know where we stand.'",
+        "evidence": "Per OE 13. Check for a send action to tom.chang@brookfieldcpas.com or a messaging action to Tom Chang."
+    },
+    {
+        "title": "The Agent posts a filing status update in the #tax-prep-and-filings channel regarding the Northstar Legal FY2025 return.",
+        "category": "outcome",
+        "justification": "Alex says 'Post a filing update in the tax channel.'",
+        "evidence": "Per OE 14. Check for a Slack message action in channel C006."
+    },
+    {
+        "title": "The Agent's tax channel update mentions the corrected SALT shortfall (approximately $2,800, or the revision from $4,820.30, or the three reductions) and that the placeholder needs correction before the return can be released.",
+        "category": "outcome",
+        "justification": "The filing update must carry the corrected figure so the team has the right number.",
+        "evidence": "Per OE 14. Check the Slack message content for the corrected figure or the revision context."
+    },
+    {
+        "title": "The Agent creates a reminder for Monday morning (June 15, 2026, or a similar Monday morning time) for Alex Cahoon to follow up on the Northstar FY2025 return status.",
+        "category": "outcome",
+        "justification": "Alex says 'set me a reminder for Monday morning.' June 12 is Friday, so Monday is June 15.",
+        "evidence": "Per OE 15. Check for a reminder creation action with due_datetime on or around 2026-06-15."
+    }
+]

@@ -1,0 +1,34 @@
+OE 1  — List the full reminder backlog with reminder_get_all_reminders (reminder_get_due_reminders is also valid). Expected: the BlackLine SLA reminders, including the stale re-fires on already-closed exceptions and the live FP-2026-05 reminders. Stale re-fire reminders to expect:
+  - reminder_scen_001_orphan_exception_0000 -> exc_151b0bee7e374e (brookfield 110000, $647.97)
+  - reminder_scen_005_orphan_exception_0000 -> exc_df0e3e636dfd4d (brookfield 219000, $46.52)
+  - reminder_scen_006_orphan_exception_0000 -> exc_80548c7bc0d94b (brookfield 101000, $120.11)
+  - reminder_scen_013_orphan_exception_0000 -> exc_1ec70e0d938b4f (northstar_legal 225000, $380.50)
+  - reminder_scen_014_orphan_exception_0000 -> exc_344bcd6e4c7a4c (northstar_legal 103000, $2,267.83)
+  - reminder_scen_015_orphan_exception_0000 -> exc_5221568d4e4047 (northstar_legal 235000, $583.94)
+  - reminder_scen_018_orphan_exception_0000 -> exc_49d97c6abdc14d (acme_cloud 225000, $453.67)
+
+OE 2  — For each reminder's underlying exception, call blackline_get_exception(exception_id=...) to read state, urgency, account, period and variance. Expected: the seven above are state="closed" (urgency "n_a"); the live FP-2026-05 items are open, and the three high-urgency, SLA-breached ones are:
+  - exc_a0f77f2a19104e (brookfield 210000, duplicate_entry_detected, awaiting_approval, high, financial_impact $6,328.86, recon BL-516B536953DA)
+  - exc_4d5d3582698946 (brookfield 131000, duplicate_entry_detected, investigating, high, financial_impact -$6,068.91, recon BL-7085321B04EA)
+  - exc_1ddfc978ce5a4d (brookfield 119000, missed accrual, investigating, high, financial_impact $4,390.62, recon BL-75810CD0FEE4)
+  Other open-but-not-high items the agent should leave open and report (not fix): exc_06b89e3937b04a (brookfield 240000, $172.62, medium), exc_cb0a9a94a3084c (brookfield 132000, $435.41, medium), exc_652c0931bb2546 (brookfield 260000, $9.61), exc_aade06f6129e43 (brookfield 102000, -$28.59, low, feed drop), exc_af7274fb658844 (northstar_legal 101000, $572.87, medium).
+
+OE 3  — Confirm the closure trail on each closed exception before clearing its reminder: blackline_get_audit_trail(exception_id=...) shows the resolution events, and email_search_emails surfaces the original sign-off. Expected approvers on the closed items include james.randall@brookfieldcpas.com (the Brookfield 110000/219000/101000 and Northstar 225000 items), ryan.delgado@brookfieldcpas.com (Northstar 103000), daniel.jones@brookfieldcpas.com (Northstar 235000), and alex.cahoon@brookfieldcpas.com (Acme 225000). This confirms each is a genuine closure and the reminder is a polling re-fire, not a reopen signal.
+
+OE 4  — Clear each of the seven stale reminders with reminder_delete_reminder(reminder_id=...). Do NOT call any exception write tool (blackline_update_exception / blackline_resolve_exception) that would reopen or alter the already-closed exceptions. (There is no dedicated dismiss-with-reason tool; the rationale is captured in the Slack tally and the email, not on the reminder record.)
+
+OE 5  — Post the recurring polling-glitch tally to Slack with slack_conversations_add_message into channel monthly-close-coordination (id C005), noting that the closed-exception SLA reminders re-fired again and were cleared, so the running occurrence list stays current.
+
+OE 6  — For each of the three high-urgency exceptions, pull the parent reconciliation with blackline_get_reconciliation(recon_id=...): BL-516B536953DA (210000), BL-7085321B04EA (131000), BL-75810CD0FEE4 (119000), to read gl_balance / supporting_balance / variance.
+
+OE 7  — Pull the detail behind each variance: sap_subledger_list_subledger_transactions for accounts 210000 / 131000 / 119000, and review prior similar postings with oracle_gl_list_journal_entries (entity brookfield, period brookfield_FP-2026-05, the affected account). Expected: a duplicate posting on 210000 (~$6,328.86) and on 131000 (~$6,068.91), and a missed accrual against an open vendor invoice on 119000 (~$4,390.62).
+
+OE 8  — Post a correcting journal entry for each, run through the full lifecycle: oracle_gl_create_journal_entry (entity brookfield, period brookfield_FP-2026-05, is_standard_entry=false, business_justification referencing the exception_id) -> oracle_gl_submit_journal_entry -> oracle_gl_approve_journal_entry -> oracle_gl_post_journal_entry. The two duplicates are reversed/cleared (oracle_gl_reverse_journal_entry of the duplicate JE is an equally valid path): ~$6,328.86 on 210000 and ~$6,068.91 on 131000; the 119000 item books the missed accrual ~$4,390.62.
+
+OE 9  — Close each of the three exceptions with blackline_resolve_exception(exception_id=..., resolution_summary=..., corrective_journal_entry_id=<the posted JE>), recording the root cause and resolution.
+
+OE 10  — Add a BlackLine review note on each parent reconciliation with blackline_create_review_note(recon_id=..., author="george.mcadam@brookfieldcpas.com", body=...) documenting the duplicate / missed accrual and the correction, for the workpaper trail.
+
+OE 11  — If the recipient address is not already known, confirm Daniel Jones via contacts_search_contacts / contacts_get_contact -> daniel.jones@brookfieldcpas.com (Accounts Manager).
+
+OE 12  — Send the rundown with email_send_email to daniel.jones@brookfieldcpas.com covering: (a) the re-fired reminders that were the polling glitch and were cleared, (b) the genuinely open exceptions that were fixed and the entries posted (210000 ~$6,328.86, 131000 ~$6,068.91, 119000 ~$4,390.62), and (c) the items left open that could not be closed (e.g., 240000 $172.62, 132000 $435.41, 260000 $9.61, Northstar 101000 $572.87).

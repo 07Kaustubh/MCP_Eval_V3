@@ -4,9 +4,9 @@ One task = one walk through this list.
 
 ---
 
-## Universe (auto-detected — v18)
+## Universe (auto-detected — v20)
 
-Pipeline supports two universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default) and **Keystone Mortgage Partners** (residential mortgage brokerage; v18+). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+Pipeline supports three universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default), **Keystone Mortgage Partners** (residential mortgage brokerage; v18+), and **MoveOps Inc.** (B2B remote-work relocation services; V2.1 framework; v20+). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
 
 ## Setup once per task (one trigger does the folder + paths)
 

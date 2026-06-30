@@ -1,0 +1,176 @@
+[
+    {
+        "title": "The Agent sends a briefing to Andrea Phil at [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) from [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) with a subject relating to the BD3 lock status, May close blocking exceptions, or resolution path (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"Send Andrea a proper briefing with an actual breakdown of each blocking item.\" Andrea Phil is the person who flagged the May close issue. This rubric confirms the write action was executed to the correct recipient from the correct sender.",
+        "evidence": "Look for an outbound communication (email, direct message, or similar) from daniel.jones@brookfieldcpas.com to andrea.phil@brookfieldcpas.com. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent notifies Peter Sanchez at [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) regarding the SOX-flagged exceptions and regulatory exposure items discovered during the investigation.",
+        "category": "outcome",
+        "justification": "The prompt says \"if any of these issues carry SOX implications or regulatory exposure, the compliance team needs to be notified with specifics immediately.\" Peter Sanchez is the compliance contact who raised the trust commingling incident. This rubric confirms the compliance notification was sent.",
+        "evidence": "Look for an outbound communication (email, Slack message, or similar) directed to Peter Sanchez or peter.sanchez@brookfieldcpas.com. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent updates the Airtable close blocker triage log record for the May close BD3 lock blocker (record airtable_a1b2c3d4e5f6 in the Close Blocker Triage Log table) with current investigation findings.",
+        "category": "outcome",
+        "justification": "The prompt says \"Make sure the close blocker log is fully up to date with the current state of every item. I want complete documentation before my review meeting.\" This rubric confirms the Airtable update write action was executed on the correct record.",
+        "evidence": "Look for an Airtable update action targeting record airtable_a1b2c3d4e5f6 in the Close Blocker Triage Log table. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil includes the Crestline Analytics duplicate payment: $27,400 paid twice on May 28 via both an emergency wire and the AP batch, resulting in a $27,400 overstatement on account 101000.",
+        "category": "outcome",
+        "justification": "The prompt requires \"an actual breakdown of each blocking item, the dollar exposure, root cause.\" The Crestline duplicate payment is the first of four blocking exceptions. The $27,400 amount, the May 28 date, and the dual payment channels (emergency wire + AP batch) are the key facts from the GL entries JE-brookfield-FP-2026-05-0061 and JE-brookfield-FP-2026-05-0062.",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference Crestline Analytics, $27,400, and the duplicate payment (emergency wire and AP batch or similar phrasing)."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil includes the HarborPoint Real Estate lease liability misclassification: $72,600 of current-year lease liability sitting in long-term account 222000 instead of current account 221000, affecting balance sheet presentation.",
+        "category": "outcome",
+        "justification": "The prompt requires each blocking item's dollar exposure and root cause. The HarborPoint lease issue is the second blocking exception. The $72,600 is the current portion (first 12 months at $6,050/month) that was booked entirely to long-term (222000) with no split to current (221000). This directly answers the \"balance sheet presentation concern\" the prompt mentions.",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference HarborPoint, $72,600 (or 12 months at $6,050), accounts 222000 and 221000, and the balance sheet impact."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil includes the Acme Cloud WIP cutoff violation: $41,750 recognized in May on account 119000 based on hours threshold, but the engagement letter requires client delivery sign-off which was not received until June 1.",
+        "category": "outcome",
+        "justification": "The prompt requires each blocking item's dollar exposure and root cause. The WIP cutoff violation is the third blocking exception. The $41,750 is from JE-brookfield-FP-2026-05-0065, and the root cause is that the WIP feed triggered on hours threshold when engagement ACE-MIG-2026-001 requires delivery sign-off per the engagement letter (doc_c3d4e5f6a7b8c9d0).",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference Acme Cloud (or ACE-MIG-2026-001), $41,750, account 119000, and the timing issue (hours threshold vs delivery sign-off, or May recognition vs June 1 sign-off)."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil includes the Hargrove Estate trust commingling: $12,800 of client trust funds posted to operating cash account 101000 instead of client trust account 105000, a regulatory commingling violation.",
+        "category": "outcome",
+        "justification": "The prompt requires each blocking item's dollar exposure and root cause. The trust commingling is the fourth blocking exception and the one described as \"a trust account issue that sounded serious\" in the prompt. The $12,800 was mis-coded to 101000 (operating) instead of 105000 (client trust) per JE-brookfield-FP-2026-05-0067.",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference Hargrove Estate, $12,800, accounts 101000 and 105000, and commingling or regulatory violation."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil explains that the Crestline duplicate payment and the Hargrove trust commingling mask each other on account 101000, producing a net variance of -$14,600 that conceals the true combined exposure of $27,400 (duplicate) plus $12,800 (trust mis-coding).",
+        "category": "outcome",
+        "justification": "The prompt says \"the number he mentioned didn't sit right with me, like maybe it's not showing the full picture\" and \"I have a bad feeling some of these are related.\" The masking relationship is the core interlink: -$27,400 + $12,800 = -$14,600 net, which hides both the full duplicate payment and the commingling. This is the \"full picture\" the prompt asks for.",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference the masking or offsetting relationship between the Crestline and Hargrove items on account 101000, with the -$14,600 net variance and the true underlying amounts."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil addresses whether these issues affect the management accounts presentation, specifically noting the balance sheet impact from the HarborPoint lease misclassification and the revenue recognition timing impact from the Acme Cloud WIP cutoff.",
+        "category": "outcome",
+        "justification": "The prompt says \"She's going to ask whether any of this affects the management accounts presentation and I need her to have the answer before she asks.\" The lease misclassification affects balance sheet classification (current vs long-term liabilities) and the WIP cutoff affects revenue recognition timing (May vs June).",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must reference management accounts presentation and connect it to the lease balance sheet issue and/or the WIP revenue recognition timing issue."
+    },
+    {
+        "title": "The Agent's briefing to Andrea Phil includes corrective actions for each blocking item and a realistic path to BD3 lock, noting which items can be corrected same-day and which require additional steps such as period adjustments or vendor contact.",
+        "category": "outcome",
+        "justification": "The prompt says \"what corrective action is needed, and what the realistic path to lock looks like.\" The four items have different timelines: the lease reclass (item 2) and trust reclass (item 4) can be corrected same-day with partner approval; the WIP cutoff (item 3) requires a May reversal and June re-posting; the duplicate payment (item 1) requires vendor contact for recovery.",
+        "evidence": "Check the content of the Agent's communication to Andrea Phil. It must include corrective actions and some form of timeline or path-to-lock assessment differentiating the items by complexity or resolution timeframe."
+    },
+    {
+        "title": "The Agent's notification to Peter Sanchez includes specifics on the Hargrove Estate trust commingling: $12,800 of client trust settlement funds posted to operating cash account 101000 instead of client trust account 105000 on journal entry JE-brookfield-FP-2026-05-0067, identifying Harry Marks as the preparer and Jones Harrison as the approver.",
+        "category": "outcome",
+        "justification": "The prompt says \"the compliance team needs to be notified with specifics immediately.\" Peter Sanchez's Slack message in C008 demanded a formal incident report from Daniel Jones. A compliance incident report must include the dollar amount, the wrong and correct accounts, the specific journal entry that caused the violation (JE-brookfield-FP-2026-05-0067), and the responsible parties so compliance can trace the control failure to the auditable source transaction.",
+        "evidence": "Check the content of the Agent's communication to Peter Sanchez. It must reference Hargrove Estate, $12,800, accounts 101000 and 105000, the journal entry reference (JE-brookfield-FP-2026-05-0067 or JE-0067 or similar abbreviated form), and the responsible parties (Harry Marks as preparer and Jones Harrison as approver)."
+    },
+    {
+        "title": "The Agent's notification to Peter Sanchez includes the WIP cutoff violation as a SOX-flagged item: $41,750 revenue recognized in May before the required delivery sign-off on June 1.",
+        "category": "outcome",
+        "justification": "The prompt says \"if any of these issues carry SOX implications or regulatory exposure, the compliance team needs to be notified with specifics.\" The WIP cutoff exception (exc_c3d4e5f6a7b8c9) has SOX implications flagged as true. Compliance needs to know about both SOX-flagged items, not just the trust commingling.",
+        "evidence": "Check the content of the Agent's communication to Peter Sanchez. It must reference the WIP cutoff or Acme Cloud issue, $41,750, SOX implications, and the timing discrepancy (May recognition vs June sign-off)."
+    },
+    {
+        "title": "The Agent's notification to Peter Sanchez acknowledges the incident report deadline of Friday June 12 and confirms corrective actions are underway.",
+        "category": "outcome",
+        "justification": "The prompt says \"I think there's already a deadline in play on at least one item and I cannot afford to miss it. Find out what was committed and make sure we're meeting it.\" Peter Sanchez demanded a formal incident report by end of day Friday June 12 (per Slack in C008 and reminder reminder_b2c3d4e5f6a7). The notification must acknowledge this commitment.",
+        "evidence": "Check the content of the Agent's communication to Peter Sanchez. It must reference the incident report deadline (Friday June 12, end of day, or similar) and indicate corrective actions are in progress or committed."
+    },
+    {
+        "title": "The Agent's update to the Airtable close blocker triage log includes references to the four corrective actions needed (Crestline vendor recovery, HarborPoint lease reclass debit 222000/credit 221000 for $72,600, Acme WIP May reversal and June re-post for $41,750, Hargrove trust reclass debit 105000/credit 101000 for $12,800), the June 12 compliance incident report deadline, and a status beyond the original \"Investigating\" (e.g., \"Corrective Actions Identified\" or similar).",
+        "category": "outcome",
+        "justification": "The prompt says \"Make sure the close blocker log is fully up to date with the current state of every item. I want complete documentation before my review meeting.\" The existing record airtable_a1b2c3d4e5f6 has status \"Investigating\" and notes covering all four scenarios. The update must reflect the specific corrective entries, compliance deadlines, and resolution progress discovered during investigation.",
+        "evidence": "Check the parameters of the Airtable update action. The updated fields should include enriched notes referencing the four corrective actions with account numbers and amounts, the June 12 deadline, and a status value beyond \"Investigating.\""
+    },
+    {
+        "title": "The Agent identifies four distinct exceptions blocking the BD3 lock: (1) Crestline Analytics duplicate payment on account 101000, (2) HarborPoint Real Estate lease misclassification on account 222000, (3) Acme Cloud WIP cutoff violation on account 119000, and (4) Hargrove Estate trust commingling involving accounts 101000 and 105000.",
+        "category": "outcome",
+        "justification": "The prompt says \"Build me the complete picture of what's actually blocking this close. Every open exception, every variance, every questionable entry.\" The four BlackLine exceptions (exc_a1b2c3d4e5f6a7, exc_b2c3d4e5f6a7b8, exc_c3d4e5f6a7b8c9, exc_d4e5f6a7b8c9d0) are the complete set of blocking items. The agent must identify all four.",
+        "evidence": "Check the Agent's final response for identification of all four blocking exceptions by name/description and account number. All four must be present."
+    },
+    {
+        "title": "The Agent identifies the masking relationship on account 101000: the Crestline duplicate payment (-$27,400) and the Hargrove trust mis-coding (+$12,800) produce a net variance of -$14,600 that does not reflect the true exposure of each item individually.",
+        "category": "outcome",
+        "justification": "The prompt says \"the number he mentioned didn't sit right with me, like maybe it's not showing the full picture\" and \"I have a bad feeling some of these are related but I can't see how.\" The masking relationship is the key analytical insight: BL-A1B2C3D4E5F6 shows -$14,600 but the true exposure is -$27,400 + $12,800. The agent must surface this interlink.",
+        "evidence": "Check the Agent's final response for discussion of the masking or offsetting relationship between the Crestline and Hargrove items on account 101000, referencing the -$14,600 net variance and the individual amounts underneath."
+    },
+    {
+        "title": "The Agent identifies that the Crestline Analytics $27,400 invoice was paid twice on May 28: once via an emergency wire authorized by Daniel Jones (JE-brookfield-FP-2026-05-0061) and once through the regular AP batch (JE-brookfield-FP-2026-05-0062).",
+        "category": "outcome",
+        "justification": "The prompt says \"make sure nothing from that got left unresolved or double-processed\" regarding vendor payment issues from the end of last month. The duplicate payment is the root cause of the Crestline exception. Emily Adekole confirmed the double payment in email. The agent must trace this to the two GL entries.",
+        "evidence": "Check the Agent's final response for identification of the duplicate payment mechanism: emergency wire and AP batch, both on May 28, both for $27,400, referencing the two journal entries or the dual payment channels."
+    },
+    {
+        "title": "The Agent identifies that the HarborPoint lease misclassification root cause is in the SAP lease schedule configuration: liability_current_account_number is set to 222000 (same as long-term) instead of 221000, meaning the misclassification is systemic and not limited to individual journal entries.",
+        "category": "outcome",
+        "justification": "The prompt says \"Trace it back to the transactions\" and asks for root cause analysis. The SAP lease schedule (lease_d02a3b4c5d6e7f) has liability_current_account_number = 222000 instead of 221000, which means every lease payment JE will perpetuate the misclassification until the schedule configuration is corrected. This is a deeper finding than just noting the JE is wrong.",
+        "evidence": "Check the Agent's final response for identification that the SAP lease schedule configuration itself has the wrong current liability account (222000 instead of 221000), not just that the journal entries are incorrect."
+    },
+    {
+        "title": "The Agent identifies that the Acme Cloud WIP recognition was triggered by an hours threshold in the feed (run_d07a8b9c0d1e2f, completed_with_warnings), but the engagement letter for ACE-MIG-2026-001 requires client delivery sign-off, which was not received until June 1, making the May recognition premature.",
+        "category": "outcome",
+        "justification": "The prompt mentions \"a revenue recognition question on one of our advisory engagements\" and asks to trace back to transactions. The WIP feed run completed_with_warnings, and the engagement milestone schedule (doc_c3d4e5f6a7b8c9d0) explicitly states Milestone 1 billing is contingent on delivery sign-off. The sign-off was June 1, so May recognition was incorrect.",
+        "evidence": "Check the Agent's final response for the WIP cutoff analysis: hours threshold vs delivery sign-off requirement, June 1 sign-off date, and the conclusion that May recognition was premature or incorrect."
+    },
+    {
+        "title": "The Agent reports the HarborPoint lease reclassification entry: debit account 222000 and credit account 221000 for $72,600",
+        "category": "outcome",
+        "justification": "The prompt says \"For anything that requires corrective entries, I need to understand the accounting: what gets debited, what gets credited, which accounts are affected.\" The prompt also says \"If anyone on my team has already drafted corrections, pull those up so I can review them.\" The phrase \"so I can review them\" means Daniel needs to know both that the draft exists AND that it has not been posted yet, so he can review before posting. Jones Harrison's drafted JE is documented in messaging (conv_2a3b4c5d6e7f) and in a BlackLine review note for BL-B2C3D4E5F6A7, but it has not been entered into the GL.",
+        "evidence": "Check the Agent's final response for the lease reclassification corrective entry details: debit 222000, credit 221000, $72,600, attribution to Jones Harrison as having already drafted it, and explicit indication that the correction has not yet been posted (e.g., \"not yet posted,\" \"pending approval,\" \"awaiting posting,\" \"not yet entered in the GL,\" or similar). Simply stating \"drafted\" or \"prepared\" without clarifying posting status is insufficient."
+    },
+    {
+        "title": "The Agent notes that Jones Harrison has already drafted HarborPoint lease reclassification, and that it has not yet been posted to the general ledger.",
+        "category": "outcome",
+        "justification": "The prompt says \"For anything that requires corrective entries, I need to understand the accounting: what gets debited, what gets credited, which accounts are affected.\" The prompt also says \"If anyone on my team has already drafted corrections, pull those up so I can review them.\" The phrase \"so I can review them\" means Daniel needs to know both that the draft exists AND that it has not been posted yet, so he can review before posting. Jones Harrison's drafted JE is documented in messaging (conv_2a3b4c5d6e7f) and in a BlackLine review note for BL-B2C3D4E5F6A7, but it has not been entered into the GL.",
+        "evidence": "Check the Agent's final response for the lease reclassification corrective entry details: debit 222000, credit 221000, $72,600, attribution to Jones Harrison as having already drafted it, and explicit indication that the correction has not yet been posted (e.g., \"not yet posted,\" \"pending approval,\" \"awaiting posting,\" \"not yet entered in the GL,\" or similar). Simply stating \"drafted\" or \"prepared\" without clarifying posting status is insufficient."
+    },
+    {
+        "title": "The Agent reports the corrective journal entry needed for the Hargrove trust commingling: debit account 105000 (client trust) and credit account 101000 (operating cash) for $12,800 to move the Hargrove Estate receipt from operating cash to client trust.",
+        "category": "outcome",
+        "justification": "The prompt says \"For anything that requires corrective entries, I need to understand the accounting: what gets debited, what gets credited, which accounts are affected.\" The trust receipt needs to be reclassified from 101000 to 105000 via a corrective JE.",
+        "evidence": "Check the Agent's final response for the trust commingling corrective entry details: debit 105000, credit 101000, $12,800."
+    },
+    {
+        "title": "The Agent reports that the WIP cutoff violation (Acme Cloud, $41,750) and the trust commingling (Hargrove Estate, $12,800) both carry SOX implications.",
+        "category": "outcome",
+        "justification": "The prompt says \"if any of these issues carry SOX implications or regulatory exposure.\" Both exc_c3d4e5f6a7b8c9 (WIP) and exc_d4e5f6a7b8c9d0 (trust) have sox_implications: true in the BlackLine data. The agent must flag both, not just one.",
+        "evidence": "Check the Agent's final response for explicit mention of SOX implications on both the WIP cutoff and the trust commingling items."
+    },
+    {
+        "title": "The Agent identifies the compliance deadline: Peter Sanchez demanded a formal trust commingling incident report from Daniel Jones by end of day Friday June 12, which is today.",
+        "category": "outcome",
+        "justification": "The prompt says \"I think there's already a deadline in play on at least one item and I cannot afford to miss it. Find out what was committed and make sure we're meeting it.\" The deadline is established in Peter Sanchez's Slack message in C008 and confirmed by reminder_b2c3d4e5f6a7 (due 2:00 PM Friday June 12). The agent must surface this deadline so Daniel knows his obligation.",
+        "evidence": "Check the Agent's final response for the compliance deadline: incident report to Peter Sanchez, due Friday June 12 (today), referencing end of day or 2:00 PM."
+    },
+    {
+        "title": "The Agent identifies the BD3 Lock Review meeting on Daniel Jones's calendar: \"BD3 Lock Review - May Close Outstanding Exceptions\" (event_b2c3d4e5f6a7) on June 12, 2:00 PM - 4:00 PM in Conference Room B.",
+        "category": "outcome",
+        "justification": "The prompt says \"I want complete documentation before my review meeting, which should already be on my calendar.\" The agent must find this calendar event to confirm the meeting exists and its timing, which drives the urgency of completing the investigation.",
+        "evidence": "Check the Agent's final response for reference to the BD3 Lock Review meeting on June 12 at 2:00 PM (or similar time reference), confirming the meeting is on the calendar."
+    },
+    {
+        "title": "The Agent confirms that process improvement items related to these issues have already been raised in project tracking: (1) a pre-batch check to flag invoices with same-day manual wire payments (linear_a1b2c3d4e5f6, priority 1, due July 1), and (2) a WIP recognition feed check for engagement billing basis before auto-triggering on hours threshold (linear_c3d4e5f6a7b8, priority 1, due July 15).",
+        "category": "outcome",
+        "justification": "The prompt says \"Check whether any process improvement items have been raised in our project tracking related to these issues. If not, they need to be.\" Both Linear issues exist and should be found and reported. The agent must confirm their existence rather than creating duplicates.",
+        "evidence": "Check the Agent's final response for confirmation that both process improvement items exist in Linear (or project tracking), referencing the pre-batch duplicate payment check and the WIP feed billing basis check, with their status or priority."
+    },
+    {
+        "title": "The Agent identifies that the Crestline Analytics vendor payment issue from the end of May resulted in a duplicate payment ($27,400 paid twice), confirming it was not left unresolved and connecting it to the operating cash variance.",
+        "category": "outcome",
+        "justification": "The prompt says \"I seem to remember there were some vendor payment issues toward the end of last month that people were escalating. Make sure nothing from that got left unresolved or double-processed.\" The Crestline emergency wire on May 28 and the subsequent AP batch payment on May 28 are the vendor payment issues. The agent must explicitly connect this to the prompt's \"vendor payment issues\" concern.",
+        "evidence": "Check the Agent's final response for a connection between the Crestline duplicate payment and the prompt's mention of vendor payment issues from the end of last month, confirming the double-processing was identified."
+    },
+    {
+        "title": "The Agent reports whether posting corrective entries is within Daniel Jones's authority or needs to route to a partner, distinguishing between corrections that can proceed under manager authority (such as the HarborPoint lease reclass and Hargrove trust reclass) and those that may require partner approval due to SOX implications, regulatory exposure, or amount thresholds (such as the WIP period adjustment and Crestline duplicate recovery).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks \"whether posting is within my authority or needs to route to a partner.\" Daniel Jones is an Accounts Manager. The WIP cutoff and trust commingling carry SOX implications, and the Crestline recovery involves vendor-facing action and a $27,400 amount, which may exceed manager authority. The agent must provide a reasoned authority assessment, not just acknowledge the question.",
+        "evidence": "Check the Agent's final response for a differentiated authority assessment: which corrections Daniel can approve (e.g., the straightforward reclassifications) versus which need partner routing (e.g., SOX-flagged items, period adjustments, or vendor recovery actions), with reasoning tied to the nature of each correction."
+    },
+    {
+        "title": "The Agent identifies the WIP cutoff corrective action: the $41,750 WIP entry (JE-brookfield-FP-2026-05-0065) and billing entry (JE-brookfield-FP-2026-05-0066) should be reversed from May and re-posted to June, since the delivery sign-off occurred on June 1.",
+        "category": "outcome",
+        "justification": "The prompt says \"For anything that requires corrective entries, I need to understand the accounting.\" The WIP cutoff requires a period adjustment: reversing the May entries and re-posting to June after the June 1 sign-off date. This is a different corrective pattern from a simple reclassification.",
+        "evidence": "Check the Agent's final response for the WIP corrective action: reversal from May and re-posting to June (or similar period adjustment language), referencing the $41,750 amount."
+    }
+]

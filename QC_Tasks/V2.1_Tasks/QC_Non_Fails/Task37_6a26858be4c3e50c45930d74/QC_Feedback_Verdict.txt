@@ -1,0 +1,24 @@
+Task: Task37_6a26858be4c3e50c45930d74
+Business Function: AP / Vendor Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Up to 10% Major Errors] (Missing Criteria — Outcome) The rubric is overall very good, but there is a missing criterion considering the presented OEs. OE24 requires updating the Linear handoff issue to add NovaCrest as an omitted item. The current rubric only requires the agent to report the omission at the end, in criterion 20, but it does not verify that the agent updated or commented on the Linear issue. Therefore, there should be another criterion, such as "The Agent updates or comments on George McAdam’s Linear handoff issue to identify NovaCrest vendor review as an omitted handoff item requiring reassignment". However, this only accounts for 1/22 = 4.5%, which is less than 10% and therefore a minor issue.
+
+Discussion:
+- No other issues were found. The prompt is clear, feasible, has a unique GT, requires investigation across 2+ services, and the persona and the business function assigned are aligned. The trajectories have an average tool calls greater than 15, and none of the 6 runs passed all the valid rubric criteria, therefore the prompt is complex enough. The rubric is all Outcome, and is well aligned with the prompt and OEs, there is only one criterion missing, as mentioned above. Therefore, the task passes.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 10% Major Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

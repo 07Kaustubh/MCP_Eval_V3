@@ -1,0 +1,104 @@
+OE1: Search Oracle GL for all Acme Cloud FP-2026-05 journal entries to determine which posted, which are stuck in draft, and overall close status.
+Tool: oracle_gl_list_journal_entries
+Parameters: period_id="acme_cloud_FP-2026-05", limit=50
+Discovery: 44 total JEs found - 9 posted (including Datadog reclass je_1ce7247752034cbc at $28,400, deferred revenue release je_8c7eeb8380ab422b at $194,850, deferred commissions amortization je_4ee8939c08564350 at $74,220, insurance amortization je_026335c0f2af40f4 at $11,244.72), 14 approved, 10 submitted, 11 still in draft status.
+
+OE2: Retrieve the Datadog reclass journal entry to confirm it posted and understand the end-to-end reclass details.
+Tool: oracle_gl_get_journal_entry
+Parameters: entry_id="je_1ce7247752034cbc"
+Discovery: Status=posted, posted_at=2026-06-01T10:56:00-04:00, prepared_by=jones.harrison@brookfieldcpas.com, approved_by=brenda.abbas@brookfieldcpas.com, $28,400 reclassified from account 500000 (Cost of Revenue) to 521000 (Engineering Tools & Observability), entry_type=reclassification, source_module=manual.
+
+OE3: Retrieve the deferred revenue release JE to investigate whether Margaret's revenue recognition question is already handled.
+Tool: oracle_gl_get_journal_entry
+Parameters: entry_id="je_8c7eeb8380ab422b"
+Discovery: Status=posted, $194,850, lines show Debit 240000 (Deferred Revenue) / Credit revenue account. Memo says "Release May portion of deferred SaaS revenue." This is the aggregate SaaS revenue release - agent must determine whether it already incorporates the new $1.2M contract rate ($100K/month) or still reflects the old $960K contract ($80K/month).
+
+OE4: List BlackLine reconciliations for Acme Cloud FP-2026-05 to check Emily's recon and overall reconciliation status.
+Tool: blackline_list_reconciliations
+Parameters: period_id="acme_cloud_FP-2026-05"
+Discovery: 22 reconciliations for the period. Emily Adekole's Cash-Tax Reserve reconciliation (BL-D603C8DB90D7) is state="open" - not yet submitted for review.
+
+OE5: Retrieve Emily's specific reconciliation to get full details on its blocking status.
+Tool: blackline_get_reconciliation
+Parameters: recon_id="BL-D603C8DB90D7"
+Discovery: state="open", account_id="103000" (Cash - Tax Reserve), preparer=emily.adekole@brookfieldcpas.com, reviewer=null, variance=0, gl_balance=2,487,124.72, supporting_balance=2,487,124.72. Balances match (zero variance) but recon has NOT been submitted - it is still blocking close certification.
+
+OE6: List BlackLine exceptions to check for open exceptions that could block the May close certification.
+Tool: blackline_list_exceptions
+Discovery: No exceptions exist for acme_cloud_FP-2026-05. One prior-period exception from acme_cloud_FP-2025-11 remains in state="awaiting_approval" (FX revaluation drift, financial_impact=$1,014.33, related_reconciliation_id="BL-5A8EA3B0B7B2", assigned_to anaya.wallace@brookfieldcpas.com). This prior-period exception does not directly block the current May close but is a lingering open item.
+
+OE7: Search Messaging for Owen Mercer's message about Datadog vendor routing ("a couple days ago" = ~June 10).
+Tool: messaging_search_conversations
+Parameters: query="Datadog"
+Discovery: Conversation conv_a3f8c71d9e52 between Jones Harrison & Owen Mercer, last_updated=2026-06-10T14:48:00Z.
+
+OE8: Get the full conversation with Owen Mercer to understand what he flagged about the Datadog routing.
+Tool: messaging_get_conversation
+Parameters: conversation_id="conv_a3f8c71d9e52"
+Discovery: Owen (June 10 14:42 UTC): "I just approved and posted the second Datadog invoice for May. It is the APM Pro license at $34,200. I routed it to the same GL account as the last one since that is what the autoroute rule picks up." Jones acknowledged but stated he needs to confirm with Daniel whether it needs the same reclass. Jones has NOT yet acted on this.
+
+OE9: Search SAP Subledger for Datadog AP invoices to confirm the second invoice details and GL coding.
+Tool: sap_subledger_list_ap_invoices
+Parameters: vendor_id="VEN-045", entity_id="acme_cloud"
+Discovery: Invoice apinv_d7e241bc05f84a19 - vendor_name="Datadog Inc", amount=$34,200, status="approved", posting_date=2026-06-05T14:22:00-04:00, line gl_account_number="500000" (Cost of Revenue), invoice_number="VEN-045-117832", approver=owen.mercer@brookfieldcpas.com. This second invoice is coded to the same wrong account and requires reclassification to 521000.
+
+OE10: Search emails for Margaret Sullivan's unanswered message about the platform renewal and deferred revenue.
+Tool: email_search_emails
+Parameters: query="platform renewal" (or query="deferred revenue")
+Discovery: Email e7c4a2f9301d48b6a5f82e3c1d9b47a0, from margaret.sullivan@brookfieldcpas.com, sent 2026-06-09T16:35:00Z, subject="Acme platform renewal - deferred revenue schedule update needed before May close", cc=andrea.phil@brookfieldcpas.com. Margaret asks whether the DR schedule reflects the new $1.2M annual contract (effective April 1, replacing old $960K), notes the monthly delta is ~$20K potentially unrecognized, warns it could affect certification.
+
+OE11: Search Records Vault for the contract document Margaret references in her email ("I uploaded the executed agreement to your document vault").
+Tool: records_vault_list_documents
+Parameters: entity_id="acme_cloud", uploaded_by="margaret.sullivan@brookfieldcpas.com"
+Discovery: Document doc_b9e7f4a2c61843d2, title="Acme Cloud Platform Services Renewal Agreement - 2026", kind="engagement_letter", uploaded_at=2026-05-12T14:30:00-04:00, status="active", classification="restricted". Confirms the $1.2M renewal contract exists and substantiates Margaret's deferred revenue question.
+
+OE12: Search Slack #monthly-close-coordination (C005) for recent messages including Daniel's status request posted "yesterday" (= June 11) and Jones's earlier BD1 post (June 2).
+Tool: slack_conversations_history (or slack_conversations_search_messages)
+Parameters: channel_id="C005"
+Discovery: (1) Message from user_id=persona_002 (Daniel Jones), ts="1781187600.000000", created_at=2026-06-11T14:20:00Z: Daniel asks Jones for full status on open JEs, Emily's recon, Datadog situation, Margaret's revenue rec question. Reply_count=0 - Jones has not responded. (2) Earlier parent message from persona_009 (Jones), ts="1780412880.000000", created_at=2026-06-02, about BD1 entries posted including Datadog reclass - has 3 replies (thread_ts discoverable for OE13).
+
+OE13: Retrieve the Slack thread on Jones's original Datadog BD1 post to understand the full discussion history and SAB 99 memo context.
+Tool: slack_conversations_replies
+Parameters: channel_id="C005", thread_ts="1780412880.000000"
+Discovery: Thread contains: (1) Jones (June 2): BD1 entries posted - DR release $194.8K, commissions $74.2K, Datadog reclass $28.4K; Emily's Cash-Tax Reserve recon BL-D603C8DB90D7 still open. (2) Brenda Abbas/npc_016 (June 3): Asks about prior-period Datadog impact. (3) Jones (June 3): Pulled AP autoroute history - cumulative $340K FY25 misclassification, drafting SAB 99 quant memo for Andrea. (4) Brenda (June 3): Agrees with quant memo + go-forward treatment, all BD1 entries green.
+
+OE14: Search Airtable Close Blocker Triage Log for the Datadog close blocker entry to check if it's up to date.
+Tool: airtable_search_records
+Parameters: base_id="airtable_e86eaf439d1d", table_name="Close Blocker Triage Log", field_name="owner", value="Jones Harrison"
+Discovery: Record airtable_e8f2a91c7b34, blocker_title="Datadog vendor expense misclassification blocking Acme May close presentation", status="Investigating", priority="High", updated_at=2026-06-03T17:45:00, target_date=2026-06-04T17:00:00. This is STALE - the first reclass posted June 1 but the blocker status was never updated to reflect resolution, and the second $34,200 invoice is not mentioned.
+
+OE15: Check overdue reminders to find any follow-ups Jones has dropped.
+Tool: reminder_get_due_reminders
+Discovery: Reminder reminder_8b4c2e71a3f6, title="Acme May close - follow up on Emily recon sign-off", due_datetime=2026-06-10T17:00:00Z (2 days overdue as of June 12). Description: "Follow up on Emily Adekole open reconciliation for Acme Cloud FP-2026-05. The recon needs to clear before the May close can be certified."
+
+OE16: Search Linear for issues related to the Datadog AP routing problem.
+Tool: linear_list_issues
+Parameters: query="Datadog" (or project="linear_63697b7dff5c")
+Discovery: Issue linear_c7a4e91f8b23, title="AP autoroute correction needed: Datadog invoices still routing to 500000 for acme_cloud after May reclass", due_date=2026-06-12 (today), priority=2, assignee_id=linear_2e7b3ea28766 (Sarah Whitcomb), project_id=linear_63697b7dff5c (AP workflow standardization), team_id=linear_5477c0808ac2, labels=["ap","process-improvement","close_blocker"]. Confirms the routing rule has NOT been fixed and the issue is due today.
+
+OE17: Check calendar for tomorrow's partner review meeting to understand the certification deadline and attendees.
+Tool: calendar_get_calendar_events_from_to
+Parameters: start_datetime="2026-06-13T00:00:00-04:00", end_datetime="2026-06-13T23:59:59-04:00"
+Discovery: Event event_f4a8e7c21d93, title="Acme FP-2026-05 Close Package - Partner Review & Certification", start=2026-06-13T19:00:00Z (3:00 PM EDT), end=2026-06-13T20:00:00Z (4:00 PM EDT), organizer=daniel.jones@brookfieldcpas.com, attendees=[andrea.phil, daniel.jones, jones.harrison, emily.adekole]. Andrea expects to certify at this meeting.
+
+OE18: Look up Andrea Phil's contact information (prerequisite for sending status email).
+Tool: contacts_search_contacts
+Parameters: query="Andrea Phil"
+Discovery: andrea.phil@brookfieldcpas.com
+
+OE19: Look up Daniel Jones's contact information (prerequisite for sending notification email).
+Tool: contacts_search_contacts
+Parameters: query="Daniel Jones"
+Discovery: daniel.jones@brookfieldcpas.com
+
+OE20: Send Andrea a comprehensive status summary email covering what is resolved and what is still open going into the partner review.
+Tool: email_send_email
+Parameters: sender="jones.harrison@brookfieldcpas.com", recipients=["andrea.phil@brookfieldcpas.com"], subject covering Acme FP-2026-05 close status for partner review, content summarizing: RESOLVED - Datadog first reclass posted ($28,400, 500000→521000), deferred revenue release posted ($194,850), deferred commissions amortization posted ($74,220), 9 JEs fully posted total; STILL OPEN/BLOCKING - second Datadog invoice ($34,200) still on wrong GL account 500000 needing reclass, Emily's Cash-Tax Reserve recon (BL-D603C8DB90D7) open with zero variance but not submitted, Margaret's deferred revenue question ($20K monthly delta from new $1.2M contract) pending review, 11 JEs still in draft status, Linear issue for AP autoroute rule fix due today; NEXT STEPS - items requiring Daniel's review flagged separately.
+
+OE21: Send Daniel an email flagging items that need his approval or review to unblock the close.
+Tool: email_send_email
+Parameters: sender="jones.harrison@brookfieldcpas.com", recipients=["daniel.jones@brookfieldcpas.com"], subject covering items requiring his review/approval for Acme May close, content flagging: (1) second Datadog invoice ($34,200 APM Pro, apinv_d7e241bc05f84a19) needs reclass approval to 521000 like the first, (2) Emily's recon BL-D603C8DB90D7 needs reviewer assignment - balances match but not submitted, (3) Linear issue due today for AP autoroute correction (routing rule still pointing to 500000), (4) Margaret's deferred revenue question - need controller decision on whether the $20K monthly delta requires a true-up before certification, (5) 11 draft JEs still in pipeline needing progression.
+
+OE22: Update the stale Airtable Close Blocker Triage Log record to reflect where things actually stand.
+Tool: airtable_update_records
+Parameters: base_id="airtable_e86eaf439d1d", table_id="airtable_1a80ff5c1ed3", records=[{id: "airtable_e8f2a91c7b34", fields: {status: updated from "Investigating" to reflect partial resolution (first reclass posted but second invoice discovered), notes: updated to include discovery of second $34,200 Datadog invoice still on 500000, Linear issue for routing rule fix due today, and remaining blockers for certification}}]

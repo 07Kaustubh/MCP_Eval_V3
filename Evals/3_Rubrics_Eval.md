@@ -166,6 +166,12 @@ Cross-check every literal in a rubric against the raw JSON by searching it direc
 | **Incorrectly Labeled Category** | Wrong Outcome/Process labeling | Write-action success labeled Process (should be Outcome 1.1); a check a stricter Outcome could capture labeled Process; a tool/query-named check labeled Process |
 | **Overly Broad Criteria** | Accepts all valid responses **and** some invalid ones | Answer set includes a wrong option; quantifier looser than the prompt so a partial/wrong answer still passes - unless the invalid paths are very unlikely |
 
+> **⚠️ Overly Broad — do not over-flag (precision guardrail).** A 1.2 content-coverage criterion phrased as "covers whether X or Y (or similar)" is **NOT** Overly Broad just because of the "whether/(or similar)" wording. Before flagging it, confirm BOTH fail; if either holds, it is valid:
+> - (a) **No strict companion.** Is the correct verdict independently locked by another (2.1/1.1) criterion? If a companion criterion already pins the right answer (e.g., a 2.1 says "The Agent reports the Acme variance is a timing difference, not a real economic loss"), the content-coverage criterion legitimately only checks that the deliverable *addresses* the topic — that is its job as a 1.2.
+> - (b) **Wrong path is plausible.** Could a competent agent realistically produce the wrong answer the loose wording would accept? If the universe makes the wrong answer implausible (e.g., evidence titled "May AICPA_SQMS_7Y workpaper — timing reclass approved" in Records Vault cannot be read as a real loss; a `proposed_resolution: "reclassify_to_next_period"` cannot be read as a write-off), the Overly Broad **exception** applies ("invalid paths very unlikely") — do not flag.
+>
+> Only flag Overly Broad when the answer set genuinely admits a wrong option that a real agent could land on AND no companion criterion catches it.
+
 ### Minor Issues
 
 | Issue Type | Definition | When to Flag |
@@ -324,6 +330,37 @@ Process: [X] ([Y]%)
 
 **Test:** If this criterion fails, is there exactly ONE clear reason why?
 
+**⚠️ MANDATORY DECOMPOSITION PROCEDURE — do NOT skip. This is the single most common score-3 defect (7+ of 19 score-3 tasks in QC data). You MUST decompose every criterion before marking atomicity as PASS.**
+
+**Procedure (mandatory for EACH rubric):**
+1. Read the criterion text and split it into every distinct **claim** or **action** it checks.
+2. For each claim, ask: "Could this claim fail independently of the others?" If yes, they are independent.
+3. For each claim, ask: "Does this claim come from a **different tool output / different service / different write action** than the others?" If yes, they MUST be separate rubrics.
+4. Fill in the decomposition table below. A rubric with 2+ independent claims = **Not Atomic (Major)**.
+
+| Rubric ID | Claim 1 | Claim 2 (if any) | Claim 3 (if any) | Same tool output / action? | Independent? | Atomic? | Severity |
+|-----------|---------|-------------------|-------------------|---------------------------|-------------|---------|----------|
+| R1 | "sends email to daniel.jones@brookfieldcpas.com" | — | — | — | — | Yes | — |
+| R4 | "emails Daniel Jones" | "posts a BlackLine review note on the Northstar reconciliation" | — | No (different services: email + BlackLine) | Yes | **No** | **Major** |
+| R8 | "email mentions the variance" | "email mentions the entity" | — | Yes (same email body) | No | Yes | — |
+| ... | ... | ... | ... | ... | ... | ... | ... |
+
+**Decision rule:**
+- Claims from **different write actions** (email + BlackLine note, email + Slack post, JE creation + review-note post) → always independent → **Not Atomic (Major)**
+- Claims from **different services** (e.g., Oracle GL write + Slack post, BlackLine note + Records Vault upload) → always independent → **Not Atomic (Major)**
+- Claims about **different fields of the same write action** (email recipient + email subject + email body topic; JE entity + period + account + amount) → NOT independent → Atomic (acceptable bundling)
+- Claims from the **same tool output / same record** (two facts from the same BlackLine exception, two fields from the same `ogl_journal_entries` row) → NOT independent → Atomic (acceptable bundling)
+
+**Acceptable Bundling (NOT violations):**
+- Multiple required fields of the **same write action** (e.g., recipient + subject of one email; entity + period + account of one journal entry) may share one Outcome rubric
+- Tightly coupled facts from the **same tool output / same record** (e.g., reconciliation_id + variance_amount from one BlackLine exception)
+
+**NOT Atomic (violations — from real QC fails):**
+- "The Agent emails Daniel AND posts a BlackLine review note on the Northstar reconciliation" — independent actions (different services)
+- "The Agent reviewed the Acme reconciliations AND sent a summary email to the Managing Partner" — investigation + write action
+- "The journal entry was created AND references the correct account AND states the variance" — if the JE creation and the content check come from different verification steps, split them (1.1 for `oracle_gl_create_journal_entry` returning success + 1.2 for the entity/account/amount content)
+- "The Agent sends an email covering the variance AND posts to #monthly-close-coordination covering the same variance" — independent write actions to different channels
+
 | Rubric ID | Independent Claims | Atomic? | Issue | Severity |
 |-----------|-------------------|---------|-------|----------|
 | 1 | 1 claim | Yes | - | - |
@@ -366,6 +403,11 @@ Process: [X] ([Y]%)
 - [ ] No typos in criterion or evidence fields that could cause the judge to score incorrectly (misspelled entity name, wrong email address, wrong figure)
 - [ ] Rubric does not lock in a specific method/channel the prompt left open - if the prompt says "notify"/"reach out" without specifying how, the rubric must allow alternatives, not force a single channel (see Phase 2.7)
 - [ ] Rubric specificity matches the prompt - neither looser (accepts wrong answers → Overly Broad) nor stricter (rejects valid paths → Overly Specific / Incorrect)
+- [ ] **Act-vs-defer hard gate (MANDATORY for write-action rubrics):** If a rubric mandates a write action traceable to a BlackLine exception's `proposed_resolution` or a system-generated suggestion, confirm no accessible defer/accept-timing/not-act decision exists in the persona's Slack channels, Email mailbox, or Messaging that overrides it (see Phase 2.7 #9). A rubric that mandates a write when the accessible records contain a decision to defer → **Incorrect (Major)**.
+- [ ] **Impossible derivation hard gate (MANDATORY):** If a criterion grades a **derived quantitative value** (a figure, breakdown, calculation), verify the universe data contains all inputs needed to produce that value. (a) If the criterion requires a value split by a dimension (per-entity, per-vendor, per-account), confirm the relevant table carries that dimension as a field — `oracle_gl.ogl_journal_entries` has `entity_id` and `account_number` but not `vendor_id` (vendor lives on `sap_ap_invoices`); a per-vendor JE breakdown is impossible. (b) If the criterion requires a comparative figure (e.g., "May postings that differ from April's"), verify both periods exist in `ogl_fiscal_periods` and the data can produce the derivation. If the data lacks the required inputs, the criterion grades an impossible result → **Incorrect (Major)**.
+- [ ] **Imported constraint check (MANDATORY):** If a criterion requires a constraint, qualifier, or condition that is **not present in the prompt's literal text** (e.g., "differ from April", "from the books", "net of tax", "excluding intercompany"), verify whether the constraint is a reasonable inference from the prompt or an invention. If the constraint is found **only in the criterion** and not in the prompt, OEs, or universe context → **Incorrect (Major)**. A criterion must not import requirements the prompt never stated.
+- [ ] **Write-as-deliverable preservation (MANDATORY before stripping write criteria):** If you are about to flag a write-action criterion as "Incorrect" because the prompt frames the work as the user's responsibility, STOP and apply the three-part test in Phase 3.1 (Write-as-Deliverable Preservation). If the prompt enumerates the specific output AND specifies required content → the criterion is a valid deliverable, not Incorrect. Cross-check against OEs and agent runs.
+- [ ] **Prompt-vs-rubric action alignment (MANDATORY — the inverse of T12):** For every **write-action rubric (1.1)**, verify the prompt assigns that action to the **agent**, not to the user. This is the flip side of T12: T12 prevents over-stripping valid agent writes; this prevents over-attributing user writes to the agent. **Procedure:** (a) Read the rubric's write action ("The Agent sends an email to daniel.jones@brookfieldcpas.com…", "The Agent posts a BlackLine review note on exception #BL-EX-2026-0413…", "The Agent posts in #monthly-close-coordination…"). (b) Find the corresponding passage in the prompt. (c) Check the **actor** — does the prompt say the agent should do it, or does it say the user will do it ("I'll write it up", "I need to send this to Andrea", "let me handle the Slack post", "I'll post the review notes myself once you confirm")? (d) If the prompt assigns the action to the user and the rubric assigns it to the agent → **Incorrect (Major)** — the rubric misreads who performs the action. **Why this is a hard gate:** This exact misread caused score-2 hard fails — rubrics required the agent to create BlackLine review notes / send emails / post Slack updates that the prompt framed as user actions (3+ of 13 score-2 tasks). It is the most severe form of rubric-prompt misalignment.
 
 **⚠️ PERSONA SCOPE CHECK - CRITICAL FOR PERSONA-SPECIFIC PROMPTS:**
 If the prompt uses persona-scoped language ("my reconciliations", "my exceptions", "my assigned accounts"), you MUST verify that every expected value in the rubric is scoped to that persona's ASSIGNMENTS, not to broader team/entity/invoice totals.
@@ -450,11 +492,19 @@ A mislabel here is **Moderate (Incorrectly Labeled Category)** and may also trip
 5. **Reward-hackable "at least N of M".** "The Agent updated at least 5 of the 9 tickets" → an agent updates 5 arbitrary items and passes. When the ground truth is enumerable, require **one rubric per GT item** (a vague "at least N" → **Overly Broad / Incorrect**). "At least one" is acceptable only when the GT is genuinely indeterminate.
 6. **Fabricated / ungrounded expected values.** A rubric expects an invoice number/amount/date that exists **nowhere** in the universe **and** was never asked for in the prompt. Run the reverse-groundedness check (Phase 2.3): every literal must trace to the prompt or the universe data. Ungrounded **and** beyond-prompt → **Incorrect (Major)**.
 
+7. **Role / segregation-of-duties overreach.** A rubric requires the authoring persona to perform an action their role does not own — e.g., a **preparer** (George McAdam / Marina Soko, Accounts Senior / Bookkeeper) required to **post a closed-period JE with `late_post_authorization_id`** or **certify a SOX-implicated reconciliation exception**, when the universe's role model reserves that for a reviewer/certifier/partner (Daniel Jones as Accounts Manager, Andrea Phil / Matthew Li as partners, Hannah Grant for compliance sign-off, Steven Perry for audit certification). A correct agent that instead routes the item up the chain (creates a draft JE with `oracle_gl_create_journal_entry` and awaits approval, leaves the BlackLine exception at `awaiting_approval`, posts a Linear ticket assigned to the certifier, sends an email asking for sign-off) would wrongly fail. Flag **Incorrect (Major)**. **Internal-consistency cross-check (mandatory):** compare against sibling rubrics — if other rubrics treat the persona as route-up-only (draft JE left at `submitted` not `posted`, reconciliation left at `pending_review`, "not the one who signs off"), then a rubric demanding `posted` / `certified` / `closed` by that same persona is self-contradictory and is the one to fix. Verify role ownership against `2_Persona_Briefs.md` and the close/approve/certify actors actually seen in the universe data (e.g., who flipped `ogl_fiscal_periods.status` from `open` → `closed`; who signed off the prior BlackLine certifications), not from assumption.
+
 **Internal triage lens (MANDATORY output - surface in the verdict).** Classify every rubric as exactly one of: `valid` / `over_specified` / `incorrect_factually`. (`over_specified` merges the former "overprescriptive" and "too-strict" buckets - **all over-specification is always flagged**; severity is then set by the decision rule below.) Mapping: `over_specified` → **Overly Specific (Minor)** when no valid alternative path is rejected, escalating to **Incorrect (Major)** when a valid alternative path would be failed; `incorrect_factually` (fabricated/ungrounded/contradicts data) → **Incorrect (Major)**. **Every over-specification is a logged finding regardless of whether it changes automated pass/fail - never wave it through.**
 
 **Decision rule for Minor vs Major (resolves the regression).** The discriminator is *not* how likely the locked-in channel is - it is **whether a valid alternative path exists that the rubric would fail.** If yes → **Incorrect (Major)**. A locked-in channel for an open-ended "notify/reach out" prompt almost always rejects a valid path, so it is **Major** by default, not Minor.
 
 **🚫 ANTI-RATIONALIZATION RULE.** Do **not** excuse a locked-in channel/method/value by arguing it is "the most likely interpretation," "the natural channel for substantive outreach," or "what the agent probably meant." If the prompt named a *goal* (reach out / notify / update) and a valid alternative path exists, the lock-in is a finding - full stop.
+
+**8. Impossible derivation / data-the-universe-cannot-produce (HARD GATE).** A criterion grades a derived quantitative value — a calculation, a breakdown, a figure the agent must compute. **Before blessing it, verify the universe data contains all required inputs.** Three shapes to catch:
+   - **(a) Dimensional breakdown without the dimension field.** The criterion requires a value split by a dimension (per-entity, per-vendor, per-account, per-period, per-fiscal-month) but the relevant data table has no field for that dimension. Example: a rubric grading "May postings per vendor on entity_id=northstar_legal" when `oracle_gl.ogl_journal_entries` rows carry no vendor_id (vendor lives on `sap_ap_invoices`). The derivation is impossible → **Incorrect (Major)**.
+   - **(b) Comparative / differential figure without both data points.** The criterion requires "figures that differ from [prior period]" or "net change since [date]" but the universe lacks one or both data points needed for the comparison. Example: "May JE total that differs from April's exact total" when the April fiscal period was archived before the universe snapshot → impossible derivation → **Incorrect (Major)**.
+   - **(c) Imported constraint not in the prompt.** The criterion adds a qualifier found **nowhere in the prompt text** (e.g., "from the books", "differ from April", "net of tax", "excluding intercompany"). Cross-check the criterion's exact words against the prompt. If the constraint exists only in the criterion → **Incorrect (Major)** (fabricated requirement). If the constraint contradicts the task's own OEs → doubly Incorrect.
+   - **Why this is a hard gate:** This exact pattern caused a genuine QC fail (Task6 6a312ac1) — R12 graded "May figures derived from the books that differ from April's exact totals" but the data couldn't produce the per-dimension May figures the criterion required, and the "differ from April" / "from the books" constraints existed only in R12, not the prompt. Agents failed R12 in the runs precisely because the derivation was impossible.
 
 | Rubric ID | Over-spec pattern | Prompt said (goal vs method) | Valid alt path it would fail | Classification | Severity |
 |-----------|-------------------|------------------------------|------------------------------|----------------|----------|
@@ -471,6 +521,12 @@ A mislabel here is **Moderate (Incorrectly Labeled Category)** and may also trip
 - **R7 - evidence stricter than criterion**: criterion allows "(or similar)" but evidence adds a hidden AND-constraint → pattern #4.
 - **R9 - fabricated literals**: an invoice #/amount/date present nowhere in the universe and never asked for → pattern #6, `incorrect_factually`, **Major**.
 If your reading of any rubric like these lands on `valid`, you have rationalized - re-apply the decision rule above.
+
+**9. Act-vs-defer override from accessible records (HARD GATE).** A rubric mandates a concrete write action (corrective JE, exception resolution, AP invoice approval/payment, period-close certification) whose basis is a BlackLine exception's `proposed_resolution` field, a system-generated remediation suggestion, or a workflow auto-recommend. **Before blessing such a rubric, you MUST scan the accessible record set** — the Slack channels the authoring persona is a member of (C005 #monthly-close-coordination, C007 #audit-engagements, C009 #cash-management-and-banking, C010 #vendor-bills-and-ap, etc.) + the persona's own Email mailbox + Messaging conversations — for a **documented decision to defer, accept-timing, not-act, or override** the proposed resolution. If such a decision exists in the accessible data:
+   - A rubric that mandates the write action **rejects a valid defer path** → **Incorrect (Major)**.
+   - The `proposed_resolution` is NOT the ground truth when an accessible human decision contradicts it. Do NOT take `proposed_resolution` at face value.
+   - **Procedure (mandatory):** (a) Identify every rubric that requires a write action traceable to a BlackLine exception's `proposed_resolution` field or a system-generated remediation suggestion. (b) For each, grep the persona's accessible Slack channels, Email inbox, and Messaging threads for keywords: the exception ID, the journal-entry ID, the account number, the variance amount, "defer", "accept", "timing", "hold off", "don't post", "not yet", "wait", "as-is", "ok as-is", "leave it", "no entry needed". (c) If a defer/accept-timing/not-act decision is found AND the persona can access the channel/thread it lives in → flag the rubric as **Incorrect (Major)** with evidence (channel + message timestamp + speaker). (d) If no such decision exists in the accessible record set → the rubric is valid on this dimension.
+   - **Why this is a hard gate:** This exact pattern caused a confirmed QC fail (Task5 6a2c5140) — C1/C2/C3/C16 mandated a $4,390.62 corrective write action sourced from `proposed_resolution`, but the accessible C005 #monthly-close-coordination Slack thread contained an accept-timing decision from a reviewer. Agents that correctly deferred per the accessible decision were failed by the rubric. The eval must catch this before it reaches QC.
 
 ---
 
@@ -590,11 +646,79 @@ Coverage means **every explicit ask AND every implicit ask that tests reasoning 
 - [ ] A write action has no 1.1 Outcome rubric verifying the action happened
 - [ ] A write action with specific content requirements has no 1.2 Outcome rubric
 
+**Decompose each ask before marking it "covered" (Missing-Criteria precision):** an ask is not covered just because *some* criterion mentions the topic. Split it and check each piece against the right deliverable.
+- [ ] **Compound asks ("X and Y").** If a deliverable asks for two or more things, EACH part needs its own covering criterion, scoped to that deliverable. Map the halves separately. Real miss: a summary asked to convey "what is resolved **and** what is still open" on the Acme close where criteria cover only the open exceptions — "what is resolved" is uncovered → **Missing Criteria (Major)**.
+- [ ] **Verdict vs evidence.** When the prompt asks a determination ("whether the Acme variance is real or a timing difference", "decide if the JE needs reversal", "tell me whether the period can close"), a criterion that only checks the agent *identified the underlying facts* tests the **evidence**, not the **conclusion**. Require a criterion that grades the **verdict itself**. Real miss: prompt asks whether a $4,390 revenue item blocks Northstar certification; rubric only checks the agent identified the dollar delta → the conclusion is ungraded → **Missing Criteria (Major)**.
+- [ ] **Per-deliverable / per-recipient coverage.** A fact required inside a specific deliverable (e.g., the email to Andrea Phil) is NOT covered by a criterion on a *different* deliverable (e.g., the final response to the user, or the Slack post in #monthly-close-coordination). Match each ask to the artifact the prompt placed it in. A same-fact criterion on another artifact does not count as coverage — and it is **not** redundant/overlapping with the missing one (different action/effect), so do not wave the gap away as duplication.
+
+**Final-Response / User-Facing Content Coverage Gate (HARD GATE — mandatory after write-action coverage):**
+
+After verifying write-action coverage (1.1/1.2), you MUST separately verify that every fact, finding, or conclusion the prompt asks the agent to **report to the user** has a covering **Outcome 2.1** rubric. This is the most commonly missed rubric type — 4-5 of 19 score-3 tasks and most score-4 tasks lost points because CBs created rubrics for writes (email sent, BlackLine note created, JE posted) but missed criteria for what the agent tells the user.
+
+**Procedure (mandatory):**
+1. Re-read the prompt and extract every question, request for information, or analytical ask directed at the agent: "tell me whether…", "walk me through…", "what's the status of the Acme close…", "figure out what's going on with the Northstar IOLTA reconciliation…", "let me know if the JE can post…".
+2. For each extracted ask, check whether a **2.1 Outcome** rubric exists that grades the agent's response to the user on that specific point.
+3. Fill in the table:
+
+| Prompt Ask (user-facing) | Type | Covering 2.1 Rubric? | Rubric ID | Covered? |
+|--------------------------|------|---------------------|-----------|----------|
+| "tell me whether the variance is real or a timing difference" | Verdict/determination | R7: "The Agent reports the Acme variance is a timing difference" | R7 | Yes |
+| "walk me through what's still open on the Northstar close" | Analytical summary | — | — | **MISSING** |
+| "what's holding things up on the Acme reconciliation" | Root cause / blocker | — | — | **MISSING** |
+| ... | ... | ... | ... | ... |
+
+4. Any user-facing ask without a covering 2.1 rubric = **Missing Criteria (Major)**.
+
+**Why this is a hard gate:** CBs consistently create 1.1 rubrics (email sent to Daniel) and 1.2 rubrics (email content) but forget 2.1 rubrics (what the agent reports to the user in its final response). The prompt asks the agent to "figure out what's going on" or "tell me whether the period can close" — these are user-facing asks that need 2.1 coverage, not just write-action coverage.
+
 **Reverse Check - Groundedness (flag Incorrect Criteria - Major):**
 - For each Outcome rubric, identify the specific prompt ask it maps to
 - [ ] Every Outcome rubric traces back to an explicit or reasonably implied prompt requirement - if a rubric checks an action, outcome, or detail the prompt never asked for (and that doesn't make the response better), flag it as **Incorrect (Major)** (this is where the old "Beyond Prompt" lives in V3)
 - [ ] Every literal value is grounded in the prompt or universe (no fabricated invoice #/amount/date - see Phase 2.7 #6)
+
+**OE-to-Rubric Cross-Reference (HARD GATE — mandatory alignment check):**
+
+After verifying prompt-to-rubric coverage above, you MUST also verify that the **Oracle Events** are aligned with the rubric set. Every write-action OE should have a covering rubric, and every key-discovery OE that surfaces a user-asked fact should have a 2.1 rubric. Misalignment = the OE describes work the rubric set doesn't grade (or vice versa).
+
+**Procedure (mandatory):**
+1. Read `Oracle_Events.txt` and classify each OE as Write/Action or Read/Discovery (use the inventory from the OE Eval if available).
+2. For each **Write/Action OE**, find the corresponding **1.1 Outcome** rubric (action happened) and **1.2 Outcome** rubric (content correct, if the prompt specifies content).
+3. For each **Read/Discovery OE** that surfaces a fact the user explicitly asked for, find the corresponding **2.1 Outcome** rubric.
+4. Fill in the cross-reference table:
+
+| OE # | OE Summary | OE Type | Covering Rubric(s) | Rubric ID(s) | Aligned? |
+|------|-----------|---------|-------------------|-------------|----------|
+| OE1 | "Send email to daniel.jones@brookfieldcpas.com with the Acme variance breakdown" | Write | 1.1: email sent + 1.2: content includes variance + entity + period | R5, R6, R7 | Yes |
+| OE3 | "Discover 3 exceptions remaining open on the Northstar IOLTA reconciliation" | Read (user-asked) | 2.1: agent reports the open-exception count | R12 | Yes |
+| OE7 | "Post a corrective journal entry in `oracle_gl.ogl_journal_entries` for the duplicate posting" | Write | — | — | **MISSING** → Missing Criteria |
+| OE9 | "Look up the Northstar IOLTA account_number on entity_id=northstar_legal" | Read (not user-asked; intermediate lookup) | (no rubric needed) | — | N/A |
+| ... | ... | ... | ... | ... | ... |
+
+**Flag as Missing Criteria (Major) when:**
+- A write-action OE has no 1.1 Outcome rubric verifying the action happened
+- A write-action OE with prompt-specified content has no 1.2 Outcome rubric
+- A read/discovery OE that surfaces a user-asked fact has no 2.1 Outcome rubric
+
+**Do NOT flag when:** A read/discovery OE is an intermediate lookup step that doesn't surface a user-asked fact (e.g., contact lookup before sending email, account-number resolve before posting a JE, fiscal-period status check before a late-post) — these don't need rubrics.
+
+**Why this matters:** 3-4 of 19 score-3 tasks had OEs describing actions the rubric set didn't grade, or OEs conflicting with rubric requirements. This cross-reference catches both gaps (orphan OEs with no rubric) and conflicts (OE says X, rubric says Y).
 - Note: rubrics for reasonably *implied* actions (e.g., confirming a write action succeeded, including data the prompt implicitly needs) are fine - only flag rubrics with no plausible prompt grounding
+
+**Write-as-Deliverable Preservation (HARD GATE — mandatory before declaring write criteria "Incorrect"):**
+
+Before declaring an output criterion "Incorrect" on the grounds that the prompt frames the deliverable as the **user's** responsibility (not the agent's), you MUST apply this three-part test:
+
+1. **Does the prompt enumerate the specific output?** Scan for concrete deliverable nouns: "post a BlackLine review note on each exception", "email Daniel the full variance breakdown", "drop a status update in #monthly-close-coordination", "send Andrea a summary", "open a Linear issue for each blocker". If the prompt explicitly names the output artifact (review note, email, Slack post, Linear issue, Records Vault upload, etc.) → the write IS a deliverable, not just analysis.
+
+2. **Does the prompt specify the required content?** Check whether the prompt describes WHAT the output should contain: "with the variance amount and the responsible reviewer and the period it spans", "covering all three Acme reconciliations", "with the journal entry ID and the late-post authorization". Content specification = the prompt is commissioning a write, not just asking the agent to think.
+
+3. **Cross-check against OEs and agent runs.** If the Oracle Events (OE set) describe the same write actions, AND the agent runs empirically perform them (e.g., 6/6 runs sent the email, 4/6 posted all the review notes), the write-as-deliverable reading is the **dominant, intended, and empirically-confirmed** interpretation.
+
+**Decision rule:** If conditions (1) AND (2) hold → the write criteria are **legitimately-requested deliverables, NOT analysis-only** → do NOT strip them as "Incorrect". A single framing clause ("before I start writing things up", "so I don't get it wrong", "before I write up", "let me know first so I can post the notes myself") is a **prompt-clarity nit** (fix via prompt wording), NOT grounds to invalidate enumerated, content-specified write criteria.
+
+**Only strip write criteria as "Incorrect" when:** the prompt genuinely asks for analysis/research only (no enumerated outputs, no content specs) and the rubric added write actions the prompt never requested.
+
+**Why this is a hard gate:** This exact pattern caused a disputable QC fail (Task9 6a35c5b6) — QC declared all 15 write criteria incorrect because of a single framing clause ("before I start writing things up"), ignoring that the prompt enumerated three deliverables with content specs (7 BlackLine review notes, 1 email to Daniel with the variance breakdown, 1 Slack post in #monthly-close-coordination), the OEs mandated them (OE9/10/11), and 6/6 agent runs performed the email + Slack (4/6 also did all 7 review notes). The eval must catch and prevent this over-stripping.
 
 ---
 
@@ -711,6 +835,26 @@ Major + Moderate + Minor %: [criteria with any issue] / [total criteria] = [X]%
 ---
 
 ## PHASE 5: Final Evaluation
+
+### 5.0 Pre-Verdict Completeness Sweep (MANDATORY — run before scoring)
+
+**Before filling in the scoring table, run this last-mile quality check.** This sweep catches the "single blemish" pattern that accounts for most score-4 outcomes — 21 of 21 score-4 tasks had exactly one isolated fixable issue. A 5-minute sweep here can push score-4 to score-5.
+
+**Checklist (run through each item — mark PASS or flag the finding):**
+
+| # | Check | What to look for | Finding |
+|---|-------|-----------------|---------|
+| 1 | **One missing criterion** | Re-read the prompt one final time. Is there ONE explicit ask that has no covering Outcome rubric? (Most common: a "tell me whether the period can close…" / "let me know if the variance is real…" / "walk me through what's still open on Acme…" ask without a 2.1 rubric.) | PASS / [flag it] |
+| 2 | **One OE with a wrong count or parameter** | Scan the OE sign-off table (Phase 2.4 of the OE Eval). Is there ONE OE where the count, amount, account_number, entity_id, or tool parameter doesn't match the universe? (e.g., OE says 4 open exceptions but `blackline_list_exceptions` shows 3; OE specifies `entity_id=acme` but the recon is on northstar_legal; OE puts `late_post_authorization_id` on `oracle_gl_create_journal_entry` instead of `oracle_gl_post_journal_entry`.) | PASS / [flag it] |
+| 3 | **One rubric with a phrasing mismatch** | Is there ONE rubric where the criterion text contradicts or doesn't match the prompt's wording? (e.g., rubric says "email" but prompt said "notify"; rubric says "3 exceptions" but prompt said "the open ones"; rubric says "post the JE" but prompt said "draft the JE for Daniel to review".) | PASS / [flag it] |
+| 4 | **One non-atomic criterion** | Did the atomicity decomposition (Phase 2.2) miss ONE bundled criterion? Quick re-scan for "AND" or "," joining independent actions across services (email + BlackLine note, JE + Slack, Linear issue + Records Vault upload). | PASS / [flag it] |
+| 5 | **One category mislabel** | Is there ONE rubric where the Outcome/Process label is wrong? (Most common: a write-action check labeled Process — e.g., "The Agent verifies a corrective JE is posted" labeled Process when it should be Outcome 1.1.) | PASS / [flag it] |
+
+**If any item flags a finding:** go back to the relevant phase, add it to the issue tally, and recalculate the percentages. Do NOT score until the sweep is complete.
+
+**If all items PASS:** proceed to scoring with confidence that no single-blemish issue was missed.
+
+---
 
 ### 5.1 Final Scoring Table
 

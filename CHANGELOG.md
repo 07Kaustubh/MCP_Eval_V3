@@ -1,5 +1,243 @@
 # Changelog
 
+## 2026-06-30 — v21: Pipeline Consolidation (6 Tracks — Spec Sync + Bloat Trim + SSOT Pointers + Orphan Archive + Conditional AUDIT + Deterministic Promotion)
+
+Comprehensive consolidation pass closing six tracks identified during a third-person parity review against the upstream Brookfield zip (`MCP_Eval_V3 (2)/MCP_Eval_V3_BrookField/`) and against pipeline-internal duplication surface. The review verified that every pipeline-internal addition since v6 traces to a specific incident in CHANGELOG or `Tasks/_meta/Learnings.md` (Tasks 23-24 escapes, Task 6a3998c2 + 6a34253220 platform rejections, v17 5-LLM-gate failure mode, etc.) — none of the pipeline's experience-driven moat is removed in this consolidation. What IS removed: (1) ~9 days of stale Brookfield Eval text that the upstream had updated with incident-grounded HARD GATEs in the preceding two weeks, (2) 9 "do NOT execute" dead-body perspectives kept "for reference" since v18 (cluttered every council/audit sub-agent's context window for no benefit), (3) duplicated per-universe landmine prose where `Validators/universes.py` is already the code SSOT, (4) 4 orphaned files explicitly superseded by current runbooks, (5) unconditional AUDIT auto-fire on first-draft S1/S2 even when every deterministic floor was clean (Tasks 23-24 insurance is preserved via signal-driven conditional triggers; AUDIT fires when any band-state-shaky signal is present, skips otherwise).
+
+### Track A — Sync upstream Brookfield HARD GATEs (20-item shopping list)
+
+Upstream Brookfield Evals (Jun 30 2026 snapshot) were 9 days newer than pipeline (Jun 21). Upstream added 11+ universe-agnostic HARD GATEs grounded in named QC-fail incidents with numeric evidence (`Task5 6a2c5140`, `Task6 6a312ac1`, `Task8 6a32aa51`, "7+ of 19 score-3", "3+ of 13 score-2", "4-5 of 19 score-3"). Pipeline ports each gate WITH Brookfield primitives substituted in — upstream's example text was content-contaminated with Keystone Mortgage schema (`loans.json`, `borrowers.json`, `lenders.json`, `Mortgage_Base_Universe/`, `elena.marchetti@brookfieldcpas.com`) per the long-standing AGENTS.md deviation row documenting the upstream zip's BrookField↔Keystone mislabel.
+
+Gates ported into `Evals/1_Prompt_Eval.md`: UGT Precision Guardrail (3-part test, Task8 6a32aa51 incident), Dimensional Feasibility (per-X field exists check, universe-agnostic), Phantom Tight-Identifier Grep (mandatory grep before scoring Truthfulness), Write-Action Divergence (second-reading test on write actions), Duplicate / conflicting injected-data check (Phase 3.2 sub-section).
+
+Gates ported into `Evals/2_OE_Eval.md`: Per-OE Verification Sign-Off Table (HARD GATE — Phase 2.4 — incident-quantified evidence "7 of 19 score-3 + 2-3 of 13 score-2 traced to inaccurate OEs"), Act-vs-Defer Override for write-action OEs (T9 — Task5 6a2c5140), NEW Phase 4.0 Pre-Verdict Completeness Sweep.
+
+Gates ported into `Evals/3_Rubrics_Eval.md` (heaviest delta, 131 lines): Atomicity Decomposition (Phase 2.2 — "7+ of 19 score-3 — single most common defect"), Impossible Derivation (3 shapes: dimensional/comparative/imported-constraint — Phase 2.7 #8 — Task6 6a312ac1 R12 May figures), Act-vs-Defer Override on rubrics (Phase 2.7 #9 — Task5 6a2c5140 $4,390.62 thread), Write-as-Deliverable Preservation (T12 3-part test — Phase 3.1), Prompt-vs-Rubric Action Alignment (Gap 6 — "3+ of 13 score-2 hard fails"), Final-Response Coverage HARD GATE (2.1 user-facing rubrics — Phase 3.1 — "4-5 of 19 score-3"), OE-to-Rubric Cross-Reference HARD GATE (Phase 3.1 — "3-4 of 19 score-3"), Role / Segregation-of-Duties overreach (Phase 2.7 #7), Overly Broad precision guardrail (BOTH-must-fail test before flagging "(or similar)" content rubrics), NEW Phase 5.0 Pre-Verdict Completeness Sweep.
+
+Gates ported into `Evals/4_Verifier_Fails_Eval.md`: STEP 0 HARD GATE (mandatory TODO list before any evaluation), STEP 5 CB AF-list validation against trajectory matrix (T8), Phase 2 NEW environment / tool-error fail check (T7 — distinguishes server-crash from agent-reasoning failure).
+
+New supporting file: `Docs/QC_Spec_Changelog.md` — extracted from upstream `Docs/8_QC_Spec_Doc2.md` changelog section (Jun 10 / Jun 9 / Jun 3 / May 22 / May 5 entries). Lets future syncs verify which gates the pipeline has ingested.
+
+Hash-pin infrastructure: `Validators/eval_file_hashes.json` (new file with SHA256 per Eval file for all 3 universes — 12 hashes total). `Validators/check_eval_hashes.py` (new — same shape as `check_tool_catalog.py`, runs at start of every phase that consumes Eval text). `Validators/phase_ready.py` extended to call `check_eval_hashes.py` on phases {s1, s2, s3, s4, final, audit, review} with WARN-only severity (drift surfaces operator awareness without blocking work; operator runs `--update` after intentional sync). Brookfield Eval files NOT byte-identical to pipeline's previous v20 snapshot — the v21 port is the new baseline and the pinned hashes reflect post-port content.
+
+`AGENTS.md` "Pipeline Deviations from Eval Specs" table extended with 2 new rows documenting where the v21 port diverged from upstream (e.g., "Eval 3 Phase 2.7 #8 Impossible Derivation — pipeline retains Brookfield JE / vendor / period-close examples; upstream's loan / borrower / TRID examples were Keystone-contaminated").
+
+### Track B — Delete dead "for reference" perspective bodies (~235 lines)
+
+Council A perspectives **A5 / A8 / A9 / A12** body text removed from `Reference/Council_Protocol.md`. Each was flagged "do NOT execute" at v18 (validator A3 NPC blocklist + atom-verifier + persona-fit on-demand audit cover their work) but the body remained, cluttering every Council A sub-agent's context. Replaced with one-line "RETIRED in v18; see CHANGELOG v18 + v21 entries" pointers.
+
+Council B perspectives **B5 / B10 / B11** body text removed from `Reference/Council_Protocol.md`. Each was flagged "REMOVED/CONVERTED" at v18 (validator regex + X1 forward map + tell-me cue regex cover their work). Same one-line pointer treatment.
+
+AUDIT **Lens 6** (Lifecycle + Narrative State) + **Lens 9** (Unique Ground Truth Middle-Band) body text removed from `Reference/Sessions/AUDIT.md` prompt template. Each was flagged "v18 MERGED INTO LENS 1" but the body remained. Lens 6 checks now floored by `verify_universe_atoms.py` lifecycle queries; Lens 9 two-reading test covered by Lens 5 Adversarial Veteran Review. Same one-line pointer treatment.
+
+Net effect: ~235 lines of intentionally-dead text removed from the surface every council/audit sub-agent reads, with zero functional change (those perspectives were already inert). Historical bodies preserved in git history + earlier CHANGELOG entries.
+
+### Track C — Collapse triplicated rules to SSOT pointers
+
+**Per-universe landmines** consolidated. `Validators/universes.py` is the code SSOT (per-universe `landmines` block enforced by `verify_universe_atoms.py`); `AGENTS.md` "Universe constants (multi-universe — v20)" section is the human SSOT with full per-landmine descriptions. `Reference/Sessions/REVIEW.md` Step 2 landmine list (10-bullet block) replaced with one-paragraph summary + SSOT pointer. `Reference/Sessions/AUDIT.md` Lens 1 landmine list (10-bullet block) replaced with one-paragraph summary + SSOT pointer. Critical landmine summary preserved verbatim in each (one-line per universe) so LLMs running REVIEW/AUDIT still have enough context to sanity-check `verify_universe_atoms.py` output.
+
+**Tool-call density gate** consolidated. AGENTS.md hard rule #11 remains the operator-facing summary. HARDNESS.md remains canonical for the projection method. Council Protocol B3 remains canonical for the council perspective definition. `Reference/Sessions/FINAL.md` Lens 3 density restatement replaced with "tiered gate per Council Protocol B3 (SSOT)" pointer carrying the empirical justification verbatim ("Tasks shipped at 40+ projected came back failing density on real runs, so design target was raised to 50+ in v8").
+
+**Atom-existence sweep** — already in good shape post-v18: `verify_universe_atoms.py` is the code SSOT; Council A1, B7, AUDIT Lens 1, FINAL Lens 1 all consume its output rather than re-deriving. No edit needed; status confirmed.
+
+**Process 3-condition test** + **Outcome > Process balance** + **Agent-centric phrasing** — duplications in Docs/2_Rubrics_V3_Guidelines.md + Reference/Rubric_Format.md noted but not consolidated this pass (the duplications are short — 3-4 sentences each — and serve different reading paths: spec doc is auditor-facing, format card is author-facing). Deferred to future pass if drift surfaces.
+
+### Track D — Archive 4 orphaned files; update 2 stale refs
+
+Files moved to `_archive/`: `command workflow.txt` (351 lines — explicitly superseded by `Reference/Sessions/*.md`), `additional knowledge.txt` (280 lines — content duplicated in `Docs/8_QC_Spec_Doc2.md` and programmatically enforced by v13/v14 validators), `hardness.txt` (23 lines — confirmed unreferenced anywhere in active runbooks/scripts), `data.legacy.py` (the original shared-dir-writing script that `data.py` smart forwarder superseded).
+
+Ref updates:
+- `AGENTS.md` project layout tree no longer lists `data.legacy.py`.
+- `AGENTS.md` PIPELINE DISPATCH header note updated to "Supersedes the legacy `command workflow.txt`" (archived to `_archive/` in v21).
+- `AGENTS.md` anti-patterns section: removed the named `data.legacy.py` reference; kept the underlying anti-pattern ("Writing to the shared `Brookfield_Base_Universe/Data/` directory").
+- `Validators/AGENTS.md` similarly updated.
+- `data.py` error message no longer suggests "run data.legacy.py directly" as a fallback (the legacy script is archived; per-task is the only sanctioned flow).
+- `QUICK_START.md` Universe section updated: "v18 / two universes" → "v20 / three universes" including MoveOps.
+- `Prompt_Guidelines.md` checklist refreshed: stale "opus 4.5" → "Opus 4.8 (the model under test per AGENTS.md hard rule #1)"; stale "MoveOps" generic-task reference → universe-agnostic "any task in the universe"; reference to non-existent Brookfield scenario file replaced with `Reference/Hardness_Playbook.md` + `PIPELINE HARDNESS` STOP-gate fallbacks pointer.
+
+### Track E — Promote B7 + B9 to deterministic validators
+
+`Validators/validate.py` adds two new rules:
+
+**X2 — Rubric ↔ OE value consistency** (`validate_rubrics`): mechanical map-and-diff that previously required B7 LLM judgment. For each rubric criterion, extracts every typed value (amount / email / JE id / exception id / recon id / vendor id / AP invoice id / Linear issue id / Airtable record id / date / account number / retention code / classification / Slack channel) and finds the matching OE step asserting that value. Diff: rubric value vs OE value (modulo "(or similar)" tolerance on freetext). FAIL on typed-value mismatch. Launches at WARN severity for first 2 weeks per the implementation plan, promoted to FAIL after no false-positive reports — memory file `discovery_prompts_vs_groundedness.md` flagged this as a recurring B7 LLM false-positive surface, so the deterministic check should eliminate the failure mode.
+
+**X3 — OE Service Mapping** (`validate_oe`): universe-aware mechanical lookup that previously required B9 LLM judgment. For each OE step, extracts the service name + data type queried; consults per-universe `oe_service_map` in `Validators/universes.py` (already populated for Brookfield + KeyStone + MoveOps per v20); FAIL on misalignment (e.g., KeyStone OE step querying mortgage loans through CRM service instead of mortgage_los). Launches at WARN severity similarly.
+
+`Reference/Council_Protocol.md` B7 + B9 perspective bodies updated with note: "Deterministic floor: `validate.py` rule X2 (B7) / X3 (B9) covers the mechanical map-and-diff. Council B's role is now the residual interpretive layer — flag CONSISTENCY_GAP / OE_SERVICE_MISMATCH only when the value structure is non-standard (e.g., freetext field with semantic-not-syntactic mismatch) that the deterministic check cannot catch."
+
+### Track F — Conditional AUDIT auto-fire
+
+`Reference/Sessions/AUDIT.md` Mode 1 description rewritten: AUDIT auto-fire is now CONDITIONAL on S1 (prompt first draft) + S2 (OE first draft), based on band-state signals; UNCONDITIONAL on S3 (rubrics) + S1.5 (revise/pivot) + MATERIALIZE (corrected artifact) + REVIEW-on-originals (parity with CB). On-demand AUDIT in fresh chat (Mode 2) remains unconditional.
+
+Conditional triggers in S1/S2 (any one fires AUDIT):
+- Council B used any NON-FAIL band justification on any sub-dim
+- `validate.py` exited 0 but emitted ≥1 WARN
+- `verify_universe_atoms.py` exited 0 but emitted any edge-case-needs-LLM-judgment flag
+- Similarity composite ≥ 35 (sub-threshold but near pivot band — S1 only)
+- Artifact was revised in this phase pass (iteration history)
+- (S2 only) Forward-map gap detected by Council B-B8
+
+When ALL signals are clean (Council B uniformly 5/5 with no band invocations + validator exit 0 zero WARN + atom-verifier clean + similarity < 35 + first-pass draft + no forward-map gap), AUDIT is OPTIONAL. Operator skips by default; on-demand AUDIT remains as a safety net before platform upload.
+
+S3 stays unconditional because rubrics is the heaviest phase, AUDIT_rubrics historically catches the highest-severity defect classes (atomicity decomposition gaps, Final-Response Coverage gaps, Process-disguised-as-Outcome write actions per Eval 3 §2.3 incidents Task5 6a2c5140 / Task6 6a312ac1), and the cost asymmetry favors always running it. S1.5 + MATERIALIZE + REVIEW stay unconditional because the revised/corrected/candidate-original artifacts are inherently at risk.
+
+Tasks 23-24 escape pattern (the original v7 motivation for unconditional auto-fire) is preserved because the conditional triggers ARE the signals of "something is shaky" — when those signals are absent, the failure pattern doesn't apply.
+
+Estimated cost savings: ~30-40% reduction in AUDIT calls on clean tasks (S1 + S2 first-pass clean → 0 audit calls instead of 2). Cost on shaky tasks unchanged. Estimated quality impact: net positive — operator attention frees up to read on-demand AUDIT carefully on the cases that need it instead of skimming auto-fire AUDIT on cases that don't.
+
+`Reference/Sessions/S1.md` step 8, `S1.5.md` step 8, `S2.md` step 8, `S3.md` step 9 updated with phase-specific conditional/unconditional language.
+
+### Files added / moved / removed (v21)
+
+- ADDED: `Docs/QC_Spec_Changelog.md` (upstream-sourced changelog of QC spec rule changes, per-date entries)
+- ADDED: `Validators/eval_file_hashes.json` (SHA256 hashes per Eval file across 3 universes)
+- ADDED: `Validators/check_eval_hashes.py` (drift-detection script, WARN-only, runs at phase-readiness gate)
+- MOVED: `command workflow.txt` → `_archive/command workflow.txt`
+- MOVED: `additional knowledge.txt` → `_archive/additional knowledge.txt`
+- MOVED: `hardness.txt` → `_archive/hardness.txt`
+- MOVED: `data.legacy.py` → `_archive/data.legacy.py`
+- MODIFIED (edits across): AGENTS.md, CHANGELOG.md (this entry), Prompt_Guidelines.md, QUICK_START.md, data.py, Reference/Council_Protocol.md, Reference/Sessions/{S1,S1.5,S2,S3,AUDIT,FINAL,REVIEW}.md, Validators/AGENTS.md, Validators/validate.py, Validators/phase_ready.py, Evals/{1,2,3,4}_*.md
+
+### Smoke-test evidence (post-v21)
+
+| Check | Expected Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | 48 / 48 PASS preserved (no regression from v20 baseline) |
+| `Validators/check_eval_hashes.py` | clean on first run after `--update` populated baseline hashes |
+| `Validators/validate.py --phase rubrics --task Tasks/<recent>` | X2 rule fires at WARN severity (will be promoted to FAIL after 2-week observation) |
+| `Validators/validate.py --phase oe --task Tasks/<recent>` | X3 rule fires at WARN severity similarly |
+| `Reference/Sessions/AUDIT.md` line count | reduced ~55 lines (Lens 6 + Lens 9 body removal + landmines collapse) |
+| `Reference/Council_Protocol.md` line count | reduced ~150 lines (7 dead perspective bodies → one-line pointers) |
+| `Reference/Sessions/REVIEW.md` line count | reduced ~10 lines (landmines collapse) |
+| Sub-agent calls per CB task (mean, post-Track F conditionalization) | ~30-40% reduction on first-pass-clean tasks; unchanged on shaky tasks |
+
+### Verification posture: 5/5 enforcement preserved
+
+Every QC sub-dim enforcement mechanism present at v20 remains present at v21 OR is replaced by a stricter/equivalent mechanism. Specifically:
+- Tasks 23-24 escape insurance: preserved via Track F's signal-driven conditional triggers
+- 50+ density target: preserved (canonical in HARDNESS.md + B3; FINAL Lens 3 pointer-ized with empirical justification verbatim)
+- Hardness lever preservation: preserved (B4 canonical; downstream phases reference)
+- Per-universe landmines: preserved (Validators/universes.py is code SSOT; AGENTS.md is human SSOT; REVIEW + AUDIT consume `verify_universe_atoms.py` output)
+- v18 atom-verifier floor: preserved (and amplified — Track E adds X2 + X3 deterministic checks beneath B7 + B9)
+- v10 4-fix stack (narrative state / action-prescription / parameter strictness / lifecycle precondition): preserved (Council A-A3 + A4 active; AUDIT Lens 1 floored by atom-verifier; FINAL Lens 5 active)
+- All 30 Learnings entries (L1-L30): preserved verbatim
+- All 13 Pipeline Deviations: preserved + 2 new rows added for v21 port deviations
+- All 12 Hard Rules: preserved verbatim
+
+QC 5/5 is the non-negotiable bar. v21 strengthens deterministic enforcement (X2 + X3 + hash-pin), removes dead text that distracted council sub-agents, and ports incident-grounded upstream gates that operationalize specific score-fail patterns the pipeline didn't previously enforce textually.
+
+## 2026-06-30 — v20: MoveOps Universe Integration (Third Universe) + Pipeline-Wide Multi-Universe Parity (17 Items / 5 Phases)
+
+Adds **MoveOps Inc.** as a third first-class universe — a B2B remote-work relocation startup running on the V2.1 framework. Extends the registry from 2 → 3 universes, propagates MoveOps awareness through every validator + every council prompt + every operator-facing runbook, and pins the MoveOps tool catalog by SHA256. Regression anchor suite grows from 43 → 48 (all PASS).
+
+### Phase 1 — MoveOps drop-in (3 items)
+
+`MoveOps_Base_Universe/` + `Docs_moveops/` + `Evals_moveops/` + `QC_Tasks/V2.1_Tasks/` dropped in from the upstream source zip. MoveOps universe today is **2026-04-26** (US/Pacific). Single entity `moveops`. 21 employees across 6 departments. Email domain `moveops.com`. 9 services (airtable, calendar, contacts, crm, email, linear, public, quickbooks, slack). Tool catalog at `MoveOps_Base_Universe/6_Server_Tools_Details.json`. 5 business functions: Operations 25%, Customer Engagement/Support 30%, Engineering 20%, Finance 15%, Executive 10%.
+
+### Phase 2 — Universe registry + detection (3 items)
+
+`Validators/universes.py` `UNIVERSES["moveops"]` added with full per-universe constants: paths, today, persona_email_domain, business_functions + weights, tight_identifiers, oe_service_map (relocations → airtable; AP → quickbooks; deals → crm; tickets → linear; calendar events → calendar; chat → slack; emails → email; contacts → contacts), cross_service_pairs, slack_channels (C001-C009), tool_param_traps (linear_create_issue requires `team` NOT `teamId` — DIFFERS from Brookfield), landmines (PHMSA DOT hazmat, Airtable-vs-CRM source-of-truth, Marcus Webb identity, Heartland Q1 invoice cross-ref, ExpenseBot pilot bugs), npcs.
+
+`detect_universe()` upgraded to multi-universe signal-scoring across all three universes. New `_MOVEOPS_SIGNALS` regex catches: MoveOps, moveops.com, Elena Rostova, PHMSA, hazmat, UrbanNest, Heartland Movers, Swift Relocations, Vectral Systems, Canopy Health, BrightLoop, Mosaic Robotics, GreenStack Energy, tblRelocations, tblStipends, ExpenseBot, auto-categorizer. Highest score wins; ties default to brookfield (back-compat).
+
+### Phase 3 — Validator + verifier extensions (4 items)
+
+`Validators/validate.py` persona email domain check upgraded from a 2-domain swap to a per-universe `wrong_domains = ALL_DOMAINS - {local}` set check — handles all three universes correctly + automatically extends if a fourth ships.
+
+`Validators/verify_universe_atoms.py` adds MoveOps-specific landmine verifiers:
+- `verify_phmsa_claim_moveops()` — PHMSA / DOT hazmat claims flagged when context cites verbal-only confirmation without signed certificate reference. Compliance requires signed certificate on file (Airtable record + Swift / Heartland email).
+- `verify_airtable_vs_crm_claim_moveops()` — claims citing CRM as source for relocation / vendor / coordinator / stipend state get flagged. Source-of-truth violation: relocation state lives in Airtable `tblRelocations01` / `tblStipends00001`, not CRM.
+
+New atom-collection regexes: `PHMSA_HAZMAT_CLAIM`, `AIRTABLE_VS_CRM_CLAIM`. Wired into main flow `if universe == "moveops":` block.
+
+`Validators/check_tool_catalog.py` + `Validators/tool_catalog_hashes.json` add MoveOps entry: catalog at `MoveOps_Base_Universe/6_Server_Tools_Details.json`, SHA256 pinned at `e7a07c46588555654f58e95ebcdd1135f339205a126136e742a3edfb3864f1ba`.
+
+`Validators/build_universe_index.py` `today_horizon()` already accepts universe-specific today via `resolve_universe_today()` — picks up MoveOps `2026-04-26` automatically from the registry.
+
+### Phase 4 — Runbook + council updates (3 items)
+
+`Reference/Council_Protocol.md`:
+- **A-A10 Business Function Match** prompt template now enumerates THREE universes' categories: Brookfield 10 + KeyStone 6 + MoveOps 5 (with weights).
+- **B-B9 OE Service Mapping** prompt template adds MoveOps map (relocations → airtable; AP → quickbooks; deals → crm; tickets → linear; calendar → calendar; chat → slack; email → email; contacts → contacts).
+- B-B9 section description universe-aware quick-reference (3 universes) instead of Brookfield-hardcoded.
+
+`AGENTS.md`:
+- Universe-constants section heading bumped `v18 → v20`, "two universes" → "three universes".
+- Full MoveOps subsection added between KeyStone and Universe Detection: today, entity, account-trap absence, PHMSA landmine, Marcus Webb identity disambiguation, Airtable-vs-CRM source-of-truth, Heartland Q1 vendor cross-reference, ExpenseBot pilot bugs, Slack channels, parameter traps (linear `team`, crm `body`, quickbooks `DisplayName`), services, 5 business functions, V2.1 framework note.
+- Universe Detection paragraph updated to list 3 universe names + tie-break rule.
+
+`Reference/Sessions/REVIEW.md`:
+- Per-universe landmine list extended: KeyStone Landmine 2 (LOS-vs-CRM), MoveOps Landmines 1-5 (PHMSA, Airtable-vs-CRM, Marcus Webb cross-universe, Heartland invoice, ExpenseBot pilot bugs).
+
+`Reference/Sessions/AUDIT.md`:
+- "VETERAN QC AUDITOR on a Brookfield MCP Eval V3 task" → universe-aware ("read `_aux/Universe.txt`").
+- Tool-catalog re-verification path → all 3 universes' catalog paths.
+- "200+ Brookfield tasks" → "200+ MCP Eval tasks across all universes".
+- Per-universe landmines list extended with KeyStone LOS-vs-CRM + MoveOps PHMSA, Airtable-vs-CRM, Marcus Webb, Heartland, ExpenseBot.
+
+### Phase 5 — Coverage + docs (3 items)
+
+`Validators/test_regression_anchors.py` extends with 5 new anchors:
+- **v20 MO-1**: MoveOps auto-detection (PHMSA / Vectral / UrbanNest signals → universe note `moveops`)
+- **v20 MO-2**: MoveOps persona contaminated with Brookfield email domain → `persona email domain mismatch`
+- **v20 MO-3**: MoveOps persona contaminated with KeyStone email domain → `persona email domain mismatch`
+- **v20 MO-4**: Marcus Webb blocked as MoveOps persona (NPC / non-staff) → `persona is an NPC for moveops`
+- **v20 MO-5**: Brookfield baseline preserved (no contamination from v20 multi-universe registry) → `universe: brookfield`
+
+Total: 43 → **48 anchors**, all PASS.
+
+`AGENTS.md` Pipeline Deviations table extends with TWO entries:
+- **MoveOps V2.1 framework**: source folder `MCP_Eval_V2.1_Move_Ops/` ships V2.1 framework docs; pipeline tags as V2.1; read `Docs_moveops/2_Rubrics_V3_Guidelines.md` for per-phase deltas before applying validator behavior. Validator currently treats MoveOps with same scoring as Brookfield/KeyStone — flag a deviation if a real MoveOps task surfaces a divergence.
+- **Upstream `MCP_Eval_V3 (2)/MCP_Eval_V3_BrookField/Docs/` mislabel warning**: upstream zip folder labeled "BrookField" but content-labeled KeyStone (references `Mortgage_Base_Universe/3_Persona_Briefs.md`). Pipeline `Docs/` is the correct Brookfield-flavored copy; `Docs_keystone/` is the correct KeyStone copy. Operator-warning only — do NOT use the mis-named source folder as authoritative.
+
+CHANGELOG v20 entry (this file). Memory file updated with v20 multi-universe note: Marcus Webb is distinct person in MoveOps vs KeyStone; PHMSA + Airtable-vs-CRM are the MoveOps recurring landmines.
+
+### Smoke-test evidence
+
+| Check | Result |
+|---|---|
+| `Validators/test_regression_anchors.py` | **48 / 48 PASS** (38 Brookfield + 5 KeyStone v18-19 + 5 MoveOps v20) |
+| `Validators/check_tool_catalog.py` | brookfield + keystone + moveops all match pinned SHA256 |
+| `Validators/universes.py Tasks/24_...` | universe=brookfield baseline preserved + universes registry returns 3 names |
+| Cross-universe persona contamination | catches @brookfieldcpas.com / @keystonemortgage.com leaks into moveops universe |
+| PHMSA atom regex | matches "PHMSA", "DOT certificate", "hazmat documentation" — does not match Brookfield contexts |
+| Airtable-vs-CRM atom regex | matches CRM-as-source-for-relocation-state — does not match Brookfield contexts |
+
+### Files added
+
+- (none — all changes are extensions to existing files)
+
+### Files changed
+
+- `Validators/universes.py` — `UNIVERSES["moveops"]` block + `_MOVEOPS_SIGNALS` + 3-universe `detect_universe()`
+- `Validators/validate.py` — persona email domain check supports all 3 universes
+- `Validators/verify_universe_atoms.py` — PHMSA + Airtable-vs-CRM atom regexes + 2 new verifiers + main-flow wiring
+- `Validators/tool_catalog_hashes.json` — moveops entry pinned
+- `Validators/test_regression_anchors.py` — 5 new v20 MO-* anchors
+- `Reference/Council_Protocol.md` — A10 + B9 templates universe-aware (3 universes); B9 section quick-reference rewritten
+- `Reference/Sessions/REVIEW.md` — per-universe landmines list extended (KS LOS-vs-CRM + 5 MoveOps)
+- `Reference/Sessions/AUDIT.md` — universe-aware AUDIT prompt + tool catalog path tri-universe + landmines list
+- `AGENTS.md` — multi-universe section bumped to v20 (3 universes); MoveOps full subsection; 2 new Pipeline Deviations table entries
+
+### What this closes
+
+MoveOps is now a **fully first-class third universe**. Detection, validation, atom-verification, council prompts, AUDIT lens, REVIEW landmines, regression anchors, and tool catalog hash pinning all route through the registry. Adding a fourth universe in the future requires only:
+1. Drop in the base universe folder + docs + evals
+2. Add `UNIVERSES["<name>"]` block to `Validators/universes.py`
+3. Add `_<NAME>_SIGNALS` regex to `detect_universe()`
+4. Add hash pin entry to `tool_catalog_hashes.json`
+5. Extend A-A10 + B-B9 prompt templates with the new universe's business-functions + service map
+6. Add per-universe landmine bullets to REVIEW.md + AUDIT.md
+7. Add regression anchors to `test_regression_anchors.py`
+
+Trigger count: 16 (unchanged). LLM perspective count: 24 (unchanged).
+
+### Source-folder hygiene note
+
+Upstream zip distribution `MCP_Eval_V3 (2)/MCP_Eval_V3_BrookField/Docs/` is **mislabeled** — it contains KeyStone-flavored Docs (references `Mortgage_Base_Universe/3_Persona_Briefs.md` and "v3 = Keystone Mortgage"). Pipeline `Docs/` is the correct Brookfield-flavored copy; pipeline `Docs_keystone/` is the correct KeyStone copy. Documented in `AGENTS.md` Pipeline Deviations table. Do NOT use the mis-named source folder as authoritative — trust `Validators/universes.py` registry paths.
+
+---
+
 ## 2026-06-28 — v19: KeyStone Rule Drift Close + Final Cleanups (16 Items / 4 Phases)
 
 Closes the universe-rule drift that v18 introduced KeyStone support but left unaddressed: KeyStone's universe today, business function categories, OE service mapping, persona email domain, tight-identifier classification, cross-service contradiction examples, and TRID lifecycle were not reflected in pipeline behavior. Plus shipped all remaining items from the v18 honest-list audit and 3 genuine gaps (prompt-injection detection, tool-catalog hash version-pin, build_feasible_surface wired into validator).

@@ -1,0 +1,86 @@
+[
+    {
+        "title": "The Agent records a correction that recognizes the $4,218.50 LatticeHill one-day seminar charge (invoice VEN-033-601228) as Continuing Professional Education (CPE) expense in account 535000 instead of the Prepaid CPE & Training asset in account 133000, either by recoding the invoice's distribution line to 535000 or by an adjusting journal entry that recognizes it as 535000 expense.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check the LatticeHill charges sitting in the prepaid CPE rec and get them into proper shape. The one-day seminar (VEN-033-601228, $4,218.50) was delivered 2026-05-21 and is a consumed cost that belongs in CPE expense (535000), not prepaid (133000). Phrased to accept either valid correction mechanism since the prompt names the goal, not a method.",
+        "evidence": "See OE 5, OE 6. Look for a sap_subledger_code_ap_invoice call moving invoice apinv_b1a9d0c7e5f24a18's distribution line from 133000 to 535000, OR an oracle_gl_create_journal_entry that debits 535000 for $4,218.50. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent reports that the $9,840.00 LatticeHill 12-month subscription charge (invoice VEN-033-588300) remains in the Prepaid CPE & Training asset (account 133000) and is not reclassified to expense.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to work out what is going on with the LatticeHill charges and let Elita know where each lands. The 12-month subscription (2026-06-01 through 2027-05-31) is a genuine prepaid asset that amortizes from June, so unlike the seminar it stays in 133000. This is the other half of the discrimination.",
+        "evidence": "See OE 5, OE 17. In the Agent's final response, look for a statement that the $9,840 subscription stays in prepaid (account 133000) and is not expensed. Confirms the Agent did not over-reclassify both LatticeHill charges."
+    },
+    {
+        "title": "The Agent creates a journal entry recording the unrecorded $4,860.00 Marigold Property Services receipt.",
+        "category": "outcome",
+        "justification": "The prompt says the operating cash account will not tie for the month and asks the Agent to get it into proper shape. The $4,860 Marigold ACH (2026-05-29) has no matching GL entry and is the entire variance, so a correcting entry must be created.",
+        "evidence": "See OE 11. Look for an oracle_gl_create_journal_entry call creating a journal entry for the $4,860.00 Marigold Property Services receipt. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent submits the $4,860.00 Marigold Property Services receipt journal entry for review.",
+        "category": "outcome",
+        "justification": "The prompt asks for the cash item to be ready for Edith and the right people to sign off. Elita is a trainee who cannot post, so the drafted entry must be submitted for senior review rather than left as an unsent draft or posted directly.",
+        "evidence": "See OE 11. Look for an oracle_gl_submit_journal_entry call submitting the $4,860.00 Marigold receipt journal entry for review. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent's journal entry for the unrecorded receipt debits Cash - Operating (account 101000) and credits Accounts Receivable - Client Billings (account 110000) for $4,860.00.",
+        "category": "outcome",
+        "justification": "The unrecorded item is a customer cash receipt, so the correcting entry debits cash (101000) and credits AR (110000) for the exact $4,860 variance. This checks the content of the cash correction beyond the fact that an entry was created.",
+        "evidence": "See OE 11. In the oracle_gl_create_journal_entry parameters, confirm one debit line to account 101000 and one credit line to account 110000, each for $4,860.00."
+    },
+    {
+        "title": "The Agent creates a journal entry accruing $2,160.00 for the single LatticeHill training session delivered in May.",
+        "category": "outcome",
+        "justification": "The prompt asks for whatever is genuinely the firm's for May to be reflected in the close. The LatticeHill SOW (VEN-033-624815) covers three equal sessions; only Session 1 was delivered in May (2026-05-28), so the May portion is $6,480 / 3 = $2,160 and an accrual entry must be created for it.",
+        "evidence": "See OE 13, OE 15. Look for an oracle_gl_create_journal_entry call creating a journal entry accruing $2,160.00 for the May training session. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent submits the $2,160.00 May LatticeHill training accrual journal entry for review.",
+        "category": "outcome",
+        "justification": "The prompt asks for the close items to be ready for Edith and the right people to sign off. As a trainee, Elita cannot post, so the drafted accrual must be submitted for senior review rather than left as an unsent draft or posted directly.",
+        "evidence": "See OE 15. Look for an oracle_gl_submit_journal_entry call submitting the $2,160.00 May training accrual journal entry for review. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent's accrual journal entry debits Continuing Professional Education (CPE) expense (account 535000) and credits Accrued Professional Services (account 220000) for $2,160.00.",
+        "category": "outcome",
+        "justification": "The delivered training session is a CPE cost incurred in May but not yet approved, so the accrual debits CPE expense (535000) and credits accrued professional services (220000) for $2,160. This checks the content of the accrual beyond the fact that an entry was created.",
+        "evidence": "See OE 15. In the oracle_gl_create_journal_entry parameters, confirm one debit line to account 535000 and one credit line to account 220000, each for $2,160.00."
+    },
+    {
+        "title": "The Agent routes the unapproved LatticeHill training invoice VEN-033-624815 for release to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) (Accounts Manager) or [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) (partner with de-minimis AP release authority), by email, Slack, or direct message, rather than approving it itself.",
+        "category": "outcome",
+        "justification": "The prompt says one training bill has been left unapproved and the vendor keeps chasing, and that Elita cannot sign anything off, so it must be made ready for the right people to sign off. Daniel Jones triages AP escalations and Andrea Phil holds de-minimis AP release authority, so routing to either is a valid disposition. Method-agnostic because the prompt names the goal, not a channel.",
+        "evidence": "See OE 12, OE 16. Look for an email (email_send_email / email_reply_to_email) to daniel.jones@brookfieldcpas.com or andrea.phil@brookfieldcpas.com, or a Slack / direct message (messaging_send_message) to Daniel Jones or Andrea Phil, referencing invoice VEN-033-624815. The Agent must not call sap_subledger_approve_ap_invoice itself. Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent reports that the $4,218.50 LatticeHill seminar (invoice VEN-033-601228) is reclassified from Prepaid CPE & Training (account 133000) to Continuing Professional Education (CPE) expense (account 535000).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to let Elita know where each item lands so she can take it back to Edith. This is the disposition of the prepaid-CPE blocker that the Agent must surface in its final reply.",
+        "evidence": "See OE 6, OE 17. In the Agent's final response, look for a statement that the seminar ($4,218.50) is moved to / recognized as CPE expense (account 535000)."
+    },
+    {
+        "title": "The Agent reports that the operating cash variance is a single unrecorded $4,860.00 Marigold Property Services receipt that needs to be booked, with the bank $4,860 above the books.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to work out what is actually going on with the cash account and report where it lands. The correct finding is that the entire variance is one unbooked Marigold receipt, which also refutes the 'just timing' belief on the rec.",
+        "evidence": "See OE 8, OE 10, OE 17. In the Agent's final response, look for the $4,860 figure attributed to the unrecorded Marigold receipt as the cause of the cash variance."
+    },
+    {
+        "title": "The Agent reports that the unapproved LatticeHill training invoice VEN-033-624815 has been routed for release to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) or [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to report where each item lands. The disposition of the training-bill blocker is that it was escalated to an authorized releaser, which Elita needs to know to take back to Edith.",
+        "evidence": "See OE 16, OE 17. In the Agent's final response, look for a statement that invoice VEN-033-624815 was sent or escalated to Daniel Jones or Andrea Phil for release."
+    },
+    {
+        "title": "The Agent reports that $2,160.00 (one of three training sessions) is accrued for May for the LatticeHill training, not the full $6,480.00.",
+        "category": "outcome",
+        "justification": "The prompt asks for only what is genuinely the firm's for May to be reflected and to report where each item lands. The key derived finding is that only one of the three sessions ($2,160) was delivered in May, so the May accrual is $2,160, not the full invoice of $6,480.",
+        "evidence": "See OE 13, OE 17. In the Agent's final response, look for the $2,160 May accrual figure (one of three sessions), distinct from the full $6,480 invoice."
+    },
+    {
+        "title": "The Agent records on the operating cash reconciliation BL-52484A5AE198 that its $4,860.00 variance is the unrecorded Marigold Property Services receipt.",
+        "category": "outcome",
+        "justification": "The prompt says the operating cash account will not tie and asks the Agent to get it into proper shape, ready for Edith and the right people to sign off. BL-52484A5AE198 is the BlackLine reconciliation that does not tie; recording on it that the $4,860 variance is the unrecorded Marigold receipt is what gets it into sign-off-ready shape. Gated on the variance-record action, which the reconciliation's draft/open state supports.",
+        "evidence": "See OE 8, OE 11. Look for the Agent recording on reconciliation BL-52484A5AE198 (via blackline_update_reconciliation_variances) that the $4,860 variance is the unrecorded Marigold Property Services receipt. Verify the tool response indicates success."
+    }
+]

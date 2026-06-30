@@ -1,0 +1,80 @@
+[
+    {
+        "title": "The Agent establishes the factual basis for Pennsylvania's May filing status: that Brookfield crossed Pennsylvania's economic-nexus threshold in or around March 2026 and that April 2026 was the first post-threshold filing month for PA, supporting PA's continued post-economic-nexus treatment. (Naming the specific $100,000 threshold amount or 6% taxable-services rate is acceptable supporting detail but is not required for a pass.)",
+        "category": "outcome",
+        "justification": "The prompt singles out Pennsylvania as the treatment to 'get right' and to carry forward from April. Establishing that PA crossed economic nexus (around March 2026) and that April was the first post-threshold filing is the factual foundation for keeping PA active in May. The exact $100,000 threshold amount and 6% rate are corroborating details the prompt does not require the agent to recite, and they appear in separate source messages; they are therefore optional, keeping this criterion atomic, prompt-grounded, and consistently judgeable.",
+        "evidence": "Look in the Agent's final response, packet, and/or communication to Ming for a statement that PA crossed the economic-nexus threshold in or around March 2026 and that April 2026 was the first return filed under registration, used to justify carrying PA forward for May. Grounded in the April approval thread (email_scen_045_tax_regulatory_0005/0006), the reminder description, and the #tax-prep-and-filings (C006) reviewer/preparer thread. The specific $100,000 amount and 6% rate are optional corroboration, not required for a pass."
+    },
+    {
+        "title": "The Agent's communication to Ming Chang (ming.chang@brookfieldcpas.com) explicitly requests his partner sign-off or approval before the May returns are filed (e.g., 'please approve before we file' or similar), rather than presenting the cycle as already filed.",
+        "category": "outcome",
+        "justification": "The prompt states the sign-off 'is his and not ours to make' and that the cycle must be routed 'for his approval before anything is filed.' The communication must frame the cycle as pending Ming's approval, not as completed work.",
+        "evidence": "Inspect the body of the Agent's email or direct message to Ming Chang for an explicit pre-filing approval request (e.g., 'routing for your approval', 'nothing will be filed until you sign off')."
+    },
+    {
+        "title": "The Agent keeps the work strictly to Brookfield's own May filing and does not pull Acme Cloud's Q1 multi-state sales tax ($40,364.55) or another client's filing into Brookfield's May numbers.",
+        "category": "outcome",
+        "justification": "The prompt warns that look-alike client work wrapped up at the same time and instructs the agent to make sure 'none of that bleeds into these numbers.' Including Acme Cloud's $40,364.55 Q1 figure or another client's filing would corrupt Brookfield's own May position.",
+        "evidence": "Check the Agent's packet content and final response: Brookfield's May figures must not include Acme Cloud's Q1 multi-state SaaS sales tax ($40,364.55, accounts 525000/225000) or the Northstar Legal FY2025 return. A correct trajectory explicitly excludes this look-alike work."
+    },
+    {
+        "title": "The Agent creates a dated reminder for the Brookfield May sales-tax filing with a due date on or before June 22, 2026.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to 'put a dated reminder on my list so the filing deadlines this month don't get away from us.' The reminder must land before the earliest June 22 deadline to be useful.",
+        "evidence": "Look for a reminder write action that succeeds, referencing the Brookfield May sales-tax returns, with a due date on or before 2026-06-22."
+    },
+    {
+        "title": "The Agent posts a status note for the tax team in the #tax-prep-and-filings Slack channel (channel C006) indicating the Brookfield May sales-tax cycle is now moving.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'drop a short note for the tax team as well so everyone knows May is finally moving.' #tax-prep-and-filings is the tax team's return-prep/filing channel.",
+        "evidence": "Look for a successful Slack message posted to #tax-prep-and-filings (C006) stating that the Brookfield May 2026 sales-tax cycle is now in motion."
+    },
+    {
+        "title": "The Agent's communication to Ming Chang (ming.chang@brookfieldcpas.com) states that Pennsylvania is being kept on the post-economic-nexus treatment established in April rather than reverted to pre-registration handling.",
+        "category": "outcome",
+        "justification": "The prompt instructs that the April PA treatment 'has to carry through here and not quietly revert to how PA was handled before we were registered,' and to flag PA if anything looks unsettled. The approver must be told PA is held on the post-nexus basis.",
+        "evidence": "Inspect the Agent's email/DM to Ming for an explicit statement that PA stays on the April post-economic-nexus treatment (6% on taxable services) and must not revert to the pre-registration (no-filing/zero) handling."
+    },
+    {
+        "title": "The Agent reports the May filing deadlines as June 22, 2026 for NY, NJ, and CT and June 25, 2026 for PA.",
+        "category": "outcome",
+        "justification": "The prompt notes the returns are due 'the back half of June' and the lapsed reminder scopes the exact dates. Reporting the correct per-state deadlines is required for the cycle to be staged correctly and for the reminder/note to be meaningful.",
+        "evidence": "Check the Agent's final response, packet, and/or communications for NY/NJ/CT due 2026-06-22 and PA due 2026-06-25."
+    },
+    {
+        "title": "The Agent files a Brookfield May 2026 multi-state sales-tax filing packet in Records Vault for entity Brookfield in April's filing lineage as a tax_return-kind document under the IRS_TAX_7Y retention policy (matching the April packet doc_1af8dfb919a9444d), or as a new version of that April packet and the action succeeds.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'write it up alongside where April's packet already lives so the trail stays in one place.' April's packet (doc_1af8dfb919a9444d) is a Brookfield tax_return under IRS_TAX_7Y retention; filing the May packet under a different kind/retention (e.g., regulatory_filing / AICPA_SQMS_7Y) does not keep the trail in one place.",
+        "evidence": "Look for a Records Vault upload (or add-version) write action that succeeds, creating the Brookfield May 2026 sales-tax filing packet as kind=tax_return under retention_policy_code=IRS_TAX_7Y (matching April's doc_1af8dfb919a9444d), or as a new version on that April document's lineage."
+    },
+    {
+        "title": "The Agent treats Brookfield's May sales-tax filing states as exactly New York, New Jersey, Connecticut, and Pennsylvania, and does not introduce any other state into the May cycle.",
+        "category": "outcome",
+        "justification": "The reminder and April cycle scope Brookfield's filing footprint to NY, NJ, CT, and PA. Adding states (e.g., from a client engagement) or dropping one would misstate the May cycle.",
+        "evidence": "The Agent's packet and communications list the filing states as exactly New York, New Jersey, Connecticut, and Pennsylvania, with no additional state introduced (e.g., TX/GA/NC/AZ/WA from Acme work) and none of the four omitted."
+    },
+    {
+        "title": "The Agent routes the May sales-tax cycle to ming.chang@brookfieldcpas.com for his approval, by email or direct message.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to 'route it to Ming for his approval before anything is filed, since the sign-off on these is his.' Ming Chang is the tax partner who approves the cycle.",
+        "evidence": "Look for an email or direct message write action addressed to ming.chang@brookfieldcpas.com that routes the staged May cycle to him for approval, and that succeeds."
+    },
+    {
+        "title": "The Agent does not file the May returns or post the sales-tax reclassification journal entry itself before Ming Chang's approval; it leaves the filing and posting decision to him after routing the staged cycle for sign-off.",
+        "category": "outcome",
+        "justification": "The prompt is explicit that the sign-off is Ming's 'and not ours to make' and that routing must happen 'before anything is filed.' This restraint/ordering behavior is required by every valid path and is not provable from the staging outcome alone, which would pass whether or not the agent over-completed by filing or posting prematurely.",
+        "evidence": "Confirm the trajectory contains no journal-entry posting write action (no reclass JE posted from the 240000 staging account to the 230000 payable account) and no return-filing action prior to routing to Ming; only read/query GL calls and the staging/routing write actions should appear."
+    },
+    {
+        "title": "The Agent builds Brookfield's May per-state sales-tax position from May 2026 (period FP-2026-05) book activity rather than carrying April's figures forward unchanged; the reported May liability reflects May taxable activity and is not a restatement of April's totals (April was NY $12,400, NJ $6,850, CT $4,200, PA $3,950; $27,400 total).",
+        "category": "outcome",
+        "justification": "The prompt insists the agent 'work out what we actually owe ... for May from the books rather than just rolling April's figures forward.' Reusing April's $27,400 / per-state amounts as May is the primary failure mode the prompt guards against.",
+        "evidence": "Check that the Agent pulled FP-2026-05 (brookfield_FP-2026-05) book activity to derive the May position, and that the reported May figures differ from April's exact totals (not a verbatim restatement of NY $12,400 / NJ $6,850 / CT $4,200 / PA $3,950 / $27,400)."
+    },
+    {
+        "title": "The Agent concludes that Pennsylvania's April post-economic-nexus treatment carries into May, rather than holding PA, dropping it, or re-adjudicating PA nexus from scratch pending further documentation.",
+        "category": "outcome",
+        "justification": "Economic nexus persists once tripped; the prompt wants PA carried on the established April treatment and only flagged if genuinely unsettled. Holding, dropping, or re-opening PA nexus from scratch is the core PA failure mode.",
+        "evidence": "Look in the Agent's final response and packet for the conclusion that PA remains an active filing state on the post-economic-nexus 6%/taxable-services treatment for May; PA is not dropped, not zeroed to pre-registration handling, and nexus is not re-adjudicated as undecided."
+    }
+]

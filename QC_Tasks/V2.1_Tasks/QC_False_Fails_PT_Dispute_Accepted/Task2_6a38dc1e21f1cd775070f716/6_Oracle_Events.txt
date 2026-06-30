@@ -1,0 +1,74 @@
+OE 1: Identify Green Spatz’s Acme Cloud FP-2026-05 close workload.
+Action: Search Green Spatz’s close tasks for Acme Cloud FP-2026-05.
+Tools/parameters needed: BlackLine close task lookup filtered by owner/preparer Green Spatz, client Acme Cloud, fiscal period FP-2026-05.
+Information to discover: Green owns the completed “Reconcile AP + AR Control Accounts” task reviewed by Hannah Grant and the not-started “Generate Trial Balance + Management Package” task reviewed by Jones Harrison.
+
+OE 2: Confirm the AP + AR control account task is already complete.
+Action: Read the completed AP/AR close task and its checklist/audit history.
+Tools/parameters needed: BlackLine task read for ct_b464d514cf7d47 or equivalent task lookup by title.
+Information to discover: The task is DONE, all checklist items are complete, Hannah Grant reviewed it, and it is not the current blocker.
+
+OE 3: Confirm the Trial Balance + Management Package task is the urgent open item.
+Action: Read the pending trial balance task and checklist.
+Tools/parameters needed: BlackLine task read for ct_793601f0b63242 or equivalent task lookup by title.
+Information to discover: The task is NOT STARTED, due on BD5, reviewer is Jones Harrison, checklist is 0/3, and it requires the rolled-forward trial balance, prior-period tie-out, and records-vault workbook support.
+
+OE 4: Find all Acme Cloud FP-2026-05 journal entries prepared by Green Spatz.
+Action: Search Oracle GL journal entries for Acme Cloud FP-2026-05 where Green Spatz is the preparer.
+Tools/parameters needed: Oracle GL journal-entry search filtered by client Acme Cloud, fiscal period FP-2026-05, preparer Green Spatz.
+Information to discover: Green prepared six journal entries totaling $671,152.63: four approved but not posted, and two still in draft with no approver assigned.
+
+OE 5: Inspect the stranded draft external-audit accrual journal entry.
+Action: Read JE-acme_cloud-FP-2026-05-0002.
+Tools/parameters needed: Oracle GL journal-entry read by JE number or search by title “Professional Services - External Audit.”
+Information to discover: The entry is DRAFT, never submitted, has no approver assigned, amount is $57,425.46, debit 531000 Professional Services - External Audit and credit 210000 Accounts Payable - External Vendors.
+
+OE 6: Inspect the stranded draft customer-payment journal entry.
+Action: Read JE-acme_cloud-FP-2026-05-0004.
+Tools/parameters needed: Oracle GL journal-entry read by JE number or search by title “Customer Payment Received.”
+Information to discover: The entry is DRAFT, never submitted, has no approver assigned, amount is $64,791.97, debit 101000 Cash - Operating and credit 110000 Accounts Receivable - Trade.
+
+OE 7: Review Green’s approved but unposted journal entries.
+Action: Read Green’s four approved Acme Cloud FP-2026-05 journal entries.
+Tools/parameters needed: Oracle GL journal-entry lookup filtered by preparer Green Spatz, status approved, posted false.
+Information to discover: JE-0033 ($176,964.69, subscription revenue) was approved by Daniel Jones, JE-0035 ($243,146.80, subscription revenue) and JE-0012 ($102,444.09, operating-lease ASC 842) were approved by Alex Cahoon, and JE-0023 ($26,379.62, bad debt allowance) was approved by George McAdam; all four are approved but not yet posted.
+
+OE 8: Check the reconciliations affected by Green’s entries and close work.
+Action: Review the Acme Cloud FP-2026-05 reconciliations for accounts tied to the open/draft entries and revenue entries.
+Tools/parameters needed: BlackLine reconciliation lookup filtered by Acme Cloud FP-2026-05 and account numbers 210000, 110000, 240000, 226000, and 132000.
+Information to discover: 210000 has a $0.26 variance and is submitted, 110000 (AR) and 101000 (Cash - Operating) both show $0.00 variance, 240000 is in progress with a $9.56 variance (the largest, still under the $10 threshold), and no variance exceeds tolerance.
+
+OE 9: Check whether any close blockers or communications explain the stuck items.
+Action: Search close notes, blocker triage records, email, Slack, and messaging for Acme Cloud FP-2026-05 references to Green, draft journal entries, customer payment posting, AP/AR, trial balance, or BD5 close.
+Tools/parameters needed: Airtable blocker lookup and communication searches using Acme Cloud FP-2026-05, Green Spatz, customer payment, cash posting, AP/AR, trial balance, and BD5.
+Information to discover: No direct Green email/Slack close thread is found, but the blocker log includes related close risks such as cash posting delay, FX drift, payroll cash mismatch, and prepaid software follow-up.
+
+OE 10: Determine the correct accounting conclusion before acting.
+Action: Compare the task statuses, journal-entry statuses, reconciliation statuses, and blocker context.
+Tools/parameters needed: Use the retrieved BlackLine, Oracle GL, Airtable, email, Slack, and messaging evidence.
+Information to discover: The issue is not an out-of-tolerance variance; the main close risk is workflow/status: two Green-prepared JEs are stranded in draft with no approver, four approved JEs are not posted, the BD5 trial-balance package is not started, and the period is already past its BD5 close date yet still open (overdue).
+
+OE 11: Do not approve or post journal entries as Green.
+Action: Keep Green within trainee authority.
+Tools/parameters needed: No approval/posting action should be taken by Green.
+Information to discover: Green can prepare support, submit or route items for review, and notify the correct reviewer/senior, but should not approve, post, or certify the close.
+
+OE 12: Create or update a close support note summarizing what is ready, what is blocked, and what needs reviewer action.
+Action: Write a concise close-support note for Acme Cloud FP-2026-05.
+Tools/parameters needed: Records/support note creation or task-note update tied to the trial balance close task or Acme Cloud FP-2026-05 close package.
+Information to include: The completed AP/AR task, the not-started trial balance task, the two draft JEs JE-0002 and JE-0004 with amounts/accounts, the four approved-but-unposted JEs, the affected reconciliations, and the fact that no variance exceeds tolerance.
+
+OE 13: Route the open items to Jones Harrison to clear the overdue close.
+Action: Notify Jones Harrison that the trial balance package is at risk and needs reviewer/senior direction, given the period is already past its BD5 close date and still open.
+Tools/parameters needed: Email or messaging send to Jones Harrison.
+Information to include: Trial Balance + Management Package is not started, JE-0002 and JE-0004 are still draft with no approver, approved entries remain unposted, and Green needs reviewer guidance before moving the package forward.
+
+OE 14: Notify the relevant approvers or senior reviewers about the approved-but-unposted entries.
+Action: Send a short internal note to the relevant approvers/reviewers or include them in the escalation.
+Tools/parameters needed: Email or messaging to Daniel Jones, Alex Cahoon, George McAdam, or the appropriate close reviewer depending on contact availability.
+Information to include: JE-0033, JE-0035, JE-0012, and JE-0023 are approved but not posted, and they may affect final trial balance readiness.
+
+OE 15: Final response to Green Spatz.
+Action: Summarize what was found and what actions were taken.
+Tools/parameters needed: Final response only after investigation and write actions.
+Information to include: The AP/AR task is complete, the trial balance task is the urgent open item, two draft JEs need approval routing, four approved JEs are still not posted, no reconciliation variance exceeds threshold, Jones Harrison has been alerted, and Green did not approve or post anything outside trainee authority.

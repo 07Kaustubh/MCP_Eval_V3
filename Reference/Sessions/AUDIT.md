@@ -6,11 +6,24 @@
 
 Veteran audit of a completed deliverable (or a full task) using the **STRICTEST possible QC interpretation**. Two invocation modes:
 
-### Mode 1 — Auto-fire (mandatory, runs after every per-phase deliverable)
+### Mode 1 — Auto-fire (CONDITIONAL in v21 except S3 + S1.5-revise + MATERIALIZE)
 
-S1, S2, S3, S1.5 (revise path), and REVIEW (corrected materialization) runbooks now spawn an AUDIT sub-agent INLINE after the per-phase Council A + Council B pass, BEFORE the STOP gate. The `_aux/Council_Reports/AUDIT_<phase>.md` report with `PASS (STRICT)` is a required exit criterion for those phases.
+S1, S2, S3, S1.5 (revise path), and REVIEW MATERIALIZE runbooks spawn an AUDIT sub-agent inline after the per-phase Council A + Council B pass, BEFORE the STOP gate. The `_aux/Council_Reports/AUDIT_<phase>.md` report with `PASS (STRICT)` is the exit criterion when AUDIT fires.
 
-Rationale (v7 design): operator found flaws on Tasks 23-24 that escaped per-phase Council A + B + FINAL. Catching them early — at the phase that produced them — is cheaper than catching them downstream at FINAL or at platform-reviewer time. Per-phase councils enforce the 5/5 bar with NON-FAIL bands explicitly justified; AUDIT enforces the same bar without ANY NON-FAIL band tolerance, plus tightens density (50+ midpoint vs 40 floor) and reads every "should" as "must". The cost is ~3 additional sub-agent calls per task (S1 + S2 + S3, with S3 using ultrabrain) — accepted for early risk mitigation.
+**Conditionality (Track F v21):**
+
+| Phase | AUDIT auto-fire |
+|---|---|
+| **S3 rubrics** | **ALWAYS MANDATORY** (rubrics is heaviest phase; AUDIT_rubrics historically catches highest-severity defect classes) |
+| **S1.5 revise / pivot** | **ALWAYS MANDATORY** when prompt was revised (prompt is already at risk by definition of S1.5 fire); SKIP when resolution was justification-only |
+| **MATERIALIZE per corrected artifact** | **ALWAYS MANDATORY** (corrected artifact is the produced output) |
+| **S1 prompt (first draft)** | **MANDATORY** if Council B used any NON-FAIL band OR validator emitted WARN OR atom-verifier emitted flag OR similarity composite ≥ 35 OR prompt was revised this pass; **OPTIONAL** on uniform 5/5 + clean validator + clean atom-verifier + similarity < 35 + first-pass |
+| **S2 OE (first draft)** | **MANDATORY** if Council B used any NON-FAIL band OR validator emitted WARN OR atom-verifier emitted flag OR OE was revised this pass OR forward-map gap detected; **OPTIONAL** on uniform 5/5 + clean validator + clean atom-verifier + first-pass |
+| **REVIEW on candidate originals** | **ALWAYS MANDATORY** (v17 parity with CB — candidate originals get strictest read) |
+
+On-demand AUDIT in a fresh chat (Mode 2 below) is unaffected by conditionality — it always runs.
+
+Rationale (v7 design + v21 conditionalization): operator found flaws on Tasks 23-24 that escaped per-phase Council A + B + FINAL — that's the always-on insurance v7 added. v21 conditionalizes the always-on for S1/S2 first-draft cases where every deterministic floor is clean (validator + atom-verifier exit 0 zero WARN, Council B uniformly 5/5 no bands invoked, low similarity, first-pass draft) — the Tasks 23-24 escape pattern required some signal of band-state-shaky to be present, and when no signal is present, AUDIT is OPTIONAL. S3 + S1.5-revise + MATERIALIZE + REVIEW remain always-on because their failure cost is higher (rubrics phase = downstream cascade; revised artifacts already at risk; candidate originals carry external rating). Cost savings: ~30-40% reduction in AUDIT calls on clean tasks (S1 + S2 first-pass clean → 0 audit calls instead of 2); cost on shaky tasks unchanged. **Tasks 23-24 escape pattern is preserved** because the conditional triggers (NON-FAIL band invocation / validator WARN / atom flag / similarity ≥ 35 / revision history) are the exact signals of "something is shaky".
 
 ### Mode 2 — On-demand (manual, fresh chat)
 
@@ -83,7 +96,10 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
 ## Data sources consulted (re-verified from source — NOT trusting prior phase outputs)
 - _aux/Universe_Split/ :: <which records re-checked>
 - _aux/Fact_Ledger.json :: <atoms re-grounded>
-- Brookfield_Base_Universe/8_Server_Tools_Details.json :: <tool catalog re-verified>
+- Tool catalog (universe-aware per `_aux/Universe.txt`):
+  - brookfield → `Brookfield_Base_Universe/8_Server_Tools_Details.json`
+  - keystone → `Mortgage_Base_Universe/6_Server_Tools_Details.json`
+  - moveops → `MoveOps_Base_Universe/6_Server_Tools_Details.json`
 
 ## Eval spec verified for this phase
 - Evals/<n>_<phase>_Eval.md :: <strictest reading applied>
@@ -143,7 +159,7 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
 Use this prompt for the `oracle` (or `ultrabrain`) sub-agent. Fill in `<TASK_DIR>` and `<PHASE>`. For `--phase all`, include all three deliverables in INPUTS and run all phase-specific lenses.
 
 ```
-You are a VETERAN QC AUDITOR on a Brookfield MCP Eval V3 task. Your job is
+You are a VETERAN QC AUDITOR on an MCP Eval task (read `_aux/Universe.txt` to know which universe — brookfield / keystone / moveops). Your job is
 re-verification under the STRICTEST possible QC interpretation. Per-phase
 councils already passed this deliverable — your job is to catch what they
 missed.
@@ -187,12 +203,9 @@ REASON -> WHAT THE PRIOR COUNCIL MISSED (if anything). Any sub-dim < 5
 
 Empty evidence column → forced score ≤ 3. This prevents the v17-diagnosed failure mode where 5 LLM gates passed a Major universe-truthfulness defect because every gate's "universe verification" was indirect (they read upstream reports saying "atoms verified" and trusted it). The v18 contract: narrated verification without proof is not verification.
 
-**Per-universe landmines** (read `Tasks/<TASK_DIR>/_aux/Universe.txt`):
+**Per-universe landmines** (read `Tasks/<TASK_DIR>/_aux/Universe.txt`): full catalog SSOT is `Validators/universes.py` per-universe `landmines` block; enforced programmatically by `verify_universe_atoms.py`; full per-landmine descriptions in `AGENTS.md` "Universe constants (multi-universe — v20)" section.
 
-- **Brookfield — Account-number trap:** 105000 / 120000 differ per entity. Query `oracle_gl.ogl_accounts WHERE account_number=N AND entity_id=E`.
-- **Brookfield / KeyStone — Email-chain truthfulness:** "X never responded" claims proven only by parent_id walk + sender-filter.
-- **KeyStone — TRID timing:** LE within 3 biz days, CD 3 biz days before close. Query `mortgage_los.disclosures`.
-- **KeyStone — Mortgage LOS vs CRM source-of-truth:** loan data lives in `mortgage_los`, not CRM.
+Critical landmine summary (for AUDIT context — full descriptions in AGENTS.md): Brookfield → account-number trap (105000/120000 per-entity) + email-chain truthfulness (parent_id walk + sender-filter for "X never responded" claims); KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop client analyst, NOT KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs.
 
 The programmatic floor (`Validators/verify_universe_atoms.py`) runs first and catches structural atom defects. AUDIT's evidence-table requirement is the second pass that catches semantic mismatches the programmatic check can't reach (e.g., the role-claim language is ambiguous but the universe row is unambiguous).
 
@@ -225,7 +238,7 @@ strict bar is 50+ midpoint. 40-49 = THIN (revise the deliverable to
 add asks or breadth). < 40 = BLOCKER.
 
 LENS 5 — Adversarial veteran review
-You have audited 200+ Brookfield tasks. Apply pattern recognition:
+You have audited 200+ MCP Eval tasks across all universes. Apply pattern recognition:
   - Is the implicit-prompt framing actually preserved across all 3
     artifacts? (L15+L16 framing constraint — a rubric that demands a
     "flag the discrepancy" step when the prompt says "execute on the
@@ -244,32 +257,13 @@ You have audited 200+ Brookfield tasks. Apply pattern recognition:
   - For REVIEW flow only — does 13_Feedback.txt contain forbidden
     internal terms? (run check_justification.py mentally; flag hits.)
 
-LENS 6 — Lifecycle + Narrative State (strictest) — v18: MERGED INTO LENS 1
-(Lens 1 with the new per-atom evidence-table requirement now subsumes the
-lifecycle + narrative-state contradiction checks. The body below is kept as
-reference for the strictest interpretation; treat Lens 6 findings as Lens 1
-sub-checks.)
-Under the STRICTEST interpretation, re-verify every Lens 5 (FINAL) check at
-a higher bar:
-- Every state-implying claim in the deliverable MUST verify against universe
-  lifecycle atoms in Fact_Ledger.json. ANY contradiction = REVISE (no NON-FAIL
-  band tolerance — even a single off-by-one-day "approaching the SLA" when
-  today is past it).
-- Every action prescribed by the deliverable MUST be lifecycle-feasible.
-  Posting to a closed period without unlock or `late_post_authorization_id`
-  parameter = REVISE. Overriding a completed sign-off without explicit
-  authority grant in the prompt body = REVISE.
-- Every tool-parameter binding MUST match the EXACT parameter list of the
-  named tool in 8_Server_Tools_Details.json. Parameter on wrong tool =
-  REBUILD (the OE chain cannot be patched in place; the structural error
-  invalidates the downstream rubric set, and all 6 platform runs fail on
-  structural API rejection).
-- Every action verb in the prompt MUST align with the relevant universe
-  record's `proposed_resolution` / `recommended_action` / `next_step` field,
-  OR the prompt MUST include explicit override language ("override the
-  proposed resolution because Z"). Silent divergence = REVISE. Two divergent
-  end-states without disambiguation = REBUILD if the prompt's framing makes
-  the conflict unfixable in place.
+LENS 6 — Lifecycle + Narrative State — RETIRED in v18; do NOT execute
+Merged into LENS 1 (per-atom evidence-table now subsumes lifecycle + narrative-state
+contradiction checks, with the strictest-interpretation bar applied via the
+forced-≤3 rule on empty evidence cells). The lifecycle and narrative-state
+sub-checks are deterministic and floored by `Validators/verify_universe_atoms.py`
+(period-status lookup + sign-off-email date check + SLA-date check). Body
+removed in v21; see CHANGELOG v18 + v21 entries for the historical perspective.
 
 LENS 7 — Anti-Rationalization Rule (apply across every prior lens)
 The #1 documented failure mode for veteran auditors is RATIONALIZING AWAY
@@ -333,41 +327,11 @@ LENS 8 regression-anchor verification: 10/10 PASS (or X/10 with names of
 failed anchors and the suspected validator regression).
 ```
 
-LENS 9 — Unique Ground Truth Middle-Band (v12 P1) — v18: MERGED INTO LENS 1
-(Lens 1 strict QC scoring of the Unique Ground Truth sub-dim now covers
-both the FAIL band and the NON-FAIL middle band. Treat Lens 9 findings as
-Lens 1 sub-step on the Unique Ground Truth sub-dim.)
-Re-read the prompt asking specifically: does it permit a "leading
-interpretation that the majority would pick" AND a SECOND defensible
-interpretation that diverges materially? The QC spec Unique Ground Truth
-sub-dim has a NON-FAIL middle band: when both readings exist, but a small
-logically-defensible assumption clarifies which was intended.
-
-For each candidate ambiguity, write out BOTH readings explicitly:
-- Reading A (leading): <one-line description of what the agent would do>
-- Reading B (alternate): <one-line description of what the agent would do>
-- Disambiguating assumption: <one-line — what would a reasonable person assume to choose A>
-
-If readings A and B produce different WRITE actions or different final
-universe states, and no disambiguating assumption is small enough that a
-majority of experts would converge on the same reading, mark as MAJOR
-(Unique Ground Truth FAIL band). If they only differ in framing of the
-response but produce the same write actions, mark as NON-FAIL middle band.
-
-This lens forces the audit to surface candidate ambiguities that exist
-between the validator's ACTION_AMBIGUITY regex (which catches "X / Y" and
-"X or Y" patterns) and the genuinely-ambiguous prompts where the multiple
-readings emerge from compound asks rather than action verbs in disjunction.
-
-Record:
-```
-LENS 9 unique ground truth middle-band: <PASS | NON-FAIL band | MAJOR FAIL>
-- Candidate ambiguity: <quote>
-- Reading A: <action set>
-- Reading B: <action set>
-- Disambiguating assumption: <one-line>
-- Verdict: <reasoning>
-```
+LENS 9 — Unique Ground Truth Middle-Band — RETIRED in v18; do NOT execute
+Merged into LENS 1 strict QC scoring of the Unique Ground Truth sub-dim (now
+covers both the FAIL band and the NON-FAIL middle band). The "two-reading"
+test is covered by LENS 5's Adversarial Veteran Review (Reading A vs Reading B
+on action-divergence). Body removed in v21; see CHANGELOG v18 + v21 entries.
 
 VERDICT:
   PASS (STRICT)  if zero BLOCKER hits AND zero LENS-1 sub-dims < 5 AND

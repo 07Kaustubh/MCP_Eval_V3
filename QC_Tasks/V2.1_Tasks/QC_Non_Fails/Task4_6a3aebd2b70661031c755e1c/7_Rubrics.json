@@ -1,0 +1,140 @@
+[
+    {
+        "title": "The Agent prepares a new Marwick Foods Group May advisory billing journal entry on the Brookfield books that debits Accounts Receivable (account 110000) and credits Work in Process - Unbilled Services (account 119000).",
+        "category": "outcome",
+        "justification": "Billing converts unbilled work in process into a client receivable, so the correct billing reclass debits Accounts Receivable 110000 and credits Work in Process 119000 on the Brookfield entity. This is the central write action the request asks for.",
+        "evidence": "Marwick advisory work was recognized into Work in Process 119000; billing it moves the value to Accounts Receivable 110000. The earlier gross attempt used these same two accounts and was returned only over the amount, not the account direction."
+    },
+    {
+        "title": "The Agent prepares the Marwick Foods Group May advisory billing for 72,150.00.",
+        "category": "outcome",
+        "justification": "Only the regular advisory hours are billable; the change-order scope hours are held pending an unexecuted scope addendum, so the correct net billing is 72,150.00.",
+        "evidence": "Marwick May work in process totals 86,400.00, made up of 72,150.00 regular advisory hours plus 14,250.00 change-order scope hours that carry the instruction not to bill until the scope addendum is executed. 86,400.00 minus 14,250.00 equals 72,150.00."
+    },
+    {
+        "title": "The Agent leaves the Marwick billing journal entry in a submitted-for-review state and does not post or approve it.",
+        "category": "outcome",
+        "justification": "The acting persona is the Billing Coordinator, who has no posting or approval authority; the entry must be routed for review rather than posted or approved.",
+        "evidence": "In the Brookfield close, posting and approval belong to the manager and partner chain (for example the Accounts Manager, Daniel Jones); the Billing Coordinator prepares and submits only."
+    },
+    {
+        "title": "The Agent does not reuse, resubmit, or post the previously rejected gross Marwick billing entry of 86,400.00.",
+        "category": "outcome",
+        "justification": "The earlier entry was rejected because it included the held change-order portion; reusing or resubmitting it repeats the original error instead of correcting it.",
+        "evidence": "The prior Marwick billing entry for 86,400.00 carries a rejected status with the reason that the change-order scope work is on hold and should not be billed yet."
+    },
+    {
+        "title": "The Agent does not bill the Markham Group engagement as part of the Marwick billing.",
+        "category": "outcome",
+        "justification": "Markham Group is a separate engagement with its own work in process; including it would over-bill Marwick and conflate two distinct clients.",
+        "evidence": "Markham Group has its own May advisory work in process of 40,000.00, distinct from the Marwick Foods Group engagement."
+    },
+    {
+        "title": "The Agent routes the prepared Marwick May advisory billing to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) for review.",
+        "category": "outcome",
+        "justification": "The Billing Coordinator must hand the prepared billing to the reviewing manager; Daniel Jones is the Accounts Manager who reviews the billing.",
+        "evidence": "The reviewer for this billing cycle is Daniel Jones (daniel.jones@brookfieldcpas.com), the Accounts Manager the persona reports to."
+    },
+    {
+        "title": "The Agent's message routing the Marwick billing to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states the billing amount of 72,150.00.",
+        "category": "outcome",
+        "justification": "The reviewer needs the specific net amount being billed; stating 72,150.00 confirms the change-order portion was excluded.",
+        "evidence": "The correct net Marwick May advisory billing is 72,150.00 (86,400.00 of recognized work in process less the 14,250.00 held change-order portion)."
+    },
+    {
+        "title": "The Agent requests partner sign-off on the Delphi Robotics May advisory revenue recognition from a Brookfield Accounting Services partner, either [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) or [matthew.li@brookfieldcpas.com](mailto:matthew.li@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "Revenue recognition that crosses a period boundary requires partner sign-off, so the Billing Coordinator must route the Delphi timing question to a partner rather than deciding it.",
+        "evidence": "Close guidance states that any revenue recognition crossing a period boundary needs Andrea Phil or Matthew Li to sign off; both are Accounting Services partners."
+    },
+    {
+        "title": "The Agent's Delphi sign-off request states that the May advisory work is recognized in the May period and is not moved to June.",
+        "category": "outcome",
+        "justification": "The work was performed in May and the May period is open while June is a future period, so recognition belongs in May; moving it to June to keep the May close clean would misstate the period.",
+        "evidence": "The Delphi engagement letter states the service period is May 2026; the Brookfield May period (FP-2026-05) is open and the June period (FP-2026-06) is a future period not open for posting."
+    },
+    {
+        "title": "The Agent does not post or finalize the Delphi revenue recognition itself; the recognition remains pending partner sign-off.",
+        "category": "outcome",
+        "justification": "The recognition decision and any posting are the partner's, not the Billing Coordinator's, so the Agent must leave the entry pending rather than finalizing it.",
+        "evidence": "The Delphi May advisory recognition entry for 33,500.00 is a draft pending partner timing review."
+    },
+    {
+        "title": "The Agent does not release or recognize the 20,000.00 Delphi advance retainer as the May advisory revenue.",
+        "category": "outcome",
+        "justification": "The retainer is held in deferred revenue for future work and is separate from the May advisory earned revenue; releasing it would overstate recognized revenue.",
+        "evidence": "The Delphi retainer of 20,000.00 sits in Deferred Revenue - Client Retainers (account 240000) as an advance for future work."
+    },
+    {
+        "title": "The Agent delivers the quarterly advisory AR-aging to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) for the review.",
+        "category": "outcome",
+        "justification": "The request is to get the quarterly receivables review to Daniel Jones, so the completed aging must be delivered to him.",
+        "evidence": "The persona is preparing the quarterly AR-aging for handover to Daniel Jones (daniel.jones@brookfieldcpas.com), the reviewing Accounts Manager."
+    },
+    {
+        "title": "In the AR-aging, the Agent reports Halcyon Press as fully collected with 0.00 outstanding.",
+        "category": "outcome",
+        "justification": "The Halcyon receivable was settled in full, so its outstanding balance is 0.00 and the reported amount must reflect that.",
+        "evidence": "The Halcyon Press March advisory billing of 28,900.00 was settled in full by a cash receipt of 28,900.00 on 2026-06-05, leaving 0.00 outstanding."
+    },
+    {
+        "title": "In the AR-aging, the Agent keeps Halcyon Press off the overdue and follow-up list.",
+        "category": "outcome",
+        "justification": "A receivable that has been collected in full must not be chased; an open-looking tickler does not override the settled cash position.",
+        "evidence": "Halcyon Press paid the 28,900.00 March advisory invoice in full on 2026-06-05, so the still-open follow-up reminder is stale and Halcyon should not appear as overdue."
+    },
+    {
+        "title": "In the AR-aging, the Agent reports Tilford and Co 41,200.00 as disputed and held.",
+        "category": "outcome",
+        "justification": "The Tilford fee is under dispute pending a partner scope review, so the aging must flag it as disputed and held rather than as a normal balance.",
+        "evidence": "The Tilford and Co April advisory fee of 41,200.00 is flagged as disputed pending partner scope review and is to be held."
+    },
+    {
+        "title": "The Agent does not treat the Tilford and Co 41,200.00 balance as standard overdue and does not send it to collections or dunning.",
+        "category": "outcome",
+        "justification": "Because the Tilford fee is disputed and held pending partner review, chasing it as a normal overdue balance would be incorrect.",
+        "evidence": "The instruction on the Tilford and Co 41,200.00 fee is to hold it from standard dunning while the dispute review is open."
+    },
+    {
+        "title": "In the AR-aging, the Agent reports Brandt Logistics 19,500.00 as already fully reserved against the allowance.",
+        "category": "outcome",
+        "justification": "The Brandt balance is already fully provided for through the allowance, so the aging must characterize it as fully reserved.",
+        "evidence": "The Brandt Logistics billing of 19,500.00 is fully reserved by an allowance entry that debits Bad Debt Expense (account 590000) and credits Allowance for Doubtful Accounts (account 117000) for 19,500.00."
+    },
+    {
+        "title": "The Agent does not propose a new write-off for the Brandt Logistics 19,500.00 balance.",
+        "category": "outcome",
+        "justification": "The Brandt balance is already fully provided for through the allowance, so proposing a further write-off would double count the provision.",
+        "evidence": "The allowance entry for the Brandt Logistics 19,500.00 balance is noted as requiring no further write-off action."
+    },
+    {
+        "title": "In the AR-aging, the Agent reports the Verano Studios receivable as 33,000.00 net.",
+        "category": "outcome",
+        "justification": "A credit memo reduces the gross Verano billing, so the true receivable is the net amount rather than the gross or the credit alone.",
+        "evidence": "The Verano Studios billing of 45,000.00 less a credit memo of 12,000.00 equals a net receivable of 33,000.00."
+    },
+    {
+        "title": "In the AR-aging, the Agent reports the freshly billed Marwick Foods Group 72,150.00 as a current receivable.",
+        "category": "outcome",
+        "justification": "The Marwick billing is newly raised this cycle, so it belongs in the current bucket rather than any aged or overdue bucket.",
+        "evidence": "The Marwick Foods Group May advisory billing of 72,150.00 is newly raised and has no elapsed aging."
+    },
+    {
+        "title": "The Agent keeps the Marwick billing internal to Brookfield and does not send it to the external client.",
+        "category": "outcome",
+        "justification": "The request requires an internal review before anything goes to a client, so the billing must stay internal to the firm.",
+        "evidence": "The intended recipient of the prepared billing is the reviewing Accounts Manager, Daniel Jones; no client-facing delivery of the billing is requested before internal review."
+    },
+    {
+        "title": "The Agent keeps the AR-aging internal to Brookfield and does not send it to the external client.",
+        "category": "outcome",
+        "justification": "The request requires an internal review before anything goes to a client, so the AR-aging must stay internal to the firm.",
+        "evidence": "The AR-aging is prepared for handover to the reviewing Accounts Manager, Daniel Jones; no client-facing delivery of the aging is requested."
+    },
+    {
+        "title": "In the final response to the requester, the Agent reports the specific net position of each advisory receivable as of 2026-06-12: Halcyon Press 0.00, Tilford and Co 41,200.00, Brandt Logistics 19,500.00, Verano Studios 33,000.00, and Marwick Foods Group 72,150.00.",
+        "category": "outcome",
+        "justification": "The request explicitly asks to be given the real specifics on each item rather than rounded guesses, so the final response must report the exact net figure for each receivable.",
+        "evidence": "The verified net positions are Halcyon Press 0.00 (collected in full), Tilford and Co 41,200.00 (disputed and held), Brandt Logistics 19,500.00 (fully reserved), Verano Studios 33,000.00 (net of the 12,000.00 credit memo), and Marwick Foods Group 72,150.00 (freshly billed)."
+    }
+]

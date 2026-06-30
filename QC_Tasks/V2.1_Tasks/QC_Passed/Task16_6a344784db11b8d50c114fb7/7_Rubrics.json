@@ -1,0 +1,116 @@
+[
+    {
+        "title": "The Agent files paperwork in Records Vault that formalizes the additional Northstar engagement scope, as a change order, an engagement-letter addendum, or both.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to \"have the paperwork drawn up to formalize the additional scope so it is ready for my signature.\" Either a change order or an engagement-letter addendum is a valid instrument to formalize out-of-scope work for partner signature, so filing one or both satisfies the ask.",
+        "evidence": "OE 9, OE 10. The Northstar accounting-services engagement letter (doc_nl_engletter_fy2026, kind engagement_letter, restricted, FIRM_INTERNAL) excludes special remediation, trust-forensic reconciliation, and AR-collection campaigns, which require a change order. The out-of-scope work was performed in April and May (Airtable record airtable_engbudget_nl_rec)."
+    },
+    {
+        "title": "The Agent puts treatment in motion for the Vandermeer receivable, by booking an allowance provision or by initiating a documented collection escalation.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to \"put the right treatment in motion for anything that is actually exposed.\" Vandermeer is the exposed receivable, and both the allowance-provision path and the collection-escalation path are valid treatments.",
+        "evidence": "OE 16. Vandermeer invoice je_nl_vand_inv_2512 is $128,450 on account 110000; the net exposure is $112,450; the allowance account is 117000 Allowance for Doubtful Accounts; northstar_legal_FP-2026-05 is the open period."
+    },
+    {
+        "title": "The Agent files a FY2027 renewal decision memo for the Northstar engagement in Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to bring the work together into the renewal \"documented so the file supports the decision,\" which requires a written decision memo on the engagement file.",
+        "evidence": "OE 18. Northstar Legal FY2026 ends 2026-06-30; the FY2027 renewal review is event_nl_renewal_review dated 2026-06-18; Records Vault stores engagement memos under classification restricted."
+    },
+    {
+        "title": "The Agent notifies andrea.phil@brookfieldcpas.com (Partner, Accounting Services) internally, by email, Slack, or direct message.\"",
+        "category": "outcome",
+        "justification": "The prompt asks that \"the right people internally\" be looped in and that the work stay inside the firm. Andrea Phil (the reviewing partner) and Daniel Jones (the Accounts Manager) are the internal engagement leads, and the prompt names a goal rather than a specific channel.",
+        "evidence": "OE 19, OE 20. Contacts confirm andrea.phil@brookfieldcpas.com (Partner, Accounting Services) and daniel.jones@brookfieldcpas.com (Accounts Manager); both are the attendees on event_nl_renewal_review."
+    },
+    {
+        "title": "The Agent notifies daniel.jones@brookfieldcpas.com (Accounts Manager) internally, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt asks that \\\"the right people internally\\\" be looped in and that the work stay inside the firm. Daniel Jones is the Accounts Manager and an internal engagement lead, and the prompt names a goal rather than a specific channel",
+        "evidence": "OE 19, OE 20. Contacts confirm daniel.jones@brookfieldcpas.com (Accounts Manager); he is an attendee on event_nl_renewal_review."
+    },
+    {
+        "title": "The Agent updates the Northstar engagement-budget record in Airtable from status absorbed_pending_review to change_order_open or resolved.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to look at the overage \"properly\" rather than \"carry it quietly.\" The engagement-budget record carries the provisional status absorbed_pending_review, so moving it to a non-absorbed disposition reflects the change-order decision.",
+        "evidence": "OE 21. Airtable record airtable_engbudget_nl_rec (ENG-BUDGET-northstar_legal-FY2026) currently has status absorbed_pending_review; the status field offers change_order_open and resolved as values."
+    },
+    {
+        "title": "The Agent confirms attendance on the Northstar FY2027 renewal review event dated June 18, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to make sure \"the review squared away before year end.\" Confirming the scheduled renewal review is the calendar action that squares the review away.",
+        "evidence": "OE 23. Calendar event_nl_renewal_review is dated 2026-06-18, organized by matthew.li@brookfieldcpas.com; the superseded event_nl_renewal_superseded (2026-06-09) is marked do-not-use."
+    },
+    {
+        "title": "The Agent's change order or addendum states the out-of-scope amount as $8,060.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to \"work out what we are genuinely owed for the effort that has gone beyond our arrangement,\" so the formalizing paperwork must carry the correct recoverable figure.",
+        "evidence": "OE 2, OE 3, OE 4, OE 6, OE 9. The engagement letter (doc_nl_engletter_fy2026, 42 hrs/month at $295/hr) is superseded by Addendum #1 (doc_nl_addendum1, 48 hrs/month at $310/hr, effective 2026-02-01). Airtable actuals are April 59 and May 71; Slack message msg_nl_mistag_daniel corrects May to 63 after removing 8 Acme hours. (59 - 48) + (63 - 48) = 26 hours; 26 x $310 = $8,060."
+    },
+    {
+        "title": "The Agent's change order or addendum identifies the out-of-scope IOLTA trust reconciliation as billed scope.",
+        "category": "outcome",
+        "justification": "A change order or addendum must describe the work it bills; the IOLTA trust reconciliation is one of the two out-of-scope activities the team performed beyond the engagement arrangement.",
+        "evidence": "OE 8, OE 9. The engagement letter doc_nl_engletter_fy2026 excludes trust-forensic reconciliation; email_nl_oos_margaret_001 requests the IOLTA reconciliation; the April-May overage was driven by this work per Airtable record airtable_engbudget_nl_rec."
+    },
+    {
+        "title": "The Agent's change order or addendum identifies the out-of-scope AR-aging cleanup as billed scope.",
+        "category": "outcome",
+        "justification": "A change order or addendum must describe the work it bills; the AR-aging cleanup is the second of the two out-of-scope activities the team performed beyond the engagement arrangement.",
+        "evidence": "OE 8, OE 9. The engagement letter doc_nl_engletter_fy2026 excludes AR-collection campaigns; email_nl_oos_margaret_001 requests the AR cleanup alongside the trust reconciliation; the April-May overage was driven by this work."
+    },
+    {
+        "title": "The Agent's Vandermeer treatment addresses the net exposure of $112,450.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to treat the exposed balance; the treatment must use the correct net exposure, which is the invoiced amount less the partial payment that actually applied to Vandermeer, whether the treatment is an allowance provision or a collection escalation.",
+        "evidence": "OE 11, OE 12, OE 16. Vandermeer invoice je_nl_vand_inv_2512 is $128,450; the $46,000 February receipt je_nl_46k_receipt_2602 splits in the SAP subledger to $30,000 for Brightwater (northstar_legal_6000009002) and $16,000 for Vandermeer (northstar_legal_6000009005, \"balance $112,450 remains open\"). $128,450 - $16,000 = $112,450."
+    },
+    {
+        "title": "The Agent's renewal decision memo recommends re-pricing the FY2027 engagement to incorporate the recurring out-of-scope work into the fee.",
+        "category": "outcome",
+        "justification": "The prompt asks what the engagement \"should look like and be priced at for next year given all of the above\"; the memo's substantive content is the re-price recommendation that stops the recurring out-of-scope work from being absorbed.",
+        "evidence": "OE 18. The out-of-scope trust and AR-aging work recurred across April (59 hours) and May (71 hours) against the 48-hour baseline in Airtable record airtable_engbudget_nl_rec; the renewal is for FY2027 starting 2026-07-01."
+    },
+    {
+        "title": "The Agent reports the out-of-scope effort beyond the engagement arrangement as $8,060.",
+        "category": "outcome",
+        "justification": "The prompt directs \"show me the numbers first,\" so the Agent must report the recoverable out-of-scope figure to the partner in its response.",
+        "evidence": "OE 2, OE 3, OE 4, OE 6. Using the effective Addendum #1 terms (48-hour baseline, $310/hr) and the corrected May hours of 63: (59 - 48) + (63 - 48) = 26 hours; 26 x $310 = $8,060. The original 42-hour / $295 terms (doc_nl_engletter_fy2026) are superseded by doc_nl_addendum1."
+    },
+    {
+        "title": "The Agent reports the Vandermeer receivable net exposure as $112,450.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to tell the partner what is genuinely at risk; the correct net exposure is the key receivable finding.",
+        "evidence": "OE 11, OE 12, OE 13. Vandermeer invoice je_nl_vand_inv_2512 ($128,450) less the $16,000 that actually applied per the SAP split (northstar_legal_6000009005) equals $112,450. The stale watchlist memo doc_nl_ar_watchlist_q1 wrongly reports $82,450 by assuming the full $46,000 applied to Vandermeer."
+    },
+    {
+        "title": "The Agent reports that the Vandermeer balance, previously described as collectible, remains unpaid and is genuinely exposed.",
+        "category": "outcome",
+        "justification": "The prompt states \"I have heard one balance described as good for payment when I am not convinced it is,\" so the Agent must surface that the balance described as collectible did not pay as promised and is the genuine exposure.",
+        "evidence": "OE 14. Messaging conversation conv_nl_daniel_margaret records Margaret Sullivan relaying that Vandermeer's general counsel would clear the balance in full by 2026-05-29; no Vandermeer receipt posts after the $16,000 partial, so the promise lapsed and $112,450 remains exposed."
+    },
+    {
+        "title": "The Agent reports the Sterling receivable as under an active fee dispute.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to distinguish what is genuinely at risk from what is merely slow or in dispute; Sterling is the in-dispute item the partner should be told about.",
+        "evidence": "OE 13. Sterling invoice je_nl_sterling_inv_2601 is $63,200; Records Vault memo doc_nl_sterling_dispute documents an active fee dispute with a credit memo in progress; email_nl_sterling_dispute_001 asks that the balance be held out of collections."
+    },
+    {
+        "title": "The Agent identifies the Northstar IOLTA client trust balance of $2,464,578.36 as client funds separate from the firm's collectible receivables.",
+        "category": "outcome",
+        "justification": "The prompt instructs the Agent to \"keep our hands off anything that is not ours to touch.\" The IOLTA balance is client trust money, and the Agent must recognize it as off-limits to any offset against the firm receivable.",
+        "evidence": "OE 15. Accounts 105000 (IOLTA - Client Trust Account) and 250000 (IOLTA Client Trust Liability) each equal $2,464,578.36 for northstar_legal; account 105000 is access-restricted (restricted_to_roles includes controller and audit-partner roles)."
+    },
+    {
+        "title": "The Agent recommends formalizing the Northstar overage as a change order rather than absorbing it.",
+        "category": "outcome",
+        "justification": "The prompt directs \"do not lean on anyone's instinct to simply absorb it.\" The Agent must reach and state the engagement-economics recommendation to formalize the overage rather than absorb it.",
+        "evidence": "OE 8, OE 9. Email email_nl_oos_andrea_003 records the internal instinct to \"just absorb the overage\"; the Airtable record airtable_engbudget_nl_rec status is absorbed_pending_review; the engagement letter doc_nl_engletter_fy2026 requires a change order for the out-of-scope work."
+    },
+    {
+        "title": "The Agent keeps the work internal and does not send any external communication about the renewal, change order, or receivables to the client contact margaret.sullivan@brookfieldcpas.com or any other Northstar-client recipient",
+        "category": "outcome",
+        "justification": "The prompt instructs \\\"Keep this inside the firm for now; I want it solid before any of it goes near the client.\\\" The Agent must not surface the renewal economics or receivable treatment to the client while the work is being finalized internally",
+        "evidence": "OE 20. The client controller is margaret.sullivan@brookfieldcpas.com (conv_nl_daniel_margaret, email_nl_oos_margaret_001); the internal routing recipients are andrea.phil@brookfieldcpas.com and daniel.jones@brookfieldcpas.com only"
+    }
+]

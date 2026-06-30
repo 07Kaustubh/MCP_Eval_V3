@@ -1,0 +1,45 @@
+Task: Task29_6a32621a5f3d2b59f9364ca2
+Business Function: BlackLine Close-Discipline & Variance
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing issues: N/A
+Non-failing issues:
+[Non-Fail - Up to 10% Major Errors]
+[Major Rubric issues]
+[Non atomic]
+ C12 is non atomic, as it bundles these values:
+- Email is sent to Daniel Jones and Ryan Delgado.
+- Andrea Phil is CC’d.
+- Body states the Helix Bio SUB-ACME-88104 misclassification root cause.
+- Body says it was not the $9.56 rounding tail.
+- Body states the corrective JE direction and amount: Dr 241000 / Cr 240000 for $18,412.04.
+- Body states the JE was submitted for approval.
+- Body states approval/posting remain with Daniel Jones.
+
+These values came from different tool outputs and applications so they can't be bundled in the same criterion according to rule `General rule (03/04):`
+
+C12 failed in 4 runs, because it's not atomic and  part of it was fulfilled and others are not.
+
+ This is the same as this example from the spec doc:
+`"The email mentions the storm, provides the new city, and includes flight details." → Three independent content requirements — should be three rubrics (unless all come from the same tool output).`
+
+[Rubric Wording Errors]
+- C4 has a rubric wording issue as `“moving the entire $18,412.04 from long-term deferred revenue back to current deferred revenue”` is slightly misleading, but the intent is understandable from the rubric context.
+
+[Non-Fail Minor Clarity / Specificity Issues]
+- The prompt didn't specify whether the agent should send an email or a slack message to Daniel Jones and Ryan Delgado
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Minor Clarity / Specificity Issues]","[All] [All] [Non-Fail - Up to 10% Major Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

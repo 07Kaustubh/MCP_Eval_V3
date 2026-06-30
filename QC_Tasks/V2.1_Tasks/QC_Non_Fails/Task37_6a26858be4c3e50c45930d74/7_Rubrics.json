@@ -1,0 +1,134 @@
+[
+    {
+        "title": "The Agent contacts Sanjay Vora at [sanjay.vora@novacrestinfra.com](mailto:sanjay.vora@novacrestinfra.com) regarding the NovaCrest credit memo and billing discrepancies.",
+        "category": "outcome",
+        "justification": "The prompt asks Daniel's assistant to \"reach out to Sanjay at NovaCrest about the outstanding credit and any billing discrepancies.\" This verifies the agent sent a message to the correct vendor contact.",
+        "evidence": "Check the trajectory for a message sent to sanjay.vora@novacrestinfra.com (via email or direct message). The recipient address must match exactly."
+    },
+    {
+        "title": "The Agent notifies Andrea Phil at [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) about NovaCrest vendor billing issues for partner review.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"flag it to Andrea with the supporting details\" if billing discrepancies are material. The $1,875 overpayment and $2,100 outstanding credit are material findings requiring partner attention.",
+        "evidence": "Check the trajectory for a message sent to andrea.phil@brookfieldcpas.com (via email or direct message). The recipient address must match exactly."
+    },
+    {
+        "title": "The Agent posts a summary message in the #vendor-bills-and-ap Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"post a summary for the team in the AP channel so everyone is aware.\" The AP channel is #vendor-bills-and-ap (channel ID C010).",
+        "evidence": "Check the trajectory for a Slack message posted to channel C010. The channel must be C010 (#vendor-bills-and-ap)."
+    },
+    {
+        "title": "The Agent updates the NovaCrest vendor review tracker to reassign ownership from George McAdam.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"make sure the vendor review tracking gets properly reassigned since George is leaving.\" The NovaCrest SLA review record in the AP Workflow Exceptions table is currently owned by George McAdam who departs June 23.",
+        "evidence": "Check the trajectory for an update to the Airtable record for the NovaCrest vendor review, changing the owner from George McAdam to another assignee."
+    },
+    {
+        "title": "The Agent's message to Sanjay Vora references the overdue $2,100 credit memo for invoice VEN-048-611784 that was promised by June 2.",
+        "category": "outcome",
+        "justification": "The credit memo is the primary unresolved vendor issue. The agent must communicate the specific amount ($2,100), the invoice number (VEN-048-611784), and the missed deadline (June 2) to Sanjay.",
+        "evidence": "Check the content of the message sent to sanjay.vora@novacrestinfra.com for references to $2,100, VEN-048-611784, and the June 2 promise date (or similar phrasing about the overdue credit)."
+    },
+    {
+        "title": "The Agent's message to Sanjay Vora references the brookfield rate discrepancy where invoices were billed at $175/hr versus the MSA-agreed rate of $150/hr.",
+        "category": "outcome",
+        "justification": "The rate drift is a separate billing issue the prompt asks to raise with the vendor. The agent must specify both the billed rate ($175/hr) and the contractual rate ($150/hr).",
+        "evidence": "Check the content of the message sent to sanjay.vora@novacrestinfra.com for references to $175/hr billed rate and $150/hr contract rate (or similar rate comparison language)."
+    },
+    {
+        "title": "The Agent's communication to Andrea Phil includes the $1,875 cumulative brookfield overpayment resulting from the rate discrepancy ($625 per month across March, April, and May 2026).",
+        "category": "outcome",
+        "justification": "Andrea needs the total financial exposure to make a partner-level decision. The total is $1,875 ($25/hr premium on 25 hours per month for 3 months).",
+        "evidence": "Check the content of the message sent to andrea.phil@brookfieldcpas.com for the $1,875 total overpayment figure (or the equivalent $625/month breakdown)."
+    },
+    {
+        "title": "The Agent's communication to Andrea Phil includes the $2,100 outstanding Acme Cloud credit memo issue.",
+        "category": "outcome",
+        "justification": "The credit memo is a separate financial exposure Andrea should be aware of alongside the rate drift.",
+        "evidence": "Check the content of the message sent to andrea.phil@brookfieldcpas.com for reference to the $2,100 outstanding credit memo on the Acme Cloud account."
+    },
+    {
+        "title": "The Agent's communication to Andrea Phil includes the contract renewal timeline, specifically that the term ends August 31, 2026 and the 60-day cancellation notice deadline falls around July 2, 2026.",
+        "category": "outcome",
+        "justification": "Andrea needs the renewal deadline to assess urgency and decide whether to renew, renegotiate, or cancel given the billing and service-level issues.",
+        "evidence": "Check the content of the message sent to andrea.phil@brookfieldcpas.com for references to August 31 term end and July 2 cancellation deadline (or equivalent renewal timeline details)."
+    },
+    {
+        "title": "The Agent's Slack post in #vendor-bills-and-ap includes the NovaCrest credit memo status, specifically that the $2,100 credit is still outstanding.",
+        "category": "outcome",
+        "justification": "The team needs visibility on the open credit memo that is blocking the Acme Cloud AP queue.",
+        "evidence": "Check the Slack message posted to C010 for reference to the $2,100 NovaCrest credit memo being outstanding or overdue."
+    },
+    {
+        "title": "The Agent's Slack post in #vendor-bills-and-ap includes the rate discrepancy between brookfield invoices ($175/hr) and the MSA contract rate ($150/hr).",
+        "category": "outcome",
+        "justification": "The team needs to know about the billing error so other invoice approvers can watch for it.",
+        "evidence": "Check the Slack message posted to C010 for references to the $175/hr vs $150/hr rate discrepancy on brookfield NovaCrest invoices."
+    },
+    {
+        "title": "The Agent's Slack post in #vendor-bills-and-ap includes that the NovaCrest vendor review tracking is being reassigned from George McAdam.",
+        "category": "outcome",
+        "justification": "The team needs to know the vendor review ownership is changing hands due to George's departure.",
+        "evidence": "Check the Slack message posted to C010 for reference to vendor review reassignment from George McAdam."
+    },
+    {
+        "title": "The Agent's Slack post in #vendor-bills-and-ap includes the contract renewal timeline, referencing the August 31, 2026 term end or the July 2 cancellation notice deadline.",
+        "category": "outcome",
+        "justification": "The team needs awareness of the upcoming renewal deadline so vendor-related decisions can be coordinated before the cancellation window closes.",
+        "evidence": "Check the Slack message posted to C010 for reference to August 31 term end, July 2 cancellation deadline, or equivalent renewal timeline information."
+    },
+    {
+        "title": "The Agent reports that NovaCrest agreed to issue a $2,100 credit memo by June 2, 2026 for 14 hours of emergency patching that were auto-deployed and did not require manual intervention (or similar description of the disputed patching).",
+        "category": "outcome",
+        "justification": "The prompt asks to \"figure out what was promised\" and \"when it was supposed to arrive.\" This covers the specific credit amount, the promise date, and the reason for the credit.",
+        "evidence": "Check the final response for the $2,100 amount, the June 2 promise date, and a description of the disputed charges (14 hours of auto-deployed patching or similar)."
+    },
+    {
+        "title": "The Agent reports that the $2,100 credit memo has not been received and that the vendor's accounts receivable team indicates it is still in their internal processing queue with no firm date (or similar explanation for the delay).",
+        "category": "outcome",
+        "justification": "The prompt asks \"why we are still waiting.\" The investigation reveals through Brenda Abbas that NovaCrest AR confirmed the credit is still in processing with no committed delivery date.",
+        "evidence": "Check the final response for confirmation that the credit remains outstanding and an explanation for the delay referencing the vendor's processing status (or similar reason)."
+    },
+    {
+        "title": "The Agent reports that the NovaCrest MSA specifies a flat rate of $150/hr but brookfield invoices for March, April, and May 2026 were billed at $175/hr, resulting in a $25/hr overcharge per invoice.",
+        "category": "outcome",
+        "justification": "The prompt asks to check \"if what they are billing us actually matches what we agreed to in the contract\" and to provide \"the specifics\" if rates do not line up.",
+        "evidence": "Check the final response for the MSA rate ($150/hr), the billed rate ($175/hr), and the per-hour overage ($25/hr) across the three brookfield invoices."
+    },
+    {
+        "title": "The Agent reports the total brookfield overpayment exposure as $1,875, calculated as $625 per month for 3 months (25 hours per month at a $25/hr premium).",
+        "category": "outcome",
+        "justification": "The prompt asks for \"the total exposure\" if rates do not line up. The correct total is $1,875 across March, April, and May 2026.",
+        "evidence": "Check the final response for the $1,875 total overpayment figure (or equivalent breakdown showing $625/month for 3 months)."
+    },
+    {
+        "title": "The Agent reports that Acme Cloud NovaCrest invoices were billed at the correct MSA rate of $150/hr, confirming the rate discrepancy is limited to the brookfield entity.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to check billing \"across every entity we use them for.\" The Acme Cloud invoice (VEN-048-611784) shows the correct $150/hr rate, while only brookfield invoices have the $175/hr overcharge. Reporting this confirms the agent checked both entities.",
+        "evidence": "Check the final response for confirmation that Acme Cloud NovaCrest billing is at the correct $150/hr rate, or that the rate discrepancy applies only to brookfield."
+    },
+    {
+        "title": "The Agent reports that the NovaCrest contract term ends August 31, 2026, with a 60-day written cancellation notice requirement making the cancellation deadline around July 2, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks for \"a clear picture of the renewal timeline and whether there is a deadline we need to worry about.\" The MSA specifies a 12-month term through August 31 with 60-day auto-renewal notice.",
+        "evidence": "Check the final response for the August 31, 2026 term end, the 60-day notice period, and the derived July 2 cancellation deadline."
+    },
+    {
+        "title": "The Agent reports that George McAdam's Linear handoff issue does not include the NovaCrest vendor review, identifying this as a gap in the transition plan.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to \"go through whatever he left behind\" and provide a \"clear picture.\" Discovering the handoff gap is a key finding. George communicated the NovaCrest review informally via email but it was never tracked formally in Linear.",
+        "evidence": "Check the final response for identification of the NovaCrest omission from George's Linear handoff issue."
+    },
+    {
+        "title": "The Agent reports that NovaCrest had 3 SLA breaches in Q1 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks about \"service performance\" concerns flagged by George. George's messaging notes document 3 specific SLA incidents which are relevant to the renewal decision.",
+        "evidence": "Check the final response for reference to 3 SLA breaches in Q1 2026."
+    },
+    {
+        "title": "The Agent reports details of the NovaCrest SLA breaches, including a ticket response time breach in January, a server alert delay in February, and a patch window overrun in March (or similar descriptions of the three incidents).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to give a \"clear picture\" of George's service performance findings. The specific breach types provide actionable context for the renewal decision.",
+        "evidence": "Check the final response for descriptions of the three SLA incidents with month-level specificity (January, February, March) and the nature of each breach (or similar"
+    }
+]

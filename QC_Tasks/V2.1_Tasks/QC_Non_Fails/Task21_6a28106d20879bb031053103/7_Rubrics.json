@@ -1,0 +1,80 @@
+[
+    {
+        "title": "The Agent reports the correct net third-party wire-transfer aggregate for Acme Cloud across FP-2026-01 through FP-2026-05 as approximately $117,000 (not $186,350, $143,850, $174,500, $171,350, or any other intermediate figure).",
+        "category": "outcome",
+        "justification": "This is the primary discriminating rubric. The correct figure ($117,000) requires discovering and applying all three reductions to Farah's gross aggregate ($186,350). Any other figure indicates the agent missed at least one reduction or accepted the authority dismissal.",
+        "evidence": "Per OE8: $186,350 - $42,500 (OE4 reversal) - $11,850 (OE6 credit) - $15,000 (OE5 intercompany) = $117,000. Check the agent's final response, the email to Peter (OE10), the Records Vault memo (OE9), and/or the Slack post (OE11) for the reported aggregate figure. Accept approximately $117,000 or the exact figure."
+    },
+    {
+        "title": "The Agent identifies that the Meridian Corp wire receipt of $42,500 (JE-acme_cloud-FP-2026-02-0078) was reversed as a duplicate booking and should be excluded from the aggregate.",
+        "category": "outcome",
+        "justification": "R1 is the Oracle GL reduction. The agent must notice the JE status is 'reversed' and that a reversing entry exists, then exclude the $42,500 from the net figure.",
+        "evidence": "Per OE4: the agent inspects JE-acme_cloud-FP-2026-02-0078, finds status=reversed and the reversing entry JE-acme_cloud-FP-2026-02-0082. Check the final response, memo, or email for mention of the Meridian Corp reversal, duplicate booking, or the $42,500 exclusion."
+    },
+    {
+        "title": "The Agent identifies a vendor credit memo of $11,850 against the CloudNova Infrastructure disbursement, reducing the net economic outflow from $18,600 to approximately $6,750.",
+        "category": "outcome",
+        "justification": "R2 is the SAP subledger reduction (mechanism #10, 0% agent find rate across 6 runs). The credit memo exists only in the subledger, not in the GL. The agent must query the SAP subledger to discover it.",
+        "evidence": "Per OE6: the agent uses sap_subledger_list_subledger_transactions to find SAP document 7000015201 showing $11,850 credit against the CloudNova AP balance. Check for mention of the CloudNova credit memo, $11,850, the net disbursement of approximately $6,750, or any SAP subledger reference."
+    },
+    {
+        "title": "The Agent identifies that the $15,000 shared services allocation (JE-acme_cloud-FP-2026-03-0075) is an intercompany transfer from Brookfield, not a third-party wire, and excludes it from the aggregate.",
+        "category": "outcome",
+        "justification": "R3 is the Records Vault / email reduction. The agent must find Jones Harrison's email or the Records Vault reclassification memo documenting the intercompany nature of this transaction.",
+        "evidence": "Per OE5: the agent finds Jones Harrison's email about JE-acme_cloud-FP-2026-03-0075 and/or the Records Vault reclassification memo. Check for mention of intercompany, shared services allocation, reclassification, or the $15,000 exclusion."
+    },
+    {
+        "title": "The Agent uploads a threshold analysis memo to the Records Vault with a compliance-related classification (e.g., 'restricted').",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'draft the threshold analysis memo' and 'file it in the vault under the compliance classification.' This is a required write action.",
+        "evidence": "Per OE9: check for a records_vault_upload_document call with a title referencing the threshold analysis or wire-transfer review, and a classification value consistent with compliance filing (e.g., 'restricted')."
+    },
+    {
+        "title": "The Agent's threshold analysis memo includes the net third-party wire aggregate (approximately $117,000).",
+        "category": "outcome",
+        "justification": "The prompt asks for a memo 'showing the net third-party wire volume.' The correct figure must appear in the memo content.",
+        "evidence": "Per OE8: check the content parameter of the records_vault_upload_document call for the aggregate figure (approximately $117,000). If the agent reports $186,350 or another wrong figure, this rubric fails."
+    },
+    {
+        "title": "The Agent sends an email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) with [steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com) in CC.",
+        "category": "outcome",
+        "justification": "The prompt says 'Email Peter the final analysis with the recommendation and copy Steven since he will need to sign off at the partner level.' Both the recipient and CC are specified.",
+        "evidence": "Per OE10: check for an email_send_email or email_reply_to_email call with recipient peter.sanchez@brookfieldcpas.com and CC including steven.perry@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's email to Peter includes the net third-party wire aggregate (approximately $117,000).",
+        "category": "outcome",
+        "justification": "The prompt asks to email Peter 'the final analysis.' The email content must contain the correct aggregate figure.",
+        "evidence": "Per OE9: check the content parameter of the email for the aggregate figure (approximately $117,000). If the agent reports $186,350 or another wrong figure, this rubric fails."
+    },
+    {
+        "title": "The Agent posts a summary message in the #compliance-and-registrations Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt says 'Post a summary in the compliance channel so the team has visibility on where we landed.'",
+        "evidence": "Per OE11: check for a slack_conversations_add_message call targeting channel C008 or a channel search result for #compliance-and-registrations."
+    },
+    {
+        "title": "The Agent's Slack summary in #compliance-and-registrations includes the wire aggregate figure (approximately $117,000 or the threshold recommendation).",
+        "category": "outcome",
+        "justification": "The summary should give the team visibility on the analysis findings. The aggregate and/or recommendation should be present.",
+        "evidence": "Per OE11 and OE8: check the payload parameter of the Slack message for the aggregate figure or threshold recommendation."
+    },
+    {
+        "title": "The Agent creates a reminder with a due date in September 2026 for the next quarterly threshold review cycle.",
+        "category": "outcome",
+        "justification": "The prompt says 'I also need a reminder set for September so we pick this up again at the next quarterly review cycle.'",
+        "evidence": "Per OE12: check for a reminder_add_reminder call with a due_datetime in September 2026 and a title or description referencing the threshold review or quarterly cycle."
+    },
+    {
+        "title": "The Agent's threshold analysis memo includes a recommendation on whether the current $10K monitoring trigger remains appropriate for enterprise SaaS clients.",
+        "category": "outcome",
+        "justification": "The prompt asks for a memo showing 'the recommendation' on whether the firm's $10K internal monitoring trigger still makes sense. The memo must contain a threshold recommendation.",
+        "evidence": "Per OE8: check the content parameter of the records_vault_upload_document call for a recommendation addressing the $10K monitoring trigger for enterprise SaaS clients."
+    },
+    {
+        "title": "The Agent's email to Peter includes a recommendation on the $10K threshold.",
+        "category": "outcome",
+        "justification": "The prompt asks to email Peter 'the final analysis with the recommendation.' The email must contain a threshold recommendation.",
+        "evidence": "Per OE8: check the content parameter of the email for a recommendation addressing the $10K internal monitoring trigger."
+    }
+]

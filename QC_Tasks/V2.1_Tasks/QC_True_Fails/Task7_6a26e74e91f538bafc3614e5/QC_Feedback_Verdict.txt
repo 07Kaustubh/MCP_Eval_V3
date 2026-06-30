@@ -1,0 +1,24 @@
+Task: Task8_6a26e74e91f538bafc3614e5
+Business Function: Compliance & Internal Controls
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+[Fail - Rubric is not written as an action performed by the agent] Criteria 6-10 don't make the agent the subject of each criterion. 'The agent's status update' would be the subject, and therefore strictly speaking these criteria are not written as actions performed by the agent, but rather what these deliverables should contain. This meets the failing condition '1+ criteria are not written as an action performed by an agent' and therefore fails the task.
+
+[Non-Fail - Up to 15% Moderate Errors] C19 is overly broad. While the prompt doesn't ask the agent to catalog every exception, it does specifically want anything that 'touches controls, regulatory obligations, or data integrity' surfaced. Using 'or' allows any response to name a generic exception without omitting important findings such as the northstar_legal FP-2026-05 timing exception (exc_af7274fb658844), flagged SOX/systemic, which OE12 says not to dismiss.
+
+No other issues found.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 15% Moderate Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

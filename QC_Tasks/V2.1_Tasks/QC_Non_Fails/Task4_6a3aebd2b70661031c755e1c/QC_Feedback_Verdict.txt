@@ -1,0 +1,28 @@
+Task: Task4_6a3aebd2b70661031c755e1c
+Business Function: Accounting Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Inaccurate Oracle Events]  OE17 includes "Halcyon Press 0.00 (collected, off the follow-up list)" and "Brandt Logistics 19,500.00 (fully reserved, note only, no new write-off)", but the prompt specifically states that "Call out the items that need his attention for the right reason, keep the ones that do not off the follow-up list", since both of these items do not require his attention it should not be included in the list. The CB even states in brackets the reason why both should not be included.
+
+Rubric Criteria:
+Major issues:
+2 - [Incorrect Criteria] Criteria 13 and 17 should not be placed in the AR aging follow up list since they meet the condition from the prompt: "Call out the items that need his attention for the right reason, keep the ones that do not off the follow-up list", since both do not require his attention, they should not be placed on the AR aging follow up list. The CB even notes in criteria 14 that Halcyon should not be on the list.
+- [Non-Fail - Up to 10% Major Errors] 2/23=~9% <= 10%
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Inaccurate Oracle Events]","[All] [All] [Non-Fail - Up to 10% Major Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

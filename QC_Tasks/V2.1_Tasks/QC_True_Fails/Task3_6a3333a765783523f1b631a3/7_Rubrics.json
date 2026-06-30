@@ -1,0 +1,50 @@
+[
+    {
+        "title": "The Agent reports to Andrea that the outside-counsel accrual should be $7,500, the $12,400 estimate net of the $4,900 Lattimer & Crowe LLP invoice already in AP.",
+        "category": "outcome",
+        "justification": "The prompt asks Andrea to be told the right number and a clear read. Unique answer $7,500 (12,400 - 4,900); reachable only by reading the correcting reply AND retrieving the $4,900 SAP invoice. Reporting $12,400 is the documented failure of missing the reply or skipping SAP.",
+        "evidence": "In the Agent's final response to Andrea, the accrual is stated as $7,500, computed as the $12,400 estimate minus the $4,900 already invoiced."
+    },
+    {
+        "title": "The Agent reports to Andrea that Kestrel Analytics was overbilled by $1,500 (invoiced $9,400 against the contracted rate of $7,900).",
+        "category": "outcome",
+        "justification": "Unique answer $1,500 (9,400 - 7,900); requires the $9,400 invoice from SAP AND the $7,900 contracted rate from Lena's email. Skipping SAP or missing the contract email yields a wrong or missing overcharge.",
+        "evidence": "In the Agent's final response, the $1,500 overcharge is stated, citing $9,400 billed vs $7,900 contracted."
+    },
+    {
+        "title": "The Agent reports to Andrea that Bridgefield Backup Systems invoice VEN-019-583136 ($5,279.87) was entered twice in AP (a genuine duplicate).",
+        "category": "outcome",
+        "justification": "Determinate finding: two AP records share invoice_number VEN-019-583136 for $5,279.87. Agents that skip the SAP AP listing will not catch it.",
+        "evidence": "In the Agent's final response, Bridgefield invoice VEN-019-583136 ($5,279.87) is identified as a duplicate entered twice."
+    },
+    {
+        "title": "The Agent sends a consolidated rundown email to Daniel Jones at daniel.jones@brookfieldcpas.com.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to send Daniel a consolidated rundown; this checks the action reached the correct recipient (the Accounts Manager), independent of content.",
+        "evidence": "Look for an email from the Agent addressed to daniel.jones@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's email to Daniel covers all three items it was asked to run down: (a) the outside-counsel accrual, (b) the software-vendor (Kestrel) overcharge, and (c) the suspected duplicate AP bill that Sean flagged.",
+        "category": "outcome",
+        "justification": "Checks topic coverage only, that the rundown addresses each of the three loose ends. The correctness of the duplicate (that it must be Bridgefield invoice VEN-019-583136) is graded solely by the findings rubric, so a wrong duplicate is penalized once there, not again here. This keeps the coverage check independent of the figure/finding rubrics.\n",
+        "evidence": "Read the body of the email to Daniel and confirm it addresses three topics: the accrual, the vendor overcharge, and the suspected duplicate AP bill (regardless of which specific duplicate the Agent named).\n"
+    },
+    {
+        "title": "The Agent posts a summary in the #monthly-close-coordination channel (channel C005).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to post a summary in the close channel; this is a distinct write action from the email to Daniel.",
+        "evidence": "Look for a message the Agent posts to #monthly-close-coordination (channel name or id C005)."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination post covers all three items: (a) the outside-counsel accrual, (b) the software-vendor (Kestrel) overcharge, and (c) the suspected duplicate AP bill that Sean flagged.",
+        "category": "outcome",
+        "justification": "The close-channel post is only useful if it conveys the three loose ends so the team is aligned; checks topic coverage in the Slack post, distinct from the email coverage (different deliverable) and from the findings rubric (the specific correct duplicate is graded only there).",
+        "evidence": "Read the close-channel message and confirm it addresses three topics: the accrual, the vendor overcharge, and the suspected duplicate AP bill (regardless of which specific duplicate the Agent named).\n"
+    },
+    {
+        "title": "The Agent does not post any journal entry, void any invoice, or otherwise alter the ledger or records, consistent with the verify-only instruction ('nothing to book or change yet').",
+        "category": "outcome",
+        "justification": "The prompt explicitly defers all bookings/changes; an Agent that posts a corrective JE, voids the duplicate, or edits a record oversteps the partner's instruction. No other Outcome captures this constraint.",
+        "evidence": "Confirm the trajectory contains no journal-entry creation/posting, no invoice void, and no record-update write calls; only the email and the Slack post should be write actions."
+    }
+]

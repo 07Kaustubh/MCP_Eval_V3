@@ -40,12 +40,14 @@ Where the 4 evaluator specs (`Evals/1_Prompt_Eval.md` ... `Evals/4_Verifier_Fail
 | Specs reference `[V2] QC_Tasks/` as samples but pipeline uses `QC_Tasks/V3_Tasks/Task11..14/` | V2 samples are on the old Keystone universe | Pipeline reads V3 references directly (Brookfield universe). This is a pipeline-EXCEEDS-spec choice, documented for future spec alignment. |
 | Eval specs require "TODO list at Step 0 HARD GATE" + "Phase 0 deep universe exploration" | No mechanism to verify | Pipeline runbooks list required inputs per phase; v11 E1 + E2 add `phase_ready.py` checks for TODO and reference-read logs. Without those, operator discipline is the only enforcement. |
 | Tool-name handling differs per artifact (Prompt = FAIL anywhere; OE = MANDATORY; Rubric = NOT in title, OK in evidence) | Specs don't cross-reference each other | Pipeline `validate.py` handles per-phase correctly: prompt phase FAILs any tool-name token; OE phase FAILs only on UNKNOWN tool names; rubric phase FAILs tool names in title only. Per-phase distinction is intentional and stable. |
+| MoveOps source zip folder `MCP_Eval_V2.1_Move_Ops/` ships V2.1 framework docs | V2.1 predates V3 — `Docs_moveops/2_Rubrics_V3_Guidelines.md` is filename-labeled V3 but framework-labeled V2.1; some rubric / OE conventions may have minor deltas from V3 Brookfield + V3.1 KeyStone | Pipeline registry tags MoveOps as `V2.1` (see `MoveOps_Base_Universe/` notes and `Validators/universes.py`). Read `Docs_moveops/2_Rubrics_V3_Guidelines.md` before applying validator behavior to MoveOps tasks; per-phase deltas are deferred (validator currently treats MoveOps with the same scoring as Brookfield/KeyStone — flag a deviation here if a real MoveOps task surfaces a divergence). |
+| Upstream zip folder `MCP_Eval_V3 (2)/MCP_Eval_V3_BrookField/Docs/` is filename-labeled "BrookField" but content-labeled KeyStone (references `Mortgage_Base_Universe/3_Persona_Briefs.md` + "v3 = Keystone Mortgage") | Source-folder hygiene issue at upstream zip-distribution level | Operator warning only — pipeline `Docs/` is the correct Brookfield-flavored copy; pipeline `Docs_keystone/` is the correct KeyStone-flavored copy. Do NOT use the mis-named source folder as authoritative; trust `Validators/universes.py` registry paths. |
 
 When the spec gets a new version, re-check this table against the new spec. If a spec amendment resolves a contradiction differently than the pipeline's interpretation, update both the pipeline AND this table together.
 
 ## PIPELINE DISPATCH
 
-> **Supersedes the legacy `command workflow.txt`.** The 16 PIPELINE triggers below are the only entry points the operator needs. `command workflow.txt` is preserved for reference but the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
+> **Supersedes the legacy `command workflow.txt`** (archived to `_archive/` in v21). The 16 PIPELINE triggers below are the only entry points the operator needs. The historical workflow doc is preserved at `_archive/command workflow.txt` for archaeological reference; the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
@@ -135,13 +137,12 @@ MCP_Eval_V3/
 │       ├── Linter_Justifications.md
 │       ├── Hardness_Patterns_Log.md
 │       └── Stump_Hypotheses.md
-├── data.py                         # smart forwarder — routes per-task input to Validators/split_universe.py
-└── data.legacy.py                  # original script (writes to shared Data/, can corrupt parallel work)
+└── data.py                         # smart forwarder — routes per-task input to Validators/split_universe.py
 ```
 
-## Universe constants (multi-universe — v18)
+## Universe constants (multi-universe — v20)
 
-Pipeline supports **two universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
+Pipeline supports **three universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
 
 ### Brookfield CPAs & Advisors (default — public accounting / business advisory)
 
@@ -172,10 +173,29 @@ Pipeline supports **two universes**. Detection is automatic via `Validators/dete
 - **Services:** mortgage_los, stripe, filesystem, crm, quickbooks, email, slack, contacts.
 - **Docs:** `Docs_keystone/` · Evals: `Evals_keystone/` · QC ref: `QC_Tasks/V3.1_Tasks/`.
 
+### MoveOps Inc. (v20 — B2B remote-work relocation services, V2.1 framework)
+
+- **Base path:** `MoveOps_Base_Universe/` · Tool catalog: `6_Server_Tools_Details.json` · Persona briefs: `2_Persona_Briefs.md`
+- **Universe today:** 2026-04-26 (US/Pacific). Confirm from `_aux/Universe_Index/today_horizon.json`.
+- **Single entity:** `moveops` (21-employee B2B relocation startup in San Francisco).
+- **NO account-number trap** (operational universe, not GL-based). `airtable.tblRelocations01` is source of truth for relocation state; CRM holds the deal / engagement funnel only.
+- **PHMSA DOT hazmat compliance (HARDCODED LANDMINE):** hazmat shipments (cryogenic equipment, Class 3B lasers, chemical samples) require a SIGNED DOT certificate from the freight carrier (Swift / Heartland email thread + Airtable record). Verbal driver confirmation does NOT count. When auditing a hazmat-related claim, verify the Airtable relocation record AND the carrier email thread show actual signed documentation.
+- **Marcus Webb identity:** Marcus Webb is a BrightLoop Analytics senior analyst (CLIENT employee at `marcus.webb@brightloopanalytics.com`), DISTINCT from the KeyStone departed-employee Marcus Webb. Same name, different person, different universe — do NOT carry KeyStone's departed-employee logic over.
+- **Airtable-vs-CRM source-of-truth trap:** relocation / vendor / coordinator / stipend state lives in Airtable (`tblRelocations01`, `tblStipends00001`, `tblClientAccts01`). CRM holds the deal/engagement funnel. Never trust CRM as source for relocation state.
+- **Vendor cross-reference (Heartland Q1 invoice):** the Heartland Q1 2026 invoice has multiple cancelled / reassigned moves billed in error. Any vendor-payment-dispute task must cross-reference invoice line items against `tblRelocations01.vendor + status`, NOT trust the invoice prose.
+- **ExpenseBot pilot bugs:** the stipend auto-categorizer has known policy-config bugs for Vectral and Mosaic (exclusion checks, amount validation, duplicate hash detection). When verifying stipend approval correctness, query Airtable stipend records against the policy + Dmitri's audit findings.
+- **NO Records-Vault-style retention codes / classifications.**
+- **Slack channels:** C001 #general · C002 #customer-engagement · C003 #engineering · C004 #executive · C005 #finance · C006 #operations · C007 #customer-support · C008 #announcements · C009 #root-cause-aws-spike.
+- **Parameter traps:** email + messaging use `content` (not `body`). Slack uses `payload` (not `text`). `linear_create_issue` uses `team` (NOT `teamId`! — differs from Brookfield). `linear_create_comment` uses `issueId` + `body`. `crm_create_engagement` requires `engagement_type` + `body`. `airtable_update_records` requires `base_id` + `table_id`. `quickbooks_create_customer` requires `DisplayName` (PascalCase).
+- **Services:** airtable, calendar, contacts, crm, email, linear, public, quickbooks, slack.
+- **Business functions (5):** Operations 25% · Customer Engagement / Support 30% · Engineering 20% · Finance 15% · Executive 10%.
+- **Framework version:** V2.1 (older framework than V3 — some rubric / OE conventions may differ slightly from V3 Brookfield + V3.1 KeyStone; QC sub-dim scoring rules in `Docs_moveops/2_Rubrics_V3_Guidelines.md` may have minor deltas — read it before applying validator behavior to MoveOps tasks).
+- **Docs:** `Docs_moveops/` · Evals: `Evals_moveops/` · QC ref: `QC_Tasks/V2.1_Tasks/`.
+
 ### Universe detection
 
-- Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents).
-- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield` or `keystone`).
+- Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents). Highest signal-score wins; ties default to brookfield.
+- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, or `moveops`).
 - Every validator / council / AUDIT / FINAL reads `_aux/Universe.txt` and routes constants/paths accordingly.
 
 ## Where to start
@@ -190,7 +210,7 @@ Pipeline supports **two universes**. Detection is automatic via `Validators/dete
 ## Anti-patterns (this project)
 
 - Reading anything in `Brookfield_Base_Universe/` other than `8_Server_Tools_Details.json` or `2_Persona_Briefs.md` and treating it as current per-task truth.
-- Calling `data.legacy.py` directly (overwrites shared `Brookfield_Base_Universe/Data/` and can corrupt parallel work). Use `data.py` (smart forwarder) or `Validators/split_universe.py` instead.
+- Writing to the shared `Brookfield_Base_Universe/Data/` directory (corrupts parallel work). Use `data.py` (smart forwarder) or `Validators/split_universe.py` instead — both route output to per-task `_aux/Universe_Split/`.
 - Adding process rubrics without applying the three-condition test.
 - Using em-dashes or "at least N" without prompt mandate.
 - Mentioning guides / specs / frameworks in linter justifications or AF justifications.

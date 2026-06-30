@@ -1,0 +1,3270 @@
+{
+  "servers": [
+    {
+      "name": "Slack MCP",
+      "tools": [
+        {
+          "name": "slack_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "channels_list",
+          "description": "List channels, DMs, and Group DMs.",
+          "parameters": [
+            {
+              "name": "channel_types",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            },
+            {
+              "name": "sort",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "conversations_history",
+          "description": "Get messages in a channel or DM.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "1d"
+            }
+          ]
+        },
+        {
+          "name": "conversations_replies",
+          "description": "Get an entire message thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "thread_ts",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "include_activity_messages",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "limit",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "1d"
+            }
+          ]
+        },
+        {
+          "name": "conversations_search_messages",
+          "description": "Search across messages.",
+          "parameters": [
+            {
+              "name": "search_query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cursor",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 20
+            },
+            {
+              "name": "filter_date_on",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_during",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_after",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_date_before",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_in_channel",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_in_im_or_mpim",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_threads_only",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "filter_users_from",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "filter_users_with",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "conversations_add_message",
+          "description": "Post a message to a channel or thread.",
+          "parameters": [
+            {
+              "name": "channel_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "payload",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "content_type",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "text/markdown"
+            },
+            {
+              "name": "thread_ts",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "user_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Email MCP",
+      "tools": [
+        {
+          "name": "email_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "list_emails",
+          "description": "List emails in a folder with pagination support.",
+          "parameters": [
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "get_email_by_id",
+          "description": "Get an email by its unique ID.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "get_email_by_index",
+          "description": "Get an email by its index position in a folder.",
+          "parameters": [
+            {
+              "name": "idx",
+              "type": "integer",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "send_email",
+          "description": "Send an email to the specified recipients.",
+          "parameters": [
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "recipients",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "subject",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": ""
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": ""
+            },
+            {
+              "name": "cc",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attachment_paths",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "reply_to_email",
+          "description": "Reply to an existing email.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            },
+            {
+              "name": "cc",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "forward_email",
+          "description": "Forward an existing email to new recipients.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "sender",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "recipients",
+              "type": "array",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": ""
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "move_email",
+          "description": "Move an email from one folder to another.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "from_folder",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "to_folder",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "delete_email",
+          "description": "Delete an email by moving it to the TRASH folder.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "search_emails",
+          "description": "Search for emails in a folder based on a query string.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "folder_name",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "INBOX"
+            }
+          ]
+        },
+        {
+          "name": "show_data",
+          "description": "Show raw email data as JSON.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        },
+        {
+          "name": "list_jmap_emails",
+          "description": "List emails in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 10
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "get_jmap_email",
+          "description": "Get single email in RFC8621 JMAP format.",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "set_email_keywords",
+          "description": "Update email keywords/flags ($seen, $flagged, etc.).",
+          "parameters": [
+            {
+              "name": "email_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "keywords",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "list_mailboxes",
+          "description": "Get all mailboxes with counts and metadata.",
+          "parameters": []
+        },
+        {
+          "name": "get_mailbox",
+          "description": "Get mailbox by ID with current counts.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "get_thread",
+          "description": "Get conversation thread with all related emails.",
+          "parameters": [
+            {
+              "name": "thread_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "get_email_threads",
+          "description": "List threads in a specific mailbox.",
+          "parameters": [
+            {
+              "name": "mailbox_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Linear MCP",
+      "tools": [
+        {
+          "name": "linear_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "linear_list_users",
+          "description": "List users in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "includeDisabled",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "createdAt"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 50
+            },
+            {
+              "name": "after",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "before",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_get_user",
+          "description": "Get a specific user.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_create_user",
+          "description": "Create a new user.",
+          "parameters": [
+            {
+              "name": "email",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_list_teams",
+          "description": "List teams in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "updatedAt"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "createdAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "updatedAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_get_team",
+          "description": "Get a specific team.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_create_team",
+          "description": "Create a new team.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_list_projects",
+          "description": "List projects in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "member",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "updatedAt"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "createdAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "updatedAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_get_project",
+          "description": "Get a specific project.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_create_project",
+          "description": "Create a new project.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "lead",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "targetDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_update_project",
+          "description": "Update an existing project.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "lead",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "startDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "targetDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_list_issues",
+          "description": "List issues in the workspace.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "team",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "parentId",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "includeArchived",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": true
+            },
+            {
+              "name": "orderBy",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "updatedAt"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 50
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "createdAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "updatedAt",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_get_issue",
+          "description": "Get a specific issue.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_create_issue",
+          "description": "Create a new issue.",
+          "parameters": [
+            {
+              "name": "team",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "parentId",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "dueDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "links",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_update_issue",
+          "description": "Update an existing issue.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "assignee",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "project",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "parentId",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "priority",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "dueDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "estimate",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "cycle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "labels",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "links",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_list_comments",
+          "description": "List comments for an issue.",
+          "parameters": [
+            {
+              "name": "issueId",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "linear_create_comment",
+          "description": "Create a comment on an issue.",
+          "parameters": [
+            {
+              "name": "issueId",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "body",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "parentId",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "linear_show_data",
+          "description": "Show raw Linear data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Contacts MCP",
+      "tools": [
+        {
+          "name": "contacts_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "contacts_get_contacts",
+          "description": "Get contacts list with pagination.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            }
+          ]
+        },
+        {
+          "name": "contacts_get_contact",
+          "description": "Get a specific contact by ID.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "contacts_add_new_contact",
+          "description": "Add a new contact.",
+          "parameters": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "gender",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "age",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "nationality",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "city_living",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "job",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "contacts_edit_contact",
+          "description": "Edit a contact's fields.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "updates",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "contacts_delete_contact",
+          "description": "Delete a contact.",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "contacts_search_contacts",
+          "description": "Search contacts by name, phone, or email.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "contacts_show_data",
+          "description": "Show raw contacts data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Calendar MCP",
+      "tools": [
+        {
+          "name": "calendar_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_add_calendar_event",
+          "description": "Add a calendar event.",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "Event"
+            },
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "location",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attendees",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_get_calendar_event",
+          "description": "Get a calendar event by ID.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "calendar_delete_calendar_event",
+          "description": "Delete a calendar event.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "calendar_get_calendar_events_from_to",
+          "description": "Get events that overlap with a date range.",
+          "parameters": [
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 10
+            }
+          ]
+        },
+        {
+          "name": "calendar_read_today_calendar_events",
+          "description": "Read today's calendar events.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_get_all_tags",
+          "description": "Get all unique tags.",
+          "parameters": []
+        },
+        {
+          "name": "calendar_get_calendar_events_by_tag",
+          "description": "Get events by tag.",
+          "parameters": [
+            {
+              "name": "tag",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "calendar_search_events",
+          "description": "Search events by query in title, description, location, and attendees.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "calendar_edit_calendar_event",
+          "description": "Edit a calendar event.",
+          "parameters": [
+            {
+              "name": "event_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "start_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "end_datetime",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "location",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "attendees",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "calendar_show_data",
+          "description": "Show raw calendar data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Airtable MCP",
+      "tools": [
+        {
+          "name": "airtable_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "airtable_list_bases",
+          "description": "List all accessible Airtable bases.",
+          "parameters": []
+        },
+        {
+          "name": "airtable_list_tables",
+          "description": "List all tables in a specific base.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "detail_level",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "full"
+            }
+          ]
+        },
+        {
+          "name": "airtable_describe_table",
+          "description": "Get detailed information about a specific table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "detail_level",
+              "type": "string",
+              "required": false,
+              "nullable": false,
+              "default": "full"
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_table",
+          "description": "Create a new table in a base.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "fields",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_table",
+          "description": "Update a table's schema (name and/or description).",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_field",
+          "description": "Create a new field in a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "field",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_field",
+          "description": "Update a field in a table. Field type cannot be changed.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "field_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "updates",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_list_records",
+          "description": "List records from a specified Airtable table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "max_records",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "airtable_get_record",
+          "description": "Get a specific record by ID.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "record_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_create_record",
+          "description": "Create a new record in a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "fields",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_update_records",
+          "description": "Update one or more records in a table (max 10 per call).",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "records",
+              "type": "array",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_delete_records",
+          "description": "Delete one or more records from a table.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "record_ids",
+              "type": "array",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_search_records",
+          "description": "Search for records containing specific value in a field.",
+          "parameters": [
+            {
+              "name": "base_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "field_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "airtable_show_data",
+          "description": "Show raw data as JSON for debugging.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CRM MCP",
+      "tools": [
+        {
+          "name": "crm_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "crm_search_contacts",
+          "description": "Search contacts by full name.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_get_contact",
+          "description": "Get a contact by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_create_contact",
+          "description": "Create a new contact.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "company_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "mobilephone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "jobtitle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "website",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_contact",
+          "description": "Delete a contact by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_search_companies",
+          "description": "Search companies by name.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_get_company",
+          "description": "Get a company by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_create_company",
+          "description": "Create a new company.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "contact_ids",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "domain",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address2",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "industry",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_company",
+          "description": "Delete a company by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_search_deals",
+          "description": "Search deals by name and/or company ID.",
+          "parameters": [
+            {
+              "name": "dealname",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_get_deal",
+          "description": "Get a deal by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_create_deal",
+          "description": "Create a new deal.",
+          "parameters": [
+            {
+              "name": "dealname",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "dealstage",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "pipeline",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "amount",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "closedate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_update_deal_stage",
+          "description": "Update the stage of a deal.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "dealstage",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_deal",
+          "description": "Delete a deal by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_create_lead",
+          "description": "Create a new lead.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "company_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "mobilephone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "jobtitle",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "address",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "city",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "zip",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "website",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "industry",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "annualrevenue",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "numberofemployees",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "leadsource",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "rating",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "notes",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_search_leads",
+          "description": "Search leads by name and/or company ID.",
+          "parameters": [
+            {
+              "name": "full_name",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company_id",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_get_lead",
+          "description": "Get a lead by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_lead",
+          "description": "Delete a lead by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_create_engagement",
+          "description": "Create a new engagement.",
+          "parameters": [
+            {
+              "name": "engagement_type",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "body",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "contact_ids",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company_ids",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "phone",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_list_engagements",
+          "description": "List engagements, optionally filtered by contact or company IDs.",
+          "parameters": [
+            {
+              "name": "contact_ids",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "company_ids",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "crm_delete_engagement",
+          "description": "Delete an engagement by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "crm_show_data",
+          "description": "Show raw CRM data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quickbooks MCP",
+      "tools": [
+        {
+          "name": "quickbooks_health",
+          "description": "Check the health of the service.",
+          "parameters": []
+        },
+        {
+          "name": "quickbooks_create_customer",
+          "description": "Create a new customer in QuickBooks.",
+          "parameters": [
+            {
+              "name": "DisplayName",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "GivenName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "MiddleName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "FamilyName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "CompanyName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "PrintOnCheckName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": true
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "BillAddr",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "ShipAddr",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "Notes",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "Taxable",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": true
+            },
+            {
+              "name": "SalesTermRef",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_customer",
+          "description": "Get a customer by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_customers",
+          "description": "Search for customers using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_vendor",
+          "description": "Create a new vendor in QuickBooks.",
+          "parameters": [
+            {
+              "name": "DisplayName",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "GivenName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "FamilyName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "CompanyName",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "Active",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": true
+            },
+            {
+              "name": "Vendor1099",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "PrimaryPhone",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "PrimaryEmailAddr",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "BillAddr",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_vendor",
+          "description": "Get a vendor by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_vendors",
+          "description": "Search for vendors using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_account",
+          "description": "Create a new account in the Chart of Accounts.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "sub_type",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_update_account",
+          "description": "Update an existing account.",
+          "parameters": [
+            {
+              "name": "account_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "patch",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_accounts",
+          "description": "Search for accounts using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_invoice",
+          "description": "Create a new invoice with line items.",
+          "parameters": [
+            {
+              "name": "customer_ref",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "line_items",
+              "type": "array",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "txn_date",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "doc_number",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_read_invoice",
+          "description": "Get an invoice by ID.",
+          "parameters": [
+            {
+              "name": "invoice_id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_invoices",
+          "description": "Search for invoices using criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "object",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_create_bill",
+          "description": "Create a new bill (accounts payable).",
+          "parameters": [
+            {
+              "name": "VendorRef",
+              "type": "object",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "Line",
+              "type": "array",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "DueDate",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "Balance",
+              "type": "number",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "TotalAmt",
+              "type": "number",
+              "required": true,
+              "nullable": false
+            },
+            {
+              "name": "TxnDate",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "DocNumber",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_get_bill",
+          "description": "Get a bill by ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_search_bills",
+          "description": "Search for bills using flexible criteria.",
+          "parameters": [
+            {
+              "name": "criteria",
+              "type": "array",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "asc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "desc",
+              "type": "string",
+              "required": false,
+              "nullable": true
+            },
+            {
+              "name": "count",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            },
+            {
+              "name": "fetchAll",
+              "type": "boolean",
+              "required": false,
+              "nullable": false,
+              "default": false
+            }
+          ]
+        },
+        {
+          "name": "quickbooks_show_data",
+          "description": "Show raw QuickBooks data.",
+          "parameters": [
+            {
+              "name": "offset",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 0
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "nullable": false,
+              "default": 100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

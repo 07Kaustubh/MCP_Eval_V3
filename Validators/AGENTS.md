@@ -14,7 +14,7 @@ python Validators/split_universe.py Tasks/<TASK_DIR>
 
 Reads `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json`. Produces per-source `<service>.<table>.json` files + `Universe_complete_data.json` + `_aux/data_hash.txt` (sha256 of the input).
 
-`data.py` at the project root is now a smart forwarder that routes to `Validators/split_universe.py` when given a per-task input file. The original behavior is preserved in `data.legacy.py` — do **not** call `data.legacy.py` directly; it writes to the shared `Brookfield_Base_Universe/Data/` and will overwrite parallel work.
+`data.py` at the project root is now a smart forwarder that routes to `Validators/split_universe.py` when given a per-task input file. The legacy script that wrote to the shared `Brookfield_Base_Universe/Data/` directory has been archived to `_archive/data.legacy.py` (v21) — never call it directly; it overwrites parallel work.
 
 ### `build_universe_index.py`
 

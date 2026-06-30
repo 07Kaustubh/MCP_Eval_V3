@@ -1,0 +1,56 @@
+Task: Task3_6a3333a765783523f1b631a3
+Business Function: Accounting Operations
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing Issues:
+ * [Fail - 20%+ Minor Rubric Errors]
+More than 20% (>20%) of the criteria contain minor, moderate, or major issues: Criteria 4 and 5 are overly specific as they require an the agent to send an email to pass the verifier. The prompt does not specify the channel of delivery, and the agent could alternatively use the messaging or Slack tools to send this rundown to Daniel. 
+
+
+Non-Failing Issues:
+ * [Non-Fail Minor Clarity / Specificity Issues] - The prompt says "send Daniel a consolidated rundown of what you found on each". The channel-of-delivery is not specified and Daniel appears as a Slack and Email contact. 
+ * [Non-Fail - Incomplete Oracle Events] - The oracle events are missing a search for an email/message confirming the actual agreed subscription fee ($7,900). 
+
+Discussion:
+ * Mostly a solid task. However, two criteria (25% of the rubric) are overly specific in that they require an email when this was not specified by the prompt. This causes the task to fail.
+
+## Error Categories
+
+["[Prompt] [Prompt Clarity/ Specificity] [Non-Fail Minor Clarity / Specificity Issues]","[All] [All] [Fail - 20%+ Minor Rubric Errors]"]
+
+============================================================
+
+## Project Team Dispute
+
+Verdict: Disagree
+Proposed Score: 5
+
+Feedback:
+I strongly disagree with the feedback with below claims:
+
+The fail says criteria 4 and 5 are "overly specific" because they require an email, when the agent could have used Slack to reach Daniel: This is not what happened. In all 6 agent runs, every single agent emailed Daniel the rundown (email to daniel.jones@brookfieldcpas.com) and used Slack only for the separate "#monthly-close-coordination" post. Not one run sent Daniel's rundown over Slack. So the rubric did not punish any valid path, it matches what every agent actually did. A rubric is only "overly specific" if it would reject a valid alternative, and here there is no such alternative in any run.
+
+Criterion 4 is correct as written: It checks that the agent emails the rundown to daniel.jones@brookfieldcpas.com. The recipient is a fixed email address, and the spec clearly says exact email addresses are "never overly specific." Also, the prompt itself separates the two tasks - "send Daniel a consolidated rundown" and "post a summary in #monthly-close-coordination." These are two different destinations, so the rundown to Daniel naturally means email, while the channel post is the Slack part.
+
+Criterion 5 is about content, not channel: It only checks that the rundown to Daniel covers all three items (the accrual, the Kestrel overcharge, the duplicate AP bill). That requirement is the same no matter how it's delivered. The word "email" in it is just carried over from criterion 4; it does not change what is being checked. So criterion 5 cannot be counted as a "channel" error at all.
+
+The math does not reach the fail line: There are 8 criteria, and the "20%+" fail needs more than 20% of them flagged. Criterion 4 is correct (a fixed email address, matched by all 6 runs) and criterion 5 is a valid content check (not a channel error), so neither carries a real issue. That makes the flagged count 0 of 8 = 0%, well below the 20% line, and in fact meeting the Pass condition for this dimension. The fail cannot stand.
+
+The rest of the task is solid: The QC itself calls it "Mostly a solid task." The main findings (accrual $7,500, Kestrel overcharge $1,500, Bridgefield duplicate VEN-019-583136) are all correct and grounded in the data. The fail rests only on the criterion 4/5 channel point, which is contradicted by all 6 runs and falls below the threshold. I request that the fail be withdrawn.
+
+============================================================
+
+## QC Validation (Response to Dispute)
+
+Decision: Reject
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

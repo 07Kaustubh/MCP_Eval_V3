@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent creates a draft adjusting journal entry in period brookfield_FP-2026-05 (the firm's own open May close) to clear the FX revaluation drift on account 132000 (Prepaid Facilities Maintenance)",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to 'prepare the adjusting entry for me so it's ready for review' for the firm's own May close before the period locks. The entry must be booked in the open May period (brookfield_FP-2026-05), not the next period, to clear the $435.41 drift on account 132000.",
+        "evidence": "Look for a journal-entry creation action with period_id brookfield_FP-2026-05 that is created in a draft state and references account 132000 / the FX remeasurement. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's draft journal entry includes a debit of $435.41 to account 132000 (Prepaid Facilities Maintenance).",
+        "category": "outcome",
+        "justification": "The GL carries the GBP London prepaid (PREPAID-0042) at the February booking rate and is understated by $435.41 versus the supporting schedule (GL 71965.02 vs support 72400.43), so the corrective entry debits (increases) the asset account 132000 by $435.41.",
+        "evidence": "Check the created journal entry's lines for a debit line on account 132000 of $435.41."
+    },
+    {
+        "title": "The Agent's draft journal entry includes a credit of $435.41 to account 493000 (Foreign Exchange Gain).",
+        "category": "outcome",
+        "justification": "The offsetting side of the remeasurement is the foreign-exchange P&L account; 493000 Foreign Exchange Gain (entity brookfield) is the FX gain/loss account, credited $435.41 to recognize the period-end revaluation gain on the GBP block.",
+        "evidence": "Check the created journal entry's lines for a credit line on account 493000 of $435.41."
+    },
+    {
+        "title": "The Agent leaves the journal entry in draft (review-ready) status and does not submit, approve, or post it.",
+        "category": "outcome",
+        "justification": "The prompt asks for the entry to be 'ready for review' only, and James Randall is the named approver on the exception, so the Agent must not advance the entry beyond draft.",
+        "evidence": "Confirm there is no submit, approve, or post action performed on the created journal entry; the entry remains in draft state in the trajectory."
+    },
+    {
+        "title": "The Agent updates Harry's close task ct_harry132000may01 ('Reconcile prepaid facilities maintenance (132000)'), moving its status off not_started.",
+        "category": "outcome",
+        "justification": "The prompt says 'My line on the close tracker doesn't reflect where this actually sits, so please put mine right.' The task ct_harry132000may01, owned by harry.marks@brookfieldcpas.com, is currently not_started and must be updated to reflect the work done.",
+        "evidence": "Look for a close-task status update on ct_harry132000may01 that changes the status away from not_started (e.g., to in_progress). Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's note on close task ct_harry132000may01 states that the $435.41 variance on account 132000 is a genuine period-end FX remeasurement rather than translation noise.",
+        "category": "outcome",
+        "justification": "'Put mine right' means the tracker line must reflect the true status: the drift is a genuine FX remeasurement, not the recon's vendor-invoice explanation or the exception's intercompany root_cause.",
+        "evidence": "Check the close-task note for language stating the $435.41 item is a genuine period-end FX remeasurement on account 132000, not translation noise."
+    },
+    {
+        "title": "The Agent's note on close task ct_harry132000may01 states that the item is pending James Randall's approval of the exception before the period can lock.",
+        "category": "outcome",
+        "justification": "The tracker line should reflect what remains: the period cannot lock until James Randall approves the exception exc_cb0a9a94a3084c.",
+        "evidence": "Check the note on the close-task update for language indicating the item is awaiting James Randall's approval of the exception before the period can lock."
+    },
+    {
+        "title": "The Agent adds a new version to the working-paper document doc_wp_132000_may2026 for account 132000.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'leave a short note on the working paper for this account.' doc_wp_132000_may2026 is the May 2026 reconciliation working paper for account 132000.",
+        "evidence": "Look for an add-document-version action on doc_wp_132000_may2026 with a change note or new content. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's working-paper note states that the $435.41 drift arises because the period-end GBP/USD rate was not applied to the London prepaid (PREPAID-0042), which is still carried at the February booking rate.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to set out 'what you found.' The root cause is that the period-end rate was not applied to the GBP PREPAID-0042 tranche, leaving the GL understated by $435.41.",
+        "evidence": "Check the new working-paper version content for the cause: the period-end GBP/USD rate was not applied to the London PREPAID-0042 tranche, which is still carried at the February booking rate."
+    },
+    {
+        "title": "The Agent's working-paper note states that the corrective adjusting entry credits account 493000 (Foreign Exchange Gain).",
+        "category": "outcome",
+        "justification": "The offsetting side of the documented remeasurement treatment is the foreign-exchange P&L account 493000 Foreign Exchange Gain, credited to recognize the period-end revaluation gain on the GBP block.",
+        "evidence": "Check the new working-paper version content (doc_wp_132000_may2026) for the treatment stating the adjusting entry credits account 493000."
+    },
+    {
+        "title": "The Agent's working-paper note states that the treatment is a corrective, review-ready adjusting entry that debits account 132000 (Prepaid Facilities Maintenance).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to set out 'the treatment I'm going with.' The settled treatment is a real review-ready adjusting entry whose debit side increases the understated asset account 132000 by $435.41.",
+        "evidence": "Check the new working-paper version content (doc_wp_132000_may2026) for the treatment stating a corrective, review-ready adjusting entry that debits account 132000."
+    },
+    {
+        "title": "The Agent sends George McAdam a status update (by email to george.mcadam@brookfieldcpas.com, or through an equivalent Slack or direct message to George).",
+        "category": "outcome",
+        "justification": "The prompt says 'give George a quick status. He manages me.' George McAdam (george.mcadam@brookfieldcpas.com) is Harry's manager. The prompt names the goal (a status) and not a specific channel, so email or a Slack/direct message is equally valid.",
+        "evidence": "Look for an email to george.mcadam@brookfieldcpas.com, or a Slack/direct message to George McAdam, containing a status update. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's status update to George identifies that the $435.41 difference on account 132000 is a genuine period-end FX remeasurement on the London prepaid rather than translation noise.",
+        "category": "outcome",
+        "justification": "George 'will be fielding questions on why the period is still open,' so the status must explain the cause: a real FX remeasurement on the GBP London prepaid, not noise.",
+        "evidence": "Check the George status content for the cause being a genuine period-end FX remeasurement on account 132000 (not translation noise)."
+    },
+    {
+        "title": "The Agent's status update to George states that the corrective adjusting entry has been prepared and is review-ready.",
+        "category": "outcome",
+        "justification": "The prompt says George 'will want to know it's nearly there' \u2014 i.e., that the adjusting entry is prepared and ready for review.",
+        "evidence": "Check the George status content for confirmation that the corrective adjusting entry is prepared and review-ready."
+    },
+    {
+        "title": "The Agent's status update to George states that the only remaining step before the period can lock is James Randall's approval of the exception.",
+        "category": "outcome",
+        "justification": "The prompt says George will want to know 'what's left.' The only outstanding item is James Randall's approval of the exception exc_cb0a9a94a3084c.",
+        "evidence": "Check the George status content for the remaining step being James Randall's approval of the exception before the period can lock."
+    }
+]

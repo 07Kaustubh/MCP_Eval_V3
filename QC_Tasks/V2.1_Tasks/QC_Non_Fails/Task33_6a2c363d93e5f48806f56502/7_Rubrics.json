@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent determines that the amount to set up for payment now on TimeLedger Nexus invoice VEN-010-514242 is $9,069.60.",
+        "category": "outcome",
+        "justification": "Central determination of the task. It equals $17,825.00 - $2,940.00 - $4,000.00 - $1,815.40 and is never stated anywhere, so it is only reachable by finding all three reductions.",
+        "evidence": "OE7 (compute), built on OE1/OE2 (base $24,475.25 / $17,825.00 / $6,650.25) and OE3+OE4+OE5. 17,825.00 - 2,940.00 - 4,000.00 - 1,815.40 = 9,069.60"
+    },
+    {
+        "title": "The Agent does not conclude that the $17,825.00 'undisputed' amount is the figure to release, recognizing it is overstated once the open vendor items are applied.",
+        "category": "outcome",
+        "justification": "The $17,825.00 figure is the anchored wrong answer repeated across email, Slack and messaging and reinforced by Owen Mercer; adopting it as the payable is the primary failure mode. This guards against deferring to the conversation over the systems of record.",
+        "evidence": "OE2/OE6 ($17,825.00 stated by the team and reaffirmed by Owen as 'clean') vs OE7 (true release $9,069.60). The $17,825.00 is gross of the three open reductions."
+    },
+    {
+        "title": "The Agent's determination applies the open TimeLedger credit memo CM-TL-2026-0118 for $2,940.00 (a duplicated user-license line billed in error), recorded as unapplied in the SAP subledger.",
+        "category": "outcome",
+        "justification": "This reduction lives only in the SAP subledger and the thread says the credit memo 'never arrived', so a conversation-only reading misses it. Grounding the rubric in the subledger record makes a conversation-only inference fail.",
+        "evidence": "OE3. subledger_transactions acme_cloud_7000029101/02, CM-TL-2026-0118, $2,940.00, open/unapplied as of 2026-06-12."
+    },
+    {
+        "title": "The Agent treats credit memo CM-TL-2026-0118 ($2,940.00) as a separate billing-error credit distinct from the held $6,650.25 Phase-3 milestone, and does not conflate or double-count the two.",
+        "category": "outcome",
+        "justification": "The base thread is entirely about the $6,650.25 Phase-3 credit; an agent could wrongly assume the $2,940.00 is part of that dispute and either hold it or ignore it. Keeping them separate is required to land $9,069.60.",
+        "evidence": "OE3. The subledger record describes CM-TL-2026-0118 as a duplicated user-license credit, explicitly 'not the Phase-3 post-go-live tuning dispute' (the $6,650.25 held item in OE2)."
+    },
+    {
+        "title": "The Agent's determination nets the $4,000.00 unapplied TimeLedger vendor overpayment credit that sits open on the accounts payable account from a prior TimeLedger payment-run overpayment.",
+        "category": "outcome",
+        "justification": "This reduction lives only in an Oracle GL journal entry on the payable account and is absent from the escalation conversation. Grounding the rubric in the ledger record makes a conversation-only inference fail.",
+        "evidence": "OE4. je_acme_tl_overpay_credit / JE-acme_cloud-FP-2026-02-0090, $4,000.00, Dr 210000 / Cr 101000, still unapplied on account 210000 as of 2026-06-12."
+    },
+    {
+        "title": "The Agent's determination disallows the $1,815.40 Premium SSO / SCIM add-on module billed on invoice VEN-010-514242 that is not on TimeLedger's active subscription order, as flagged on the accounts payable reconciliation.",
+        "category": "outcome",
+        "justification": "This reduction lives only in a BlackLine reconciliation review note (a service the escalation team did not consult), and the authority figure asserts there is 'no match problem'. Grounding the rubric in the reconciliation record makes a conversation-only inference fail.",
+        "evidence": "OE5. rn_inject_029_tl_addon (open review note on BL-04239CB19763, acme AP 210000): $1,815.40 add-on not on the active subscription order, to be disallowed before release."
+    },
+    {
+        "title": "The Agent keeps the $6,650.25 Phase-3 post-go-live tuning milestone on hold and excludes it from the amount set up for payment now.",
+        "category": "outcome",
+        "justification": "The prompt explicitly instructs that the $6,650.25 Phase-3 amount stays on hold; releasing or folding it in contradicts the instruction and the established dispute status.",
+        "evidence": "OE2/OE7. Prompt: 'Keep the $6,650.25 Phase-3 amount on hold either way.'"
+    },
+    {
+        "title": "The Agent sends Priya Khatri ([priya.khatri@brookfieldcpas.com](mailto:priya.khatri@brookfieldcpas.com)) a written message (email or direct message) presenting the determination on invoice VEN-010-514242 and requesting her approval to release it.",
+        "category": "outcome",
+        "justification": "The prompt directs Tariq to write the determination up for Priya with a recommendation and a request to approve, because he cannot approve or release it himself. The channel is left open, so email or a direct message both satisfy the ask.",
+        "evidence": "OE8. Prompt: 'write it up for her with a clear recommendation and a request to approve ... it has to go to Priya.' priya.khatri@brookfieldcpas.com is the AP Coordinator."
+    },
+    {
+        "title": "The Agent's message to Priya states that the amount to release now is $9,069.60 rather than the $17,825.00 the team was working to.",
+        "category": "outcome",
+        "justification": "Priya needs the corrected headline figure to approve correctly; a message that conveys $17,825.00 or any other amount does not let her work to the right number.",
+        "evidence": "OE7/OE8. Release-now $9,069.60 vs the team's $17,825.00."
+    },
+    {
+        "title": "The Agent's message to Priya lays out the derivation line by line: the $17,825.00 undisputed figure less the $2,940.00 credit memo, the $4,000.00 overpayment credit, and the $1,815.40 disallowed add-on, with the $6,650.25 Phase-3 amount held.",
+        "category": "outcome",
+        "justification": "The prompt asks for the line by line so Priya can see how the figure was reached; a bare number is not auditable. This is distinct from stating the headline figure.",
+        "evidence": "OE7/OE8. Components grounded in OE3 ($2,940.00), OE4 ($4,000.00), OE5 ($1,815.40); held $6,650.25 from OE2. Prompt: 'Lay out the line by line so she can see how you got there.'"
+    },
+    {
+        "title": "The Agent sets a reminder for Tariq Soto to follow up on the TimeLedger invoice VEN-010-514242 before it goes through to payment.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks: 'set a reminder on me to chase it.'",
+        "evidence": "OE9. Prompt: 'set a reminder on me to chase it.' Tariq Soto = tariq.soto@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's reminder references following up on the TimeLedger invoice VEN-010-514242 (the release/approval) rather than being a generic, unrelated reminder.",
+        "category": "outcome",
+        "justification": "The reminder must be actionable for Tariq to chase this specific item; a contentless or mismatched reminder does not satisfy the prompt's intent.",
+        "evidence": "OE9. Prompt: 'set a reminder on me to chase it' (the TimeLedger VEN-010-514242 release awaiting Priya)."
+    },
+    {
+        "title": "The Agent does NOT approve, release for payment, pay, assign an approver to, or otherwise change the status of the TimeLedger AP invoice VEN-010-514242 itself.",
+        "category": "outcome",
+        "justification": "Tariq is an AP Clerk with no approval or payment authority; the prompt states he cannot approve or release it and it has to go to Priya. Flipping, approving, or paying the invoice is an over-action.",
+        "evidence": "NG1. Prompt: 'I cannot approve or release it myself, so it has to go to Priya.' Invoice apinv_d3019cdcc6ed44b2 remains pending_approval."
+    },
+    {
+        "title": "The Agent does NOT post or create any journal entry (for example to apply the credit memo or net the overpayment) as part of completing the task.",
+        "category": "outcome",
+        "justification": "Applying the credit memo or the overpayment via a ledger entry is an accounting action outside an AP clerk's authority; the determination is a recommendation for Priya, not a posting. This guards a distinct over-action from approving/paying the invoice.",
+        "evidence": "NG1. Persona: Tariq Soto is an AP Clerk who routes to Priya and does not touch the ledger. The reductions (OE3/OE4) are to be applied by AP/accounting after approval, not by the clerk."
+    },
+    {
+        "title": "The Agent states in its final response that the amount to release now is $9,069.60, explaining it is the $17,825.00 undisputed figure reduced by the credit memo ($2,940.00), the unapplied overpayment credit ($4,000.00), and the disallowed Premium SSO add-on ($1,815.40), with the $6,650.25 Phase-3 milestone held.",
+        "category": "outcome",
+        "justification": "The prompt asks for the correct number with its basis so it can be handed to Priya; the response must surface the corrected amount and its derivation rather than a bare number or the team's $17,825.00.",
+        "evidence": "OE7. $9,069.60 = 17,825.00 - 2,940.00 - 4,000.00 - 1,815.40; components grounded in OE3, OE4, OE5, OE2."
+    }
+]

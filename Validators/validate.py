@@ -173,6 +173,8 @@ DOC_ID = re.compile(r"\bdoc_[a-f0-9]{8}\b")
 VENDOR_ID = re.compile(r"\bVEN-\d{3,4}(?:-[A-Za-z]+)?(?:-\d{3,6})?\b")
 APINV_ID = re.compile(r"\bapinv_[a-f0-9]{14,16}\b")
 RELATIVE_DATE = re.compile(r"\b(?:tomorrow|yesterday|today|next\s+(?:week|month|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|last\s+(?:week|month|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|\d+\s+days?\s+ago|in\s+\d+\s+days?|this\s+(?:week|month|quarter|morning|afternoon|evening))\b", re.IGNORECASE)
+DATE_YMD = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+ACCOUNT_NUM = re.compile(r"(?<![\d.\-])\d{6}(?![\d.\-])")
 
 # Prompt_Guidelines.md anti-patterns
 QC_SAMPLE_CLICHE = re.compile(r"\b(?:go through everything and surface every|i need the full picture[:,]|dig through our emails,?\s+slack|email me the full|loop in [a-z]+|cc our ceo|flag the biggest risks|brief [a-z]+ and [a-z]+ with what you found)\b", re.IGNORECASE)
@@ -370,13 +372,13 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
                 rep.fail(f"persona is an NPC for {universe}: `{npc}`. NPCs appear as participants/counterparties, never as task author. See {consts['persona_briefs']} for valid authoring personas.")
                 break
         if local_persona_email_domain:
-            wrong_domains = {
-                "brookfieldcpas.com": "keystonemortgage.com",
-                "keystonemortgage.com": "brookfieldcpas.com",
-            }
-            wrong = wrong_domains.get(local_persona_email_domain)
-            if wrong and wrong in persona_text.lower():
-                rep.fail(f"persona email domain mismatch: persona references `{wrong}` but universe is {universe} (expected domain: `{local_persona_email_domain}`). Cross-universe persona contamination.")
+            all_universe_domains = {"brookfieldcpas.com", "keystonemortgage.com", "moveops.com"}
+            wrong_domains = all_universe_domains - {local_persona_email_domain}
+            persona_lower = persona_text.lower()
+            for wrong in wrong_domains:
+                if wrong in persona_lower:
+                    rep.fail(f"persona email domain mismatch: persona references `{wrong}` but universe is {universe} (expected domain: `{local_persona_email_domain}`). Cross-universe persona contamination.")
+                    break
 
     INJECTION_PATTERN = re.compile(
         r"\b(?:ignore\s+(?:all\s+)?(?:other\s+|previous\s+|prior\s+)?(?:criteria|instructions|rules|rubrics)|"
@@ -720,6 +722,35 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
         line_no = text.count("\n", 0, m.start()) + 1
         rep.fail(f"OE line {line_no}: formatting — markdown header `{m.group(0).strip()[:60]}`. OE steps are plain prose with no section headers; convert to OE<n> numbered steps.")
         break
+
+    oe_service_map = consts.get("oe_service_map", {}) or {}
+    local_services = sorted(set(consts.get("services", []) or []), key=len, reverse=True)
+    oe_steps_x3 = re.split(r"(?m)^OE\s*\d+\s*[:.\)]\s*", text)
+    oe_steps_x3 = [s.strip() for s in oe_steps_x3 if s.strip()]
+    if oe_service_map and local_services and oe_steps_x3:
+        for step_idx, step in enumerate(oe_steps_x3, 1):
+            tools_in_step = set(TOOL_NAME_HINT.findall(step))
+            if not tools_in_step:
+                continue
+            step_services = set()
+            for tool in tools_in_step:
+                for svc in local_services:
+                    if tool.startswith(svc + "_"):
+                        step_services.add(svc)
+                        break
+            if not step_services:
+                continue
+            step_lc = step.lower()
+            flagged_for_step = set()
+            for data_type, expected_service in oe_service_map.items():
+                if expected_service in flagged_for_step:
+                    continue
+                if not re.search(rf"\b{re.escape(data_type)}\b", step_lc):
+                    continue
+                if expected_service in step_services:
+                    continue
+                rep.warn(f"OE step {step_idx} (X3 service-mapping): step text references `{data_type}` (expected service `{expected_service}` per {universe} oe_service_map) but tool call(s) target service(s) {sorted(step_services)}. Verify the right service is being used for this data type. WARN-only observation period.")
+                flagged_for_step.add(expected_service)
 
 
 def validate_rubrics(task_dir: Path, rep: Report) -> None:
@@ -1119,6 +1150,80 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                 amt = am.group(0)
                 if amt.lstrip("$").lower() not in hardness_text and prompt_text and amt.lstrip("$") not in prompt_text:
                     rep.warn(f"rubric[{i}]: amount `{amt}` not in Hardness_Plan ground-truth atoms AND not in prompt. Verify it's not a fabricated value that contradicts the universe-derived correct answer.")
+
+    oe_path_x2 = task_dir / "6_Oracle_Events.txt"
+    if oe_path_x2.is_file() and rubrics:
+        oe_text_x2 = oe_path_x2.read_text(encoding="utf-8")
+
+        def _x2_norm_amount(raw: str) -> str:
+            a = raw.replace(" ", "").lstrip("$").replace(",", "")
+            try:
+                return str(Decimal(a).quantize(Decimal("0.01")))
+            except (InvalidOperation, ValueError):
+                return a.lower()
+
+        def _x2_typed_atoms(text: str) -> set:
+            atoms = set()
+            for m in MONEY_RE.finditer(text):
+                atoms.add(("amount", _x2_norm_amount(m.group(0))))
+            for m in EMAIL_RE.finditer(text):
+                atoms.add(("email", m.group(0).lower()))
+            for m in JE_ID.finditer(text):
+                atoms.add(("je", m.group(0)))
+            for m in EXC_ID.finditer(text):
+                atoms.add(("exc", m.group(0)))
+            for m in RECON_ID.finditer(text):
+                atoms.add(("recon", m.group(0)))
+            for m in VENDOR_ID.finditer(text):
+                atoms.add(("vendor", m.group(0)))
+            for m in APINV_ID.finditer(text):
+                atoms.add(("apinv", m.group(0)))
+            for m in DOC_ID.finditer(text):
+                atoms.add(("doc", m.group(0)))
+            for m in DATE_YMD.finditer(text):
+                atoms.add(("date", m.group(0)))
+            for m in ACCOUNT_NUM.finditer(text):
+                atoms.add(("account", m.group(0)))
+            for code in (local_retention_codes or set()):
+                if re.search(rf"\b{re.escape(code)}\b", text):
+                    atoms.add(("retention", code))
+            for cls in (local_classifications or set()):
+                if re.search(rf"\b{re.escape(cls)}\b", text, re.IGNORECASE):
+                    atoms.add(("classification", cls.lower()))
+            for chan in (local_slack_channels or set()):
+                if re.search(rf"\b{re.escape(chan)}\b", text):
+                    atoms.add(("slack_chan", chan))
+            return atoms
+
+        oe_atoms_by_type: dict = {}
+        for atype, aval in _x2_typed_atoms(oe_text_x2):
+            oe_atoms_by_type.setdefault(atype, set()).add(aval)
+
+        for ri, rr in enumerate(rubrics):
+            if not isinstance(rr, dict):
+                continue
+            rt = rr.get("title", "")
+            if not isinstance(rt, str) or not rt.strip():
+                continue
+            rt_lc = rt.lower()
+            if "(or similar)" in rt_lc or "(or equivalent)" in rt_lc:
+                continue
+            seen_x2_keys = set()
+            for atype, aval in _x2_typed_atoms(rt):
+                key = (atype, aval)
+                if key in seen_x2_keys:
+                    continue
+                seen_x2_keys.add(key)
+                oe_set = oe_atoms_by_type.get(atype, set())
+                if aval in oe_set:
+                    continue
+                if oe_set and aval.lower() in {v.lower() for v in oe_set}:
+                    continue
+                if not oe_set:
+                    rep.warn(f"rubric[{ri}] (X2 rubric-OE consistency): typed value `{aval}` ({atype}) in title has no OE step referencing any `{atype}` value. CONSISTENCY_GAP candidate. WARN-only observation period.")
+                else:
+                    sample = sorted(oe_set)[:3]
+                    rep.warn(f"rubric[{ri}] (X2 rubric-OE consistency): typed value `{aval}` ({atype}) in title differs from OE values of same type: {sample}. CONSISTENCY_GAP candidate. WARN-only observation period.")
 
     rep.note(f"counts: outcome={outcome_n}, process={process_n}")
     if outcome_n == 0:

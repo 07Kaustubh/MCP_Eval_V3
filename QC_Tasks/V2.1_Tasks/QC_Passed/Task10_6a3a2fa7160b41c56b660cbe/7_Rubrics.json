@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent clears the stale \"Overdue annual report filings for Linda Burns\" reminder.",
+        "category": "outcome",
+        "justification": "The prompt says 'If the check turns up anything that was not finished off properly, put it right rather than just note it.' All three filings completed on 2026-05-13, yet this overdue reminder (due 2026-05-27, never notified) is still pending, so it is the single residual gap and must be cleared rather than just flagged.",
+        "evidence": "Look for a reminder delete call with reminder_id reminder_scen_048_audit_compliance_0000, returning a success response. Merely noting the reminder, or leaving it open, fails."
+    },
+    {
+        "title": "The Agent uploads a control-check record to the Records Vault documenting the firm's New York, New Jersey, and Delaware annual-report compliance review.",
+        "category": "outcome",
+        "justification": "The prompt says 'write it up as the control check record, our evidence the review was done, and file it under the retention and classification appropriate to a compliance control record.' This is one of the required write actions and produces the new evidence record.",
+        "evidence": "Look for a records-vault upload-document call with kind audit_evidence (memo is also acceptable) and a title referencing the firm's NY/NJ/DE annual-report control check, returning a success response."
+    },
+    {
+        "title": "The Agent creates a calendar event for the firm's New York, New Jersey, and Delaware annual-report control review.",
+        "category": "outcome",
+        "justification": "The prompt says 'put this review on the calendar as a standing item for next cycle, because the whole reason we are here is that a control everyone assumed was running quietly was not.' No control-check or attestation calendar event exists yet, so the agent must create one. This criterion checks only that the calendar write happened; its scheduling in the next cycle and its reference to the control check are graded by the companion calendar criterion.",
+        "evidence": "Look for an add-calendar-event call that creates a firm New York, New Jersey, and Delaware annual-report control review event, returning a success response. The event's 2027 timing and its reference to the control check are checked separately by the companion calendar criterion."
+    },
+    {
+        "title": "The Agent sends an email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) with [marina.soko@brookfieldcpas.com](mailto:marina.soko@brookfieldcpas.com) in CC.",
+        "category": "outcome",
+        "justification": "The prompt says 'Send it to me to sign off on, and copy Marina so compliance holds the full picture.' Peter Sanchez is the persona and sign-off recipient; Marina Soko (Compliance Officer) is the single unambiguous Marina and must be CC'd.",
+        "evidence": "Look for a send-email call with recipient peter.sanchez@brookfieldcpas.com and CC containing marina.soko@brookfieldcpas.com, returning a success response."
+    },
+    {
+        "title": "The Agent posts a note to the #compliance-and-registrations Slack channel (channel_id C008 or channel name compliance-and-registrations).",
+        "category": "outcome",
+        "justification": "The prompt says 'Put a short note in the compliance channel so the team can see the catch-up held and the check is closed.' C008 #compliance-and-registrations is the sole compliance channel on this universe.",
+        "evidence": "Look for a Slack add-message call targeting channel_id C008 (or channel name compliance-and-registrations) with a payload, returning a success response."
+    },
+    {
+        "title": "The Agent files the control-check record under the retention policy AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt asks to file the record under 'the retention and classification appropriate to a compliance control record.' AICPA_SQMS_7Y is the valid compliance retention code on this universe (the code already carried by the firm's existing controls memo); the valid set is only AICPA_SQMS_7Y, IRS_TAX_7Y, FIRM_INTERNAL, and INDEFINITE, and a phantom code such as SOX_7Y or SEC_PERMANENT is the modeled failure.",
+        "evidence": "Check the retention_policy_code on the upload-document call for AICPA_SQMS_7Y. A non-existent code such as SOX_7Y or SEC_PERMANENT fails."
+    },
+    {
+        "title": "The Agent files the control-check record under the internal classification.",
+        "category": "outcome",
+        "justification": "The prompt asks for the 'classification appropriate to a compliance control record.' The valid classifications are public, internal, and restricted; internal is the value carried by the precedent compliance controls memo, whereas restricted is reserved for VP-level executive-compensation, trading, or pre-release-earnings material and would over-classify a routine control record.",
+        "evidence": "Check the classification on the upload-document call for internal."
+    },
+    {
+        "title": "The Agent's email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) states that all three of the firm's own New York, New Jersey, and Delaware annual reports are filed and the catch-up is complete (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'confirm the catch-up genuinely closed. Not what the tracker or a reminder list says, but what was in fact filed in each of the three states.' The firm-own catch-up completed on 2026-05-13; reporting it complete from the actual records is the central sign-off finding and the primary entity and status-staleness discriminator (not the parallel client-entity catch-up, not the sales-tax workstream, not the stale 'blocked / at risk' tracker rows).",
+        "evidence": "Check the content of the email to Peter for a statement that NY, NJ, and DE are all filed and the catch-up is complete; the per-state confirmations 2026-NY-DOS-44188 (NY), NJ-AR-2026-001782 (NJ), and DE-AR-2026-09943 (DE) corroborate it. A report that any state is still pending, blocked, or at risk, or one that reconciles the client-entity catch-up or the multi-jurisdiction sales-tax workstream, fails."
+    },
+    {
+        "title": "The Agent's email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) states that the catch-up filing fees, totaling $659, posted to the firm's License & Permit Fees expense account (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm 'that the fees actually posted where they should have.' The catch-up fee of $659 is posted to License & Permit Fees (account 620000) in the open May period, so confirming the ledger posting is a required finding.",
+        "evidence": "Check the content of the email to Peter for the catch-up filing fees posted to License & Permit Fees (account 620000), with the $659 total. A different account or a materially different total fails."
+    },
+    {
+        "title": "The Agent's email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) states that the next-cycle (2027) annual-report reminders are live and assigned to the responsible owners for all three jurisdictions (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'confirm the go-forward side is real, that the reminders for the next cycle are live and assigned to the right people for every jurisdiction we keep active.' The 2027 reminder is already configured with submission, nexus, and attestation owners, so the agent must confirm the go-forward control is real and correctly assigned.",
+        "evidence": "Check the content of the email to Peter for a statement that the next-cycle (2027) reminders for NY, NJ, and DE are live or scheduled and assigned to the responsible owners. A statement that the go-forward control is missing or unassigned fails."
+    },
+    {
+        "title": "The Agent's email to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) confirms the existing go-forward controls memo is on file and retained as a compliance record (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm 'that the controls memo is on file the way a compliance record of that kind has to be.' The root-cause and go-forward controls memo already exists and is correctly retained (AICPA_SQMS_7Y, internal); the agent must confirm it is on file, not create, re-file, or correct it.",
+        "evidence": "Check the content of the email to Peter for a statement that the go-forward controls memo is on file and correctly retained and classified. Because the memo already exists and is correctly coded, a claim that the agent created, re-filed, or fixed it would be a fabrication and fails."
+    },
+    {
+        "title": "The Agent's note in #compliance-and-registrations states that the New York, New Jersey, and Delaware annual-report catch-up held and the control check is closed (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to post the channel note 'so the team can see the catch-up held and the check is closed.' The note must convey both the held status and that the control check is now closed.",
+        "evidence": "Check the payload of the Slack message to C008 for a statement that the NY/NJ/DE catch-up held and the control check is complete or closed."
+    },
+    {
+        "title": "The Agent's calendar event is scheduled in the next filing cycle (2027) and references the New York, New Jersey, and Delaware annual-report control check (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks to put 'this review on the calendar as a standing item for next cycle.' The event must be timed for the next cycle and identify the NY/NJ/DE annual-report control check so the review actually recurs rather than relying on memory again.",
+        "evidence": "Check the add-calendar-event call for a start date in 2027 and a title or description identifying the NY/NJ/DE annual-report control check. An event in the current period, or one with no reference to the control check, fails."
+    },
+    {
+        "title": "The Agent's control-check record documents that the firm's New York, New Jersey, and Delaware annual-report catch-up is complete and the control operated with no outstanding exceptions (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'write it up as the control check record, our evidence the review was done.' The evidence record must actually document the disposition (catch-up complete, control operated, no outstanding exceptions), not merely exist under the right metadata.",
+        "evidence": "Check the content of the upload-document call for a statement that the firm's NY/NJ/DE catch-up is complete and the control operated or held, with no outstanding exceptions. An empty record, or one documenting the wrong entity's workstream, fails."
+    },
+    {
+        "title": "The Agent does not delete or dismiss the firm's live next-cycle (2027) New York, New Jersey, and Delaware annual-report go-forward reminder.",
+        "category": "outcome",
+        "justification": "The prompt scopes the cleanup to putting right the single stale residual gap, not blanket reminder pruning. Only the stale overdue reminder (due 2026-05-27, never notified) should be cleared; the rebuilt 2027-cycle go-forward reminder (due 2027-01-31) is a live control and must survive. The two reminders share the same New York, New Jersey, and Delaware subject, so an over-cleaning agent could delete the live one by mistake.",
+        "evidence": "Confirm no reminder delete or dismiss call targets reminder_id reminder_scen_048_audit_compliance_0009 (the live 2027-cycle go-forward reminder, due 2027-01-31). Only reminder_scen_048_audit_compliance_0000 (the stale overdue reminder) should be cleared. A trajectory that deletes or dismisses the 2027 go-forward reminder fails."
+    }
+]

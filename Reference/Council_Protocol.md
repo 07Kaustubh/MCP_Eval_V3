@@ -64,12 +64,8 @@ Same rule for authority/permission collision: if the prompt asks persona A to do
 
 This perspective prevents the Unique Ground Truth failure where two valid end-states exist (the prompt-prescribed and the universe-prescribed) without disambiguation.
 
-### A5 — Persona Authorship Whitelist (prompt phase) — REMOVED in v18 (validator A3 NPC blocklist covers; body kept for reference only — do NOT execute as a council perspective)
-Read `Brookfield_Base_Universe/2_Persona_Briefs.md` end to end. The file enumerates the 28 authoring personas — the only personas valid as the TASK AUTHOR (the voice issuing the prompt). Verify the persona assigned in `Tasks/<TASK_DIR>/2_Persona.txt` matches one of the 28 by name AND role.
-
-Negative blocklist (caught by `Validators/validate.py`): Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac. These are NPCs — counterparties / participants in scenarios, never task authors.
-
-This perspective performs the POSITIVE-whitelist check the validator cannot: the validator only catches the 7 known NPCs by name; A5 catches assignments to ANY persona absent from the 28-authoring list (including personas hallucinated from the universe). Output: `PERSONA <name> -> POSITION_IN_AUTHORING_LIST <n>/28 (or NOT_IN_LIST)`. NOT_IN_LIST = BLOCK with reason "persona is not in the 28-authoring set per 2_Persona_Briefs.md".
+### A5 — Persona Authorship Whitelist — RETIRED in v18; do not execute
+Handled deterministically by `Validators/validate.py` A3 (NPC blocklist + positive 28-persona whitelist via `Validators/universes.py`). Body removed in v21; see CHANGELOG v18 + v21 entries for the historical perspective text.
 
 ### A6 — Persona Scope (prompt + rubrics phase)
 When the prompt uses possessive scope ("my X", "our X", "my vendors", "my open POs", "my drafts", "the items in my queue"), the scope is bound to the PERSONA's universe assignments — not the firm's full inventory. For every rubric value that is universe-grounded (vendor_id, JE_id, exception_id, recon_id, amount, recipient), verify the value belongs to the persona's assignment scope per `_aux/Universe_Split/`.
@@ -87,19 +83,11 @@ Output per ambiguity: `CLARITY_GAP: <one-line description> -> reading A produces
 
 This perspective catches the Prompt Clarity & Specificity 1/3/5 NON-FAIL middle band where the prompt has a leading interpretation but is reasonable in two ways.
 
-### A8 — Truthfulness deep tally (prompt phase) — REMOVED in v18 (merged into A1, backed by verify_universe_atoms.py — do NOT execute as a separate perspective)
-For every factual claim in the prompt, classify as MAJOR (claim is core to the request — wrong = the prompt is unanswerable / leads to wrong action) or MINOR (claim is incidental / context-only). Tally:
-- 1+ MAJOR factual error = FAIL
-- 2+ MINOR factual errors = FAIL
-- exactly 1 MINOR error = NON-FAIL
+### A8 — Truthfulness deep tally — RETIRED in v18; do not execute
+Merged into A1 grounding (now backed by `Validators/verify_universe_atoms.py` per-atom evidence table). Body removed in v21; see CHANGELOG v18 + v21 entries.
 
-Source of truth: `_aux/Fact_Ledger.json` + `_aux/Universe_Split/`. For each error: `TRUTHFULNESS_ERROR: severity=<MAJOR|MINOR> claim=<quote> actual=<value from universe>`. Closes the "no irrelevant-statement check" gap in the existing A1 grounding sweep.
-
-### A9 — Persona Fit Comparison (prompt phase) — MOVED in v18 to on-demand PIPELINE AUDIT --lens persona-fit (do NOT run inline by Council A)
-Read `Brookfield_Base_Universe/2_Persona_Briefs.md` end-to-end. For the assigned persona, grade prompt-fit 1-5. Then identify any OTHER persona from the 28 that would fit the prompt BETTER. If a better fit exists, output:
-`PERSONA_FIT_MISMATCH: assigned=<name> (fit=<n>/5) better_candidate=<name> (fit=<n>/5) reason=<one-line>`.
-
-Decision: better-fit candidate with delta ≥ 2 = NON-FAIL (Persona Mismatch). Delta = 1 = NOTE. No better fit = PASS. Acceptance rule: **both CB and REVIEW authors may swap persona for a better-fitting one (without changing assigned business function)**. This is a common fallback when the assigned persona does not yield a strong scenario / fails the hardness gate. Flag for operator-decision, not auto-block. The business function is the fixed scope anchor; persona is the flexible variable.
+### A9 — Persona Fit Comparison — MOVED in v18 to on-demand `PIPELINE AUDIT --lens persona-fit`; do not run inline
+Persona-fit comparison is heavyweight and rarely actionable. It moved out of every-task Council A to an operator-triggered on-demand lens. The persona-swap rule still holds: both CB and REVIEW authors may swap persona for a better-fitting one within the same fixed business function. Body removed in v21; see CHANGELOG v18 + v21 entries.
 
 ### A10 — Business Function Match (prompt phase)
 Read `Docs/5_Prompt_Diversity_Business_Function.md` (or `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` as fallback) to enumerate the 10 Brookfield business functions: Accounting Operations, Bookkeeping, Tax, Compliance & Internal Controls, Audit, AP / Vendor Operations, BlackLine Close-Discipline & Variance, Engagement Mgmt & Client Operations, Executive / Partner Oversight, HR & People Operations.
@@ -122,10 +110,8 @@ Exception: when the ground truth is genuinely indeterminate (the prompt asks the
 
 This perspective enforces the QC spec rule: "When the prompt asks for multiple write actions of the same type, write one Outcome rubric per item grounded in ground truth — never bundle into 'at least N' thresholds. 'At least N' is reward-hackable."
 
-### A12 — Cross-Service Coherence (universe phase) — REMOVED in v18 (merged into A1 — do NOT execute as a separate perspective)
-For each key entity that appears in 2+ services (persona email in contacts + journal_entries.created_by; vendor in vendors + ap_invoices; recon in blackline_reconciliations + journal_entries; client in clients + email threads + Slack channels), verify name + ID + date consistency across services. Universe edits (per `_changelog` if present) must not have introduced cross-service contradictions.
-
-Output per contradiction: `CROSS_SERVICE: entity <name> referenced as <value_A> in <service_A> but <value_B> in <service_B>. Either edit is inconsistent or service B is stale.` BLOCK if the contradiction would cause an agent failure (e.g., the rubric expects value_A but the agent sees value_B in their primary lookup path).
+### A12 — Cross-Service Coherence — RETIRED in v18; do not execute
+Merged into A1 grounding. The cross-service consistency checks are now part of `Validators/verify_universe_atoms.py` (entity-row resolution across `Universe_Split/` services). Body removed in v21; see CHANGELOG v18 + v21 entries.
 
 **Prompt template:**
 
@@ -206,17 +192,26 @@ flag for decision not auto-block.
 
 [A10 — Business Function Match] (prompt phase) Read `_aux/Universe.txt` to
 resolve universe. Then read the universe-correct business-function doc per
-the registry (Brookfield: `Docs/5_Prompt_Diversity_Business_Function.md` or
-`Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` — 10
-categories: Accounting Operations, Bookkeeping, Tax, Compliance & Internal
-Controls, Audit, AP / Vendor Operations, BlackLine Close-Discipline &
-Variance, Engagement Mgmt & Client Operations, Executive / Partner
-Oversight, HR & People Operations. KeyStone:
-`Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md` — 6
-categories: Loan Operations 30%, Compliance 20%, Sales 20%, Finance 15%,
-Executive 10%, IT 5%). Verify assigned business function matches the
-prompt's primary scenario. False = BLOCK (CB cannot change assigned
-business function). Ambiguous = NON-FAIL.
+the registry:
+
+  Brookfield: `Docs/5_Prompt_Diversity_Business_Function.md` or
+  `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` — 10
+  categories: Accounting Operations, Bookkeeping, Tax, Compliance & Internal
+  Controls, Audit, AP / Vendor Operations, BlackLine Close-Discipline &
+  Variance, Engagement Mgmt & Client Operations, Executive / Partner
+  Oversight, HR & People Operations.
+
+  KeyStone: `Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md`
+  — 6 categories: Loan Operations 30%, Compliance 20%, Sales 20%, Finance
+  15%, Executive 10%, IT 5%.
+
+  MoveOps: `MoveOps_Base_Universe/3_Task_Categories_Business_Functions.md`
+  — 5 categories: Operations 25%, Customer Engagement / Support 30%,
+  Engineering 20%, Finance 15%, Executive 10%.
+
+Verify assigned business function matches the prompt's primary scenario.
+False = BLOCK (CB cannot change assigned business function). Ambiguous =
+NON-FAIL.
 
 [A11 — End-to-End Solvability] (prompt + OE phase) Walk the dependency
 chain from Hardness_Plan.md. For each step, verify the required source row
@@ -307,8 +302,8 @@ For each lever selected in `_aux/Hardness_Plan.md`, verify the deliverable still
 
 If any lever is no longer triggered, flag `HARDNESS_REGRESSION` — the deliverable lost a lever the prompt was designed around.
 
-### B5 — Tool-leak / phrasing scan (lightweight) — REMOVED in v18 (validator regex covers fully — do NOT execute as a council perspective)
-Search the deliverable for tool names in forbidden positions, internal IDs in the prompt, em-dashes / en-dashes, "at least N" phrases, "approximately" misuse, "(or similar)" near exact values. Report each hit.
+### B5 — Tool-leak / phrasing scan — RETIRED in v18; do not execute
+Covered fully by `Validators/validate.py` regex sweep (tool names in forbidden positions, em-dashes / en-dashes, "at least N", "approximately" misuse, "(or similar)" near exact values). Body removed in v21; see CHANGELOG v18 + v21 entries.
 
 ### B6 — Upstream propagation
 When you find an issue that originates in an UPSTREAM artifact (not the one under review), flag it with a `PROPAGATE TO <PHASE>: ...` tag instead of patching it downstream. The principle: fix the issue at the phase where the root cause lives, then re-run downstream phases. Patching a downstream artifact to paper over an upstream root cause silently embeds the bug forever.
@@ -326,6 +321,9 @@ Output format for each finding: `PROPAGATE TO <PHASE>: <one-line root cause> -- 
 A B6 finding is BLOCKING — the deliverable under review cannot ship until the upstream phase has been re-run with the fix and the downstream phase re-run on the fresh upstream artifact. Do NOT accept "fix it in place at the current phase" as an alternative when the root cause is upstream.
 
 ### B7 — Per-rubric Cross-artifact Consistency (S3 rubrics phase)
+
+**Deterministic floor:** `Validators/validate.py` rule X2 already performs the mechanical typed-value map-and-diff between every rubric title and the matching OE step (amounts, emails, JE/exc/recon/vendor/apinv/doc IDs, YYYY-MM-DD dates, 6-digit account numbers, retention codes, classifications, Slack channel IDs). Council B-B7 should now focus on semantic / freetext mismatches the deterministic check cannot catch — paraphrased recipient roles, narrative wording, unit / precision drift, or value collisions that share a regex shape but differ in meaning.
+
 For every rubric criterion, identify the matching OE step that produces / asserts the value. Verify the value in the rubric matches the value in the OE step exactly (modulo "(or similar)" flexibility on freetext fields).
 
 How to verify: build a map `value_in_rubric -> {amount | recipient | vendor_id | exception_id | je_id | recon_id | date | account | retention_code | classification}`. For each value, grep the OE for a step that produces the same value with the same type. Mismatches to flag:
@@ -348,36 +346,21 @@ Output per missing step: `OE_INCOMPLETE: prompt requires <step> (e.g., "resolve 
 
 This perspective catches the OE Completeness sub-dim "missing critical steps" non-fail. Each missing step = NON-FAIL (not BLOCK, per QC spec). Multiple missing steps = FAIL.
 
-### B10 — OE Write-Action → Outcome 1.1 forward map (S3 rubrics phase) — CONVERTED in v18 to validator X1 deterministic check — do NOT execute as a council perspective
-For every OE step that performs a write action (send / post / create / approve / file / upload / update / void / reverse / submit / archive / notify / email / schedule / draft / add / certify / dismiss / escalate / forward / publish / stage / circulate), verify there exists at least one Outcome rubric (sub-category 1.1) whose title checks that the action happened.
+### B10 — OE Write-Action → Outcome 1.1 forward map — RETIRED in v18; do not execute
+Converted to `Validators/validate.py` rule X1 (OE-verb extraction + rubric-title coverage check, deterministic). Body removed in v21; see CHANGELOG v18 + v21 entries.
 
-How to verify: build a map `oe_write_steps -> {action verb, recipient/target}`. For each write step, search the rubric set for an Outcome rubric whose title contains the same action verb directed at the same target. Mismatches:
-- OE creates a Linear issue, no Outcome 1.1 rubric checks issue creation = `MISSING_OUTCOME_1.1: OE<n> writes <action> but no rubric verifies the action.`
-- OE sends an email, no Outcome 1.1 rubric checks email send to that recipient = MISSING.
-- OE files a document, no Outcome 1.1 rubric checks the upload = MISSING.
-
-This perspective closes the forward-map gap that validator X1 partially covers (X1 maps prompt verbs → Outcome rubrics; B10 maps OE write actions → Outcome rubrics, which is the binding contract since OEs are the dependency chain the rubrics validate).
-
-A B10 finding is BLOCKING — every OE write action needs a covering Outcome 1.1 to prove the agent's trajectory executed it.
-
-### B11 — Prompt "Tell-me" cue → Outcome 2.1 forward map (S3 rubrics phase) — CONVERTED in v18 to validator regex+check — do NOT execute as a council perspective
-For every cue in the prompt that asks the agent to report a key fact in the final response ("tell me where it lands", "report back", "let me know", "walk me through", "I want to know", "show me", "give me the figures"), verify there exists at least one Outcome rubric (sub-category 2.1) whose title checks that the agent reported the requested fact in the final response.
-
-Output per missing 2.1: `MISSING_OUTCOME_2.1: prompt cue "<quote>" expects final-response report of <fact>, no Outcome 2.1 rubric covers it.`
-
-This perspective enforces the QC spec rule that Outcome 2.1 covers "key facts/findings in the final response when the user asked to be told a specific fact" — a gap the existing Outcome 1.1/1.2 mappings cannot fill (1.1 = trajectory action; 1.2 = trajectory content; 2.1 = final-response key facts).
-
-A B11 finding is BLOCKING — a prompt that asks the agent to TELL the user something must have a 2.1 rubric checking the user was actually told.
+### B11 — Prompt "Tell-me" cue → Outcome 2.1 forward map — RETIRED in v18; do not execute
+Converted to `Validators/validate.py` regex sweep on prompt tell-me cues + rubric 2.1 coverage check. Body removed in v21; see CHANGELOG v18 + v21 entries.
 
 ### B9 — OE Service Mapping (S2 OE phase)
-For each OE step, verify the named tool/service matches the data type the step queries or writes. The Brookfield universe data lives in specific services:
-- Reconciliations / exceptions / variance / SLA tracking → BlackLine (NOT Oracle GL).
-- AP invoices / vendor master / accounts payable → SAP subledger (NOT Oracle GL primary).
-- Journal entries / posted-period state → Oracle GL.
-- Retention codes / archived docs → Records Vault.
-- Issue tickets / backlog → Linear.
-- HR / personnel data → Airtable.
-- Slack channels / DMs → Slack messaging.
+
+**Deterministic floor:** `Validators/validate.py` rule X3 already performs the universe-aware service mapping — for every OE step with a named tool call, it cross-references the data-type keywords in the step prose against the per-universe `oe_service_map` and warns when the expected service does not match the tool's service prefix. Council B-B9 should now focus on the cases X3 cannot reach — OE steps that describe a write action in prose without naming a tool, or steps where the correct service is ambiguous because the data-type keyword does not appear literally.
+
+For each OE step, verify the named tool/service matches the data type the step queries or writes. Universe-aware per `_aux/Universe.txt` — see the prompt template below for the full per-universe map (Brookfield / KeyStone / MoveOps). Quick reference:
+
+- **Brookfield**: reconciliations / exceptions → BlackLine (NOT Oracle GL); AP invoices / vendor master → SAP subledger; JEs / accounts / fiscal periods → Oracle GL; retention / docs → Records Vault; tickets → Linear; HR → Airtable; chat → Slack; email → Email.
+- **KeyStone**: loans / borrowers / conditions / disclosures (TRID) → mortgage_los (NOT CRM); AP invoices / bills / accounts → QuickBooks; payments / charges → Stripe; borrower PDFs → filesystem; leads / deals → CRM; chat → Slack; email → Email.
+- **MoveOps**: relocations / stipends / client accounts → Airtable (NOT CRM); AP invoices / customers / accruals → QuickBooks; deals / engagements → CRM; tickets / projects → Linear; calendar events → Calendar; chat → Slack; email → Email.
 
 Output per misaligned step: `OE_SERVICE_MISMATCH: OE<n> queries <data type> in <wrong service>. Data type belongs in <correct service>. Following this OE literally would return wrong-or-no results.`
 
@@ -484,6 +467,12 @@ mortgage_los; AP invoices / vendor bills / accounts -> quickbooks; payments /
 charges / transfers / refunds -> stripe; bank transactions -> stripe;
 borrower PDFs -> filesystem; leads / deals / engagements -> crm; chat -> slack;
 email threads -> email.
+
+MoveOps map: relocations / stipends / client_accounts / vendor records ->
+airtable; AP invoices / vendor bills / customers / accruals -> quickbooks;
+deals / engagements / leads -> crm; tickets / issues / projects -> linear;
+calendar events -> calendar; chat / channels -> slack; email threads ->
+email; contacts -> contacts.
 
 Output per misaligned step: OE_SERVICE_MISMATCH: OE<n> queries <data type>
 in <wrong service>. Belongs in <correct service>.

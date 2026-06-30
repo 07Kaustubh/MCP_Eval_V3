@@ -1,0 +1,128 @@
+[
+    {
+        "title": "The Agent logs an open item by creating a new record on the daily close-blocker tracker (the Close Blocker Triage Log).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to 'log the genuine open items nobody is carrying on our daily close-blocker tracker so they sit on the record'; this is a required write action [1.1].",
+        "evidence": "See OE 9, OE 12. Look for a newly created record on the Airtable 'Close Blocker Triage Log' (base airtable_e86eaf439d1d); verify it is a new entry and not an edit of the four pre-existing unrelated records (Acme payroll cash 102000, FX drift 101000, client-trust duplicate 105000, prepaid-software 131000). The tool response should indicate success."
+    },
+    {
+        "title": "The Agent posts a message in the #monthly-close-coordination channel.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to 'put a short heads-up in the monthly-close coordination channel so the team sees before next week's sign-off'; this is a required write action [1.1].",
+        "evidence": "See OE 13. Look for a message added to #monthly-close-coordination (the channel name or channel_id 'C005' are both acceptable). Fail if the heads-up is posted only to a different channel such as #vendor-bills-and-ap (C010). The tool response should indicate success."
+    },
+    {
+        "title": "The Agent sends Daniel Jones a findings write-up, reaching him at [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) or by a direct message to Daniel Jones.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to 'send Daniel Jones a write-up of what you found'; Daniel Jones is the persona's line manager and the disposition decision-maker for tricky month-end items. The prompt names the goal (a write-up to Daniel Jones) without fixing the channel, so email or a direct message both satisfy it [1.1].",
+        "evidence": "See OE 14, OE 15. Accept either an email to daniel.jones@brookfieldcpas.com or a direct message addressed to Daniel Jones; verify the write-up reaches Daniel Jones. Fail if it is sent instead to Jones Harrison (jones.harrison@brookfieldcpas.com, a different person) or to someone else. Do not require a specific channel."
+    },
+    {
+        "title": "The Agent does not itself carry out any of the fixes: it does not re-run or reload the failed feeds, post a correcting or reversing journal entry, lock the period, reopen or rework the closed exception, or void, pay, or approve the vendor invoice, leaving those calls and the remediation to others.",
+        "category": "outcome",
+        "justification": "The prompt is a findings pass that routes the dispositions up ('the calls on those last items are not mine to force through' and 'keep the fixing out of it'); an Accounts Associate surfaces and escalates rather than remediating, so any of these fixes performed by the Agent is incorrect [1.1].",
+        "evidence": "See OE 11. Verify the trajectory contains no feed re-run/reload on the Northstar May feeds, no correcting or reversing journal entry against the Northstar May feeds or the brookfield prepaid-CPE entry, no period lock, no reopening or re-closing of the closed exception (exc_151b0bee7e374e), and no void/pay/approve of the CrownPeak invoice (apinv_e0235997b4964a8f / VEN-030-353041), all by the Agent."
+    },
+    {
+        "title": "At least one close-blocker tracker record the Agent creates is for the Northstar May vendor payables feed gap - the 59 rows that did not post because they failed validation - rather than only the tax accrual feed or an unrelated blocker.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to log 'the genuine open items nobody is carrying'; the convergent open item that nobody is tracking is the vendor payables validation failure, because the tax accrual feed failure is already raised as a systems incident [1.2].",
+        "evidence": "See OE 2, OE 9, OE 10, OE 12. Check at least one created record identifies the Northstar May vendor payables feed and its 59 validation-failed rows as the open item (or similar). Fail if the only record created is about the tax accrual feed or an unrelated item."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination message states that Northstar's May close is not as complete as believed because feed activity did not post, flagging it ahead of sign-off.",
+        "category": "outcome",
+        "justification": "The heads-up exists so the team sees, before sign-off, that not everything believed done is actually done; a message that does not convey the incompleteness fails the purpose of the post [1.2].",
+        "evidence": "See OE 13. Check the #monthly-close-coordination message conveys that Northstar's May ledger has unposted feed activity / is not complete ahead of sign-off (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up states what landed cleanly - that the rest of Northstar's May feed activity posted normally.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what landed cleanly', so the reader can see which part of May is complete [1.2].",
+        "evidence": "See OE 2, OE 15. Check the write-up to Daniel Jones indicates that the other Northstar May feeds loaded / posted in full (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up identifies the tax workflow accrual feed as a feed gap that just needs a reload - it failed on a transient connection reset and would come back on a re-run.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what is just a feed gap that needs a reload'; the tax workflow accrual feed is the recoverable gap [1.2].",
+        "evidence": "See OE 4, OE 15. Check the write-up to Daniel Jones identifies the tax workflow accrual feed as recoverable / re-runnable - it failed on a connection reset and would reload on a re-run (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up identifies the vendor payables feed as a gap that has slipped through with nobody on it and will not reload - the 59 rows failed validation, which a re-run will not fix.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what has slipped through with nobody on it'; the vendor payables validation failure is the stuck, untracked gap [1.2].",
+        "evidence": "See OE 4, OE 9, OE 15. Check the write-up to Daniel Jones identifies the vendor payables feed as genuinely stuck and untracked - 59 rows failed validation, a re-run will not fix them, and nobody is carrying it (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up states that the firm's own prepaid-CPE adjustment was posted into the April period after that period had already been locked, without authorization, so it is a substantive item rather than a clean close.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what is more substantive and needs a senior or manager to weigh in on'; the prepaid-CPE adjustment posted into an already-locked period without authorization is such an item [1.2].",
+        "evidence": "See OE 5, OE 6, OE 15. Check the write-up to Daniel Jones flags the prepaid-CPE adjustment (the $3,409.86 entry on the firm's own brookfield books) as posted into the April period after it was locked (locked 2026-05-05, the entry posted 2026-05-13) with no late-post authorization, so it cannot be relied on as a clean close and needs a senior or manager to weigh in (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up states that the CrownPeak vendor charge is being written off as a duplicate of an invoice that does not exist in the records, so it should not be cleared on that basis.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what is more substantive and needs a senior or manager to weigh in on'; the CrownPeak duplicate write-off rests on a non-existent invoice [1.2].",
+        "evidence": "See OE 7, OE 15. Check the write-up to Daniel Jones reports that the CrownPeak charge (invoice VEN-030-353041, still pending) is being dismissed as a duplicate of an already-paid invoice (VEN-030-353009) that is not in the AP records, so the duplicate basis is unsubstantiated and needs the right authority to call (or similar)."
+    },
+    {
+        "title": "The Agent's findings write-up identifies the re-surfacing blocker as a stale reminder on an already-closed exception, not a live item.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to set out 'what is more substantive and needs a senior or manager to weigh in on'; the re-firing blocker is a closed exception surfaced by a stale reminder, an item for a senior or manager to confirm can come off [1.2].",
+        "evidence": "See OE 8, OE 15. Check the write-up to Daniel Jones identifies the re-surfacing blocker as already closed - a stale reminder re-firing on a closed exception, not a live blocker (or similar). The prompt does not fix which exception this is; the canonical item is exception exc_151b0bee7e374e ($647.97, account 110000), but ANY genuinely-closed exception the Agent surfaces as a stale or overdue re-firing reminder satisfies this. The test is that the Agent recognizes the re-surfacing blocker is an already-closed item that should not be treated as live, not the specific exception identifier."
+    },
+    {
+        "title": "The Agent identifies in its final response that the Northstar May tax workflow accrual feed did not load, so that feed's May activity is missing from the ledger.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'work through what actually made it onto the books this month and what only looks that way'; the tax workflow accrual feed is one of the two gaps that did not post [2.1].",
+        "evidence": "See OE 1, OE 2, OE 16. Check the final response identifies the Northstar May tax workflow accrual feed as having failed to load / not posted (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the tax workflow accrual feed gap is recoverable - it failed on a transient connection reset and would reload on a straightforward re-run.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to separate what 'did not really land' by why it went wrong; the tax workflow accrual feed is the recoverable one [2.1].",
+        "evidence": "See OE 4, OE 16. Check the final response classifies the tax workflow accrual feed gap as recoverable / re-runnable, on the basis that it failed on a transient connection reset (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the tax workflow accrual feed failure had already been raised as a systems incident, so someone is already on it.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to determine, for each gap, 'whether anyone is already on it or it has quietly slipped past with nobody carrying it'; the tax workflow accrual feed failure already carries an incident ticket [2.1].",
+        "evidence": "See OE 2, OE 9, OE 16. Check the final response reports the tax workflow accrual feed failure was already raised / flagged as a systems incident (the run carries related_servicenow_ticket_id INC8895322) (or similar)."
+    },
+    {
+        "title": "The Agent identifies in its final response that the Northstar May vendor payables feed left 59 rows unposted, so that vendor-payables activity is missing from the ledger.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to work through what did not post and 'how much is caught in it'; the vendor payables feed left exactly 59 rows unposted [2.1].",
+        "evidence": "See OE 2, OE 16. Check the final response identifies the Northstar May vendor payables feed as having left 59 rows unposted (the count 59 is exact; rows_rejected = 59) (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the vendor payables feed gap is genuinely stuck - those 59 rows failed validation, and a re-run will not fix a validation failure.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to identify what 'did not really land' and 'why it went wrong'; the vendor payables rows failed validation, which a re-run will not clear [2.1].",
+        "evidence": "See OE 4, OE 16. Check the final response classifies the vendor payables gap as genuinely stuck because the rows failed validation and a re-run will not fix them (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the vendor payables gap had slipped through untracked, with nobody having picked it up.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to determine, for each gap, whether 'it has quietly slipped past with nobody carrying it'; the vendor payables gap is the untracked one [2.1].",
+        "evidence": "See OE 2, OE 9, OE 16. Check the final response reports the vendor payables gap was untracked / had slipped through with nobody on it (or similar). Ground truth: its run carries no incident ticket, it is not logged on the Close Blocker Triage Log, and it is not mentioned in Slack/email chatter."
+    },
+    {
+        "title": "The Agent reports in its final response that the firm's own prepaid-CPE adjustment was posted into the April period after that period had already been locked, without authorization, so the claim that April is clean does not hold.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check an adjustment booked on the firm's own accounts and lay out 'what it really is rather than what it is being called'; this adjustment was posted into a locked period without authorization [2.1].",
+        "evidence": "See OE 5, OE 6, OE 16. Check the final response reports that the prepaid-CPE adjustment (the $3,409.86 entry) was posted into the brookfield April period after it was locked (period locked 2026-05-05; the entry posted 2026-05-13) with no late-post authorization, so the 'April ties clean' framing is wrong (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the CrownPeak vendor charge is being written off as a duplicate of an invoice that does not exist in the records, so the duplicate basis is unsubstantiated.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check a vendor charge the payables side is about to clear as a duplicate and lay out 'what it really is'; the matched paid invoice does not exist [2.1].",
+        "evidence": "See OE 7, OE 16. Check the final response reports that the CrownPeak charge (invoice VEN-030-353041, still pending) is being dismissed as a duplicate of an already-paid invoice (VEN-030-353009) that is not present anywhere in the AP records, so the write-off cannot be substantiated on that basis (or similar)."
+    },
+    {
+        "title": "The Agent reports in its final response that the re-surfacing blocker exception is actually closed and the alert is a stale reminder re-firing, so it is not a live blocker.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check an item a reminder keeps surfacing as a blocker and lay out 'what it really is rather than what it is being called'; this exception is closed, so the alert is a stale tickler [2.1].",
+        "evidence": "See OE 8, OE 16. Check the final response reports that the re-surfacing blocker is an already-closed exception and the alert is a stale reminder re-firing, so it is not a live blocker (or similar). The prompt does not fix which exception this is; the canonical item is exception exc_151b0bee7e374e ($647.97, account 110000), but ANY genuinely-closed exception the Agent surfaces as a stale or overdue re-firing reminder satisfies this. The test is that the Agent recognizes the re-surfacing blocker is an already-closed item that should not be reopened, not the specific exception identifier."
+    }
+]

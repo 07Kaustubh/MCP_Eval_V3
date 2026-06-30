@@ -1,0 +1,296 @@
+[
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-04-0052 as the late-April journal entry that crossed the wire threshold on the cash account.",
+        "category": "outcome",
+        "justification": "The prompt asks for the exact journal-entry number for the late-April clearance whose AML monitoring file is missing from the vault.",
+        "evidence": "See OE 2, OE 3. Check the final response, trajectory reasoning, or outbound communications for JE-acme_cloud-FP-2026-04-0052 tied to the wire-threshold AML clearance."
+    },
+    {
+        "title": "The Agent reports the journal-entry amount as $57,077.69.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requests the dollar amount for the wire-threshold journal entry so Marina can cross-reference the evidence package.",
+        "evidence": "See OE 3. Check the final response, trajectory tool outputs, or the gap-analysis email to peter.sanchez@brookfieldcpas.com for total_debit $57,077.69."
+    },
+    {
+        "title": "The Agent reports the journal-entry posting date as 2026-04-22.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requests the posting date for the wire-threshold journal entry.",
+        "evidence": "See OE 3. Check the final response, trajectory tool outputs, or the gap-analysis email to peter.sanchez@brookfieldcpas.com for posting date 2026-04-22."
+    },
+    {
+        "title": "The Agent reports that the AML monitoring file for the late-April JE-acme_cloud-FP-2026-04-0052 clearance is missing from the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt states the AML monitoring file from the late-April journal-entry clearance is missing from the vault and asks the agent to confirm the gap.",
+        "evidence": "See OE 6. Check the final response, trajectory vault search results, or outbound gap-analysis communications for confirmation that no AML monitoring, CLEAR determination, or wire confirmation document from the April 2026 clearance is filed."
+    },
+    {
+        "title": "The Agent reports that the full supervisory-plus-partner sign-off chain for JE-acme_cloud-FP-2026-04-0052 ran to completion.",
+        "category": "outcome",
+        "justification": "The prompt says the full supervisory-plus-partner sign-off chain ran to completion and the gap analysis must reflect that context.",
+        "evidence": "See OE 4. Check the final response or trajectory for references to Anita Knowles supervisory approval and Steven Perry partner clearance on the JE-acme_cloud-FP-2026-04-0052 AML case."
+    },
+    {
+        "title": "The Agent reports that the FY26 wire-flag threshold calibration session was created on the calendar for 2026-06-03.",
+        "category": "outcome",
+        "justification": "The prompt asks whether Steven's directed threshold calibration session was actually created. The authoritative calendar date is 2026-06-03, not the incorrect 2026-06-18 date in Slack.",
+        "evidence": "See OE 7. Check the final response or trajectory for event_scen_041_audit_compliance_0011 scheduled on 2026-06-03 titled FY26 AML control-effectiveness review  -  wire-flag threshold calibration."
+    },
+    {
+        "title": "The Agent reports that no output, minutes, or deliverable from the June 3 calibration session has been filed in the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt asks whether any output came from the calibration session after confirming it was created.",
+        "evidence": "See OE 8. Check the final response or trajectory vault search after 2026-06-03 for absence of calibration-session output documents."
+    },
+    {
+        "title": "The Agent reports that the restricted soft-watch disposition copy for AML-REG-northstar-2025-001 is not filed under AICPA_SQMS_7Y in the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt states Daniel's countersigned disposition recap is unaccounted for in the vault under AICPA_SQMS_7Y and triggers conditional gap-closure actions.",
+        "evidence": "See OE 10. Check the final response or trajectory vault search for absence of a disposition or soft-watch recap document for AML-REG-northstar-2025-001 under AICPA_SQMS_7Y with classification restricted."
+    },
+    {
+        "title": "The Agent reports that Daniel Jones countersigned the AML-REG-northstar-2025-001 soft-watch disposition recap on 2026-05-21.",
+        "category": "outcome",
+        "justification": "The prompt references Daniel countersigning by email a few weeks ago; confirming the countersign date supports the gap-memo and follow-up actions.",
+        "evidence": "See OE 9. Check the final response or trajectory for email_scen_062_aml_review_general_0008 from daniel.jones@brookfieldcpas.com dated 2026-05-21 countersigning the soft-watch disposition."
+    },
+    {
+        "title": "The Agent reports that the quarterly re-screen reminder for AML-REG-northstar-2025-001 is set with due date 2026-09-01 for FP-2026-08 close.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to verify the quarterly re-screen reminder was set up as Daniel's countersign directed.",
+        "evidence": "See OE 13. Check the final response or trajectory for reminder_scen_062_aml_review_general_0009 titled Re-screen AML-REG-northstar-2025-001 after FP-2026-08 close with due 2026-09-01."
+    },
+    {
+        "title": "The Agent reports Steven Perry's first verbatim retention condition: make explicit that legal hold supersedes retention expiry.",
+        "category": "outcome",
+        "justification": "The prompt asks for the verbatim wording of Steven's two Q3 policy-language conditions from the vault or email record, not the condensed Slack paraphrase.",
+        "evidence": "See OE 14, OE 15. Check the final response, trajectory, or outbound communications for the exact email wording from email_scen_044_audit_compliance_0007: first, make explicit that legal hold supersedes retention expiry."
+    },
+    {
+        "title": "The Agent reports Steven Perry's second verbatim retention condition: strengthen the justification standard for documents coded INDEFINITE so the basis for indefinite retention is stated more clearly.",
+        "category": "outcome",
+        "justification": "The prompt asks for the verbatim wording of both retention conditions. The Slack summary in C008 is a paraphrase and does not satisfy this requirement alone.",
+        "evidence": "See OE 14, OE 15. Check the final response, trajectory, or outbound communications for the exact email wording from email_scen_044_audit_compliance_0007 on INDEFINITE justification language."
+    },
+    {
+        "title": "The Agent reports that no draft update or existing Linear tracking item exists for the FY26 Q3 retention policy-language changes.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to check whether anyone has drafted the updates or opened a tracking item before creating a new one.",
+        "evidence": "See OE 16. Check the final response or trajectory for confirmation that no retention-policy draft or existing Linear issue was found before issue creation."
+    },
+    {
+        "title": "The Agent reports that the Acme Cloud beneficial-owner file titled Acme Cloud FY2026 Beneficial Owner Refresh was last refreshed on 2026-01-10.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pull the beneficial-owner file cited in the April clearance package and confirm when it was last refreshed.",
+        "evidence": "See OE 18. Check the final response or trajectory for doc_fb028c9124e146c5 with uploaded_at 2026-01-10."
+    },
+    {
+        "title": "The Agent concludes the Acme Cloud beneficial-owner file is inside the annual renewal window and is not overdue for renewal as of June 12, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the beneficial-owner file is still inside the annual window or overdue for renewal.",
+        "evidence": "See OE 18. Check the final response or trajectory for a conclusion that the 2026-01-10 refresh is within the standard annual window and not yet due for renewal."
+    },
+    {
+        "title": "The Agent uploads a placeholder gap memo to the Records Vault for the missing AML-REG-northstar-2025-001 disposition copy.",
+        "category": "outcome",
+        "justification": "The prompt conditionally requires uploading a placeholder gap memo when the restricted disposition copy is absent from the vault under AICPA_SQMS_7Y.",
+        "evidence": "See OE 11. Look in the trajectory for a successful vault document upload with a title referencing AML-REG-northstar-2025-001 disposition gap or similar."
+    },
+    {
+        "title": "The Agent files the gap memo as restricted under retention policy code AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt specifies the gap memo must be restricted and filed under AICPA_SQMS_7Y.",
+        "evidence": "See OE 11. Check the upload parameters for classification restricted and retention_policy_code AICPA_SQMS_7Y."
+    },
+    {
+        "title": "The Agent's gap memo notes that the countersigned soft-watch disposition for AML-REG-northstar-2025-001 exists in email but the vault copy is absent.",
+        "category": "outcome",
+        "justification": "The prompt requires the gap memo to note that the countersigned disposition exists in email but the vault copy is absent.",
+        "evidence": "See OE 11. Check the uploaded memo title or content for references to the email countersign and the missing vault filing for AML-REG-northstar-2025-001."
+    },
+    {
+        "title": "The Agent messages Daniel Jones directly asking him to provide the final version of the AML-REG-northstar-2025-001 soft-watch disposition recap for filing in the vault.",
+        "category": "outcome",
+        "justification": "The prompt says to message Daniel directly asking him to provide the final version for filing when the vault copy is absent.",
+        "evidence": "See OE 12. Look in the trajectory for a messaging message to Daniel Jones requesting the final disposition recap version for vault filing."
+    },
+    {
+        "title": "The Agent creates a Linear issue on the Compliance team (team_comp) to track the FY26 Q3 retention policy-language follow-up.",
+        "category": "outcome",
+        "justification": "The prompt says to create a tracking item if neither a draft nor an existing issue exists for Steven's two retention conditions.",
+        "evidence": "See OE 17. Look in the trajectory for a successful issue creation on team_comp or the Compliance team."
+    },
+    {
+        "title": "The Agent's Linear issue describes the condition to make explicit that legal hold supersedes retention expiry for the FY26 Q3 retention schedule update.",
+        "category": "outcome",
+        "justification": "Steven's first retention condition must be captured in the tracking item so the Q3 follow-up is not lost.",
+        "evidence": "See OE 17. Check the issue title or description for legal hold supersedes retention expiry language."
+    },
+    {
+        "title": "The Agent's Linear issue describes the condition to strengthen the justification standard for documents coded INDEFINITE for the FY26 Q3 retention schedule update.",
+        "category": "outcome",
+        "justification": "Steven's second retention condition must be captured in the tracking item so the Q3 follow-up is not lost.",
+        "evidence": "See OE 17. Check the issue title or description for stronger INDEFINITE justification language."
+    },
+    {
+        "title": "The Agent sends an email from [marina.soko@brookfieldcpas.com](mailto:marina.soko@brookfieldcpas.com) to [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) with the AICPA SQMS 1 evidence package gap analysis.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires emailing Peter the full gap analysis before the package goes to him.",
+        "evidence": "See OE 20. Look in the trajectory for an outbound email from marina.soko@brookfieldcpas.com to peter.sanchez@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that the AML monitoring file for JE-acme_cloud-FP-2026-04-0052 ($57,077.69, posted 2026-04-22) is missing from the vault despite the completed sign-off chain.",
+        "category": "outcome",
+        "justification": "The prompt requires exact findings on each gap item in Peter's gap-analysis email, including the missing AML monitoring file with the three JE values.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the monitoring-file gap and JE-acme_cloud-FP-2026-04-0052 with $57,077.69 and 2026-04-22."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that the threshold calibration session exists on the calendar for 2026-06-03.",
+        "category": "outcome",
+        "justification": "The prompt requires the calibration session status to be included in Peter's gap analysis, using the authoritative calendar date of 2026-06-03.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the June 3 calibration session."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that no output from the threshold calibration session has been filed.",
+        "category": "outcome",
+        "justification": "The prompt requires the missing calibration-session output to be included in Peter's gap analysis as a separate finding from the session's existence.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the absence of filed calibration-session output."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that the AML-REG-northstar-2025-001 soft-watch disposition is not filed under AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt requires exact findings on the disposition gap in Peter's gap-analysis email.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the soft-watch disposition not filed under AICPA_SQMS_7Y."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that a restricted gap memo has been uploaded for the AML-REG-northstar-2025-001 disposition filing gap.",
+        "category": "outcome",
+        "justification": "The prompt requires Peter's gap analysis to reflect the corrective vault action taken for the missing disposition copy.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for reference to the uploaded restricted gap memo."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that Daniel Jones has been asked to provide the final version of the AML-REG-northstar-2025-001 disposition recap for vault filing.",
+        "category": "outcome",
+        "justification": "The prompt requires Peter's gap analysis to reflect the Daniel Jones follow-up action on the disposition gap.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the request to Daniel Jones for the final disposition version."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez confirms the re-screen reminder for AML-REG-northstar-2025-001 is set for FP-2026-08 close with due date 2026-09-01.",
+        "category": "outcome",
+        "justification": "The prompt requires the re-screen reminder status to be included in Peter's full gap analysis.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the FP-2026-08 close or 2026-09-01 re-screen reminder."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez includes Steven Perry's first verbatim retention condition for the FY26 Q3 retention schedule update: make explicit that legal hold supersedes retention expiry.",
+        "category": "outcome",
+        "justification": "The prompt requires the first retention-sweep condition in Peter's gap analysis with exact wording from the email record.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for legal hold supersedes retention expiry language."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez includes Steven Perry's second verbatim retention condition for the FY26 Q3 retention schedule update: strengthen the justification standard for documents coded INDEFINITE.",
+        "category": "outcome",
+        "justification": "The prompt requires the second retention-sweep condition in Peter's gap analysis with exact wording from the email record.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for stronger INDEFINITE justification language."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez notes that a Linear issue was created to track the FY26 Q3 retention policy-language follow-up.",
+        "category": "outcome",
+        "justification": "The prompt requires Peter's gap analysis to reflect the corrective tracking action taken for Steven's retention conditions.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for reference to the Linear tracking item created for retention policy-language updates."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that the Acme Cloud beneficial-owner file was last refreshed on 2026-01-10.",
+        "category": "outcome",
+        "justification": "The prompt requires the beneficial-owner refresh date in Peter's full gap analysis.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the 2026-01-10 refresh date."
+    },
+    {
+        "title": "The Agent's email to Peter Sanchez states that the Acme Cloud beneficial-owner file is inside the annual renewal window.",
+        "category": "outcome",
+        "justification": "The prompt requires the beneficial-owner renewal-window conclusion in Peter's full gap analysis.",
+        "evidence": "See OE 20. Check the email content to peter.sanchez@brookfieldcpas.com for the inside-window or not-overdue conclusion."
+    },
+    {
+        "title": "The Agent posts a message to the compliance-and-registrations Slack channel (C008).",
+        "category": "outcome",
+        "justification": "The prompt requires posting the non-restricted findings to compliance-and-registrations for team visibility.",
+        "evidence": "See OE 21. Look in the trajectory for a message posted to channel C008 or compliance-and-registrations."
+    },
+    {
+        "title": "The Agent's Slack post to compliance-and-registrations includes the retention condition that legal hold supersedes retention expiry for the FY26 Q3 retention schedule update.",
+        "category": "outcome",
+        "justification": "The prompt specifies the retention sweep conditions as non-restricted findings that must be posted to the compliance channel.",
+        "evidence": "See OE 21. Check the C008 message payload for legal hold supersedes retention expiry language."
+    },
+    {
+        "title": "The Agent's Slack post to compliance-and-registrations includes the retention condition to strengthen the INDEFINITE justification standard for the FY26 Q3 retention schedule update.",
+        "category": "outcome",
+        "justification": "The prompt specifies both retention sweep conditions as non-restricted findings that must be posted to the compliance channel.",
+        "evidence": "See OE 21. Check the C008 message payload for stronger INDEFINITE justification language."
+    },
+    {
+        "title": "The Agent's Slack post to compliance-and-registrations states that the threshold calibration session was created on the calendar.",
+        "category": "outcome",
+        "justification": "The prompt specifies the threshold calibration gap as a non-restricted finding that must be posted to the compliance channel. This rubric checks the session-existence claim.",
+        "evidence": "See OE 21. Check the C008 message payload for reference to the calibration session being created or existing on the calendar."
+    },
+    {
+        "title": "The Agent's Slack post to compliance-and-registrations states that no output from the threshold calibration session has been filed.",
+        "category": "outcome",
+        "justification": "The prompt specifies the threshold calibration gap as a non-restricted finding that must be posted to the compliance channel. This rubric checks the missing-output claim.",
+        "evidence": "See OE 21. Check the C008 message payload for the absence of filed calibration-session output."
+    },
+    {
+        "title": "The Agent's Slack post to compliance-and-registrations does not include AML-adjacent details for JE-acme_cloud-FP-2026-04-0052, the AML monitoring file gap, or AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires keeping AML-adjacent details off the compliance-and-registrations channel.",
+        "evidence": "See OE 21. Check the C008 message payload for absence of JE-acme_cloud-FP-2026-04-0052, AML monitoring file gap, disposition, or AML-REG-northstar-2025-001 references."
+    },
+    {
+        "title": "The Agent sends a messaging message to Daniel Jones with the AML-adjacent findings that must be kept off the compliance-and-registrations Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt routes AML-adjacent details to Daniel on messaging and explicitly keeps those details off the Slack channel.",
+        "evidence": "See OE 22. Look in the trajectory for a messaging message to Daniel Jones covering AML-adjacent findings."
+    },
+    {
+        "title": "The Agent's messaging to Daniel Jones includes the monitoring file gap for JE-acme_cloud-FP-2026-04-0052.",
+        "category": "outcome",
+        "justification": "The AML monitoring file gap is an AML-adjacent finding that must be routed to Daniel via messaging rather than Slack.",
+        "evidence": "See OE 22. Check the message content to Daniel Jones for the missing AML monitoring file tied to JE-acme_cloud-FP-2026-04-0052."
+    },
+    {
+        "title": "The Agent's messaging to Daniel Jones includes the AML-REG-northstar-2025-001 disposition filing status.",
+        "category": "outcome",
+        "justification": "The disposition filing gap is an AML-adjacent finding that must be routed to Daniel via messaging.",
+        "evidence": "See OE 22. Check the message content to Daniel Jones for the soft-watch disposition not filed under AICPA_SQMS_7Y or related gap-memo action."
+    },
+    {
+        "title": "The Agent's messaging to Daniel Jones includes confirmation of the re-screen reminder for AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The re-screen reminder status is an AML-adjacent finding that must be routed to Daniel via messaging.",
+        "evidence": "See OE 22. Check the message content to Daniel Jones for the FP-2026-08 close or 2026-09-01 re-screen reminder."
+    },
+    {
+        "title": "The Agent sends a messaging message to Marina Soko with the AML-adjacent findings.",
+        "category": "outcome",
+        "justification": "The prompt says to route AML-adjacent details to me and Daniel on messaging, where me refers to Marina Soko the persona.",
+        "evidence": "See OE 23. Look in the trajectory for a messaging message to Marina Soko covering the AML-adjacent findings including the monitoring file gap, disposition filing status, and re-screen reminder confirmation."
+    },
+    {
+        "title": "The Agent's messaging to Marina Soko includes the monitoring file gap for JE-acme_cloud-FP-2026-04-0052.",
+        "category": "outcome",
+        "justification": "Marina must receive the AML monitoring file gap on messaging per the prompt routing instruction.",
+        "evidence": "See OE 23. Check the message content to Marina Soko for the missing AML monitoring file tied to JE-acme_cloud-FP-2026-04-0052."
+    },
+    {
+        "title": "The Agent's messaging to Marina Soko includes the AML-REG-northstar-2025-001 disposition filing status.",
+        "category": "outcome",
+        "justification": "Marina must receive the disposition filing status on messaging per the prompt routing instruction.",
+        "evidence": "See OE 23. Check the message content to Marina Soko for the soft-watch disposition not filed under AICPA_SQMS_7Y or related gap-memo action."
+    },
+    {
+        "title": "The Agent's messaging to Marina Soko includes confirmation of the re-screen reminder for AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "Marina must receive the re-screen reminder confirmation on messaging per the prompt routing instruction.",
+        "evidence": "See OE 23. Check the message content to Marina Soko for the FP-2026-08 close or 2026-09-01 re-screen reminder."
+    }
+]

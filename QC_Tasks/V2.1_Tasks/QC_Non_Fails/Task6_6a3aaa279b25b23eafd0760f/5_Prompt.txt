@@ -1,0 +1,9 @@
+I received a preliminary IRS inquiry on the Q1 estimated tax. Before I respond, I need the exact authorization trail on four items they may challenge.
+
+On the Acme provision: someone flagged during preparation that the SBC addback was using the wrong basis and it had to be corrected before posting. I need to know who raised that correction, what the original dollar figure was versus what replaced it, and what the corrected federal estimated tax came to after the fix. Also confirm whether a standalone methodology decision memo was filed to Records Vault supporting this - the IRS will want to see formal documentation of the basis change.
+
+On Northstar: the SALT provision shortfall was authorized for late-posting into a closed period. Confirm whether that entry actually made it to the ledger. If it has not posted, I need the name of whoever gave the authorization, the exact shortfall amount, debit and credit accounts, and the target period. Pull those details from the authorization itself, not from any earlier review flag.
+
+On two items affecting my accrual basis: the LatticeHill orphan-approver invoice and the duplicate exception on account 131000. Both still show open in their respective systems. On LatticeHill, confirm whether a partner actually signed off and what the instruction was - release, void-and-rebill, or hold. On 131000, confirm the approved corrective path: debit account, credit account, exact dollar amount, and whether the correction has posted.
+
+Compile the full authorization trail into a defense memo for Steven, Matthew, and Andrea. If the Northstar entry is still unposted, open a tracking issue on the tax board assigned to Hannah - we cannot have an authorized but unbooked entry while the IRS is looking. File the memo to Records Vault under IRS_TAX_7Y, classification restricted.

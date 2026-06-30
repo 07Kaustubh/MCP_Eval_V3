@@ -1,0 +1,162 @@
+OE1, Confirm the May period is still open (past its lock target).
+  Tool: oracle_gl_get_fiscal_period (preferred) or oracle_gl_list_fiscal_periods
+  Params: oracle_gl_get_fiscal_period -> period_id = "brookfield_FP-2026-05" (exact). For the list
+  path, filter with status = "open" / fiscal_year = 2026 (the brookfield_ prefix on the period_id
+  already scopes the entity).
+  Expected data: FP-2026-05 status = "open", locked_at = null, locked_by = null, bd3_lock_at =
+  2026-06-03 (lock target already passed relative to today, 2026-06-12). Confirms the persona's window
+  ("May's still open past its lock date") and that recognition entries are still postable without a
+  late_post_authorization_id.
+
+OE2, Identify what has already been booked as recognized revenue for the period.
+  Tool: oracle_gl_list_journal_entries  ->  oracle_gl_get_journal_entry
+  Params: oracle_gl_list_journal_entries -> period_id = "brookfield_FP-2026-05" (the brookfield_
+  prefix scopes the entity); then oracle_gl_get_journal_entry -> entry_id = je_53962aed96fe4b67
+  (entry_number "JE-brookfield-brookfield_FP-2026-05-0057").
+  Expected data: status = "posted", is_standard_entry handling aside, total_debit = total_credit =
+  $147,825; description "May 2026 month-end WIP-to-revenue recognition per engagement-stage completion
+  review"; prepared_by george.mcadam@brookfieldcpas.com, approved/posted_by
+  margaret.sullivan@brookfieldcpas.com. Lines:
+    - DR 110000 Accounts Receivable - Client Billings  $89,425  ("billed receivable portion")
+    - DR 240000 Deferred Revenue - Client Retainers     $58,400  (deferred-revenue release leg)
+    - CR 401000 Revenue - Audit & Assurance             $89,400
+    - CR 402000 Revenue - Tax Preparation & Planning    $32,250
+    - CR 403000 Revenue - Advisory & Consulting         $26,175
+  This is the "$147,825 across our service lines" the persona wants validated.
+
+OE3, Tie the recognized figure back to its source: Andrea Phil's engagement-stage completion review.
+  Tool: email_search_emails (or email_list_emails -> email_get_email_by_id)
+  Params: query terms "engagement-stage completion review" / "May" / sender
+  andrea.phil@brookfieldcpas.com; email_id "email_scen_059_wip_recognition_0000".
+  Expected data: email from Andrea Phil to george.mcadam@brookfieldcpas.com (cc
+  margaret.sullivan@brookfieldcpas.com), subject "May engagement-stage completion review", stating three
+  service lines crossed milestones and "$147,825 should be recognized for May", AND instructing that the
+  BlackLine anchor recon BL-75810CD0FEE4 variance ($4,390.62, partial-feed) be left for next-period
+  cleanup. Confirms the recognized total ties to the partner review and surfaces the "feed-timing /
+  leave for next period" framing the persona is uneasy about.
+
+OE4, Confirm the recognition ties to the underlying billable hours / WIP support.
+  Tool: oracle_gl_get_account_balance (WIP) and/or records_vault_list_documents ->
+  records_vault_get_document / records_vault_download_document_content
+  Params: entity_id = "brookfield"; account 119000 "Work in Process - Unbilled Services" (description
+  "Hours logged on engagements not yet invoiced"); Records Vault kind = "journal_entry_support" docs
+  titled "Supporting documentation for WIP recognition - billable time logged" (entity brookfield,
+  retention AICPA_SQMS_7Y).
+  Expected data: WIP/unbilled-time detail supporting the recognized amount, letting the agent confirm
+  the billed portion ($89,425 AR leg) reflects work actually carried in WIP and is "clean and ready to
+  bill" versus what is just noise.
+
+OE5, Identify any genuinely-earned WIP time still sitting unposted that ought to be recognized before
+the lock (the prompt's "what's still genuinely unbilled time vs what's just noise" question).
+  Tool: oracle_gl_list_journal_entries  ->  oracle_gl_get_journal_entry
+  Params: oracle_gl_list_journal_entries -> period_id = "brookfield_FP-2026-05" (the brookfield_
+  prefix scopes the entity); isolate the "WIP recognition - billable time logged" entries and filter on
+  status = "approved" AND posted_at = null; then oracle_gl_get_journal_entry on each to confirm the lines.
+  Expected data: TWO approved-but-unposted WIP recognition entries totaling $33,844.93 that are genuine
+  earned work and should be posted before the May lock:
+    - JE-brookfield-FP-2026-05-0045 (je_46e6033b6aa946e7)  $15,223.56  ->  401000 Revenue - Audit &
+      Assurance; status = "approved", posted_at = null.
+    - JE-brookfield-FP-2026-05-0031 (je_01de85923ce744ba)  $18,621.37  ->  403000 Revenue - Advisory &
+      Consulting; status = "approved", posted_at = null.
+  CRITICAL discriminator (this is where most runs go wrong): a THIRD entry,
+  JE-brookfield-FP-2026-05-0038 (je_1f83fec3cf0346db)  $43,950.76, is status = "submitted" (NOT yet
+  approved), posted_at = null -> it is not yet postable and must NOT be counted as "ready to recognize
+  before lock." The remaining ~$2.135M sitting in account 119000 is pre-stage in-process work (noise),
+  not additional earned work to recognize now.
+  CONCLUSION the agent reaches: beyond the $147,825 already posted (JE-0057), there are exactly two
+  approved-but-unposted WIP recognition entries ($33,844.93 combined) that ought to be posted before the
+  May lock; the submitted-only JE-0038 and the residual WIP balance are not.
+  Rubric note: keep the "approved vs submitted" status filter explicit, so a run that flags the
+  submitted-only JE-0038 or that misses JE-0031 is correctly failed.
+
+OE6, Pull the work-in-process reconciliation carrying the residual variance.
+  Tool: blackline_list_reconciliations  ->  blackline_get_reconciliation
+  Params: blackline_list_reconciliations -> period_id = "brookfield_FP-2026-05", account_id =
+  "119000"; then blackline_get_reconciliation -> recon_id = "BL-75810CD0FEE4".
+  Expected data: state "in_progress", variance = $4,390.62, gl_balance 2,139,388.27 vs supporting_balance
+  2,134,997.65, account "Work in Process - Unbilled Services". Reviewer_comments / variance_explanations
+  carry the SURFACE explanation: a "partial-success subledger feed retry ... remaining 4,390.62 pending
+  the next feed cycle ... leave open for next-period cleanup." This is the explanation the persona does
+  not want taken at face value.
+
+OE7, Uncover the real root cause: the linked BlackLine exception (refutes the feed-timing story).
+  Tool: blackline_list_exceptions  ->  blackline_get_exception
+  Params: blackline_list_exceptions -> filter state = "investigating" / urgency = "high" /
+  sox_implications = true (related_reconciliation_id is a field on the returned exception, not a list
+  filter); then blackline_get_exception -> exception_id = "exc_1ddfc978ce5a4d" (whose
+  related_reconciliation_id = "BL-75810CD0FEE4").
+  Expected data: type = "missing_accrual_variance", state "investigating", urgency "high", escalated =
+  true, financial_impact $4,390.62, sox_implications = true; root_cause "Manual reclassification entry
+  not yet posted before BD3"; description "GL balance for 119000 exceeds supporting detail by $4390.62 ...
+  likely a missed accrual against an open vendor invoice"; identified_by george.mcadam, assigned_to
+  anaya.wallace@brookfieldcpas.com; proposed_resolution = post a corrective JE in oracle_gl referencing
+  this exception_id. CONCLUSION the agent reaches: the variance is NOT feed timing but a missing-accrual /
+  unposted-reclassification posting issue ("who/what it's waiting on" = the unposted reclass + Anaya's
+  open exception), i.e., a posting/support item that does not belong on the billing side, not additional
+  earned work to recognize now.
+
+OE8, Cross-check the close-coordination breadcrumb and/or subledger feed status.
+  Tool: slack_conversations_search_messages / slack_conversations_history (channel C005
+  #monthly-close-coordination); optionally oracle_gl_list_subledger_feed_runs.
+  Params: slack_conversations_search_messages -> search_query "WIP-to-revenue" / "147,825",
+  filter_in_channel = "C005"; or slack_conversations_history -> channel_id = "C005"
+  (#monthly-close-coordination).
+  Expected data: George McAdam's breadcrumb (msg d5b1d03c5f595bd68a5679905c18c368) noting total
+  recognition $147,825 with the 401 $89,400 / 402 $32,250 / 403 $26,175 split plus the deferred drawdown
+  leg, "post the entry once support is tied out", corroborates the posted JE and the open WIP linkage.
+
+OE9, Look up the recipients' email addresses before sending.
+  Tool: contacts_get_contacts (or contacts_search_contacts)
+  Params: names "Daniel Jones", "Andrea Phil".
+  Expected data: daniel.jones@brookfieldcpas.com (Accounts Manager), andrea.phil@brookfieldcpas.com
+  (Partner, Accounting Services).
+
+OE10, File the billing-side recognition-timing memo against the May support in Records Vault.
+  Tool: records_vault_upload_document
+  Params: kind = "journal_entry_support" (memo/support against the May recognition);
+  retention_policy_code = "AICPA_SQMS_7Y"; classification = "internal"; relate to the recognition JE
+  via related_resource_type = "journal_entry" / related_resource_id = je_53962aed96fe4b67.
+  Expected content: memo stating (a) what is clean and ready to bill, the $147,825 recognized (JE-0057),
+  tied to Andrea's completion review, the WIP billable-time support, and the $89,425 receivable;
+  (b) the residual $4,390.62 on recon BL-75810CD0FEE4 is a missing-accrual / unposted-reclassification
+  issue (exception exc_1ddfc978ce5a4d, SOX-flagged), not feed timing; (c) the one item carried to revisit
+  at next month's lock.
+
+OE11, Put the memo in front of Daniel, looping Andrea in on the timing call.
+  Tool: email_send_email
+  Params: recipients = ["daniel.jones@brookfieldcpas.com"]; cc = ["andrea.phil@brookfieldcpas.com"];
+  sender = the acting persona (marcus.knell@brookfieldcpas.com).
+  Expected content: summary of the recognition picture, what is clean and ready to bill ($147,825
+  recognized & tied out); whether anything still needs a recognition entry from Accounting Services
+  before the lock (the two approved-but-unposted WIP entries, $33,844.93 combined); and the single carry
+  item ($4,390.62) with its real cause (missing accrual / unposted reclass per exc_1ddfc978ce5a4d),
+  explicitly leaving the timing call to Andrea.
+
+OE12, Log the real cause somewhere it will be tracked and picked up at next close.
+  Tool (any ONE of these is equally valid, the prompt states a goal, "log it somewhere it'll actually
+  be tracked," NOT a system, so no single destination is required):
+    - linear_create_issue (required: team, title; description optional)
+    - blackline_create_review_note (required: recon_id = "BL-75810CD0FEE4", author, body), or a
+      blackline close-task entry against the May close
+    - airtable_create_record into the close/triage workflow (required: base_id, table_name, fields)
+  Params: regardless of path, the title/body/fields must capture that the FP-2026-05 WIP variance of
+  $4,390.62 is a missing-accrual / unposted-manual-reclassification (per exception exc_1ddfc978ce5a4d,
+  SOX implications), NOT feed timing, and must be cleared at the June close rather than written off as
+  feed timing again.
+  Expected result: a tracked, persistent record of the true root cause for next-close pickup.
+  Rubric note: keep this criterion path-agnostic (Linear issue OR BlackLine review note/close task OR
+  Airtable record), the prompt specifies the goal, not the destination, so locking one system would
+  unfairly fail otherwise-valid trajectories.
+
+OE13, Leave a note in close coordination so the June hours-rollforward dependency stays visible.
+  Tool: slack_conversations_add_message
+  Params: channel_id = "C005" (#monthly-close-coordination).
+  Expected content: short note flagging the carried $4,390.62 WIP item and its real cause, so the
+  dependency on the June hours rollforward / next-period cleanup is visible to the close team.
+
+OE14, Set a reminder to pick this back up at the June lock.
+  Tool: reminder_add_reminder
+  Params: due tied to the FP-2026-06 lock window (brookfield_FP-2026-06 bd3_lock_at = 2026-07-03;
+  status currently "future").
+  Expected result: a reminder for the acting persona to revisit the carried WIP recognition item when
+  the June lock comes around.

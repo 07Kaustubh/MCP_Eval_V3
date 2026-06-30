@@ -1,0 +1,176 @@
+[
+    {
+        "title": "The Agent reports that $147,825 has already been booked as recognized revenue for the May 2026 period, in the posted recognition journal entry JE-brookfield-brookfield_FP-2026-05-0057.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to report 'what's already been booked as recognized this period.' The May recognition entry totals exactly $147,825 (verified in ogl_journal_entries.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the recognized total $147,825 for the May 2026 period, tied to journal entry JE-brookfield-brookfield_FP-2026-05-0057 (id je_53962aed96fe4b67)."
+    },
+    {
+        "title": "The Agent reports that $89,400 of the recognized $147,825 is Audit & Assurance revenue (account 401000).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to validate the figure 'across our service lines.' The Audit & Assurance credit leg of JE-0057 is $89,400 to account 401000 (verified in ogl_journal_entries.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the $89,400 Audit & Assurance portion (account 401000) of the $147,825 recognition."
+    },
+    {
+        "title": "The Agent reports that $32,250 of the recognized $147,825 is Tax Preparation & Planning revenue (account 402000).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to validate the figure 'across our service lines.' The Tax Preparation & Planning credit leg of JE-0057 is $32,250 to account 402000 (verified in ogl_journal_entries.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the $32,250 Tax Preparation & Planning portion (account 402000) of the $147,825 recognition."
+    },
+    {
+        "title": "The Agent reports that $26,175 of the recognized $147,825 is Advisory & Consulting revenue (account 403000).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to validate the figure 'across our service lines.' The Advisory & Consulting credit leg of JE-0057 is $26,175 to account 403000 (verified in ogl_journal_entries.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the $26,175 Advisory & Consulting portion (account 403000) of the $147,825 recognition."
+    },
+    {
+        "title": "The Agent reports that the recognized $147,825 ties back to Andrea Phil's May engagement-stage completion review (andrea.phil@brookfieldcpas.com), which stated three service lines crossed milestones and $147,825 should be recognized for May.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to confirm the recognized figure 'genuinely ties back to the engagement-stage completion review it's supposed to come from.' Verified in emails.json (email_scen_059_wip_recognition_0000) from andrea.phil. (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for confirmation that the $147,825 recognition ties back to Andrea Phil's (andrea.phil@brookfieldcpas.com) May engagement-stage completion review, which stated three service lines crossed milestones and $147,825 should be recognized for May."
+    },
+    {
+        "title": "The Agent reports that the recognition ties to the underlying work-in-process / billable-hours support carried in account 119000 (Work in Process - Unbilled Services).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to confirm the recognition ties 'to the billable hours underneath it' and to walk it back to the underlying detail. Account 119000 'Work in Process - Unbilled Services' holds the unbilled WIP/billable-hours support for the recognition (verified in ogl_accounts.json / blackline_reconciliations.json). This criterion checks that the recognition is grounded in the hours support; it is distinct from #8, which checks that the $89,425 billed AR leg equals that same WIP work. (Outcome 2.1 - key fact.)",
+        "evidence": "Minimum acceptance bar (any ONE of the following satisfies the criterion): the Agent (a) names account 119000 / 'Work in Process - Unbilled Services' as the source of the billable-hours support behind the recognition, OR (b) cites the clean May time-and-WIP hours feed as the support the recognition is grounded in, OR (c) states the recognized/billed work is the same work being carried as unbilled WIP (or similar). Deconfliction: a statement that ONLY ties the $89,425 AR leg to WIP belongs to #8 and does not by itself satisfy #6 - #6 requires the recognition to be grounded in the 119000 hours support, not just the AR-leg tie-out."
+    },
+    {
+        "title": "The Agent reports that the recognition includes an $89,425 billed receivable booked to Accounts Receivable (account 110000).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to confirm the recognition ties 'to the receivable that's landed on our ledger.' JE-0057 line 1 debits $89,425 to account 110000 Accounts Receivable - Client Billings (verified in ogl_journal_entries.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the $89,425 billed receivable booked to Accounts Receivable (account 110000) as part of the recognition."
+    },
+    {
+        "title": "The Agent reports that the $89,425 billed portion reflects work actually carried in WIP (the billed receivable is the same work being carried as unbilled work-in-process).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to confirm 'the billed portion is the same work we're actually carrying.' This is a tie-out conclusion specifically between the $89,425 AR leg (account 110000) and the WIP work carried in account 119000, distinct from merely reporting the AR leg exists and distinct from #6 (which checks the recognition is grounded in the 119000 hours support). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for confirmation that the $89,425 billed portion (the AR leg booked to account 110000) reflects work actually carried in WIP - i.e., the billed receivable is the same work being carried as unbilled work-in-process. Deconfliction: a general statement that the recognition is grounded in the 119000 hours support belongs to #6; #8 specifically requires equating the $89,425 billed AR leg with that WIP work."
+    },
+    {
+        "title": "The Agent reports that, beyond the $147,825 already posted (JE-0057), the approved-but-unposted WIP recognition entry JE-brookfield-FP-2026-05-0045 (je_46e6033b6aa946e7), $15,223.56 recognizing to account 401000 (Audit & Assurance), is genuinely-earned time that should be posted before the May lock.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'tell me what, if anything, is still genuinely sitting as unbilled time that ought to be recognized before we lock, versus what's just noise.' Beyond the posted $147,825 (JE-0057), the brookfield FP-2026-05 ledger holds an approved-but-unposted WIP-to-revenue entry je_46e6033b6aa946e7 ($15,223.56 -> 401000), described 'WIP recognition - billable time logged', status 'approved', posted_at null (verified in ogl_journal_entries.json). This is genuine earned work that needs posting before the lock, not noise. (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for identification of JE-brookfield-FP-2026-05-0045 (je_46e6033b6aa946e7), $15,223.56 to 401000, status 'approved' / posted_at null, as genuinely-earned WIP that should be posted before the May lock. Note for the judge: the submitted-only entry JE-brookfield-FP-2026-05-0038 (je_1f83fec3cf0346db, $43,950.76, status 'submitted', not yet approved) is NOT postable and must not be substituted for or counted alongside the approved entries; the approved-but-unposted set totals $33,844.93 (this entry plus JE-0031)."
+    },
+    {
+        "title": "The Agent reports that, beyond the $147,825 already posted (JE-0057), the approved-but-unposted WIP recognition entry JE-brookfield-FP-2026-05-0031 (je_01de85923ce744ba), $18,621.37 recognizing to account 403000 (Advisory & Consulting), is genuinely-earned time that should be posted before the May lock.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'tell me what, if anything, is still genuinely sitting as unbilled time that ought to be recognized before we lock, versus what's just noise.' Beyond the posted $147,825 (JE-0057), the brookfield FP-2026-05 ledger holds an approved-but-unposted WIP-to-revenue entry je_01de85923ce744ba ($18,621.37 -> 403000), described 'WIP recognition - billable time logged', status 'approved', posted_at null (verified in ogl_journal_entries.json). This is the entry agents most often missed (substituting the submitted-only JE-0038). It is genuine earned work that needs posting before the lock, not noise. (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for identification of JE-brookfield-FP-2026-05-0031 (je_01de85923ce744ba), $18,621.37 to 403000, status 'approved' / posted_at null, as genuinely-earned WIP that should be posted before the May lock. Note for the judge: the submitted-only entry JE-brookfield-FP-2026-05-0038 (je_1f83fec3cf0346db, $43,950.76, status 'submitted', not yet approved) is NOT postable and must not be substituted for this entry; the approved-but-unposted set totals $33,844.93 (this entry plus JE-0045)."
+    },
+    {
+        "title": "The Agent identifies the residual variance on the work-in-process reconciliation BL-75810CD0FEE4 (account 119000) as approximately $4,390.62.",
+        "category": "outcome",
+        "justification": "The prompt centers on 'a residual variance still hanging on our work-in-process reconciliation.' Recon BL-75810CD0FEE4 carries a $4,390.62 variance on account 119000 (verified in blackline_reconciliations.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the residual variance of approximately $4,390.62 on the work-in-process reconciliation BL-75810CD0FEE4 (account 119000), the difference between the GL balance (~$2,139,388.27) and the supporting balance (~$2,134,997.65)."
+    },
+    {
+        "title": "The Agent determines the real cause of the approximately $4,390.62 variance is a missing-accrual / unposted manual reclassification entry (not posted before BD3).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'work out what's genuinely behind it, all the way down to the cause.' The exception root_cause is 'Manual reclassification entry not yet posted before BD3' (verified in blackline_exceptions.json, exc_1ddfc978ce5a4d). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the conclusion that the real cause of the approximately $4,390.62 variance is a missing-accrual / unposted manual reclassification entry (not posted before BD3)."
+    },
+    {
+        "title": "The Agent explicitly rejects the subledger feed-timing explanation for the approximately $4,390.62 variance, stating it is NOT a feed-timing issue.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent not to take the feed-timing explanation 'at face value.' The surface explanation on recon BL-75810CD0FEE4 attributes the $4,390.62 to a partial-success subledger feed retry left for next-period cleanup; the linked exception exc_1ddfc978ce5a4d shows the real cause is a missing accrual, so the feed-timing story must be explicitly rejected (verified in blackline_reconciliations.json / blackline_exceptions.json). (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for an explicit statement that the approximately $4,390.62 variance is NOT a subledger feed-timing issue (rejecting the surface 'partial feed / leave for next period' explanation)."
+    },
+    {
+        "title": "The Agent identifies that the variance is tracked by BlackLine exception exc_1ddfc978ce5a4d (high urgency, SOX implications), assigned to anaya.wallace@brookfieldcpas.com, as the open item it is waiting on.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to work out 'who or what it's really waiting on.' The variance is tracked by exception exc_1ddfc978ce5a4d (SOX-flagged, escalated) assigned to anaya.wallace@brookfieldcpas.com (verified in blackline_exceptions.json). Exception id and assignee come from the same record. (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for identification of BlackLine exception exc_1ddfc978ce5a4d (high urgency, SOX implications) as the open item tracking the variance, assigned to anaya.wallace@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent concludes that the approximately $4,390.62 variance is a posting/support issue that does not belong on the billing side and is not earned revenue to recognize now.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'tell me straight whether it's real earned work that should be recognized now, or a posting or support issue that doesn't belong on the billing side at all.' The correct answer is the latter. This is distinct from the cause/feed-timing finding. (Outcome 2.1 - key fact.)",
+        "evidence": "Check the Agent's final response for the conclusion that the approximately $4,390.62 variance is a posting/support issue that does not belong on the billing side and is not earned revenue to recognize now."
+    },
+    {
+        "title": "The Agent files a billing-side recognition-timing memo in the Records Vault against the May recognition support (related to recognition journal entry JE-brookfield-brookfield_FP-2026-05-0057).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'write it up as a billing-side recognition-timing memo I can file against the May support.' This confirms the memo was filed against the May recognition support. (Outcome 1.1 - write-action result.)",
+        "evidence": "Look for the Agent filing a memo document in the Records Vault related to the May 2026 revenue recognition (related resource journal entry JE-brookfield-brookfield_FP-2026-05-0057 / je_53962aed96fe4b67). Confirm the write action returned success."
+    },
+    {
+        "title": "The Agent's filed memo states that the $147,825 recognized (journal entry JE-brookfield-brookfield_FP-2026-05-0057) is clean and ready to bill, tying it back to Andrea Phil's completion review, the WIP billable-time support, and the $89,425 receivable.",
+        "category": "outcome",
+        "justification": "The prompt requires the memo to lay out 'what's clean and ready to bill.' The recognized $147,825 (JE-0057) tied to Andrea's review, the WIP support, and the $89,425 receivable is the clean/ready-to-bill package (verified in ogl_journal_entries.json / emails.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the filed memo for a statement that the $147,825 recognized (JE-brookfield-brookfield_FP-2026-05-0057) is clean and ready to bill, tied to Andrea Phil's completion review, the WIP billable-time support, and the $89,425 receivable."
+    },
+    {
+        "title": "The Agent's filed memo identifies the residual approximately $4,390.62 variance (recon BL-75810CD0FEE4) as a missing-accrual / unposted-reclassification issue (exception exc_1ddfc978ce5a4d), not feed timing.",
+        "category": "outcome",
+        "justification": "The prompt requires the memo to convey the real cause of the residual variance rather than the feed-timing story. The variance on recon BL-75810CD0FEE4 is a missing-accrual / unposted-reclassification issue tracked by exception exc_1ddfc978ce5a4d (verified in blackline_reconciliations.json / blackline_exceptions.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the filed memo for identification of the residual approximately $4,390.62 variance (recon BL-75810CD0FEE4) as a missing-accrual / unposted-reclassification issue (exception exc_1ddfc978ce5a4d), explicitly NOT a feed-timing issue."
+    },
+    {
+        "title": "The Agent's filed memo names the single item carried to revisit at the June lock (the approximately $4,390.62 residual WIP variance).",
+        "category": "outcome",
+        "justification": "The prompt requires the memo to lay out 'the one item we're carrying to revisit at next month's lock.' That single carry item is the approximately $4,390.62 residual WIP variance (verified in blackline_reconciliations.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the filed memo for the single carry item to revisit at the June lock - the approximately $4,390.62 residual WIP variance on recon BL-75810CD0FEE4."
+    },
+    {
+        "title": "The Agent puts the write-up in front of daniel.jones@brookfieldcpas.com (Accounts Manager) as the primary recipient, looping in andrea.phil@brookfieldcpas.com (Partner, Accounting Services).",
+        "category": "outcome",
+        "justification": "The prompt says to 'put it in front of Daniel, looping Andrea in where the timing call is hers.' This states a goal (reach Daniel, loop Andrea in), not a channel, so the rubric stays method-agnostic: an email to Daniel with Andrea CC'd, or a Slack message/DM to Daniel with Andrea added, both satisfy it. Daniel Jones (Accounts Manager) and Andrea Phil (Partner, Accounting Services) verified in contacts.json. Primary recipient and looped-in party are part of the same outreach action, so they are bundled. (Outcome 1.1 - write-action result.)",
+        "evidence": "Look for the Agent delivering the write-up to daniel.jones@brookfieldcpas.com as the primary recipient with andrea.phil@brookfieldcpas.com looped in (e.g., CC'd on an email or added to the same Slack message/DM/thread). Confirm the write action returned success."
+    },
+    {
+        "title": "The Agent's write-up to Daniel Jones states what is clean and ready to bill - the $147,825 recognized and tied out.",
+        "category": "outcome",
+        "justification": "The prompt requires the write-up to Daniel to lay out 'what's clean and ready to bill.' The $147,825 recognized and tied out is that clean/ready figure (verified in ogl_journal_entries.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the content of the Agent's write-up to Daniel Jones (daniel.jones@brookfieldcpas.com) for a statement of what is clean and ready to bill - the $147,825 recognized and tied out."
+    },
+    {
+        "title": "The Agent's write-up to Daniel Jones states whether anything still needs a recognition entry from Accounting Services before the lock (the two approved-but-unposted WIP entries, $33,844.93 combined).",
+        "category": "outcome",
+        "justification": "The prompt requires the write-up to Daniel to address 'anything that still needs a recognition entry from Accounting Services before the lock.' Beyond JE-0057, the two approved-but-unposted WIP entries (je_46e6033b6aa946e7 $15,223.56 and je_01de85923ce744ba $18,621.37, $33,844.93 combined) still need posting before the lock (verified in ogl_journal_entries.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the content of the Agent's write-up to Daniel Jones for a statement of whether anything still needs a recognition entry from Accounting Services before the lock (the two approved-but-unposted WIP entries totaling $33,844.93)."
+    },
+    {
+        "title": "The Agent's write-up to Daniel Jones states the single carry item (approximately $4,390.62) with its real cause (missing accrual / unposted reclassification per exception exc_1ddfc978ce5a4d), explicitly leaving the timing call to Andrea Phil (andrea.phil@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt requires the write-up to Daniel to convey the single carry item with its real cause and to explicitly leave the timing call to Andrea. The carry item is the approximately $4,390.62 variance whose real cause is a missing accrual / unposted reclassification (exception exc_1ddfc978ce5a4d); Andrea Phil owns the timing call (verified in blackline_exceptions.json / contacts.json). (Outcome 1.2 - action content.)",
+        "evidence": "Check the content of the Agent's write-up to Daniel Jones for the single carry item (approximately $4,390.62) with its real cause (missing accrual / unposted reclassification per exception exc_1ddfc978ce5a4d), explicitly leaving the timing call to Andrea Phil (andrea.phil@brookfieldcpas.com)."
+    },
+    {
+        "title": "The Agent logs the variance root cause in a persistent tracking system that will be picked up at the next close, via any one of: a Linear issue, a BlackLine review note or close task on the May close, or an Airtable record in the close/triage workflow.",
+        "category": "outcome",
+        "justification": "The prompt states a goal - 'get the real cause logged somewhere it'll actually be tracked and picked up at next close' - not a system. Per the Oracle Events note, this criterion is kept path-agnostic so a valid Linear / BlackLine / Airtable trajectory is not unfairly failed. (Outcome 1.1 - write-action result.)",
+        "evidence": "Look for the Agent creating a persistent tracking record of the variance root cause in any one of: Linear (an issue), BlackLine (a review note or close task on recon BL-75810CD0FEE4 / the May close), or Airtable (a record in the close/triage workflow). Confirm the write action returned success. Any one destination satisfies this criterion."
+    },
+    {
+        "title": "The Agent's logged tracking record states that the FP-2026-05 WIP variance of approximately $4,390.62 is a missing-accrual / unposted manual reclassification (per exception exc_1ddfc978ce5a4d, SOX implications), not feed timing, and must be cleared at the June close.",
+        "category": "outcome",
+        "justification": "The prompt requires the real cause be logged 'rather than written off as feed timing again and rediscovered later.' The record must capture the true root cause so the June close picks it up. Content requirement is independent of the chosen destination. (Outcome 1.2 - action content.)",
+        "evidence": "Check the content of the logged tracking record (whichever destination was used) for the statement that the FP-2026-05 WIP variance of approximately $4,390.62 is a missing-accrual / unposted manual reclassification (per exception exc_1ddfc978ce5a4d, SOX implications), not feed timing, to be cleared at the June close."
+    },
+    {
+        "title": "The Agent posts a note in the #monthly-close-coordination channel (channel C005).",
+        "category": "outcome",
+        "justification": "The prompt says to 'leave a note in close coordination so the dependency on the June hours rollforward stays visible.' Channel #monthly-close-coordination = C005 (verified in slack_channels.json); both the name and id are valid identifiers. (Outcome 1.1 - write-action result.)",
+        "evidence": "Look for the Agent posting a message in the #monthly-close-coordination channel (channel_id C005; either the channel name or the id is acceptable). Confirm the write action returned success."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination note flags the carried WIP item (approximately $4,390.62) and its real cause, keeping the dependency on the June hours rollforward / next-period cleanup visible to the close team.",
+        "category": "outcome",
+        "justification": "The prompt requires the close-coordination note to keep 'the dependency on the June hours rollforward' visible. The message must flag the carried item and its real cause for the close team. (Outcome 1.2 - action content.)",
+        "evidence": "Check the content of the #monthly-close-coordination message for the carried WIP item (approximately $4,390.62), its real cause, and the dependency on the June hours rollforward / next-period cleanup."
+    },
+    {
+        "title": "The Agent sets a reminder for the persona (Marcus Knell) to revisit the carried WIP recognition item at the June lock.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'set me a reminder to pick this back up when the June lock comes around.' (Outcome 1.1 - write-action result.)",
+        "evidence": "Look for the Agent setting a reminder for the persona (Marcus Knell) to revisit the carried WIP recognition item. Confirm the write action returned success."
+    },
+    {
+        "title": "The Agent's reminder is scheduled around the June 2026 close/lock window (approximately late June to early July 2026, aligning with the FP-2026-06 lock target of 2026-07-03).",
+        "category": "outcome",
+        "justification": "The prompt ties the reminder to 'when the June lock comes around.' The June period (brookfield_FP-2026-06) has a lock target of 2026-07-03 (verified in ogl_fiscal_periods.json), so a due date in the late-June-to-early-July 2026 window is correct. (Outcome 1.2 - action content.)",
+        "evidence": "Check the reminder's due date/timing for alignment with the June 2026 close/lock window (the FP-2026-06 lock target is bd3_lock_at 2026-07-03)."
+    }
+]

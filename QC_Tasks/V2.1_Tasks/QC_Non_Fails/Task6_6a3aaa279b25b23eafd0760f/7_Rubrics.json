@@ -1,0 +1,140 @@
+[
+    {
+        "title": "The Agent sends a defense memo email from [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com) to [steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com), [matthew.li@brookfieldcpas.com](mailto:matthew.li@brookfieldcpas.com), and [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Compile the full authorization trail into a defense memo for Steven, Matthew, and Andrea.' Steven Perry is Managing Partner, Matthew Li is Accounting Services Partner, and Andrea Phil is Partner, Accounting Services. This rubric confirms the write action was executed from Ming's address to all three correct recipients.",
+        "evidence": "Look for an email send action in the trajectory with sender ming.chang@brookfieldcpas.com and recipients array containing all three addresses: steven.perry@brookfieldcpas.com, matthew.li@brookfieldcpas.com, and andrea.phil@brookfieldcpas.com. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's defense memo email identifies Hannah Grant as the person who raised the SBC addback correction during the Acme Cloud Q1 estimated tax projection preparation.",
+        "category": "outcome",
+        "justification": "The prompt asks 'I need to know who raised that correction.' Hannah Grant flagged in her email (to Sofia Halabi, CC Ming) that the SBC addback should tie to the actual Q1 P&L expense rather than the $87,000 grant-date FMV figure. She is the person who raised the correction.",
+        "evidence": "Check the content of the email sent to the three partners. It must name Hannah Grant (or Hannah) as the person who raised or flagged the SBC addback correction."
+    },
+    {
+        "title": "The Agent's defense memo email states that the original SBC figure was $87,000 (grant-date fair market value) and the corrected figure is $92,000 (actual Q1 P&L expense in account 650000).",
+        "category": "outcome",
+        "justification": "The prompt asks 'what the original dollar figure was versus what replaced it.' The original draft used $87,000 (grant-date FMV); Sofia's corrected projection uses $92,000 (actual Q1 P&L expense in account 650000). Both figures must appear in the defense memo for the IRS.",
+        "evidence": "Check the email content for both dollar amounts: $87,000 (or $87K) as the original and $92,000 (or $92K) as the corrected figure. The email should reference these as the before-and-after amounts for the SBC addback."
+    },
+    {
+        "title": "The Agent's defense memo email states that the corrected federal estimated tax came to $416,050 after the SBC fix.",
+        "category": "outcome",
+        "justification": "The prompt asks 'what the corrected federal estimated tax came to after the fix.' Sofia Halabi's confirmation email states the federal estimated tax increased to $416,050 after switching to the $92,000 actual P&L amount. This is a critical figure for the IRS defense.",
+        "evidence": "Check the email content for the dollar amount $416,050 referenced as the corrected federal estimated tax or federal estimate after the SBC adjustment."
+    },
+    {
+        "title": "The Agent's defense memo email reports that no standalone methodology decision memo supporting the SBC basis change was filed to Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt asks 'confirm whether a standalone methodology decision memo was filed to Records Vault supporting this.' Records Vault contains the projection packet (kind: tax_return) but no separate methodology memo. The defense memo must flag this gap because the IRS will ask for formal basis-change documentation.",
+        "evidence": "Check the email content for a statement that no standalone methodology memo, methodology decision memo, or formal basis-change documentation was found in Records Vault (or similar language indicating its absence)."
+    },
+    {
+        "title": "The Agent's defense memo email identifies William White as the person who authorized the Northstar SALT closed-period late-post.",
+        "category": "outcome",
+        "justification": "The prompt says 'Pull those details from the authorization itself, not from any earlier review flag.' William White's reply email explicitly grants authorization for the closed-period late-post. He is the authorizer and must be named in the defense memo.",
+        "evidence": "Check the email content for William White (or William) identified as the partner who authorized or approved the Northstar SALT late-post entry."
+    },
+    {
+        "title": "The Agent's defense memo email includes the Northstar SALT shortfall amount of $4,820.30 with debit to account 530000 and credit to account 230000, targeting closed period northstar_legal_FP-2025-12.",
+        "category": "outcome",
+        "justification": "The prompt requires 'the exact shortfall amount, debit and credit accounts, and the target period' pulled from the authorization. William White's email specifies: $4,820.30, DR 530000 SALT expense, CR 230000 accrued SALT payable, to FP-2025-12. These details form one accounting entry and must all appear.",
+        "evidence": "Check the email content for: the amount $4,820.30, debit account 530000, credit account 230000, and the target period northstar_legal_FP-2025-12 (or FP-2025-12 for Northstar, or December 2025 period, or similar reference)."
+    },
+    {
+        "title": "The Agent's defense memo email reports that the authorized Northstar SALT entry has not posted to the ledger.",
+        "category": "outcome",
+        "justification": "The prompt asks 'Confirm whether that entry actually made it to the ledger.' The Oracle GL contains no journal entry matching $4,820.30 for northstar_legal in FP-2025-12. The authorization was given on June 11 and the universe date is June 12; the entry remains unbooked. This triggers the conditional tracking issue.",
+        "evidence": "Check the email content for language indicating the SALT entry has not posted, has not been booked, remains outstanding, or similar confirmation of non-posting."
+    },
+    {
+        "title": "The Agent's defense memo email confirms that Andrea Phil signed off on the LatticeHill orphan-approver invoice and the instruction was release in full.",
+        "category": "outcome",
+        "justification": "The prompt asks 'confirm whether a partner actually signed off and what the instruction was - release, void-and-rebill, or hold.' Daniel Jones's Slack message confirms the invoice was approved for release in full per Andrea Phil. The instruction is release (not void or hold).",
+        "evidence": "Check the email content for: Andrea Phil (or Andrea) identified as having signed off or approved, and the instruction being release in full (not void-and-rebill or hold)."
+    },
+    {
+        "title": "The Agent's defense memo email states the approved corrective path for the account 131000 duplicate exception: debit account 210000 Accounts Payable - External Vendors, credit account 131000 Prepaid Software Subscriptions, for $6,068.91.",
+        "category": "outcome",
+        "justification": "The prompt asks 'confirm the approved corrective path: debit account, credit account, exact dollar amount.' Daniel Jones's approval email explicitly states DR 210000 Accounts Payable - External Vendors, CR 131000 Prepaid Software Subscriptions, for $6,068.91. These precise details must appear.",
+        "evidence": "Check the email content for the corrective entry specifying debit 210000 (Accounts Payable - External Vendors), credit 131000 (Prepaid Software Subscriptions), and the amount $6,068.91."
+    },
+    {
+        "title": "The Agent's defense memo email reports that the 131000 duplicate exception corrective entry has not posted.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether the correction has posted.' BlackLine shows state: investigating, corrective_journal_entry_id: null, and resolution_executed_at: null, confirming the correction remains unposted. This is relevant to Ming's accrual basis concern.",
+        "evidence": "Check the email content for language indicating the 131000 corrective entry has not posted, has not been executed, remains in investigating state, or similar."
+    },
+    {
+        "title": "The Agent creates a tracking issue on the tax team board.",
+        "category": "outcome",
+        "justification": "The prompt says 'open a tracking issue on the tax board' conditional on the Northstar entry being unposted. Since the entry has not posted, this write action is required. The tax team board is team_tax.",
+        "evidence": "Look for an issue creation action in the trajectory targeting team_tax (or team labeled Tax). Confirm the action returned success."
+    },
+    {
+        "title": "The Agent's tracking issue is assigned to Hannah Grant.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'open a tracking issue on the tax board assigned to Hannah.' The issue must be assigned to Hannah Grant specifically, not left unassigned or assigned to someone else.",
+        "evidence": "Check the issue creation parameters for assignee set to persona_004 (Hannah Grant's Linear user ID). Confirm the issue is specifically assigned to her."
+    },
+    {
+        "title": "The Agent's tracking issue references the unposted Northstar SALT entry of $4,820.30 authorized by William White for period northstar_legal_FP-2025-12 and conveys that an authorized but unbooked entry cannot remain outstanding during the IRS inquiry.",
+        "category": "outcome",
+        "justification": "The tracking issue must contain enough detail for Hannah to act. The key facts are: $4,820.30, William White's authorization, target period FP-2025-12, and the urgency of booking while the IRS is looking. The prompt explicitly states 'we cannot have an authorized but unbooked entry while the IRS is looking.'",
+        "evidence": "Check the issue title or description for references to $4,820.30, Northstar SALT, William White's authorization, period FP-2025-12, and the urgency of booking during the IRS inquiry."
+    },
+    {
+        "title": "The Agent uploads the defense memo to Records Vault with retention policy code IRS_TAX_7Y and classification restricted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'File the memo to Records Vault under IRS_TAX_7Y, classification restricted.' Both the retention policy and classification are mandatory parameters specified by Ming.",
+        "evidence": "Look for a document upload action in the trajectory targeting Records Vault. Check that retention_policy_code is IRS_TAX_7Y and classification is restricted. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent identifies in the final response that Hannah Grant raised the SBC addback correction.",
+        "category": "outcome",
+        "justification": "The prompt asks 'I need to know who raised that correction.' Ming expects this answer reported back directly. Hannah Grant flagged in her email that the SBC addback should tie to the actual Q1 P&L expense rather than the grant-date FMV.",
+        "evidence": "Check the agent's final response text for Hannah Grant (or Hannah) named as the person who raised or flagged the SBC addback correction."
+    },
+    {
+        "title": "The Agent reports in the final response that the corrected federal estimated tax came to $416,050 after the SBC fix.",
+        "category": "outcome",
+        "justification": "The prompt asks 'what the corrected federal estimated tax came to after the fix.' Sofia's confirmation email states the federal estimated tax is $416,050. Ming explicitly asks for this figure to prepare his IRS response.",
+        "evidence": "Check the agent's final response text for $416,050 referenced as the corrected federal estimated tax after the SBC adjustment."
+    },
+    {
+        "title": "The Agent reports in the final response that no standalone methodology decision memo was filed to Records Vault supporting the SBC basis change.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'confirm whether a standalone methodology decision memo was filed to Records Vault.' The answer is no. Ming needs this gap flagged because the IRS will want to see formal documentation of the basis change.",
+        "evidence": "Check the agent's final response text for a clear statement that no standalone methodology memo or formal basis-change documentation was found in Records Vault."
+    },
+    {
+        "title": "The Agent confirms in the final response that the Northstar SALT entry has not posted to the ledger.",
+        "category": "outcome",
+        "justification": "The prompt asks 'Confirm whether that entry actually made it to the ledger.' The GL contains no matching entry. Ming needs to know the entry is still outstanding before responding to the IRS.",
+        "evidence": "Check the agent's final response text for confirmation that the Northstar SALT entry has not posted, has not been booked, or remains outstanding."
+    },
+    {
+        "title": "The Agent identifies in the final response William White as the person who authorized the Northstar SALT closed-period late-post.",
+        "category": "outcome",
+        "justification": "The prompt requires identifying the authorizer from the authorization itself. William White's reply email explicitly grants authorization. Ming needs this name for the IRS defense.",
+        "evidence": "Check the agent's final response text for William White (or William) identified as the authorizer or person who approved the Northstar SALT late-post."
+    },
+    {
+        "title": "The Agent reports in the final response that Andrea Phil signed off on the LatticeHill orphan-approver invoice and the instruction was release in full.",
+        "category": "outcome",
+        "justification": "The prompt asks 'confirm whether a partner actually signed off and what the instruction was.' Andrea Phil is the partner and the instruction is release in full (not void-and-rebill or hold). Ming needs this confirmation for his accrual basis assessment.",
+        "evidence": "Check the agent's final response text for Andrea Phil (or Andrea) named as having signed off, and the instruction identified as release in full."
+    },
+    {
+        "title": "The Agent identifies in the final response the approved corrective path for account 131000: debit 210000, credit 131000, for $6,068.91.",
+        "category": "outcome",
+        "justification": "The prompt asks 'confirm the approved corrective path: debit account, credit account, exact dollar amount.' The approved path is DR 210000, CR 131000, $6,068.91. Ming explicitly requests these specific details.",
+        "evidence": "Check the agent's final response text for the corrective path specifying debit 210000, credit 131000, and the amount $6,068.91."
+    },
+    {
+        "title": "The Agent confirms in the final response that the 131000 duplicate exception corrective entry has not posted.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether the correction has posted.' BlackLine shows corrective_journal_entry_id: null, confirming the correction has not been executed. Ming needs this status to assess his accrual basis exposure during the IRS inquiry.",
+        "evidence": "Check the agent's final response text for confirmation that the 131000 corrective entry has not posted, has not been booked, or is still pending."
+    }
+]

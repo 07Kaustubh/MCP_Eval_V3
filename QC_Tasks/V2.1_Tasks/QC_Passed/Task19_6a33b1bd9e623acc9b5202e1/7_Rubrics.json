@@ -1,0 +1,110 @@
+[
+    {
+        "title": "The Agent uploads a firm-state risk summary document to Records Vault under retention policy code AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to file the firm-state risk summary to Records Vault under AICPA_SQMS_7Y. This is a required write action with a specified retention code.",
+        "evidence": "See OE 13: look for a Records Vault upload with a memo kind, retention_policy_code AICPA_SQMS_7Y, and uploaded_by andrea.phil@brookfieldcpas.com, returning a document ID on success."
+    },
+    {
+        "title": "The Agent's Records Vault risk summary is prioritized and includes findings from each of the three boards: (a) the close blocker triage log, (b) the AP workflow exceptions board, and (c) the annual report filing control board.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to synthesize the findings into a firm-state risk summary prioritized by what could affect a client engagement, a filing deadline, or a partner sign-off this week. Required-elements content check for the single uploaded deliverable.",
+        "evidence": "See OE 13: check the uploaded document content for prioritized findings drawn from the close blocker triage log, the AP workflow exceptions board, and the annual report filing control board."
+    },
+    {
+        "title": "The Agent sends an email to the partner group that includes [steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com), [matthew.li@brookfieldcpas.com](mailto:matthew.li@brookfieldcpas.com), [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com), and [julia.vance@brookfieldcpas.com](mailto:julia.vance@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to email the partner group the summary. The firm partners are Steven Perry, Matthew Li, Ming Chang, Julia Vance, and Andrea Phil (the sender), so the agent must email the other four partners.",
+        "evidence": "See OE 14: look for an email from andrea.phil@brookfieldcpas.com with recipients including at least these four partner addresses."
+    },
+    {
+        "title": "The Agent's partner email distinguishes real open issues from stale tracker noise among the Critical and Blocked entries.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to tell the partners which Critical and Blocked entries are real open issues versus tracker noise that nobody closed out after the work was done.",
+        "evidence": "See OE 14: check the email content for an explicit real-versus-stale breakdown referencing specific items and their verified status."
+    },
+    {
+        "title": "The Agent flags specific items that Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) must action before Thursday.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to flag explicitly anything Daniel Jones needs to action before Thursday so he can move on it. The prompt does not specify where to flag it, so the partner email, a direct message to Daniel, or the summary all satisfy this.",
+        "evidence": "See OE 14: check the partner email (cc Daniel), a direct email or message to Daniel, or the summary for explicit Daniel Jones pre-Thursday action items tied to verified findings."
+    },
+    {
+        "title": "The Agent notifies [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) about the stale tracker entries that need cleanup.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to route stale tracker entries to Daniel Jones for cleanup rather than updating them directly. The channel is not specified, so email or messaging both satisfy this.",
+        "evidence": "See OE 15: look for an email or message to daniel.jones@brookfieldcpas.com routing the stale tracker entries (such as BL-3F60ED1C7107 approved, BL-3E4ED5B5B9BA archived, VEN-029-171481 paid, VEN-012-211225 approved) for cleanup, without editing the trackers directly."
+    },
+    {
+        "title": "The Agent notifies [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) about the stale tracker entries that need cleanup.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to route stale tracker entries to Peter Sanchez for cleanup rather than updating them directly. The channel is not specified, so email or messaging both satisfy this.",
+        "evidence": "See OE 15: look for an email or message to peter.sanchez@brookfieldcpas.com routing the stale tracker entries for cleanup, without editing the trackers directly."
+    },
+    {
+        "title": "The Agent identifies the duplicate-entry exception exc_4d5d3582698946 on brookfield account 131000 as a genuinely open, high-priority issue of approximately $6,069 with SOX implications.",
+        "category": "outcome",
+        "justification": "exc_4d5d3582698946 is in investigating state, brookfield entity, duplicate_entry_detected, 6068.91 financial impact, SOX-flagged and SLA-breached. It is the highest-priority real issue across the three boards, and its live recon BL-7085321B04EA is still open with no corrective JE posted.",
+        "evidence": "See OE 6 and OE 7: check the final response, partner email, or Records Vault memo for this exception flagged as a priority item, approximately 6,069, duplicate entry on account 131000, SOX significance, and recon BL-7085321B04EA still open."
+    },
+    {
+        "title": "The Agent identifies that VEN-029-171481 is stale tracker noise: SAP shows the invoice as paid while the AP workflow exceptions board still lists it as Critical and Blocked.",
+        "category": "outcome",
+        "justification": "VEN-029-171481 (VaultKey Access & Security) was paid in August 2025 per SAP, but the AP Workflow Exceptions board still shows it as Critical and Blocked. It is the most misleading stale entry on the AP board.",
+        "evidence": "See OE 8: check the final response, partner email, or memo for VEN-029-171481 identified as paid and therefore stale, contradicting the Critical and Blocked tracker status."
+    },
+    {
+        "title": "The Agent identifies that BL-3E4ED5B5B9BA is stale tracker noise: BlackLine shows the reconciliation as archived while the close blocker board lists it as Pending approval.",
+        "category": "outcome",
+        "justification": "BL-3E4ED5B5B9BA was archived in BlackLine in October 2025 (brookfield, 131000 Prepaid Software Subscriptions) but the Close Blocker Triage Log still shows it as Pending approval.",
+        "evidence": "See OE 5: check the final response, partner email, or memo for BL-3E4ED5B5B9BA identified as archived and therefore stale."
+    },
+    {
+        "title": "The Agent identifies that BL-3F60ED1C7107 is stale tracker noise: BlackLine shows the reconciliation as approved while the close blocker board lists it as Open.",
+        "category": "outcome",
+        "justification": "BL-3F60ED1C7107 was approved in BlackLine in November 2025 (acme_cloud, 102000 Cash - Payroll, variance -1.61 within threshold) but the Close Blocker Triage Log still shows it as Open with High priority.",
+        "evidence": "See OE 5: check the final response, partner email, or memo for BL-3F60ED1C7107 identified as approved and no longer an active blocker."
+    },
+    {
+        "title": "The Agent identifies that the close blocker entry for BL-18FFAE0E20D0 mislabels the GL account as 101000 Cash - Operating when the actual BlackLine reconciliation is on 117000 Allowance for Doubtful Accounts.",
+        "category": "outcome",
+        "justification": "The close blocker board mislabels reconciliation accounts. BL-18FFAE0E20D0 is labeled 101000 Cash - Operating on the tracker but is actually 117000 Allowance for Doubtful Accounts on acme_cloud in BlackLine. Surfacing this data-quality gap matters for the partner read.",
+        "evidence": "See OE 5: check the final response, partner email, or memo for the BL-18FFAE0E20D0 account discrepancy: the close blocker tracker labels it 101000 Cash - Operating while the actual BlackLine reconciliation is on 117000 Allowance for Doubtful Accounts."
+    },
+    {
+        "title": "The Agent reports that no annual-report source documents are on file in Records Vault for the unsubmitted filings, with the FP-2025-10 item genuinely blocked on missing client source documents.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm whether source documents are on file for everything not yet submitted. Records Vault holds no annual-report or state-filing source documents, so the readiness gap is real, especially the Blocked FP-2025-10 filing.",
+        "evidence": "See OE 9: check the final response, partner email, or memo for a finding that source documents are not on file for the unsubmitted annual-report items, with FP-2025-10 blocked on missing client documents."
+    },
+    {
+        "title": "The Agent confirms that the annual-report supporting invoice VEN-004-799133 (DocketPilot Filing Services) is on file in SAP.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm whether invoices are on file for everything not yet submitted. VEN-004-799133 (DocketPilot Filing Services) exists in SAP, so the correct finding is that this invoice is on file.",
+        "evidence": "See OE 9: check the final response, partner email, or memo confirming VEN-004-799133 exists in SAP."
+    },
+    {
+        "title": "The Agent confirms that the annual-report supporting invoice VEN-029-817825 (VaultKey Access & Security) is on file in SAP.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm whether invoices are on file for everything not yet submitted. VEN-029-817825 (VaultKey Access & Security) exists in SAP, so the correct finding is that this invoice is on file.",
+        "evidence": "See OE 9: check the final response, partner email, or memo confirming VEN-029-817825 exists in SAP."
+    },
+    {
+        "title": "The Agent confirms that the annual-report supporting invoice VEN-040-226456 (Meridian Mailroom) is on file in SAP.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm whether invoices are on file for everything not yet submitted. VEN-040-226456 (Meridian Mailroom courier) exists in SAP, so the correct finding is that this invoice is on file.",
+        "evidence": "See OE 9: check the final response, partner email, or memo confirming VEN-040-226456 exists in SAP."
+    },
+    {
+        "title": "The Agent reports that the annual-report review partners have not been notified of their pending items, for example William White on the FP-2025-10 filing.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm the review partners have been notified of what is waiting for them. No notification is found for the named review_partner holders, so the correct finding is that they were not notified.",
+        "evidence": "See OE 10: check the final response, partner email, or memo for a finding that the review partners (for example William White on the FP-2025-10 filing) were not notified of their pending filing items."
+    },
+    {
+        "title": "The Agent does not directly edit or update the Airtable tracker records.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to route stale tracker entries for cleanup rather than updating them directly, so directly modifying the Airtable tracker records would violate the instruction.",
+        "evidence": "See OE 15: confirm the trajectory contains no Airtable record update or create call against the close blocker, AP workflow, or annual report tracker records, and that the stale entries were instead routed to daniel.jones@brookfieldcpas.com and peter.sanchez@brookfieldcpas.com for cleanup."
+    }
+]

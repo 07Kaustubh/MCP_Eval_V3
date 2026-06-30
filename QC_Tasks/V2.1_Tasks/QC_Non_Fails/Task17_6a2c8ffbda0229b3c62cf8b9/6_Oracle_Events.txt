@@ -1,0 +1,37 @@
+OE 1 (Read): Status of the May close via oracle_gl_get_fiscal_period (period_id "brookfield_FP-2026-05") → BD3 lock target (2026-06-03) has passed, period still open and not locked (locked_at null) → close IN PROGRESS.
+
+OE 2 (Read): Close dashboard and backlog via blackline_get_close_status_dashboard + blackline_list_close_tasks + blackline_list_reconciliations (period_id "brookfield_FP-2026-05") → 12 close tasks (1 blocked: ct_d51125979ec142 "BD3 GL lock", owner julia.vance@), 21 reconciliations (11 open, 10 in progress, 0 submitted).
+
+OE 3 (Read): blackline_get_close_task_checklist on the blocked task (ct_d51125979ec142) → which gate is preventing the BD3 lock and confirm julia.vance@ holds the blocker.
+
+OE 4 (Read): List exceptions past BlackLine SLA via blackline_list_exceptions → 10 open (non-closed) exceptions past SLA. Material ones around the May close: oldest exc_3e121025060b4b NorthStar Legal $1,103.75 (SLA 2025-10-05) and exc_abd8e711f5f347 Acme FX $1,014.33 (SLA 2025-12-05); high-urgency Brookfield $6,328.86 (Ben Arinzo, acct 210000), $6,068.91 (Emily Adekole, acct 131000), $4,390.62 (Anaya Wallace, acct 119000); plus exc_cb0a9a94a3084c $435.41 (Harry Marks), exc_06b89e3937b04a $172.62 (Anaya Wallace), exc_af7274fb658844 $572.87 (Sean Williams). (Two further immaterial sub-$30 items also sit past SLA: exc_aade06f6129e43 ~$28.59 Blue Evans, exc_652c0931bb2546 ~$9.61 Tom Chang.)
+
+OE 5 (Read): For each of these exceptions, blackline_get_audit_trail → last action taken and by whom (moving vs. stalled). [list_ already returns amount/owner/sla/root_cause; the last action lives only in the audit trail.]
+
+OE 6 (Read): For each exception's related_reconciliation_id, blackline_get_reconciliation → confirm the reconciliation it is holding up is still open/in-progress (not submitted/approved).
+
+OE 7 (Read): Tie each exception variance to the ledger via oracle_gl_get_account / oracle_gl_get_account_balance on the affected accounts (e.g. 240000, 210000, 131000, 119000, 110000, period FP-2026-05) → the proposed corrective entries for these exceptions have NOT been posted to the GL (related_journal_entry_id null), so the variances are unresolved and the GL does not yet reflect the proposed adjustments; the exposure still sits in the subledger/recon detail. [TRAP - do not report these as already booked/posted/cleared.]
+
+OE 8 (Read): List Acme pending_approval AP invoices that came due in May 2026 via sap_subledger_list_ap_invoices (entity_id "acme_cloud", status "pending_approval") → 10 invoices = $653,393.14; largest TrustLayer $205,147.59, AssurePath $140,906.78, then MetroGrid $56,215.52, Mainsail $51,048.58. Approver field unassigned (null) on all.
+
+OE 9 (Read): Tie the AP exposure to the ledger via oracle_gl_get_account_balance on the AP control account (210000) → confirm the $653,393.14 is still pending_approval, not approved/paid → not reflected as a settled/approved liability movement.
+
+OE 10 (Read): Cross-check via email_search_emails + email_get_thread (terms: May close, BD3, exceptions, PBC) → reconcile against what the team already flagged about the close.
+
+OE 11 (Read): Cross-check via slack_conversations_search_messages + slack_conversations_history (close-relevant channels) → reconcile against existing internal flags; avoid contradicting the team.
+
+OE 12 (Read): Check the calendar for Monday's partner meeting via calendar_search_events / calendar_get_calendar_events_from_to (window around Mon 2026-06-15) → no partner meeting is currently on the calendar for that Monday; surface that the meeting Andrea referenced is not yet scheduled and identify the partner group as the expected attendees.
+
+OE 13 (Read): Quality-management retention policy via records_vault_list_retention_policies / records_vault_get_retention_policy → AICPA_SQMS_7Y.
+
+OE 14 (Lookup): Partner group emails via contacts_search_contacts → steven.perry@, julia.vance@, matthew.li@, ming.chang@brookfieldcpas.com (sender andrea.phil@).
+
+OE 15 (Lookup): #general channel via slack_channels_list (channel_types "public_channel") → channel_id C001.
+
+OE 16 (Write): Upload the one-page risk summary to Records Vault via records_vault_upload_document (kind "memo", retention_policy_code "AICPA_SQMS_7Y") → filed as a quality-management record.
+
+OE 17 (Write): Email the one-pager to the partner group via email_send_email (sender andrea.phil@, the 4 partners) → AP exposure, overdue exceptions, May close status, GL-vs-subledger gap.
+
+OE 18 (Write): Heads-up in #general via slack_conversations_add_message (channel_id "C001") → summary filed and sent to partners.
+
+OE 19 (Write): Ensure each flagged item has a named owner before the weekend → for the unowned May-due Acme invoices (approver null), escalate by name to a specific owner to action them, e.g. email the responsible AP approver via email_send_email (invoices over $50K such as TrustLayer and AssurePath require Managing Partner Steven Perry approval per authority limits); or, where within authority, record the approval via sap_subledger_approve_ap_invoice - so nothing sits unassigned until Monday.

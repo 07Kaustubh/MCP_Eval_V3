@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent reports that the Acme Cloud May close (acme_cloud_FP-2026-05) is not actually ready to be locked, despite the May management accounts package already being delivered.",
+        "category": "outcome",
+        "justification": "Primary discriminating finding; MAP sign-off is not the same as the FP being closed.",
+        "evidence": "Per OE1/OE5/OE6: the summary concludes May is NOT clear to lock, grounded in status open (locked_at null), BD5 not_started, and uncertified recons. Fails if it concludes only a forgotten lock click or that the close is complete."
+    },
+    {
+        "title": "The Agent identifies that the May reconciliations are still outstanding (uncertified, with no supporting evidence attached), specifically that Emily Adekole's Cash - Tax Reserve reconciliation (BL-D603C8DB90D7, account 103000) is still open.",
+        "category": "outcome",
+        "justification": "The grounded reason the close is not lockable lives in BlackLine, not in the triage log or channel chatter.",
+        "evidence": "Per OE5: reports recons uncertified with no evidence and names BL-D603C8DB90D7 (account 103000, GL balance approximately $1,697,174.32) as open. Fails if recons are reported complete."
+    },
+    {
+        "title": "The Agent identifies that the cloud infrastructure vendor true-up accrual (je_a8f3c2d1e4b54789, JE-acme_cloud-acme_cloud_FP-2026-05-0045, $18,750, DR 500000 / CR 220000) is approved but not posted to the GL.",
+        "category": "outcome",
+        "justification": "The prompt asks to verify that what Jones told Brenda actually posted; the email and Slack confirmations claim posted, but the GL shows approved with posted_at null.",
+        "evidence": "Per OE2/OE4: reports JE-0045 approved but not posted despite the confirmations. Fails if treated as posted."
+    },
+    {
+        "title": "The Agent identifies that the cloud infrastructure true-up accrual ($18,750, JE-acme_cloud-acme_cloud_FP-2026-05-0045) does not tie to NimbusLedger's actual May billing and is understated - the actual May usage exceeds the $18,750 accrued.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the accrued amount ties to what the vendor actually billed; every NimbusLedger May figure in the universe exceeds $18,750, so the accrual is understated. The check is on direction (understated / does not tie), not a single contested figure, to avoid a misaligned-data false negative.",
+        "evidence": "Per OE4: reports the cloud accrual is understated / does not tie to actual NimbusLedger May billing (actual exceeds $18,750). Accept any sourced actual figure above $18,750 (e.g., ~$21,300 from the billing email or the higher SAP invoice). Fails only if the agent treats the $18,750 accrual as tying out / correct."
+    },
+    {
+        "title": "The Agent identifies a duplicate May deferred-revenue release in the ledger - JE-acme_cloud-acme_cloud_FP-2026-05-0046 ($194,850, DR 240000 / CR 401000) duplicates the legitimate JE-acme_cloud-acme_cloud_FP-2026-05-0042, overstating May subscription revenue by approximately $194,850.",
+        "category": "outcome",
+        "justification": "The prompt asks to confirm nothing got entered twice; 0046 double-counts the BD1 deferred-revenue release.",
+        "evidence": "Per OE2/OE3: reports JE-0046 as a duplicate of JE-0042 overstating revenue ~$194,850. Fails if the duplicate is missed or 0042 is mislabeled as the duplicate."
+    },
+    {
+        "title": "The Agent prepares a reversing or correcting journal entry for the duplicate deferred-revenue release JE-acme_cloud-acme_cloud_FP-2026-05-0046 (not JE-0042).",
+        "category": "outcome",
+        "justification": "The prompt asks to get the corrections teed up; the duplicate must be reversed.",
+        "evidence": "Per OE9: a reversing/correcting entry targeting the $194,850 duplicate (0046) is prepared. Fails if no corrective entry is prepared, or if it reverses the legitimate 0042."
+    },
+    {
+        "title": "The Agent's reversing entry for the duplicate reverses the $194,850 deferred-revenue release (debit 401000 Revenue - Subscription / credit 240000 Deferred Revenue - Current, or similar), matching JE-0046.",
+        "category": "outcome",
+        "justification": "The corrective entry must net out the duplicated $194,850 with the correct accounts.",
+        "evidence": "Per OE9: the prepared entry uses approximately $194,850 against accounts 401000 and 240000 (or similar). Fails if the amount or accounts are wrong."
+    },
+    {
+        "title": "The Agent does not post or approve the corrective journal entries to the Acme May ledger on its own, leaving them in a draft or submitted state for review.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says do not post or approve anything to the ledger yourself (preparer scope).",
+        "evidence": "Per OE14: no post/approve action on the agent-prepared corrective entries appears in the trajectory. Fails if the agent self-posts or self-approves."
+    },
+    {
+        "title": "The Agent contacts Emily Adekole ([emily.adekole@brookfieldcpas.com](mailto:emily.adekole@brookfieldcpas.com)) to get her outstanding Cash - Tax Reserve reconciliation completed (via email or message).",
+        "category": "outcome",
+        "justification": "The prompt asks to nudge whoever is still holding May work open; Emily is preparer on BL-D603C8DB90D7.",
+        "evidence": "Per OE11: an email or message to emily.adekole@brookfieldcpas.com asking her to complete/attach evidence. Fails if the recon owner is not contacted."
+    },
+    {
+        "title": "The Agent's message to Emily Adekole asks her to complete and attach evidence to her outstanding Cash - Tax Reserve reconciliation BL-D603C8DB90D7 (or similar).",
+        "category": "outcome",
+        "justification": "The nudge must name the specific reconciliation, not be generic.\",",
+        "evidence": "Per OE11: the message references BL-D603C8DB90D7 / tax reserve and requests completion with evidence. Fails if generic."
+    },
+    {
+        "title": "The Agent corrects the Close Blocker Triage Log so the Acme Cloud May close is no longer marked Resolved/clear - updating the existing Resolved triage record (airtable_inj_acme_may_close_ops_resolved) or adding a corrective entry reflecting that May work is still outstanding.",
+        "category": "outcome",
+        "justification": "The prompt asks to verify the triage log and set it straight if stale; it falsely shows Resolved.",
+        "evidence": "Per OE7/OE12: an Airtable update/create moving the Acme May triage record off Resolved to reflect open blockers. Fails if left untouched."
+    },
+    {
+        "title": "The Agent's triage-log correction names the specific outstanding items (uncertified May reconciliations, the unposted/understated cloud true-up accrual, the duplicate revenue release, and/or the incomplete BD3-BD5 checklist) (or similar).",
+        "category": "outcome",
+        "justification": "The correction must reflect the real blockers, not just flip a flag.\",",
+        "evidence": "Per OE12: the corrected record content names the outstanding items. Fails if it is a bare status flip."
+    },
+    {
+        "title": "The Agent sends Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) a summary of what is still blocking the Acme May formal close (via email or message).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to send Daniel a summary. Required write action.",
+        "evidence": "Per OE13: an email or message to daniel.jones@brookfieldcpas.com summarizing what blocks formal close on acme_cloud_FP-2026-05."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones separates real blockers from narrative noise, treating signals such as Daniel's lock-ready Slack message, Brenda's posted/clear confirmations, the Airtable Close Blocker Triage Log status Resolved, and Andrea Phil's MAP sign-off as insufficient without BlackLine or GL support (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a summary separating real blockers from noise and warns against trusting email/Slack over structured records.",
+        "evidence": "Per OE4/OE7/OE8: the summary distinguishes structured blockers from the narrative signals. Fails if those signals alone are treated as proof May is clear."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones reports that the May close checklist is incomplete on acme_cloud_FP-2026-05 - at minimum that the BD3 GL-lock task is blocked and the BD5 period-close task is not done (the SAP nightly feed sweep still in_progress may also be noted, but is not required).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks where the close checklist stands versus BD3 and BD5, so the summary to Daniel must convey checklist incompleteness with at least the BD3 and BD5 statuses. SAP feed status is supporting detail, not required.",
+        "evidence": "Per OE6: the Daniel summary states the checklist is incomplete and identifies at least BD3 blocked and BD5 not done (not merely passed deadlines). Fails if the summary reports the checklist as complete, omits the checklist status entirely, or names only one of BD3/BD5."
+    },
+    {
+        "title": "The Agent does not lock the acme_cloud_FP-2026-05 period itself.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says do not lock the period.",
+        "evidence": "Per OE14: no period-lock action on acme_cloud_FP-2026-05 in the trajectory."
+    },
+    {
+        "title": "The Agent does not certify or submit Emily Adekole's Cash - Tax Reserve reconciliation BL-D603C8DB90D7 (or any other May recon) on her behalf.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says do not certify anyone else's reconciliation.",
+        "evidence": "Per OE14: no certify/submit action on BL-D603C8DB90D7 (or any May recon) in the trajectory."
+    },
+    {
+        "title": "The Agent identifies the open BlackLine subledger-feed-drop exception on the Acme May pool - account 215000 (Accounts Payable - Intercompany), approximately $47,200 unreconciled (exc_inj_acme_may_feeddrop) - as a blocker to closing.",
+        "category": "outcome",
+        "justification": "A genuine close blocker: the SAP subledger holds ~$47,200 of post-BD3 intercompany AP entries on 215000 that never swept to the GL (related_oracle_je_line_id null), so the GL-side recon ties to ~$0 while the period is materially unreconciled. The exception is corroborated by the subledger, so it is a real outstanding item - not a decoy.",
+        "evidence": "Per OE6b: the agent treats the open subledger_feed_drop exception on account 215000 (~$47,200) as an outstanding blocker, corroborated by the unswept SAP subledger entries (GL ties to ~$0 only because the feed dropped them). Fails if the agent dismisses the exception as noise/decoy on the basis that the recon ties to $0 without checking the SAP subledger, or misses it entirely."
+    },
+    {
+        "title": "The Agent identifies a second duplicate posting in the May ledger - JE-acme_cloud-acme_cloud_FP-2026-05-0049 ($74,220, DR 510000 Salaries - Direct (Operating) / CR 120000 Deferred Commissions - Current) re-books the commissions amortization already recorded in JE-acme_cloud-acme_cloud_FP-2026-05-0043, overstating May commission expense by approximately $74,220",
+        "category": "outcome",
+        "justification": "The prompt asks to confirm nothing got entered twice. There are TWO duplicates; the second (0049) is posted later and away from the BD1 cluster, so an agent that finds the deferred-revenue duplicate (0046) and stops will miss it. The find is unambiguous (same accounts, amount, and period as 0043, a re-run with no offsetting basis).",
+        "evidence": "Per OE3b: the agent reports JE-0049 as a duplicate of JE-0043 - the same $74,220 May commissions amortization against accounts 510000 and 120000 booked a second time - overstating commission expense by ~$74,220. Fails if the agent finds only the deferred-revenue duplicate (0046) and misses the commissions duplicate, or treats 0049 as a legitimate separate entry."
+    },
+    {
+        "title": "The Agent prepares a reversing or correcting journal entry for the second duplicate JE-acme_cloud-acme_cloud_FP-2026-05-0049 (not JE-0043), leaving it in a draft or submitted state for review.",
+        "category": "outcome",
+        "justification": "The prompt asks to tee up the corrections; the second duplicate must also be reversed, mirroring the treatment of the first.",
+        "evidence": "Per OE3b: a reversing/correcting entry targeting the $74,220 commissions duplicate (0049) is prepared in draft/submitted state. Fails if no corrective entry is prepared for 0049, or if it reverses the legitimate 0043."
+    }
+]

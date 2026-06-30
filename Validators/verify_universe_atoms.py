@@ -59,6 +59,14 @@ LOS_VS_CRM_CLAIM = re.compile(
     r"\bCRM\b[^.\n]{0,80}\b(?:loan|borrower|condition|disclosure|underwriting|rate\s+lock|closing)\b",
     re.IGNORECASE,
 )
+PHMSA_HAZMAT_CLAIM = re.compile(
+    r"\b(?:PHMSA|DOT\s+(?:hazmat|placard|compliance|certificate|certification)|hazmat\s+(?:certificate|documentation|placard|shipment|compliance))\b",
+    re.IGNORECASE,
+)
+AIRTABLE_VS_CRM_CLAIM = re.compile(
+    r"\bCRM\b[^.\n]{0,80}\b(?:relocation|vendor\s+assignment|coordinator\s+assignment|stipend|move\s+status|apartment|moving\s+company)\b",
+    re.IGNORECASE,
+)
 
 
 class AtomCheck:
@@ -114,6 +122,8 @@ def collect_atoms_from_text(text: str) -> Dict[str, List]:
         "amounts": [],
         "trid_claims": [],
         "los_vs_crm_claims": [],
+        "phmsa_claims": [],
+        "airtable_vs_crm_claims": [],
     }
     for m in ACCOUNT_CLAIM.finditer(text):
         role = m.group("role") or m.group("role2") or m.group("role3") or ""
@@ -135,6 +145,10 @@ def collect_atoms_from_text(text: str) -> Dict[str, List]:
         atoms["trid_claims"].append({"days": int(m.group(1)), "context": text[max(0, m.start()-60):m.end()+60]})
     for m in LOS_VS_CRM_CLAIM.finditer(text):
         atoms["los_vs_crm_claims"].append({"context": text[max(0, m.start()-40):m.end()+40]})
+    for m in PHMSA_HAZMAT_CLAIM.finditer(text):
+        atoms["phmsa_claims"].append({"match": m.group(0), "context": text[max(0, m.start()-60):m.end()+80]})
+    for m in AIRTABLE_VS_CRM_CLAIM.finditer(text):
+        atoms["airtable_vs_crm_claims"].append({"context": text[max(0, m.start()-40):m.end()+40]})
     return atoms
 
 
@@ -177,6 +191,45 @@ def verify_los_vs_crm_claim_keystone(claim: dict, check: AtomCheck) -> None:
         query="manual: loan-level data must be sourced from mortgage_los, not CRM",
         row="CRM cited as source for loan-level data",
         verdict="POTENTIAL FAIL: claim cites CRM as source for loan-level fact; loan/borrower/condition data lives in mortgage_los. CRM holds marketing funnel only. Verify the rubric/OE doesn't trust CRM for loan state.",
+        severity="WARN",
+    )
+
+
+def verify_phmsa_claim_moveops(claim: dict, indexed: dict, check: AtomCheck) -> None:
+    context = claim["context"]
+    has_signed_ref = bool(re.search(
+        r"\b(?:signed\s+(?:DOT|hazmat|PHMSA)?\s*certificate|signed\s+(?:certification|documentation|paperwork)|certificate\s+(?:on\s+file|received|signed)|placard(?:ed|ing)?\s+(?:certificate|paperwork))\b",
+        context, re.IGNORECASE,
+    ))
+    has_verbal_only = bool(re.search(
+        r"\b(?:verbal\s+(?:confirmation|approval|ok|sign[\-\s]?off)|over\s+the\s+phone|told\s+(?:me|us)\s+(?:on\s+the\s+phone|verbally))\b",
+        context, re.IGNORECASE,
+    ))
+    if has_verbal_only and not has_signed_ref:
+        check.record(
+            atom=f"PHMSA/DOT hazmat claim: `{claim['match']}`",
+            query="manual: PHMSA / DOT hazmat compliance requires a SIGNED carrier certificate (Swift / Heartland email + Airtable record). Verbal-only is non-compliant.",
+            row=f"context cites verbal confirmation: `{claim['match']}`",
+            verdict="POTENTIAL FAIL: PHMSA/DOT hazmat claim relies on verbal confirmation. Compliance requires a signed certificate on file. Verify Airtable tblRelocations01 and the carrier email thread show actual signed documentation.",
+            severity="WARN",
+        )
+    else:
+        airtable_present = bool(indexed.get("airtable.tblRelocations01") or indexed.get("airtable.relocations"))
+        check.record(
+            atom=f"PHMSA/DOT hazmat claim: `{claim['match']}`",
+            query="Airtable tblRelocations01 presence + signed certificate reference",
+            row="airtable present" if airtable_present else "no airtable relocations table — cannot verify",
+            verdict="present — verify per-shipment signed certificate manually" if airtable_present else "no airtable.tblRelocations01 in universe data; PHMSA claim cannot be machine-verified",
+            severity="WARN",
+        )
+
+
+def verify_airtable_vs_crm_claim_moveops(claim: dict, check: AtomCheck) -> None:
+    check.record(
+        atom=f"Airtable-vs-CRM source-of-truth (MoveOps): `{claim['context'][:60]}...`",
+        query="manual: relocation/vendor/coordinator state must be sourced from Airtable tblRelocations01, not CRM",
+        row="CRM cited as source for relocation/vendor/stipend state",
+        verdict="POTENTIAL FAIL: claim cites CRM as source for relocation/vendor/coordinator state; that lives in Airtable tblRelocations01 / tblStipends00001. CRM holds the deal/engagement funnel only. Verify the rubric/OE doesn't trust CRM for relocation state.",
         severity="WARN",
     )
 
@@ -366,6 +419,11 @@ def main():
             verify_trid_claim_keystone(c, indexed, check)
         for c in atoms["los_vs_crm_claims"]:
             verify_los_vs_crm_claim_keystone(c, check)
+    if universe == "moveops":
+        for c in atoms["phmsa_claims"]:
+            verify_phmsa_claim_moveops(c, indexed, check)
+        for c in atoms["airtable_vs_crm_claims"]:
+            verify_airtable_vs_crm_claim_moveops(c, check)
     for je in set(atoms["je_ids"]):
         verify_atom_presence(je, "JE", indexed, check)
     for vid in set(atoms["vendor_ids"]):

@@ -1,0 +1,10 @@
+1.
+The Agent closes the BlackLine exception for the approximately $6,328.86 duplicate on Brookfield account 210000 (FP-2026-05), recording a resolution and linking the corrective journal entry.
++0pts
+Failed
+Does this response meet this criterion?
+
+Failed
+0 points
+Justification
+The action is grounded in the prompt ("close the exception out with the cause and how you resolved it") and the exception (exc_a0f77f2a19104e) is genuinely open, but no run executed a blackline_resolve_exception on it.

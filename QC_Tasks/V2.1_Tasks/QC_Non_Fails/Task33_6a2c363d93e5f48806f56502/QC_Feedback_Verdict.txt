@@ -1,0 +1,23 @@
+Task: Task33_6a2c363d93e5f48806f56502
+Business Function: AP / Vendor Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Inaccurate Oracle Events] The subledger ap inovices is empty, so using the provided tool would not provide the information in OE1.
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Inaccurate Oracle Events]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

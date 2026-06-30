@@ -55,13 +55,12 @@ Almost every sample ends with: email [boss], CC [CEO], post in [channel]. Divers
 
 ## 🎯 Checklist Before Submitting a Prompt
 
-- [ ] Prompt should be complex enough to fail opus 4.5 for making the prompt more hard we can make senarios and edit universe data  
-        "Docs/10_How_To_Load_and_Edit_Universe.md' , Brookfield_Base_Universe/4_Scenario_Storylines.md Brookfield_Base_Universe/7_Brookfield_Universe_One_pager.md
+- [ ] Prompt is complex enough to fail Opus 4.8 (the model under test per AGENTS.md hard rule #1). Pipeline does NOT edit the universe — hardness comes from levers already present in the per-task `3_UniverseDataForThisTask.json`. If insufficient levers are available, see `Reference/Hardness_Playbook.md` for the 11-lever catalog and `PIPELINE HARDNESS` STOP-gate fallbacks (persona swap within the same business function; task swap).
 - [ ] Read it aloud — does it sound like a real person talking?
-- [ ] Remove any sentence that could apply to ANY MoveOps task
+- [ ] Remove any sentence that could apply to ANY task in the universe (no generic phrasing)
 - [ ] Verify no tool names, parameter names, or system names are mentioned
-- [ ] Confirm the voice is distinct from all 12 sample tasks
+- [ ] Confirm the voice is distinct from the V3 reference tasks (`QC_Tasks/V3_Tasks/Task11..14/Prompt.txt`)
 - [ ] Check that actions are implied by the situation, not listed as instructions
 - [ ] Ensure at least one piece of information requires cross-service triangulation
-- [ ] Validate all referenced data exists (or will be injected) in the universe
-- [ ] Never use emdashes in the prompt
+- [ ] Validate all referenced data exists in the per-task universe split
+- [ ] Never use em-dashes or en-dashes in the prompt

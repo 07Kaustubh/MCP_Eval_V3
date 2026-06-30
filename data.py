@@ -44,14 +44,11 @@ def main() -> None:
         result = subprocess.run([sys.executable, str(wrapper), str(task_dir)], check=False)
         sys.exit(result.returncode)
 
-    # Otherwise refuse — the legacy script overwrites a shared directory and
-    # corrupts parallel work across tasks.
+    # Otherwise refuse — only per-task inputs are supported. The legacy script
+    # that wrote to the shared Brookfield_Base_Universe/Data/ directory has
+    # been archived (v21); per-task is the only sanctioned flow.
     print("ERROR: This input does not look like a per-task universe file.", file=sys.stderr)
     print("Expected path shape: Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json", file=sys.stderr)
-    print("", file=sys.stderr)
-    print("If you really need the legacy behavior (writes to shared", file=sys.stderr)
-    print("Brookfield_Base_Universe/Data/ and overwrites parallel work), run", file=sys.stderr)
-    print("data.legacy.py directly. Be aware this can corrupt other tasks.", file=sys.stderr)
     sys.exit(2)
 
 

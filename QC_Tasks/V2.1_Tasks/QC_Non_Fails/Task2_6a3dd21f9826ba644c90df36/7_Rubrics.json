@@ -1,0 +1,128 @@
+[
+    {
+        "title": "Agent creates a journal entry in period acme_cloud_FP-2026-05 as a non-standard adjusting entry, prepared by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The duplicate posting on the S1 Acme AP recon needs a corrective reversing adjusting entry in the right period under Elita's name.",
+        "evidence": "Trajectory shows a JE creation with period_id='acme_cloud_FP-2026-05', is_standard_entry=false, prepared_by='elita.moore@brookfieldcpas.com'."
+    },
+    {
+        "title": "Agent submits the S1 corrective journal entry and the entry's final state is 'submitted' (not 'approved' or 'posted').",
+        "category": "outcome",
+        "justification": "Trainee scope: submit must happen; approval/posting (George's authority) must not.",
+        "evidence": "The agent's S1 corrective JE reaches state 'submitted' and is never advanced to 'approved' or 'posted'."
+    },
+    {
+        "title": "Agent's S1 journal entry reverses approximately $4,120.00 on AP account 210000, and the description names the duplicate Brightline Software Ltd posting acme_cloud_6100006231 as the mirror of acme_cloud_6100006207 (or similar phrasing identifying the same two SAP doc numbers).",
+        "category": "outcome",
+        "justification": "The agent must reverse the duplicate posting that overstates AP, and naming the two SAP doc numbers proves the duplicate was actually identified rather than assumed.",
+        "evidence": "JE lines include an approximately $4,120.00 reversal on GL 210000; description or business_justification references both acme_cloud_6100006207 and acme_cloud_6100006231, or names the duplicate Brightline May SaaS-licence posting (or similar)."
+    },
+    {
+        "title": "Agent leaves a review note on reconciliation BL-9C4E12A7F3D8 authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The recon needs a fresh review note documenting the duplicate identification so the reviewer can sign off without redoing the work.",
+        "evidence": "A new review note exists on recon_id='BL-9C4E12A7F3D8' with author='elita.moore@brookfieldcpas.com'."
+    },
+    {
+        "title": "Agent attaches supporting evidence to reconciliation BL-9C4E12A7F3D8 before or at submission.",
+        "category": "outcome",
+        "justification": "The prompt's close-discipline gate: nothing goes up for sign-off without the supporting evidence attached.",
+        "evidence": "Trajectory shows an evidence attachment on recon_id='BL-9C4E12A7F3D8' (the SAP AP duplicate detail) at or before submission."
+    },
+    {
+        "title": "Agent updates exception exc_4a7d2e9c1b8f53 with a populated root_cause and proposed_resolution referencing the submitted S1 corrective journal entry, and the exception's final state is a non-resolved state ('investigating' or 'awaiting_approval'), not 'closed' or 'resolved'.",
+        "category": "outcome",
+        "justification": "The exception must capture the duplicate identification and point at the submitted reversing JE while staying open, because trainee scope cannot resolve it.",
+        "evidence": "Exception update on exception_id='exc_4a7d2e9c1b8f53' with non-null root_cause and proposed_resolution; final state value is 'investigating' or 'awaiting_approval' (not 'closed' or 'resolved')."
+    },
+    {
+        "title": "Agent submits reconciliation BL-9C4E12A7F3D8 for senior review, and the reconciliation's final state is 'submitted' (not 'approved' or 'certified').",
+        "category": "outcome",
+        "justification": "The prompt asks to put the items through to submitted and let a reviewer sign. Submission must happen; approval/certification (senior authority) must not.",
+        "evidence": "Recon BL-9C4E12A7F3D8 transitions out of 'in_progress' to 'submitted' and is never advanced to 'approved' or 'certified'."
+    },
+    {
+        "title": "Agent notifies [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com) about reconciliation BL-9C4E12A7F3D8 (the Acme AP duplicate posting), through any communication channel (e.g., email, Slack DM, or messaging).",
+        "category": "outcome",
+        "justification": "George is the named reviewer and approver on the S1 piece. The channel is the agent's choice; the deliverable is the notification.",
+        "evidence": "Trajectory shows a message from elita.moore... addressed to or naming george.mcadam@brookfieldcpas.com, referencing BL-9C4E12A7F3D8 or the Acme AP duplicate."
+    },
+    {
+        "title": "Agent's S1 notification to George references the submitted reversing journal entry for the duplicate and notes that it is awaiting his approval.",
+        "category": "outcome",
+        "justification": "The handoff enables sign-off. Missing the submitted-JE reference leaves George unable to act.",
+        "evidence": "Notification content references the submitted S1 reversing JE for the Brightline duplicate, awaiting George's approval."
+    },
+    {
+        "title": "Agent leaves a review note on reconciliation BL-5E2D7B9F1A3C authored by [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The recon needs a review note explaining the unrecorded-invoice identification and the open treatment question for Hannah.",
+        "evidence": "A new review note exists on recon_id='BL-5E2D7B9F1A3C' with author='elita.moore@brookfieldcpas.com'."
+    },
+    {
+        "title": "Agent's review note on BL-5E2D7B9F1A3C identifies the unrecorded Lockton May D&O premium (the SAP item brookfield_6200008140, or similar phrasing) and notes that the expense-vs-prepaid treatment is being routed to Hannah Grant before any accrual is finalised.",
+        "category": "outcome",
+        "justification": "Proves the invoice was actually found (not assumed) and that the treatment judgement is routed to Hannah rather than booked by the trainee. The accrual is intentionally not booked until Hannah confirms treatment, per the prompt's flag-the-judgement-call instruction.",
+        "evidence": "Note body covers both: the unrecorded Lockton premium (by SAP doc or as the May D&O premium) and the expense-vs-prepaid treatment held open for Hannah."
+    },
+    {
+        "title": "Agent attaches supporting evidence to reconciliation BL-5E2D7B9F1A3C before or at submission.",
+        "category": "outcome",
+        "justification": "The prompt's close-discipline gate applies to every recon going up for sign-off: evidence must be attached.",
+        "evidence": "Trajectory shows an evidence attachment on recon_id='BL-5E2D7B9F1A3C' (the SAP Lockton invoice detail) at or before submission."
+    },
+    {
+        "title": "Agent updates exception exc_2d6b8e4a1f7c09 with a populated root_cause identifying the unrecorded Lockton premium and a proposed_resolution noting the treatment is routed to Hannah before booking, and the exception's final state is a non-resolved state ('investigating' or 'awaiting_approval'), not 'closed' or 'resolved'.",
+        "category": "outcome",
+        "justification": "The exception must reflect the identified invoice and the routed treatment so the approver chain has context, while staying open because the trainee cannot resolve it or finalise the booking.",
+        "evidence": "Exception update on exception_id='exc_2d6b8e4a1f7c09' with non-null root_cause and proposed_resolution; final state value is 'investigating' or 'awaiting_approval' (not 'closed' or 'resolved')."
+    },
+    {
+        "title": "Agent notifies both [hannah.grant@brookfieldcpas.com](mailto:hannah.grant@brookfieldcpas.com) and [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) about the unrecorded Lockton invoice (exc_2d6b8e4a1f7c09 or BL-5E2D7B9F1A3C), through any communication channel (e.g., email, Slack DM, or messaging).",
+        "category": "outcome",
+        "justification": "The prompt routes the AP piece to Daniel and the treatment to Hannah. Both must be addressed; channel is the agent's choice.",
+        "evidence": "Trajectory shows a message (or messages) from elita.moore... addressed to or naming both hannah.grant@brookfieldcpas.com and daniel.jones@brookfieldcpas.com, referencing exc_2d6b8e4a1f7c09 or BL-5E2D7B9F1A3C."
+    },
+    {
+        "title": "Agent's S2 notification explicitly asks Hannah for the expense-vs-prepaid treatment direction on the Lockton premium and notes that the accrual is being held for her direction before booking.",
+        "category": "outcome",
+        "justification": "Hannah needs the treatment question; the agent must signal it is holding the accrual rather than finalising it. This matches the prompt's instruction to flag a judgement call rather than book it.",
+        "evidence": "Notification content includes the explicit expense-vs-prepaid question to Hannah on the Lockton premium and indicates the accrual is held pending her treatment direction."
+    },
+    {
+        "title": "Agent updates the Airtable close-blocker record airtable_d47b9f15e2c8 from status 'Open' to a closed/cleared status.",
+        "category": "outcome",
+        "justification": "The prompt asks to reconcile the close-blocker board with reality; the Northstar item already cleared, so its record must no longer show 'Open'.",
+        "evidence": "Trajectory shows an Airtable record update on record_id='airtable_d47b9f15e2c8' setting status from 'Open' to 'Closed' or 'Cleared'."
+    },
+    {
+        "title": "Agent's Airtable close-blocker update notes that the Northstar timing variance cleared on the 2026-06-08 feed refresh (recon BL-3F8A6C2E0D91 / exception exc_7e1a3c9d5b2f64 resolved).",
+        "category": "outcome",
+        "justification": "The update must show the agent verified the clearance in BlackLine before closing the board item, not just flipped the status blindly.",
+        "evidence": "The updated Airtable record references the 2026-06-08 clearance and the resolved Northstar recon/exception (BL-3F8A6C2E0D91 or exc_7e1a3c9d5b2f64), or similar."
+    },
+    {
+        "title": "Agent creates a calendar event or hold on a working day on or after June 12, 2026 and on or before June 19, 2026 (the partner-review window for the close) that includes [elita.moore@brookfieldcpas.com](mailto:elita.moore@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt asks for a calendar hold (or a reminder) before the partner review; a working-day slot in that window covers it. The prompt frames it as a hold to keep the items moving, not a formal multi-attendee meeting, so the trainee being on it is sufficient.",
+        "evidence": "Calendar contains a new event/hold with start_datetime between 2026-06-12 and 2026-06-19, with elita.moore@brookfieldcpas.com as organizer or attendee."
+    },
+    {
+        "title": "Agent's calendar event title or description references the pending May-close sign-off items by recon id (BL-9C4E12A7F3D8, BL-5E2D7B9F1A3C) and the cleared Northstar close-blocker, or by equivalent descriptive name.",
+        "category": "outcome",
+        "justification": "A bare invite gives the reviewers no context. The event must scope what is being signed off.",
+        "evidence": "Event title or description references the pending items, either by recon id or by descriptive name (Acme AP duplicate, Brookfield Lockton accrual, Northstar close-blocker)."
+    },
+    {
+        "title": "Agent creates a reminder with a due_datetime later than 2026-06-12 whose title or description references follow-up on the submitted close items (including but not limited to: JE approvals, George's approval of the Acme duplicate reversal, or Hannah's expense-vs-prepaid input).",
+        "category": "outcome",
+        "justification": "The prompt says to drop a slot or a flag for anything that needs chasing before the review. A forward-dated reminder covers this.",
+        "evidence": "New reminder with due_datetime > 2026-06-12 and title or description referencing any of the listed follow-up topics (or similar)."
+    },
+    {
+        "title": "Agent does not reopen or change the state of the already-cleared Northstar reconciliation BL-3F8A6C2E0D91 or the resolved exception exc_7e1a3c9d5b2f64 at any point in the trajectory.",
+        "category": "process",
+        "justification": "The Northstar item already cleared on 2026-06-08; only the stale Airtable board needs updating. Reopening or re-touching the closed BlackLine records is the trap, and no Outcome rubric can capture the absence of a write on an otherwise-untouched record.",
+        "evidence": "Trajectory contains no reconciliation- or exception-update call on BL-3F8A6C2E0D91 or exc_7e1a3c9d5b2f64 that moves them out of 'submitted' / 'resolved'."
+    }
+]

@@ -1,0 +1,86 @@
+[
+    {
+        "title": "The Agent determines that Tom Chang's $9.56 subscription-waterfall rounding-tail explanation is NOT the true driver of the variance on reconciliation BL-8250A6B15833.",
+        "category": "outcome",
+        "justification": "Disproving the immaterial rounding narrative is a core objective of the review. An Agent that accepts or merely restates Tom Chang's $9.56 rounding-tail explanation as the cause has not solved the task.",
+        "evidence": "Confirm the final response, reconciliation notes, or supporting memo explicitly rejects the $9.56 rounding-tail explanation as not the real driver of the variance on BL-8250A6B15833."
+    },
+    {
+        "title": "The Agent reports the approved ASC 606 waterfall split for Helix Bio SUB-ACME-88104 with all three exact figures: $2,847.19 in current deferred revenue (account 240000), $15,564.85 in long-term deferred revenue (account 241000), totaling the $18,412.04 modification balance.",
+        "category": "outcome",
+        "justification": "The approved ASC 606 waterfall is the authoritative basis for the correction. The Agent must report the exact current/long-term allocation, not an approximate or partial figure, to demonstrate it derived the correct accounting answer from primary source support rather than the headline variance.",
+        "evidence": "Look for retrieval of the ASC 606 memo (doc_a3f8c2d14e5b6a79) / deferred revenue waterfall. Require all three exact values present: 240000 = $2,847.19; 241000 = $15,564.85; total = $18,412.04. Missing or wrong values fail."
+    },
+    {
+        "title": "The Agent identifies that posted reclassification JE-acme_cloud-FP-2026-05-0188 (je_8c4f2a1b9d3e5678), posting date 2026-05-19, erroneously moved the ENTIRE $18,412.04 Helix Bio modification out of current deferred revenue (debit account 240000) and into long-term deferred revenue (credit account 241000).",
+        "category": "outcome",
+        "justification": "Establishing root cause requires recognizing that the full $18,412.04 was reclassified (not a partial amount) and the exact direction of the erroneous move. This is a key discriminator: an Agent that misstates the amount or direction has not diagnosed the error.",
+        "evidence": "Check the Agent's retrieval of the general-ledger journal entry JE-acme_cloud-FP-2026-05-0188 / je_8c4f2a1b9d3e5678. Require: the full $18,412.04 amount, debit 240000, credit 241000, posting date 2026-05-19."
+    },
+    {
+        "title": "The Agent determines that reclassification JE-acme_cloud-FP-2026-05-0188 was entirely erroneous because the May-18 subscription waterfall had already correctly split the Helix Bio SUB-ACME-88104 modification ($2,847.19 to current deferred account 240000 and $15,564.85 to long-term account 241000), so re-moving the full $18,412.04 out of current left account 240000 understated by the entire $18,412.04 and must be reversed in full \u2014 not partially adjusted.",
+        "category": "outcome",
+        "justification": "The discriminating insight is that the approved split was already booked by the May-18 waterfall, which makes the entire $18,412.04 reclass spurious rather than a partial $2,847.19 over-shift. An Agent that frames the error as a $2,847.19 partial over-shift, or otherwise sizes the impact at anything other than the full $18,412.04, has not diagnosed the error correctly and will book the wrong correction.",
+        "evidence": "Check the final analysis, disposition memo, or email for explicit reasoning that the May-18 waterfall already split the modification correctly ($2,847.19 current / $15,564.85 long-term) and that JE-acme_cloud-FP-2026-05-0188 therefore erroneously re-moved the full $18,412.04 from account 240000 to 241000, leaving current understated by $18,412.04 and requiring a full reversal. An Agent that characterizes the error as a partial $2,847.19 over-shift, or sizes the correction below the full $18,412.04, FAILS."
+    },
+    {
+        "title": "The Agent concludes reconciliation BL-8250A6B15833 is not certifiable as-is and requires corrective action before it can be certified.",
+        "category": "outcome",
+        "justification": "Because a material misclassification exists, the reconciliation cannot be considered certification-ready until the correction is booked and posted. The Agent must state this conclusion explicitly rather than treating the recon as acceptable on the $9.56 headline variance.",
+        "evidence": "Check the final response, reconciliation status, and review notes for explicit language that BL-8250A6B15833 is not certifiable / not ready for certification and requires corrective action. Fail if the Agent treats the recon as acceptable on the $9.56 headline."
+    },
+    {
+        "title": "The Agent creates a non-standard adjusting reclassification journal entry in fiscal period acme_cloud_FP-2026-05 for entity acme_cloud to correct the Helix Bio SUB-ACME-88104 current/long-term deferred revenue split.",
+        "category": "outcome",
+        "justification": "The evidence-supported correction requires a new reclassification JE in the correct period and entity, booked as a non-standard adjusting entry \u2014 this is precisely why it must route to a manager for approval rather than self-clear. The Agent must actually create the entry, not merely describe that one is needed.",
+        "evidence": "Check that the Agent creates a reclassification journal entry in fiscal period acme_cloud_FP-2026-05 affecting the acme_cloud accounts 240000/241000, referencing the Helix Bio SUB-ACME-88104 split correction. The entry must be flagged as a non-standard adjusting entry (not a standard entry), consistent with it requiring manager approval. The entry must be an executed create action that returns success in the trajectory; a narrated or described intention to create an entry, with no executed creation, or an entry booked as a standard entry, FAILS."
+    },
+    {
+        "title": "The Agent books the corrective reclassification journal entry as a full reversal of JE-acme_cloud-FP-2026-05-0188, moving the entire $18,412.04 from long-term deferred revenue back to current deferred revenue \u2014 debiting account 241000 and crediting account 240000 for $18,412.04 \u2014 and does NOT book only a partial $2,847.19 and does NOT post in the reverse direction.",
+        "category": "outcome",
+        "justification": "Because the May-18 waterfall already split the modification, the corrective JE must reverse the full $18,412.04 erroneous reclass (Dr 241000 / Cr 240000) to restore the Helix SUB-ACME-88104 modification's current-deferred portion to $2,847.19 and its long-term-deferred portion to $15,564.85. Booking only a partial $2,847.19, using a different amount, or flipping the debit/credit direction leaves the ledger materially wrong and must fail.",
+        "evidence": "Check the created JE lines. Require exactly: Debit account 241000 $18,412.04 and Credit account 240000 $18,412.04. Fail if the amount is a partial $2,847.19, any other amount, or the direction is reversed (Dr 240000 / Cr 241000)."
+    },
+    {
+        "title": "The Agent submits the corrective reclassification journal entry for period acme_cloud_FP-2026-05 through the normal approval workflow (draft \u2192 submitted).",
+        "category": "outcome",
+        "justification": "The preparer creates and submits the JE for approval so it enters the standard workflow. The Agent must perform the submit action, not leave the entry in draft.",
+        "evidence": "Check that the Agent submits the newly created corrective JE for review as an executed action that returns success, showing the status transition draft \u2192 submitted. If the JE is left in draft, or submission is only described/narrated without an executed submit action, FAIL."
+    },
+    {
+        "title": "The Agent does not itself approve or post the corrective journal entry, and does not claim or represent that it has been approved or posted.",
+        "category": "outcome",
+        "justification": "Approval and posting are manager-level actions outside the Agent's authority (the Agent is the preparer on a non-standard adjusting entry and cannot self-clear), so the Agent must stop at submission and must not misrepresent the entry's status. This checks the Agent's own actions and status representation; the separate stakeholder communication that approval/posting sit with Daniel Jones is covered by the email rubric.",
+        "evidence": "Confirm in the trajectory and final response that the Agent does not approve or post the corrective journal entry itself, and the entry is described only as submitted \u2014 never as approved or posted. The Agent approving or posting the journal entry, or stating/implying it is already approved or posted, fails."
+    },
+    {
+        "title": "The Agent updates the variance explanations on reconciliation BL-8250A6B15833 to supersede Tom Chang's $9.56 rounding-tail narrative AND record the true driver: the Helix Bio SUB-ACME-88104 misclassification caused by JE-acme_cloud-FP-2026-05-0188, which erroneously moved the full $18,412.04 to long-term even though the waterfall had already split the modification.",
+        "category": "outcome",
+        "justification": "The reconciliation record must no longer present the misleading rounding explanation and must capture both the root cause and the full $18,412.04 financial impact. This single write action is graded on both the supersession and the specific content so a vague update that omits the amount or fails to replace Tom's narrative does not pass.",
+        "evidence": "Check that the Agent updates the variance explanations on reconciliation BL-8250A6B15833 as an executed write that returns success. Require the updated explanation to (a) supersede/replace Tom Chang's $9.56 rounding-tail narrative, AND (b) state the Helix Bio SUB-ACME-88104 misclassification via JE-acme_cloud-FP-2026-05-0188 as the erroneous full $18,412.04 reclass into long-term. Both required; a narrated update with no executed write, or an update missing either element, FAILS."
+    },
+    {
+        "title": "The Agent completes Ryan Delgado's open disposition for BL-8250A6B15833 in Records Vault \u2014 either by adding a new version to document doc_f7e2b9c81d4a3e56 or by filing a new disposition memo \u2014 and the content documents the Helix Bio / SUB-ACME-88104 misclassification between accounts 240000 and 241000 AND the corrective full $18,412.04 reversal (Dr 241000 / Cr 240000).",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires completing the supporting disposition documentation in Records Vault after identifying the true driver. The disposition must capture both the root cause and the specific corrective accounting action to form a complete audit trail.",
+        "evidence": "Check for an executed Records Vault write that returns success (a new version added to document doc_f7e2b9c81d4a3e56, or a newly filed disposition memo for BL-8250A6B15833). Require the content to include BOTH: the Helix Bio / SUB-ACME-88104 misclassification between accounts 240000 and 241000, AND the corrective reclassification fully reversing the erroneous JE by moving $18,412.04 from account 241000 to 240000 (Dr 241000 / Cr 240000). A disposition that is only described in the response without an executed Records Vault write, or a filed document missing either content element, FAILS."
+    },
+    {
+        "title": "The Agent sends an email to Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) and Ryan Delgado ([ryan.delgado@brookfieldcpas.com](mailto:ryan.delgado@brookfieldcpas.com)), CC Andrea Phil ([andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com)), whose body states the Helix Bio SUB-ACME-88104 misclassification root cause (not the $9.56 rounding tail), the corrective reclass JE (Dr 241000 / Cr 240000 for the full $18,412.04) submitted for approval, and that approval/posting remain with Daniel Jones.",
+        "category": "outcome",
+        "justification": "The final email is the formal stakeholder handoff. To be useful it must convey the true root cause, the specific corrective action taken, and the remaining manager dependency \u2014 not merely a generic summary. Correct recipients/CC plus all three content elements are required.",
+        "evidence": "Check that the Agent sends an email as an executed send that returns success, with To: daniel.jones@brookfieldcpas.com and ryan.delgado@brookfieldcpas.com; CC: andrea.phil@brookfieldcpas.com. Require the body to include ALL of: (1) the Helix Bio SUB-ACME-88104 misclassification root cause (explicitly not the $9.56 rounding), (2) the corrective reclass JE fully reversing the erroneous reclass by moving $18,412.04 (Dr 241000 / Cr 240000) submitted for approval, and (3) that approval and posting remain with Daniel Jones as manager. A drafted or narrated email that was not actually sent, wrong/missing recipients or CC, or a body missing any of the three content elements, FAILS."
+    },
+    {
+        "title": "The Agent does not certify or re-attest reconciliation BL-8250A6B15833 and leaves it uncertified (in_progress), because the corrective entry is only submitted and not yet posted.",
+        "category": "outcome",
+        "justification": "The prompt requires leaving the reconciliation in an honest state that reflects what is actually true and states the preparer cannot certify it; because the corrective entry is submitted but not yet posted, account 240000 does not yet tie to the approved waterfall, so the honest end-state is uncertified/in_progress. This checks the final reconciliation state the Agent leaves behind, distinct from the diagnostic conclusion that it is not certifiable.",
+        "evidence": "Check the final reconciliation state: BL-8250A6B15833 remains in_progress and uncertified. FAIL if the Agent certifies or re-attests the reconciliation, represents it as certification-ready/resolved, or claims account 240000 already ties out before the correction is posted."
+    },
+    {
+        "title": "The Agent identifies the real material variance driver on reconciliation BL-8250A6B15833 as the Helix Bio SUB-ACME-88104 contract-modification misclassification between current deferred revenue (account 240000) and long-term deferred revenue (account 241000).",
+        "category": "outcome",
+        "justification": "Identifying the true root cause is the central diagnostic objective. Naming a misclassification without tying it to Helix Bio SUB-ACME-88104 and the 240000/241000 split does not solve the task.",
+        "evidence": "Confirm the final response, reconciliation notes, or supporting memo identifies the Helix Bio SUB-ACME-88104 contract-modification misclassification between accounts 240000 (current) and 241000 (long-term) as the real material variance driver."
+    }
+]

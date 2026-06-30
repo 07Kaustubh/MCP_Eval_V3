@@ -302,6 +302,13 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 - PASS (5): All experts reach the same end-state on the key findings/actions; only the path or wording differs.
 - **HARD GATE — end-state divergence (mandatory before scoring UGT):** Enumerate the candidate **final universe states** under each reasonable reading of the prompt. If the prompt's literal text implies one action while the universe state implies another (e.g., literal "file it now" vs. "defer until a still-pending sign-off completes"), those are two different end-states → **FAIL**. Other classic shapes: act-now vs. defer, write A vs. write B, escalate to person A vs. person B, file in location X vs. Y. A leading interpretation does **not** rescue it (06/09). Only path/wording differences that converge on the *same* end-state are acceptable.
 
+- **PRECISION GUARDRAIL — wording/label-only variation (mandatory before FAILING UGT):** Before failing UGT, confirm the divergence represents a **different write action or different final universe state**, not merely a wording or single-label variation that all converge on the same end-state. Apply this three-part test:
+  1. **Enumerate the concrete write actions and deliverables** under each reading. If both readings produce the **exact same set** of writes (same emails sent, same JEs posted, same BlackLine review notes created, same Linear issues filed, same Slack posts, same Records Vault uploads) → NOT a UGT fail, even if a label or field value differs.
+  2. **Check whether the rubric explicitly accepts the variation.** If a criterion uses "(or similar)", "any defensible …", or "may be marked as …" phrasing that covers both readings → the variation is **within the rubric's own acceptance band** and is NOT multiple valid answers.
+  3. **Verify the deliverables change.** Inspect every deliverable the prompt asks for (emails, Slack posts, BlackLine review notes, Linear issues, JEs, Records Vault filings, final response). If the content of ALL deliverables is **identical** under both readings → the divergence is immaterial → NOT a UGT fail.
+  Only fail UGT if **at least one write action or deliverable materially differs** between the two readings AND the rubric does NOT explicitly accept the variation. A single-label variation on one record (e.g., a BlackLine exception labeled "recurring" vs "one-off" where `root_cause` is null) where the rubric accepts any defensible basis is a **wording-only divergence, not a UGT fail**.
+  **Why this guardrail exists:** This exact over-fire caused a wrongful QC fail (Task8 6a32aa51) — UGT was failed because one exception could be labeled recurring or one-off, but the rubric accepted "any defensible recurrence basis (or similar)" and all deliverables (BlackLine review notes, email to Daniel Jones, Slack post to #monthly-close-coordination, etc.) were identical either way. The dispute was accepted.
+
 ---
 
 ### 2.2 Feasibility - DEEP EXPLORATION REQUIRED
@@ -328,6 +335,27 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 | [Key discovery the agent must make] | Slack/slack_messages.json | Yes/No | Yes/No | "..." |
 
 **No matter how long it takes - search the data files. If you cannot find the data, the task is NOT feasible.**
+
+**C. Dimensional Feasibility (HARD GATE — mandatory when the prompt asks for a breakdown)**
+
+When the prompt asks for a quantitative result **broken down by a dimension** (per-entity, per-JE-status, per-fiscal-period, per-vendor, per-account, per-classification, per-retention-code, per-persona, per-exception-type, etc.), you MUST verify that the universe data **actually carries that dimension** as a field before passing feasibility. If it doesn't, the breakdown is impossible / requires secondary input and the prompt is not solvable as stated.
+
+| Breakdown Requested in Prompt | Dimension Field Required | Table(s) to Check | Field Exists? | Verdict |
+|-------------------------------|--------------------------|--------------------|--------------:|---------|
+| [e.g., "per client entity"] | entity_id (brookfield / northstar_legal / acme_cloud) | `Oracle_GL/ogl_accounts.json`, `Oracle_GL/ogl_journal_entries.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "by JE status"] | status (draft / submitted / approved / posted / reversed) | `Oracle_GL/ogl_journal_entries.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "by vendor"] | vendor_id or vendor_name | `SAP_Subledger/ap_invoices.json`, `Contacts/contacts.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "by retention code"] | retention_code (AICPA_SQMS_7Y / IRS_TAX_7Y / FIRM_INTERNAL / INDEFINITE) | `Records_Vault/rv_documents.json`, `Records_Vault/rv_retention_policies.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "by fiscal period"] | period_id / period_label | `Oracle_GL/ogl_fiscal_periods.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "by exception type"] | exception_type (unrecorded_invoice / duplicate_entry_detected / timing_difference_over_sla / subledger_feed_drop / missing_accrual_variance / fx_revaluation_drift) | `Blackline/blackline_exceptions.json` | Yes/No | Feasible / **FAIL** |
+
+**Procedure (mandatory):**
+1. Extract every quantitative ask from the prompt that requests a breakdown or per-X split.
+2. Identify the dimension (the "by X" or "per X" or "across our X" qualifier).
+3. Open the relevant universe data tables and confirm the dimension exists as a queryable field.
+4. If the field does not exist → the ask is **impossible as stated** → **FAIL (Feasibility)**. Do NOT wave it through on professional charity or context ("they'd know to look elsewhere") — if the data isn't there, it isn't there.
+
+**Why this is a hard gate:** This exact pattern caused a genuine fail in a prior universe — a prompt needed per-jurisdiction figures, but the relevant data table had no state/jurisdiction field. The eval waved it through and QC caught it.
 
 **Feasibility Checklist:**
 
@@ -572,6 +600,11 @@ Services required: [count]
 |------|------------------|--------------|--------------|-------------------|
 | [Edit 1] | Email, Oracle GL | Yes/No | Yes/No | Yes/No |
 | [Edit 2] | ... | ... | ... | ... |
+
+**Duplicate / conflicting data check (run whenever the task injects new records):**
+- [ ] Watch for exact-duplicate injected records (two records with the same key fields and conflicting values — e.g., two JEs sharing a `je_id` with different amounts, two BlackLine exceptions with the same `exception_id` and conflicting status, two Records Vault documents with the same `document_id` and conflicting `classification` or `retention_code`).
+- [ ] Confirm injected records do not contradict established data in the base universe (e.g., a JE marked `posted` in `Oracle_GL/ogl_journal_entries.json` but flagged as still in `submitted` state by a downstream BlackLine audit-trail entry; a contact with conflicting email addresses across `Contacts/contacts.json` and `Email/emails.json`; a BlackLine reconciliation flagged complete in `blackline_reconciliations.json` but with an open exception in `blackline_exceptions.json` still pointing at it; an AP invoice marked paid in SAP Subledger but with no matching payment record in Oracle GL).
+- [ ] Verify that injected data is temporally consistent — new records must not predate or conflict with existing activity logs, fiscal-period locks (`bd3_lock_at`, `bd5_close_at` in `Oracle_GL/ogl_fiscal_periods.json`), BlackLine audit-trail timestamps, Records Vault chain-of-custody entries, or email/Slack timestamps. JE lifecycle transitions (draft → submitted → approved → posted → reversed) must respect the 300-second minimum gap between transitions; closed-period posts must carry a `late_post_authorization_id` on `oracle_gl_post_journal_entry`.
 
 **Scoring:**
 - FAIL (1-2): Edits create contradictions that break solvability or realism

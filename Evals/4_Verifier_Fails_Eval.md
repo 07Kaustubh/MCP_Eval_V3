@@ -17,6 +17,40 @@ Your job is to diagnose each failing rubric by cross-referencing the judge's jus
 
 ---
 
+## STEP 0 (HARD GATE - MANDATORY): Create TODO List First
+
+Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed without this.**
+
+```
+TODO:
+- [ ] Pre-read: Read Docs/9_Common_Error.md - Internalize common rubric invalidity patterns before diagnosing
+- [ ] Phase 1: Parse & Group - Parse 8_Verifier_Fails.txt, group by Criteria ID, build rubric × run matrix
+  - [ ] Step 1: Extract fields from each "Run Detail" block
+  - [ ] Step 2: Group by Criteria ID → derive fail counts
+  - [ ] Step 2b: Map runs to trajectory files (Agent_Responses/Run{N}_Trajectory.json); note empty files → exclude those runs
+  - [ ] Step 3: For multi-fail rubrics, compare judge justifications side-by-side (pattern check)
+  - [ ] Step 4: Examine Rubric Rationale & Expected Evidence fields for early red flags
+  - [ ] Step 5 (T8): Validate the CB's All-Fail (AF) list against your matrix — flag any rubric that passed ≥1 completed run as NOT an AF
+- [ ] Phase 2: Rubric Validity - For each failing rubric, run validity checks against 7_Rubrics.json + universe
+  - [ ] Tool existence (vs. 8_Server_Tools_Details.json)
+  - [ ] "(or similar)" validity
+  - [ ] Expected value existence (universe data)
+  - [ ] Criteria achievability
+  - [ ] Prompt grounding (vs. 5_Prompt.txt)
+  - [ ] Rubric Rationale alignment
+  - [ ] Parameter existence
+  - [ ] (T7) Environment / tool-error fail — if a tool errored server-side across all runs and 0 completed runs reach the required state, the AF is invalid (environment-driven)
+- [ ] Phase 3: Judge Accuracy - For each rubric that passed Phase 2 (valid rubric), verify the judge's call
+  - [ ] 3.1: Universe cross-check on judge's "missing evidence" claims
+  - [ ] 3.2: Judge reasoning analysis (specificity, interpretation, consistency, expected-evidence quality)
+  - [ ] 3.3: Trajectory verification — open Run{N}_Trajectory.json for failing run(s), check if agent actually did/didn't satisfy the criterion
+- [ ] Phase 4: Verdict Table - Compile final per-rubric diagnosis (Rubric Invalid / Judge Error / Legitimate Fail / Excluded)
+```
+
+**Mark each TODO complete ONLY after thorough verification. Do NOT skip phases.**
+
+---
+
 ## Input Files
 
 
@@ -94,6 +128,8 @@ Each block in `8_Verifier_Fails.txt` contains these fields (from the verifier ou
 - **Rubric Rationale** that doesn't match the prompt = the rubric may be checking something the prompt never asked for
 - **Expected Evidence** that is vague (e.g., "Check the summary for discussion") = the judge has insufficient guidance, which can cause inconsistent scoring
 
+**Step 5: Validate the CB's All-Fail (AF) claims against the matrix.** An AF rubric must have failed **all completed runs** (empty/errored runs excluded per Step 2b). If a rubric the CB listed as all-failing actually **passed in ≥1 completed run**, it is NOT an all-fail - flag the AF list as inaccurate. The AF justification requirement and AF-validity scoring do not apply to a rubric that passed somewhere, and counting it as AF overstates difficulty.
+
 ---
 
 ## PHASE 2: Rubric Validity Check
@@ -110,6 +146,9 @@ Each block in `8_Verifier_Fails.txt` contains these fields (from the verifier ou
 | Prompt grounding           | Does the rubric check something the prompt actually asks for?                                                   | Read `5_Prompt.txt` and confirm the ask exists                 |
 | Rubric Rationale alignment | Does the "Rubric Rationale" from the verifier match what the prompt actually asks?                              | Compare rationale text against `5_Prompt.txt`                  |
 | Parameter existence        | If the rubric references specific tool parameters, do those parameters exist for that tool?                     | Check `Brookfield_Base_Universe/8_Server_Tools_Details.json` parameter lists |
+| Environment / tool-error fail | Did the rubric fail because a **tool errored in the environment** (server-side error/crash), not because the agent reasoned wrong? | Open the failing run trajectory; if the required tool call returned a server-side error (e.g., "can't compare offset-naive and offset-aware datetimes") and **no completed run** ever reaches the required state, the fail is environment-driven |
+
+**Environment-driven all-fails are INVALID all-fails.** If a rubric requires a write the tool physically could not perform - the same tool errors across the provided runs and 0 completed runs ever reach the required state - the failure penalizes a broken environment, not the model. Treat it as an invalid all-fail (not genuine difficulty) and surface the broken tool for platform/eng escalation. Distinguish this from a tool that *works* but the agent chose not to use (that is a real agent decision, not an environment fault).
 
 
 **Per-fail table:**

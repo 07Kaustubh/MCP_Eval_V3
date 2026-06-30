@@ -1,0 +1,206 @@
+[
+    {
+        "title": "The Agent submits reconciliation BL-D603C8DB90D7 for review when the reconciliation reaches in_progress state.",
+        "category": "outcome",
+        "justification": "OE 9 allows successful submission when advancement brings BL-D603C8DB90D7 to in_progress. This rubric checks the submit write action only when the workflow state permits it.",
+        "evidence": "See OE 9. Pass if a BlackLine submit action on BL-D603C8DB90D7 appears in the trajectory after the reconciliation reaches in_progress state. Also pass if attach_evidence did not advance the reconciliation to in_progress, making submission inapplicable."
+    },
+    {
+        "title": "The Agent directly notifies Andrea Phil (andrea.phil@brookfieldcpas.com) about Acme Cloud May lock readiness, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "Ground-truth lock readiness is not clear. The prompt's not-clear branch says to tell Andrea what is still blocking; it does not specify email as the channel.",
+        "evidence": "See OE 13. Look for a direct notification to andrea.phil@brookfieldcpas.com via email_send_email, messaging_send_message, Slack direct message, or equivalent one-to-one channel. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) states that Acme Cloud May (acme_cloud_FP-2026-05) is not ready to lock.",
+        "category": "outcome",
+        "justification": "The expected GT path is not clear to lock. Andrea must be told that May should not be locked yet, not asked to lock.",
+        "evidence": "See OE 13. Check the direct notification content to andrea.phil@brookfieldcpas.com for language that Acme Cloud May (acme_cloud_FP-2026-05) is not ready to lock."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) cites the uncertified May reconciliation pool (0 of 22 certified) as a lock blocker.",
+        "category": "outcome",
+        "justification": "The prompt asks Andrea to be told what is still blocking lock. Zero certified reconciliations is a core material blocker in the not-clear path.",
+        "evidence": "See OE 13, OE 5. Check the direct notification content to andrea.phil@brookfieldcpas.com for reference to the uncertified May reconciliation pool as 0 of 22 certified."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) cites the blocked BD3 GL lock close task or blocked BD3 lock status as a lock blocker.",
+        "category": "outcome",
+        "justification": "The blocked BD3 GL lock close task is direct evidence of why the period cannot lock and is a material blocker Andrea must be told about.",
+        "evidence": "See OE 13, OE 6. Check the direct notification content to andrea.phil@brookfieldcpas.com for reference to blocked BD3 close task ct_ed23e36d9b2141."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) cites in-flight draft or submitted May journal entries as a lock blocker.",
+        "category": "outcome",
+        "justification": "The in-flight JE backlog is a material BD3 gate and must be communicated to Andrea along with the other core blockers.",
+        "evidence": "See OE 13, OE 10. Check the direct notification content to andrea.phil@brookfieldcpas.com for reference to in-flight draft or submitted May journal entries blocking lock."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) cites Emily's reconciliation BL-D603C8DB90D7 as a lock blocker if it remains open or unsubmitted after advancement.",
+        "category": "outcome",
+        "justification": "Emily's recon is a material blocker only when advancement does not clear it. Andrea should be told about it in that case, but not when submission succeeds.",
+        "evidence": "See OE 13, OE 8, OE 9. Check the direct notification content to andrea.phil@brookfieldcpas.com for reference to Emily's reconciliation BL-D603C8DB90D7 if it remains open or unsubmitted after advancement. Pass if Emily is cited when BL-D603C8DB90D7 stays open or unsubmitted; also pass if trajectory shows successful submission and Emily is not cited as a blocker."
+    },
+    {
+        "title": "The Agent's notification to Andrea Phil (andrea.phil@brookfieldcpas.com) asks Andrea not to lock acme_cloud_FP-2026-05 until the blocking items clear.",
+        "category": "outcome",
+        "justification": "The prompt's not-clear branch explicitly says to tell Andrea she should not lock yet.",
+        "evidence": "See OE 13. Check the direct notification content to andrea.phil@brookfieldcpas.com for language asking Andrea not to lock acme_cloud_FP-2026-05 yet."
+    },
+    {
+        "title": "The Agent posts a message to the monthly-close-coordination Slack channel (channel_id C005 or channel name monthly-close-coordination).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for a rundown posted in monthly close coordination so Daniel and Andrea can see where May landed.",
+        "evidence": "See OE 15. Look for a slack_conversations_add_message call with channel_id C005 or channel monthly-close-coordination. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent's Slack message on monthly-close-coordination (C005) states that Acme May is not clear to lock.",
+        "category": "outcome",
+        "justification": "The channel rundown must communicate where the May close landed. The expected GT verdict is that May is not clear to lock.",
+        "evidence": "See OE 15, OE 12. Check the Slack message payload on C005 for a not-clear-to-lock verdict on Acme May."
+    },
+    {
+        "title": "The Agent's Slack message on monthly-close-coordination (C005 or channel name monthly-close-coordination) reports the May reconciliation pool status with 0 certified reconciliations and a valid state breakdown reflecting whether BL-D603C8DB90D7 was still open or had been submitted.",
+        "category": "outcome",
+        "justification": "The prompt asks for a straight status on the full May reconciliation pool. The material pool status is the state breakdown, not merely the total count.",
+        "evidence": "See OE 5, OE 15. Check the Slack message payload on C005 for the May reconciliation pool state breakdown: 5 open, 11 in_progress, 6 submitted, and 0 certified. A total count alone without the state breakdown does not pass."
+    },
+    {
+        "title": "The Agent's Slack message on monthly-close-coordination (C005) mentions Emily Adekole's reconciliation BL-D603C8DB90D7 disposition.",
+        "category": "outcome",
+        "justification": "The prompt asks the channel rundown to show where May landed, including Emily's recon item that Slack keeps mentioning.",
+        "evidence": "See OE 8, OE 9, OE 15. Check the Slack message payload on C005 for Emily Adekole's reconciliation BL-D603C8DB90D7 disposition."
+    },
+    {
+        "title": "The Agent's Slack message on monthly-close-coordination (C005) mentions vendor-coding follow-up for the next close cycle.",
+        "category": "outcome",
+        "justification": "The prompt asks the rundown to cover where May landed, including the vendor-coding follow-up from Andrea's sign-off.",
+        "evidence": "See OE 11, OE 15. Check the Slack message payload on C005 for vendor-coding follow-up tied to Andrea's sign-off request."
+    },
+    {
+        "title": "The Agent creates a reminder for the Acme Cloud June close vendor-coding check, with the reminder as a whole (title, description, or due date) referencing Acme Cloud, the June close cycle, vendor-coding, and timing before entries post (BD0 or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a reminder on next month's close to run a vendor-coding check before entries go in, per Andrea's sign-off request. It does not require the literal string \"BD0\" in the title; BD0 timing may appear in the description or due date instead.",
+        "evidence": "See OE 16. Look for a successful reminder_add_reminder call. Pass if the reminder title, description, or due_datetime together reference Acme Cloud, June close, vendor-coding, and pre-entry / BD0 timing (e.g., title \"June close: run vendor-coding check before entries go in (Acme Cloud)\" with due date in late June 2026, or title/description mentioning BD0). Do not fail solely because \"BD0\" appears only in the description or due date rather than the title."
+    },
+    {
+        "title": "The Agent's reminder states that an AP vendor-coding review should run before entries post, per Andrea Phil's sign-off on the Acme Cloud May MAP.",
+        "category": "outcome",
+        "justification": "The reminder must reflect Andrea's sign-off request to run vendor-coding review on next month's BD0 checklist before entries go in.",
+        "evidence": "See OE 3, OE 16. Check the reminder description for language about running an AP vendor-coding review before entries post, tied to Andrea Phil's May MAP sign-off (email_scen_028_monthly_close_0012)."
+    },
+    {
+        "title": "The Agent's vendor-coding reminder is scheduled in June 2026 ahead of the Acme Cloud June close cycle (BD0), before entries post.",
+        "category": "outcome",
+        "justification": "The prompt asks for a reminder on next month's close before entries go in. June 2026 BD0 timing is required, but the agent may choose any reasonable BD0-appropriate datetime within that window.",
+        "evidence": "See OE 16. Check the reminder due_datetime is scheduled in June 2026 ahead of the Acme Cloud June close cycle (BD0), before entries post for acme_cloud_FP-2026-06."
+    },
+    {
+        "title": "The Agent reports that Acme Cloud May period acme_cloud_FP-2026-05 remains open and unlocked past the June 3, 2026 BD3 lock target.",
+        "category": "outcome",
+        "justification": "Jones asks for a clear read on lock readiness. The period is still open past BD3, which is foundational context for the not-clear verdict.",
+        "evidence": "See OE 1, OE 12. Check the agent's final response for statements that acme_cloud_FP-2026-05 remains open and unlocked and that the June 3, 2026 BD3 lock target has passed."
+    },
+    {
+        "title": "The Agent reports that Andrea Phil signed off the Acme Cloud FP-2026-05 management accounts package on June 10, 2026 (email_scen_028_monthly_close_0012).",
+        "category": "outcome",
+        "justification": "The prompt states Andrea signed the package earlier in the week; Jones still needs to prove posted numbers match what she approved.",
+        "evidence": "See OE 3, OE 12. Check the agent's final response for confirmation that Andrea Phil signed off the FP-2026-05 management accounts package on June 10, 2026 (email_scen_028_monthly_close_0012)."
+    },
+    {
+        "title": "The Agent confirms the signed final package document doc_fc23774ed7d84f3f exists for Acme Cloud FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pull the signed package before tying the close out to posted numbers.",
+        "evidence": "See OE 2, OE 12. Check the agent's final response or trajectory for confirmation that signed package document doc_fc23774ed7d84f3f titled Acme Cloud FP-2026-05 Final Management Accounts Package with Embedded Datadog SAB 99 Memo exists."
+    },
+    {
+        "title": "The Agent reports the Datadog SAB 99 supporting treatment is go-forward-only presentation change for the current-period reclass, not a reopening of historical FY25 Datadog autoroute miscoding.",
+        "category": "outcome",
+        "justification": "The prompt asks to pull the signed package and supporting memo. Records Vault has no downloadable memo content for doc_fc23774ed7d84f3f, so the agent must surface SAB 99 go-forward treatment from the email thread and tie it to the signed MAP narrative.",
+        "evidence": "See OE 2, OE 3, OE 12. Check the agent's final response for the Datadog SAB 99 supporting treatment from the MAP review thread (email_scen_028_monthly_close_0008, 0010, 0012): go-forward-only presentation change for the Datadog reclass, not a reopening or restatement of historical FY25 autoroute miscoding."
+    },
+    {
+        "title": "The Agent reports the signed MAP deferred revenue release figure of $194,850 ties to a posted Acme Cloud FP-2026-05 journal entry with lines DR 240000 Deferred Revenue - Current and CR 401000 Revenue - Subscription.",
+        "category": "outcome",
+        "justification": "The prompt asks to prove posted numbers match what Andrea approved. Tie-out is established by amount + account direction against a posted Acme Cloud FP-2026-05 JE; the specific JE identifier may be reported as either entry_number JE-acme_cloud-acme_cloud_FP-2026-05-0042 or internal id je_8c7eeb8380ab422b since both uniquely resolve to the same posted entry.",
+        "evidence": "See OE 3, OE 4, OE 12. Check the agent's final response for an explicit tie-out that the signed MAP deferred revenue release figure of $194,850 matches a posted Acme Cloud FP-2026-05 journal entry with the line direction DR 240000 / CR 401000. Citing the JE by entry_number (JE-acme_cloud-acme_cloud_FP-2026-05-0042) or by internal id (je_8c7eeb8380ab422b) both satisfy the tie-out; the amount and account direction are the load-bearing facts."
+    },
+    {
+        "title": "The Agent reports the signed MAP deferred commissions amortization figure of $74,220 ties to a posted Acme Cloud FP-2026-05 journal entry with lines DR 510000 Salaries - Direct (Operating) and CR 120000 Deferred Commissions - Current.",
+        "category": "outcome",
+        "justification": "The prompt asks to prove posted numbers match what Andrea approved. Tie-out is established by amount + account direction against a posted Acme Cloud FP-2026-05 JE; the specific JE identifier may be reported as either entry_number JE-acme_cloud-acme_cloud_FP-2026-05-0043 or internal id je_4ee8939c08564350 since both uniquely resolve to the same posted entry.",
+        "evidence": "See OE 3, OE 4, OE 12. Check the agent's final response for an explicit tie-out that the signed MAP deferred commissions amortization figure of $74,220 matches a posted Acme Cloud FP-2026-05 journal entry with the line direction DR 510000 / CR 120000. Citing the JE by entry_number (JE-acme_cloud-acme_cloud_FP-2026-05-0043) or by internal id (je_4ee8939c08564350) both satisfy the tie-out; the amount and account direction are the load-bearing facts."
+    },
+    {
+        "title": "The Agent reports the signed MAP Datadog reclass figure of $28,400 ties to a posted Acme Cloud FP-2026-05 reclassification journal entry with lines DR 521000 Engineering Tools & Observability and CR 500000 Cost of Revenue - Cloud Infrastructure.",
+        "category": "outcome",
+        "justification": "The prompt asks to prove posted numbers match what Andrea approved. Tie-out is established by amount + account direction against a posted Acme Cloud FP-2026-05 reclassification JE; the specific JE identifier may be reported as either entry_number JE-acme_cloud-acme_cloud_FP-2026-05-0044 or internal id je_1ce7247752034cbc since both uniquely resolve to the same posted entry.",
+        "evidence": "See OE 3, OE 4, OE 12. Check the agent's final response for an explicit tie-out that the signed MAP Datadog reclass figure of $28,400 matches a posted Acme Cloud FP-2026-05 reclassification journal entry with the line direction DR 521000 Engineering Tools & Observability / CR 500000 Cost of Revenue - Cloud Infrastructure. Citing the JE by entry_number (JE-acme_cloud-acme_cloud_FP-2026-05-0044) or by internal id (je_1ce7247752034cbc) both satisfy the tie-out; the amount and account direction are the load-bearing facts."
+    },
+    {
+        "title": "The Agent reports May gross margin moved from 74.0% to 75.2% because of the Datadog presentation reclass, not operating improvement.",
+        "category": "outcome",
+        "justification": "The prompt asks the gross margin walk to still make sense against the ledger, especially the presentation change Andrea and Brenda cared about in review.",
+        "evidence": "See OE 3, OE 4, OE 12. Check the agent's final response for gross margin moving from 74.0% to 75.2% because of the Datadog presentation reclass, framed as presentation change rather than operating improvement."
+    },
+    {
+        "title": "The Agent reports the full Acme Cloud May reconciliation pool has 22 reconciliations.",
+        "category": "outcome",
+        "justification": "The prompt asks for a straight status on the full May reconciliation pool, not just the Slack-mentioned item.",
+        "evidence": "See OE 5, OE 12. Check the agent's final response for the full May reconciliation pool total of 22 reconciliations."
+    },
+    {
+        "title": "The Agent reports the May reconciliation pool breakdown with 0 certified and a valid state breakdown that must be one of: (a) pre-advancement, 5 open, 11 in_progress, 6 submitted, 0 certified; or (b) post-successful submission of BL-D603C8DB90D7, 4 open, 11 in_progress, 7 submitted, 0 certified.",
+        "category": "outcome",
+        "justification": "The prompt asks for a straight full-pool status read and also requires advancing Emily's reconciliation when possible. A valid agent may report the pre-advancement inventory or the updated counts after successfully submitting BL-D603C8DB90D7; both are grounded in GT.",
+        "evidence": "See OE 5, OE 8, OE 9, OE 12. Check the agent's final response for 0 certified reconciliations and either the pre-advancement breakdown (5 open / 11 in_progress / 6 submitted) or the post-submission breakdown (4 open / 11 in_progress / 7 submitted) after BL-D603C8DB90D7 is submitted. Pass if counts match one of these two valid snapshots."
+    },
+    {
+        "title": "The Agent reports the BD3 GL lock close task or BD3 lock status is blocked.",
+        "category": "outcome",
+        "justification": "Close-task status is direct evidence of why BD3 lock has not cleared and supports the not-clear verdict.",
+        "evidence": "See OE 6, OE 12. Check the agent's final response for identification that BD3 GL lock close task ct_ed23e36d9b2141 is status blocked."
+    },
+    {
+        "title": "The Agent reports 11 draft journal entries remain in acme_cloud_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt asks to separate draft/submitted items blocking lock from next-cycle work. The 11 draft count is exact GT from the May JE inventory.",
+        "evidence": "See OE 10, OE 12. Check the agent's final response for the count of 11 draft journal entries in acme_cloud_FP-2026-05."
+    },
+    {
+        "title": "The Agent reports 10 submitted journal entries remain in acme_cloud_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt asks to separate draft/submitted items blocking lock from next-cycle work. The 10 submitted count is exact GT from the May JE inventory.",
+        "evidence": "See OE 10, OE 12. Check the agent's final response for the count of 10 submitted journal entries in acme_cloud_FP-2026-05."
+    },
+    {
+        "title": "The Agent reports the 11 draft and 10 submitted May journal entries are blocking BD3 lock rather than routine next-cycle work.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to separate entries actually blocking lock from items that can honestly roll to next cycle.",
+        "evidence": "See OE 6, OE 10, OE 12. Check the agent's final response for language that the draft/submitted JE backlog is blocking BD3 lock rather than routine next-cycle work."
+    },
+    {
+        "title": "The Agent reports the post-advancement disposition of BL-D603C8DB90D7 (account 103000 Cash - Tax Reserve) must be one of: (a) submitted for review after advancement, or (b) still open or unsubmitted and treated as a lock blocker.",
+        "category": "outcome",
+        "justification": "OE 9 allows both paths: successful submission when state permits, or documenting why the recon remains open and treating it as a blocker. The rubric must accept either valid outcome.",
+        "evidence": "See OE 8, OE 9, OE 12. Check the agent's final response for the post-advancement disposition of BL-D603C8DB90D7 (account 103000 Cash - Tax Reserve). Pass if the agent reports it was submitted for review after advancement, or that it remains open or unsubmitted and is treated as a lock blocker."
+    },
+    {
+        "title": "The Agent concludes Acme Cloud May is not clear to lock.",
+        "category": "outcome",
+        "justification": "Jones asks for a clear read on whether the firm is actually clear to lock. Ground truth is not clear despite headline MAP-to-ledger tie-out.",
+        "evidence": "See OE 12. Check the agent's final response for an explicit conclusion that Acme May is not clear to lock."
+    },
+    {
+        "title": "The Agent reports no open unpaid May AP item on account 500000 is clearly tied to the Datadog autoroute miscoding concern.",
+        "category": "outcome",
+        "justification": "The prompt asks whether Andrea's vendor miscoding concern ties back to anything still sitting in May AP.",
+        "evidence": "See OE 11, OE 12. Check the agent's final response for a statement that no open unpaid May AP item on account 500000 is clearly tied to the Datadog autoroute miscoding concern."
+    },
+    {
+        "title": "The Agent advances or attempts to advance reconciliation BL-D603C8DB90D7 before directly notifying Andrea Phil (andrea.phil@brookfieldcpas.com) about Acme May lock readiness.",
+        "category": "process",
+        "justification": "The prompt sequences Emily's reconciliation advancement before the lock-readiness communications. No single Outcome rubric verifies this ordering because the Andrea notification 1.1 passes regardless of when the BlackLine action occurred.",
+        "evidence": "See OE 9, OE 13. Compare trajectory timestamps or ordering: the BlackLine advancement action on BL-D603C8DB90D7 should occur before the direct notification to andrea.phil@brookfieldcpas.com about lock readiness (via email, Slack, or direct message)."
+    }
+]

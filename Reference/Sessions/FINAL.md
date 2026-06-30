@@ -51,7 +51,7 @@ Use the `oracle` or `ultrabrain` sub-agent. Single call, 6 lenses applied in seq
 | Correct derived figure is NEVER stated verbatim in prompt / OE / rubric title / email body / Slack body / document body / Records Vault content | L6 (Learnings.md): agents read full thread depth 100% — stated answer = 100% pass | BLOCKER |
 | Every tight identifier in any artifact exists in `Fact_Ledger.json` | Phantom IDs cause hallucinated tool calls or wrong-entity actions | BLOCKER |
 | Every Hardness lever from `Hardness_Plan.md` is still triggered by the final artifact set | Lever regression after S2/S3 edits | BLOCKER |
-| Integrated tool-call density projection ≥ 50 (design target) / ≥ 40 (absolute floor) | 50+ is the design target; 40+ is the absolute floor below which task fails density on real platform runs | < 40 BLOCKER, 40-49 THIN (per-task justification required from HARDNESS) |
+| Integrated tool-call density projection — tiered gate per `Reference/Council_Protocol.md` B3 (SSOT) | 50+ design target; 40-49 THIN (HARDNESS per-task justification required, else BLOCKS); <40 BLOCKER. Empirical: tasks shipped at 40+ projected came back failing density on real runs, so design target was raised to 50+ in v8 | < 40 BLOCKER, 40-49 THIN, ≥50 PASS |
 | Outcome > Process count; no rubric has tool name in title; no em-dashes anywhere | V3 framework + project conventions | BLOCKER |
 | Entity references consistent across prompt / OE / rubrics | Drift causes the agent to act on the wrong entity | MAJOR |
 | Implicit-prompt framing preserved (no rubric demands an investigation step the prompt explicitly says not to do) | L15 + L16 framing constraint | MAJOR |

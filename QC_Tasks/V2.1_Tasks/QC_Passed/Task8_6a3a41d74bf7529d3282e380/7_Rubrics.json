@@ -1,0 +1,110 @@
+[
+    {
+        "title": "The Agent creates a calendar event on June 17, 2026 for a Northstar FY2026 audit readiness review (or similar), with [ryan.delgado@brookfieldcpas.com](mailto:ryan.delgado@brookfieldcpas.com) and [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) as attendees",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'set up a readiness review with Ryan and Daniel for next Wednesday.' Today is June 12, 2026 (Friday), so next Wednesday is June 17, 2026. Ryan Delgado is ryan.delgado@brookfieldcpas.com and Daniel Jones is daniel.jones@brookfieldcpas.com per contacts. This rubric confirms the core scheduling action with the correct date and attendees.",
+        "evidence": "Look for a calendar event creation in the trajectory with start_datetime on 2026-06-17, attendees including ryan.delgado@brookfieldcpas.com and daniel.jones@brookfieldcpas.com, and a title relating to Northstar audit readiness. Confirm the action returned a success response"
+    },
+    {
+        "title": "The Agent posts a message to the #audit-engagements Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'give the team a heads-up in our audit channel.' The audit channel is #audit-engagements (C007). This rubric confirms the Slack notification was posted to the correct channel.",
+        "evidence": "Look for a message posted to the #audit-engagements channel (channel_id C007) in the trajectory. Confirm the action returned a success response"
+    },
+    {
+        "title": "The Agent creates a tracking issue for Northstar FY2026 audit blockers (or similar)",
+        "category": "outcome",
+        "justification": "The prompt says 'if there are material blockers, open a tracking issue so nothing falls through the cracks.' Ground truth confirms multiple material blockers exist (open exceptions, missing trust recon, $302K AP exposure, AML soft-flag), so the tracking issue is required. The Audit team (key AUD) is the natural home for audit-engagement blockers",
+        "evidence": "Look for an issue creation in the trajectory targeting the Audit team (team key AUD or team_id team_audit). Confirm the action returned a success response and the issue title or description relates to Northstar audit blockers or readiness."
+    },
+    {
+        "title": "The Agent reports that Northstar's current fiscal period (May 2026) is still open, with the BD3 lock applied but the period not yet fully closed.",
+        "category": "outcome",
+        "justification": "The prompt asks 'where the current-period close stands for Northstar.' The ground truth is that northstar_legal_FP-2026-05 has status=open, with bd3_lock_at on June 3, but locked_at=null - meaning BD3 lock was applied but the period is not yet fully closed",
+        "evidence": "Check the Agent's final response for a statement that Northstar's May 2026 fiscal period is still open, or that the close is in progress, or that BD3 lock has been applied but the period has not been fully locked/closed."
+    },
+    {
+        "title": "The Agent identifies an open exception on account 101000 (operating cash) with a financial impact of -$572.87 that is past its SLA or still under investigation",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the current status of every open Northstar exception.' Exception exc_af7274fb658844 is one of exactly 2 open Northstar exceptions: type=timing_difference_over_sla, state=investigating, account 101000, financial_impact=-$572.87, past SLA (due 2026-05-27). This is a key audit blocker",
+        "evidence": "Check the Agent's final response for a reference to exception exc_af7274fb658844 (or a timing difference / over-SLA exception on account 101000) with a financial impact of -$572.87 in investigating state."
+    },
+    {
+        "title": "The Agent identifies an open exception on account 120000 with a financial impact of -$1,103.75 that is awaiting approval",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the current status of every open Northstar exception.' Exception exc_3e121025060b4b is the second of exactly 2 open Northstar exceptions: type=duplicate_entry_detected, state=awaiting_approval, account 120000, financial_impact=-$1,103.75. This is a key audit blocker",
+        "evidence": "Check the Agent's final response for a reference to exception exc_3e121025060b4b (or a duplicate entry exception on account 120000) with a financial impact of -$1,103.75 in awaiting_approval state"
+    },
+    {
+        "title": "The Agent reports that the reconciliation on Northstar's operating account (101000) is in progress with a variance of -$572.87.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'the reconciliation status on the operating account.' The ground truth is reconciliation BL-72E451657112 on account 101000 with state=in_progress and variance=-572.87. This variance ties directly to the open exception on the same account",
+        "evidence": "Check the Agent's final response for a statement about the reconciliation on Northstar's operating account (101000) being in progress with a variance of -$572.87, or a reference to reconciliation BL-72E451657112."
+    },
+    {
+        "title": "The Agent reports that Northstar's trust account (105000 / IOLTA) has no reconciliation on file for the current period, flagging this as a material audit finding or blocker",
+        "category": "outcome",
+        "justification": "The prompt asks for 'the reconciliation status on the trust account.' The ground truth is that NO reconciliation exists for Northstar's IOLTA trust account (105000) for FP-2026-05 or any period. This is a material audit finding for a state-regulated trust account and should be flagged as a blocker",
+        "evidence": "Check the Agent's final response for a statement that Northstar's trust account (105000 / IOLTA) has no reconciliation on file for the current period, or that this absence is a material audit finding or blocker"
+    },
+    {
+        "title": "The Agent identifies a foreign-currency variance of $2.31 on account 220000 related to EUR rounding or FX revaluation",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether there are any foreign-currency variances on their recons.' The ground truth is reconciliation BL-AA054D9F0898 on account 220000 with a $2.31 EUR FX rounding variance. This is a key finding the prompt specifically asked about",
+        "evidence": "Check the Agent's final response for a reference to a $2.31 foreign-currency or EUR rounding variance on account 220000 (Accrued Professional Services), or a reference to reconciliation BL-AA054D9F0898."
+    },
+    {
+        "title": "The Agent reports that the quarterly independence control test (FY26 Q1) has been completed with a CLEAR result or that partner clearance was granted",
+        "category": "outcome",
+        "justification": "The prompt says 'The quarterly independence control test should also be done by now - Marina and Peter were managing it.' The ground truth is that Steven Perry confirmed partner clearance with a CLEAR result (email_scen_042_audit_compliance_0006). Julia Vance needs to know this is resolved",
+        "evidence": "Check the Agent's final response for a statement that the FY26 Q1 independence control test or quarterly independence monitoring has been completed with a CLEAR result, or that partner clearance was granted."
+    },
+    {
+        "title": "The Agent reports an AML-related finding on the Northstar engagement, including the soft-watch disposition or the adverse-media flag (AML-REG-northstar-2025-001 or similar reference).",
+        "category": "outcome",
+        "justification": "The prompt says 'find out whether anyone has flagged regulatory concerns on the Northstar engagement recently - I want to know about any adverse findings.' The ground truth is AML-REG-northstar-2025-001: an adverse-media partial-name match on a Northstar BO with >25% LLP interest, dispositioned as soft-watch with no Step 3 escalation",
+        "evidence": "Check the Agent's final response for a reference to an AML finding, adverse-media flag, soft-watch disposition, or AML-REG-northstar-2025-001 on the Northstar engagement"
+    },
+    {
+        "title": "The Agent confirms that audit-to-tax cross-team consent documentation for Northstar is on file",
+        "category": "outcome",
+        "justification": "The prompt says 'I can't authorize Ryan's team to start pulling workpapers from the tax side until the proper cross-team consent documentation is on file.' The ground truth is an active consent document 'Client Consent - Northstar Legal - Audit to Tax Information Sharing - FY2026' uploaded 2026-01-15 by Edith Banda. This is a critical discriminating rubric - 5 of 6 runs incorrectly reported consent docs as missing",
+        "evidence": "Check the Agent's final response for a statement that audit-to-tax consent documentation for Northstar is on file or has been handled"
+    },
+    {
+        "title": "The Agent confirms that audit-to-accounting-services cross-team consent documentation for Northstar is on file.",
+        "category": "outcome",
+        "justification": "The prompt says 'I can't authorize Ryan's team to start pulling workpapers from the accounting-services side until the proper cross-team consent documentation is on file.' The ground truth is an active consent document 'Client Consent - Northstar Legal - Audit to Accounting Services Information Sharing - FY2026' uploaded 2026-01-15 by Edith Banda",
+        "evidence": "Check the Agent's final response for a statement that audit-to-accounting-services consent documentation for Northstar is on file or has been handled"
+    },
+    {
+        "title": "The Agent confirms that Northstar's FY2025 annual accounts have been signed off.",
+        "category": "outcome",
+        "justification": "The prompt says 'I also need to confirm that Northstar's FY2025 annual accounts have been signed off.' The ground truth is the document 'Northstar Legal FY2025 Annual Accounts - Partner-Signed Final' (status=active, uploaded 2026-05-22) in records vault, confirming sign-off",
+        "evidence": "Check the Agent's final response for a confirmation that Northstar's FY2025 annual accounts have been signed off or are finalized."
+    },
+    {
+        "title": "The Agent confirms that Northstar's FY2025 partnership return (Form 1065) has been filed",
+        "category": "outcome",
+        "justification": "The prompt says 'that last year's partnership return has been filed - both are prerequisites before we formalize the FY2026 engagement.' The ground truth is the document 'Northstar Legal FY2025 Federal Form 1065 + State Returns - Signed/E-Filed' (uploaded 2026-06-12, status=active) in records vault. This is a discriminating rubric - 3 of 6 runs incorrectly reported it as not filed",
+        "evidence": "Check the Agent's final response for a confirmation that Northstar's FY2025 partnership return (Form 1065) has been filed or e-filed"
+    },
+    {
+        "title": "The Agent reports the total pending AP exposure for Northstar as approximately $302,063",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the total outstanding amount' for Northstar vendor invoices stuck pending approval. The ground truth total across all 87 pending_approval invoices is $302,063.22. This is a calculated sum so 'approximately' is appropriate",
+        "evidence": "Check the Agent's final response for a statement of the total pending AP amount. The ground truth is $302,063.22. Accept any reasonable rounding (e.g., $302,063, $302K, approximately $302,000)."
+    },
+    {
+        "title": "The Agent reports that there are 87 Northstar invoices pending approval",
+        "category": "outcome",
+        "justification": "The prompt asks for the full AP exposure. The ground truth is 87 pending_approval invoices for Northstar. Reporting the count gives Julia the scale of the backlog. The count is a discrete quantity so exact match is required.",
+        "evidence": "Check the Agent's final response for a statement of the number of pending AP invoices. The ground truth is exactly 87 invoices with status=pending_approval."
+    },
+    {
+        "title": "The Agent reports the aging of Northstar's pending AP invoices, indicating they date back to approximately mid-2025 or have been pending for several months (or similar timeframe)",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'I need the total outstanding amount and the aging.' The aging is a distinct ask from the total amount. The ground truth is that the oldest pending invoice dates from July 2025, confirming months-long aging as described in the prompt",
+        "evidence": "Check the Agent's final response for a statement about the age or date range of the pending AP invoices. The oldest invoice dates from 2025-07-08 (approximately mid-2025) and the newest from 2026-05-02, spanning roughly 10-11 months"
+    }
+]

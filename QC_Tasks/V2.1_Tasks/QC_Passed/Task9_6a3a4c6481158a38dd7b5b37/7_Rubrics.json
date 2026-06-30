@@ -1,0 +1,212 @@
+[
+    {
+        "title": "The Agent sends an email from edith.banda@brookfieldcpas.com to matthew.li@brookfieldcpas.com (Matthew Li, Accounting Services Partner).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks: 'Once you have the facts, email Matthew with the status on both items, what still has to happen before he can sign off, and whether any other May close items are still in the way.'",
+        "evidence": "Look for a successful outbound email from edith.banda@brookfieldcpas.com to matthew.li@brookfieldcpas.com in the trajectory."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that BL-AA054D9F0898 on account 220000 Accrued Professional Services is in submitted state.",
+        "category": "outcome",
+        "justification": "Matthew needs the FX/pro services item status. BlackLine shows BL-AA054D9F0898 submitted on account 220000 for northstar_legal_FP-2026-05.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state that BL-AA054D9F0898 on account 220000 Accrued Professional Services is in submitted state."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that exc_af7274fb658844 is in investigating state and/or BL-72E451657112 on account 101000 Cash - Operating is in in_progress state (both still unresolved).",
+        "category": "outcome",
+        "justification": "The prompt asks for status on the cash operating exception Sean handed off. BlackLine shows exc_af7274fb658844 investigating and BL-72E451657112 in_progress on account 101000.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state that exc_af7274fb658844 is in investigating state and/or BL-72E451657112 on account 101000 Cash - Operating is in in_progress state (both still unresolved)."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that George McAdam (george.mcadam@brookfieldcpas.com) is handling or still owes the bank-rec follow-up on the cash exception.",
+        "category": "outcome",
+        "justification": "Sean Williams's handoff email (email_scen_021_orphan_exception_0007) formally assigned George McAdam the bank-rec investigation on the May 24 cash movement timing item.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must mention George McAdam owning or picking up the bank-rec / subledger follow-up on the May 24 sweep gap."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that Daniel Jones (daniel.jones@brookfieldcpas.com) is taking or owns the approver assignment on exc_af7274fb658844.",
+        "category": "outcome",
+        "justification": "Daniel Jones committed in Slack and Sean's handoff email to take the approver assignment on exc_af7274fb658844, which still has approver null in BlackLine.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must mention Daniel Jones taking or owning the missing approver assignment on exc_af7274fb658844."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that Matthew Li's trust-side or IOLTA concern on the cash item is still open or unresolved.",
+        "category": "outcome",
+        "justification": "Matthew Li posted in monthly-close-coordination that cash-operating for a law firm reads close to IOLTA territory and asked to be looped in if anything touches trust-side activity, with no follow-up resolving that concern.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state that Matthew Li's trust-side or IOLTA concern from the close-coordination thread is still open or unresolved."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that the Northstar May close checklist has 9 of 12 tasks still incomplete.",
+        "category": "outcome",
+        "justification": "The prompt asks where the May close checklist stands and whether other items block sign-off beyond the two on Edith's file. BlackLine close tasks for northstar_legal_FP-2026-05 show 12 tasks with 3 done and 9 incomplete.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must reference the May close checklist having 9 of 12 tasks incomplete (or equivalently 3 done and 9 still open)."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that other Northstar May reconciliations beyond BL-AA054D9F0898 and BL-72E451657112 are still live or in the way of sign-off.",
+        "category": "outcome",
+        "justification": "Edith explicitly does not want to tell Matthew the two known items are the only blockers. All 20 Northstar May recons remain in open, in_progress, or submitted states.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state that other Northstar May reconciliations beyond BL-AA054D9F0898 and BL-72E451657112 are still live or blocking sign-off."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that Northstar May (northstar_legal_FP-2026-05) cannot move to lock this week.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'a straight answer today on whether May can move to lock this week.' As of June 12, 2026, northstar_legal_FP-2026-05 is still open with BD3 (2026-06-03) and BD5 (2026-06-05) targets passed and substantial close work remaining.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must give a straight answer that May cannot move to lock this week."
+    },
+    {
+        "title": "The Agent loops Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) in via email, either as a direct recipient on a dedicated email or as a CC on the email sent to Matthew Li.",
+        "category": "outcome",
+        "justification": "The prompt says: 'If Andrea still owes final review on the pro services reconciliation, loop Daniel so he knows it is sitting in her queue.' Andrea Phil has not replied to Daniel Jones's recap on BL-AA054D9F0898. The goal-level ask is to ensure Daniel sees the status; either a dedicated email to Daniel or CC'ing Daniel on the Matthew email accomplishes this.",
+        "evidence": "Look for an outbound email in the trajectory where daniel.jones@brookfieldcpas.com appears in either the recipients (To) field or the CC field."
+    },
+    {
+        "title": "The Agent's email that includes Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) as a recipient or CC states that BL-AA054D9F0898 is still pending Andrea Phil's final review in her queue.",
+        "category": "outcome",
+        "justification": "Daniel Jones sent the recap to Andrea Phil on BL-AA054D9F0898 with no Andrea reply. The prompt requires looping Daniel for visibility on Andrea's outstanding review. Daniel can be looped via dedicated email or CC; the content must mention Andrea Phil's pending review either way.",
+        "evidence": "Check the content of the email where daniel.jones@brookfieldcpas.com appears as recipient or CC. It must note BL-AA054D9F0898 is still pending Andrea Phil's final review in her queue."
+    },
+    {
+        "title": "The Agent posts a message to the monthly-close-coordination Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'Post a brief update in monthly-close-coordination so the team can see we untangled it.'",
+        "evidence": "Look for a successful post to the monthly-close-coordination Slack channel (channel name or channel_id) in the trajectory."
+    },
+    {
+        "title": "The Agent's Slack post in monthly-close-coordination summarizes the status of BL-AA054D9F0898 on account 220000 Accrued Professional Services.",
+        "category": "outcome",
+        "justification": "The prompt asks for a brief team update untangling both items. BL-AA054D9F0898 is the FX/pro services reconciliation on Edith's file.",
+        "evidence": "Check the Slack message content in monthly-close-coordination. It must summarize the status of BL-AA054D9F0898 on account 220000 Accrued Professional Services."
+    },
+    {
+        "title": "The Agent reports that BL-AA054D9F0898 on account 220000 Accrued Professional Services for northstar_legal_FP-2026-05 is in submitted state.",
+        "category": "outcome",
+        "justification": "The prompt asks Edith to learn where the accrued professional services reconciliation actually stands in BlackLine versus thread chatter.",
+        "evidence": "Check the Agent's final response to Edith. It must state BL-AA054D9F0898 on account 220000 Accrued Professional Services for northstar_legal_FP-2026-05 is in submitted state."
+    },
+    {
+        "title": "The Agent reports that Edith Banda's FX tie-out on BL-AA054D9F0898 is complete.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the EUR item still needs anything from Edith. Slack and email threads show Edith confirmed USD/EUR 0.9201 and the $2.31 rounding tail.",
+        "evidence": "Check the Agent's final response to Edith. It must state Edith Banda's FX tie-out on BL-AA054D9F0898 is complete."
+    },
+    {
+        "title": "The Agent reports that the USD/EUR closing rate of 0.9201 cited in email and Slack threads matches BL-AA054D9F0898's submitted variance in BlackLine.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to verify that what people cite about the closing rate still matches the reconciliation in BlackLine.",
+        "evidence": "Check the Agent's final response to Edith. It must state the USD/EUR closing rate of 0.9201 cited in email and Slack threads matches BL-AA054D9F0898's submitted variance in BlackLine."
+    },
+    {
+        "title": "The Agent reports that exc_af7274fb658844 is in investigating state with a $-572.87 financial impact on account 101000 Cash - Operating.",
+        "category": "outcome",
+        "justification": "The prompt asks where the cash operating exception actually stands in BlackLine compared with email, Slack, and messaging threads.",
+        "evidence": "Check the Agent's final response to Edith. It must state exc_af7274fb658844 is in investigating state with a $-572.87 financial impact on account 101000 Cash - Operating."
+    },
+    {
+        "title": "The Agent reports that the May 24 sweep-gap narrative (cash moved without the offsetting subledger row because the sweep did not run, or similar) is consistent with ledger feed history.",
+        "category": "outcome",
+        "justification": "The prompt asks to verify whether the May sweep story discussed in close-coordination actually shows up in the ledger feed. Month-end feed run run_0448d8808c6540 succeeded while the May 24 timing gap narrative remains in the threads.",
+        "evidence": "Check the Agent's final response to Edith. It must reference the May 24 sweep-gap narrative (cash moved without the offsetting subledger row because the sweep did not run, or similar) as consistent with ledger feed history."
+    },
+    {
+        "title": "The Agent reports that Matthew Li's trust-side or IOLTA concern on the cash item is still open with no follow-up resolving it.",
+        "category": "outcome",
+        "justification": "The prompt asks whether Matthew's trust-side concern from that thread was resolved or still open.",
+        "evidence": "Check the Agent's final response to Edith. It must state Matthew Li's trust-side or IOLTA concern from the close-coordination thread is still open with no resolution."
+    },
+    {
+        "title": "The Agent reports that the Northstar May close checklist for northstar_legal_FP-2026-05 has 12 tasks total with 3 done and 9 still incomplete.",
+        "category": "outcome",
+        "justification": "The prompt asks where the May close checklist stands.",
+        "evidence": "Check the Agent's final response to Edith. It must state the Northstar May close checklist has 12 tasks with 3 done and 9 still incomplete."
+    },
+    {
+        "title": "The Agent reports that all 20 Northstar May reconciliations for northstar_legal_FP-2026-05 remain in open, in_progress, or submitted states.",
+        "category": "outcome",
+        "justification": "The prompt asks whether anything else on Northstar May is still live beyond the two items on Edith's file.",
+        "evidence": "Check the Agent's final response to Edith. It must state all 20 Northstar May reconciliations remain in open, in_progress, or submitted states."
+    },
+    {
+        "title": "The Agent reports that Northstar May (northstar_legal_FP-2026-05) cannot move to lock this week.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'a straight answer today on whether May can move to lock this week.' Period northstar_legal_FP-2026-05 is still open as of June 12, 2026 with remaining checklist and recon work.",
+        "evidence": "Check the Agent's final response to Edith. It must give a straight answer that May cannot move to lock this week."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that BL-AA054D9F0898 has a $2.31 rounding variance from the May EUR revaluation.",
+        "category": "outcome",
+        "justification": "Matthew needs the FX tail amount on the pro services reconciliation. BlackLine shows BL-AA054D9F0898 with a $2.31 variance.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state BL-AA054D9F0898 has a $2.31 rounding variance from the May EUR revaluation."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that BL-AA054D9F0898 is pending Andrea Phil's final partner review.",
+        "category": "outcome",
+        "justification": "Daniel Jones's recap to andrea.phil@brookfieldcpas.com recommends accept-and-document with no Andrea reply in the thread; partner clearance is still outstanding.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state BL-AA054D9F0898 is pending Andrea Phil's final partner review."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that exc_af7274fb658844 and/or BL-72E451657112 carries a $-572.87 open timing variance.",
+        "category": "outcome",
+        "justification": "Matthew needs the open timing variance on the cash operating item. BlackLine shows exc_af7274fb658844 and BL-72E451657112 both at $-572.87.",
+        "evidence": "Check the email content to matthew.li@brookfieldcpas.com. It must state the cash exception or linked recon carries a $-572.87 open timing variance."
+    },
+    {
+        "title": "The Agent's Slack post in monthly-close-coordination summarizes the status of exc_af7274fb658844 and/or BL-72E451657112 on account 101000 Cash - Operating.",
+        "category": "outcome",
+        "justification": "The prompt asks for a brief team update untangling both items on Edith's file, including the cash operating exception Sean handed off.",
+        "evidence": "Check the Slack message content in monthly-close-coordination. It must summarize the status of exc_af7274fb658844 and/or BL-72E451657112 on account 101000 Cash - Operating."
+    },
+    {
+        "title": "The Agent's Slack post in monthly-close-coordination states that May lock is not achievable this week.",
+        "category": "outcome",
+        "justification": "The prompt asks for a brief team update after untangling the May close status; as of June 12, 2026 northstar_legal_FP-2026-05 cannot move to lock this week.",
+        "evidence": "Check the Slack message content in monthly-close-coordination. It must state that May lock is not achievable this week."
+    },
+    {
+        "title": "The Agent reports that BL-AA054D9F0898 has a $2.31 variance.",
+        "category": "outcome",
+        "justification": "The prompt asks where the accrued professional services reconciliation actually stands in BlackLine. BlackLine shows BL-AA054D9F0898 with variance $2.31.",
+        "evidence": "Check the Agent's final response to Edith. It must state BL-AA054D9F0898 has a $2.31 variance."
+    },
+    {
+        "title": "The Agent reports that BL-AA054D9F0898 is waiting on Andrea Phil's partner review.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the EUR item is waiting on partner clearance. Daniel's recap awaits Andrea Phil with no reply.",
+        "evidence": "Check the Agent's final response to Edith. It must state BL-AA054D9F0898 is waiting on Andrea Phil's partner review."
+    },
+    {
+        "title": "The Agent reports that the $2.31 rounding tail cited in email and Slack threads matches BL-AA054D9F0898's submitted variance in BlackLine.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to verify that what people cite about the rounding tail still matches the reconciliation in BlackLine.",
+        "evidence": "Check the Agent's final response to Edith. It must state the $2.31 rounding tail cited in email and Slack threads matches BL-AA054D9F0898's submitted variance in BlackLine."
+    },
+    {
+        "title": "The Agent reports that exc_af7274fb658844 is linked to recon BL-72E451657112 in in_progress state with a $-572.87 variance.",
+        "category": "outcome",
+        "justification": "The prompt asks where the cash operating exception actually stands in BlackLine. BlackLine links exc_af7274fb658844 to BL-72E451657112 at $-572.87.",
+        "evidence": "Check the Agent's final response to Edith. It must state exc_af7274fb658844 is linked to recon BL-72E451657112 in in_progress state with a $-572.87 variance."
+    },
+    {
+        "title": "The Agent reports that Northstar May sign-off blockers extend beyond BL-AA054D9F0898 and BL-72E451657112.",
+        "category": "outcome",
+        "justification": "Edith does not want to assume the two items on her file are the only blockers. All 20 Northstar May recons remain in open, in_progress, or submitted states.",
+        "evidence": "Check the Agent's final response to Edith. It must state Northstar May sign-off blockers extend beyond BL-AA054D9F0898 and BL-72E451657112."
+    },
+    {
+        "title": "The Agent reports that George McAdam (george.mcadam@brookfieldcpas.com) is handling or still owes the bank-rec follow-up on the cash exception.",
+        "category": "outcome",
+        "justification": "The prompt asks what is still blocking the cash exception from clearing. Sean Williams's handoff assigned George McAdam the bank-rec investigation on the May 24 sweep-gap item.",
+        "evidence": "Check the Agent's final response to Edith. It must state George McAdam (george.mcadam@brookfieldcpas.com) is handling or still owes the bank-rec follow-up on the cash exception."
+    },
+    {
+        "title": "The Agent reports that Daniel Jones (daniel.jones@brookfieldcpas.com) is taking or owns the approver assignment on exc_af7274fb658844.",
+        "category": "outcome",
+        "justification": "The prompt asks what is still blocking the cash exception from clearing. Daniel Jones committed to take the approver assignment; exc_af7274fb658844 still has approver null in BlackLine.",
+        "evidence": "Check the Agent's final response to Edith. It must state Daniel Jones (daniel.jones@brookfieldcpas.com) is taking or owns the approver assignment on exc_af7274fb658844."
+    },
+    {
+        "title": "The Agent reports that the May 24 sweep-gap narrative on the cash exception (or similar) is consistent with Edith Banda's messaging thread with Sean Williams.",
+        "category": "outcome",
+        "justification": "The prompt asks to compare cash status with what people are saying in email, Slack, and Edith's messaging thread with Sean. conversation_scen_021_orphan_exception_0001 contains Edith's May 26 messages on the May 24 sweep gap.",
+        "evidence": "Check the Agent's final response to Edith. It must state the May 24 sweep-gap narrative on the cash exception (or similar) is consistent with Edith Banda's messaging thread with Sean Williams."
+    }
+]

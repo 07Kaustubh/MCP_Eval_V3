@@ -1,0 +1,68 @@
+[
+    {
+        "title": "The Agent corrects Meridian Glass Group's June advisory billing to 0 in the corrected run.",
+        "category": "outcome",
+        "justification": "Meridian's May advisory was already recognized at month-end against its retainer, so re-billing the same work this cycle double-charges the client. The correct billed advisory amount for Meridian Glass Group is 0.",
+        "evidence": "Posted journal entry JE-brookfield-brookfield_FP-2026-05-0057 recognizes 26,175.00 of advisory revenue (account 403000) and releases deferred revenue (account 240000). The Engagement Billing Register record for Meridian Glass Group shows a 40,000.00 retainer with 26,175.00 drawn for May advisory at month-end and 13,825.00 remaining, confirming the May advisory was already settled through the retainer and must not be re-billed this cycle"
+    },
+    {
+        "title": "The Agent bills Holloway Pierce Group's June advisory at 14,500.00 in the corrected run.",
+        "category": "outcome",
+        "justification": "Holloway's retainer is fully consumed (0.00 remaining at 1 May 2026), so unlike Meridian its May advisory of 14,500.00 sits in unbilled work and is billed this cycle. The correct billed advisory amount for Holloway Pierce Group is 14,500.00.",
+        "evidence": "The Engagement Billing Register record for Holloway Pierce Group shows the 20,000.00 retainer fully drawn by end of April 2026, 0.00 remaining at 1 May 2026, and a May advisory of 14,500.00 that is billable on the June run."
+    },
+    {
+        "title": "The Agent corrects Calderwood Foods Co's monthly bookkeeping fee to 3,850.00 in the corrected run.",
+        "category": "outcome",
+        "justification": "An approved fee increase from 3,200.00 to 3,850.00 took effect 1 March 2026 while billing continued at the old rate. The correct current monthly fee for Calderwood Foods Co is 3,850.00.",
+        "evidence": "Andrea Phil's email \"Approved: Calderwood Foods bookkeeping fee 3,200 to 3,850 effective 1 March\" sets the rate. The Engagement Billing Register record for Calderwood Foods Co shows agreed rate 3,850.00 per month effective 2026-03-01. Linear issue #3116 \"Recurring invoice template still billing Calderwood Foods at retired 3,200 rate\" confirms billing continued at the retired 3,200.00 rate."
+    },
+    {
+        "title": "The Agent records a Calderwood Foods Co prior-period billing catch-up of 1,300.00 in the corrected run.",
+        "category": "outcome",
+        "justification": "March and April 2026 were each invoiced at the retired 3,200.00 rate against the approved 3,850.00 rate, under-billing 650.00 each month; the prior-period catch-up is 650.00 for March plus 650.00 for April, which equals 1,300.00. May's 650.00 increment is recovered within the corrected current run line at 3,850.00, leaving the catch-up to cover the two earlier months. The catch-up counts the months from the 1 March 2026 effective date rather than the 20 February 2026 signature date.",
+        "evidence": "The Engagement Billing Register record for Calderwood Foods Co shows prior invoices at 3,200.00 against an agreed 3,850.00 rate effective 2026-03-01, and the held June run drafts the current Calderwood line at 3,200.00. Andrea Phil's approval email states the rate is effective for service from 1 March 2026. The corrected current line at 3,850.00 together with the 1,300.00 March and April catch-up trues up the under-billing across the three months."
+    },
+    {
+        "title": "The Agent identifies Treadwell Realty Partners' correct open advisory balance as 18,400.00.",
+        "category": "outcome",
+        "justification": "Treadwell's only legitimate open item is its May advisory of 18,400.00; the 26,972.23 receipt showing against the account belongs to another client, so Treadwell's true open balance stands at its own figure. The correct open balance for Treadwell Realty Partners is 18,400.00.",
+        "evidence": "The Engagement Billing Register record for Treadwell Realty Partners shows a legitimate open advisory balance of 18,400.00 (invoice INV-2026-0506) and a 26,972.23 receipt mis-assigned to the account pending reattribution. The Treadwell controller email states the 26,972.23 payment cannot be placed and that the only open item is 18,400.00."
+    },
+    {
+        "title": "The Agent identifies that the Calderwood Foods Co fee increase to 3,850.00 requires partner approval before it is billed.",
+        "category": "outcome",
+        "justification": "The catch-up and corrected rate increase recognized revenue, which is a partner-level decision rather than the Billing Coordinator's to finalize, so the agent must flag it for partner approval.",
+        "evidence": "Andrea Phil (Partner, Accounting Services) approved the original rate change, and Linear issue #3116 states the revenue impact requires partner approval before the June invoice is raised. The persona scope confirms the Billing Coordinator prepares and routes revenue changes for partner sign-off rather than approving them."
+    },
+    {
+        "title": "The Agent routes the 26,972.23 receipt reattribution (Treadwell Realty Partners back to Meridian Glass Group) to bookkeeper Sean Williams ([sean.williams@brookfieldcpas.com](mailto:sean.williams@brookfieldcpas.com)) and manager Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) for them to prepare and approve.",
+        "category": "outcome",
+        "justification": "The receipt is a ledger correction that is prepared by bookkeeping and approved by the manager, so the Billing Coordinator routes it to Sean Williams and Daniel Jones, who prepare and approve it.",
+        "evidence": "The Cash Application Log record shows the 26,972.23 receipt (entry JE-brookfield-FP-2026-05-0046) with remitter Meridian Glass Group applied to Treadwell Realty Partners, owner Sean Williams. The Daniel Jones and Marcus Knell conversation instructs that the cash-application fix is prepared by Sean and approved by Daniel and that the entry is not posted personally."
+    },
+    {
+        "title": "The Agent reports that the 26,972.23 receipt is Meridian Glass Group's payment that was mis-keyed to Treadwell Realty Partners.",
+        "category": "outcome",
+        "justification": "Correctly diagnosing that the 26,972.23 receipt is Meridian's payment recorded against the wrong client is the central finding that drives both the Treadwell and Meridian corrections.",
+        "evidence": "Journal entry JE-brookfield-FP-2026-05-0046 is a submitted client receipt of 26,972.23. The Meridian remittance email states 26,972.23 was paid 12 May 2026 against invoice INV-2026-0418, the Treadwell controller email disclaims the 26,972.23, and the Cash Application Log record names Meridian Glass Group as remitter applied to Treadwell Realty Partners. The separate 26,792.00 receipt from Ashford Dane Group is applied correctly and is unrelated."
+    },
+    {
+        "title": "The Agent submits the corrected billing run to partner Andrea Phil ([andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com)) for sign-off.",
+        "category": "outcome",
+        "justification": "The run is held for partner sign-off, so the Billing Coordinator presents the corrected run to Andrea Phil for her to sign as the closing step.",
+        "evidence": "Andrea Phil's held-billing email \"June client-billing run for FP-2026-05 - holding for sign-off\" states she will not sign the package until each line is supported. The persona scope confirms sign-off routes to Andrea Phil."
+    },
+    {
+        "title": "The Agent provides a supporting reason for each billing line it changes.",
+        "category": "outcome",
+        "justification": "The persona asks for a short, defensible reason behind every change so the corrected run can withstand a partner's challenge; the reasons are findings the agent surfaces in its corrected run and sign-off communication, which an Outcome content check captures.",
+        "evidence": "The prompt asks for a short reason it can stand behind if a partner pushes on it. The supporting reasons exist in the universe: Meridian's retainer drawdown (journal entry JE-brookfield-brookfield_FP-2026-05-0057 and the Engagement Billing Register), Holloway's exhausted retainer (the Engagement Billing Register), and the Calderwood approved-rate effective date (Andrea Phil's approval email)."
+    },
+    {
+        "title": "The Agent does not send any billing or invoice correspondence about the corrected run to the external clients (rwhitfield@treadwellrealty.com or ap@meridianglassgroup.com) before partner sign-off.",
+        "category": "outcome",
+        "justification": "The prompt requires everything stay internal until the partners sign the run ('no client sees any of it until the partners have put their name to the run'). Any client-facing email about the corrections before sign-off violates that explicit constraint",
+        "evidence": "A correct trajectory contains no outbound email to rwhitfield@treadwellrealty.com (Treadwell controller) or ap@meridianglassgroup.com (Meridian AP) conveying the corrected billing run, the receipt reattribution, or the rate change, prior to Andrea Phil's sign-off"
+    }
+]

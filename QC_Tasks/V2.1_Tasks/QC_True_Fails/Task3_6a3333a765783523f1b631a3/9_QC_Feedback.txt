@@ -1,0 +1,5 @@
+Feedback: Failing Issues: * [Fail - 20%+ Minor Rubric Errors] More than 20% (>20%) of the criteria contain minor, moderate, or major issues: Criteria 4 and 5 are overly specific as they require an the agent to send an email to pass the verifier. The prompt does not specify the channel of delivery, and the agent could alternatively use the messaging or Slack tools to send this rundown to Daniel. Non-Failing Issues: * [Non-Fail Minor Clarity / Specificity Issues] - The prompt says "send Daniel a consolidated rundown of what you found on each". The channel-of-delivery is not specified and Daniel appears as a Slack and Email contact. * [Non-Fail - Incomplete Oracle Events] - The oracle events are missing a search for an email/message confirming the actual agreed subscription fee ($7,900). Discussion: * Mostly a solid task. However, two criteria (25% of the rubric) are overly specific in that they require an email when this was not specified by the prompt. This causes the task to fail.
+See less
+Selected Error Categories
+[Prompt] [Prompt Clarity/ Specificity] [Non-Fail Minor Clarity / Specificity Issues]
+[All] [All] [Fail - 20%+ Minor Rubric Errors]

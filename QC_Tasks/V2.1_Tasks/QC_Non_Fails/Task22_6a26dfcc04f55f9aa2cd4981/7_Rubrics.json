@@ -1,0 +1,134 @@
+[
+    {
+        "title": "The Agent sends an email from [ryan.delgado@brookfieldcpas.com](mailto:ryan.delgado@brookfieldcpas.com) to [julia.vance@brookfieldcpas.com](mailto:julia.vance@brookfieldcpas.com) with a subject related to the May 2026 close review, partner sign-off preparation, or outstanding items across entities (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to send Julia an email covering what is still outstanding across all three entities and what specifically needs her attention or decision before her partner sign-off.",
+        "evidence": "Look for an email write action in the trajectory with sender ryan.delgado@brookfieldcpas.com and recipient julia.vance@brookfieldcpas.com. The subject line should reference the May close, partner sign-off, or similar. Verify the email was sent successfully."
+    },
+    {
+        "title": "The Agent's email to [julia.vance@brookfieldcpas.com](mailto:julia.vance@brookfieldcpas.com) covers the reconciliation status for all three entities: Brookfield, Acme Cloud, and Northstar Legal, distinguishing their May 2026 period status.",
+        "category": "outcome",
+        "justification": "The prompt says to send Julia an email covering what is still outstanding across all three entities. The email must address all three, not just one or two, so Julia has the full picture before sign-off.",
+        "evidence": "Check the email body for references to all three entities: Brookfield (or brookfield), Acme Cloud (or acme_cloud), and Northstar Legal (or northstar_legal). Each entity should have its reconciliation status mentioned or distinguished."
+    },
+    {
+        "title": "The Agent's email to Julia states or conveys that no corrective journal entries have been drafted or posted in Oracle GL for the open May exceptions on Brookfield accounts 119000, 131000, and 210000.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to check the ledger to see whether corrective entries have been drafted or posted, or if they are still sitting as proposed fixes on the exceptions. The GL check reveals no corrective JEs have been booked for the material exceptions, and this must be communicated to Julia as it directly affects her sign-off decision.",
+        "evidence": "Check the email body for a statement that corrective journal entries have not been posted, are still pending, or remain as proposals only. The agent should have queried Oracle GL journal entries for the Brookfield May period and found no corrective entries for the material exception accounts."
+    },
+    {
+        "title": "The Agent's email to Julia describes George McAdam's exception on account 119000 (Work in Process - Unbilled Services, approximately $4,391 variance) what he identified, who is investigating it, and the proposed corrective action.",
+        "category": "outcome",
+        "justification": "The prompt asks for the full trail on George's flagged exception: what he identified, who is working on it, and what was proposed. This is exception exc_1ddfc978ce5a4d on account 119000 in the Brookfield May period, with a missing-accrual root cause and Anaya Wallace assigned to investigate. The email must relay these details so Julia can assess the status.",
+        "evidence": "Check the email body for references to George McAdam's exception on account 119000, the approximately $4,391 variance, who is investigating (Anaya Wallace or similar), and what corrective action has been proposed (corrective JE or accept-timing path)."
+    },
+    {
+        "title": "The Agent's email to Julia includes Hannah Grant's disposition on the account 119000 exception (exc_1ddfc978ce5a4d): approving the accept-timing treatment for FP-2026-05 and recommending revisiting at the June period rollforward.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks what Hannah said about the path forward for George's exception. Hannah's email response approves accept-timing for FP-2026-05 and asks to revisit at FP-2026-06 BD3. Julia needs this to decide whether to accept the timing treatment at her sign-off.",
+        "evidence": "Check the email body for a reference to Hannah Grant's response approving the timing treatment for FP-2026-05 and the instruction to revisit or monitor at the June period (FP-2026-06). The agent should have retrieved Hannah's email reply to George about exc_1ddfc978ce5a4d."
+    },
+    {
+        "title": "The Agent's email to Julia reports that the retail client group PBC backlog is not fully resolved, with items or blockers still open as of Jones Harrison's latest update.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to confirm whether the PBC backlog that Julia escalated with Jones Harrison and Ryan has been fully resolved or if there are items still open. The ground truth shows it has not been resolved: Jones Harrison's latest email states a final pass is still in progress with some true blockers remaining. Julia needs this information for her sign-off decision.",
+        "evidence": "Check the email body for a statement that the PBC backlog is not fully resolved, still has open items, or is pending final closure. The agent should reference Jones Harrison's update or the escalation thread showing blockers remain."
+    },
+    {
+        "title": "The Agent's email to Julia mentions that supporting workpapers are missing or not yet uploaded for one or more of the in-progress material-variance reconciliations (BL-75810CD0FEE4 on account 119000, BL-7085321B04EA on account 131000, or BL-3978BDB68290 on account 132000), flagging the documentation gap as an item requiring attention before sign-off.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to confirm that supporting workpapers have been uploaded for material-variance reconciliations that are supposedly being worked, and to flag any documentation gap. All three in-progress Brookfield reconciliations with material variances have empty reconciliation-level attachment fields, and no reconciliation-specific workpapers (reconciliation_support, vendor_invoice, or reclassification_memo) are on record for any of them. This documentation gap must be surfaced to Julia before her partner sign-off.",
+        "evidence": "Check the email body for a statement that workpapers are missing, not attached, or not yet uploaded on one or more of the in-progress Brookfield reconciliations. The agent should reference the relevant recon IDs (BL-75810CD0FEE4, BL-7085321B04EA, or BL-3978BDB68290) or account numbers (119000, 131000, or 132000) in flagging the documentation gap."
+    },
+    {
+        "title": "The Agent posts a status update message in the audit engagement channel (#audit-engagements, channel ID C007).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to post a status update in the audit engagement channel so the rest of the team knows where things stand with the May close review.",
+        "evidence": "Look for a Slack message write action in the trajectory targeting channel C007 or channel name audit-engagements. Verify the message was posted successfully."
+    },
+    {
+        "title": "The Agent's Slack post in the audit engagement channel summarizes the May 2026 close status, including at least one substantive finding such as the Brookfield BD3 GL lock being blocked, open above-threshold reconciliations, or open exceptions requiring action before Julia's partner sign-off (or similar status content).",
+        "category": "outcome",
+        "justification": "The prompt asks to post a status update so the rest of the team knows where things stand. A post without substantive content does not fulfill this requirement. The message must convey the current state of the May close review to the audit engagement channel.",
+        "evidence": "Check the Slack message body for at least one substantive status item such as a reference to the BD3 GL lock being blocked, open Brookfield or Northstar reconciliation variances, outstanding exceptions with control implications, or a summary of what is still open before Julia's sign-off."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-516B536953DA (Brookfield, account 210000 Accounts Payable - External Vendors, approximately $6,329 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to document review findings on any open reconciliation where the variance is above threshold but there is no adequate explanation on record. BL-516B536953DA on account 210000 has a $6,328.86 variance against a $10 threshold and no existing review notes, making it a primary target for documented findings.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-516B536953DA. The note should be authored by ryan.delgado@brookfieldcpas.com and document the variance, the related exception, and what action is needed."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-7085321B04EA (Brookfield, account 131000 Prepaid Software Subscriptions, approximately $6,069 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "BL-7085321B04EA on account 131000 has a -$6,068.91 variance against a $5 threshold and no existing review notes. The prompt requires the agent to document review findings on above-threshold reconciliations lacking adequate explanation.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-7085321B04EA. The note should document the variance amount, the related duplicate-entry exception, and recommended actions."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-3978BDB68290 (Brookfield, account 132000 Prepaid Facilities Maintenance, approximately $435 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "BL-3978BDB68290 on account 132000 has a $435.41 variance against a $10 threshold and no existing review notes. Despite being a smaller variance than the other material exceptions, it exceeds the threshold by a factor of 43 and has no documented explanation. This reconciliation is frequently overlooked by agents, making it a strong discriminator of thoroughness.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-3978BDB68290. The note should document the approximately $435 variance and the related FX revaluation drift exception (exc_cb0a9a94a3084c)."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-72E451657112 (Northstar Legal, account 101000 Cash - Operating, approximately $573 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "BL-72E451657112 is the only Northstar Legal reconciliation exceeding its threshold for the May 2026 period, with a -$572.87 variance against a $10 threshold and no existing review notes. The prompt requires documenting findings across all three entities, not just Brookfield.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-72E451657112. The note should document the variance amount and the related timing-difference exception (exc_af7274fb658844)."
+    },
+    {
+        "title": "The Agent's review note on BL-72E451657112 (Northstar Legal, account 101000) identifies a documentation inconsistency or narrative conflict between the reconciliation's variance explanation citing FX revaluation and the linked exception's actual root cause (timing difference over SLA, manual reclassification not posted, or similar non-FX explanation)",
+        "category": "outcome",
+        "justification": "The reconciliation BL-72E451657112 lists its variance_explanation as an FX revaluation effect, but the linked exception exc_af7274fb658844 is categorized as timing_difference_over_sla with a root cause of a manual reclassification not posted before BD3, which contradicts the FX narrative. The prompt asks the agent to go deep on exceptions tied to reconciliations and call out anything with quality management exposure. Surfacing this inconsistency is a strong discriminator of agent quality.",
+        "evidence": "Check the review note body for BL-72E451657112. Look for language identifying a conflict, mismatch, or inconsistency between the FX revaluation explanation on the reconciliation and the actual root cause in the exception details. The agent should flag that the variance explanation does not align with the exception classification."
+    },
+    {
+        "title": "The Agent creates a tracking issue in Linear for follow-up on the Brookfield AP reconciliation on account 210000 (BL-516B536953DA, approximately $6,329 variance) or its related exception (exc_a0f77f2a19104e) requiring a corrective journal entry before Julia's partner sign-off.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to open tracking issues for anything that needs follow-up action before Julia can sign off. The AP 210000 exception (exc_a0f77f2a19104e) is in awaiting_approval state with Ryan as the approver and requires a corrective journal entry. This is one of the highest-priority follow-up items for the May close.",
+        "evidence": "Look for a Linear issue creation in the trajectory with a title or description referencing account 210000, AP reconciliation, BL-516B536953DA, or the related exception. The issue should describe the corrective journal entry need or the awaiting-approval status."
+    },
+    {
+        "title": "The Agent creates a tracking issue in Linear for follow-up on the Brookfield WIP exception on account 119000 (exc_1ddfc978ce5a4d, approximately $4,391 variance) or the missing-accrual disposition identified by George McAdam.",
+        "category": "outcome",
+        "justification": "George McAdam flagged this exception as having control implications. The exception is in investigating state with a proposed corrective journal entry that has not been booked. The prompt asks the agent to open tracking issues for items needing follow-up before Julia's sign-off, and George's exception is the most prominently referenced item in the prompt.",
+        "evidence": "Look for a Linear issue creation in the trajectory referencing account 119000, WIP, exc_1ddfc978ce5a4d, George McAdam's exception, or the missing accrual. The issue should describe the disposition or corrective entry need."
+    },
+    {
+        "title": "The Agent creates a tracking issue in Linear for follow-up on the Brookfield Prepaid Software Subscriptions reconciliation on account 131000 (BL-7085321B04EA, approximately $6,069 variance) or its related exception (exc_4d5d3582698946) requiring resolution before Julia's partner sign-off.",
+        "category": "outcome",
+        "justification": "The prompt asks to open tracking issues for anything that needs follow-up action before Julia can sign off. BL-7085321B04EA on account 131000 has a -$6,068.91 variance from a duplicate-entry exception (exc_4d5d3582698946) that is in investigating state with no corrective JE posted. This is one of the largest material variances and requires a Linear tracking issue.",
+        "evidence": "Look for a Linear issue creation in the trajectory referencing account 131000, Prepaid Software Subscriptions, BL-7085321B04EA, or exc_4d5d3582698946. The issue should describe the duplicate-entry exception and the need for a corrective journal entry."
+    },
+    {
+        "title": "The Agent creates a tracking issue in Linear for follow-up on the Northstar Legal Cash Operating reconciliation on account 101000 (BL-72E451657112, approximately $573 variance) or its related exception (exc_af7274fb658844) requiring resolution before Julia's partner sign-off.",
+        "category": "outcome",
+        "justification": "The prompt asks to open tracking issues for anything that needs follow-up action before Julia can sign off. BL-72E451657112 on account 101000 has a -$572.87 timing-difference variance with a dropped subledger feed (exc_af7274fb658844) still in investigating state. The Northstar entity's open exception requires a Linear tracking issue alongside the Brookfield ones.",
+        "evidence": "Look for a Linear issue creation in the trajectory referencing account 101000, Northstar Cash Operating, BL-72E451657112, or exc_af7274fb658844. The issue should describe the timing-difference exception and the need for investigation and resolution."
+    },
+    {
+        "title": "The Agent identifies that the Brookfield BD3 GL lock close task (ct_d51125979ec142) is in a blocked state for the May 2026 period.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pull the close task status for the period and identify which milestones have been completed and what is still blocking the GL lock or the period close. The BD3 GL lock task (ct_d51125979ec142) has status blocked, which is a critical finding the user needs to walk into Julia's review prepared.",
+        "evidence": "Check the Agent's final response or email to Julia for a statement that the BD3 GL lock task (ct_d51125979ec142) or the BD3 GL lock milestone is blocked or cannot proceed for the Brookfield May 2026 period."
+    },
+    {
+        "title": "The Agent identifies or reports that Acme Cloud has no reconciliations with variances exceeding their thresholds for the May 2026 period.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pull May reconciliation status across all three entities including Acme Cloud. The ground truth shows Acme Cloud has zero threshold exceedances for the May period (acme_cloud_FP-2026-05). Reporting this clean status confirms the agent actually investigated Acme Cloud's data rather than only focusing on Brookfield and Northstar.",
+        "evidence": "Check the Agent's final response or email to Julia for a statement that Acme Cloud has no above-threshold variances, all reconciliations are within thresholds, or that Acme Cloud is clean for the May period."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-1F548113B049 (Brookfield, account 260000 Partner Distributions Payable, approximately $9.61 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "BL-1F548113B049 on account 260000 has a $9.61 variance against a $5 threshold and no existing review notes. The prompt requires the agent to document review findings on any open reconciliation where the variance is above threshold - 'any' is explicit and includes this reconciliation. It is linked to exception exc_652c0931bb2546 (timing_difference_over_sla, awaiting_approval, urgency low). Agents that prioritize only the largest variances and miss this reconciliation are non-compliant with the prompt's explicit completeness requirement.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-1F548113B049. The note should be authored by ryan.delgado@brookfieldcpas.com and document the approximately $9.61 variance and the related timing-difference exception (exc_652c0931bb2546)."
+    },
+    {
+        "title": "The Agent creates a review note on reconciliation BL-333FF9956BC6 (Brookfield, account 102000 Cash - Payroll, approximately $28.59 variance) documenting review findings for the above-threshold variance.",
+        "category": "outcome",
+        "justification": "BL-333FF9956BC6 on account 102000 has a -$28.59 variance against a $10 threshold and no existing review notes. The prompt requires the agent to document review findings on any open reconciliation where the variance is above threshold - this reconciliation qualifies and must not be skipped. It is linked to exception exc_aade06f6129e43 (subledger_feed_drop, logged, urgency low). Agents that focus only on the higher-dollar variances and overlook this account fail the prompt's completeness requirement.",
+        "evidence": "Look for a review note creation in the trajectory with recon_id BL-333FF9956BC6. The note should be authored by ryan.delgado@brookfieldcpas.com and document the approximately $28.59 variance and the related subledger feed drop exception (exc_aade06f6129e43)."
+    }
+]

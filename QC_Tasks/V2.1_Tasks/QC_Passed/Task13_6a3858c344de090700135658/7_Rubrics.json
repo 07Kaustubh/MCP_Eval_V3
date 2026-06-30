@@ -1,0 +1,80 @@
+[
+    {
+        "title": "The Agent escalates the Acme Cloud FY2025 Section 179 position to [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com) (Tax Partner).",
+        "category": "outcome",
+        "justification": "The prompt says a position that does not fully hold is a partner call that must go to Ming before any response is sent, and the correct position does not fully hold. Phrased method-agnostically ('escalates') because the prompt names the goal ('go to Ming'), not a channel.",
+        "evidence": "An escalation the Agent sends (email, Slack, or message) addressed to ming.chang@brookfieldcpas.com regarding the Acme FY2025 Section 179 position."
+    },
+    {
+        "title": "The Agent includes alex.cahoon@brookfieldcpas.com in that same escalation to Ming (as a recipient or in copy).",
+        "category": "outcome",
+        "justification": "The prompt says to keep Alex in the loop, and Alex is the manager who handed over the matter.",
+        "evidence": "The same escalation to Ming also reaches alex.cahoon@brookfieldcpas.com as a recipient or in copy."
+    },
+    {
+        "title": "The Agent files a document in the records vault recording the firm's position on the Acme Cloud FY2025 Section 179 examination (e.g., a memo on whether the election holds, or similar).",
+        "category": "outcome",
+        "justification": "The prompt says to write up where the matter lands; the concrete deliverable is a filed tax work product on the Acme FY2025 Section 179 position.",
+        "evidence": "A document the Agent uploads to the records vault with a title referencing the Acme Cloud FY2025 Section 179 examination / position."
+    },
+    {
+        "title": "The Agent files that position document under the firm's IRS tax retention policy (retention code IRS_TAX_7Y).",
+        "category": "outcome",
+        "justification": "Uploading requires a retention code, and for IRS/tax work product the correct, universe-canonical bucket is the 7-year IRS tax retention policy IRS_TAX_7Y; filing it elsewhere is incorrect records governance.",
+        "evidence": "The records-vault upload for the position document carries retention policy code IRS_TAX_7Y."
+    },
+    {
+        "title": "The Agent creates a reminder or tracking item for the IRS response deadline of July 7, 2026.",
+        "category": "outcome",
+        "justification": "The prompt says to make sure the deadline is tracked so it does not slip.",
+        "evidence": "A reminder, calendar, or tracking item the Agent creates dated July 7, 2026 referencing the IRS response."
+    },
+    {
+        "title": "The Agent's escalation to Ming states that a portion of the Section 179 election does not hold (specifically the $95,000 tranche placed in service January 8, 2026).",
+        "category": "outcome",
+        "justification": "The escalation only has substance if it tells the partner that part of the position is bad; this is the disqualifier the prompt's partner-call gate depends on.",
+        "evidence": "The escalation to Ming states that part of the election (the $95,000 January 8, 2026 tranche) fails the FY2025 placed-in-service test."
+    },
+    {
+        "title": "The Agent's escalation to Ming states that partner sign-off is needed before any response is sent to the IRS.",
+        "category": "outcome",
+        "justification": "The prompt's explicit gate is that nothing goes to the Service before Ming signs off; the escalation must carry that hold instruction.",
+        "evidence": "The escalation to Ming asks for partner sign-off / says no response should go to the IRS until the partner approves."
+    },
+    {
+        "title": "The Agent reports that the IRS is challenging the $340,000 Section 179 election on Acme Cloud's FY2025 Form 1120 and is proposing to disallow it and reclassify the property to MACRS.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to report what the Service is actually challenging.",
+        "evidence": "The Agent's final response names the $340,000 Section 179 election and the proposed disallowance and MACRS reclassification."
+    },
+    {
+        "title": "The Agent reports that the $245,000 of equipment placed in service September 12, 2025 is valid FY2025 Section 179 and defensible (it holds).",
+        "category": "outcome",
+        "justification": "he prompt asks for the position piece by piece, and this portion holds.",
+        "evidence": "The Agent's final response identifies the $245,000 placed in service September 12, 2025 as qualifying for FY2025."
+    },
+    {
+        "title": "The Agent reports that the $95,000 of equipment placed in service January 8, 2026 does not qualify for FY2025 Section 179, because it was placed in service after the December 31, 2025 year-end, and should be conceded.",
+        "category": "outcome",
+        "justification": "This is the core judgment, the disqualifier the Agent must catch rather than rubber-stamp the full election.",
+        "evidence": "The Agent's final response identifies the $95,000 placed in service January 8, 2026 as failing the FY2025 placed-in-service test and recommends conceding it."
+    },
+    {
+        "title": "The Agent reports that the IRS response is due July 7, 2026.",
+        "category": "outcome",
+        "justification": "The prompt frames the work around the response deadline.",
+        "evidence": "The Agent's final response states the July 7, 2026 deadline."
+    },
+    {
+        "title": "The Agent reports that conceding the $95,000 increases FY2025 taxable income.",
+        "category": "outcome",
+        "justification": "The prompt says to deal with the knock-on for the closed year; the first half of that knock-on is the increase in FY2025 taxable income from conceding the $95,000.",
+        "evidence": "The Agent's final response states that conceding the $95,000 tranche increases FY2025 taxable income."
+    },
+    {
+        "title": "The Agent reports that the closed FY2025 year therefore requires a provision true-up or an amended-return adjustment.",
+        "category": "outcome",
+        "justification": "The prompt says to deal with the knock-on for the closed year; the corrective mechanism for an already-closed FY2025 is a provision true-up or amended return. Split from the taxable-income fact for atomicity.",
+        "evidence": "The Agent's final response identifies a provision true-up or an amended-return adjustment for the closed FY2025 year."
+    }
+]

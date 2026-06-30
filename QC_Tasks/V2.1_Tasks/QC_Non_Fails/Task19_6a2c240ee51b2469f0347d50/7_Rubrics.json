@@ -1,0 +1,146 @@
+[
+    {
+        "title": "The Agent files a billing-readiness memo in Records Vault for the Acme Cloud May supplemental billing position.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires a short billing-readiness memo filed to Records Vault before the client invoice is cut.",
+        "evidence": "Look for a Records Vault upload or document-create action in the trajectory. Confirm a new memo or working-paper document was filed for Acme supplemental billing."
+    },
+    {
+        "title": "The Agent files the billing-readiness memo under retention policy code AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt specifies filing under standard working-paper retention, which maps to AICPA_SQMS_7Y in this universe.",
+        "evidence": "In the Records Vault upload parameters or resulting document metadata, confirm retention_policy_code is AICPA_SQMS_7Y."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the May supplemental invoice is separate from the base monthly engagement retainer.",
+        "category": "outcome",
+        "justification": "Andrea required the two new scope lines on a separate supplemental bill apart from the base engagement-letter monthly fee.",
+        "evidence": "Read the uploaded memo title, body, or metadata text. It must distinguish supplemental billing from the base monthly retainer or engagement-letter fee."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the May supplemental total is $4,907.50.",
+        "category": "outcome",
+        "justification": "Ground truth for acme_cloud_FP-2026-05 supplemental billing is $2,850.00 + $1,480.00 + $577.50 = $4,907.50.",
+        "evidence": "Read the Records Vault memo content for the total supplemental amount $4,907.50, or an equivalent itemized breakdown that sums to $4,907.50."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the quarterly nexus-check fixed fee is $2,850.00.",
+        "category": "outcome",
+        "justification": "The prompt asks which components bill on the supplemental tranche; the memo must itemize the nexus-check component, not only the headline total.",
+        "evidence": "Read the Records Vault memo for quarterly nexus-check fee $2,850.00 or equivalent wording for the fixed quarterly nexus component."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states Scope Line A state-coding is 8.0 hours at $185.00/hr for $1,480.00.",
+        "category": "outcome",
+        "justification": "The prompt asks which hours count on the supplemental bill; the memo must show the 8.0 billable state-coding hours from ENG-BUDGET-acme_cloud-FY2026-Q1.",
+        "evidence": "Read the Records Vault memo for 8.0 state-coding hours and $1,480.00, or 8.0 hours at $185.00/hr."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states Scope Line B AR-aging cleanup is 3.5 hours at $165.00/hr for $577.50.",
+        "category": "outcome",
+        "justification": "The prompt asks which hours count on the supplemental bill; the memo must show the 3.5 billable AR-aging hours from ENG-BUDGET-acme_cloud-FY2026-Q1.",
+        "evidence": "Read the Records Vault memo for 3.5 AR-aging hours and $577.50, or 3.5 hours at $165.00/hr."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the quarterly nexus-check fee and hourly state-coding are separate billable lines and are not blended.",
+        "category": "outcome",
+        "justification": "Andrea required separated pricing; the billing-readiness memo should document that structure, not only the email to George.",
+        "evidence": "Read the Records Vault memo for separate line treatment of nexus fee and state-coding, or explicit statement they are not blended."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the 32.0 engagement-letter baseline hours remain on the monthly retainer and are not billed on the supplemental invoice.",
+        "category": "outcome",
+        "justification": "ENG-BUDGET-acme_cloud-FY2026-Q1 shows 32.0 base hours included in the monthly retainer, not supplemental.",
+        "evidence": "Read the Records Vault memo for a statement that 32.0 base or engagement-letter hours stay on the retainer or are excluded from supplemental billing."
+    },
+    {
+        "title": "The Agent's Records Vault billing-readiness memo states the April FP-2026-04 overrun is excluded from the May supplemental bill as firm goodwill.",
+        "category": "outcome",
+        "justification": "The prompt and Andrea's disposition require April's absorbed overrun not leak into this supplemental run.",
+        "evidence": "Read the Records Vault memo for exclusion of April FP-2026-04 overrun, goodwill absorption, or that April hours are not on the May supplemental invoice."
+    },
+    {
+        "title": "The Agent posts a status message in #monthly-close-coordination (channel C005).",
+        "category": "outcome",
+        "justification": "The prompt asks for a status line in the close coordination channel so the close team knows where Acme supplemental billing stands.",
+        "evidence": "Look for a Slack message post to channel C005 or #monthly-close-coordination in the trajectory."
+    },
+    {
+        "title": "The Agent's Slack message in #monthly-close-coordination states where Acme supplemental billing stands for the May cycle (e.g., ready to invoice, supplemental tranche identified, or billing position prepared, or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a status line so the close team knows where billing stands, not merely that Acme supplemental billing exists.",
+        "evidence": "Read the Slack message in channel C005 for status language such as ready, prepared, identified, cleared, or positioned for the Acme May supplemental invoice."
+    },
+    {
+        "title": "The Agent's Slack message in #monthly-close-coordination states the May supplemental total is $4,907.50 or lists the itemized components ($2,850.00, $1,480.00, and $577.50).",
+        "category": "outcome",
+        "justification": "The Agent's Slack message in #monthly-close-coordination states the May supplemental total is $4,907.50 or lists the itemized components ($2,850.00, $1,480.00, and $577.50).",
+        "evidence": "Read the Slack message in channel C005 for $4,907.50 total or the three component amounts $2,850.00, $1,480.00, and $577.50."
+    },
+    {
+        "title": "The Agent's Slack message in #monthly-close-coordination states the supplemental invoice is separate from the base monthly engagement retainer.",
+        "category": "outcome",
+        "justification": "The prompt requires tracking supplemental billing apart from the base engagement fee; the close team status should reflect that separation.",
+        "evidence": "Read the Slack message in channel C005 for supplemental billed separately from base retainer, engagement-letter fee, or that base retainer hours are excluded from supplemental."
+    },
+    {
+        "title": "The Agent's Slack message in #monthly-close-coordination states the April FP-2026-04 overrun is excluded from the May supplemental bill.",
+        "category": "outcome",
+        "justification": "April goodwill absorption is a key billing-side constraint the close team should see in the status line.",
+        "evidence": "Read the Slack message in channel C005 for exclusion of April overrun, goodwill absorption, or that April hours are not on the May supplemental invoice."
+    },
+    {
+        "title": "The Agent sends George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) the Acme May supplemental billing summary.",
+        "category": "outcome",
+        "justification": "The prompt requires sending George the billing-side summary before the client invoice is cut.",
+        "evidence": "Look in the trajectory for an outbound message to george.mcadam@brookfieldcpas.com with the billing summary (email, Slack DM, or similar)."
+    },
+    {
+        "title": "The Agent's billing summary to George McAdam states the May supplemental invoice total is $4,907.50.",
+        "category": "outcome",
+        "justification": "George needs the billing-side position with the correct first May supplemental tranche total.",
+        "evidence": "Read the billing summary body for supplemental total $4,907.50 or an itemized breakdown summing to $4,907.50."
+    },
+    {
+        "title": "The Agent's billing summary  to George McAdam states the quarterly nexus-check fixed fee is $2,850.00.",
+        "category": "outcome",
+        "justification": "Approved post-revision rates bill the quarterly TX/GA/NC nexus-check at $2,850.00 on the first monthly MMA after the 2026-05-22 effective date.",
+        "evidence": "Read the billing summary for quarterly nexus-check fee $2,850.00 or equivalent wording for the fixed quarterly nexus component."
+    },
+    {
+        "title": "The Agent's billing summary to George McAdam states Scope Line A state-coding is 8.0 hours at $185.00/hr for $1,480.00.",
+        "category": "outcome",
+        "justification": "ENG-BUDGET-acme_cloud-FY2026-Q1 shows 8.0 CO state-coding hours; approved rate is $185.00/hr.",
+        "evidence": "Read the billing summary  for 8.0 state-coding hours and $1,480.00, or 8.0 hours at $185.00/hr."
+    },
+    {
+        "title": "The Agent's billing summary to George McAdam states Scope Line B AR-aging cleanup is 3.5 hours at $165.00/hr for $577.50.",
+        "category": "outcome",
+        "justification": "ENG-BUDGET-acme_cloud-FY2026-Q1 shows 3.5 CO AR-aging hours; approved rate is $165.00/hr under the 8.0 hour monthly cap.",
+        "evidence": "Read the billing summary  for 3.5 AR-aging hours and $577.50, or 3.5 hours at $165.00/hr."
+    },
+    {
+        "title": "The Agent's billing summary  to George McAdam states the 32.0 engagement-letter baseline hours remain on the monthly retainer and are not on the supplemental invoice.",
+        "category": "outcome",
+        "justification": "The prompt asks which hours stay on the base retainer versus the supplemental bill.",
+        "evidence": "Read the billing summary  for 32.0 base or engagement-letter hours on the retainer, or that those hours are excluded from supplemental billing."
+    },
+    {
+        "title": "The Agent's billing summary to George McAdam states the April FP-2026-04 overrun is excluded from the May supplemental bill.",
+        "category": "outcome",
+        "justification": "George's handoff and the prompt require April's goodwill-absorbed overrun not be pulled into this supplemental run.",
+        "evidence": "Read the billing summary for exclusion of April overrun, goodwill absorption, or that April hours are not billed on the May supplemental invoice."
+    },
+    {
+        "title": "The Agent's billing summary  to George McAdam states the quarterly nexus-check fee and hourly state-coding are separate billable lines and are not blended.",
+        "category": "outcome",
+        "justification": "Andrea's revision requires separated pricing; the Slack rate note says not to blend the nexus fee with hourly state-coding.",
+        "evidence": "Read the billing summary  for separate line treatment of nexus fee and state-coding, or explicit statement they are not blended into one scope line."
+    },
+    {
+        "title": "The Agent's billing summary to George McAdam states the May supplemental invoice is separate from the base monthly engagement retainer (or similar).",
+        "category": "outcome",
+        "justification": "The prompt required the two new scope lines on a separate supplemental bill apart from the base engagement-letter monthly fee; George's billing-side summary must reflect that separation.",
+        "evidence": "Read the message content delivered to George McAdam for language that supplemental billing is separate from the base monthly retainer, engagement-letter fee, or that the supplemental invoice is billed apart from the base retainer (or similar)."
+    }
+]

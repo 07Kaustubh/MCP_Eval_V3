@@ -1,0 +1,80 @@
+[
+    {
+        "title": "The Agent concludes the private hospitality suite portion of the Atlas Vantage conference package (60,000) is nondeductible entertainment that must be added back for tax.",
+        "category": "outcome",
+        "justification": "The hospitality suite is entertainment (nondeductible under IRC 274), so it must be added back. Concluding this is one of the two book-to-tax determinations that drive the correction.",
+        "evidence": "Read the Agent's final response (and any supporting memo). Confirm it concludes the 60,000 hospitality suite is nondeductible entertainment and a required 60,000 add-back. It must NOT treat the suite as fully deductible."
+    },
+    {
+        "title": "The Agent concludes the sponsorship and branding portion of the Atlas Vantage conference package (120,000) is deductible and not part of the nondeductible add-back.",
+        "category": "outcome",
+        "justification": "Only the hospitality suite is nondeductible; the 120,000 sponsorship and branding spend remains deductible. The Agent must not over-add-back by treating the full 180,000 package as nondeductible, which would overstate the provision, and it must reject Jones Harrison's claim only as to the suite, not the sponsorship.",
+        "evidence": "Read the Agent's final response (and any supporting memo). Confirm it treats the 120,000 sponsorship and branding portion as deductible and does not add it back. An agent that adds back the full 180,000 package (treating the sponsorship as nondeductible) does not satisfy this rubric."
+    },
+    {
+        "title": "The Agent concludes that the 40,000 regulatory penalty incurred in the period is nondeductible and must be added back for tax, separately from the conference package.",
+        "category": "outcome",
+        "justification": "The booked provision also omitted a 40,000 regulatory penalty, which is nondeductible under IRC 162(f). Identifying this as a separate add-back, not derivable from the conference-package question, is the second book-to-tax determination the correction depends on.",
+        "evidence": "Read the Agent's final response (and any supporting memo). Confirm it identifies the 40,000 regulatory penalty (the data privacy penalty posted to account 660000 Penalties, Fines and Settlements, JE-acme_cloud-FP-2026-05-0047) as nondeductible and a required add-back. Missing the penalty entirely does not satisfy this rubric."
+    },
+    {
+        "title": "The Agent posts a correcting income tax provision journal entry for Acme Cloud for the FP-2026-05 period, debiting Income Tax Expense (account 691000) and crediting Income Tax Payable (account 230000).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to get the provision corrected if it is off. The booked provision omitted the add-backs, so a correcting journal entry to the income tax accounts is the required write action.",
+        "evidence": "Look for an oracle_gl_create_journal_entry call (or similar) for period acme_cloud_FP-2026-05, optionally preceded by an oracle_gl_reverse_journal_entry on JE-acme_cloud-FP-2026-05-0046. Check the lines debit account 691000 (Income Tax Expense) and credit account 230000 (Income Tax Payable). Either an incremental adjusting entry or a reverse-and-rebook is acceptable."
+    },
+    {
+        "title": "The Agent's correcting provision entry raises the FP-2026-05 income tax provision to approximately 196,500 (an increase of about 25,000 over the booked 171,500).",
+        "category": "outcome",
+        "justification": "The content of the correcting entry must reflect the correct figure derived from the 100,000 combined add-back (60,000 entertainment plus 40,000 penalty) at the 25 percent blended rate (25,000 of additional tax), bringing the provision to approximately 196,500. This verifies the correction is the right amount, not just that an entry was posted.",
+        "evidence": "Inspect the correcting journal entry's lines and total. Confirm an incremental entry of approximately 25,000, or a re-booked provision of approximately 196,500."
+    },
+    {
+        "title": "The Agent addresses the hold on the Acme FP-2026-05 income tax payable reconciliation in the reconciliation system, clearing or responding to Hannah Grant's open review note with the corrected provision (approximately 196,500) so the reconciliation can move toward certification.",
+        "category": "outcome",
+        "justification": "The prompt says the provision must be reconciled so the close can move forward and that Hannah should have what she needs from the Agent to lift her hold. The hold lives as an open review note on the reconciliation, so it must be addressed in the reconciliation system; an email alone does not clear the system hold.",
+        "evidence": "Look for a blackline_clear_review_note call (or similar) on review note rn_a1b2c3d4e5f607 (target reconciliation BL-D8EDF47DE632) that conveys the corrected provision reflecting the add-backs; clearing or responding to this review note is the required action. A blackline_update_reconciliation_variances call may accompany it as supplementary housekeeping, but a variance update alone, without addressing the review note, does not clear the hold and does not satisfy this rubric. A standalone email to Hannah that does not address the review note in the reconciliation system does not satisfy this rubric, since the system hold must be resolved. A review note cleared with only a generic acknowledgment that does not convey the corrected provision (the add-backs and the corrected figure of approximately 196,500) does not satisfy this rubric."
+    },
+    {
+        "title": "The Agent records the corrected income tax provision in the supporting workpaper, so a provision workpaper reflects the corrected provision of approximately 196,500.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks that the supporting workpaper reflect the right number. Updating the provision workpaper with the corrected figure is the required write action.",
+        "evidence": "Look for the Agent producing a provision workpaper that reflects the corrected provision of approximately 196,500, either by adding a new version to the existing income tax provision workpaper (doc_b2d3f4a516273849) via records_vault_add_document_version, or by uploading a corrected income tax provision workpaper via records_vault_upload_document. A metadata-only change with no corrected content does not satisfy this rubric. If the upload path is used, confirm the uploaded document is identified as the FP-2026-05 income tax provision workpaper by its title or description."
+    },
+    {
+        "title": "The Agent records a corrected Acme Cloud Q2 2026 federal estimated income tax voucher, moving the figure off the stale 171,500.",
+        "category": "outcome",
+        "justification": "The prompt says that if the tax number moves, the Q2 estimate has to move with it, and asks the Agent to make sure the Acme estimate that goes out is the right amount. Correcting the voucher is the required write action.",
+        "evidence": "Look for the Agent producing a corrected Q2 estimate voucher, either by adding a new version to the existing voucher (doc_c3e405162738495a) via records_vault_add_document_version, or by uploading a corrected voucher via records_vault_upload_document. A metadata-only change with no corrected content does not satisfy this rubric. If the upload path is used, confirm the uploaded document is identified as the Acme Cloud Q2 2026 estimated income tax voucher by its title or description."
+    },
+    {
+        "title": "The Agent's corrected Acme Q2 estimate reflects approximately 196,500, raised from the stale 171,500.",
+        "category": "outcome",
+        "justification": "The estimate must move in step with the corrected provision. The content check confirms the corrected estimate is the right amount, not just that the voucher was touched.",
+        "evidence": "Inspect the corrected voucher version (or the Agent's stated Q2 figure) and confirm it is approximately 196,500, up from 171,500."
+    },
+    {
+        "title": "The Agent routes the corrected Acme Cloud Q2 estimate, which is the client estimate and not Brookfield's own firm estimate, to Ming Chang ([ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com)) for approval.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to get the estimate in front of whoever needs to approve it before the deadline, and to keep the Acme client estimate separate from the firm's own estimate due the same day. Ming Chang is the tax partner who approves the Acme estimate.",
+        "evidence": "Look for a message to ming.chang@brookfieldcpas.com (email_send_email or similar) requesting approval of the corrected Acme Cloud Q2 estimate. Confirm it concerns the Acme client estimate, not the Brookfield firm estimate."
+    },
+    {
+        "title": "The Agent's message to Ming Chang ([ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com)) requests approval of the corrected Acme Q2 estimate of approximately 196,500 before the Monday June 15, 2026 deadline.",
+        "category": "outcome",
+        "justification": "The approval routing must carry the corrected figure and the deadline so the partner can approve the right amount in time. This verifies the content of the approval request.",
+        "evidence": "Inspect the message to Ming Chang and confirm it states the corrected Acme Q2 estimate of approximately 196,500 and references the June 15, 2026 deadline."
+    },
+    {
+        "title": "The Agent posts an update in the tax channel (#tax-prep-and-filings).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to leave a clear update in the tax channel so the team knows where it landed, which names the channel as the delivery method.",
+        "evidence": "Look for a slack_conversations_add_message call to channel C006 (#tax-prep-and-filings)."
+    },
+    {
+        "title": "The Agent's tax-channel update states the corrected provision and Q2 estimate of approximately 196,500 and the add-backs (the entertainment and the regulatory penalty).",
+        "category": "outcome",
+        "justification": "The team update must communicate where the provision and estimate landed and why, so the content check confirms the corrected figure and the reasons are conveyed.",
+        "evidence": "Inspect the Slack message content in #tax-prep-and-filings and confirm it states the corrected provision and Q2 estimate of approximately 196,500 and the add-backs (the entertainment on the Atlas Vantage spend and the nondeductible regulatory penalty)."
+    }
+]

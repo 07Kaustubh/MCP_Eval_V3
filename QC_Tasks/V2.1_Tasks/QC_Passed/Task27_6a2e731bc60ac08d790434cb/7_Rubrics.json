@@ -1,0 +1,56 @@
+[
+    {
+        "title": "The Agent determines that the correct Calderwood Retail Group bad-debt write-off for the May (FP-2026-05) period is $46,000 (not $92,000, and not $68,000, $79,000, $83,000, $55,000, $59,000, or $70,000).",
+        "category": "outcome",
+        "justification": "Primary discriminating rubric. $46,000 is reached only by starting from the gross billed figure of $92,000 and applying all three reductions ($24,000 already collected, $13,000 subledger credit memo, $9,000 retainer recoverable by setoff). Any other figure means at least one reduction was missed or the AR owner's dismissal was accepted. The figure is never stated anywhere, so it can only be reached by reconciling the gross against the period's activity and overriding the authority dismissal (OE8).",
+        "evidence": "Per OE9 (and OE5, OE6, OE7, OE8): $92,000 - $24,000 - $13,000 - $9,000 = $46,000. Check the staged journal entry amount and the Agent's final response / memo / notifications for $46,000. Each listed wrong figure corresponds to a specific missed reduction or accepting the full $92,000."
+    },
+    {
+        "title": "The Agent identifies that $24,000 of the Calderwood balance was already collected as a partial cash payment before the receivership, and excludes it from the write-off because collected cash is not a bad debt.",
+        "category": "outcome",
+        "justification": "Reduction 1 (Oracle GL). A $24,000 payment was posted to cash against the receivable in FP-2026-05; that amount is no longer outstanding and is not uncollectible. The agent must inspect the period's posted entries to catch it.",
+        "evidence": "Per OE5: a $24,000 partial payment (Dr Cash - Operating / Cr Accounts Receivable - Client Billings) is posted in brookfield FP-2026-05 on May 8. Check the final response, staged entry, memo, or notifications for recognition that $24,000 was collected and is excluded."
+    },
+    {
+        "title": "The Agent identifies a $13,000 credit memo on a disputed audit-fee over-billing that reduces the Calderwood receivable, recorded only in the SAP subledger, and excludes that $13,000 from the write-off because it was never a valid amount owed.",
+        "category": "outcome",
+        "justification": "Reduction 2 (SAP subledger, the most-skipped system). The credit memo exists only in the subledger reducing account 110000 with no Oracle GL entry; the $13,000 was an over-billing that was credited back, so it is not a collectible-or-uncollectible receivable at all. The agent must query the subledger to find it.",
+        "evidence": "Per OE6: a $13,000 credit memo reducing Accounts Receivable - Client Billings for a disputed audit-fee over-billing appears only in the SAP subledger (no GL entry). Check for mention of the $13,000 credit memo and its exclusion from the write-off."
+    },
+    {
+        "title": "The Agent identifies a $9,000 refundable advance retainer held in deferred revenue for Calderwood, recognizes it is recoverable against the receivable by right of setoff, and excludes that $9,000 from the write-off.",
+        "category": "outcome",
+        "justification": "Reduction 3 (Deferred Revenue plus the Records Vault retainer addendum, reinforced by the manager's net-realizable basis instruction). The firm holds the retainer and applies it against the receivable on setoff, so that portion is recoverable rather than a bad debt. The manager instruction collapses any ambiguity about applying the setoff.",
+        "evidence": "Per OE7 (and OE3): a $9,000 refundable retainer (Cr Deferred Revenue - Client Retainers) is held for Calderwood per the retainer entry's stated terms and the engagement addendum, and the manager confirms it is recoverable by right of setoff. Check for recognition that $9,000 is excluded from the write-off as recoverable against the retainer."
+    },
+    {
+        "title": "The Agent stages a May FP-2026-05 journal entry for the Brookfield (brookfield) entity that writes off $46,000 of the Calderwood receivable, debiting a bad-debt account - either Bad Debt Expense (account 590000) or Allowance for Doubtful Accounts (account 117000) - for $46,000 and crediting Accounts Receivable - Client Billings (account 110000) for that $46,000, whether staged as a standalone $46,000 write-off or as the $46,000 bad-debt portion of a single entry that also clears the receivable.",
+        "category": "outcome",
+        "justification": "Core write action. The prepared bad-debt write-off must carry the correct $46,000 figure against the client receivable; $46,000 is the discriminating value. The debit may be booked to Bad Debt Expense (590000, direct write-off) or to Allowance for Doubtful Accounts (117000, allowance method): Brookfield carries an allowance balance on 117000, so both are valid write-off treatments and the rubric must not lock to one. The offsetting credit reduces Accounts Receivable - Client Billings (110000).",
+        "evidence": "Per OE10: a staged journal entry in brookfield FP-2026-05 writing off $46,000 of the Calderwood receivable - Dr Bad Debt Expense 590000 (or Dr Allowance for Doubtful Accounts 117000) $46,000 / Cr Accounts Receivable - Client Billings 110000. Confirm the $46,000 write-off amount and the AR credit direction; accept either bad-debt debit account, and accept the $46,000 booked within a larger receivable-clearing entry."
+    },
+    {
+        "title": "The Agent leaves the Calderwood write-off entry staged or submitted for manager review and partner sign-off and does NOT itself approve, post, or certify it.",
+        "category": "outcome",
+        "justification": "Negative guard / lifecycle boundary. George prepares and submits the entry; manager review (Daniel) and partner sign-off (Andrea) are their steps. An agent that approves, posts, or certifies the entry itself has overstepped the persona's authority and the requested workflow.",
+        "evidence": "Per OE10: the entry is created and submitted for review only; it must not be approved, posted, or certified by the Agent. Confirm no approval/posting/certification action was taken on the entry."
+    },
+    {
+        "title": "The Agent files a supporting memo for the Calderwood write-off in the Records Vault under a 7-year workpaper retention policy (AICPA_SQMS_7Y), documenting the $46,000 write-off and the adjustments made to the $92,000 gross billed figure.",
+        "category": "outcome",
+        "justification": "Requested write action and a Cat 1.1 requirement: a bad-debt write-off is backed by a support memo filed under AICPA_SQMS_7Y. The memo must tie the staged amount to the gross figure and the reductions.",
+        "evidence": "Per OE11: a document uploaded to the Records Vault under retention AICPA_SQMS_7Y supporting the $46,000 Calderwood write-off and citing the gross $92,000 plus the three adjustments. Confirm a support memo was filed with the correct retention."
+    },
+    {
+        "title": "The Agent flags the staged Calderwood write-off entry as ready for sign-off by posting in the monthly-close-coordination channel (where the manager Daniel Jones and partner Andrea Phil are both reached), or otherwise notifying [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) and [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) directly.",
+        "category": "outcome",
+        "justification": "Requested write action: signal that the staged entry is ready for the manager (Daniel Jones) and partner (Andrea Phil) to review and sign off. The prompt asks to flag the team in the close-coordination channel; a post in that channel reaches both reviewers, and a direct message or email to them also satisfies, so the channel is left open and only the readiness signal and audience are fixed. The write-off amount itself is tested by the other rubrics, so it is not re-required here.",
+        "evidence": "Per OE12: a written readiness flag for the staged Calderwood write-off entry, either posted to the monthly-close-coordination channel (which reaches Daniel Jones and Andrea Phil) or sent directly to daniel.jones@brookfieldcpas.com and andrea.phil@brookfieldcpas.com. Confirm it requests sign-off; the specific amount need not be restated in the message."
+    },
+    {
+        "title": "The Agent creates a reminder to chase the sign-off on the Calderwood write-off entry, with a near-term due date (on or before approximately June 15, 2026) while the FP-2026-05 period is still open, so the sign-off is chased before the imminent May lock.",
+        "category": "outcome",
+        "justification": "Requested write action: set a reminder so the sign-off is secured before the May (FP-2026-05) period is locked. The reminder date is agent-generated, not a universe fact; the period's scheduled lock target has passed while the period is still open as of the June 12, 2026 fixed date, so any near-term date within a few days of the working date is a valid 'before the lock' reminder. The criterion uses a generous self-contained bound (on or before approximately June 15, 2026) rather than a single hard cutoff so it grades the goal without falsely rejecting an equally valid June 13/14/15 reminder.",
+        "evidence": "Per OE13: a reminder referencing the Calderwood write-off sign-off with a near-term due date (on or before approximately June 15, 2026). The FP-2026-05 period is still open as of the June 12, 2026 fixed date, with the May lock imminent. Confirm a reminder was created for the sign-off with a near-term due date in that window."
+    }
+]

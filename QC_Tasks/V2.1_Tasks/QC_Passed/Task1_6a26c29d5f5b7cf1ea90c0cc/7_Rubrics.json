@@ -1,0 +1,194 @@
+[
+    {
+        "title": "The Agent notifies julia.vance@brookfieldcpas.com about the northstar_legal_tax_workflow_accrual_feed failure.",
+        "category": "outcome",
+        "justification": "The prompt says 'flag Julia with both' referring to the error and ServiceNow ticket on the failed feed. Julia Vance owns all 22 subledger feeds. The rubric uses method-agnostic language because the prompt says 'flag' without specifying email.",
+        "evidence": "Look for a communication action (email, Slack DM, or message) directed to julia.vance@brookfieldcpas.com referencing the feed failure. Confirm it was sent successfully."
+    },
+    {
+        "title": "The Agent's notification to julia.vance@brookfieldcpas.com includes the error 'Connection reset during batch transfer' and ServiceNow ticket INC8895322.",
+        "category": "outcome",
+        "justification": "The prompt says 'flag Julia with both' meaning the error detail and the ServiceNow ticket. These come from run_81e3e7158e6b41 and must be passed to Julia so she can act on the incident.",
+        "evidence": "Check the content of the communication sent to julia.vance@brookfieldcpas.com for the error text 'Connection reset during batch transfer' and ticket reference INC8895322."
+    },
+    {
+        "title": "The Agent creates a tracking issue on the Client Accounting Operations (CAO) team board referencing the northstar_legal_tax_workflow_accrual_feed failure.",
+        "category": "outcome",
+        "justification": "The prompt says 'open a tracking item on the CAO board' for the failed feed. The CAO team (linear_5477c0808ac2) is the client accounting operations team where operational issues are tracked.",
+        "evidence": "Look for an issue creation action targeting the CAO team (linear_5477c0808ac2). Check the title or description references the feed failure and incident INC8895322."
+    },
+    {
+        "title": "The Agent updates the At risk filing record (airtable_44a0c8992c54) with the current payables status of invoice VEN-029-817825: approved but not yet paid, $9,093.45.",
+        "category": "outcome",
+        "justification": "The prompt says 'The unpaid one - pull its current payables status and update that filing entry with what you find.' VEN-029-817825 is the unpaid invoice (status approved, payment_date null, $9,093.45, VaultKey Access and Security). Record airtable_44a0c8992c54 is the At risk workstream entry.",
+        "evidence": "Look for an Airtable record update action targeting record airtable_44a0c8992c54. Check the fields reference VEN-029-817825 approved status, not yet paid, and the amount $9,093.45."
+    },
+    {
+        "title": "The Agent creates a tracking issue on the CAO board for invoice VEN-004-159840 (DocketPilot Filing Services, $1,616.67, pending approval).",
+        "category": "outcome",
+        "justification": "The prompt says 'check if either already has a tracking item in our queues, and only open new ones where needed.' VEN-019-583136 already has issue linear_6186144f3d1e, but VEN-004-159840 has no existing tracking item. Only VEN-004-159840 needs a new issue.",
+        "evidence": "Look for an issue creation action on the CAO team referencing VEN-004-159840 or DocketPilot Filing Services."
+    },
+    {
+        "title": "The Agent does not create a new tracking issue for VEN-019-583136 since one already exists (linear_6186144f3d1e).",
+        "category": "outcome",
+        "justification": "The prompt says 'only open new ones where needed.' VEN-019-583136 already has tracking item linear_6186144f3d1e on the CAO board. Creating a duplicate would violate the prompt constraint.",
+        "evidence": "Check the trajectory for issue creation actions. Confirm no new issue was created referencing VEN-019-583136 or Bridgefield Backup Systems. The agent should have found and reported the existing issue."
+    },
+    {
+        "title": "The Agent sets a reminder due on or around Monday June 15, 2026 to recheck the blocked filing workstream.",
+        "category": "outcome",
+        "justification": "The prompt says 'Set me a reminder early next week to recheck the blocked filing workstream.' The universe date is June 12, 2026 (Friday), so early next week means Monday June 15 or Tuesday June 16, 2026.",
+        "evidence": "Look for a reminder creation action with due date around 2026-06-15 or 2026-06-16 and title or description relating to the blocked filing workstream recheck."
+    },
+    {
+        "title": "The Agent uploads a readiness note to the Records Vault related to the erp_consolidation_2025 project summarizing the decommission readiness position.",
+        "category": "outcome",
+        "justification": "The prompt says 'file a short readiness note.' The note should be filed to the vault as an internal document related to the subledger decommission project (erp_consolidation_2025).",
+        "evidence": "Look for a document upload action to the Records Vault with related_resource_id erp_consolidation_2025 and content summarizing the readiness findings including the feed failure, open recon, and exposure."
+    },
+    {
+        "title": "The Agent posts a status message in the cash-management-and-banking Slack channel covering the overnight feed failure and the decommission readiness position.",
+        "category": "outcome",
+        "justification": "The prompt says 'drop a line in cash and banking.' This refers to the cash-management-and-banking Slack channel (C009). The message should inform the channel about the feed batch status and readiness position.",
+        "evidence": "Look for a Slack message post to channel C009 or cash-management-and-banking. Check the message references the northstar_legal_tax_workflow_accrual_feed failure and current readiness status."
+    },
+    {
+        "title": "The Agent sends a note from daniel.jones@brookfieldcpas.com to andrea.phil@brookfieldcpas.com covering the full decommission readiness position.",
+        "category": "outcome",
+        "justification": "The prompt says 'send Andrea one note covering the full position.' Andrea Phil is the partner Daniel reports to. The note must come from Daniel's address and go to Andrea's address.",
+        "evidence": "Look for an email send action with sender daniel.jones@brookfieldcpas.com and recipient andrea.phil@brookfieldcpas.com. Confirm success."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the overnight feed batch results: 22 feeds ran total, 1 complete failure (northstar_legal_tax_workflow_accrual_feed), and 3 partial failures.",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' The feed batch results are a core component of the decommission readiness picture Andrea needs before the meeting.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to 22 total feeds, 1 complete failure on the tax workflow accrual feed, and 3 partial failures."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the Northstar external vendor payables reconciliation being open and not certified (BL-A49384E5FAF8).",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' Whether the recon is certified is critical to the cutover decision. Daniel says he will not sign off on a migration over an uncertified recon.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to the Northstar AP recon being open or not certified."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the unresolved exception on account 101000 (Cash - Operating) with financial impact of -$572.87.",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' The unresolved exception is a key risk that Andrea needs to know about before the meeting.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to the exception on account 101000 with approximately -$572.87 impact."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the total unapproved exposure of approximately $220,855 on Northstar's external vendor payables.",
+        "category": "outcome",
+        "justification": "The prompt asks to pull the total unapproved exposure and the note to Andrea must cover the full position. This metric quantifies the risk being carried into a system that is about to be decommissioned.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to approximately $220,855 in unapproved exposure on Northstar payables."
+    },
+    {
+        "title": "The Agent reports that 22 feeds ran in the overnight batch in the final response.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'how many feeds ran in total.' The universe has 22 configured subledger feeds across three entities (brookfield 7, northstar_legal 7, acme_cloud 8). The user expects this count in the response.",
+        "evidence": "Check the agent's final response text for the number 22 in connection with feeds or the overnight batch run."
+    },
+    {
+        "title": "The Agent identifies northstar_legal_tax_workflow_accrual_feed as the feed that failed completely in the final response.",
+        "category": "outcome",
+        "justification": "The prompt asks 'which one died completely.' Only one feed has last_run_status failure: northstar_legal_tax_workflow_accrual_feed. The agent must name the specific feed.",
+        "evidence": "Check the agent's final response for northstar_legal_tax_workflow_accrual_feed or the Tax Workflow Accrual Feed identified as the complete failure."
+    },
+    {
+        "title": "The Agent reports that 3 other feeds came through with partial failures in the final response.",
+        "category": "outcome",
+        "justification": "The prompt asks 'how many others came through with partial rejects.' The data shows exactly 3 feeds with partial_failure status: brookfield_tax_engagement_trust_feed, northstar_legal_vendor_payables_feed, and acme_cloud_expense_report_feed.",
+        "evidence": "Check the agent's final response for the count of 3 partial failures in the overnight batch."
+    },
+    {
+        "title": "The Agent reports the error detail as 'Connection reset during batch transfer' and the ServiceNow ticket as INC8895322 in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'For the dead one I need the error, the ServiceNow ticket.' These are specific values from run_81e3e7158e6b41. Both come from the same feed run record and would pass or fail together.",
+        "evidence": "Check the agent's final response for error text 'Connection reset during batch transfer' and ticket reference INC8895322."
+    },
+    {
+        "title": "The Agent reports that the failed feed was not retried in the final response.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'confirmation on whether it was retried.' Run_81e3e7158e6b41 has no subsequent retry run, confirming no retry was attempted. The agent must confirm this to the user.",
+        "evidence": "Check the agent's final response for a statement that the feed was not retried or no retry was attempted."
+    },
+    {
+        "title": "The Agent reports that Northstar's current-period external vendor payables reconciliation (FP-2026-05) is still open and has not been certified in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'Tell me whether their external vendor payables reconciliation for the same period has been certified or is still open.' BL-A49384E5FAF8 for northstar_legal FP-2026-05 has state open and certified_at null.",
+        "evidence": "Check the agent's final response for the recon being open and not certified. May reference BL-A49384E5FAF8 or describe it as the Northstar FP-2026-05 external vendor payables reconciliation."
+    },
+    {
+        "title": "The Agent identifies the unresolved exception on account 101000 (Cash - Operating) with financial impact of -$572.87 in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'give me the account, the dollar break.' Exception exc_af7274fb658844 has related_account_id 101000 (Cash - Operating) and financial_impact -572.87, state investigating (unresolved).",
+        "evidence": "Check the agent's final response for account 101000 or Cash - Operating, and the dollar amount -$572.87 or $572.87 as the break."
+    },
+    {
+        "title": "The Agent identifies sean.williams@brookfieldcpas.com as carrying the unresolved exception in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'give me...who carries it.' Exception exc_af7274fb658844 has assigned_to sean.williams@brookfieldcpas.com (Sean Williams, Bookkeeper).",
+        "evidence": "Check the agent's final response for sean.williams@brookfieldcpas.com or Sean Williams identified as the person carrying or assigned to the exception."
+    },
+    {
+        "title": "The Agent confirms that a prior-period external vendor payables reconciliation for Northstar (FP-2025-12) is still overdue and was never certified in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'confirm whether any prior-period external vendor payables recon for Northstar is still sitting overdue, because I recall one from year-end that never certified.' BL-91589384DD4C for FP-2025-12 has state overdue and certified_at null.",
+        "evidence": "Check the agent's final response for confirmation of a prior-period (FP-2025-12 or year-end) Northstar AP recon being overdue and not certified."
+    },
+    {
+        "title": "The Agent reports the total unapproved dollar exposure on Northstar's external vendor payables as approximately $220,855 in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'Pull the total unapproved dollar exposure on Northstar's external vendor payables right now.' There are 61 pending_approval invoices on gl_account_number 210000 for northstar_legal totaling $220,855.43.",
+        "evidence": "Check the agent's final response for approximately $220,855 or $220,855.43 as the unapproved exposure figure on Northstar external vendor payables."
+    },
+    {
+        "title": "The Agent identifies that VEN-040-226456 (on the Blocked workstream) was paid in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'Confirm whether the outside filing vendor invoice on each record was paid.' VEN-040-226456 (Meridian Mailroom Solutions, brookfield entity) has status paid with payment_date 2025-07-15.",
+        "evidence": "Check the agent's final response for VEN-040-226456 identified as paid or cleared."
+    },
+    {
+        "title": "The Agent identifies that VEN-029-817825 (on the At risk workstream) was approved but not paid in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'Confirm whether the outside filing vendor invoice on each record was paid.' VEN-029-817825 (VaultKey Access and Security, acme_cloud entity) has status approved but payment_date null, meaning it was never paid.",
+        "evidence": "Check the agent's final response for VEN-029-817825 identified as approved but not paid, unpaid, or not yet cleared."
+    },
+    {
+        "title": "The Agent identifies VEN-004-159840 (DocketPilot Filing Services, $1,616.67) and VEN-019-583136 (Bridgefield Backup Systems, $5,279.87) as the billing draft items held for partner sign-off in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'The month-end billing draft flagged items held for partner sign-off. Pull them from payables.' Remy's email (1ff57c2ed800491b) identifies these two invoices. The agent must report both with their payables details.",
+        "evidence": "Check the agent's final response for VEN-004-159840 (DocketPilot, $1,616.67) and VEN-019-583136 (Bridgefield, $5,279.87) identified as the billing draft items."
+    },
+    {
+        "title": "The Agent reports that VEN-019-583136 already has an existing tracking item and that a new tracking item was created only for VEN-004-159840, in the final response.",
+        "category": "outcome",
+        "justification": "The prompt says 'check if either already has a tracking item in our queues, and only open new ones where needed.' The agent must report the dedup finding: linear_6186144f3d1e exists for VEN-019-583136 while VEN-004-159840 had none.",
+        "evidence": "Check the agent's final response for confirmation that VEN-019-583136 has an existing tracking item and that a new one was created only for VEN-004-159840."
+    },
+    {
+        "title": "The Agent references the decommission status document content, noting that AP, Fixed Assets, and Leases are on track for the October 2026 cutover (or similar phrasing from the document), in the final response or note to Andrea.",
+        "category": "outcome",
+        "justification": "The prompt says 'Read the decommission status document from the vault.' Document doc_04529da0aa5b99be is titled 'SAP Subledger Decommission Status Update Q2 2026 - AP, Fixed Assets, Leases on track for Oct 2026 cutover.' Reporting its content proves the agent read it.",
+        "evidence": "Check the agent's final response or note to Andrea for reference to the decommission status showing AP, Fixed Assets, and Leases on track for October 2026 cutover (or similar phrasing from the document)."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the filing control center status (one workstream blocked, one at risk).",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' The filing control center workstreams (one blocked, one at risk) are part of the comprehensive readiness picture Andrea needs before the meeting.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to the filing control center with one workstream blocked and one at risk."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the billing draft items held for partner sign-off (VEN-004-159840 and VEN-019-583136).",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' The billing draft items held for partner sign-off are a separate operational concern Andrea needs visibility on before the meeting.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to the billing draft items VEN-004-159840 and VEN-019-583136 held for partner sign-off."
+    },
+    {
+        "title": "The Agent's note to andrea.phil@brookfieldcpas.com covers the prior-period external vendor payables reconciliation for Northstar (FP-2025-12) being overdue and never certified (BL-91589384DD4C). ",
+        "category": "outcome",
+        "justification": "The prompt says the note should cover 'the full position.' The prior-period overdue recon is an explicit investigation item ('I recall one from year-end that never certified') and is a core component of the decommission readiness position Andrea needs before the meeting. R23 checks this in the final response only — this rubric ensures it also reaches the email.",
+        "evidence": "Check the note content to andrea.phil@brookfieldcpas.com for reference to the prior-period (FP-2025-12 or year-end) Northstar external vendor payables reconciliation being overdue or never certified. May reference BL-91589384DD4C or describe it as the year-end recon that was never certified."
+    }
+]

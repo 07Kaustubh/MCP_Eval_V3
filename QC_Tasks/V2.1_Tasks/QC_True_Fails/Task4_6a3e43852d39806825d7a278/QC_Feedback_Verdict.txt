@@ -1,0 +1,36 @@
+Task: Task5_6a3e43852d39806825d7a278
+Business Function: BlackLine Close-Discipline & Variance
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Minor OE Inaccuracies] The CB states in OE1: "state submitted", but the state is "in_progress".
+- [Non-Fail - Inaccurate Oracle Events] Given the above issue, OE9 does not make sense because the state is already "in_progress" and not "submitted", no need to do this OE.
+- [[Non-Fail - Minor OE Inaccuracies] Given the above issues, OE11 states "Resubmit the reconciliation", but this is wrong because the state was "in_progress" not a submitted state, so it should say "Submit the reconciliation" (for the first time).
+
+Rubric Criteria:
+- [Rubric Wording Errors] Criteria 12 states that the reconciliation should be resubmitted, but it has a wording error of "resubmitted" because it was never submitted to begin with.
+
+Minor issues:
+- [Overly Specific Criteria] Criteria 12 is overly specific, nothing in the prompt states that the reconciliation must be in a submitted state, a model gets punished for leaving the reconcilliation in a "in_progress" state, which would be a valid outcome for the reconciliation while it is reviewed by George McAdam. The prompt does not specify any requirement for the final state of the reconciliation, only that it needs to be updated.
+- [Non-Fail - 5-20% Minor Errors] 1/15=~7% <= 20%
+
+
+Failing issues:
+- [Fail - Too Easy] 3 runs pass when criteria 12 above is fixed.
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Minor OE Inaccuracies]","[All] [All] [Non-Fail - Inaccurate Oracle Events]","[All] [All] [Non-Fail - 5-20% Minor Errors]","[All] [All] [Fail - Too Easy]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

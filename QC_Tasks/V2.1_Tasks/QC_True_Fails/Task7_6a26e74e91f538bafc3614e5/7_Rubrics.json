@@ -1,0 +1,116 @@
+[
+    {
+        "title": "The Agent sends a status update to Peter Sanchez at [peter.sanchez@brookfieldcpas.com](mailto:peter.sanchez@brookfieldcpas.com) from [marina.soko@brookfieldcpas.com](mailto:marina.soko@brookfieldcpas.com) covering compliance workstream areas for the Monday readout.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'send Peter a status update covering all four areas so he has the full picture for Monday.' Peter Sanchez is the Head of Compliance and the persona is Marina Soko.",
+        "evidence": "Look for a write action in the trajectory where the Agent sends a communication to peter.sanchez@brookfieldcpas.com from marina.soko@brookfieldcpas.com. The action should return success and the content should cover compliance workstreams."
+    },
+    {
+        "title": "The Agent posts a message in the #compliance-and-registrations Slack channel (channel ID C008 or channel name) with a heads-up for the compliance team.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'post a heads-up in the compliance channel for anything the team should track going into next week.' The compliance channel in this universe is #compliance-and-registrations (C008).",
+        "evidence": "Look for a write action in the trajectory where the Agent posts a message to the #compliance-and-registrations Slack channel (channel ID C008 or channel name). The action should return success."
+    },
+    {
+        "title": "The Agent creates a Linear issue for documenting the untracked outcomes and action items from the June 3 AML threshold calibration session, with an assignee specified for ownership.",
+        "category": "outcome",
+        "justification": "The prompt says to 'get them logged as issues with clear ownership' for genuine gaps. The June 3 AML calibration session produced no documented outcomes or follow-up, which is a genuine gap requiring tracking.",
+        "evidence": "Look for a Linear issue creation in the trajectory related to the AML threshold calibration session. The issue title or description should reference the June 3 session, undocumented outcomes, or untracked action items. An assignee should be specified."
+    },
+    {
+        "title": "The Agent creates a Linear issue for Steven Perry's two untracked retention policy update conditions (legal hold language and INDEFINITE justification standard) ahead of the Q3 refresh, with an assignee specified for ownership.",
+        "category": "outcome",
+        "justification": "The prompt says 'I'm worried nobody's picked that up' regarding Steven's Q1 conditions. These conditions are untracked, making this a genuine gap requiring a logged issue with ownership.",
+        "evidence": "Look for a Linear issue creation in the trajectory related to the retention policy conditions. The issue title or description should reference Steven Perry's two conditions (legal hold language and INDEFINITE justification standard) for the Q3 refresh. An assignee should be specified."
+    },
+    {
+        "title": "The Agent creates a Linear issue for initiating AML screening and entity verification for the new multi-service client, with an assignee specified for ownership.",
+        "category": "outcome",
+        "justification": "The prompt identifies that 'I don't think our team has started AML screening or entity verification' for the new multi-service client, calling it 'a real gap.' This requires a logged issue with clear ownership.",
+        "evidence": "Look for a Linear issue creation in the trajectory related to the new multi-service client. The issue title or description should reference AML screening, entity verification, or compliance intake for the new client. An assignee should be specified."
+    },
+    {
+        "title": "The Agent's status update to Peter Sanchez covers the AML threshold calibration session from June 3, including the finding that no post-session outcomes or action items were formally documented.",
+        "category": "outcome",
+        "justification": "The prompt asks for a status update 'covering all four areas.' Area 1 is the AML threshold calibration session. The key finding is that nothing was documented after the session, which Peter needs to know for the Monday readout.",
+        "evidence": "In the Agent's status update to Peter Sanchez, look for content covering the AML threshold calibration session. It should mention the June 3 session and the finding that post-session outcomes or action items were not formally documented or tracked."
+    },
+    {
+        "title": "The Agent's status update to Peter Sanchez covers the retention sweep Q1 status, including Steven Perry's two conditions for the Q3 refresh (legal hold language and INDEFINITE justification standard) and the status of the edge case resolution.",
+        "category": "outcome",
+        "justification": "The prompt asks for a status update 'covering all four areas.' Area 2 is the retention sweep. Peter needs to know about Steven's unactioned conditions and whether the edge case resolution made it into the formal documentation.",
+        "evidence": "In the Agent's status update to Peter Sanchez, look for content covering the retention sweep. It should mention Steven Perry's two conditions for the Q3 refresh and address the status of the edge case resolution (whether it was documented in the final memo or remains informal)."
+    },
+    {
+        "title": "The Agent's status update to Peter Sanchez covers the new multi-service client compliance onboarding gap, noting that AML screening and entity verification have not been started while the engagement side is already moving.",
+        "category": "outcome",
+        "justification": "The prompt asks for a status update 'covering all four areas.' Area 3 is the new multi-service client compliance gap. Peter needs to know that compliance intake has not started despite the engagement side already moving.",
+        "evidence": "In the Agent's status update to Peter Sanchez, look for content covering the new multi-service client. It should mention that AML screening and entity verification have not been started, and that the engagement side is already moving forward."
+    },
+    {
+        "title": "The Agent's status update to Peter Sanchez covers open BlackLine exceptions with compliance implications across client entities, referencing specific exception types or data-integrity findings (such as subledger feed drops, duplicate entries, or FX revaluation drift, or similar descriptions).",
+        "category": "outcome",
+        "justification": "The prompt asks for a status update 'covering all four areas.' Area 4 is open BlackLine exceptions with compliance implications. Peter needs to know about patterns touching controls, regulatory obligations, or data integrity.",
+        "evidence": "In the Agent's status update to Peter Sanchez, look for content covering BlackLine exceptions. It should mention specific exception types or findings relevant to compliance (such as subledger feed drops, duplicate entries, FX revaluation drift, or similar data-integrity issues) across client entities."
+    },
+    {
+        "title": "The Agent's message to the #compliance-and-registrations channel mentions time-sensitive compliance items for the team going into next week, including at least the untracked AML calibration session follow-up or the new multi-service client compliance intake gap (or both).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'post a heads-up in the compliance channel for anything the team should track going into next week.' The most time-sensitive items are the undocumented AML session outcomes and the new client compliance gap.",
+        "evidence": "In the Agent's Slack message to the #compliance-and-registrations channel, look for mentions of time-sensitive items for the coming week. It should include at least the untracked AML calibration session follow-up or the new multi-service client compliance intake gap."
+    },
+    {
+        "title": "The Agent identifies the AML threshold calibration session on June 3, 2026, referencing the Acme Cloud wire case (JE-acme_cloud-FP-2026-04-0052 or similar reference to the April Acme Cloud wire clearance) and naming attendees including Anita Knowles, Farah Dlamini, Matthew Li, and Steven Perry.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check what was discussed at 'the AML threshold calibration session we had with Anita, Farah, Matthew, and Steven earlier this month.' The session took place on June 3, 2026, and referenced the Acme Cloud wire case.",
+        "evidence": "In the Agent's final response or status update to Peter, look for identification of the AML threshold calibration session on June 3, 2026, and its attendees. The Agent should name at least some of the attendees: Anita Knowles, Farah Dlamini, Matthew Li, and Steven Perry. The reference case JE-acme_cloud-FP-2026-04-0052 is a non-guessable identifier proving the Agent found the actual session data."
+    },
+    {
+        "title": "The Agent reports that no post-session action items, formal outcomes, or documented follow-up exists after the June 3 AML calibration session, characterizing the session outcomes as undocumented or untracked.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether anyone documented the follow-up actions' from the session. The correct finding is that no documented outcomes or tracked action items exist anywhere in the data after June 3. This absence is the key finding for this workstream.",
+        "evidence": "In the Agent's final response or status update, look for a clear statement that no post-session documentation, action items, formal outcomes, or follow-up summary was found after the June 3 calibration session. The Agent should characterize this absence as a gap or concern."
+    },
+    {
+        "title": "The Agent identifies Steven Perry's two conditions for the Q3 retention schedule refresh: (1) tighten the language so legal hold explicitly supersedes retention expiry, and (2) strengthen the justification standard for documents coded INDEFINITE.",
+        "category": "outcome",
+        "justification": "The prompt says Steven 'cleared Q1 but had conditions -- tightening the language on legal holds and the indefinite-retention justification standard before the Q3 refresh.' The Agent must find and report both conditions.",
+        "evidence": "In the Agent's final response or status update, look for identification of Steven Perry's two specific conditions attached to the Q1 retention sweep clearance: (1) tightening the legal hold language so that legal hold explicitly supersedes retention expiry, and (2) strengthening the justification standard for documents coded INDEFINITE. Both conditions come from Steven's clearance email."
+    },
+    {
+        "title": "The Agent reports that Steven Perry's two Q3 retention refresh conditions appear untracked, with no evidence that anyone has started implementing the legal hold language or INDEFINITE justification standard updates.",
+        "category": "outcome",
+        "justification": "The prompt says 'I'm worried nobody's picked that up.' The correct finding is that Steven's conditions are untracked with no evidence of anyone implementing the policy language changes ahead of the Q3 refresh.",
+        "evidence": "In the Agent's final response or status update, look for a statement about whether Steven's two conditions have been picked up or remain untracked. The correct finding is that neither condition has been acted on or assigned to anyone for implementation before Q3."
+    },
+    {
+        "title": "The Agent reports that the edge case resolution discussed with Anita Knowles (that legal hold should supersede retention expiry) was documented in the retention sweep summary memo sent to Peter Sanchez, confirming it is not merely an informal understanding from messaging.",
+        "category": "outcome",
+        "justification": "The prompt directly asks: 'did the resolution we discussed with Anita actually make it into the final memo, or is it still just informal?' The resolution IS documented in Marina's email to Peter (email_scen_044_audit_compliance_0005, SENT folder). An agent that only searches INBOX would miss it.",
+        "evidence": "In the Agent's final response or status update, look for a statement about whether the edge case resolution (that legal hold should supersede retention expiry) was documented in the final retention sweep summary memo sent to Peter Sanchez. The correct answer is YES: Marina's email to Peter (subject: 'FY26 Q1 retention control sweep summary memo - CLEAR recommendation') explicitly states 'Anita's view is that legal hold should supersede retention expiry.' This email is in the SENT folder, requiring folder_name: 'SENT' to discover."
+    },
+    {
+        "title": "The Agent confirms that the Acme Cloud beneficial ownership package (titled 'Acme Cloud FY2026 Beneficial Owner Refresh' or similar) is filed in the Records Vault with an active status, confirming the package is current.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'check whether the Acme Cloud beneficial ownership package is properly filed and current, since that ties back to the threshold discussion.' The document exists in the Records Vault with status active, classification restricted, and retention policy code AICPA_SQMS_7Y.",
+        "evidence": "In the Agent's final response or status update, look for confirmation that the Acme Cloud beneficial ownership package is properly filed and current. The document is titled 'Acme Cloud FY2026 Beneficial Owner Refresh' (or similar) with status active in the Records Vault."
+    },
+    {
+        "title": "The Agent identifies that no AML screening or entity verification has been initiated for the new multi-service client, confirming the compliance onboarding gap while the engagement side is already moving forward.",
+        "category": "outcome",
+        "justification": "The prompt says 'I don't think our team has started AML screening or entity verification. If that's true we have a real gap.' The correct finding is that no AML screening or entity verification has been initiated despite the engagement side already moving.",
+        "evidence": "In the Agent's final response or status update, look for a clear statement that AML screening and entity verification have not been started for the new multi-service client. The Agent should characterize this as a compliance gap."
+    },
+    {
+        "title": "The Agent identifies that the new multi-service client readiness checklist is owned by Lisa Park (Tax Manager) and notes that it lacks AML screening, entity verification, or other compliance-intake scope.",
+        "category": "outcome",
+        "justification": "The prompt asks 'who owns the readiness checklist and what's missing.' The readiness checklist is tracked as a Linear issue owned by Lisa Park (Tax Manager), and it lacks AML/CIP, beneficial ownership, sanctions screening, and entity verification scope.",
+        "evidence": "In the Agent's final response or status update, look for identification of the readiness checklist owner. The Linear issue titled 'Managing partner update - major multi-service client win requires tax and compliance readiness checklist' (or similar) is owned by Lisa Park (Tax Manager). The Agent should name the owner and note that the checklist is tax-weighted with no AML/compliance-intake scope."
+    },
+    {
+        "title": "The Agent identifies compliance-relevant BlackLine exceptions beyond routine timing variances, including findings related to subledger feed drops, duplicate entries, or FX revaluation drift (or similar data-integrity descriptions) across brookfield, northstar_legal, or acme_cloud entities.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'open BlackLine exceptions across our client entities' that touch 'controls, regulatory obligations, or data integrity,' explicitly excluding 'routine timing variances' but noting patterns where 'subledger feed drops and duplicate entries had compliance implications.' The Agent must identify the exceptions that genuinely warrant compliance attention based on their types and flags.",
+        "evidence": "In the Agent's final response or status update, look for identification of specific BlackLine exceptions beyond routine timing variances. The Agent should reference compliance-relevant exception types such as subledger feed drops, duplicate entries, FX revaluation drift, or similar data-integrity issues across brookfield, northstar_legal, or acme_cloud entities. The Agent should not blanket-dismiss all timing-related exceptions, since at least one timing variance (northstar_legal, fiscal period FP-2026-05) carries SOX implications and a systemic issue flag."
+    }
+]

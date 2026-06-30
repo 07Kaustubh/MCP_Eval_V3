@@ -1,0 +1,36 @@
+Task: Task13_6a31d453fe210a19d9f22200
+Business Function: Accounting Operations
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+[FAILING ISSUES]
+N/A
+
+[NON-FAILING ISSUES]
+
+[Non-Fail - Up to 10% Major Errors]
+C25 is incorrect. It assumes the prepaid roll-forward should cover all six Brookfield prepaid accounts with balances that `tie to the SAP prepaid amortization schedules`. But the universe shows that Brookfield account `134000` is not a clean tie case:
+- `prepaid_schedules` contains five Brookfield `134000` schedules: `prepaid_ca2f04d6e67440`, `prepaid_333e8c95365e48`, `prepaid_f55ab52e28944b`, `prepaid_67063bba808440`, and `prepaid_adef8841212246`.
+- `prepaid_periods` contains `FP-2026-05` for four of those schedules, including `prepaid_333e8c95365e48` with remaining balance `11070.98` / amortization `1845.17`, `prepaid_67063bba808440` with remaining balance `8819.93` / amortization `1763.98`, `prepaid_ca2f04d6e67440` with remaining balance `21381.32` / amortization `1943.75`, and `prepaid_f55ab52e28944b` with remaining balance `2070.23` / amortization `295.75`.
+- At the same time, `ogl_accounts` shows Brookfield account `134000` with `current_balance: 0`.
+
+That means the universe contains a live `134000` uncertainty. A correct model could reasonably surface that as something George and Andrea need to watch before lock.
+
+Therefore, C25 can reward an answer that incorrectly says the six-account sweep ties cleanly, and it can punish an answer that correctly flags the `134000` mismatch.
+
+[OTHER DISCUSSION]
+N/A
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 10% Major Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

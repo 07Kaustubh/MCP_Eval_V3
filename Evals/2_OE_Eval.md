@@ -281,6 +281,19 @@ Reasoning OEs (flagged): [X]
 
 **⚠️ MOST CRITICAL CHECK - Verify EVERY factual claim in EVERY OE against the actual universe data files. No shortcuts. No assumptions. Go to the raw JSON files and search.**
 
+**⚠️ HARD GATE: Per-OE Verification Sign-Off Table.** You MUST fill in the table below for **every single OE** before proceeding to Phase 3. Evaluation CANNOT proceed without a completed table. Every row must have a specific file path searched and a concrete value found (or "NOT FOUND"). Writing "verified" or "checked" without evidence is NOT acceptable. This is the single most impactful quality gate — 7 of 19 score-3 QC outcomes and 2-3 of 13 score-2 outcomes traced to inaccurate OEs that a mandatory sign-off table would have caught.
+
+| OE # | Claim in OE | File(s) Actually Searched (full path) | Search Term / Query | Value Found (exact quote or "NOT FOUND") | Accurate? | Discrepancy |
+|------|------------|--------------------------------------|--------------------|-----------------------------------------|-----------|-------------|
+| 1 | "Acme Cloud has an open BlackLine exception for FP-2026-05" | `Brookfield_Base_Universe/Data/Blackline/blackline_exceptions.json` | grep `entity_id="acme_cloud"` + `status="open"` + period `FP-2026-05` | `"exception_id": "exc_...", "status": "open"` | Yes/No | ... |
+| 2 | "Daniel Jones is the Accounts Manager on the Acme engagement" | `Brookfield_Base_Universe/Data/Contacts/contacts.json`, `Brookfield_Base_Universe/2_Persona_Briefs.md` | grep "Daniel Jones" | `"role": "Accounts Manager"`, daniel.jones@brookfieldcpas.com | Yes/No | ... |
+| 3 | "6 open exceptions across the May close" | `Brookfield_Base_Universe/Data/Blackline/blackline_exceptions.json` | count where `status="open"` AND `period_id="FP-2026-05"` | Found: 4 (NOT 6) | **No** | "OE says 6 but only 4 exist in FP-2026-05" |
+| 4 | "$12,400 AP invoice from VEN-010-514242 is unpaid" | `Brookfield_Base_Universe/Data/SAP_Subledger/ap_invoices.json` | grep `vendor_id="VEN-010-514242"` + amount + status | `"amount": 12400, "status": "unpaid"` | Yes/No | ... |
+| 5 | "Andrea Phil approved JE-acme_cloud-FP-2026-04-0052" | `Brookfield_Base_Universe/Data/Oracle_GL/ogl_journal_entries.json` | grep `je_id="JE-acme_cloud-FP-2026-04-0052"` + `approver` | `"approver": "andrea.phil@brookfieldcpas.com", "status": "approved"` | Yes/No | ... |
+| ... | ... | ... | ... | ... | ... | ... |
+
+**Completion rule:** Every OE must have a row. Every row must have a non-empty "File(s) Actually Searched" and "Value Found" column. If you cannot find a claim → mark "NOT FOUND" in the value column and flag the OE as inaccurate. Do NOT leave rows blank or write generic "verified" without the specific file and value.
+
 | OE # | Claim in OE | Verified Against | Accurate? | Discrepancy |
 |------|------------|-----------------|-----------|-------------|
 | 1 | "Acme has an open BlackLine exception for FP-2026-05" | Blackline/blackline_exceptions.json | Yes/No | ... |
@@ -297,6 +310,7 @@ Reasoning OEs (flagged): [X]
 - **Email addresses** - verify they exist in `Contacts/contacts.json` or email data
 - **Status claims** - if an OE says "exception is open" or "invoice is unpaid," verify the actual status
 - **Names and spellings** - verify every person's name is spelled exactly as it appears in the universe
+- **Act-vs-defer override (HARD GATE for write-action OEs):** When an OE describes a write action (corrective JE post via `oracle_gl_create_journal_entry` / `oracle_gl_post_journal_entry`, BlackLine exception resolution via `blackline_resolve_exception`, SAP AP invoice approval via `sap_subledger_approve_ap_invoice`, Records Vault filing via `records_vault_upload_document`, Linear issue creation via `linear_create_issue`) whose basis is an exception's `proposed_resolution` field or a system-generated remediation suggestion, you MUST scan the **accessible** record set — Slack channels the authoring persona is a member of (C001 #general · C002 #water-cooler · C003 #announcements · C004 #client-onboarding · C005 #monthly-close-coordination · C006 #tax-prep-and-filings · C007 #audit-engagements · C008 #compliance-and-registrations · C009 #cash-management-and-banking · C010 #vendor-bills-and-ap · C012) + the persona's Email inbox (`Email/emails.json`, threading via `parent_id`) + Messaging conversations (`Messaging/conversations.json`, `Messaging/messages.json`) — for a **documented decision to defer, accept-timing, not-act, or override**. If such a decision is found in accessible data, the OE's expected write action is **not the only valid path** — an agent that correctly defers is also correct, and the OE is inaccurate or incomplete if it mandates only the write. Flag: "OE #X mandates [write action] from `proposed_resolution`, but [channel/email-thread/conversation] contains a defer/accept-timing decision — the OE should acknowledge the defer path as equally valid." **Do NOT take `proposed_resolution` at face value — always cross-check accessible Slack/Email/Messaging.**
 
 **If you cannot find the data in the universe files, the OE claim is unverifiable and should be flagged.**
 
@@ -369,6 +383,21 @@ A critical path step is one where: without it, you can't imagine a successful tr
 - [ ] The tool to use (`email_send_email`, `blackline_create_review_note`, `oracle_gl_create_journal_entry`, etc.)
 - [ ] Key parameters (recipient, sender, content requirements)
 - [ ] Expected content or topics the action should cover
+
+---
+
+## PHASE 4.0: Pre-Verdict Completeness Sweep (MANDATORY — run before scoring)
+
+**Before filling in the scoring table, run this last-mile quality check.** Quick sweep for the most common single-blemish OE issues that slip past Phases 2–3 and become QC findings.
+
+| # | Check | What to look for | Finding |
+|---|-------|-----------------|---------|
+| 1 | **One OE with wrong count** | Re-check any OE that states a count ("4 open exceptions", "3 unpaid AP invoices", "6 JEs"). Does the count match the universe (`Blackline/blackline_exceptions.json`, `SAP_Subledger/ap_invoices.json`, `Oracle_GL/ogl_journal_entries.json`)? | PASS / [flag it] |
+| 2 | **One OE with wrong tool** | Is there ONE OE referencing a tool that doesn't exist or belongs to a different service (e.g., `blackline_get_exception_by_id` — no `_by_id` variant exists, use `blackline_get_exception`; `conversations_*` — server is `messaging_*`; `*_search_*` on Oracle GL or Records Vault — they use `list`/`get` not `search`)? Verify against `Brookfield_Base_Universe/8_Server_Tools_Details.json`. | PASS / [flag it] |
+| 3 | **One missing critical write-action OE** | Does the prompt require a write action (email send, JE post, BlackLine review note, Linear issue, Slack post, Records Vault upload) that has NO covering OE? | PASS / [flag it] |
+| 4 | **One act-vs-defer conflict** | Did the act-vs-defer override scan (Phase 2.4) miss any write-action OE from `proposed_resolution` where accessible Slack/Email/Messaging contains a defer/accept-timing/not-act decision? | PASS / [flag it] |
+
+**If any item flags a finding:** go back to the relevant phase, update the finding, and adjust the score. Do NOT score until the sweep is complete.
 
 ---
 
