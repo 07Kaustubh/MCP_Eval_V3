@@ -1,0 +1,23 @@
+# S3 TODO — Task 35 (Ransomware Decision Brief) — COMPLETE
+
+- [x] Read all upstream inputs (5_Prompt, 6_Oracle_Events, Hardness_Plan, Verification_s2, Fact_Ledger, Universe_Index)
+- [x] Read Reference/Rubric_Format.md
+- [x] Read Reference/Strict_Convention_Inventory.json
+- [x] Read Docs_keystone/2_Rubrics_V3_Guidelines.md
+- [x] Read Docs_keystone/12_Always_Failing_Rubrics.md
+- [x] Read Evals_keystone/3_Rubrics_Eval.md
+- [x] Read QC_Tasks/V3.1_Tasks/Task1/Task2/Task4 Rubrics.json in full
+- [x] Log reads into Reads_s3.md
+- [x] Draft 7_Rubrics.json Outcome-first (35 outcome: 4 x 1.1 + 22 x 1.2 + 9 x 2.1; 0 process)
+- [x] Apply three-condition test to Process candidates (default zero, kept zero)
+- [x] Use FLAT schema {title, category, justification, evidence}
+- [x] Run Validators/validate.py --phase rubrics — final PASS 0 fails, 0 warns, 5 notes
+- [x] Read Validator_Reports/rubrics.md; fix rubric[0] channel-lock, drop 2 final-response file-list duplicates, rephrase memo-file-listing to reduce Jaccard
+- [x] Spawn Council A — Grounding (background bg_fc6c1ca0) — verdict GO
+- [x] Spawn Council B — Adversarial QC (ultrabrain background bg_30fa2994) — verdict GO 5/5 all dims density 52
+- [x] Spawn AUDIT sub-agent (ultrabrain background bg_54e85005 retry) — verdict PASS (STRICT) all 7 active lenses + regression 48/48
+- [x] Apply two AUDIT LENS 7 NOTE tweaks: remove "approximately" from discrete-count "seven" on rubric[14] + rubric[32] titles/evidence
+- [x] Re-run validator post-tweaks — PASS 0/0/5
+- [x] Write Verification_s3.md (cross-source check)
+- [x] Write Rubric_Coverage_Matrix.md
+- [x] STOP — end response, wait for PIPELINE FINAL invocation in fresh chat

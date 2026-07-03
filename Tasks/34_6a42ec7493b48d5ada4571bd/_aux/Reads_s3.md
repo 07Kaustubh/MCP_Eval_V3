@@ -1,0 +1,21 @@
+# S3 Reads Log
+
+- `Tasks/34_6a42ec7493b48d5ada4571bd/5_Prompt.txt` :: 6-ask prompt; Blessing/Chloe/Catalina/David/Marcus/Craig persona web; Mosaic two-sided model reference; six explicit asks (Craig reply, ops position, David+Catalina email, Slack lesson, Linear comment, Monday reminder).
+- `Tasks/34_6a42ec7493b48d5ada4571bd/6_Oracle_Events.txt` :: 22 OEs, write actions OE16-OE21 (reply Craig / send email David+Catalina / update Airtable Emilia / Slack C006 / Linear comment / Monday reminder).
+- `Tasks/34_6a42ec7493b48d5ada4571bd/_aux/Hardness_Plan.md` :: 5 levers L1+L2+L7+L8+L11; THIN_DENSITY 47 midpoint; 4 stump hypotheses; L6 leak-check ZERO Emilia-side dollar leakage.
+- `Tasks/34_6a42ec7493b48d5ada4571bd/_aux/Fact_Ledger.json` :: 216 emails / 64 amounts / 154 dates / 132 personas — every concrete value indexed.
+- `Tasks/34_6a42ec7493b48d5ada4571bd/_aux/Verification_s2.md` :: S2 PASS (STRICT); 5 levers preserved; THIN-acceptable density confirmed.
+- `Tasks/34_6a42ec7493b48d5ada4571bd/_aux/Universe.txt` :: moveops (V2.1 framework).
+- `Reference/Rubric_Format.md` :: flat schema {title, category, justification, evidence}; outcome > process; three-condition test; agent-centric phrasing; threshold math.
+- `Reference/Strict_Convention_Inventory.json` :: V3 verb shapes, qualifier rules, service metadata requirements, banned-in-title list, atomicity rules.
+- `Docs/2_Rubrics_V3_Guidelines.md` :: V3 framework; outcome-first workflow; process rubric decision flow; common mistakes 1-12.
+- `Docs/12_Always_Failing_Rubrics.md` :: AF rubric patterns; outcome too strict OR bundled facts OR process penalizing valid path.
+- `QC_Tasks/V3_Tasks/Task11_6a2202b85b24c47c08dd2e6b/Rubrics.json` :: 13 outcome rubrics; voice + flat-but-nested schema (legacy V3 nested format with `annotations` wrapper).
+- `QC_Tasks/V3_Tasks/Task12_6a29448b7e4c641c30eb3890/Rubrics.json` :: 15 outcome rubrics; Slack content split per-item; final-response 2.1 patterns confirmed.
+- `MoveOps_Base_Universe/6_Server_Tools_Details.json` :: tool catalog (bare email/slack names, `content` for email, `payload` for slack, `issueId+body` for linear).
+- `_aux/Universe_Split/quickbooks.bills.json` :: BILL-KEYMOVE-2026-0417 ($1,200, vendor VEND-KEYMOVE-001, line "Insurance claim rider for Emilia Cruz Steinway piano scratch", ACC-6185 Claims & Remediation Expense) verified; bill_mosaic_damage_accrual_001 ($90,000) verified.
+- `_aux/Universe_Split/email.emails.json` :: 6 cited email_ids verified by id lookup.
+- `_aux/Universe_Split/airtable.records.json` :: recEmiliaCruzChicagoDenver verified; Special Requirements long free-text body confirmed.
+- `_aux/Universe_Split/linear.linear_issues.json` :: linear_issue_c8cdba4408f1 ("NorthWind retention response plan after April escalations", team_operations) verified.
+- `_aux/Universe_Split/slack.slack_channels.json` :: C002=customer-engagement, C005=finance, C006=operations verified.
+- `_aux/Universe_Split/quickbooks.customers.json` :: NorthWind Technologies (cust_northwind) verified.

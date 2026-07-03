@@ -1,0 +1,25 @@
+# REVIEW TODOs — Task 37_6a46a531470b025c528b95d7
+
+- [x] Read root AGENTS.md
+- [x] Read REVIEW runbook
+- [x] Verify input files present (1/2/3/5/6/7/8, Agent_Responses empty, trajectory-runs populated)
+- [x] Skip step 0 (linter not blocking — candidate submission has 6/7/8 all present)
+- [x] Run S0 setup: split_universe.py, build_universe_index.py, build_fact_ledger.py, build_graph_report.py
+- [x] Detect universe → keystone (KeyStone Mortgage; wrote _aux/Universe.txt)
+- [x] Run verify_universe_atoms.py → 0 fails, 0 warns, 39 atoms checked
+- [x] Run validate.py --phase all → prompt PASS, oe PASS, rubrics FAIL (structural Jaccard false positives)
+- [x] Run parse_trajectories.py → pass@1=0.333, avg_tool_calls=216.8, verdict OK
+- [x] Universe deep-query for landmines (Veronica Hayes termination confirmed; Elena/Denise compliance attribution investigated)
+- [x] Verify phishing / TRID / 30yr→15yr claims in rubric justifications
+- [x] Council A grounding (13 lenses)
+- [x] Council B adversarial (11 lenses)
+- [x] AUDIT prompt original (strictest interpretation)
+- [x] AUDIT oe original (strictest interpretation)
+- [x] AUDIT rubrics original (strictest interpretation)
+- [x] Final Council cross-artifact (6 lenses)
+- [x] S4-style bucket classification on 4 failing runs
+- [x] Triage decision → SALVAGEABLE
+- [x] Write changes.md rows (all findings auto-Applied)
+- [x] Write REVIEW_score.md per phase
+- [x] Skip step 7 (feedback deferred to PIPELINE FEEDBACK)
+- [x] STOP — do not materialize 14/15 (deferred to PIPELINE MATERIALIZE)

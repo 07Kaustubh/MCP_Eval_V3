@@ -1,0 +1,106 @@
+[
+  {
+    "row_data": "{\"id\": \"C001\", \"name\": \"general\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Company announcements, birthdays, office logistics, lunch orders\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": true, \"is_private\": false, \"is_archived\": false, \"num_members\": 30, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C002\", \"name\": \"loan-processing\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Active file discussion, lender guidelines, processing questions. Most active channel.\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C003\", \"name\": \"closings\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Closing scheduling, last-minute document issues, wire confirmations, title company coordination\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C004\", \"name\": \"compliance-alerts\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Regulatory updates, TRID reminders, audit findings, policy changes. Low volume but critical.\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C005\", \"name\": \"rate-watch\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Daily rate sheets at 9:15 AM, rate trends, lock timing strategy, market commentary\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C006\", \"name\": \"sales-pipeline\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Lead tracking, referral partner updates, marketing campaigns, pipeline reviews\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C007\", \"name\": \"random\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Off-topic chat, sports, weekend plans, memes\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"C008\", \"name\": \"it-support\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Tech issues, LOS downtime notices, password resets, software requests\", \"created_ts\": 1704067200, \"creator_id\": null, \"is_channel\": true, \"is_general\": false, \"is_private\": false, \"is_archived\": false, \"num_members\": 0, \"members_json\": \"[]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_grace_sofia\", \"name\": \"D-grace-sofia\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-grace-sofia\", \"created_ts\": 0, \"creator_id\": \"keystone_afc9caafae9d\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_afc9caafae9d\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_sofia_carlos\", \"name\": \"D-sofia-carlos\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-sofia-carlos\", \"created_ts\": 0, \"creator_id\": \"keystone_a7fa5b29babd\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_a7fa5b29babd\\\", \\\"keystone_afc9caafae9d\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_elena_tyler\", \"name\": \"D-elena-tyler\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-elena-tyler\", \"created_ts\": 0, \"creator_id\": \"keystone_25ab76814149\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_25ab76814149\\\", \\\"keystone_c6b42763fb1f\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_keisha_tyler\", \"name\": \"D-keisha-tyler\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-keisha-tyler\", \"created_ts\": 0, \"creator_id\": \"keystone_25ab76814149\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_25ab76814149\\\", \\\"keystone_9f0f19845970\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_grace_yamamoto\", \"name\": \"D-grace-yamamoto\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": true, \"purpose\": \"Auto-created channel for D-grace-yamamoto\", \"created_ts\": 0, \"creator_id\": \"keystone_a7fa5b29babd\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 4, \"members_json\": \"[\\\"keystone_a7fa5b29babd\\\", \\\"keystone_a989261d4d33\\\", \\\"keystone_afc9caafae9d\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_brittany_jordan\", \"name\": \"D-brittany-jordan\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-brittany-jordan\", \"created_ts\": 0, \"creator_id\": \"keystone_03d1bbe32b9b\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_03d1bbe32b9b\\\", \\\"keystone_e5fccd7068e9\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_grace_robert\", \"name\": \"D-grace-robert\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-grace-robert\", \"created_ts\": 0, \"creator_id\": \"keystone_e304643b171b\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_e304643b171b\\\", \\\"keystone_e85bc913c756\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_keith_elena\", \"name\": \"D-keith-elena\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-keith-elena\", \"created_ts\": 0, \"creator_id\": \"keystone_c6b42763fb1f\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_c6b42763fb1f\\\", \\\"keystone_e71e4f1f2242\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_keisha_carlos\", \"name\": \"D-keisha-carlos\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-keisha-carlos\", \"created_ts\": 0, \"creator_id\": \"keystone_9f0f19845970\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_9f0f19845970\\\", \\\"keystone_a7fa5b29babd\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_grace_robert_denise\", \"name\": \"D-grace-robert-denise\", \"is_im\": false, \"topic\": \"\", \"is_mpim\": true, \"purpose\": \"Auto-created channel for D-grace-robert-denise\", \"created_ts\": 0, \"creator_id\": \"keystone_a989261d4d33\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 3, \"members_json\": \"[\\\"keystone_a989261d4d33\\\", \\\"keystone_e304643b171b\\\", \\\"keystone_e85bc913c756\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_AIDEN_PARK\", \"name\": \"D-AIDEN-PARK\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-AIDEN-PARK\", \"created_ts\": 0, \"creator_id\": \"keystone_e304643b171b\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_e304643b171b\\\", \\\"keystone_e35f8d15c66f\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_1a508a7882fec34345e8af73031247a8\", \"name\": \"4d948d8567ff3e2d5feaac89128ae069\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-keystone-e304643b171b-keystone-74dd8dde44e3\", \"created_ts\": 0, \"creator_id\": \"keystone_74dd8dde44e3\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_74dd8dde44e3\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_AMY_NATASHA\", \"name\": \"D-AMY-NATASHA\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-AMY-NATASHA\", \"created_ts\": 0, \"creator_id\": \"keystone_4d01ebef3a15\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_4d01ebef3a15\\\", \\\"keystone_541cdb6e7939\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_DENISE_ROBERT\", \"name\": \"D-DENISE-ROBERT\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-DENISE-ROBERT\", \"created_ts\": 0, \"creator_id\": \"keystone_a989261d4d33\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_a989261d4d33\\\", \\\"keystone_e85bc913c756\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_grace_elena\", \"name\": \"D-grace-elena\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-grace-elena\", \"created_ts\": 0, \"creator_id\": \"keystone_c6b42763fb1f\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_c6b42763fb1f\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_denise_grace\", \"name\": \"D-denise-grace\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-denise-grace\", \"created_ts\": 0, \"creator_id\": \"keystone_a989261d4d33\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_a989261d4d33\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_MARCUS_AMY\", \"name\": \"D-MARCUS-AMY\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-MARCUS-AMY\", \"created_ts\": 0, \"creator_id\": \"keystone_4d01ebef3a15\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_4d01ebef3a15\\\", \\\"keystone_a583f044387a\\\"]\"}",
+    "source": "slack.slack_channels"
+  },
+  {
+    "row_data": "{\"id\": \"D_GRACE_NATASHA\", \"name\": \"D-GRACE-NATASHA\", \"is_im\": true, \"topic\": \"\", \"is_mpim\": false, \"purpose\": \"Auto-created channel for D-GRACE-NATASHA\", \"created_ts\": 0, \"creator_id\": \"keystone_541cdb6e7939\", \"is_channel\": false, \"is_general\": false, \"is_private\": true, \"is_archived\": false, \"num_members\": 2, \"members_json\": \"[\\\"keystone_541cdb6e7939\\\", \\\"keystone_e304643b171b\\\"]\"}",
+    "source": "slack.slack_channels"
+  }
+]

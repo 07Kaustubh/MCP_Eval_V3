@@ -91,3 +91,31 @@ Append-only. One entry per justification sent back to the platform reviewer (Cla
 **Reviewer decision:** Pending
 
 **If rejected:** _(placeholder — fill in reviewer response and follow-up action)_
+
+---
+
+## 2026-07-01 — Task 35_6a4421ec8169e23828bb442d — Class A INVALIDATE (Business Function pattern-fit)
+
+**Linter excerpt:** "FALSE — The prompt is not consistent with the Executive & Risk Oversight function as defined in the Brookfield universe. It describes a ransomware incident-response decision at an organization outside the Brookfield scenario entirely, references no Brookfield personas, systems, tools, retention codes, or structural conventions, and maps to none of the nine Executive sub-patterns. The mismatch is categorical, not correctable by minor revision."
+
+**Root cause of linter false positive:** The platform linter ran the Brookfield rulebook against a KeyStone Mortgage Partners universe task. `_aux/Universe.txt` = keystone; persona is Robert Calloway (Owner / Licensed Mortgage Broker at KeyStone); anchoring scenario is `scenario_14b3ffde` (2 BTC ransomware pay-vs-restore on the LOS environment). All flagged "missing" atoms (Brookfield personas Steven Perry / Matthew Li / Andrea Phil / William White, BlackLine / Oracle GL / SAP Subledger tool families, AICPA_SQMS_7Y retention codes, Cat 4.1-4.2 AML patterns, Linda Burns as legal NPC) are Brookfield-universe atoms that categorically do not apply to KeyStone-universe tasks. Council A + Council B + AUDIT (STRICT) all passed the prompt against the correct (KeyStone) rulebook.
+
+**Justification submitted:** see `Tasks/35_6a4421ec8169e23828bb442d/_aux/Linter_Justifications.md`.
+
+**Reviewer response:** [pending platform re-check]
+
+**Cross-task pattern**: this is the 1st recorded instance of the platform linter defaulting to the Brookfield rulebook on a non-Brookfield-universe task. If pattern recurs across ≥ 2 more KeyStone / MoveOps tasks, consider filing a platform issue.
+
+---
+
+## 2026-07-02 — Task 36_6a44224ed5d3b47d6d727cf5 — Class A INVALIDATE (Business alignment — wrong-universe linter)
+
+**Linter excerpt:** "Keystone Business alignment check for v2.2 tasks ... Function Match Score: Weak. Pattern Fit: Flag. Systems Check: Flag (Road Runner, Airtable, Linear cited as absent from function tool matrix). Write Actions Check: Flag (Linear comment, Airtable update, Calendar hold). Scope & Authority Check: Flag (scope more consistent with Operations or Executive than Customer Engagement / Support). ... FALSE — The prompt is not consistent with the Customer Engagement / Support function as defined. The scenario describes a corporate relocation program with housing placement and vehicle transport logistics, operating on systems (Airtable, Road Runner, Linear) that do not exist in the defined business environment."
+
+**Root cause of linter false positive:** The platform linter ran the KeyStone Mortgage rulebook against a MoveOps universe task. `_aux/Universe.txt` = moveops; persona is Julian Brooks (Lead Customer Support Specialist at MoveOps Inc.); anchoring scenario is BrightLoop April cohort service recovery covering Simone Richter (housing / UrbanNest) and Marcus Webb (vehicle / Road Runner). All flagged "missing" atoms are MoveOps-native: Airtable (273 hits, 167 records, 2 bases, 3 tables — source-of-truth for relocation state per AGENTS.md MoveOps hardcoded landmine), Linear (527 hits, 69 issues, 8 projects, 79 comments), Road Runner (36 hits — vehicle carrier vendor), BrightLoop (313 hits — real client), UrbanNest (101 hits — housing partner), Simone Richter (54), Marcus Webb (91, MoveOps person — DISTINCT from KeyStone's departed-employee Marcus Webb per AGENTS.md landmine), Julian Brooks (13), Mina Hashimoto (146 — audit thread owner). Customer Engagement / Support is a defined MoveOps business function at 30% weight.
+
+**Justification submitted:** see `Tasks/36_6a44224ed5d3b47d6d727cf5/_aux/Linter_Justifications.md`.
+
+**Reviewer response:** [pending platform re-check]
+
+**Cross-task pattern update**: this is the 2nd recorded instance of the platform linter running the wrong universe's rulebook (Task 35 KeyStone was flagged against Brookfield; Task 36 MoveOps flagged against KeyStone). Both were categorical wrong-universe classification errors at the linter level, invalidated with clean voice-gate justifications. Threshold noted in Task 35 entry was "≥ 2 more" for platform-issue filing; we are now at 2 total. One more instance (KeyStone or MoveOps universe hit with a non-matching rulebook) crosses the threshold — consider surfacing to the platform on the next occurrence.

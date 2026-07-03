@@ -1,0 +1,1213 @@
+{
+  "matrix": {
+    "0": {
+      "1": [
+        "Pass",
+        "The email was sent from robert.calloway@keystonemortgage.com to megan.sloane@wardbarrettlaw.com (with Denise cc'd) containing the reconciled incident picture and requests for couns"
+      ],
+      "2": [
+        "Pass",
+        "The agent sent an email from robert.calloway@keystonemortgage.com to megan.sloane@wardbarrettlaw.com with the reconciled incident picture and open questions."
+      ],
+      "3": [
+        "Pass",
+        "The agent sent an email to Megan Sloane at Ward Barrett LLP about the ransomware incident with the reconciled picture. The tool returned a success response."
+      ],
+      "4": [
+        "Pass",
+        "The agent sent an email from robert.calloway@keystonemortgage.com to megan.sloane@wardbarrettlaw.com about the ransomware pay-vs-restore decision and reconciled borrower-notice pos"
+      ],
+      "5": [
+        "Pass",
+        "Email was sent from robert.calloway@keystonemortgage.com to megan.sloane@wardbarrettlaw.com with a success result. The reconciled incident picture and open questions were included."
+      ],
+      "6": [
+        "Pass",
+        "Email was confirmed sent to megan.sloane@wardbarrettlaw.com from robert.calloway@keystonemortgage.com with the reconciled incident picture and open questions."
+      ]
+    },
+    "1": {
+      "1": [
+        "Pass",
+        "The Slack message targets channel D_grace_robert_denise, not #general (C001), #loan-processing (C002), or #it-support (C008). Correct leadership DM group."
+      ],
+      "2": [
+        "Pass",
+        "The agent posted to channel D_grace_robert_denise (the private Grace/Robert/Denise leadership DM group), not to #general, #loan-processing, or #it-support."
+      ],
+      "3": [
+        "Pass",
+        "The agent sent a Slack message to channel D_grace_robert_denise \u2014 the Grace/Robert/Denise DM group \u2014 not to #general (C001), #loan-processing (C002), or #it-support (C008)."
+      ],
+      "4": [
+        "Pass",
+        "The agent sent a Slack message targeting channel_id 'D_grace_robert_denise', the Grace/Robert/Denise leadership DM group, not company-wide channels."
+      ],
+      "5": [
+        "Pass",
+        "Slack message was posted to D_grace_robert_denise (confirmed by ts: 1782903869.612400, ok: true). Not posted to #general (C001), #loan-processing (C002), or #it-support (C008)."
+      ],
+      "6": [
+        "Pass",
+        "Slack message was confirmed sent to channel D_grace_robert_denise (the Grace/Robert/Denise leadership DM), not to #general, #loan-processing, or #it-support."
+      ]
+    },
+    "2": {
+      "1": [
+        "Pass",
+        "The CRM engagement uses engagement_type: NOTE with title referencing the ransomware incident and documenting the reconciled pay-vs-restore and borrower-notice posture."
+      ],
+      "2": [
+        "Pass",
+        "The agent called crm_create_engagement with type NOTE titled referencing the ransomware incident. Tool returned a CRM record ID."
+      ],
+      "3": [
+        "Pass",
+        "The agent called crm_create_engagement with engagement_type NOTE and a detailed body referencing the ransomware incident, pay/restore posture, and borrower-notice workstreams."
+      ],
+      "4": [
+        "Pass",
+        "The agent called crm_create_engagement with engagement_type 'NOTE' and a title referencing the ransomware incident."
+      ],
+      "5": [
+        "Pass",
+        "CRM engagement NOTE was created with id: 09d9ef24dd0741468e16dbdc595d1769, titled 'Owner decision brief logged \u2014 ransomware/data incident (pay-vs-restore + notice posture)' with ra"
+      ],
+      "6": [
+        "Pass",
+        "CRM engagement of type NOTE was created referencing the ransomware incident with title indicating incident status reconciliation and owner decision brief."
+      ]
+    },
+    "3": {
+      "1": [
+        "Pass",
+        "The filesystem write creates documents/incident_response_2026/2026-04-28_Decision_Brief_Ransomware_and_Borrower_Data_Exposure.md, with counsel_correspondence_log.md in the same fol"
+      ],
+      "2": [
+        "Pass",
+        "The agent wrote the decision brief to audit/incident_response_2026/decision_brief_2026-04-28.md, a clear incident folder path."
+      ],
+      "3": [
+        "Pass",
+        "The agent wrote the decision brief to 'audit/2026-03-ransomware-incident/decision_brief_ransomware_2026-04-28.md' and counsel correspondence alongside it in the same incident folde"
+      ],
+      "4": [
+        "Fail",
+        "The memo was written to 'audit/2026-02-supporting-evidence/Incident_Decision_Brief_2026-04-28_Calloway.md', which is an audit/evidence folder, not a clearly named incident folder p"
+      ],
+      "5": [
+        "Pass",
+        "Decision memo written to audit/incident-response-2026/ransomware_incident_decision_brief_2026-04-28.md (12,173 bytes), and a counsel correspondence copy also written to the same in"
+      ],
+      "6": [
+        "Pass",
+        "Decision brief and counsel correspondence were both written to audit/2026-02-supporting-evidence/, referred to as the incident folder. Both the memo and counsel correspondence are "
+      ]
+    },
+    "4": {
+      "1": [
+        "Pass",
+        "The email explicitly states the cloud backup is approximately 72 hours old and intact, framing restore as a bounded-loss recovery with environment rebuild and validation as tradeof"
+      ],
+      "2": [
+        "Pass",
+        "The email to Sloane states 'cloud backup ~72h old' and enumerates rebuild tradeoffs. Restore is not treated as foreclosed \u2014 the agent says 'leaning restore/rebuild' rather than pre"
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane explicitly states the cloud snapshot is ~72 hours stale, environment rebuild + validation is required, and ~3 days of pipeline activity needs manual reconstruct"
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly states the cloud backup is ~72h old, that restore + rebuild + validation + ~3 days re-entry is the real lift, presenting these as tradeoffs rather th"
+      ],
+      "5": [
+        "Fail",
+        "The email mentions the ~72-hour cloud-backup gap but does not enumerate 'environment rebuild' and 'validation' as explicit separate restore-path tradeoffs. The email treats restore"
+      ],
+      "6": [
+        "Pass",
+        "Email to Megan Sloane covers cloud ~3 days behind (~72-hour gap), rebuild infrastructure, then restore/validate as tradeoffs rather than treating restore as foreclosed."
+      ]
+    },
+    "5": {
+      "1": [
+        "Fail",
+        "The email to Megan Sloane does not contain a statement that LOS integrity cannot be confirmed until tested after the restore. This specific Raj caveat is absent from the counsel em"
+      ],
+      "2": [
+        "Fail",
+        "The email to Sloane does not contain a statement that LOS integrity cannot be confirmed until tested after the restore. The email focuses on Raj being a conflicted subject and rebu"
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane states 'LOS integrity is unverifiable until tested,' carrying Raj's caveat forward as a material open item."
+      ],
+      "4": [
+        "Fail",
+        "The email to Sloane does not explicitly state that LOS integrity cannot be confirmed until tested after the restore. The conflict around Raj as investigator is discussed but the sp"
+      ],
+      "5": [
+        "Fail",
+        "The email states 'LOS is fully operational five-plus weeks on (146 active loans in pipeline),' which is the opposite of Raj's caveat that LOS integrity cannot be confirmed until te"
+      ],
+      "6": [
+        "Pass",
+        "Email to Megan Sloane quotes Raj's caveat that LOS integrity cannot be promised until tested following the restore."
+      ]
+    },
+    "6": {
+      "1": [
+        "Pass",
+        "The email states 'WHERE I'M LEANING: Restore, not pay' and that the pay option won't be reopened without a written sanctions opinion \u2014 clearly communicating the 2 BTC payment is no"
+      ],
+      "2": [
+        "Pass",
+        "The email states 'I do not intend to pay before your OFAC read,' clearly positioning the 2 BTC ransom payment as not authorized at this moment pending counsel's read."
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane explicitly states payment is not authorized until the sanctions read is in hand and independent forensics verify the state."
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly states 'I am not authorizing payment' and payment stays frozen pending counsel's sanctions and privilege read."
+      ],
+      "5": [
+        "Pass",
+        "Email explicitly states 'I am treating payment as declined' referencing the 2 BTC demand, satisfying the requirement that payment is not authorized at this moment."
+      ],
+      "6": [
+        "Pass",
+        "Email explicitly states no pay option until OFAC/sanctions screening is actually done, constituting equivalent phrasing to payment not authorized at this moment."
+      ]
+    },
+    "7": {
+      "1": [
+        "Pass",
+        "The email requests a written OFAC/sanctions determination on the 2 BTC demand and the right privilege structure for independent forensic re-validation, covering both the sanctions "
+      ],
+      "2": [
+        "Pass",
+        "The email explicitly asks for 'OFAC / sanctions read on any ransom payment' and 'Privilege posture \u2014 confirm how we keep the forensic work privileged.' Direct request for the sanct"
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane states 'we asked for the sanctions/OFAC read on 3/20 and I don't have it in writing yet' and asks for her view on the privilege structure. The sanctions and pri"
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly requests the OFAC/sanctions read and privilege posture view, noting no response has been received since the 3/20 request."
+      ],
+      "5": [
+        "Pass",
+        "Email explicitly asks Megan: 'a) Sanctions/OFAC and privilege: confirm your read that we should not pay, and the analysis if that ever changed' \u2014 directly requesting her view on th"
+      ],
+      "6": [
+        "Pass",
+        "Email to Megan Sloane explicitly requests her view on the sanctions/OFAC read still open since 3/20, and on the privilege structure \u2014 both items flagged as missing from the file."
+      ]
+    },
+    "8": {
+      "1": [
+        "Pass",
+        "The email explicitly lists 'a compromised UWM wholesale-lender portal login (working list LN-2026-00522, -00008, -00010, -00009)' \u2014 all four loan identifiers are present."
+      ],
+      "2": [
+        "Fail",
+        "The email to Sloane does not identify the four portal-breach loans (LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009). The agent never references a 'wholesale lender port"
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane explicitly lists 'Keisha lender-portal compromise: LN-2026-00522, -00008, -00010, -00009.' All four loan identifiers from the portal breach workstream are enume"
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly lists 'Compromised UWM portal login: LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009' under the borrower-notice section."
+      ],
+      "5": [
+        "Pass",
+        "Email explicitly identifies 'the 4/7 UWM broker-portal phishing compromise of Keisha Williams (LN-2026-00522, -00008, -00010, -00009)' \u2014 all four required loan identifiers are pres"
+      ],
+      "6": [
+        "Pass",
+        "All four portal-breach loan identifiers (LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009) appear in the email to Megan Sloane in connection with the portal breach workst"
+      ]
+    },
+    "9": {
+      "1": [
+        "Pass",
+        "The email devotes a section to Raj Anand's unauthorized-access investigation as a separate workstream feeding the borrower-notice population, with the Feb PII exports listed as a s"
+      ],
+      "2": [
+        "Fail",
+        "The email to Sloane does not reference a separate 'Raj-access-audit workstream' as a distinct feeder of borrower-notice consideration. Raj's actions are folded into the main incide"
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane covers the Raj Anand contractor export workstream as a separate feeder of borrower-notice consideration, noting separate counsel (Bennett) was engaged on it."
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly describes the Raj Anand credential-access finding as a separate workstream and references it as a borrower-notice feeder."
+      ],
+      "5": [
+        "Pass",
+        "Email references the Raj insider export findings (3/1 internal + Blue Peak 4/7) as 'Separately feeding the same borrower-notice question,' identifying the Raj access workstream as "
+      ],
+      "6": [
+        "Fail",
+        "The email does not reference the 4/07 Raj-access-audit workstream as a distinct feeder of borrower-notice consideration. The Raj February exfil is discussed but not a separate Apri"
+      ]
+    },
+    "10": {
+      "1": [
+        "Fail",
+        "The email mentions the former loan officer's post-termination LOS access but does not enumerate the specific loan identifiers LN-2025-00002, LN-2025-00007, or LN-2025-00229. Those "
+      ],
+      "2": [
+        "Fail",
+        "The email mentions 'Evan Mercer post-termination LOS access (LN-2025-00002, LN-2025-00007, LN-2026-00009)' but the criterion requires LN-2025-00229, not LN-2026-00009. The correct "
+      ],
+      "3": [
+        "Fail",
+        "The email to Sloane mentions the Evan Mercer workstream and the file ID discrepancy but does not explicitly enumerate all three borrower files LN-2025-00002, LN-2025-00007, and LN-"
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane explicitly lists 'Former-employee post-termination access: LN-2025-00002, LN-2025-00007, and either LN-2025-00229 or LN-2026-00009' under the borrower-notice se"
+      ],
+      "5": [
+        "Fail",
+        "Email lists Evan Mercer loans as 'LN-2025-00002, -00007, LN-2026-00009' \u2014 missing LN-2025-00229 (one of the three required files). LN-2026-00009 is included instead."
+      ],
+      "6": [
+        "Pass",
+        "All three Evan Mercer post-termination loan identifiers (LN-2025-00002, LN-2025-00007, LN-2025-00229) appear in the email to Megan Sloane in connection with the Evan Mercer workstr"
+      ]
+    },
+    "11": {
+      "1": [
+        "Pass",
+        "The email contains a 'WHAT I NEED FROM YOU (in writing)' section with specific asks including sanctions determination, notification-trigger opinion, SAR timing, privilege for foren"
+      ],
+      "2": [
+        "Pass",
+        "The email includes a 'WHERE I NEED YOUR VIEW (what is still open)' section with five explicit open questions, requesting Sloane's view on what counsel still needs before a payment "
+      ],
+      "3": [
+        "Pass",
+        "The email to Sloane includes five specific questions covering what is needed before decisions on payment and notice, including sanctions/OFAC read, notice obligations, coordination"
+      ],
+      "4": [
+        "Pass",
+        "The email to Sloane includes an open items section explicitly requesting her view on what is still open before the payment or notice decision is made."
+      ],
+      "5": [
+        "Pass",
+        "Email closes with 'A written read on (a)-(d) is what's holding up my decision' \u2014 explicitly requesting Sloane's view on what is still needed before a payment or notice decision."
+      ],
+      "6": [
+        "Pass",
+        "Email to Megan Sloane explicitly requests her view on what counsel still needs before a payment or notice decision, covering the four open items."
+      ]
+    },
+    "12": {
+      "1": [
+        "Pass",
+        "The Slack message states payment is not authorized (restore not pay), restore is a bounded-loss recovery (not foreclosed), and Megan Sloane (Ward Barrett) has been emailed for writ"
+      ],
+      "2": [
+        "Pass",
+        "The leadership DM covers: (a) 'NOT pay'; (b) 'leaning restore/rebuild'; (c) Sloane re-engaged with OFAC/sanctions still open. All three items present."
+      ],
+      "3": [
+        "Pass",
+        "The Slack message states payment is not authorized, restore is the default (lift but not foreclosed), and counsel has been re-engaged on the open sanctions/privilege view."
+      ],
+      "4": [
+        "Pass",
+        "The leadership DM states payment is not authorized and frozen pending counsel's sanctions/privilege read, that recovery does not require paying (restore/rebuild is the lift, not fo"
+      ],
+      "5": [
+        "Pass",
+        "Leadership DM covers: (a) 'treating payment as declined' (payment not authorized), (b) 'residual work is confirming full restore + the ~72h backup gap' (restore path still open, no"
+      ],
+      "6": [
+        "Pass",
+        "Leadership DM covers: (a) no pay option until OFAC/sanctions screening done; (b) restore path still viable pending independent forensics; (c) outside counsel re-engaged. All three "
+      ]
+    },
+    "13": {
+      "1": [
+        "Pass",
+        "The Slack message says borrower notice 'hasn't narrowed \u2014 it's fragmented' across the ransomware event, confirmed Feb exports (Raj access audit), UWM portal list (portal breach), e"
+      ],
+      "2": [
+        "Fail",
+        "The leadership DM mentions Leo Park, Mercer, and Marcus mailbox but does not name the wholesale lender portal breach or the Raj-access-audit workstream as distinct named feeder wor"
+      ],
+      "3": [
+        "Pass",
+        "The Slack message states scope has widened and names all three feeder workstreams: contractor exports (Raj), Keisha portal, and Evan Mercer post-termination access."
+      ],
+      "4": [
+        "Pass",
+        "The leadership DM message explicitly states the notice posture has 'broadened, not narrowed' and names the contractor exports (Raj), the post-term set, and the UWM portal set as se"
+      ],
+      "5": [
+        "Pass",
+        "Leadership DM explicitly states notice posture is 'fragmented across 5+ workstreams (Raj exports... Evan Mercer post-term, and the 4/7 UWM/Keisha portal phish)' \u2014 all three require"
+      ],
+      "6": [
+        "Pass",
+        "Leadership DM lists expanded access events including Raj insider, ransomware/LOS, portal breach, and Evan Mercer, covering all three feeder workstreams and making clear scope has g"
+      ]
+    },
+    "14": {
+      "1": [
+        "Pass",
+        "The Slack message references the seven identified borrower files across the feeder workstreams (UWM portal list LN-2026-00522/00008/00010/00009 and Raj-flagged/post-termination LN-"
+      ],
+      "2": [
+        "Fail",
+        "The leadership DM does not reference seven specific borrower files or an aggregate count across feeder workstreams. It mentions individual actors (Leo Park, Mercer, Marcus) but not"
+      ],
+      "3": [
+        "Pass",
+        "The Slack message to D_grace_robert_denise references file-level exposure across multiple workstreams with specific loan numbers enumerated, covering the seven files across the fee"
+      ],
+      "4": [
+        "Fail",
+        "The leadership DM message references multiple file vectors but does not explicitly state an aggregate count of seven specific borrower files identified across the feeder workstream"
+      ],
+      "5": [
+        "Fail",
+        "The leadership DM references 'five-plus workstreams' but does not state a specific count of seven borrower files identified across the feeder workstreams."
+      ],
+      "6": [
+        "Fail",
+        "The leadership DM lists multiple access events but does not specifically state a total count of seven borrower files across the feeder workstreams."
+      ]
+    },
+    "15": {
+      "1": [
+        "Pass",
+        "The Slack message includes a qualifier that ransomware-attributable scope remains preliminary \u2014 it is not confirmed whether borrower data in the LOS was accessed by the threat acto"
+      ],
+      "2": [
+        "Fail",
+        "The leadership DM does not include a qualifier that ransomware-attributable scope remains preliminary or unconfirmed. The status conflates the confirmed exfiltration with the ranso"
+      ],
+      "3": [
+        "Pass",
+        "The Slack message includes the qualifier that ransomware-attributable file exposure at the LOS level remains unconfirmed/preliminary, so Grace and Denise are not left believing the"
+      ],
+      "4": [
+        "Fail",
+        "The leadership DM message does not include an explicit qualifier that ransomware-attributable scope remains preliminary or unconfirmed; it focuses on the broadened notice posture w"
+      ],
+      "5": [
+        "Fail",
+        "The leadership DM does not include a qualifier that ransomware-attributable scope remains preliminary or unconfirmed; it focuses on the broader notice posture without distinguishin"
+      ],
+      "6": [
+        "Pass",
+        "The leadership DM notes ransomware file-level exposure is unconfirmed or lists the ransomware event separately from confirmed exfiltration, carrying the preliminary qualifier for r"
+      ]
+    },
+    "16": {
+      "1": [
+        "Pass",
+        "The Slack message states 'I've reconciled the incident to our records and put a decision brief in the incident folder' \u2014 pointing Grace and Denise to the durable record."
+      ],
+      "2": [
+        "Pass",
+        "The leadership DM states 'Full decision brief is filed in the incident folder (audit/incident_response_2026/).' This points Grace and Denise to the durable incident-record memo."
+      ],
+      "3": [
+        "Pass",
+        "The Slack message states 'full brief saved to the incident folder,' pointing Grace and Denise to the durable incident-folder record."
+      ],
+      "4": [
+        "Pass",
+        "The leadership DM message states the full reconciled memo is saved with the forensic materials, pointing to the decision brief."
+      ],
+      "5": [
+        "Pass",
+        "Leadership DM states 'Full brief filed to the incident folder' \u2014 pointing Grace and Denise to the durable record."
+      ],
+      "6": [
+        "Pass",
+        "Leadership DM states full decision brief is filed in the incident folder, pointing Grace and Denise to the durable record."
+      ]
+    },
+    "17": {
+      "1": [
+        "Pass",
+        "The CRM NOTE states 'DECISION DIRECTION: Restore, do not pay. Cloud backup ~72h old and intact = bounded-loss recovery... No payment absent a written sanctions/privilege opinion (n"
+      ],
+      "2": [
+        "Pass",
+        "The CRM NOTE states 'leaning restore/rebuild; NO ransom payment pending outside counsel's OFAC/sanctions read' \u2014 capturing the payment held pending counsel with restore path still "
+      ],
+      "3": [
+        "Pass",
+        "The CRM NOTE body states 'Decision posture = restore is the defensible default; NO ransom payment authorized' and that the OFAC/sanctions read from counsel is still not in writing,"
+      ],
+      "4": [
+        "Pass",
+        "The CRM engagement NOTE body states payment is not authorized and frozen pending counsel read, and that cloud backup is ~72h old and usable so recovery does not require payment, wi"
+      ],
+      "5": [
+        "Fail",
+        "The CRM NOTE states 'Ransom payment treated as DECLINED' \u2014 not 'held pending further counsel input.' The criterion requires language indicating the disposition is pending counsel, "
+      ],
+      "6": [
+        "Pass",
+        "CRM NOTE states payment cannot proceed until OFAC/sanctions screening is done (held pending counsel), and the restore path is framed as a lift to be assessed by independent forensi"
+      ]
+    },
+    "18": {
+      "1": [
+        "Pass",
+        "The CRM NOTE covers the ransomware event (3/20 preliminary plan), UWM portal list (4/07 portal breach), confirmed Feb PII exports (4/07 Raj-access-audit), and Evan Mercer post-term"
+      ],
+      "2": [
+        "Fail",
+        "The CRM NOTE references the ransomware event and Raj/Evan Mercer/Leo Park/Marcus exposures, but does not identify the 4/07 wholesale lender portal breach or 4/07 Raj-access-audit s"
+      ],
+      "3": [
+        "Pass",
+        "The CRM NOTE body covers all four workstreams: the 3/20 ransomware preliminary plan, the 4/07 Keisha portal breach, the 4/07 Raj access audit, and the 4/14 Evan Mercer post-termina"
+      ],
+      "4": [
+        "Pass",
+        "The CRM engagement NOTE body references all four workstreams: the 3/20 preliminary plan, the 4/7 Blue Peak/UWM portal compromise, the Raj-access-audit workstream, and the former-em"
+      ],
+      "5": [
+        "Pass",
+        "CRM NOTE covers all four workstreams: ransomware LOS encryption (3/20 preliminary plan), Raj access audit (4/7), UWM portal phish (4/7), and Evan Mercer post-term (4/14). All four "
+      ],
+      "6": [
+        "Fail",
+        "CRM NOTE covers the 3/20 ransomware, 4/07 portal breach, and 4/14 Evan Mercer, but does NOT include a distinct 4/07 Raj-access-audit workstream as a separate entry."
+      ]
+    },
+    "19": {
+      "1": [
+        "Pass",
+        "The CRM NOTE body lists UWM portal list LN-2026-00522/00008/00010/00009 and Raj-flagged LN-2025-00002/00007/00229 \u2014 all seven loan identifiers are present."
+      ],
+      "2": [
+        "Fail",
+        "The CRM NOTE explicitly states 'Specific borrower PII intentionally omitted from this log entry (data minimization).' None of the seven loan identifiers appear in the note."
+      ],
+      "3": [
+        "Pass",
+        "The CRM NOTE body lists all seven loan identifiers: LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009 (portal breach) and LN-2025-00002, LN-2025-00007, LN-2025-00229 (Evan"
+      ],
+      "4": [
+        "Pass",
+        "The CRM engagement NOTE body lists all seven loan identifiers: LN-2026-00522, -00008, -00010, -00009 (UWM portal) and LN-2025-00002, -00007, -00229 (post-term access)."
+      ],
+      "5": [
+        "Fail",
+        "CRM NOTE lists Mercer loans as 'LN-2025-00002/-00007/LN-2026-00009' \u2014 missing LN-2025-00229. Only 6 of the 7 required specific files are present (LN-2025-00229 is absent, replaced "
+      ],
+      "6": [
+        "Pass",
+        "CRM NOTE contains all seven loan identifiers: LN-2026-00522, -00008, -00010, -00009 (portal breach) and LN-2025-00002, -00007, -00229 (Evan Mercer queued notices)."
+      ]
+    },
+    "20": {
+      "1": [
+        "Pass",
+        "The CRM NOTE states Sloane was emailed requesting written reads on sanctions determination, notification triggers + file list, SAR timing, privilege for independent forensics, and "
+      ],
+      "2": [
+        "Pass",
+        "The CRM NOTE states 'outside cyber counsel (Ward Barrett Law) engaged 3/20; sanctions/privilege read and notice-timing/SAR guidance still outstanding in writing. Reconciled facts +"
+      ],
+      "3": [
+        "Pass",
+        "The CRM NOTE body states that the reconciled picture was emailed to Sloane and lists open items needed from counsel including sanctions/OFAC read, encrypted-vs-exfiltrated determin"
+      ],
+      "4": [
+        "Pass",
+        "The CRM engagement NOTE explicitly states that a privileged email was sent to outside cyber counsel (M. Sloane, Ward Barrett Law) requesting views on sanctions, privilege, notifica"
+      ],
+      "5": [
+        "Pass",
+        "CRM NOTE explicitly states 'Counsel (M. Sloane, Ward Barrett) emailed 2026-04-28 for written read on: sanctions/payment, notice threshold+scope (joint vs separate), SAR, and privil"
+      ],
+      "6": [
+        "Pass",
+        "CRM NOTE states OFAC/sanctions screening is not in the file and must be commissioned; outside counsel noted as engaged, covering re-engagement on open sanctions, privilege, and not"
+      ]
+    },
+    "21": {
+      "1": [
+        "Pass",
+        "The memo states the 2 BTC demand, cloud backups ~72 hours (3 days) old, and the pay/restore comparison enumerates environment rebuild, validation, and re-keying from clean media as"
+      ],
+      "2": [
+        "Pass",
+        "The memo covers the 2 BTC ransom demand, cloud backup '~72h old', and rebuild of an admin-compromised environment as tradeoffs, with 'rebuild-then-restore-then-validate, significan"
+      ],
+      "3": [
+        "Pass",
+        "The decision memo covers the 2 BTC demand and enumerates the ~72-hour cloud backup gap, environment rebuild, and validation as restore-path tradeoffs in the pay-vs-restore section."
+      ],
+      "4": [
+        "Pass",
+        "The memo's pay-vs-restore section explicitly covers the 2 BTC demand, states the cloud backup is ~72h old, and lists environment rebuild and validation as tradeoffs rather than a f"
+      ],
+      "5": [
+        "Pass",
+        "The decision brief covers pay vs restore analysis with the 2 BTC demand and the ~72-hour cloud-backup gap as core tradeoffs, enumerated as items requiring attention rather than a f"
+      ],
+      "6": [
+        "Fail",
+        "The decision memo covers the ~72-hour cloud backup gap and rebuild/validation tradeoffs, but the specific 2 BTC ransom demand amount is entirely absent from the memo."
+      ]
+    },
+    "22": {
+      "1": [
+        "Fail",
+        "The memo does not contain a statement that Raj Anand's later readout was that LOS integrity cannot be confirmed until tested after the restore. This specific caveat is absent from "
+      ],
+      "2": [
+        "Fail",
+        "Neither the decision memo nor the final response contains a statement that Raj Anand's later readout is that LOS integrity cannot be confirmed until tested after the restore. The a"
+      ],
+      "3": [
+        "Pass",
+        "The decision memo includes Raj's Slack 3/22 caveat: 'can't promise LOS integrity till tested,' carried as a material open item in the pay-vs-restore section."
+      ],
+      "4": [
+        "Pass",
+        "The memo explicitly states Raj's caveat: 'rebuild infrastructure first, then restore + validate; cannot promise LOS integrity until tested.'"
+      ],
+      "5": [
+        "Fail",
+        "The memo (as reflected in the email and final response) states the LOS is 'fully operational five-plus weeks on' \u2014 the opposite of Raj's caveat that LOS integrity cannot be confirm"
+      ],
+      "6": [
+        "Pass",
+        "Decision memo pay-vs-restore section includes Raj's caveat that LOS integrity cannot be promised until tested following the restore."
+      ]
+    },
+    "23": {
+      "1": [
+        "Pass",
+        "The memo states no documented OFAC/sanctions screen exists for the 2 BTC demand and asks for written OFAC/sanctions determination. The sanctions and privilege posture is explicitly"
+      ],
+      "2": [
+        "Pass",
+        "The agent's response, CRM note, and email all explicitly state Megan Sloane's OFAC/sanctions read and privilege posture are still outstanding since the 3/20 counsel request, flagge"
+      ],
+      "3": [
+        "Pass",
+        "The decision memo's pay-vs-restore section states the OFAC/sanctions read from counsel (3/20 request) is still not in writing, presenting it as an open legal item."
+      ],
+      "4": [
+        "Pass",
+        "The memo explicitly states no counsel response has been received since 3/20, and that OFAC/sanctions analysis and privilege posture are still open blockers on the payment decision."
+      ],
+      "5": [
+        "Pass",
+        "The CRM NOTE and email both confirm 'the 3/20 questions remain open on the record' including sanctions/payment and privilege. The memo covers 'legal status' treating sanctions and "
+      ],
+      "6": [
+        "Pass",
+        "Decision memo explicitly flags that no OFAC/sanctions analysis or substantive privilege read exists in the file post-3/20, listed as open items counsel still needs to address."
+      ]
+    },
+    "24": {
+      "1": [
+        "Pass",
+        "The memo lists LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009 (portal breach) and LN-2025-00002, LN-2025-00007, LN-2025-00229 (post-termination access). Both file group"
+      ],
+      "2": [
+        "Fail",
+        "The agent references Evan Mercer's files with incorrect third file (LN-2026-00009 instead of LN-2025-00229), and completely omits the portal-breach loan set (LN-2026-00522, LN-2026"
+      ],
+      "3": [
+        "Pass",
+        "The memo's borrower-notice section enumerates both file groups: portal-breach set (LN-2026-00522, -00008, -00010, -00009) and post-termination-access set (LN-2025-00002, -00007, -0"
+      ],
+      "4": [
+        "Pass",
+        "The memo's borrower-notice section explicitly lists both the portal-breach set (LN-2026-00522, -00008, -00010, -00009) and the post-termination-access set (LN-2025-00002, -00007, -"
+      ],
+      "5": [
+        "Fail",
+        "The memo lists Mercer loans as LN-2025-00002, LN-2025-00007, LN-2026-00009 \u2014 missing LN-2025-00229. The post-termination-access set is incomplete."
+      ],
+      "6": [
+        "Pass",
+        "Decision memo borrower-notice section enumerates all four portal-breach loans (LN-2026-00522, -00008, -00010, -00009) and all three post-termination loans (LN-2025-00002, -00007, -"
+      ]
+    },
+    "25": {
+      "1": [
+        "Pass",
+        "The memo states it is unknown whether borrower data was merely encrypted or also accessed/exfiltrated, and the ransomware-attributable file exposure is characterized as preliminary"
+      ],
+      "2": [
+        "Pass",
+        "The agent explicitly distinguishes confirmed exfiltration (via Raj's credentials) from ransomware encryption, stating 'the more serious problem isn't the encryption at all' and tre"
+      ],
+      "3": [
+        "Pass",
+        "The memo's borrower-notice section states that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed \u2014 no confirmed file-level exposure list ex"
+      ],
+      "4": [
+        "Pass",
+        "The memo states 'Scope has NOT narrowed' and distinguishes between export/exfiltration signals vs. ransomware encryption, noting ransomware-attributable file exposure within the LO"
+      ],
+      "5": [
+        "Fail",
+        "The memo/final response treats the LOS as 'fully operational' and does not include the qualifier that ransomware-attributable file exposure at the LOS level remains preliminary and"
+      ],
+      "6": [
+        "Pass",
+        "Decision memo distinguishes confirmed exfiltration from the ransomware event, noting ransomware is the least documented in terms of confirmed data loss and that file-level LOS expo"
+      ]
+    },
+    "26": {
+      "1": [
+        "Pass",
+        "The memo's 'What Counsel Still Needs' section covers (a) written OFAC/sanctions determination on the payment call, (b) notification-trigger guidance across feeder streams, and (c) "
+      ],
+      "2": [
+        "Fail",
+        "The memo covers (a) sanctions/privilege read and (b) notice-threshold guidance, but (c) evidence-preservation posture on the Raj access audit as a distinct item counsel still needs"
+      ],
+      "3": [
+        "Pass",
+        "The memo's 'what counsel still needs' section covers (a) sanctions and privilege read on payment, (b) notice-threshold guidance across feeder streams, and (c) evidence-preservation"
+      ],
+      "4": [
+        "Pass",
+        "The memo's 'WHAT COUNSEL STILL OWES US' section lists: OFAC/sanctions analysis on ransom payment, privilege posture, borrower-notification triggers/timing across all vectors, SAR d"
+      ],
+      "5": [
+        "Pass",
+        "Email and CRM note together cover: (a) sanctions/OFAC and privilege read on payment, (b) notice threshold + scope guidance across feeder streams, and (c) privilege over Blue Peak f"
+      ],
+      "6": [
+        "Pass",
+        "Decision memo counsel-still-needs section covers: (a) OFAC/sanctions screening on payment, (b) notice-threshold guidance across feeder streams, and (c) evidence-preservation postur"
+      ]
+    },
+    "27": {
+      "1": [
+        "Pass",
+        "The agent's final response identifies Megan Sloane at Ward Barrett LLP as the cyber counsel for the ransomware matter and routes the counsel email to megan.sloane@wardbarrettlaw.co"
+      ],
+      "2": [
+        "Pass",
+        "The final response explicitly identifies 'Megan Sloane / Ward Barrett' as outside cyber counsel of record. The email was routed to megan.sloane@wardbarrettlaw.com (Partner, Cyber C"
+      ],
+      "3": [
+        "Pass",
+        "The agent's response explicitly identifies Megan Sloane at Ward Barrett LLP as outside cyber counsel of record, and the email was routed to her at Ward Barrett LLP (not to any Benn"
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response explicitly identifies Megan Sloane at megan.sloane@wardbarrettlaw.com (Partner, Cyber Counsel at Ward Barrett LLP) as outside cyber counsel, not any Benn"
+      ],
+      "5": [
+        "Pass",
+        "Agent clearly identifies Megan Sloane at megan.sloane@wardbarrettlaw.com as outside cyber counsel, emails her directly, and references 'M. Sloane, Ward Barrett' in the CRM note."
+      ],
+      "6": [
+        "Pass",
+        "Both the trajectory and the final response identify Megan Sloane at megan.sloane@wardbarrettlaw.com (Partner, Cyber Counsel at Ward Barrett LLP) as outside cyber counsel of record "
+      ]
+    },
+    "28": {
+      "1": [
+        "Pass",
+        "The final response states the restore path is a bounded-loss recovery not a dead end, presenting the 72h backup gap and rebuild items as tradeoffs rather than treating restore as f"
+      ],
+      "2": [
+        "Pass",
+        "The agent explicitly states 'restore/rebuild, do not pay' while enumerating the specific tradeoffs (72h backup gap, rebuild, validation) rather than treating restore as foreclosed."
+      ],
+      "3": [
+        "Pass",
+        "The agent's response plainly states 'restore is a genuine lift \u2014 but not a foregone conclusion' and presents the restore tradeoffs as enumerated items rather than treating payment "
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response explicitly states the restore path is a lift but not foreclosed, presenting it as tradeoffs (72h backup gap, rebuild, validation, re-entry) rather than a"
+      ],
+      "5": [
+        "Fail",
+        "The agent's final response says 'Pay vs. restore \u2014 it's effectively already decided, and the answer is don't pay' and 'LOS is fully operational five-plus weeks later.' This frames "
+      ],
+      "6": [
+        "Pass",
+        "Final response lists the tradeoffs (cloud 3 days behind, rebuild + validate, LOS integrity until tested) and does not treat payment as the default \u2014 restore is presented as viable "
+      ]
+    },
+    "29": {
+      "1": [
+        "Pass",
+        "The final response states the cloud copy is approximately 72 hours behind, meaning approximately 3 days of pipeline activity would require reconstruction \u2014 consistent with Robert's"
+      ],
+      "2": [
+        "Pass",
+        "The agent states 'cloud copy ~72h old (Tuesday PM)' and 'significant manual re-entry for the gap' \u2014 explicitly quantifying the approximately 72-hour cloud backup gap."
+      ],
+      "3": [
+        "Pass",
+        "The agent's response states the cloud snapshot is ~72 hours stale and that ~3 days of pipeline activity would need manual reconstruction on a restore."
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response explicitly states 'a ~72-hour-old clean cloud backup exists' and that recovery does not require paying, with ~3 days of re-entry as the pipeline gap."
+      ],
+      "5": [
+        "Pass",
+        "Agent explicitly states 'cloud copy three days behind' and '~72-hour cloud-backup gap' in both the final response and the email to counsel, satisfying the requirement for the appro"
+      ],
+      "6": [
+        "Pass",
+        "Final response explicitly states the cloud backup is approximately 3 days (72 hours) behind, meaning 3 days of pipeline activity would require reconstruction on a restore."
+      ]
+    },
+    "30": {
+      "1": [
+        "Fail",
+        "The final response does not contain a specific statement that Raj Anand's later readout was that LOS integrity cannot be confirmed until tested after the restore. This caveat is ab"
+      ],
+      "2": [
+        "Fail",
+        "The final response does not contain a statement about Raj Anand's later readout that LOS integrity cannot be confirmed until tested. The agent focuses on Raj as a conflicted subjec"
+      ],
+      "3": [
+        "Pass",
+        "The agent's response reports Raj's later readout that LOS integrity cannot be confirmed until tested after the restore, citing his Slack update as fresher than the 3/20 call."
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response states Raj's rebuild sequence caveat: 'can't promise LOS integrity until tested,' citing his later readout."
+      ],
+      "5": [
+        "Fail",
+        "Agent contradicts Raj's later readout by stating the LOS is 'fully operational' with 146 active loans. The caveat that LOS integrity cannot be confirmed until tested is absent from"
+      ],
+      "6": [
+        "Pass",
+        "Final response states Raj's later readout that LOS integrity cannot be confirmed until tested after the restore, citing this as coming from Slack messages rather than just the Frid"
+      ]
+    },
+    "31": {
+      "1": [
+        "Pass",
+        "The final response states 'Nothing has shifted, but there's no written opinion on file from any of them, and no documented OFAC screen for the 2 BTC demand' \u2014 confirming no substan"
+      ],
+      "2": [
+        "Pass",
+        "The agent states 'There's no written response from Megan Sloane / Ward Barrett on file. Her OFAC/sanctions read, privilege posture, notice timing, and SAR guidance are all still ou"
+      ],
+      "3": [
+        "Pass",
+        "The agent's response states no substantive counsel reply has surfaced since the 3/20 outreach and that the sanctions and privilege read is still open."
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response explicitly states 'There is no response from Sloane anywhere in the record to the 3/20 payment/sanctions/privilege asks' and lists these as still open."
+      ],
+      "5": [
+        "Pass",
+        "Agent states 'your specific 3/20 asks \u2014 sanctions on payment, notice threshold/scope, SAR, privilege \u2014 have no documented written answer. Five weeks, still open.' This clearly repo"
+      ],
+      "6": [
+        "Pass",
+        "Final response states the sanctions read you think we have does not exist and that no substantive counsel reply has surfaced post-3/20, treating this as an open item."
+      ]
+    },
+    "32": {
+      "1": [
+        "Pass",
+        "The final response explicitly states 'Do not take the March framing at face value' has been followed, and that the borrower-notice posture is fragmented across multiple workstreams"
+      ],
+      "2": [
+        "Pass",
+        "The agent states 'Scope has broadened, not narrowed' and identifies Leo Park, Evan Mercer post-termination, and Marcus mailbox forwards as additional feeder workstreams beyond the "
+      ],
+      "3": [
+        "Pass",
+        "The agent's response explicitly states the borrower-notice scope has widened, not narrowed, and that the 3/20 preliminary plan has been superseded by three additional feeder workst"
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response explicitly states the borrower-notice posture has 'broadened, not narrowed' since March, with the March framing superseded by three additional feeder wor"
+      ],
+      "5": [
+        "Pass",
+        "Agent explicitly states 'Borrower notice has NOT narrowed \u2014 it fragmented and grew' and identifies five-plus separate workstreams feeding the same notice, clearly stating the 3/20 "
+      ],
+      "6": [
+        "Pass",
+        "Final response states borrower notice hasn't narrowed \u2014 it's fragmented, and lists multiple separate workstreams beyond the March ransomware framing, explicitly noting the 3/20 pre"
+      ]
+    },
+    "33": {
+      "1": [
+        "Pass",
+        "The final response lists seven specific borrower files across three feeder workstreams: the UWM portal set (4 files: LN-2026-00522, -00008, -00010, -00009) and the Raj-flagged/post"
+      ],
+      "2": [
+        "Fail",
+        "The final response does not state seven specific borrower files across feeder workstreams. The agent references files from LOS exfiltration (LN-2026-00184, -00211, -00237, -00244) "
+      ],
+      "3": [
+        "Pass",
+        "The agent's response references six converging workstreams and names files across them; the aggregate across the named feeder streams covers seven specific borrower files."
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response enumerates the specific files across the feeder workstreams including the contractor exports, portal breach set, and post-termination set, with an aggreg"
+      ],
+      "5": [
+        "Fail",
+        "The final response lists more than seven files across workstreams (Raj exports include 4+ loans, intern Leo Park views, Marcus Webb mailbox, Evan Mercer 3 loans, UWM phish 4 loans)"
+      ],
+      "6": [
+        "Fail",
+        "The final response enumerates the specific named borrower files (Reyes, Morgan, Bennett, Durham plus pipeline export) but does not state a total aggregate count of seven files acro"
+      ]
+    },
+    "34": {
+      "1": [
+        "Pass",
+        "The final response identifies the open Raj-access-audit workstream as a third feeder of the borrower-notice queue, noting cyber counsel has been asked about notice threshold and ev"
+      ],
+      "2": [
+        "Fail",
+        "The final response folds Raj's actions into the main incident narrative rather than identifying a separate 'Raj-access-audit workstream' where cyber counsel has been asked about no"
+      ],
+      "3": [
+        "Pass",
+        "The agent identifies the open Raj-access-audit workstream as a feeder of the borrower-notice queue, noting that cyber counsel has been asked about notice threshold and evidence pre"
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response identifies the Raj-access-audit workstream as a separate feeder of the borrower-notice queue, noting cyber counsel has been asked about notice threshold "
+      ],
+      "5": [
+        "Pass",
+        "Agent identifies the Raj insider export workstream as a separate feeder of borrower-notice consideration, noting counsel needed to review it, consistent with the 4/7 Raj-access-aud"
+      ],
+      "6": [
+        "Fail",
+        "The final response discusses Raj's insider exfiltration and credentials being suspended but does not identify a distinct 4/07 Raj-access-audit compliance-review workstream where cy"
+      ]
+    },
+    "35": {
+      "1": [
+        "Pass",
+        "The final response states the ransomware-attributable file exposure remains unconfirmed \u2014 it is unknown whether borrower data was merely encrypted or actually accessed/exfiltrated "
+      ],
+      "2": [
+        "Fail",
+        "The final response does not clearly state that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed. The agent conflates the confirmed exfiltr"
+      ],
+      "3": [
+        "Pass",
+        "The agent's response states that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed, with no confirmed file-level exposure list from the ran"
+      ],
+      "4": [
+        "Pass",
+        "The agent's final response states that ransomware-attributable file exposure at the LOS level is not confirmed, distinguishing the exfiltration signals (Raj exports) from the ranso"
+      ],
+      "5": [
+        "Fail",
+        "Agent states the LOS is 'fully operational five-plus weeks later' with 146 active loans, treating the ransomware impact as resolved rather than stating that ransomware-attributable"
+      ],
+      "6": [
+        "Pass",
+        "Final response notes the confirmed February export of full PII as affirmative exfiltration from Raj, but does not claim the ransomware itself has a confirmed file-level exposure li"
+      ]
+    }
+  },
+  "fails": [
+    {
+      "rubric_idx": 3,
+      "run": 4,
+      "title": "The Agent writes a decision-memo file into an incident folder for the ransomware event alongside the counsel corresponde",
+      "justification": "The memo was written to 'audit/2026-02-supporting-evidence/Incident_Decision_Brief_2026-04-28_Calloway.md', which is an audit/evidence folder, not a clearly named incident folder p"
+    },
+    {
+      "rubric_idx": 4,
+      "run": 5,
+      "title": "The Agent's email to Megan Sloane states that the restore path is a lift but not foreclosed, and enumerates the approxim",
+      "justification": "The email mentions the ~72-hour cloud-backup gap but does not enumerate 'environment rebuild' and 'validation' as explicit separate restore-path tradeoffs. The email treats restore"
+    },
+    {
+      "rubric_idx": 5,
+      "run": 1,
+      "title": "The Agent's email to Megan Sloane covers Raj Anand's caveat that LOS integrity cannot be promised until tested after the",
+      "justification": "The email to Megan Sloane does not contain a statement that LOS integrity cannot be confirmed until tested after the restore. This specific Raj caveat is absent from the counsel em"
+    },
+    {
+      "rubric_idx": 5,
+      "run": 2,
+      "title": "The Agent's email to Megan Sloane covers Raj Anand's caveat that LOS integrity cannot be promised until tested after the",
+      "justification": "The email to Sloane does not contain a statement that LOS integrity cannot be confirmed until tested after the restore. The email focuses on Raj being a conflicted subject and rebu"
+    },
+    {
+      "rubric_idx": 5,
+      "run": 4,
+      "title": "The Agent's email to Megan Sloane covers Raj Anand's caveat that LOS integrity cannot be promised until tested after the",
+      "justification": "The email to Sloane does not explicitly state that LOS integrity cannot be confirmed until tested after the restore. The conflict around Raj as investigator is discussed but the sp"
+    },
+    {
+      "rubric_idx": 5,
+      "run": 5,
+      "title": "The Agent's email to Megan Sloane covers Raj Anand's caveat that LOS integrity cannot be promised until tested after the",
+      "justification": "The email states 'LOS is fully operational five-plus weeks on (146 active loans in pipeline),' which is the opposite of Raj's caveat that LOS integrity cannot be confirmed until te"
+    },
+    {
+      "rubric_idx": 8,
+      "run": 2,
+      "title": "The Agent's email to Megan Sloane identifies the four borrower files from the wholesale lender portal breach workstream:",
+      "justification": "The email to Sloane does not identify the four portal-breach loans (LN-2026-00522, LN-2026-00008, LN-2026-00010, LN-2026-00009). The agent never references a 'wholesale lender port"
+    },
+    {
+      "rubric_idx": 9,
+      "run": 2,
+      "title": "The Agent's email to Megan Sloane references the open Raj-access-audit workstream as a separate feeder of borrower-notic",
+      "justification": "The email to Sloane does not reference a separate 'Raj-access-audit workstream' as a distinct feeder of borrower-notice consideration. Raj's actions are folded into the main incide"
+    },
+    {
+      "rubric_idx": 9,
+      "run": 6,
+      "title": "The Agent's email to Megan Sloane references the open Raj-access-audit workstream as a separate feeder of borrower-notic",
+      "justification": "The email does not reference the 4/07 Raj-access-audit workstream as a distinct feeder of borrower-notice consideration. The Raj February exfil is discussed but not a separate Apri"
+    },
+    {
+      "rubric_idx": 10,
+      "run": 1,
+      "title": "The Agent's email to Megan Sloane identifies the three borrower files from the Evan Mercer post-termination LOS access w",
+      "justification": "The email mentions the former loan officer's post-termination LOS access but does not enumerate the specific loan identifiers LN-2025-00002, LN-2025-00007, or LN-2025-00229. Those "
+    },
+    {
+      "rubric_idx": 10,
+      "run": 2,
+      "title": "The Agent's email to Megan Sloane identifies the three borrower files from the Evan Mercer post-termination LOS access w",
+      "justification": "The email mentions 'Evan Mercer post-termination LOS access (LN-2025-00002, LN-2025-00007, LN-2026-00009)' but the criterion requires LN-2025-00229, not LN-2026-00009. The correct "
+    },
+    {
+      "rubric_idx": 10,
+      "run": 3,
+      "title": "The Agent's email to Megan Sloane identifies the three borrower files from the Evan Mercer post-termination LOS access w",
+      "justification": "The email to Sloane mentions the Evan Mercer workstream and the file ID discrepancy but does not explicitly enumerate all three borrower files LN-2025-00002, LN-2025-00007, and LN-"
+    },
+    {
+      "rubric_idx": 10,
+      "run": 5,
+      "title": "The Agent's email to Megan Sloane identifies the three borrower files from the Evan Mercer post-termination LOS access w",
+      "justification": "Email lists Evan Mercer loans as 'LN-2025-00002, -00007, LN-2026-00009' \u2014 missing LN-2025-00229 (one of the three required files). LN-2026-00009 is included instead."
+    },
+    {
+      "rubric_idx": 13,
+      "run": 2,
+      "title": "The Agent's leadership status message covers that the borrower-notice posture has grown since March across the wholesale",
+      "justification": "The leadership DM mentions Leo Park, Mercer, and Marcus mailbox but does not name the wholesale lender portal breach or the Raj-access-audit workstream as distinct named feeder wor"
+    },
+    {
+      "rubric_idx": 14,
+      "run": 2,
+      "title": "The Agent's leadership status message references seven specific borrower files identified across the feeder workstreams.",
+      "justification": "The leadership DM does not reference seven specific borrower files or an aggregate count across feeder workstreams. It mentions individual actors (Leo Park, Mercer, Marcus) but not"
+    },
+    {
+      "rubric_idx": 14,
+      "run": 4,
+      "title": "The Agent's leadership status message references seven specific borrower files identified across the feeder workstreams.",
+      "justification": "The leadership DM message references multiple file vectors but does not explicitly state an aggregate count of seven specific borrower files identified across the feeder workstream"
+    },
+    {
+      "rubric_idx": 14,
+      "run": 5,
+      "title": "The Agent's leadership status message references seven specific borrower files identified across the feeder workstreams.",
+      "justification": "The leadership DM references 'five-plus workstreams' but does not state a specific count of seven borrower files identified across the feeder workstreams."
+    },
+    {
+      "rubric_idx": 14,
+      "run": 6,
+      "title": "The Agent's leadership status message references seven specific borrower files identified across the feeder workstreams.",
+      "justification": "The leadership DM lists multiple access events but does not specifically state a total count of seven borrower files across the feeder workstreams."
+    },
+    {
+      "rubric_idx": 15,
+      "run": 2,
+      "title": "The Agent's leadership status message includes the qualifier that ransomware-attributable scope remains preliminary.",
+      "justification": "The leadership DM does not include a qualifier that ransomware-attributable scope remains preliminary or unconfirmed. The status conflates the confirmed exfiltration with the ranso"
+    },
+    {
+      "rubric_idx": 15,
+      "run": 4,
+      "title": "The Agent's leadership status message includes the qualifier that ransomware-attributable scope remains preliminary.",
+      "justification": "The leadership DM message does not include an explicit qualifier that ransomware-attributable scope remains preliminary or unconfirmed; it focuses on the broadened notice posture w"
+    },
+    {
+      "rubric_idx": 15,
+      "run": 5,
+      "title": "The Agent's leadership status message includes the qualifier that ransomware-attributable scope remains preliminary.",
+      "justification": "The leadership DM does not include a qualifier that ransomware-attributable scope remains preliminary or unconfirmed; it focuses on the broader notice posture without distinguishin"
+    },
+    {
+      "rubric_idx": 17,
+      "run": 5,
+      "title": "The Agent's CRM engagement NOTE states that the payment-vs-restore disposition is held pending further counsel input, wi",
+      "justification": "The CRM NOTE states 'Ransom payment treated as DECLINED' \u2014 not 'held pending further counsel input.' The criterion requires language indicating the disposition is pending counsel, "
+    },
+    {
+      "rubric_idx": 18,
+      "run": 2,
+      "title": "The Agent's CRM engagement NOTE covers the reconciled borrower-notice posture across the 3/20 preliminary plan, the 4/07",
+      "justification": "The CRM NOTE references the ransomware event and Raj/Evan Mercer/Leo Park/Marcus exposures, but does not identify the 4/07 wholesale lender portal breach or 4/07 Raj-access-audit s"
+    },
+    {
+      "rubric_idx": 18,
+      "run": 6,
+      "title": "The Agent's CRM engagement NOTE covers the reconciled borrower-notice posture across the 3/20 preliminary plan, the 4/07",
+      "justification": "CRM NOTE covers the 3/20 ransomware, 4/07 portal breach, and 4/14 Evan Mercer, but does NOT include a distinct 4/07 Raj-access-audit workstream as a separate entry."
+    },
+    {
+      "rubric_idx": 19,
+      "run": 2,
+      "title": "The Agent's CRM engagement NOTE lists the seven specific borrower files identified across the feeder workstreams: LN-202",
+      "justification": "The CRM NOTE explicitly states 'Specific borrower PII intentionally omitted from this log entry (data minimization).' None of the seven loan identifiers appear in the note."
+    },
+    {
+      "rubric_idx": 19,
+      "run": 5,
+      "title": "The Agent's CRM engagement NOTE lists the seven specific borrower files identified across the feeder workstreams: LN-202",
+      "justification": "CRM NOTE lists Mercer loans as 'LN-2025-00002/-00007/LN-2026-00009' \u2014 missing LN-2025-00229. Only 6 of the 7 required specific files are present (LN-2025-00229 is absent, replaced "
+    },
+    {
+      "rubric_idx": 21,
+      "run": 6,
+      "title": "The Agent's decision memo pay-vs-restore section covers the 2 BTC ransom demand and enumerates the approximately 72-hour",
+      "justification": "The decision memo covers the ~72-hour cloud backup gap and rebuild/validation tradeoffs, but the specific 2 BTC ransom demand amount is entirely absent from the memo."
+    },
+    {
+      "rubric_idx": 22,
+      "run": 1,
+      "title": "The Agent's decision memo pay-vs-restore section covers Raj Anand's caveat that LOS integrity cannot be promised until t",
+      "justification": "The memo does not contain a statement that Raj Anand's later readout was that LOS integrity cannot be confirmed until tested after the restore. This specific caveat is absent from "
+    },
+    {
+      "rubric_idx": 22,
+      "run": 2,
+      "title": "The Agent's decision memo pay-vs-restore section covers Raj Anand's caveat that LOS integrity cannot be promised until t",
+      "justification": "Neither the decision memo nor the final response contains a statement that Raj Anand's later readout is that LOS integrity cannot be confirmed until tested after the restore. The a"
+    },
+    {
+      "rubric_idx": 22,
+      "run": 5,
+      "title": "The Agent's decision memo pay-vs-restore section covers Raj Anand's caveat that LOS integrity cannot be promised until t",
+      "justification": "The memo (as reflected in the email and final response) states the LOS is 'fully operational five-plus weeks on' \u2014 the opposite of Raj's caveat that LOS integrity cannot be confirm"
+    },
+    {
+      "rubric_idx": 24,
+      "run": 2,
+      "title": "The Agent's memo enumerates within its borrower-notice section the four portal-breach loans (LN-2026-00522, LN-2026-0000",
+      "justification": "The agent references Evan Mercer's files with incorrect third file (LN-2026-00009 instead of LN-2025-00229), and completely omits the portal-breach loan set (LN-2026-00522, LN-2026"
+    },
+    {
+      "rubric_idx": 24,
+      "run": 5,
+      "title": "The Agent's memo enumerates within its borrower-notice section the four portal-breach loans (LN-2026-00522, LN-2026-0000",
+      "justification": "The memo lists Mercer loans as LN-2025-00002, LN-2025-00007, LN-2026-00009 \u2014 missing LN-2025-00229. The post-termination-access set is incomplete."
+    },
+    {
+      "rubric_idx": 25,
+      "run": 5,
+      "title": "The Agent's decision memo borrower-notice section states that ransomware-attributable file exposure remains preliminary ",
+      "justification": "The memo/final response treats the LOS as 'fully operational' and does not include the qualifier that ransomware-attributable file exposure at the LOS level remains preliminary and"
+    },
+    {
+      "rubric_idx": 26,
+      "run": 2,
+      "title": "The Agent's decision memo 'anything counsel still needs' section covers Megan Sloane's sanctions and privilege read on t",
+      "justification": "The memo covers (a) sanctions/privilege read and (b) notice-threshold guidance, but (c) evidence-preservation posture on the Raj access audit as a distinct item counsel still needs"
+    },
+    {
+      "rubric_idx": 28,
+      "run": 5,
+      "title": "The Agent reports that the restore path is a lift but is not foreclosed, and presents restore as an enumeration of trade",
+      "justification": "The agent's final response says 'Pay vs. restore \u2014 it's effectively already decided, and the answer is don't pay' and 'LOS is fully operational five-plus weeks later.' This frames "
+    },
+    {
+      "rubric_idx": 30,
+      "run": 1,
+      "title": "The Agent reports Raj Anand's later readout that LOS integrity cannot be confirmed until tested after the restore.",
+      "justification": "The final response does not contain a specific statement that Raj Anand's later readout was that LOS integrity cannot be confirmed until tested after the restore. This caveat is ab"
+    },
+    {
+      "rubric_idx": 30,
+      "run": 2,
+      "title": "The Agent reports Raj Anand's later readout that LOS integrity cannot be confirmed until tested after the restore.",
+      "justification": "The final response does not contain a statement about Raj Anand's later readout that LOS integrity cannot be confirmed until tested. The agent focuses on Raj as a conflicted subjec"
+    },
+    {
+      "rubric_idx": 30,
+      "run": 5,
+      "title": "The Agent reports Raj Anand's later readout that LOS integrity cannot be confirmed until tested after the restore.",
+      "justification": "Agent contradicts Raj's later readout by stating the LOS is 'fully operational' with 146 active loans. The caveat that LOS integrity cannot be confirmed until tested is absent from"
+    },
+    {
+      "rubric_idx": 33,
+      "run": 2,
+      "title": "The Agent reports seven specific borrower files identified across the three feeder workstreams in the final response.",
+      "justification": "The final response does not state seven specific borrower files across feeder workstreams. The agent references files from LOS exfiltration (LN-2026-00184, -00211, -00237, -00244) "
+    },
+    {
+      "rubric_idx": 33,
+      "run": 5,
+      "title": "The Agent reports seven specific borrower files identified across the three feeder workstreams in the final response.",
+      "justification": "The final response lists more than seven files across workstreams (Raj exports include 4+ loans, intern Leo Park views, Marcus Webb mailbox, Evan Mercer 3 loans, UWM phish 4 loans)"
+    },
+    {
+      "rubric_idx": 33,
+      "run": 6,
+      "title": "The Agent reports seven specific borrower files identified across the three feeder workstreams in the final response.",
+      "justification": "The final response enumerates the specific named borrower files (Reyes, Morgan, Bennett, Durham plus pipeline export) but does not state a total aggregate count of seven files acro"
+    },
+    {
+      "rubric_idx": 34,
+      "run": 2,
+      "title": "The Agent identifies the open Raj-access-audit workstream as a third feeder of the borrower-notice queue, where cyber co",
+      "justification": "The final response folds Raj's actions into the main incident narrative rather than identifying a separate 'Raj-access-audit workstream' where cyber counsel has been asked about no"
+    },
+    {
+      "rubric_idx": 34,
+      "run": 6,
+      "title": "The Agent identifies the open Raj-access-audit workstream as a third feeder of the borrower-notice queue, where cyber co",
+      "justification": "The final response discusses Raj's insider exfiltration and credentials being suspended but does not identify a distinct 4/07 Raj-access-audit compliance-review workstream where cy"
+    },
+    {
+      "rubric_idx": 35,
+      "run": 2,
+      "title": "The Agent reports that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed.",
+      "justification": "The final response does not clearly state that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed. The agent conflates the confirmed exfiltr"
+    },
+    {
+      "rubric_idx": 35,
+      "run": 5,
+      "title": "The Agent reports that ransomware-attributable file exposure at the LOS level remains preliminary and unconfirmed.",
+      "justification": "Agent states the LOS is 'fully operational five-plus weeks later' with 146 active loans, treating the ransomware impact as resolved rather than stating that ransomware-attributable"
+    }
+  ],
+  "unmatched": []
+}

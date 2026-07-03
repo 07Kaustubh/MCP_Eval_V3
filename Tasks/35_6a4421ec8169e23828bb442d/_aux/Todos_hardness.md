@@ -1,0 +1,26 @@
+# TODO — PIPELINE HARDNESS — Task 35_6a4421ec8169e23828bb442d
+
+- [x] Read `Tasks/_meta/Learnings.md` end-to-end
+- [x] Read `Reference/Hardness_Playbook.md` (11-lever catalog + tiered density gate)
+- [x] Read `Reference/Sessions/HARDNESS.md` (runbook)
+- [x] Read `PersonaBrief.txt`
+- [x] Read `_aux/S0_Setup_Report.md`
+- [x] Read `_aux/Universe_Index/service_inventory.md` + `graph_report.md` + `key_facts.md` + `today_horizon.json`
+- [x] Skim `_aux/Fact_Ledger.json` structure
+- [x] Skim `_aux/Feasible_Surface.json`
+- [x] Verify ransomware scenario evidence in emails (5 hits confirmed)
+- [x] Verify Slack DM channels for Robert (D_grace_robert, D_DENISE_ROBERT, D_grace_robert_denise, D_denise_grace)
+- [x] Verify structured-DB skip surrogate on mortgage_los.conditions AND crm.crm_engagements
+- [x] Verify near-miss entity opportunity on legal counsel (Megan Sloane vs 5 Bennett variants)
+- [x] Verify Marcus Webb backup scenario
+- [x] Verify at-risk-closing loans (LN-2026-00601)
+- [x] Verify Slack channel context (C001, C008, C002)
+- [x] Score all 11 Playbook levers for KeyStone
+- [x] Select 4-5 anchor levers citing Learnings §L<n>
+- [x] Project tool-call density
+- [x] Build Service Breadth table
+- [x] Draft 2-4 Stump Hypotheses
+- [x] Pick anchor scenario (ransomware scenario_14b3ffde)
+- [x] Write _aux/Hardness_Plan.md
+- [x] Write _aux/Verification_hardness.md
+- [x] Print final verdict message

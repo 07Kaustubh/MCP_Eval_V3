@@ -1,0 +1,30 @@
+# Todos — S1
+
+- [x] Phase-readiness gate (phase_ready.py --phase s1) → OK
+- [x] Create _aux/Todos_s1.md
+- [x] Create _aux/Reads_s1.md
+- [x] Read Reference/Prompt_Format.md
+- [x] Read Reference/Hardness_Playbook.md
+- [x] Read Reference/Council_Protocol.md
+- [x] Read Reference/Similarity_Pivot.md
+- [x] Read Docs_keystone/4_Prompt_Hard_Tips.md
+- [x] Read Docs_keystone/6_Prompt_Relative_Time_Updates.md (KeyStone-specific)
+- [x] Read Prompt_Guidelines.md (root)
+- [x] Read QC_Tasks/V3.1_Tasks/Task1 + Task3 + Task4 5_Prompt.txt (voice references)
+- [x] Deep re-read: Hardness_Plan.md, PersonaBrief.txt
+- [x] Query 3_UniverseDataForThisTask.json for concrete atoms (Raj/Denise/Robert emails, CRM engagement streams, Slack 3/20 channels, Bennett contacts, Sloane resolution)
+- [x] Draft 5_Prompt.txt v1
+- [x] Run validator (initial FAIL on cross-service, PASS after revision)
+- [x] Council A v1: GO
+- [x] Council B v1: GO
+- [x] Similarity gate: PASS (max composite 28.4)
+- [x] Universe atom verifier: PASS (0/0/0)
+- [x] Strict veteran AUDIT v1: REVISE (F1 MAJOR L25 supersession, F2 MINOR leadership-channel)
+- [x] Apply AUDIT-recommended fix (new cross-workstream inclusion sentence + compressions)
+- [x] Re-run validator: PASS 0/0
+- [x] Council A v2: GO
+- [x] Council B v2: GO (UGT and Clarity restored to 5/5)
+- [x] Strict veteran AUDIT v2 (iteration 2 of 3): PASS (STRICT)
+- [x] Write Verification_s1.md
+- [x] Append final report to _aux/Reasoning/prompt_design.md
+- [x] Print STOP gate with next trigger

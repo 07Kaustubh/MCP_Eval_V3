@@ -1,0 +1,2774 @@
+{
+  "meta": {
+    "task_dir": "Tasks/34_6a42ec7493b48d5ada4571bd",
+    "source_hash": "011c1f02ef6741e292ff7230a4c06304395d6ba2d5f6d9117309e41dfa2e5140",
+    "record_count_by_source": {
+      "airtable.bases": 2,
+      "airtable.records": 167,
+      "airtable.tables": 3,
+      "contacts.contacts": 119,
+      "crm.crm_companies": 71,
+      "crm.crm_contacts": 88,
+      "crm.crm_deals": 44,
+      "crm.crm_engagements": 16,
+      "crm.crm_leads": 23,
+      "email.emails": 494,
+      "linear.linear_comments": 79,
+      "linear.linear_issues": 69,
+      "linear.linear_projects": 8,
+      "linear.linear_teams": 3,
+      "linear.linear_team_memberships": 4,
+      "linear.linear_users": 19,
+      "quickbooks.accounts": 7,
+      "quickbooks.bills": 17,
+      "quickbooks.customers": 15,
+      "quickbooks.invoices": 35,
+      "quickbooks.items": 31,
+      "quickbooks.vendors": 7,
+      "slack.slack_channels": 9,
+      "slack.slack_messages": 354,
+      "slack.slack_users": 21
+    },
+    "atom_counts": {
+      "emails": 216,
+      "amounts": 64,
+      "dates": 154,
+      "id_je": 0,
+      "id_exception": 0,
+      "id_recon": 0,
+      "id_doc": 0,
+      "id_vendor": 0,
+      "id_apinv": 0,
+      "id_linear_issue": 0,
+      "id_reminder": 0,
+      "id_conversation": 0,
+      "id_airtable_record": 0,
+      "id_calendar_event": 0,
+      "id_slack_channel": 9,
+      "id_contact": 0,
+      "id_persona": 0,
+      "entities": 0,
+      "personas": 132,
+      "fiscal_periods": 0
+    }
+  },
+  "emails": [
+    "a.johansson@solarisenergytech.com",
+    "a.mensah@meridiangenomics.com",
+    "a.thorvaldsen@northstaractuarial.com",
+    "a.torres@fenwickmedia.com",
+    "aiden.park@mosswood.dev",
+    "alejandro.fuentes@moveops.com",
+    "anand.mehta@canopyhealth.io",
+    "andre.washington@mosaicrobotics.com",
+    "anh.nguyen@moveops.com",
+    "anya.petrova@stormcloud.io",
+    "asha.patel@meridianglobalmobility.co.uk",
+    "aws-billing@amazon.com",
+    "b.calloway@marengofinancial.com",
+    "b.cole@prismcomms.com",
+    "b.elliot@crestlineinstech.com",
+    "blessing.okafor@moveops.com",
+    "c.fitzgerald@stonebridgelegal.com",
+    "c.fontaine@harbourpharma.com",
+    "c.mendenhall@axiomprecision.com",
+    "c.novak@zephyrev.com",
+    "c.oduya@nimbusdevops.com",
+    "c.zhao@fieldstonecm.com",
+    "camille.oduya@vectralsystems.com",
+    "carla.mendes@sunbeltvp.com",
+    "carmen.delgado-reyes@palmettofoundation.org",
+    "carmen.reyes@urbannestsolutions.com",
+    "catalina.dubois@moveops.com",
+    "chloe.vance@moveops.com",
+    "claims@keymove-specialty.com",
+    "craig.nguyen@keymove-specialty.com",
+    "d.ashworth@veridiansoftware.com",
+    "d.hsu@arcadiaconsulting.com",
+    "d.hughes@crosswindconsulting.com",
+    "d.kowalski@harbourpharma.com",
+    "d.walters@lodestarcyber.com",
+    "danielle.osei@vectralsystems.com",
+    "david.chen@moveops.com",
+    "derek.hollis@greenstackenergy.com",
+    "derek.liu@brightpath.edu",
+    "derek.saunders@atlascorporatetravel.com",
+    "deshawn.hartley@mosaicrobotics.com",
+    "diego.castaneda@pivotpointlabs.com",
+    "dispatch@roadrunnerautotransport.com",
+    "dispatch@sentinelchain-logistics.com",
+    "dmitri.volkov@moveops.com",
+    "e.nakamura@quantumrobotics.com",
+    "elena.rostova@moveops.com",
+    "emeka.diallo@moveops.com",
+    "emilia.cruz@northwindtech.com",
+    "f.gallagher@willowmentalhealth.com",
+    "fatimah.al-rashidi@moveops.com",
+    "freight@swiftrelocations.com",
+    "g.meissner@axiomprecision.com",
+    "grant@prairiedata.co",
+    "greg.andersen@atlascorporatetravel.com",
+    "greg.dawson@lincolnpropco.com",
+    "greg.pallone@swiftrelocations.com",
+    "h.bergstrom@aurorabiomedical.com",
+    "hana.kim@moveops.com",
+    "hazmat.compliance@dot.gov",
+    "hr@aurorabiomedical.com",
+    "hr@axiomprecision.com",
+    "hr@blueprintarchstudio.com",
+    "hr@brightsidementalhealth.com",
+    "hr@cascadecloudsystems.com",
+    "hr@cobaltscm.com",
+    "hr@crestlineinsurtech.com",
+    "hr@crosswindconsulting.com",
+    "hr@embermarketinggroup.com",
+    "hr@fenwickmedia.com",
+    "hr@fieldstonecapital.com",
+    "hr@glacierwealth.com",
+    "hr@halcyonaerospace.com",
+    "hr@harborlightbioventures.com",
+    "hr@ironcladcyber.com",
+    "hr@irongaterealtech.com",
+    "hr@ironworksconsttech.com",
+    "hr@kestrelagritech.com",
+    "hr@lodestarcyber.com",
+    "hr@luminarahealth.com",
+    "hr@marengofinancial.com",
+    "hr@mesagenomics.com",
+    "hr@nimbusdevops.com",
+    "hr@northstaractuarial.com",
+    "hr@novapayments.io",
+    "hr@oaktreelegalgroup.com",
+    "hr@paladindefensesystems.com",
+    "hr@pathfinderlogistics.com",
+    "hr@pinnacleinsurancegroup.com",
+    "hr@quantumrobotics.com",
+    "hr@redwoodhrtech.com",
+    "hr@sequoiadatalabs.com",
+    "hr@solarisenergytech.com",
+    "hr@sterlingcapitaladvisors.com",
+    "hr@stonebridgelegal.com",
+    "hr@tangentsoftwarelabs.com",
+    "hr@thornfieldcapital.com",
+    "hr@tidemarkmaritimesoftware.com",
+    "hr@trellisedtech.com",
+    "hr@veloraretail.com",
+    "hr@vertexaisolutions.com",
+    "hr@westgatepharma.com",
+    "hr@willowmentalhealth.com",
+    "hr@zephyrev.com",
+    "i.cruz@novapayments.io",
+    "i.fontaine@harborlightbio.com",
+    "ines@pivotpointlabs.com",
+    "j.coffey@paladindefense.com",
+    "j.osei@meridiangenomics.com",
+    "j.osei@redwoodhrtech.com",
+    "j.washington@pathfinderlogistics.com",
+    "jaewon.kim@stormcloud.io",
+    "jake.loomis@heartlandmovers.com",
+    "javier.morales@moveops.com",
+    "joaquin.reyes@greenstackenergy.com",
+    "jordan.ekwueme@brightloopanalytics.com",
+    "julian.brooks@moveops.com",
+    "jwhitfield@palmetto-foundation.org",
+    "k.dominguez@ironworkscontech.com",
+    "k.sato@summithealthsystems.com",
+    "k.shapiro@westgatepharma.com",
+    "k.watanabe@driftwoodanalytics.com",
+    "keiko.tanaka@mosaicrobotics.com",
+    "kenji.watanabe@ridgelinerobotics.com",
+    "kevin.tran@vectralsystems.com",
+    "l.ahmadi@sequoiadatalabs.com",
+    "l.christensen@embermarketing.com",
+    "leadership@moveops.com",
+    "lena.bjorkstrom@moveops.com",
+    "liam.park@stormcloud.io",
+    "lily.marchetti@canopyhealth.io",
+    "linda.castellano@dot.gov",
+    "lisa.kwan@heartlandmovers.com",
+    "lorraine.pham@phamassociates.com",
+    "m.flynn@thornfieldcapital.com",
+    "m.levin@clearpathfinancial.com",
+    "m.svensson@trellisedtech.com",
+    "m.webb@ironcladsec.com",
+    "marcus.thorne@moveops.com",
+    "marcus.webb.lab@gmail.com",
+    "marcus.webb@brightloopanalytics.com",
+    "mei-lin.zhao@greenstackenergy.com",
+    "melissa.harding@bartoncreekflats.com",
+    "michael.stern@atlascorporatetravel.com",
+    "mina.hashimoto@moveops.com",
+    "n.ellsworth@foxglovebiotech.com",
+    "n.fitzpatrick@axiomprecision.com",
+    "n.park@cascadecloudsys.com",
+    "n.pierce@cobaltscm.com",
+    "n.tran@foxglovebiotech.com",
+    "nadia.okonjo@pivotpointlabs.com",
+    "nina.sethi@sentinelchain-logistics.com",
+    "nina@petalsoft.co",
+    "noah.fitzgerald@greenstackenergy.com",
+    "o.kim@tangentsoftware.com",
+    "omar.ibrahim@moveops.com",
+    "p.hartmann@sterlingcapitaladv.com",
+    "p.nair@luminarahealth.com",
+    "p.nambiar@arcadiaconsulting.com",
+    "p.sorensen@kestrelagritech.com",
+    "p.vance@tidemarkms.com",
+    "pam.kowalski@northwindtech.com",
+    "partnerships@meridianglobalmobility.co.uk",
+    "patricia.langford@canopyhealth.com",
+    "patricia.langford@canopyhealth.io",
+    "patrick@coastline-creative.com",
+    "priya.chakrabarti@moveops.com",
+    "priya.s@urbannest.com",
+    "priya.suresh@vectralsystems.com",
+    "priya.venkatesh@greenstackenergy.com",
+    "r.donovan@pinnacleinsgroup.com",
+    "r.huang@driftwoodanalytics.com",
+    "r.krishnamurthy@vertexaisolutions.com",
+    "r.okonkwo@veridian-software.com",
+    "r.sandoval@halcyonaero.com",
+    "rachel.nguyen@terraformdigital.com",
+    "rachel.whitfield@vectralsystems.com",
+    "rachel@greenleaf-design.com",
+    "rafael.mendes@mosaicrobotics.com",
+    "raj.greenfield@sunbeltvp.com",
+    "raj.patel@northwindtech.com",
+    "renata.kovacs@gmail.com",
+    "rtorres@swiftrelocations.com",
+    "s.adeyemi@clearpathfinancial.com",
+    "s.leblanc@oaktreelegal.com",
+    "s.lin@veloraretail.com",
+    "s.okonkwo@helixbiosciences.com",
+    "s.park@irongateproptech.com",
+    "s.reyes@blueprintarch.com",
+    "sam@pivotpointlabs.com",
+    "samira.tariq@moveops.com",
+    "sandra.walsh@lakeline-logistics.com",
+    "simone.richter@brightloopanalytics.com",
+    "simone.richter@stormcloud.io",
+    "srusso@ironharbor.com",
+    "suki.patel@moveops.com",
+    "support@moveops.com",
+    "t.andersen@glacierwealth.com",
+    "t.freeman@brightsidementalhealth.com",
+    "t.mills@summithealthsys.com",
+    "t.wren@helixbiosciences.com",
+    "tamara.byrd@mosaicrobotics.com",
+    "terrence.nakamura@vectralsystems.com",
+    "tessa.moreno@brightloopanalytics.com",
+    "tipline@industryrelocationintel.com",
+    "tom.wexler@stormcloud.io",
+    "tyler.okonkwo@gmail.com",
+    "v.okafor@prismcomms.com",
+    "vbarnes@lakeline-logistics.com",
+    "victor.huang@northwindtech.com",
+    "victoria.chen-nakamura@sunbeltvp.com",
+    "y.perez@mesagenomics.com",
+    "yolanda.bridges@tideway-hospitality.com",
+    "yusuf.abdi@canopyhealth.io",
+    "zara.kovacevic@moveops.com",
+    "zara.okoye@mosaicrobotics.com"
+  ],
+  "amounts": [
+    "-90000.00",
+    "0.00",
+    "20.00",
+    "40.00",
+    "45.00",
+    "89.00",
+    "150.00",
+    "350.00",
+    "400.00",
+    "420.00",
+    "439.40",
+    "500.00",
+    "600.00",
+    "750.00",
+    "850.00",
+    "900.00",
+    "950.00",
+    "1000.00",
+    "1100.00",
+    "1200.00",
+    "1226.00",
+    "1800.00",
+    "2000.00",
+    "2150.00",
+    "2200.00",
+    "2400.00",
+    "2885.00",
+    "3200.00",
+    "3675.00",
+    "4450.00",
+    "4500.00",
+    "4800.00",
+    "5000.00",
+    "5047.00",
+    "5397.00",
+    "5803.00",
+    "6400.00",
+    "6560.00",
+    "7000.00",
+    "7289.00",
+    "7500.00",
+    "9010.00",
+    "9210.00",
+    "9440.00",
+    "10000.00",
+    "10650.00",
+    "11010.00",
+    "11350.00",
+    "12170.00",
+    "12800.00",
+    "14000.00",
+    "14235.50",
+    "14700.00",
+    "15900.00",
+    "16000.00",
+    "22500.00",
+    "26400.00",
+    "38400.00",
+    "42870.00",
+    "50000.00",
+    "58400.00",
+    "60000.00",
+    "90000.00",
+    "462500.00"
+  ],
+  "dates": [
+    {
+      "date": "2023-03-15",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2023-06-01",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2023-09-12",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2024-06-01",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2024-07-15",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2024-08-15",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2024-11-20",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2025-04-20",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2025-05-28",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2025-09-12",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2025-10-01",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2025-12-18",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2025-12-28",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-05",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-06",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-01-07",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-01-08",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-01-09",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-10",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-01-11",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-12",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-13",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-01-14",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-01-15",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-01-16",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-17",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-01-18",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-19",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-20",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-01-21",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-01-22",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-01-23",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-24",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-01-25",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-26",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-27",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-01-28",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-01-29",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-01-30",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-31",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-01",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-02",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-03",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-02-04",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-02-05",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-06",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-02-07",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-08",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-09",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-10",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-02-11",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-02-12",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-13",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-02-14",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-15",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-16",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-17",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-02-18",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-02-19",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-20",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-02-21",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-22",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-23",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-24",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-02-25",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-02-26",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-27",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-02-28",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-03-01",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-02",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-03",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-03-04",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-03-05",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-06",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-03-07",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-03-08",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-09",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-10",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-03-11",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-03-12",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-13",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-03-14",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-03-15",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-16",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-17",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-03-18",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-03-19",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-20",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-03-21",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-03-22",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-23",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-24",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-03-25",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-03-26",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-27",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-03-28",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-03-29",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-30",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-31",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-01",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-02",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-04-03",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-04-04",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-04-05",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-04-06",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-07",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-08",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-09",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-04-10",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-04-11",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-04-12",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-04-13",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-14",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-15",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-16",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-04-17",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-04-18",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-04-19",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-04-20",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-21",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-22",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-23",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-04-24",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-04-25",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-04-26",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-04-27",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-28",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-29",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-30",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-01",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-02",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-03",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-04",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-05-07",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-08",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-09",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-10",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-15",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-21",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-23",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-31",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-05",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-06-15",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-30",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-01",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-08-10",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-08-15",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-18",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-08-20",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-08-22",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-25",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-08-29",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-09-05",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-09-08",
+      "day_of_week": "Tuesday"
+    }
+  ],
+  "ids": {
+    "je": [],
+    "exception": [],
+    "recon": [],
+    "doc": [],
+    "vendor": [],
+    "apinv": [],
+    "linear_issue": [],
+    "reminder": [],
+    "conversation": [],
+    "airtable_record": [],
+    "calendar_event": [],
+    "slack_channel": [
+      "C001",
+      "C002",
+      "C003",
+      "C004",
+      "C005",
+      "C006",
+      "C007",
+      "C008",
+      "C009"
+    ],
+    "contact": [],
+    "persona": []
+  },
+  "entities": [],
+  "accounts_by_entity": {},
+  "fiscal_periods": {},
+  "personas": {
+    "elena.rostova@moveops.com": {
+      "name": "Elena Rostova",
+      "title": "Chief Executive Officer",
+      "is_user": true,
+      "contact_id": "moveops_elena_rostova"
+    },
+    "priya.chakrabarti@moveops.com": {
+      "name": "Priya Chakrabarti",
+      "title": "Executive Assistant",
+      "is_user": true,
+      "contact_id": "moveops_priya_chakrabarti"
+    },
+    "marcus.thorne@moveops.com": {
+      "name": "Marcus Thorne",
+      "title": "Head of Finance",
+      "is_user": true,
+      "contact_id": "moveops_marcus_thorne"
+    },
+    "hana.kim@moveops.com": {
+      "name": "Hana Kim",
+      "title": "Accountant",
+      "is_user": true,
+      "contact_id": "moveops_hana_kim"
+    },
+    "alejandro.fuentes@moveops.com": {
+      "name": "Alejandro Fuentes",
+      "title": "Financial Analyst",
+      "is_user": true,
+      "contact_id": "moveops_alejandro_fuentes"
+    },
+    "david.chen@moveops.com": {
+      "name": "David Chen",
+      "title": "Customer Engagement Lead",
+      "is_user": true,
+      "contact_id": "contacts_contact_a0f5307e237d"
+    },
+    "chloe.vance@moveops.com": {
+      "name": "Chloe Vance",
+      "title": "Operations Manager",
+      "is_user": true,
+      "contact_id": "moveops_chloe_vance"
+    },
+    "fatimah.al-rashidi@moveops.com": {
+      "name": "Fatimah Al-Rashidi",
+      "title": "Relocation Coordinator",
+      "is_user": true,
+      "contact_id": "moveops_fatimah_al_rashidi"
+    },
+    "blessing.okafor@moveops.com": {
+      "name": "Blessing Okafor",
+      "title": "Relocation Coordinator",
+      "is_user": true,
+      "contact_id": "moveops_blessing_okafor"
+    },
+    "javier.morales@moveops.com": {
+      "name": "Javier Morales",
+      "title": "Relocation Coordinator",
+      "is_user": true,
+      "contact_id": "moveops_javier_morales"
+    },
+    "suki.patel@moveops.com": {
+      "name": "Suki Patel",
+      "title": "Relocation Coordinator",
+      "is_user": true,
+      "contact_id": "moveops_suki_patel"
+    },
+    "samira.tariq@moveops.com": {
+      "name": "Samira Tariq",
+      "title": "Engineering Manager",
+      "is_user": true,
+      "contact_id": "moveops_samira_tariq"
+    },
+    "lena.bjorkstrom@moveops.com": {
+      "name": "Lena Bj\u00f6rkstr\u00f6m",
+      "title": "Software Engineer",
+      "is_user": true,
+      "contact_id": "moveops_lena_bjorkstrom"
+    },
+    "dmitri.volkov@moveops.com": {
+      "name": "Dmitri Volkov",
+      "title": "Software Engineer",
+      "is_user": true,
+      "contact_id": "moveops_dmitri_volkov"
+    },
+    "anh.nguyen@moveops.com": {
+      "name": "Anh Nguy\u1ec5n",
+      "title": "Software Engineer",
+      "is_user": true,
+      "contact_id": "moveops_anh_nguyen"
+    },
+    "julian.brooks@moveops.com": {
+      "name": "Julian Brooks",
+      "title": "Lead Customer Support Specialist",
+      "is_user": true,
+      "contact_id": "moveops_julian_brooks"
+    },
+    "zara.kovacevic@moveops.com": {
+      "name": "Zara Kova\u010devi\u0107",
+      "title": "Customer Support Specialist",
+      "is_user": true,
+      "contact_id": "moveops_zara_kovacevic"
+    },
+    "omar.ibrahim@moveops.com": {
+      "name": "Omar Ibrahim",
+      "title": "Customer Support Specialist",
+      "is_user": true,
+      "contact_id": "moveops_omar_ibrahim"
+    },
+    "patricia.langford@canopyhealth.io": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "yusuf.abdi@canopyhealth.io": {
+      "name": "Dr. Abdi",
+      "title": "Clinical Product Lead at Canopy Health",
+      "is_user": false,
+      "contact_id": "contact_canopy_abdi"
+    },
+    "carmen.reyes@urbannestsolutions.com": {
+      "name": "Carmen Reyes",
+      "title": "Housing Partnerships Manager",
+      "is_user": false,
+      "contact_id": "contacts_contact_00589cf8404a"
+    },
+    "lisa.kwan@heartlandmovers.com": {
+      "name": "Lisa Kwan",
+      "title": "Operations Manager at Heartland Movers",
+      "is_user": false,
+      "contact_id": "contact_vendor_heartland"
+    },
+    "michael.stern@atlascorporatetravel.com": {
+      "name": "Michael Stern",
+      "title": "Corporate Travel Agent at Atlas Corporate Travel",
+      "is_user": false,
+      "contact_id": "contact_vendor_atlas"
+    },
+    "lily.marchetti@canopyhealth.io": {
+      "name": "Lily Marchetti",
+      "title": "UX Researcher at Canopy Health",
+      "is_user": false,
+      "contact_id": "contact_canopy_marchetti"
+    },
+    "rachel.whitfield@vectralsystems.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "kevin.tran@vectralsystems.com": {
+      "name": "Kevin Tran",
+      "title": "Software Engineer at Vectral Systems",
+      "is_user": false,
+      "contact_id": "contact_vectral_tran"
+    },
+    "greg.pallone@swiftrelocations.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "danielle.osei@vectralsystems.com": {
+      "name": "Danielle Osei",
+      "title": "Product Manager at Vectral Systems",
+      "is_user": false,
+      "contact_id": "contact_vectral_osei"
+    },
+    "derek.hollis@greenstackenergy.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "priya.venkatesh@greenstackenergy.com": {
+      "name": "Priya Venkatesh",
+      "title": "Hardware Engineer at GreenStack Energy",
+      "is_user": false,
+      "contact_id": "contact_greenstack_venkatesh"
+    },
+    "noah.fitzgerald@greenstackenergy.com": {
+      "name": "Noah Fitzgerald",
+      "title": "Marketing Manager at GreenStack Energy",
+      "is_user": false,
+      "contact_id": "contact_greenstack_fitzgerald"
+    },
+    "sam@pivotpointlabs.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "ines@pivotpointlabs.com": {
+      "name": "Ines Kovac",
+      "title": "Senior Designer at PivotPoint Labs",
+      "is_user": false,
+      "contact_id": "contact_pivot_kovac"
+    },
+    "tessa.moreno@brightloopanalytics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "jordan.ekwueme@brightloopanalytics.com": {
+      "name": "Jordan Ekwueme",
+      "title": "Data Scientist at BrightLoop Analytics",
+      "is_user": false,
+      "contact_id": "contact_brightloop_ekwueme"
+    },
+    "tamara.byrd@mosaicrobotics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "andre.washington@mosaicrobotics.com": {
+      "name": "Andre Washington",
+      "title": "Robotics Engineer at Mosaic Robotics",
+      "is_user": false,
+      "contact_id": "contact_mosaic_washington"
+    },
+    "catalina.dubois@moveops.com": {
+      "name": "Catalina Dubois",
+      "title": "Account Manager",
+      "is_user": true,
+      "contact_id": "moveops_catalina_dubois"
+    },
+    "mina.hashimoto@moveops.com": {
+      "name": "Mina Hashimoto",
+      "title": "Account Manager",
+      "is_user": true,
+      "contact_id": "moveops_mina_hashimoto"
+    },
+    "emeka.diallo@moveops.com": {
+      "name": "Emeka Diallo",
+      "title": "Account Manager",
+      "is_user": true,
+      "contact_id": "moveops_emeka_diallo"
+    },
+    "r.okonkwo@veridian-software.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "t.wren@helixbiosciences.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "s.adeyemi@clearpathfinancial.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "d.hsu@arcadiaconsulting.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "p.nair@luminarahealth.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "c.fitzgerald@stonebridgelegal.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "g.meissner@axiomprecision.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "k.watanabe@driftwoodanalytics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "i.cruz@novapayments.io": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "b.elliot@crestlineinstech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "a.johansson@solarisenergytech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "m.webb@ironcladsec.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "a.mensah@meridiangenomics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "j.washington@pathfinderlogistics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "n.park@cascadecloudsys.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "p.hartmann@sterlingcapitaladv.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "s.reyes@blueprintarch.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "d.kowalski@harbourpharma.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "m.svensson@trellisedtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "e.nakamura@quantumrobotics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "l.christensen@embermarketing.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "r.krishnamurthy@vertexaisolutions.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "s.leblanc@oaktreelegal.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "t.mills@summithealthsys.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "j.coffey@paladindefense.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "a.torres@fenwickmedia.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "n.pierce@cobaltscm.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "h.bergstrom@aurorabiomedical.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "c.oduya@nimbusdevops.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "m.flynn@thornfieldcapital.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "j.osei@redwoodhrtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "t.andersen@glacierwealth.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "v.okafor@prismcomms.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "r.sandoval@halcyonaero.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "d.walters@lodestarcyber.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "p.sorensen@kestrelagritech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "t.freeman@brightsidementalhealth.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "k.dominguez@ironworkscontech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "s.lin@veloraretail.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "n.ellsworth@foxglovebiotech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "b.calloway@marengofinancial.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "l.ahmadi@sequoiadatalabs.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "r.donovan@pinnacleinsgroup.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "k.shapiro@westgatepharma.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "o.kim@tangentsoftware.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "c.novak@zephyrev.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "a.thorvaldsen@northstaractuarial.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "y.perez@mesagenomics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "f.gallagher@willowmentalhealth.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "s.park@irongateproptech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "i.fontaine@harborlightbio.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "d.hughes@crosswindconsulting.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "p.vance@tidemarkms.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "c.zhao@fieldstonecm.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "anand.mehta@canopyhealth.io": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "asha.patel@meridianglobalmobility.co.uk": {
+      "name": "Asha Patel",
+      "title": "Partnerships Director",
+      "is_user": false,
+      "contact_id": "contacts_contact_46b2b3a7a3b0"
+    },
+    "marcus.webb@brightloopanalytics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "dispatch@roadrunnerautotransport.com": {
+      "name": "Road Runner Auto Transport Dispatch",
+      "title": "Vehicle Shipping Dispatch",
+      "is_user": false,
+      "contact_id": "contacts_contact_40d6c2c9848b"
+    },
+    "victor.huang@northwindtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "nina.sethi@sentinelchain-logistics.com": {
+      "name": "Nina Sethi",
+      "title": "Dispatch Coordinator",
+      "is_user": false,
+      "contact_id": "contacts_contact_6f9f7875548d"
+    },
+    "craig.nguyen@keymove-specialty.com": {
+      "name": "Craig Nguyen",
+      "title": "Dispatch Manager",
+      "is_user": false,
+      "contact_id": "contacts_contact_d6172aa9e622"
+    },
+    "tipline@industryrelocationintel.com": {
+      "name": "Sophie Raines",
+      "title": "Regional partnerships consultant",
+      "is_user": false,
+      "contact_id": "contacts_contact_bb153eab2e07"
+    },
+    "emilia.cruz@northwindtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "jaewon.kim@stormcloud.io": {
+      "name": "Jae-won Kim",
+      "title": "Senior Platform Engineer",
+      "is_user": false,
+      "contact_id": "contacts_contact_5f93b59bb105"
+    },
+    "melissa.harding@bartoncreekflats.com": {
+      "name": "Melissa Harding",
+      "title": "Leasing Manager",
+      "is_user": false,
+      "contact_id": "contacts_contact_73452a898afe"
+    },
+    "simone.richter@stormcloud.io": {
+      "name": "Simone Richter",
+      "title": "Product Marketing Manager at StormCloud",
+      "is_user": false,
+      "contact_id": "contacts_contact_4d531c818e2a"
+    },
+    "anya.petrova@stormcloud.io": {
+      "name": "Anya Petrova",
+      "title": "Chief Executive Officer at StormCloud Analytics",
+      "is_user": false,
+      "contact_id": "contacts_contact_6889e694b0bf"
+    },
+    "kenji.watanabe@ridgelinerobotics.com": {
+      "name": "Kenji Watanabe",
+      "title": "HR Director",
+      "is_user": false,
+      "contact_id": "contacts_contact_b9543a0bef08"
+    },
+    "liam.park@stormcloud.io": {
+      "name": "Liam Park",
+      "title": "Chief Financial Officer, StormCloud Analytics",
+      "is_user": false,
+      "contact_id": "contacts_contact_0960070cd0e3"
+    },
+    "raj.greenfield@sunbeltvp.com": {
+      "name": "Raj Greenfield",
+      "title": "Managing Partner",
+      "is_user": false,
+      "contact_id": "contacts_contact_20ca9cd85092"
+    },
+    "carmen.delgado-reyes@palmettofoundation.org": {
+      "name": "Carmen Delgado-Reyes",
+      "title": "Executive Director",
+      "is_user": false,
+      "contact_id": "contacts_contact_03800e48b5a4"
+    },
+    "victoria.chen-nakamura@sunbeltvp.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "sandra.walsh@lakeline-logistics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "jake.loomis@heartlandmovers.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "simone.richter@brightloopanalytics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "patricia.langford@canopyhealth.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "renata.kovacs@gmail.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "marcus.webb.lab@gmail.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "tyler.okonkwo@gmail.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "priya.suresh@vectralsystems.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "terrence.nakamura@vectralsystems.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "camille.oduya@vectralsystems.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "mei-lin.zhao@greenstackenergy.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "joaquin.reyes@greenstackenergy.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "nadia.okonjo@pivotpointlabs.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "diego.castaneda@pivotpointlabs.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "zara.okoye@mosaicrobotics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "deshawn.hartley@mosaicrobotics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "keiko.tanaka@mosaicrobotics.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "pam.kowalski@northwindtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "raj.patel@northwindtech.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    },
+    "rachel.nguyen@terraformdigital.com": {
+      "name": "",
+      "title": "",
+      "is_user": false,
+      "contact_id": null
+    }
+  },
+  "aliases": {
+    "first_name": {
+      "elena": [
+        "elena.rostova@moveops.com"
+      ],
+      "priya": [
+        "p.nair@luminarahealth.com",
+        "priya.chakrabarti@moveops.com",
+        "priya.venkatesh@greenstackenergy.com"
+      ],
+      "marcus": [
+        "m.webb@ironcladsec.com",
+        "marcus.thorne@moveops.com",
+        "marcus.webb@brightloopanalytics.com"
+      ],
+      "hana": [
+        "hana.kim@moveops.com"
+      ],
+      "alejandro": [
+        "alejandro.fuentes@moveops.com"
+      ],
+      "david": [
+        "d.kowalski@harbourpharma.com",
+        "david.chen@moveops.com"
+      ],
+      "chloe": [
+        "chloe.vance@moveops.com"
+      ],
+      "fatimah": [
+        "fatimah.al-rashidi@moveops.com"
+      ],
+      "blessing": [
+        "blessing.okafor@moveops.com"
+      ],
+      "javier": [
+        "javier.morales@moveops.com"
+      ],
+      "suki": [
+        "suki.patel@moveops.com"
+      ],
+      "samira": [
+        "samira.tariq@moveops.com"
+      ],
+      "lena": [
+        "lena.bjorkstrom@moveops.com"
+      ],
+      "dmitri": [
+        "dmitri.volkov@moveops.com"
+      ],
+      "anh": [
+        "anh.nguyen@moveops.com"
+      ],
+      "julian": [
+        "julian.brooks@moveops.com"
+      ],
+      "zara": [
+        "zara.kovacevic@moveops.com"
+      ],
+      "omar": [
+        "omar.ibrahim@moveops.com"
+      ],
+      "patricia": [
+        "patricia.langford@canopyhealth.io"
+      ],
+      "dr.": [
+        "anand.mehta@canopyhealth.io",
+        "n.ellsworth@foxglovebiotech.com",
+        "yusuf.abdi@canopyhealth.io"
+      ],
+      "carmen": [
+        "carmen.delgado-reyes@palmettofoundation.org",
+        "carmen.reyes@urbannestsolutions.com"
+      ],
+      "lisa": [
+        "lisa.kwan@heartlandmovers.com"
+      ],
+      "michael": [
+        "michael.stern@atlascorporatetravel.com"
+      ],
+      "lily": [
+        "lily.marchetti@canopyhealth.io"
+      ],
+      "rachel": [
+        "r.okonkwo@veridian-software.com",
+        "rachel.whitfield@vectralsystems.com"
+      ],
+      "kevin": [
+        "kevin.tran@vectralsystems.com"
+      ],
+      "greg": [
+        "greg.pallone@swiftrelocations.com"
+      ],
+      "danielle": [
+        "danielle.osei@vectralsystems.com"
+      ],
+      "derek": [
+        "d.hsu@arcadiaconsulting.com",
+        "derek.hollis@greenstackenergy.com"
+      ],
+      "noah": [
+        "noah.fitzgerald@greenstackenergy.com"
+      ],
+      "sam": [
+        "sam@pivotpointlabs.com"
+      ],
+      "ines": [
+        "ines@pivotpointlabs.com"
+      ],
+      "tessa": [
+        "tessa.moreno@brightloopanalytics.com"
+      ],
+      "jordan": [
+        "jordan.ekwueme@brightloopanalytics.com"
+      ],
+      "tamara": [
+        "tamara.byrd@mosaicrobotics.com"
+      ],
+      "andre": [
+        "andre.washington@mosaicrobotics.com"
+      ],
+      "catalina": [
+        "catalina.dubois@moveops.com"
+      ],
+      "mina": [
+        "mina.hashimoto@moveops.com"
+      ],
+      "emeka": [
+        "emeka.diallo@moveops.com"
+      ],
+      "thomas": [
+        "t.wren@helixbiosciences.com"
+      ],
+      "simone": [
+        "s.adeyemi@clearpathfinancial.com",
+        "simone.richter@stormcloud.io"
+      ],
+      "carol": [
+        "c.fitzgerald@stonebridgelegal.com"
+      ],
+      "gary": [
+        "g.meissner@axiomprecision.com"
+      ],
+      "kenji": [
+        "k.watanabe@driftwoodanalytics.com",
+        "kenji.watanabe@ridgelinerobotics.com"
+      ],
+      "isabella": [
+        "i.cruz@novapayments.io"
+      ],
+      "brandon": [
+        "b.elliot@crestlineinstech.com"
+      ],
+      "amanda": [
+        "a.johansson@solarisenergytech.com"
+      ],
+      "aisha": [
+        "a.mensah@meridiangenomics.com"
+      ],
+      "jerome": [
+        "j.washington@pathfinderlogistics.com"
+      ],
+      "natalie": [
+        "n.park@cascadecloudsys.com"
+      ],
+      "philip": [
+        "p.hartmann@sterlingcapitaladv.com"
+      ],
+      "sofia": [
+        "s.reyes@blueprintarch.com"
+      ],
+      "monica": [
+        "m.svensson@trellisedtech.com"
+      ],
+      "eric": [
+        "e.nakamura@quantumrobotics.com"
+      ],
+      "laura": [
+        "l.christensen@embermarketing.com"
+      ],
+      "ravi": [
+        "r.krishnamurthy@vertexaisolutions.com"
+      ],
+      "sandra": [
+        "s.leblanc@oaktreelegal.com",
+        "sandra.walsh@lakeline-logistics.com"
+      ],
+      "trevor": [
+        "t.mills@summithealthsys.com"
+      ],
+      "james": [
+        "j.coffey@paladindefense.com"
+      ],
+      "angela": [
+        "a.torres@fenwickmedia.com"
+      ],
+      "nathan": [
+        "n.pierce@cobaltscm.com"
+      ],
+      "helen": [
+        "h.bergstrom@aurorabiomedical.com"
+      ],
+      "chris": [
+        "c.oduya@nimbusdevops.com"
+      ],
+      "margaret": [
+        "m.flynn@thornfieldcapital.com"
+      ],
+      "jasmine": [
+        "j.osei@redwoodhrtech.com"
+      ],
+      "todd": [
+        "t.andersen@glacierwealth.com"
+      ],
+      "vanessa": [
+        "v.okafor@prismcomms.com"
+      ],
+      "robert": [
+        "r.sandoval@halcyonaero.com"
+      ],
+      "diane": [
+        "d.walters@lodestarcyber.com"
+      ],
+      "patrick": [
+        "p.sorensen@kestrelagritech.com"
+      ],
+      "tonya": [
+        "t.freeman@brightsidementalhealth.com"
+      ],
+      "kyle": [
+        "k.dominguez@ironworkscontech.com"
+      ],
+      "stephanie": [
+        "s.lin@veloraretail.com"
+      ],
+      "brian": [
+        "b.calloway@marengofinancial.com"
+      ],
+      "leila": [
+        "l.ahmadi@sequoiadatalabs.com"
+      ],
+      "richard": [
+        "r.donovan@pinnacleinsgroup.com"
+      ],
+      "karen": [
+        "k.shapiro@westgatepharma.com"
+      ],
+      "oliver": [
+        "o.kim@tangentsoftware.com"
+      ],
+      "carla": [
+        "c.novak@zephyrev.com"
+      ],
+      "alan": [
+        "a.thorvaldsen@northstaractuarial.com"
+      ],
+      "yolanda": [
+        "y.perez@mesagenomics.com"
+      ],
+      "fiona": [
+        "f.gallagher@willowmentalhealth.com"
+      ],
+      "samuel": [
+        "s.park@irongateproptech.com"
+      ],
+      "isabelle": [
+        "i.fontaine@harborlightbio.com"
+      ],
+      "darnell": [
+        "d.hughes@crosswindconsulting.com"
+      ],
+      "peter": [
+        "p.vance@tidemarkms.com"
+      ],
+      "christine": [
+        "c.zhao@fieldstonecm.com"
+      ],
+      "asha": [
+        "asha.patel@meridianglobalmobility.co.uk"
+      ],
+      "road runner auto transport": [
+        "dispatch@roadrunnerautotransport.com"
+      ],
+      "victor": [
+        "victor.huang@northwindtech.com"
+      ],
+      "nina": [
+        "nina.sethi@sentinelchain-logistics.com"
+      ],
+      "craig": [
+        "craig.nguyen@keymove-specialty.com"
+      ],
+      "sophie": [
+        "tipline@industryrelocationintel.com"
+      ],
+      "emilia": [
+        "emilia.cruz@northwindtech.com"
+      ],
+      "jae-won": [
+        "jaewon.kim@stormcloud.io"
+      ],
+      "melissa": [
+        "melissa.harding@bartoncreekflats.com"
+      ],
+      "anya": [
+        "anya.petrova@stormcloud.io"
+      ],
+      "liam": [
+        "liam.park@stormcloud.io"
+      ],
+      "raj": [
+        "raj.greenfield@sunbeltvp.com"
+      ],
+      "victoria": [
+        "victoria.chen-nakamura@sunbeltvp.com"
+      ],
+      "jake": [
+        "jake.loomis@heartlandmovers.com"
+      ]
+    },
+    "last_name": {
+      "rostova": [
+        "elena.rostova@moveops.com"
+      ],
+      "chakrabarti": [
+        "priya.chakrabarti@moveops.com"
+      ],
+      "thorne": [
+        "marcus.thorne@moveops.com"
+      ],
+      "kim": [
+        "hana.kim@moveops.com",
+        "jaewon.kim@stormcloud.io",
+        "o.kim@tangentsoftware.com"
+      ],
+      "fuentes": [
+        "alejandro.fuentes@moveops.com"
+      ],
+      "chen": [
+        "david.chen@moveops.com"
+      ],
+      "vance": [
+        "chloe.vance@moveops.com",
+        "p.vance@tidemarkms.com"
+      ],
+      "al-rashidi": [
+        "fatimah.al-rashidi@moveops.com"
+      ],
+      "okafor": [
+        "blessing.okafor@moveops.com",
+        "v.okafor@prismcomms.com"
+      ],
+      "morales": [
+        "javier.morales@moveops.com"
+      ],
+      "patel": [
+        "asha.patel@meridianglobalmobility.co.uk",
+        "suki.patel@moveops.com"
+      ],
+      "tariq": [
+        "samira.tariq@moveops.com"
+      ],
+      "bj\u00f6rkstr\u00f6m": [
+        "lena.bjorkstrom@moveops.com"
+      ],
+      "volkov": [
+        "dmitri.volkov@moveops.com"
+      ],
+      "nguy\u1ec5n": [
+        "anh.nguyen@moveops.com"
+      ],
+      "brooks": [
+        "julian.brooks@moveops.com"
+      ],
+      "kova\u010devi\u0107": [
+        "zara.kovacevic@moveops.com"
+      ],
+      "ibrahim": [
+        "omar.ibrahim@moveops.com"
+      ],
+      "langford": [
+        "patricia.langford@canopyhealth.io"
+      ],
+      "abdi": [
+        "yusuf.abdi@canopyhealth.io"
+      ],
+      "reyes": [
+        "carmen.reyes@urbannestsolutions.com",
+        "s.reyes@blueprintarch.com"
+      ],
+      "kwan": [
+        "lisa.kwan@heartlandmovers.com"
+      ],
+      "stern": [
+        "michael.stern@atlascorporatetravel.com"
+      ],
+      "marchetti": [
+        "lily.marchetti@canopyhealth.io"
+      ],
+      "whitfield": [
+        "rachel.whitfield@vectralsystems.com"
+      ],
+      "tran": [
+        "kevin.tran@vectralsystems.com"
+      ],
+      "pallone": [
+        "greg.pallone@swiftrelocations.com"
+      ],
+      "osei": [
+        "danielle.osei@vectralsystems.com",
+        "j.osei@redwoodhrtech.com"
+      ],
+      "hollis": [
+        "derek.hollis@greenstackenergy.com"
+      ],
+      "venkatesh": [
+        "priya.venkatesh@greenstackenergy.com"
+      ],
+      "fitzgerald": [
+        "c.fitzgerald@stonebridgelegal.com",
+        "noah.fitzgerald@greenstackenergy.com"
+      ],
+      "delgado": [
+        "sam@pivotpointlabs.com"
+      ],
+      "kovac": [
+        "ines@pivotpointlabs.com"
+      ],
+      "moreno": [
+        "tessa.moreno@brightloopanalytics.com"
+      ],
+      "ekwueme": [
+        "jordan.ekwueme@brightloopanalytics.com"
+      ],
+      "byrd": [
+        "tamara.byrd@mosaicrobotics.com"
+      ],
+      "washington": [
+        "andre.washington@mosaicrobotics.com",
+        "j.washington@pathfinderlogistics.com"
+      ],
+      "dubois": [
+        "catalina.dubois@moveops.com"
+      ],
+      "hashimoto": [
+        "mina.hashimoto@moveops.com"
+      ],
+      "diallo": [
+        "emeka.diallo@moveops.com"
+      ],
+      "okonkwo": [
+        "r.okonkwo@veridian-software.com"
+      ],
+      "wren": [
+        "t.wren@helixbiosciences.com"
+      ],
+      "adeyemi": [
+        "s.adeyemi@clearpathfinancial.com"
+      ],
+      "hsu": [
+        "d.hsu@arcadiaconsulting.com"
+      ],
+      "nair": [
+        "p.nair@luminarahealth.com"
+      ],
+      "meissner": [
+        "g.meissner@axiomprecision.com"
+      ],
+      "watanabe": [
+        "k.watanabe@driftwoodanalytics.com",
+        "kenji.watanabe@ridgelinerobotics.com"
+      ],
+      "cruz": [
+        "emilia.cruz@northwindtech.com",
+        "i.cruz@novapayments.io"
+      ],
+      "elliot": [
+        "b.elliot@crestlineinstech.com"
+      ],
+      "johansson": [
+        "a.johansson@solarisenergytech.com"
+      ],
+      "webb": [
+        "m.webb@ironcladsec.com",
+        "marcus.webb@brightloopanalytics.com"
+      ],
+      "mensah": [
+        "a.mensah@meridiangenomics.com"
+      ],
+      "park": [
+        "liam.park@stormcloud.io",
+        "n.park@cascadecloudsys.com",
+        "s.park@irongateproptech.com"
+      ],
+      "hartmann": [
+        "p.hartmann@sterlingcapitaladv.com"
+      ],
+      "kowalski": [
+        "d.kowalski@harbourpharma.com"
+      ],
+      "svensson": [
+        "m.svensson@trellisedtech.com"
+      ],
+      "nakamura": [
+        "e.nakamura@quantumrobotics.com"
+      ],
+      "christensen": [
+        "l.christensen@embermarketing.com"
+      ],
+      "krishnamurthy": [
+        "r.krishnamurthy@vertexaisolutions.com"
+      ],
+      "leblanc": [
+        "s.leblanc@oaktreelegal.com"
+      ],
+      "mills": [
+        "t.mills@summithealthsys.com"
+      ],
+      "coffey": [
+        "j.coffey@paladindefense.com"
+      ],
+      "torres": [
+        "a.torres@fenwickmedia.com"
+      ],
+      "pierce": [
+        "n.pierce@cobaltscm.com"
+      ],
+      "bergstrom": [
+        "h.bergstrom@aurorabiomedical.com"
+      ],
+      "oduya": [
+        "c.oduya@nimbusdevops.com"
+      ],
+      "flynn": [
+        "m.flynn@thornfieldcapital.com"
+      ],
+      "andersen": [
+        "t.andersen@glacierwealth.com"
+      ],
+      "sandoval": [
+        "r.sandoval@halcyonaero.com"
+      ],
+      "walters": [
+        "d.walters@lodestarcyber.com"
+      ],
+      "sorensen": [
+        "p.sorensen@kestrelagritech.com"
+      ],
+      "freeman": [
+        "t.freeman@brightsidementalhealth.com"
+      ],
+      "dominguez": [
+        "k.dominguez@ironworkscontech.com"
+      ],
+      "lin": [
+        "s.lin@veloraretail.com"
+      ],
+      "nadia ellsworth": [
+        "n.ellsworth@foxglovebiotech.com"
+      ],
+      "calloway": [
+        "b.calloway@marengofinancial.com"
+      ],
+      "ahmadi": [
+        "l.ahmadi@sequoiadatalabs.com"
+      ],
+      "donovan": [
+        "r.donovan@pinnacleinsgroup.com"
+      ],
+      "shapiro": [
+        "k.shapiro@westgatepharma.com"
+      ],
+      "novak": [
+        "c.novak@zephyrev.com"
+      ],
+      "thorvaldsen": [
+        "a.thorvaldsen@northstaractuarial.com"
+      ],
+      "perez": [
+        "y.perez@mesagenomics.com"
+      ],
+      "gallagher": [
+        "f.gallagher@willowmentalhealth.com"
+      ],
+      "fontaine": [
+        "i.fontaine@harborlightbio.com"
+      ],
+      "hughes": [
+        "d.hughes@crosswindconsulting.com"
+      ],
+      "zhao": [
+        "c.zhao@fieldstonecm.com"
+      ],
+      "mehta": [
+        "anand.mehta@canopyhealth.io"
+      ],
+      "dispatch": [
+        "dispatch@roadrunnerautotransport.com"
+      ],
+      "huang": [
+        "victor.huang@northwindtech.com"
+      ],
+      "sethi": [
+        "nina.sethi@sentinelchain-logistics.com"
+      ],
+      "nguyen": [
+        "craig.nguyen@keymove-specialty.com"
+      ],
+      "raines": [
+        "tipline@industryrelocationintel.com"
+      ],
+      "harding": [
+        "melissa.harding@bartoncreekflats.com"
+      ],
+      "richter": [
+        "simone.richter@stormcloud.io"
+      ],
+      "petrova": [
+        "anya.petrova@stormcloud.io"
+      ],
+      "greenfield": [
+        "raj.greenfield@sunbeltvp.com"
+      ],
+      "delgado-reyes": [
+        "carmen.delgado-reyes@palmettofoundation.org"
+      ],
+      "chen-nakamura": [
+        "victoria.chen-nakamura@sunbeltvp.com"
+      ],
+      "walsh": [
+        "sandra.walsh@lakeline-logistics.com"
+      ],
+      "loomis": [
+        "jake.loomis@heartlandmovers.com"
+      ]
+    },
+    "full_name": {
+      "elena rostova": [
+        "elena.rostova@moveops.com"
+      ],
+      "priya chakrabarti": [
+        "priya.chakrabarti@moveops.com"
+      ],
+      "marcus thorne": [
+        "marcus.thorne@moveops.com"
+      ],
+      "hana kim": [
+        "hana.kim@moveops.com"
+      ],
+      "alejandro fuentes": [
+        "alejandro.fuentes@moveops.com"
+      ],
+      "david chen": [
+        "david.chen@moveops.com"
+      ],
+      "chloe vance": [
+        "chloe.vance@moveops.com"
+      ],
+      "fatimah al-rashidi": [
+        "fatimah.al-rashidi@moveops.com"
+      ],
+      "blessing okafor": [
+        "blessing.okafor@moveops.com"
+      ],
+      "javier morales": [
+        "javier.morales@moveops.com"
+      ],
+      "suki patel": [
+        "suki.patel@moveops.com"
+      ],
+      "samira tariq": [
+        "samira.tariq@moveops.com"
+      ],
+      "lena bj\u00f6rkstr\u00f6m": [
+        "lena.bjorkstrom@moveops.com"
+      ],
+      "dmitri volkov": [
+        "dmitri.volkov@moveops.com"
+      ],
+      "anh nguy\u1ec5n": [
+        "anh.nguyen@moveops.com"
+      ],
+      "julian brooks": [
+        "julian.brooks@moveops.com"
+      ],
+      "zara kova\u010devi\u0107": [
+        "zara.kovacevic@moveops.com"
+      ],
+      "omar ibrahim": [
+        "omar.ibrahim@moveops.com"
+      ],
+      "patricia langford": [
+        "patricia.langford@canopyhealth.io"
+      ],
+      "dr. abdi": [
+        "yusuf.abdi@canopyhealth.io"
+      ],
+      "carmen reyes": [
+        "carmen.reyes@urbannestsolutions.com"
+      ],
+      "lisa kwan": [
+        "lisa.kwan@heartlandmovers.com"
+      ],
+      "michael stern": [
+        "michael.stern@atlascorporatetravel.com"
+      ],
+      "lily marchetti": [
+        "lily.marchetti@canopyhealth.io"
+      ],
+      "rachel whitfield": [
+        "rachel.whitfield@vectralsystems.com"
+      ],
+      "kevin tran": [
+        "kevin.tran@vectralsystems.com"
+      ],
+      "greg pallone": [
+        "greg.pallone@swiftrelocations.com"
+      ],
+      "danielle osei": [
+        "danielle.osei@vectralsystems.com"
+      ],
+      "derek hollis": [
+        "derek.hollis@greenstackenergy.com"
+      ],
+      "priya venkatesh": [
+        "priya.venkatesh@greenstackenergy.com"
+      ],
+      "noah fitzgerald": [
+        "noah.fitzgerald@greenstackenergy.com"
+      ],
+      "sam delgado": [
+        "sam@pivotpointlabs.com"
+      ],
+      "ines kovac": [
+        "ines@pivotpointlabs.com"
+      ],
+      "tessa moreno": [
+        "tessa.moreno@brightloopanalytics.com"
+      ],
+      "jordan ekwueme": [
+        "jordan.ekwueme@brightloopanalytics.com"
+      ],
+      "tamara byrd": [
+        "tamara.byrd@mosaicrobotics.com"
+      ],
+      "andre washington": [
+        "andre.washington@mosaicrobotics.com"
+      ],
+      "catalina dubois": [
+        "catalina.dubois@moveops.com"
+      ],
+      "mina hashimoto": [
+        "mina.hashimoto@moveops.com"
+      ],
+      "emeka diallo": [
+        "emeka.diallo@moveops.com"
+      ],
+      "rachel okonkwo": [
+        "r.okonkwo@veridian-software.com"
+      ],
+      "thomas wren": [
+        "t.wren@helixbiosciences.com"
+      ],
+      "simone adeyemi": [
+        "s.adeyemi@clearpathfinancial.com"
+      ],
+      "derek hsu": [
+        "d.hsu@arcadiaconsulting.com"
+      ],
+      "priya nair": [
+        "p.nair@luminarahealth.com"
+      ],
+      "carol fitzgerald": [
+        "c.fitzgerald@stonebridgelegal.com"
+      ],
+      "gary meissner": [
+        "g.meissner@axiomprecision.com"
+      ],
+      "kenji watanabe": [
+        "k.watanabe@driftwoodanalytics.com",
+        "kenji.watanabe@ridgelinerobotics.com"
+      ],
+      "isabella cruz": [
+        "i.cruz@novapayments.io"
+      ],
+      "brandon elliot": [
+        "b.elliot@crestlineinstech.com"
+      ],
+      "amanda johansson": [
+        "a.johansson@solarisenergytech.com"
+      ],
+      "marcus webb": [
+        "m.webb@ironcladsec.com",
+        "marcus.webb@brightloopanalytics.com"
+      ],
+      "aisha mensah": [
+        "a.mensah@meridiangenomics.com"
+      ],
+      "jerome washington": [
+        "j.washington@pathfinderlogistics.com"
+      ],
+      "natalie park": [
+        "n.park@cascadecloudsys.com"
+      ],
+      "philip hartmann": [
+        "p.hartmann@sterlingcapitaladv.com"
+      ],
+      "sofia reyes": [
+        "s.reyes@blueprintarch.com"
+      ],
+      "david kowalski": [
+        "d.kowalski@harbourpharma.com"
+      ],
+      "monica svensson": [
+        "m.svensson@trellisedtech.com"
+      ],
+      "eric nakamura": [
+        "e.nakamura@quantumrobotics.com"
+      ],
+      "laura christensen": [
+        "l.christensen@embermarketing.com"
+      ],
+      "ravi krishnamurthy": [
+        "r.krishnamurthy@vertexaisolutions.com"
+      ],
+      "sandra leblanc": [
+        "s.leblanc@oaktreelegal.com"
+      ],
+      "trevor mills": [
+        "t.mills@summithealthsys.com"
+      ],
+      "james coffey": [
+        "j.coffey@paladindefense.com"
+      ],
+      "angela torres": [
+        "a.torres@fenwickmedia.com"
+      ],
+      "nathan pierce": [
+        "n.pierce@cobaltscm.com"
+      ],
+      "helen bergstrom": [
+        "h.bergstrom@aurorabiomedical.com"
+      ],
+      "chris oduya": [
+        "c.oduya@nimbusdevops.com"
+      ],
+      "margaret flynn": [
+        "m.flynn@thornfieldcapital.com"
+      ],
+      "jasmine osei": [
+        "j.osei@redwoodhrtech.com"
+      ],
+      "todd andersen": [
+        "t.andersen@glacierwealth.com"
+      ],
+      "vanessa okafor": [
+        "v.okafor@prismcomms.com"
+      ],
+      "robert sandoval": [
+        "r.sandoval@halcyonaero.com"
+      ],
+      "diane walters": [
+        "d.walters@lodestarcyber.com"
+      ],
+      "patrick sorensen": [
+        "p.sorensen@kestrelagritech.com"
+      ],
+      "tonya freeman": [
+        "t.freeman@brightsidementalhealth.com"
+      ],
+      "kyle dominguez": [
+        "k.dominguez@ironworkscontech.com"
+      ],
+      "stephanie lin": [
+        "s.lin@veloraretail.com"
+      ],
+      "dr. nadia ellsworth": [
+        "n.ellsworth@foxglovebiotech.com"
+      ],
+      "brian calloway": [
+        "b.calloway@marengofinancial.com"
+      ],
+      "leila ahmadi": [
+        "l.ahmadi@sequoiadatalabs.com"
+      ],
+      "richard donovan": [
+        "r.donovan@pinnacleinsgroup.com"
+      ],
+      "karen shapiro": [
+        "k.shapiro@westgatepharma.com"
+      ],
+      "oliver kim": [
+        "o.kim@tangentsoftware.com"
+      ],
+      "carla novak": [
+        "c.novak@zephyrev.com"
+      ],
+      "alan thorvaldsen": [
+        "a.thorvaldsen@northstaractuarial.com"
+      ],
+      "yolanda perez": [
+        "y.perez@mesagenomics.com"
+      ],
+      "fiona gallagher": [
+        "f.gallagher@willowmentalhealth.com"
+      ],
+      "samuel park": [
+        "s.park@irongateproptech.com"
+      ],
+      "isabelle fontaine": [
+        "i.fontaine@harborlightbio.com"
+      ],
+      "darnell hughes": [
+        "d.hughes@crosswindconsulting.com"
+      ],
+      "peter vance": [
+        "p.vance@tidemarkms.com"
+      ],
+      "christine zhao": [
+        "c.zhao@fieldstonecm.com"
+      ],
+      "dr. mehta": [
+        "anand.mehta@canopyhealth.io"
+      ],
+      "asha patel": [
+        "asha.patel@meridianglobalmobility.co.uk"
+      ],
+      "road runner auto transport dispatch": [
+        "dispatch@roadrunnerautotransport.com"
+      ],
+      "victor huang": [
+        "victor.huang@northwindtech.com"
+      ],
+      "nina sethi": [
+        "nina.sethi@sentinelchain-logistics.com"
+      ],
+      "craig nguyen": [
+        "craig.nguyen@keymove-specialty.com"
+      ],
+      "sophie raines": [
+        "tipline@industryrelocationintel.com"
+      ],
+      "emilia cruz": [
+        "emilia.cruz@northwindtech.com"
+      ],
+      "jae-won kim": [
+        "jaewon.kim@stormcloud.io"
+      ],
+      "melissa harding": [
+        "melissa.harding@bartoncreekflats.com"
+      ],
+      "simone richter": [
+        "simone.richter@stormcloud.io"
+      ],
+      "anya petrova": [
+        "anya.petrova@stormcloud.io"
+      ],
+      "liam park": [
+        "liam.park@stormcloud.io"
+      ],
+      "raj greenfield": [
+        "raj.greenfield@sunbeltvp.com"
+      ],
+      "carmen delgado-reyes": [
+        "carmen.delgado-reyes@palmettofoundation.org"
+      ],
+      "victoria chen-nakamura": [
+        "victoria.chen-nakamura@sunbeltvp.com"
+      ],
+      "sandra walsh": [
+        "sandra.walsh@lakeline-logistics.com"
+      ],
+      "jake loomis": [
+        "jake.loomis@heartlandmovers.com"
+      ]
+    }
+  },
+  "empty_in_base_tables_populated_in_task": [
+    "linear.linear_comments",
+    "linear.linear_issues",
+    "linear.linear_projects",
+    "linear.linear_team_memberships",
+    "linear.linear_teams",
+    "linear.linear_users"
+  ],
+  "lifecycle": {
+    "today": null,
+    "closed_periods": [],
+    "open_periods": [],
+    "fiscal_periods_count": {
+      "closed": 0,
+      "open": 0,
+      "total": 0
+    }
+  }
+}

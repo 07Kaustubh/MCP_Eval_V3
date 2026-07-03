@@ -1,0 +1,26 @@
+# Todos — S4 (Verifier-Fails Analysis)
+
+- [x] Phase-readiness gate (`phase_ready.py --phase s4`)
+- [x] Parse trajectories (`parse_trajectories.py`) → density + pass@1 + error-rate gates
+- [x] Universe = moveops (from `_aux/Universe.txt`)
+- [x] Read 8_Verifier_Fails.txt + 5_Prompt.txt + Hardness_Plan.md
+- [x] Build rubric × run matrix from verifier output
+- [x] T2 (pass@1 ≤ 40%) — PASS (0/6 runs passed all rubrics)
+- [x] T3 (error rate < 3) — PASS (0/6 erroneous)
+- [x] Trajectory walk for R01 (reply-to-email) across all 6 runs
+- [x] Trajectory walk for R03 (hold pending) across all 6 runs
+- [x] Trajectory walk for R04 (walkup restate in Craig email) — Runs 5+6 fail, 1-4 pass
+- [x] Confirm Craig email_id `email_email_1f1459bff84c` exists in universe
+- [x] Apply 5-point pre-write checklist to each failing rubric
+- [x] Classify R01 into bucket
+- [x] Classify R03 into bucket
+- [x] Classify R04 into bucket
+- [x] Compute All-Failing Rubrics sub-dim score (Bucket 1 ratio)
+- [x] Draft Bucket 1 fixes → `_aux/Council_Reports/S4_fixes.md`
+- [x] Draft Bucket 3 AF justifications → `_aux/Council_Reports/S4_AF_justifications.md`
+- [x] Run `check_justification.py` on AF batch
+- [x] Update `Tasks/_meta/Stump_Hypotheses.md` with calibration delta
+- [x] Update `Tasks/_meta/Hardness_Patterns_Log.md`
+- [x] Write `_aux/Council_Reports/S4_verdict.md`
+- [x] Write `_aux/Verification_s4.md` cross-source check
+- [x] STOP gate

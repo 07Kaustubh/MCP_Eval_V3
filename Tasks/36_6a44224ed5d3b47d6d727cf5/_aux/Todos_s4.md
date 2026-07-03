@@ -1,0 +1,21 @@
+# Todos_s4 — Task 36
+
+- [x] Phase-ready gate (`phase_ready.py`) — PASS
+- [x] Run `parse_trajectories.py` — pass@1 = 0.0%, avg 52 tool calls, 6/6 runs completed
+- [x] Log spec/reference reads to `Reads_s4.md`
+- [x] Cross-source verification note to `Verification_s4.md`
+- [x] T3 error-rate gate — 0/6 errored → PASS
+- [x] T2 pass@1 ≤ 40% gate — 0.0% → PASS
+- [x] T1 density projection — 52 avg total → PASS 50+
+- [x] Build rubric × run matrix (12 failing rubrics × 6 runs = 53 fails)
+- [x] Trajectory walk for every failing rubric — judge citations verified against Runs 1, 2, 5 trajectory JSONs
+- [x] Bucket 1 fixes → `S4_fixes.md` — **0 Bucket 1 rubrics**
+- [x] Bucket 2 → `S4_judge_errors.md` — **0 judge errors**
+- [x] Bucket 3 → `S4_AF_justifications.md` — **5 AF rubrics** (all Linear-issue disambiguation)
+- [x] Bucket-1 ratio → All-Failing Rubrics sub-dim **5/5 PASS** (0/12 = 0%)
+- [x] Hardness calibration delta — H1 hit, H2 partial, H3 hit, H4 miss + BONUS emergent lever
+- [x] `check_justification.py` on AF batch — exit 0, 0 hits
+- [x] `_aux/Council_Reports/S4_verdict.md` written
+- [x] `Tasks/_meta/Stump_Hypotheses.md` appended
+- [x] `Tasks/_meta/Hardness_Patterns_Log.md` appended
+- [x] STOP-gate report ready

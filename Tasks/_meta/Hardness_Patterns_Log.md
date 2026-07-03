@@ -303,3 +303,221 @@ REVIEW-flow task. No original hardness plan to calibrate against — this entry 
 - Reminder setting for e-file confirmation (0/6 fail)
 
 **Lesson for next task:** When a reconciliation task has a quantitative key-fact response, the dominant stumping lever is consistently the model declining to make an inference that the data alone cannot fully ground (here, the Section 179 rate). Pair the inference lever with a workflow-completion cascade so a single epistemic-hedge decision cascades into multiple action fails — this multiplies the hardness signal without requiring multiple independent levers. The 5/5 All-Failing-Rubrics sub-dim score with pass@1 16.7% is what this pairing buys, and is repeatable on future quantitative-key-fact tasks.
+
+---
+
+## Task 34 (MoveOps — Emilia Cruz damage docket close-out) — FINAL PASS 2026-06-30
+
+**Persona / Function:** Blessing Okafor (Relocation Coordinator) / Operations.
+
+**Selected levers (5) — confirmed end-to-end through artifact set:**
+- L1 Latching — $1,200 KeyMove rider anchored across 12+ surfaces (QB bill + 6 emails + 6 Slack messages); Marcus Thorne L9 authority-dismissal frame at `email_email_99e10a978b48` ("I do not see a clean finance argument for rejecting it as submitted").
+- L2 Structured-DB skip — Airtable `tblRelocations01` Emilia row (Special Requirements multilineText extension contract) + `bill_mosaic_damage_accrual_001` precedent (vendor cap + customer credit memo + Section 6 process improvements).
+- L7 Multi-write diversification — 6 writes across 5 services (email × 2, airtable_update, slack post, linear_comment, calendar reminder).
+- L8 Multi-link chain — 5-link Craig Apr 11 → Marcus Apr 17 → Pam Apr 24 → linear_issue_c8cdba4408f1 → Catalina Apr 14 EOD-Friday commitment.
+- L11 Net-vs-gross framing — vendor $1,200 (gross, KeyMove) ≠ net MoveOps exposure (vendor rider + customer-side credit-memo + commercial consideration per Mosaic precedent); customer-side scope owned by David/Catalina (out of Blessing's authority).
+
+**Stump Hypotheses (4) projected as agent failure modes:**
+1. [HIGH] Agent stops at "approve $1,200 rider" and never files the customer-side docket distinct from vendor disposition. Mechanism: L1 + L11.
+2. [HIGH] Agent never queries Airtable Emilia row AND never queries Mosaic precedent bill. Mechanism: L2.
+3. [MED] Agent posts operational lesson to C002 (customer-engagement) or C005 (finance) instead of C006 (operations). Mechanism: L26 decoy-parent / channel-misalignment.
+4. [MED] Agent emails Craig but does not answer his Apr 11 open question on formal-claim-now-or-hold. Mechanism: L3 missing-reply / trailing-ask blindness.
+
+**Density:** 47-midpoint accepted THIN_DENSITY per documented Hardness_Plan per-task justification (operator continuation on-policy; re-evaluate after first platform trajectory cycle).
+
+**Lens 6 Bucket_1_Risk:** 9% (2/22 rubrics borderline — R7 AND-shape softened by "(or similar)" tail, R21 calendar AND-bundling per V3 reference convention). Well under 20% threshold.
+
+**Lesson for next task:** MoveOps decoy-triple Slack channels (C002 / C005 / C006) operationalized as a clean channel-misalignment stump where persona-home channel selection discriminates an agent who follows the topical surface (customer-engagement, finance) from one who follows persona-home (operations). Pair channel-misalignment with L9 authority-dismissal on a vendor-side approval frame to produce a two-layer stump where Layer 1 latches on the wrong scope and Layer 2 lands in the wrong channel — both single-mechanism, both 50%+ historical fail rates per Learnings. The two-layer combination should reproduce reliably on future MoveOps tasks that involve a vendor-side finance-clean approval interacting with a persona-scope-restricted operational handoff.
+
+
+## Tasks/34_6a42ec7493b48d5ada4571bd — S4 calibration delta — 2026-06-30
+
+CB-flow task (MoveOps universe).
+
+**Trajectory facts:**
+- pass@1: 0% (0/6 runs passed all 22 rubrics) — within the ≤40% target
+- Error runs: 0/6 — well under the 2-erroneous-runs cap
+- avg total tool calls: 41.5 (range 29-56); avg MCP tool calls: 32.3 — clears the 40 floor; below the 50+ design target (THIN_DENSITY band, which the Hardness_Plan flagged as expected)
+- Distinct failing rubrics: 3 of 22 (R01 reply_to_email, R03 hold-pending, R04 walkup restate to Craig)
+- All-Failing rubrics (6/6 fail): R01, R03 (count 2)
+- Partial-fail rubrics: R04 (2/6 fail)
+- Bucket 1: 1 (R01) → channel/method lock-in
+- Bucket 2: 0
+- Bucket 3: 2 (R03 All-Failing + R04 Partial-Fail)
+- All-Failing-Rubrics sub-dim: 3/5 NON-FAIL (Bucket 1 ratio of AF rubrics = 1/2 = 50%, sits at the band boundary)
+
+**Hardness Plan calibration:**
+- 4 preds, 0 fully confirmed, 1 partially confirmed (shape shift), 3 over-predicted.
+- 2 under-predicted modes fired (tool-method lock-in on Craig reply + reverse-direction inference on Craig hold-vs-open).
+
+**Levers that fired as legitimate stumps:**
+- L8 multi-link chain partially — the Craig→Marcus→Pam→Catalina chain forced agents into action-bias on the wrong option of Craig's binary (action-bias is the L8 + L11 interaction)
+- L11 net-vs-gross framing — agents treated the $1,200 KeyMove rider as the closed vendor matter and missed that the formal carrier-claim shape depends on the open client-side review (R03 failure)
+
+**Levers that did NOT fire:**
+- L1 latching — agents recognized the $1,200 vendor anchor BUT also added the customer-side disposition separately. Latching was not strong enough to suppress the customer-side handoff.
+- L2 structured-DB skip — agents queried Airtable correctly; the Special Requirements multilineText pattern was followed in every run.
+- L7 multi-write diversification — agents executed all 6 writes (Craig email, David/Catalina email, Slack #operations, Linear comment, Airtable update, calendar reminder) in every run. Multi-write diversification did not stump the model.
+
+**Lesson for the lever catalog:**
+- **L-binary-procedural-direction-flip** is a HIGH-confidence Opus 4.8 lever distinct from L3 (missing-reply). When a referenced inbound email asks a binary procedural question (e.g., "X now or hold pending Y"), the model answers the binary but picks the action-biased option even when the prompt elsewhere telegraphs that Y is open. The failure is structurally different from "no answer" and reliably produces 100% all-failing on the directional rubric. Pair with a customer-side-still-open framing where the inference chain has 2-3 hops to maximize fail rate.
+- **L-tool-method-lock-in-on-email-reply** is NOT a clean stump lever — it conflates rubric design strictness with agent capability. When the prompt verb is ambiguous between reply and fresh send, the rubric must allow either path. Otherwise the failure is reclassifiable as Bucket 1 and lowers the All-Failing-Rubrics sub-dim score.
+- **THIN_DENSITY operator-acceptance pattern reproduced.** Projected 47-midpoint and actual 41.5-midpoint differ by ~5 calls (agents under-traversed L8). Future Hardness_Plans that fall in the THIN_DENSITY band should add a density-margin patch (one additional read or write that an L8 traversal naturally surfaces) to push the projected midpoint to 50+ and absorb the ~5-call under-traversal observed here.
+
+
+## Correction — Tasks/34_6a42ec7493b48d5ada4571bd — 2026-06-30 (post-R01-fix)
+
+The prior entry was written against the pre-R01-fix verifier output. The R01 fix was applied to `7_Rubrics.json` (Craig-reply rubric loosened to "either thread reply OR fresh direct email"), the platform verifier was re-run, and the current `8_Verifier_Fails.txt` reflects post-fix grading.
+
+**Revised trajectory facts:**
+- pass@1 still 0% (0/6 runs passed all 22 rubrics)
+- Error runs 0/6
+- avg total tool calls 41.5 (THIN_DENSITY band)
+- Distinct failing rubrics: **2 of 22** (R03 hold-pending, R04 walkup restate). R01 PASS 6/6 on the loosened criterion.
+- All-Failing rubrics: **R03** (count = 1)
+- Bucket 1: 0; Bucket 2: 0; Bucket 3: 2 (R03 AF + R04 partial)
+- All-Failing-Rubrics sub-dim: **5/5 PASS** (Bucket 1 ratio of AF rubrics = 0/1 = 0%)
+
+**Levers that fired as legitimate stumps (revised):**
+- L11 net-vs-gross framing — agents treated the $1,200 KeyMove rider as the closed vendor matter and missed that the formal carrier-claim shape depends on the open client-side review (R03 failure). 6/6 all-fail. Confirmed as the sole legitimate AF on this task.
+
+**Levers that did NOT fire (revised):**
+- L1, L2, L7, L8 all over-predicted as in the original entry; this re-classification does not change their calibration.
+
+**Revised lesson:** L-tool-method-lock-in-on-email-reply remains NOT a clean stump lever. The empirical proof is stronger now — when the rubric was loosened, the verifier graded the same agent behaviour as PASS in every run. This confirms the "rubric-strictness vs agent-capability" distinction. Future rubrics on email-reply where the prompt verb is ambiguous between thread-reply and fresh-send should default to the "either path" wording from the start.
+
+**Task verdict:** SHIP. The post-fix All-Failing sub-dim score (5/5 PASS) was the explicit target of the R01 fix per the original verdict ("after the fix, the All-Failing Rubrics sub-dim moves from 3/5 to 5/5"). Target met.
+
+- **Task 35** (`Tasks/35_6a4421ec8169e23828bb442d`, scenario_14b3ffde, keystone) — FINAL PASS 2026-07-01. Levers preserved end-to-end: §L8 multi-link chain (email + Slack + CRM), §L9 authority dismissal (Raj restore = costly, soft-verb per §L24), §L10 structured-DB skip (CRM engagements 4 workstreams), §L25 existing-output anchor / CROSS_SCENARIO_RECONCILE (Denise's 3/20 preliminary plan superseded by 4/07 portal breach + 4/07 Raj-access-audit + 4/14 Marcus Webb post-term), §L26 decoy parent thread (D_grace_robert_denise mpim vs C001/C002/C008 decoys). Density mid 54. Bucket 1 risk 5.7%.
+
+## Entry — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01
+
+**Persona / Business function:** Robert Calloway (Owner / Licensed Mortgage Broker) / Executive
+
+**Selected levers (from Hardness_Plan.md):**
+- Learnings §L8 — Multi-link chain (Playbook Lever 8) across email + Slack + CRM
+- Learnings §L9 — Authority-dismissal (Playbook Lever 1) on Raj IT-authority framing
+- Learnings §L10 — Structured-DB skip (Playbook Lever 2) on CRM engagements 472-row surface
+- Learnings §L25 — Existing-output anchor / supersession (Playbook Lever 10) on Denise's 3/20 preliminary plan
+- Learnings §L26 — Decoy parent thread (Playbook Lever 4) on C001/C002/C008 vs D_grace_robert_denise
+
+**Actual failures (from S4 verifier-fails analysis):**
+- R11 (leadership DM references seven files + ransomware-scope preliminary qualifier): **Bucket 1 — Rubric invalid** (bundled: two independent facts joined by "while"; 0/6 pass rate driven by rubric-design defect not model-capability defect)
+- R20 Run 1 (leadership status covers 3 feeder workstreams): **Bucket 2 — Judge error** (rubric evidence authorizes "or similar phrasing"; judge applied label-strict interpretation despite agent covering all three concepts with equivalent labels — "UWM portal list" for portal breach, "confirmed Feb exports" for Raj audit, "ex-LO access" for Marcus Webb)
+- R26 Run 3: **Bucket 2 — Judge inconsistency** (decision Pass, reasoning explicitly says "Score 0.0" — internal decision-reasoning contradiction)
+- R2, R3, R4, R7, R8, R9, R12, R13, R14, R15, R17, R21, R27, R30, R31, R33 partial-fail 1-4/6 each: **Bucket 3 — Legitimate model failure** at the per-run atomic-rubric level. No AF justification required (not AF rubrics). Failure signatures: (a) email-vs-memo propagation gap (agent writes load-bearing content in memo but not email to counsel), (b) Run 5 §L9 polarity-flip anti-latching over-correction (agent invented "LOS fully operational" prose contradicting Raj's caveat), (c) aggregate-count-in-narrative gap (agents write workstream lists but rarely aggregate to specific counts in final response / CRM NOTE)
+
+**Calibration:**
+- Levers that fired as predicted: §L8 multi-link chain (R17 + R8 + R21 partial fails on service-propagation gaps). §L9 authority-dismissal fired with polarity twist (Run 5 opposite-direction over-correction).
+- Levers under-predicted: §L10 structured-DB skip was mostly cleared by agents on this scenario; only R17 Run 2 partial miss.
+- Levers over-predicted: §L25 existing-output anchor (every run cleared the 3/20 supersession signal — 100% pass on R5); §L26 decoy parent thread (every run correctly routed to D_grace_robert_denise — 100% pass on R18). Both levers were HIGH confidence in the Hardness_Plan but did not stump any run.
+- Emergent difficulty not catalogued: **DM aggregate-count-plus-qualifier bundling** — short leadership DMs on reconciled-picture tasks do not naturally carry BOTH an aggregate count AND a qualifier for capable Opus agents. If a rubric wants both signals, it MUST be split into two atomic rubrics from the outset.
+
+**Revised lesson on §L9 authority-dismissal polarity risk:** authority-dismissal lever can misfire in the reverse polarity when the agent over-corrects the authority-figure framing. Run 5's "LOS fully operational" prose is a Run-5-specific manifestation. Future S3 rubrics for authority-dismissal levers should include a truthfulness sub-check on the anti-latching side (e.g., "Agent does not overstate LOS operational state contrary to Raj's later Slack caveat"). This protects against the Run 5 failure mode without changing the primary latching lever.
+
+**Task verdict:** Trajectory hard gates + density PASS (pass@1 = 0.0%, 0 errors, avg 59 tool calls). All-Failing Rubrics sub-dim = 1/5 FAIL (Bucket 1 ratio 100% because the sole AF rubric R11 is bundled). Fix R11 split (see `_aux/Council_Reports/S4_fixes.md`) before re-uploading. Post-fix All-Failing sub-dim would move to 5/5 PASS.
+
+
+
+## Correction — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01 (post-R11-split re-grade)
+
+The prior Task 35 entry was written against the pre-fix 35-rubric grading pass. The R11 split has been applied to `7_Rubrics.json` (35 -> 36 rubrics), the platform verifier was re-run, and the current `8_Verifier_Fails.txt` reflects the post-fix grading.
+
+**Revised trajectory facts (post-fix):**
+- pass@1 = 0.0 (0/6 runs). Error runs 0/6. Density avg 59 (>= 50 design target).
+- Distinct failing rubrics: 22 of 36. AF rubrics: 3 (indices 5, 14, 33). Bucket 1: 0. Bucket 2: 0. Bucket 3 AF: 3. Bucket 3 partial: 19.
+- All-Failing-Rubrics sub-dim: **5/5 PASS** (0/3 = 0% Bucket 1 ratio).
+
+**Levers that fired as legitimate stumps (revised):**
+- §L8 Multi-link chain (email + Slack + CRM): confirmed strong. Index 5 (memo-to-email propagation on Raj's LOS caveat) is a 6/6 AF; indices 8, 9, 10, 18, 19, 24 partial-fail on the same service-boundary propagation shape.
+- §L9 Authority-dismissal with polarity twist: Run 5 over-corrected to "LOS fully operational" contradicting Raj's later caveat, cascading fails on indices 12/17/22/28/30. Anti-latching failure mirror confirmed on this pass.
+- Emergent aggregate-count-in-narrative lever: confirmed as STRONG stump on two independent surfaces. Leadership DM index 14 + final response index 33 both 6/6 AF with identical signature (agent enumerates constituent files by workstream, never aggregates to the seven-file total). Catalog this as a new stump lever for future Hardness_Plans.
+
+**Levers that did NOT fire (unchanged from pre-fix pass):**
+- §L25 Existing-output anchor (3/20 supersession): every run cleared the supersession signal (index 32 = 6/6 pass). Over-predicted on this task.
+- §L26 Decoy parent thread (leadership DM channel routing): every run correctly routed to D_grace_robert_denise (index 1 = 6/6 pass). Over-predicted on this task.
+
+**Revised lesson on bundled-vs-atomic rubric authoring for aggregate-count levers:** the pre-fix pass had R11 as a single bundled rubric (aggregate count + preliminary qualifier); the split converted the 100%-fail into two atomic rubrics (index 14 aggregate count 6/6 AF, index 15 preliminary qualifier 3/6 partial). The bundled version masked the true failure signature — both signals were failing but the bundling reported it as a single AF entry. Under the atomic split, index 14 emerged as a legitimate Bucket 3 AF (aggregate-count-in-DM lever), and index 15 dropped from 6/6 to 3/6 partial (preliminary-qualifier is easier than aggregation for capable agents to carry in a short DM). **Lesson: any lever that combines "quantitative aggregate + qualitative qualifier" MUST be authored as two atomic rubrics from the outset** — the bundled version fails the All-Failing sub-dim under strict interpretation and masks the granular difficulty signal.
+
+**Task verdict (post-fix):** SHIP. Same trajectory levers as pre-fix pass. All-Failing-Rubrics sub-dim moved from 1/5 FAIL to 5/5 PASS after R11 split. Confirms the pre-fix verdict's action-items prediction exactly.
+
+
+## Correction Round 2 — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01 (Marcus-to-Evan universe-attribution fix + new stump lever)
+
+Round 1 (post-R11-split re-grade) established the trajectory + AF classification. Round 2 surfaced a systemic universe-attribution defect in rubrics R10 / R13 / R18 (Marcus Webb -> Evan Mercer). Surgical fix applied, validator PASS.
+
+**New stump lever catalogued: L-persona-attribution-landmine (multi-departure scenarios).**
+
+**Mechanism:** in a scenario with TWO or more concurrent departed-employee narratives (e.g., a highly-salient recent resignation + solicitation story alongside a distinct less-salient post-termination LOS access story), the CRM engagement chain often uses generic pronoun-labels ("Former employee", "the former LO") without naming the person, while the parallel Slack thread carries the explicit name. Both agents AND rubric authors systematically attach the salient recent-departure name to the generic CRM label, ignoring the Slack thread's authoritative naming.
+
+**Failure signature at agent-run level:** 6/6 mis-attribution. Agents write "Marcus Webb post-term access" when universe says Evan Mercer. Judges accept because the rubric ALSO uses the wrong name — internal consistency masks the universe error.
+
+**Failure signature at pipeline level:** S3 grounding + S3 adversarial + AUDIT_rubrics + FINAL_council all locked onto the wrong name. Every phase confirmed "Marcus Webb" without cross-checking the Slack thread. Pipeline miss propagates end-to-end.
+
+**Design guidance for future Hardness_Plans:**
+- If a scenario has multiple concurrent departed-employee narratives, catalog this as an intentional persona-attribution lever with the expected agent failure = wrong-name attribution on the less-salient departure.
+- Rubric authoring for such scenarios MUST cross-check the CRM chain against parallel Slack threads for explicit naming. A generic CRM "Former employee" label is NOT sufficient grounding — require Slack-thread confirmation of the person's identity.
+- S3 grounding pass MUST verify persona attribution by grepping the universe for the person's name alongside the workstream keywords (e.g., "Evan" + "post-term" or "Evan Mercer" + "LOS access"). If the salient candidate name (e.g., "Marcus") does NOT co-occur with the workstream keywords in the universe, the attribution is likely wrong.
+
+**Empirical verifier note:** the fix does not change agent run pass/fail rates on R10 / R13 / R18 (all three were partial-fails 5/6, 1/6, 3/6 respectively) because judges accepted the label paraphrase equivalence. But the fix clears 3 Major "reverse-groundedness" defects from the Overall Rubric Quality sub-dim, moving that sub-dim from a projected Fail (>= 3 Major) to a projected 5/5 PASS.
+
+**Task verdict (post-both-fixes):** SHIP after empirical re-verification of the fixed 36-rubric set. All 4 QC sub-dims project to 5/5 PASS.
+
+
+## Round 3 empirical re-verification — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01
+
+Post-Round-2 platform re-grade at 21:56 arrived. Lever hit rate is unchanged from Round 1 (3/5 = 60%). Fresh actuals:
+
+- **§L8 Multi-link chain (email + Slack + CRM):** HIT (strong; reinforced). R5 4/6 fail on email-covers-Raj-caveat, R22 3/6 fail on memo-covers-Raj-caveat, R30 3/6 fail on final-response-covers-Raj-caveat. Same load-bearing caveat is dropped across the propagation chain in 4 / 3 / 3 runs respectively.
+- **§L9 Authority-dismissal (Raj IT-authority framing):** HIT (with polarity twist). Runs 1/3/4/6 held the line. Run 5 flipped polarity to "LOS fully operational" and cascaded R4/R17/R22/R25/R28/R30/R35 fails. §L9 remains high-signal.
+- **§L10 Structured-DB skip (CRM engagements 472-row surface):** HIT (partial). R18 partial fail Run 2 + Run 6 — agent folds Raj into main narrative rather than naming 4/07 Raj-access-audit as a distinct CRM engagement row.
+- **§L25 Existing-output anchor (3/20 preliminary plan):** OVER-PREDICTED. R32 = 6/6 pass fresh. Every run correctly reported the plan was superseded.
+- **§L26 Decoy parent thread (Slack channel routing):** OVER-PREDICTED. R1 = 6/6 pass fresh. Every run correctly routed to D_grace_robert_denise.
+
+**Emergent lever confirmed: L-aggregate-count-narrative.** R14 4/6 fail + R33 3/6 fail on the fresh re-grade. Independent surfaces (leadership DM + final response) both fail with the same signature: agents enumerate constituent files per workstream but do not aggregate to the reconciled 7-file count. Legitimate stump lever for capable Opus 4.8 agents.
+
+**Emergent lever confirmed: L-persona-attribution-landmine.** R10 4/6 fail on the fresh re-grade despite Round 2 relabeling the workstream owner to Evan Mercer. Agents substitute LN-2026-00009 (portal-breach file) for LN-2025-00229 (correct 3rd Mercer file) or drop the enumeration entirely. The trap operates on the file-set enumeration downstream of the persona-attribution surface.
+
+**Novel lever candidate: L-data-minimization-vs-enumeration.** Run 2 R19 fresh grading — agent explicitly wrote "Specific borrower PII intentionally omitted from this log entry (data minimization)" in the CRM NOTE, conflicting with the rubric's enumeration expectation. Worth cataloging for future tasks where a durable log surface (CRM NOTE / audit log / compliance record) requires PII enumeration — a compliance-trained agent may choose minimization over rubric compliance.
+
+**Novel lever candidate: L-polarity-flip-cascade.** Run 5 alone contributed 7 fails via a single reasoning slip ("LOS fully operational" contradicting Raj's caveat). This cascaded across email + CRM + memo + final response surfaces. Worth cataloging as a per-run failure mode where a single state-read error dominates the run's fail profile.
+
+**Task verdict (post-Round-3 empirical re-verification):** SHIP. All 4 QC sub-dims 5/5 PASS. Trajectory hard gates + density PASS. Fresh re-grade confirmed the Round 2 rubric-quality fix moved Overall Rubric Quality sub-dim to 5/5 PASS empirically (not just projected).
+
+- **Task 36 (MoveOps · Julian Brooks · Customer Engagement · 2026-07-02):** FINAL PASS on first pass. Levers L25 (existing-output anchor — Julian's 4/23 apology-plus-promise emails to Simone + Marcus + Carmen; Carmen no-reply verified) + L9 (authority self-anchor — Julian's own 4/22 C007 "just send him a quick acknowledgment" + Airtable Status=In Progress correct-observation-wrong-conclusion) + L26 (decoy parent thread — 4 competing Slack parents, canonical Mina C002 audit ts 1776997200) + L2 (Airtable Special Requirements silent on unit type + QB invoice INV-2026-0308 $11,350 off-domain for Customer Support) + emergent L8 (three-service reduction: email + Airtable + QB) all preserved end-to-end. Density midpoint 50 (range 42-59). MAJOR-1 logged for author-side: prompt leaks "Indianapolis" + "the eleventh" in persona-voice recall — future tasks should phrase checkpoint recall as "carrier transfer hub" without city+date verbatim.
+
+## S4 empirical calibration — Task 36 — 2026-07-02
+
+Fresh platform re-grade: pass@1 = 0.0% (6/6 runs failed at least one rubric), avg 52 tool calls (PASS 50+ design target), 5 always-failing rubrics all Bucket 3, All-Failing Rubrics sub-dim 5/5 PASS. Lever hit rate 3/4 primary + 1 emergent.
+
+- **L25 existing-output anchor:** HIT. R9 (Simone email escalated to Carmen with same-day) failed 4/6; R11 (dollar swing pending) failed 2/6; R12 (Mina summary 4-action enumeration) failed 1/6; R10 (Marcus email April 11 date) failed 3/6. All four track the apology-template paraphrase pattern predicted by H1.
+- **L9 authority self-anchor + L14 correct-observation-wrong-conclusion:** PARTIAL. Airtable updates landed correctly in every run; Special Requirements field was populated with recovery detail; agents did not stop at Status=In Progress as predicted. L9 did not carry failures alone.
+- **L26 decoy parent thread (Slack):** HIT strong. 4/6 runs posted to C006 / 1777001700 instead of C002 / 1776997200 as predicted. Runs 1 and 5 correctly attached to Mina's audit thread.
+- **L4 Marcus 3-way name collision:** MISS. 0/6 runs addressed the wrong Marcus. Universe-provided email brought clean disambiguation.
+
+**Emergent lever confirmed: L-multi-record-target-selection (Linear-analog of L26).** 5 rubrics × 6 runs = 30/53 = 57% of all fails traced to agents picking Mina's audit issue `c16357d188c6` instead of Chloe's ops-gaps issue `f85be674c9b8`. Both issues are BrightLoop-scoped, both target the same batch, both are surfaced by the same OE exploration. The trigger is a persona-attention bias in the prompt: Mina named 8 times, Chloe named 0 times (only "Chloe's issue" implicit via OE). Agents anchor on the heavily-named persona's record even after directly reading the correct target during exploration. Distinct from L26 (which operates on a proliferation of candidate parents); L-multi-record-target-selection operates on prompt-persona attention bias when two candidate records exist. Worth cataloguing for future tasks with multi-record target ambiguity.
+
+**Author-side finding for future MoveOps tasks:** when the prompt heavily anchors one persona and the write target is owned by a different persona, either (a) name the correct owner in the persona voice explicitly, or (b) plant enough content-distinguishing signal in each candidate record that the wrong choice becomes obviously off-topic. The "operational" adjective alone did not disambiguate — both issues are operational in nature.
+
+## S4 empirical calibration — Task 37 — 2026-07-02
+
+**Task 37 (Keystone Mortgage · Sofia Reyes · processor pipeline review).** Fresh 6-run trajectory grade: pass@1 = 16.7% (1/6 runs pass all 30 rubrics), avg 216.8 total tool calls (well above 50 design target), 0 error runs. 13 fail-instances across 8 unique failing rubrics; 0 fully AF rubrics. All-Failing Rubrics sub-dim 5/5 PASS (Bucket 1 ratio = 0%). One Bucket 2 judge error identified (Rubric H Run 4: verifier grepped `activity_create` instead of `mortgage_los_add_activity`). All other 12 fails are Bucket 3.
+
+**Root-cause distribution (13 fails):**
+- Run-1 aged-file compression (7/13 = 54%): Run 1 alone collapsed the stale-file lock dates to relative-time phrases ("lock long expired", "all locks expired 250+ days") across 5 per-loan-officer cohort emails (Amy Chen, Keisha Williams, Marcus Webb, Natasha Okafor, James Thornton). Same run also failed the two final-response anomaly rubrics.
+- Final-response depth-vs-breadth (5/13 = 38%): Runs 1, 3, 5 all failed the LN-2026-00623 premature-CTC + LN-2026-00010 max-outstanding-docs surfacing in the final response. Agents that lean on 26-file pipeline breadth miss the two anomaly loans requiring document-checklist depth. Run 3 dropped both loan numbers from the final response entirely.
+- Single Run-2 email drop (1/13 = 8%): Run 2 sent Natasha Okafor's update without LN-2025-00286 entirely (covered LN-2026-00010 only).
+
+**Hypothesis hit rate: 3 of 5 predicted (60%) + 1 under-predicted:**
+- Premature-CTC anomaly on LN-2026-00623 (final response surfacing) HIT — 3/6 runs fail. Load-bearing stumping lever.
+- Max-outstanding-docs anomaly on LN-2026-00010 (final response surfacing) HIT — 3/6 runs fail. Load-bearing stumping lever.
+- Aged-file lock-date compression HIT — 5 of 6 per-LO cohort rubrics fail on Run 1. Reproducible Opus-4.8 failure mode on Sofia-style breadth-vs-depth tasks with 11+ stale legacy files (2024-2025 locks) in a 26-file pipeline.
+- Terminated-LO surfacing (Veronica Hayes + Brian Mitchell) OVER-PREDICTED — 0 fails. Every run correctly named both departed staff. Lever is now soft on Keystone processor tasks with named departed-LO scope.
+- CRM engagement creation gap OVER-PREDICTED — 0 fails. Universal Pass. Soft lever.
+- UNDER-PREDICTED: single-loan drop within a per-LO update (Run 2 Natasha). This is a narrower version of the aged-file compression failure that surfaces even in an otherwise-passing run. Worth cataloging as a shortcut mode when the LO cohort is 8 people with varying loan counts.
+
+**Novel lever candidate: L-final-response-depth-anchor.** The prompt asks Sofia to "figure out exactly what's blocking progress" AND to give per-LO updates. Agents that treat the per-LO emails as the primary output tend to surface all anomaly-relevant atoms in the per-LO channels but omit the same atoms from the concluding summary to the requesting user (Grace / Sofia's own reflection). The final response becomes a meta-recap of "I sent 8 emails" rather than a distilled anomaly list. This is distinct from breadth-vs-depth in exploration: the atoms ARE explored, they land in the per-LO emails, but they do not re-surface in the final response. Worth cataloguing for future Sofia-style multi-recipient tasks where the final response is also a graded surface. Load-bearing on Task 37 (6 of 13 fails).
+
+**Novel lever candidate: L-aged-file-relative-time-compression.** When a per-LO cohort has both recent files (2026 locks, days-old expirations) and stale files (2024-2025 locks, 200+ day expirations), agents show a strong tendency to give exact dates for the recent files and to collapse the stale files under a single relative-time phrase like "lock long expired" or "250+ days expired". The per-LO content rubrics require exact dates for both. This surfaces on Task 37 as the highest-yield fail cluster on Run 1 alone (5 per-LO cohort rubrics fail). Worth cataloguing for future tasks where a per-LO or per-file cohort mixes recent + stale surface.
+
+**Author-side finding for future Keystone processor-pipeline tasks:** the aged-file compression trap works when the stale-file count is ≥ 3 in a per-LO cohort and stale-file lock expirations are older than 200 days. Below that threshold, agents give per-file dates cleanly. Above 3 stale files per LO, the compression shortcut becomes attractive enough to fire even when the rubric is atomically date-required. Keep this ratio in mind when designing per-LO content rubrics.

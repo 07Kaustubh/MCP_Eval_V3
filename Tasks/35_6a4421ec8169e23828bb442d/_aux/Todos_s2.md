@@ -1,0 +1,21 @@
+# Todos — S2 (Oracle Events)
+
+- [x] Phase-ready gate pass (upstream Verification_s1.md fixed).
+- [in_progress] Create Todos_s2.md + Reads_s2.md.
+- [ ] Read 5_Prompt.txt + Hardness_Plan.md + Verification_s1.md discrepancies.
+- [ ] Read Reference/OE_Format.md + Reference/OE_Convention_Inventory.json.
+- [ ] Read Mortgage_Base_Universe/6_Server_Tools_Details.json (KeyStone tool catalog).
+- [ ] Read QC_Tasks reference OE files for voice / structure.
+- [ ] Deep-query per-task universe: verify email IDs, CRM engagement IDs (esp. 4/07 stream), Slack ts + channel_ids, contact emails, loan IDs.
+- [ ] Decompose the prompt into explicit + implicit asks; map each to discovery / write action.
+- [ ] Draft 6_Oracle_Events.txt (numbered prose, no em-dashes, KeyStone tool + param traps enforced).
+- [ ] Run validator: python3 Validators/validate.py --phase oe --task Tasks/35_6a4421ec8169e23828bb442d.
+- [ ] Fix every validator FAIL; re-run until clean.
+- [ ] Spawn Council A — Grounding (S2_A_grounding.md).
+- [ ] Spawn Council B — Adversarial QC (S2_B_adversarial.md); confirm B3 midpoint ≥ 50, B4 lever preservation, B8 forward map, B9 reverse map.
+- [ ] Apply fixes from councils; re-run validator + both councils until clean.
+- [ ] Determine AUDIT auto-fire conditions (Track F v21); spawn strict AUDIT if any trigger holds.
+- [ ] Apply AUDIT REVISE fixes if any (cap 3 rounds); re-run validator + councils + AUDIT until PASS (STRICT).
+- [ ] Append OE-to-prompt coverage map + OE-to-rubric preview + AUDIT verdict to _aux/Reasoning/OE_solvability.md.
+- [ ] Write _aux/Verification_s2.md with cross-source check (Sources consulted + Verification statements + Discrepancies + Verdict).
+- [ ] STOP gate — end response, wait for PIPELINE S3.

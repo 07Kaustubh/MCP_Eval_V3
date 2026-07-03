@@ -1,0 +1,21 @@
+# Todos — S4 for Task 37 (Sofia Reyes pipeline review)
+
+- [x] Phase-readiness gate + parse trajectories (already run — Trajectory_Stats.json exists; noted stat miscount vs raw text; using raw as ground truth)
+- [x] T3 error-rate gate (0 errors / 6 runs → PASS)
+- [x] T2 agent-failure-rate gate (raw text says 1 run pass@all → pass@1 = 16.7% → PASS ≤ 40%)
+- [x] T1 tool-call density (avg 216.8 → PASS ≥ 50 design target)
+- [x] Reconcile Trajectory_Stats.json vs raw 8_Verifier_Fails.txt (raw is authoritative; stats claim pass@1 = 33.3%, raw = 16.7% — one-run drift, not verdict-changing)
+- [x] Build rubric × run matrix from raw verifier fails (13 fails / 8 unique rubrics / 0 fully-AF)
+- [x] Trajectory walk for each of the 8 unique failing rubrics
+  - [x] Rubric H (activity note) — Run 4 spot-check: found 26 successful add_activity tool_use/tool_result pairs → Bucket 2 judge error confirmed
+  - [x] Rubrics A/E (final-response) — Runs 1/3/5 confirmed omission per verifier read; spot-checked final assistant text via python3
+  - [x] Rubrics B/C/D/G (per-LO lock-date coverage) — Run 1 aged-file compression pattern verified in email tool calls
+  - [x] Rubric F (Natasha Okafor 2-loan email) — Run 1 (LN-2025-00286 date missing) + Run 2 (LN-2025-00286 loan entirely dropped) verified
+- [x] Apply 5-point checklist to every failing rubric before writing AF justifications (all 7 rubrics = YES on all 5)
+- [x] Bucket 1 → S4_fixes.md (empty — no invalid rubrics)
+- [x] Bucket 2 → S4_judge_errors.md (Rubric H Run 4, appeal recommended)
+- [x] Bucket 3 → S4_AF_justifications.md + `check_justification.py` exit 0
+- [x] All-Failing Rubrics sub-dim scoring → 0/8 Bucket 1 ratio = 5/5 PASS
+- [x] Hardness calibration → appended to Tasks/_meta/Hardness_Patterns_Log.md + Stump_Hypotheses.md
+- [x] Cross-source verification file _aux/Verification_s4.md
+- [x] S4_verdict.md

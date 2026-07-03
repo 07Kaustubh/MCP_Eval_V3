@@ -1,0 +1,26 @@
+[
+  {
+    "row_data": "{\"Id\": \"item_broker_comp\", \"Name\": \"Broker Compensation\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 0, \"Description\": \"Lender-paid broker compensation. Amount varies by loan size and agreement.\", \"IncomeAccountRef\": \"{\\\"value\\\": \\\"acct_broker_comp\\\", \\\"name\\\": \\\"Broker Compensation Income\\\"}\", \"ExpenseAccountRef\": null, \"FullyQualifiedName\": \"Broker Compensation\"}",
+    "source": "quickbooks.items"
+  },
+  {
+    "row_data": "{\"Id\": \"item_admin_fee\", \"Name\": \"Admin Fee\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 350, \"Description\": \"Administrative / document preparation fee.\", \"IncomeAccountRef\": \"{\\\"value\\\": \\\"acct_admin_fees\\\", \\\"name\\\": \\\"Admin Fee Income\\\"}\", \"ExpenseAccountRef\": null, \"FullyQualifiedName\": \"Admin Fee\"}",
+    "source": "quickbooks.items"
+  },
+  {
+    "row_data": "{\"Id\": \"item_title_search\", \"Name\": \"Title Search\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 250, \"Description\": \"Title search coordination fee.\", \"IncomeAccountRef\": null, \"ExpenseAccountRef\": \"{\\\"value\\\": \\\"acct_title_expense\\\", \\\"name\\\": \\\"Title Search Fees\\\"}\", \"FullyQualifiedName\": \"Title Search\"}",
+    "source": "quickbooks.items"
+  },
+  {
+    "row_data": "{\"Id\": \"item_tolerance_cure\", \"Name\": \"Tolerance Cure\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 0, \"Description\": \"TRID tolerance cure payment. Amount varies per file.\", \"IncomeAccountRef\": null, \"ExpenseAccountRef\": \"{\\\"value\\\": \\\"acct_tolerance_cures\\\", \\\"name\\\": \\\"Tolerance Cures\\\"}\", \"FullyQualifiedName\": \"Tolerance Cure\"}",
+    "source": "quickbooks.items"
+  },
+  {
+    "row_data": "{\"Id\": \"item_lo_commission_payout\", \"Name\": \"LO Commission Payout\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 0, \"Description\": \"Commission split paid to originating loan officer.\", \"IncomeAccountRef\": null, \"ExpenseAccountRef\": \"{\\\"value\\\": \\\"acct_lo_commissions\\\", \\\"name\\\": \\\"LO Commissions Paid\\\"}\", \"FullyQualifiedName\": \"LO Commission Payout\"}",
+    "source": "quickbooks.items"
+  },
+  {
+    "row_data": "{\"Id\": \"311\", \"Name\": \"Lost Revenue Estimate\", \"Type\": \"Service\", \"Active\": true, \"Taxable\": false, \"MetaData\": null, \"SyncToken\": \"0\", \"UnitPrice\": 15000, \"Description\": \"Internal estimate line for delayed closing revenue impact analysis.\", \"IncomeAccountRef\": \"{\\\"value\\\": \\\"842\\\", \\\"name\\\": \\\"Revenue Impact Tracking\\\"}\", \"ExpenseAccountRef\": null, \"FullyQualifiedName\": \"Lost Revenue Estimate\"}",
+    "source": "quickbooks.items"
+  }
+]

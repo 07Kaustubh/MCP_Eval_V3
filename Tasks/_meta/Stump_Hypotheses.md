@@ -231,3 +231,169 @@ REVIEW-flow task. No original hardness plan exists to calibrate against; this is
 - L-workflow-gate-cascade (a conditional like "Once X is settled, do Y, Z, W") is a MEDIUM-confidence cascade lever — when the agent decides X is not settled, it tends to hold Y, Z, AND W as a block. This produces correlated failures across multiple action rubrics (vault filing, client circulation, slack note) and shows up as a striking pattern in the run matrix (Runs 3, 4, 6 all held the same cascade). Atomic action rubrics catch this cleanly because each cascade step fails independently.
 - L-engagement-manager-routing-when-client-absent is a MEDIUM-confidence judgment lever — over half the runs default to refusing rather than taking the operationally-normal handoff via the engagement manager. Two pass paths in the grading line (direct role-addressed external email OR engagement-manager forwarding with the missing-contact note) prevents this from becoming an over-strict line while still rewarding the agent that picks up the right path.
 
+
+
+## Tasks/34_6a42ec7493b48d5ada4571bd — 2026-06-30
+
+CB-flow task (MoveOps — Emilia Cruz damage docket close-out). Calibrating the original Hardness_Plan's 4 stump hypotheses against the actual 6-run trajectory matrix.
+
+**Calibration vs the 4 predicted stumps:**
+- Pred 1 [HIGH] "Stop at approve $1,200 rider; never file customer-side docket distinct from vendor" → **OVER-PREDICTED.** All 6 runs flagged the client-side disposition for David and Catalina across email, Linear comment, and Airtable record (the 9 customer-side-handoff rubrics R07/R14/R20 etc. all passed in every run).
+- Pred 2 [HIGH] "Never query Airtable tblRelocations01 / never query Mosaic precedent bill" → **OVER-PREDICTED on Airtable.** All 6 runs updated the Emilia Cruz Airtable record correctly with both vendor closure and client-side pending flag (R11-R15 pass 6/6). Mosaic precedent query observable inference: agents appear to have at least conceptually adopted the precedent structure even if they did not fetch the bill itself (clean rider-vs-customer split language in every run).
+- Pred 3 [MED] "Post operational lesson to wrong Slack channel" → **OVER-PREDICTED.** All 6 runs posted to C006 #operations correctly.
+- Pred 4 [MED] "Email Craig but does not answer his Apr 11 open question" → **PARTIALLY CONFIRMED with a shape shift.** All 6 runs answered the question; the failure mode is they answered in the OPPOSITE direction (open-now instead of hold-pending). 
+
+**Under-predicted failure modes that actually fired:**
+- **Tool-method lock-in on Craig reply** (R01 reply_to_email vs send_email): 6/6 fail. The Hardness_Plan did not anticipate that the email-id-discovery step would short-circuit so reliably. Several runs hallucinated email_ids instead of running search_emails with sender filter. Reclassified as Bucket 1 — channel/method lock-in on a rubric whose prompt language ("direct reply") is ambiguous between thread reply and fresh send.
+- **Reverse-direction inference on a binary procedural question** (R03 hold-vs-open): 6/6 fail. Hardness Pred 4 framed this as "agent does not answer" but the actual stump is stronger and more interesting — the agent answers the binary and picks the WRONG option because action-bias overrides the inference that the customer-side review is what David and Catalina are still packaging. This is Lever 11 (vendor-disposition treated as the whole disposition) firing on a procedural axis, not a quantitative axis.
+
+**Hit rate (4 preds):** 0 fully confirmed, 1 partially confirmed (shape shift), 3 over-predicted.
+
+**Under-predicted but observed:** 2 (tool-method lock-in + reverse-direction inference).
+
+**Density:** projected 47-midpoint (THIN_DENSITY accepted), actual 41.5 midpoint. The THIN_DENSITY operator note was correct; agents under-traversed the L8 multi-link chain. The task still cleared the 40 floor.
+
+**Lesson for next task:**
+- When a prompt presents a binary procedural question (e.g., "open now or hold pending"), the dominant Opus 4.8 failure mode is NOT "fail to answer" but "answer in the wrong direction because of action-bias." Future Hardness_Plans should predict the wrong-direction shape directly rather than the unanswered shape.
+- Channel/method tool-locking on email rubrics is a known channel-lock-in risk (Pipeline Deviations table). When the prompt's verb ("reply") is ambiguous between a thread-reply tool path and a fresh-send tool path, the rubric must accept either path or the prompt must telegraph the tool choice. Future rubric drafters should add an explicit alternative-path clause to email-reply rubrics where the prompt verb is ambiguous.
+
+
+## Correction — Tasks/34_6a42ec7493b48d5ada4571bd — 2026-06-30 (post-R01-fix)
+
+The prior entry above was written against the pre-R01-fix verifier output. The R01 fix was applied to `7_Rubrics.json` (Craig-reply rubric loosened to accept either thread reply OR fresh direct email), the platform verifier was re-run, and the new `8_Verifier_Fails.txt` reflects the post-fix grading. Re-calibration:
+
+**Revised trajectory facts:**
+- Distinct failing rubrics: **2 of 22** (R03 hold-pending, R04 walkup restate to Craig). R01 no longer fails.
+- All-Failing rubrics (6/6 fail): **R03** (count = 1, down from 2).
+- Bucket 1: 0; Bucket 2: 0; Bucket 3 AF: 1 (R03); Bucket 3 partial: 1 (R04).
+- All-Failing-Rubrics sub-dim: **5/5 PASS** (Bucket 1 ratio of AF rubrics = 0/1 = 0%, sits cleanly in the < 25% band).
+
+**Revised lesson on the tool-method lock-in lever:** the prior entry concluded that L-tool-method-lock-in-on-email-reply was NOT a clean stump lever and conflated rubric strictness with agent capability. That conclusion still holds, but the empirical proof is now stronger: when the rubric was loosened to accept either path, the verifier grades the same agent behaviour as PASS in every run. The agents were not failing — the original rubric was over-specifying tool method. Same evidence, same lesson, cleaner record.
+
+**Revised binary-procedural-direction-flip lever calibration:** R03 remains the sole legitimate AF rubric. This **strengthens** the L-binary-procedural-direction-flip lever's standing in the catalog — it is the only stump that survived a clean rubric review on this task, and it produced 100% all-fail on the directional question. Future Hardness_Plans should default to one well-pinned binary-procedural-direction-flip rubric as the primary stump on similar coordinated-disposition tasks rather than diversifying across diluted levers.
+
+## Entry — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01
+
+**Predictions (from Hardness_Plan.md):**
+1. HIGH §L8 Multi-link chain (email → Slack → CRM) — Mechanism: Agent misses one of three feeder services when reconciling
+2. HIGH §L9 Authority-dismissal (Raj IT-authority framing) — Mechanism: Agent latches on "restore expensive" and drifts toward pay
+3. HIGH §L10 Structured-DB skip (CRM engagements 472-row surface) — Mechanism: Agent skips 4/14 CRM escalation, never reconciles supersession
+4. MED §L25 Existing-output anchor (Denise's 3/20 preliminary plan) — Mechanism: Agent takes 3/20 plan at face value and never expands
+5. MED §L26 Decoy parent thread (C001/C002/C008 vs D_grace_robert_denise) — Mechanism: Agent posts to wrong channel
+
+**Actuals (from S4_verdict.md):**
+- Trajectory hard gates: T2 PASS (pass@1 = 0/6 = 0%), T3 PASS (0 errors), density 59 avg (>= 50 design target)
+- AF rubrics (0/6 pass): 1 rubric only — R11 (leadership DM references seven files + preliminary qualifier — bundled)
+- Per AF rubric: R11 — agent wrote workstream summary in short DM but did not aggregate to "seven" count AND did not include "preliminary" qualifier. Rubric bundles two independent facts; classified Bucket 1 (rubric-invalid) per 5-point checklist item 1.
+- Partial fails (1-4/6 miss): R2, R3, R4, R7, R8, R9, R12, R13, R14, R15, R17, R20, R21, R26, R27, R30, R31, R33 — 17 non-AF rubrics missing at various rates.
+
+**Hit rate:** 3/5 (60%) — §L8 HIT strongly (R17 Run 2 portal-breach workstream miss in CRM NOTE + R8/R21 email-vs-memo propagation gaps 4-5/6). §L9 HIT with polarity twist (Run 5 over-corrected the OPPOSITE direction — treated LOS as "fully operational" and cascaded R9/R12/R13/R14/R15/R31 fails). §L10 UNDER-HIT (agents mostly found CRM engagements; specific portal-breach workstream miss in R17 Run 2 only).
+
+**Misses (predicted, did not fail):**
+- §L25 supersession anchor: over-predicted — every run correctly reported 3/20 plan superseded/expanded (R5 = 6/6 pass). §L25 is a highly reliable lever; use it with confidence next time.
+- §L26 decoy parent thread: over-predicted — every run correctly routed to D_grace_robert_denise (R18 = 6/6 pass). Slack channel disambiguation was not a stump on this scenario.
+
+**Emergent failure not predicted:**
+- **DM aggregate-count-plus-qualifier bundling** (R11): short leadership DMs do not naturally carry an aggregate count PLUS a scope qualifier for capable Opus agents. 0/6 across runs. Catalog this as a candidate stump lever for future short-status leadership DM rubrics — but the corresponding rubric must be split into two atomic rubrics from the outset (per Docs_keystone/12_Always_Failing_Rubrics.md bundling guidance).
+- **§L9 polarity flip in Run 5**: authority-dismissal lever can misfire in the reverse polarity (agent over-corrects Raj's caveat and invents "LOS fully operational" prose). Consider a truthfulness sub-check on the anti-latching side in future S3 rubrics for this lever.
+
+**Revised lesson on §L25 supersession-detection:** confirmed HIGHLY RELIABLE on this scenario — every run cleared the "3/20 plan superseded" signal. §L25 remains the strongest single-mechanism lever in the catalog for existing-output anchors and can be used with confidence. But watch the rubric-authoring side: bundled AF rubrics (like R11) can mask the lever's true difficulty signal by consolidating two failures into one 100%-fail entry.
+
+**Task verdict:** All-Failing-Rubrics sub-dim = 1/5 FAIL (Bucket 1 ratio of AF rubrics = 100%). Trajectory gates T2 + T3 + density PASS. Recommend R11 split before re-upload. If split, next S4 run would score 0 Bucket 1 among AF rubrics → 5/5 PASS.
+
+
+
+## Correction — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01 (post-R11-split re-grade)
+
+The prior Task 35 entry was written against the pre-fix 35-rubric grading pass. The R11 split was applied to `7_Rubrics.json` (35 -> 36 rubrics), the platform verifier was re-run, and the current `8_Verifier_Fails.txt` reflects the post-fix grading. Re-calibration:
+
+**Revised trajectory facts:**
+- pass@1 still 0.0 (0/6 runs passed all 36 rubrics).
+- Error runs 0/6. Density 59 avg (>= 50 design target).
+- Distinct failing rubrics: **22 of 36** (vs 19 of 35 pre-fix). The three new fails are the split R11a (index 14) + R11b (index 15) and one extra partial-fail rubric that surfaced under stricter fresh grading (index 26 memo 'counsel needs' section, 1/6 fail).
+- AF rubrics (6/6 fail): **three** — index 5 (email-to-Sloane omits Raj's LOS-integrity caveat), index 14 (leadership DM omits aggregate seven-file count), index 33 (final response omits aggregate seven-file count).
+- Bucket 1: 0. Bucket 2: 0. Bucket 3 AF: 3. Bucket 3 partial: 19.
+- All-Failing-Rubrics sub-dim: **5/5 PASS** (Bucket 1 ratio of AF rubrics = 0/3 = 0%, in the < 25% band). Moved from 1/5 FAIL pre-fix to 5/5 PASS post-fix, exactly as predicted in the prior verdict's action items.
+
+**Revised lesson on aggregate-count-in-narrative lever:** confirmed as a legitimate STRONG stump lever for capable Opus 4.8 agents. Two independent surfaces (leadership DM index 14 + final response index 33) both fail 6/6 with the same signature: agents enumerate constituent files by workstream but never roll up to the reconciled aggregate count. Any future task whose reconciled picture depends on an aggregate scope figure in a narrative surface should include an atomic aggregate-count rubric from the outset. The R11 split confirmed that this lever needs atomic rubrics, not bundled ones, to score correctly.
+
+**Revised lesson on §L8 multi-link chain lever:** confirmed strong. Index 5 (memo-to-email propagation gap on Raj's LOS-integrity caveat) is the third AF rubric — load-bearing caveats written to the memo do not propagate to the outbound counsel email in any of the 6 runs. Continues to reinforce §L8 as the highest-yield stump lever in the current catalog.
+
+**Task verdict (post-fix):** SHIP. All-Failing sub-dim 5/5 PASS, trajectory hard gates + density PASS, 3 clean voice-gated AF justifications. R11 split target met exactly as predicted.
+
+
+## Correction Round 2 — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01 (post-Marcus-to-Evan universe-attribution fix)
+
+The prior Round 1 correction (post-R11-split re-grade) held the trajectory + AF classifications correct but missed a Round-2 systemic universe-attribution defect. Deep universe deep-query surfaced that rubrics R10 / R13 / R18 attribute the 4/14 post-term LOS access workstream to Marcus Webb, but the universe explicitly names Evan Mercer (Slack C008 2026-04-14 12:22 / 12:28 / 12:50 / 13:22 + email "Evan Mercer LOS access disabled" + `contacts_contact_387de5925670` `job="Former Loan Officer" status=inactive`). Marcus Webb is `is_active: True, termination_date: None` in `mortgage_los.staff` — his story is resignation + solicitation, distinct from post-termination LOS access.
+
+Round 2 fix applied: surgical Marcus Webb -> Evan Mercer swap on R10 / R13 / R18 title / justification / evidence. Validator PASS confirmed. R14 / R19 / R24 / R33 not touched — they use LN-2025-00229 (notice-draft chain identifier) which is universe-grounded via `crm_engagement_1b81acccf98e` and preserves the 4 + 3 = 7-file aggregate math (LN-2026-00009 from Raj's audit would collapse to 6 unique files due to portal-set overlap).
+
+**Post-Round-2 sub-dim scores:**
+- All-Failing Rubrics sub-dim: **5/5 PASS** (unchanged from Round 1 — 0/3 = 0% Bucket 1 ratio among AF rubrics R5 / R14 / R33).
+- Overall Rubric Quality sub-dim: **5/5 PASS** (post-Round-2, 0 Major / 0 Moderate / 0 Minor; Round 2 cleared 3 Major "reverse-groundedness" defects surfaced in the S4 deep audit).
+- Trajectory gates + density: PASS.
+
+**New emergent stump lever catalogued: L-persona-attribution-landmine.** Any multi-departure scenario where one departure is highly salient (recent resignation + solicitation story) and another is a distinct post-termination access story SYSTEMATICALLY produces mis-attribution in both agent runs AND rubric authoring. In this task, S3 grounding + S3 adversarial + AUDIT_rubrics + FINAL_council + all 6 agent runs mis-attributed to Marcus Webb because the CRM chain uses generic "Former employee" language and Marcus is the salient recent departure — while the parallel Slack thread with the explicit "Evan Mercer" naming was overlooked. **Future authoring lesson:** when the rubric grounds on a CRM chain that uses generic pronoun-labels, the S3 grounding pass MUST cross-check parallel Slack threads for the explicit person name before accepting a CB's persona attribution.
+
+**Empirical verifier note:** the current `8_Verifier_Fails.txt` grading was against pre-Round-2 rubric text (Marcus Webb attribution). Post-Round-2 rubric set needs to be re-uploaded and platform verifier re-run for empirical confirmation. AF batch (R5, R14, R33) is unaffected by Round 2 — those 3 justifications ship as-is.
+
+**Task verdict (post-both-fixes):** SHIP after empirical re-verification. Trajectory + density + All-Failing + Overall-Quality all 5/5 PASS.
+
+
+## Round 3 empirical re-verification — Tasks/35_6a4421ec8169e23828bb442d — 2026-07-01 (post-Round-2 platform re-grade at 21:56)
+
+Round 2 (Marcus Webb → Evan Mercer universe-attribution fix) predicted the empirical run pass/fail rates on R10 / R13 / R18 would be similar to the pre-fix grading because judges had accepted the label paraphrase equivalence. **The Round 3 fresh 21:56 re-grade confirms this prediction with minor shifts:**
+
+- R10 (email lists 3 Evan Mercer files): 2/6 pass fresh (was 1/6 pre-fix). Improved by 1 run.
+- R13 (leadership DM covers 3 feeder workstreams incl. Evan Mercer): 5/6 pass fresh (was 5/6 pre-fix). Stable.
+- R18 (CRM NOTE covers 4 reconciled workstreams incl. 4/14 Evan Mercer post-term): 4/6 pass fresh (was 3/6 pre-fix). Improved by 1 run.
+
+The prior 3 AF rubrics (R5, R14, R33) collapsed to partial fails on the fresh re-grade:
+- R5 (email covers Raj LOS-integrity caveat): 2/6 pass fresh (was 0/6). Collapsed to partial.
+- R14 (leadership DM references 7 files): 2/6 pass fresh (was 0/6). Collapsed to partial.
+- R33 (final response reports 7 files): 3/6 pass fresh (was 0/6). Collapsed to partial.
+
+**AF rubric count on the fresh re-grade: 0.** All 22 rubrics with fails have at least 2 of 6 runs passing.
+
+**Overall S4 verdict (fresh 21:56):** T3 PASS (0/6 errored), T2 PASS (0/6 passed all, pass@1 = 0.0%), Density PASS (59 avg ≥ 50 design target), All-Failing Rubrics sub-dim trivially 5/5 PASS (empty AF set), Overall Rubric Quality sub-dim 5/5 PASS (0 Major / 0 Moderate / 0 Minor). Task is SHIP.
+
+**Emergent lesson on the AF-to-partial-fail transition:** the Round 1 R11 split + Round 2 Marcus-to-Evan relabeling both had the effect of collapsing AF rubrics into partial fails. The mechanism appears to be that atomic rubric text with the correct entity name gives the judge a stable grading surface — runs where the agent covers the underlying substance correctly (e.g., R33 Run 3 correctly reports the 7-file aggregate) now grade Pass, whereas the prior bundled + mis-attributed rubric text had ambiguity that resolved uniformly to Fail. **Design lesson: bundled or mis-attributed rubrics create false-AF signal that masks the actual per-run distribution of difficulty.** For future tasks with predicted AF levers, author the rubric atomically with universe-verified entity names on the first pass — Round-1-style bundling defers this discovery to the platform verifier stage, which is more expensive than authoring correctly upfront.
+
+**Persona-attribution landmine lever (L-persona-attribution-landmine) validated:** even after Round 2 relabeling, R10 fresh grading shows 4/6 fail because agents still substitute LN-2026-00009 (a portal-breach file) for LN-2025-00229 (the correct 3rd Evan Mercer file), or drop the enumeration entirely. The trap is not just on the workstream-owner name but on the specific file-set enumeration.
+
+## S4 empirical verification — Tasks/36_6a44224ed5d3b47d6d727cf5 — 2026-07-02
+
+**Task 36 (MoveOps · Julian Brooks · Customer Engagement).** T3 PASS (0/6 errored). T2 PASS (pass@1 = 0.0%). T1 PASS (avg total 52, range 35-71). All-Failing Rubrics sub-dim 5/5 PASS (5 AF rubrics all Bucket 3; Bucket 1 ratio 0%). 12 distinct failing rubrics = 53 total per-run fails across 6 runs.
+
+**Root-cause distribution:**
+- Linear issue disambiguation (30/53 = 57%): all 6 runs read Chloe's ops-gaps issue `linear_issue_f85be674c9b8` during exploration and wrote the comment on Mina's audit issue `linear_issue_c16357d188c6` instead. Run 1 alone: 3 reads on the correct issue, write still landed on the wrong one. Mina is named 8 times in the prompt, anchoring attention on her issue.
+- Slack decoy parent thread (12/53 = 23%): Runs 2, 3, 4, 6 posted to C006 / thread_ts 1777001700 (Chloe ops thread) instead of C002 / thread_ts 1776997200 (Mina's canonical audit thread). Runs 1 and 5 got it right.
+- Simone / Marcus email content omissions (11/53 = 21%): Carmen name + same-day framing (R9), April 11 date (R10), dollar-swing pending framing (R11), Mina summary 4-action enumeration (R12).
+
+**Hypothesis hit rate: 3 of 4 primary + 1 bonus emergent (75% hit + emergent).**
+- H1 (L25 existing-output anchor) HIT — R9/R11/R12 failures track the apology-template paraphrase pattern.
+- H2 (L9 authority self-anchor + L14 correct-observation-wrong-conclusion) PARTIAL — trajectories show agents did read Special Requirements and did update Airtable correctly; L9 did not carry the failure alone.
+- H3 (L26 decoy Slack parent thread) HIT — 4/6 runs landed on the wrong parent as predicted.
+- H4 (L4 Marcus 3-way name collision) MISS — 0/6 runs used the wrong email.
+- **BONUS: L26 analog on Linear issue selection produced the single highest-yield fail cluster (30/53 = 57%).** The Hardness Plan surfaced both issue IDs but did NOT project them as a distinct disambiguation lever. Prompt phrase "the BrightLoop operational issue" is under-specified relative to the two-issue universe surface, and the Mina-anchored prompt language biases target selection.
+
+**Emergent lever confirmed: L-multi-record-target-selection.** When the universe surfaces two candidate records that both match the prompt's descriptive phrase (here: two BrightLoop Linear issues), and prompt language heavily names one persona (Mina) while the correct target is owned by another (Chloe), agents anchor on the heavily-named persona's record even when they explicitly read the correct target during exploration. This is a Linear-analog of L26 (Slack decoy parent) but generalizes to any structured-record surface with multiple plausible parents. Worth cataloguing separately from L26 because the trigger is a persona-attention bias in the prompt itself, not just a proliferation of surface candidates in the universe.
+
+## S4 empirical verification — Tasks/37_6a46a531470b025c528b95d7 — 2026-07-02
+
+**Task 37 (Keystone Mortgage · Sofia Reyes · processor pipeline review).** T3 PASS (0/6 errored). T2 PASS (pass@1 = 16.7% from raw verifier headers 23/29/28/29/28/30). T1 PASS (avg 216.8 total tool calls, range 85-338). All-Failing Rubrics sub-dim 5/5 PASS (0 Bucket 1 rubrics; 1 Bucket 2 judge-error; 7 unique Bucket 3 rubrics × 12 fail instances). No AF rubrics (all 8 failing rubrics are partial fails).
+
+**Hypothesis hit rate: 3 of 5 primary + 1 emergent + 1 judge error.**
+- H1 (Premature-CTC anomaly on LN-2026-00623) HIT — 3/6 runs fail the final-response rubric. Load-bearing.
+- H2 (Max-outstanding-docs anomaly on LN-2026-00010) HIT — 3/6 runs fail the final-response rubric. Load-bearing.
+- H3 (Aged-file lock-date compression across per-LO cohort) HIT — 5 of 6 per-LO cohort rubrics fail on Run 1 alone (7/13 total fails). Reproducible failure mode when stale-file count per LO is ≥ 3 with 200+ day-old locks.
+- H4 (Terminated-LO surfacing gap for Veronica Hayes + Brian Mitchell) MISS — 0/6 runs fail. Every run correctly named both departed staff and the 5 affected loans.
+- H5 (CRM engagement creation gap) MISS — 0/6 runs fail. Universal Pass. Soft lever.
+
+**Emergent lever confirmed: L-final-response-depth-anchor.** Agents surface anomaly atoms correctly in per-LO email channels but do not re-surface them in the final response to the requesting user. The final response drifts into meta-recap ("I sent 8 emails") rather than distilled anomaly list. Load-bearing on Task 37: 6/13 fails (Rubrics A + E across Runs 1, 3, 5) trace to this pattern. Worth cataloguing separately from generic breadth-vs-depth because the atoms ARE explored and DO land in per-LO surfaces; the miss is downstream in the summary.
+
+**Emergent lever confirmed: L-aged-file-relative-time-compression.** When per-LO cohort mixes recent files (2026 locks, days-old expirations) with stale files (2024-2025 locks, 200+ day expirations), agents give exact dates for recent and collapse stale under a relative-time phrase. Load-bearing on Task 37 Run 1: 5 per-LO cohort rubrics fail there (Amy Chen, Keisha Williams, Marcus Webb, Natasha Okafor partial, James Thornton). Worth cataloguing as a per-run failure mode that shows up when the aged-file count per LO exceeds 3.
+
+**Bucket 2 judge error (Run 4 Rubric H).** Platform verifier grepped for `activity_create` (non-existent tool name) instead of `mortgage_los_add_activity` (real Keystone tool per `Mortgage_Base_Universe/6_Server_Tools_Details.json`). Run 4's trajectory contains 26 successful add_activity tool_use / tool_result pairs. Runs 1, 2, 3, 5, 6 verifier justifications name the same tool correctly and mark Pass. Recommend platform appeal. Task-writer side finding: when a per-tool activity rubric is written, mention the exact tool name in the evidence field to help the verifier's grep even if the title stays platform-agnostic.
+
+**Task verdict:** SHIP as-is. All 4 QC sub-dims pass. Corrected materialization (`15_Updated_Rubrics.json`) does not need re-verification: the 2 Applied rows (rubric [3] Derek Moss cohort symmetry + rubric [24] Elena Marchetti attribution) target rubrics that Pass all 6 runs on the ORIGINAL narrower phrasing and are strengthened rather than corrected by the materialization.

@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "universe": "keystone",
+    "tables_scanned": 34
+  },
+  "tables": {
+    "contacts.contacts": {
+      "status": [
+        "active",
+        "client",
+        "inactive",
+        "lead"
+      ]
+    },
+    "crm.crm_companies": {
+      "type": [
+        "Internal",
+        "Other",
+        "Referral Partner",
+        "Wholesale Lender",
+        "customer",
+        "vendor"
+      ],
+      "state": [
+        "NC"
+      ]
+    },
+    "crm.crm_contacts": {
+      "state": [
+        "DC",
+        "NC"
+      ]
+    },
+    "crm.crm_deals": {
+      "dealstage": [
+        "appointmentscheduled"
+      ]
+    },
+    "crm.crm_engagements": {
+      "engagement_type": [
+        "CALL",
+        "EMAIL",
+        "NOTE"
+      ]
+    },
+    "crm.crm_leads": {
+      "state": [
+        "NC"
+      ],
+      "status": [
+        "contacted",
+        "converted",
+        "lost",
+        "new",
+        "qualified"
+      ]
+    },
+    "mortgage_los.borrowers": {
+      "status": [
+        "active",
+        "closed",
+        "denied",
+        "prospect",
+        "withdrawn"
+      ]
+    },
+    "mortgage_los.conditions": {
+      "status": [
+        "cleared",
+        "outstanding"
+      ],
+      "condition_type": [
+        "prior_to_closing",
+        "prior_to_docs"
+      ]
+    },
+    "mortgage_los.document_checklist_items": {
+      "status": [
+        "received"
+      ],
+      "document_type": [
+        "1040",
+        "bank_statements",
+        "closing_disclosure",
+        "credit_report",
+        "hoa_letter",
+        "hoi_binder",
+        "loan_estimate",
+        "pay_stubs",
+        "purchase_contract",
+        "tax_bill",
+        "title_commitment",
+        "urar",
+        "urla",
+        "voe",
+        "w2"
+      ]
+    },
+    "mortgage_los.loans": {
+      "status": [
+        "application",
+        "clear_to_close",
+        "closed",
+        "conditional_approval",
+        "denied",
+        "processing",
+        "underwriting",
+        "withdrawn"
+      ],
+      "loan_type": [
+        "conventional",
+        "fha",
+        "usda",
+        "va"
+      ]
+    },
+    "mortgage_los.vendors": {
+      "vendor_type": [
+        "appraiser",
+        "closing_attorney",
+        "home_inspector",
+        "insurance_agent",
+        "pest_inspector",
+        "surveyor",
+        "title_company"
+      ]
+    },
+    "quickbooks.accounts": {
+      "AccountType": [
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Bank",
+        "Cost of Goods Sold",
+        "Expense",
+        "Income",
+        "Other Current Asset",
+        "Other Income"
+      ],
+      "AccountSubType": [
+        "AccountsPayable",
+        "AccountsReceivable",
+        "AdvertisingPromotional",
+        "BankCharges",
+        "Checking",
+        "Communication",
+        "CostOfGoodsSold",
+        "EntertainmentMeals",
+        "Insurance",
+        "InterestEarned",
+        "LegalAndProfessionalFees",
+        "OfficeGeneralAdministrativeExpenses",
+        "OtherBusinessExpenses",
+        "OtherCurrentAssets",
+        "ProfessionalFees",
+        "RentOrLeaseOfBuildings",
+        "ServiceFeeIncome",
+        "TrustAccounts"
+      ],
+      "Classification": [
+        "Asset",
+        "Expense",
+        "Liability",
+        "Revenue"
+      ]
+    },
+    "quickbooks.items": {
+      "Type": [
+        "Service"
+      ]
+    },
+    "slack.slack_messages": {
+      "type": [
+        "message"
+      ]
+    },
+    "stripe.charges": {
+      "status": [
+        "failed",
+        "succeeded"
+      ]
+    },
+    "stripe.connected_accounts": {
+      "type": [
+        "express"
+      ],
+      "business_type": [
+        "company",
+        "individual"
+      ]
+    },
+    "stripe.disputes": {
+      "status": [
+        "lost",
+        "needs_response",
+        "under_review",
+        "won"
+      ]
+    },
+    "stripe.fc_accounts": {
+      "status": [
+        "active"
+      ]
+    },
+    "stripe.fc_transactions": {
+      "status": [
+        "posted"
+      ]
+    },
+    "stripe.payment_methods": {
+      "type": [
+        "card"
+      ]
+    },
+    "stripe.refunds": {
+      "status": [
+        "succeeded"
+      ]
+    }
+  }
+}

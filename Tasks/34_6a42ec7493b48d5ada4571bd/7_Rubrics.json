@@ -1,0 +1,134 @@
+[
+  {
+    "title": "The Agent replies to Craig Nguyen on his April 11 damage email (email_email_1f1459bff84c) from blessing.okafor@moveops.com, either as a thread reply on the existing email or as a fresh direct email to craig.nguyen@keymove-specialty.com.",
+    "category": "outcome",
+    "justification": "The prompt says Craig asked Blessing whether to open a formal claim now or hold pending the client's review and that Blessing owes him a direct reply. The reply can be either a thread reply on Craig's existing April 11 email or a fresh direct email to Craig's address; both fulfill 'direct reply' and reach Craig with the operational content.",
+    "evidence": "Look for either (a) a reply-to-email call with email_id parameter set to email_email_1f1459bff84c and sender blessing.okafor@moveops.com, OR (b) a send-email call with recipient craig.nguyen@keymove-specialty.com and sender blessing.okafor@moveops.com. Confirm the tool returned a success response in either case."
+  },
+  {
+    "title": "The Agent's reply to Craig Nguyen acknowledges that the KeyMove $1,200 insurance rider has been processed (or accepted, or approved) on the MoveOps side (or similar statement).",
+    "category": "outcome",
+    "justification": "Marcus has already cleared the vendor-line review and Blessing's reply must confirm that disposition to Craig so the vendor-side file is closed cleanly. Anchoring on the $1,200 rider amount is the load-bearing acknowledgement.",
+    "evidence": "Check the content parameter of the reply-to-email call targeting email_email_1f1459bff84c for a statement that the $1,200 insurance rider (or KeyMove rider, or vendor-side rider) has been processed or approved on the MoveOps side."
+  },
+  {
+    "title": "The Agent's reply to Craig Nguyen answers his April 11 open question on whether to open a formal insurance claim on the KeyMove side now or hold pending the client-side review, directing him to hold pending the client-side disposition (or similar deferring direction).",
+    "category": "outcome",
+    "justification": "Craig closes his April 11 email with a specific procedural question. The prompt instructs Blessing to give him a direct reply. The operationally correct direction is to hold the formal-claim filing because the client-side disposition that David and Catalina are packaging drives the formal-claim shape. An acknowledgement that does not address Craig's procedural question is a known stump (Lever 3, missing-reply blindness).",
+    "evidence": "Check the content parameter of the reply-to-email call targeting email_email_1f1459bff84c for a clear direction on Craig's question. The reply should indicate that KeyMove should hold or wait or defer the formal insurance claim filing pending the client-side review or disposition (or similar)."
+  },
+  {
+    "title": "The Agent's reply to Craig Nguyen restates the operational facts on the field cause, naming the walkup assessment underestimating the stairwell turn radius (or similar statement that the walkup assessment was insufficient for the stairwell extraction).",
+    "category": "outcome",
+    "justification": "The prompt explicitly says Blessing admitted the walkup assessment underestimated the stairwell turn radius and that needs captured as the operational lesson, not papered over. Restating this to Craig ensures the KeyMove file matches the internal record.",
+    "evidence": "Check the content parameter of the reply-to-email call targeting email_email_1f1459bff84c for a statement referencing the walkup assessment, stairwell turn radius, extraction route, or similar operational-cause language."
+  },
+  {
+    "title": "The Agent's email on the Emilia Cruz operational position goes from blessing.okafor@moveops.com to david.chen@moveops.com and catalina.dubois@moveops.com.",
+    "category": "outcome",
+    "justification": "The prompt explicitly says 'Email David and Catalina a tight read on the operational position and what is still moving on their side.' Both recipients must be addressed in the same outbound because the docket spans the client-engagement and client-comm authority.",
+    "evidence": "Look for a send-email call in the trajectory with sender blessing.okafor@moveops.com and recipients (TO or CC) containing both david.chen@moveops.com and catalina.dubois@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's email to David and Catalina states that the vendor-side disposition is closed, naming the KeyMove $1,200 insurance rider as processed (or approved, or accepted) per Marcus Thorne's review (or similar statement).",
+    "category": "outcome",
+    "justification": "The prompt says Marcus already weighed in on the finance side and Blessing must surface what David and Catalina need to package the docket cleanly. The vendor-side closure is one half of the two-sided disposition Blessing must communicate.",
+    "evidence": "Check the content parameter of the send-email call to david.chen@moveops.com and catalina.dubois@moveops.com for a statement that the vendor-side rider (or KeyMove $1,200 rider, or vendor disposition) has been processed or approved or closed."
+  },
+  {
+    "title": "The Agent's email to David and Catalina flags the client-side disposition as open and explicitly hands it to them, naming both a credit-memo or client-side reimbursement scope and a commercial-consideration scope as decisions resting with David and Catalina (or similar statement that these scopes are outside Blessing's authority).",
+    "category": "outcome",
+    "justification": "The prompt is explicit that Blessing does not have authority on the client-facing piece and must surface what David and Catalina would need to package it. Treating the $1,200 vendor rider as the whole disposition is the primary stump (Levers 1 and 11, latching plus net-vs-gross framing). The client-side handoff is the load-bearing discriminator on this task.",
+    "evidence": "Check the content parameter of the send-email call to david.chen@moveops.com and catalina.dubois@moveops.com for language flagging the client-side disposition (credit-memo, client-side reimbursement, client accommodation) and a commercial-consideration or goodwill scope as decisions owned by David and Catalina or otherwise outside Blessing's authority."
+  },
+  {
+    "title": "The Agent's email to David and Catalina references the operational lesson on the walkup assessment underestimating the stairwell turn radius (or similar operational-cause language).",
+    "category": "outcome",
+    "justification": "The Mosaic-precedent two-sided structure that Blessing is mirroring includes the process-improvement section attached to the file. The operational lesson must travel into the David and Catalina handoff so it can feed their package.",
+    "evidence": "Check the content parameter of the send-email call to david.chen@moveops.com and catalina.dubois@moveops.com for a statement referencing the walkup assessment, stairwell turn radius, extraction route gap, or similar operational-cause language."
+  },
+  {
+    "title": "The Agent's email to David and Catalina does not propose or recommend a specific dollar figure for the client-side reimbursement, credit memo, or commercial consideration.",
+    "category": "outcome",
+    "justification": "The client-side scope is genuinely undecided in the universe (no Emilia-specific reimbursement figure exists anywhere in the data). Blessing has no finance authority to issue a credit memo and must hand the dollar decision off rather than anchor it. Inventing a number is a known failure mode the L6 leak-check was built to prevent.",
+    "evidence": "Check the content parameter of the send-email call to david.chen@moveops.com and catalina.dubois@moveops.com. The email must not contain a specific client-side dollar figure (e.g., specific reimbursement amount, credit-memo amount, goodwill credit amount) attached to Emilia Cruz or the client-side disposition. Mentioning the vendor-side KeyMove rider amount is permitted."
+  },
+  {
+    "title": "The Agent does not include pam.kowalski@northwindtech.com (Pam Kowalski) as a recipient on the email to David and Catalina.",
+    "category": "outcome",
+    "justification": "Pam's April 24 formal escalation is the wider NorthWind context but the prompt scopes Blessing's outbound to the internal operational handoff. Including the client-side principal on an internal docket email is a known leak failure mode.",
+    "evidence": "Check the recipients (TO and CC) of the send-email call to david.chen@moveops.com and catalina.dubois@moveops.com. Pam Kowalski's email address (pam.kowalski@northwindtech.com or any pam.kowalski address) must not appear in any recipient field."
+  },
+  {
+    "title": "The Agent updates Emilia Cruz's relocation record (record_id recEmiliaCruzChicagoDenver) in the Relocations table (table_id tblRelocations01) of the MoveOps Operations Airtable base (base_id appMoveOpsOps001).",
+    "category": "outcome",
+    "justification": "The prompt says Blessing must update Emilia's relocation record so it reflects both sides of the disposition. The Airtable Emilia row is the operational source of truth and must be updated in place, not via a new record.",
+    "evidence": "Look for an airtable update-records call in the trajectory with base_id appMoveOpsOps001, table_id tblRelocations01, and a records array containing an entry with id recEmiliaCruzChicagoDenver. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's update to Emilia Cruz's relocation record preserves the existing Special Requirements free-text content (piano specialty handling, three-vendor coordination, lease-overlap, or similar pre-existing content) rather than overwriting it.",
+    "category": "outcome",
+    "justification": "The existing Special Requirements field is a long disposition narrative that captures piano handling, three-vendor coordination, and the 27-day lease overlap. Overwriting it would lose the upstream operational context. The update must extend, not replace, the field. Lever 2 (structured-DB skip) discriminates here.",
+    "evidence": "Check the Special Requirements field value in the airtable update-records call targeting recEmiliaCruzChicagoDenver. The updated value must preserve content from the existing field (e.g., references to the piano, specialty piano movers, three-vendor coordination, lease overlap, or similar existing content) alongside the new damage-disposition addendum. A value that replaces the existing content with only the damage-disposition text fails."
+  },
+  {
+    "title": "The Agent's update to Emilia Cruz's relocation record names the vendor-side closure (KeyMove insurance rider processed, or KeyMove $1,200 rider closed, or similar statement).",
+    "category": "outcome",
+    "justification": "The relocation record must reflect both sides of the disposition. The vendor-side closure is one half and must appear in the updated Special Requirements free-text.",
+    "evidence": "Check the Special Requirements field value in the airtable update-records call targeting recEmiliaCruzChicagoDenver for a statement that the KeyMove vendor-side rider (or KeyMove $1,200 rider, or vendor insurance rider) has been processed or closed."
+  },
+  {
+    "title": "The Agent's update to Emilia Cruz's relocation record names the client-side pending flag (credit-memo or commercial-consideration scope owned by David and Catalina, or similar statement that the client-side disposition is open and outside Blessing's authority).",
+    "category": "outcome",
+    "justification": "The two-sided disposition Blessing is mirroring requires that the client-side pending flag travel with the record so whoever picks the file up sees the open piece. Failing to capture this on the record is the Lever 11 stump (net-vs-gross framing) replicated on the structured store.",
+    "evidence": "Check the Special Requirements field value in the airtable update-records call targeting recEmiliaCruzChicagoDenver for language flagging the client-side disposition (credit-memo, client-side reimbursement, client accommodation, or commercial consideration) as pending or owned by David and Catalina or otherwise open."
+  },
+  {
+    "title": "The Agent's update to Emilia Cruz's relocation record captures the walkup-assessment operational lesson (walkup assessment underestimated the stairwell turn radius, or similar operational-cause language).",
+    "category": "outcome",
+    "justification": "The prompt is explicit that the walkup-assessment admission needs captured on Emilia's record as the operational lesson, not papered over. This is the Mosaic-precedent Section 6 process-improvement equivalent on the relocation row.",
+    "evidence": "Check the Special Requirements field value in the airtable update-records call targeting recEmiliaCruzChicagoDenver for a statement referencing the walkup assessment, stairwell turn radius, extraction route, or similar operational-cause language."
+  },
+  {
+    "title": "The Agent posts a message to the #operations Slack channel (channel_id C006).",
+    "category": "outcome",
+    "justification": "The prompt says Blessing must drop the Emilia lesson in Slack where Chloe and the ops team will see it. The persona is the Relocation Coordinator and the lesson is operational, so #operations (C006) is the correct destination. Posting to #customer-engagement (C002) or #finance (C005) is a known channel-misalignment stump.",
+    "evidence": "Look for a Slack add-message call in the trajectory with channel_id C006 (or channel name operations). Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Slack post to #operations covers the walkup-assessment operational lesson, naming the stairwell turn radius (or similar field-cause language that the walkup assessment was insufficient for the stairwell extraction).",
+    "category": "outcome",
+    "justification": "The Slack post's purpose is to surface the operational lesson to Chloe and the ops team. A post that does not carry the lesson content fails the prompt's intent even if the channel is correct.",
+    "evidence": "Check the payload parameter of the Slack add-message call to C006 for a statement referencing the walkup assessment, stairwell turn radius, extraction route, or similar operational-cause language tied to the Emilia Cruz piano extraction."
+  },
+  {
+    "title": "The Agent adds a comment to the existing Linear issue linear_issue_c8cdba4408f1.",
+    "category": "outcome",
+    "justification": "The prompt says there is already a Linear item open for the wider NorthWind situation and the operational facts must be left on that item, not a new one. The matching issue is the NorthWind retention plan (linear_issue_c8cdba4408f1). Creating a new issue would split the docket context.",
+    "evidence": "Look for a linear create-comment call in the trajectory with issueId linear_issue_c8cdba4408f1. Confirm the tool returned a success response and that no linear create-issue call was made for an Emilia or NorthWind operational-facts issue."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_c8cdba4408f1 references the vendor-side closure (KeyMove rider processed at $1,200, or KeyMove $1,200 vendor-side rider closed, or similar statement).",
+    "category": "outcome",
+    "justification": "The Linear comment must carry the operational facts for whoever picks the file up. The vendor-side closure is one of three operational facts that must appear.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_c8cdba4408f1 for a statement referencing the KeyMove vendor-side rider closure or the $1,200 rider being processed."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_c8cdba4408f1 references the client-side disposition as flagged for David and Catalina (credit-memo or commercial-consideration scope owned by them, or similar statement that the client-side decision rests with them).",
+    "category": "outcome",
+    "justification": "The Linear comment must surface the client-side pending flag so the file's next handler sees that the client-side disposition is genuinely open. This mirrors the Mosaic two-sided model on the retention issue.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_c8cdba4408f1 for language flagging the client-side disposition (credit-memo, client-side reimbursement, commercial consideration) as owned by David and Catalina or otherwise open."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_c8cdba4408f1 references the operational lesson on the walkup assessment underestimating the stairwell turn radius (or similar operational-cause language).",
+    "category": "outcome",
+    "justification": "The Linear comment must carry the Mosaic-precedent process-improvement equivalent (the walkup-assessment lesson) so the retention package picker sees the operational gap captured.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_c8cdba4408f1 for a statement referencing the walkup assessment, stairwell turn radius, extraction route, or similar operational-cause language."
+  },
+  {
+    "title": "The Agent creates a calendar event or reminder dated 2026-04-27 (Monday) to follow up on confirming Craig Nguyen received the formal-claim direction on the KeyMove side.",
+    "category": "outcome",
+    "justification": "The prompt says Blessing must be reminded Monday to confirm Craig got his answer. The next business day after the Friday April 24 docket close-out is 2026-04-27.",
+    "evidence": "Look for a calendar add-event call in the trajectory with start_datetime on 2026-04-27 (any time on that date is acceptable). The event title or description should reference the Craig Nguyen follow-up, the KeyMove formal-claim direction, or similar context."
+  }
+]

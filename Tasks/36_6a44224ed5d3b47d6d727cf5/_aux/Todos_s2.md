@@ -1,0 +1,21 @@
+# TODOs — S2 (Task 36) — DONE
+
+- [x] Read `_aux/Universe_Index/service_inventory.md` + `key_facts.md` + `entities_personas.md` + `today_horizon.json`
+- [x] Read MoveOps tool catalog `MoveOps_Base_Universe/6_Server_Tools_Details.json` — delegated to background agent bg_d4280604
+- [x] Read `Reference/OE_Format.md` + `Reference/OE_Convention_Inventory.json`
+- [x] Read reference OE files Task11 + Task12 + Task14 6_Oracle_Events.txt for voice / structure
+- [x] Decompose `5_Prompt.txt` sentence-by-sentence → build ask list (explicit + implicit)
+- [x] Verify each anchor record referenced by the plan is present in `_aux/Universe_Split/` — delegated to background agent bg_d7859d88
+- [x] Verify each tool name in the draft OE list exists in `6_Server_Tools_Details.json`; verify each parameter name
+- [x] Draft `6_Oracle_Events.txt` (27 OEs numbered, no em-dashes, action + tool + concrete params + expected outcome)
+- [x] Run `validate.py --phase oe` — PASS (0 fails, 0 warns, 3 notes)
+- [x] Spawn Council A (grounding) — verdict GO, 5 non-blocking advisories
+- [x] Spawn Council B (oracle, adversarial + coverage + density + lever + forward map) — verdict GO, 5/5 all sub-dims
+- [x] Determine AUDIT auto-fire — triggered by (a) tight density non-FAIL band + (d) revision + (e) forward-map dependencies
+- [x] Spawn AUDIT (oracle, STRICT) round 1 — verdict REVISE (OE 7 folder mismatch + density 37 STRICT under 40 floor)
+- [x] Apply 5 in-place fixes: OE 7 folder → SENT, OE 5 thicken, OE 8 thicken, OE 12 thicken + decoy rejection + thread_ts rename, OE 14 drop labels claim
+- [x] Re-run validator + verify_universe_atoms — both PASS clean (12 atoms verified)
+- [x] Re-fire AUDIT round 2 — verdict PASS (STRICT), density 44 STRICT / ~51 realistic
+- [x] Write `_aux/Reasoning/OE_solvability.md` (OE→prompt coverage, OE→rubric preview, hardness lever preservation, 9 advisories to S3)
+- [x] Write `_aux/Verification_s2.md` (cross-source verification per v16 — Verdict PASS)
+- [x] STOP gate: end response, wait for user to invoke S3

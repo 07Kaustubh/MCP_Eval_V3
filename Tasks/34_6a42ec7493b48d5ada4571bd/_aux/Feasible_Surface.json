@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "universe": "moveops",
+    "tables_scanned": 25
+  },
+  "tables": {
+    "contacts.contacts": {
+      "status": [
+        "active"
+      ]
+    },
+    "crm.crm_companies": {
+      "type": [
+        "CUSTOMER",
+        "Client",
+        "Customer",
+        "Prospect",
+        "Vendor",
+        "customer",
+        "vendor"
+      ],
+      "state": [
+        "AL",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "FL",
+        "GA",
+        "IA",
+        "IL",
+        "MA",
+        "MI",
+        "MN",
+        "MO",
+        "NC",
+        "NJ",
+        "NY",
+        "OH",
+        "OR",
+        "PA",
+        "SC",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "WA"
+      ]
+    },
+    "crm.crm_contacts": {
+      "state": [
+        "AL",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "FL",
+        "GA",
+        "IA",
+        "IL",
+        "MA",
+        "MI",
+        "MN",
+        "MO",
+        "NC",
+        "NJ",
+        "NY",
+        "OH",
+        "OR",
+        "PA",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "WA"
+      ]
+    },
+    "crm.crm_deals": {
+      "dealstage": [
+        "Qualified To Buy",
+        "appointmentscheduled",
+        "at_risk",
+        "closedLost",
+        "closedWon",
+        "closedwon",
+        "contractSent",
+        "contractsent",
+        "inprogress",
+        "proposalMade",
+        "qualification",
+        "qualifiedToBuy",
+        "qualifiedtobuy"
+      ]
+    },
+    "crm.crm_engagements": {
+      "engagement_type": [
+        "CALL",
+        "NOTE"
+      ]
+    },
+    "crm.crm_leads": {
+      "state": [
+        "CA",
+        "CO",
+        "FL",
+        "GA",
+        "IL",
+        "IN",
+        "MI",
+        "NC",
+        "NY",
+        "OH",
+        "OR",
+        "PA",
+        "TX",
+        "WA",
+        "WI"
+      ]
+    },
+    "linear.linear_issues": {
+      "state_id": [
+        "state_backlog",
+        "state_done",
+        "state_in_progress",
+        "state_todo"
+      ]
+    },
+    "linear.linear_projects": {
+      "state": [
+        "planned",
+        "started"
+      ]
+    },
+    "quickbooks.accounts": {
+      "AccountType": [
+        "Expense",
+        "Other Current Liability"
+      ],
+      "AccountSubType": [
+        "OtherCurrentLiabilities",
+        "OtherMiscellaneousServiceCost"
+      ],
+      "Classification": [
+        "Expense",
+        "Liability"
+      ]
+    },
+    "quickbooks.items": {
+      "Type": [
+        "Service"
+      ]
+    },
+    "slack.slack_messages": {
+      "type": [
+        "message"
+      ],
+      "subtype": [
+        "",
+        "null",
+        "thread_broadcast"
+      ]
+    }
+  }
+}

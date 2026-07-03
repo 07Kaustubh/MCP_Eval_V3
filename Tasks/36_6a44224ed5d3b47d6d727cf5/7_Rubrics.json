@@ -1,0 +1,206 @@
+[
+  {
+    "title": "The Agent's outbound reply to Simone Richter about the Boston housing unit-type mismatch is sent from julian.brooks@moveops.com to simone.richter@brightloopanalytics.com, CC mina.hashimoto@moveops.com.",
+    "category": "outcome",
+    "justification": "The prompt explicitly says 'Email her back, cc Mina' for Simone. Ground truth from OE 17 binds simone.richter@brightloopanalytics.com as the correct Simone (rejecting simone.richter@stormcloud.io) and mina.hashimoto@moveops.com as the internal CC. This is the core write action for the Simone recovery, and the prompt's 'Email her back' phrasing pins the method to an outbound email reply.",
+    "evidence": "Look for a send-email tool call with sender julian.brooks@moveops.com, recipient simone.richter@brightloopanalytics.com, and CC containing mina.hashimoto@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's email to Simone states factually that MoveOps has confirmed with UrbanNest that the unit-type mismatch is real and is being pushed to resolution (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says 'Simone needs a real answer today, not another \"reviewing your file\" note'. Julian's 4/23 outbound (email_email_6d0501ac647f) was apology plus promise, not factual delivery. This rubric ensures the new message delivers the factual confirmation of the mismatch rather than paraphrasing the 4/23 apology (L25 anchor trap).",
+    "evidence": "Check the content parameter of the send-email call to simone.richter@brightloopanalytics.com for a statement that MoveOps has confirmed the unit-type mismatch with UrbanNest and is pushing resolution."
+  },
+  {
+    "title": "The Agent's email to Simone states that Julian has escalated to UrbanNest with a rapid response requested (or similar).",
+    "category": "outcome",
+    "justification": "The prompt tells Julian to escalate to UrbanNest and email Simone back with real answers today. The Simone message must reflect the escalation-in-flight rather than restating open questions as if the agent already had the answers. Naming the vendor rep to the client and communicating the vendor deadline to the client are not prompt-anchored asks, so the rubric checks only that the escalation-to-UrbanNest posture is communicated.",
+    "evidence": "Check the content parameter of the send-email call to simone.richter@brightloopanalytics.com for a reference to escalating to UrbanNest with a rapid or urgent response requested."
+  },
+  {
+    "title": "The Agent's email to Simone states that same-unit-type transfer availability and the dollar swing on the account are still pending Carmen's answer (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks Julian to figure out 'whether a same-unit-type transfer is available and what the swing on our account is'. Because Carmen has not replied (OE 5), the honest answer to Simone is that these two specific facts remain pending. This rubric prevents fabricated transfer availability or dollar swing figures.",
+    "evidence": "Check the content parameter of the send-email call to simone.richter@brightloopanalytics.com for language flagging both same-unit-type transfer availability and the account swing (dollar impact) as pending Carmen's answer."
+  },
+  {
+    "title": "The Agent's outbound escalation to Carmen Reyes is sent from julian.brooks@moveops.com to carmen.reyes@urbannestsolutions.com with mina.hashimoto@moveops.com in CC.",
+    "category": "outcome",
+    "justification": "The prompt says 'If she still owes us one, escalate plainly by email, do not just send another gentle nudge'. OE 17 binds carmen.reyes@urbannestsolutions.com as the correct Carmen (rejecting carmen.delgado-reyes@palmettofoundation.org). Mina is CC'd on the escalation for internal visibility. The prompt phrasing 'escalate plainly by email' pins the method to an outbound email escalation.",
+    "evidence": "Look for a send-email tool call with sender julian.brooks@moveops.com, recipient carmen.reyes@urbannestsolutions.com, and CC containing mina.hashimoto@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's escalation email to Carmen restates the six specific questions Julian sent on 4/23: (a) originally-requested unit type, (b) originally-confirmed unit type, (c) whether the confirmed unit changed before move-in, (d) if changed then when and who approved and what alternatives were offered, (e) whether a one-bedroom is available for immediate transfer with the cost delta, (f) whether UrbanNest can offer a service credit given the mismatch.",
+    "category": "outcome",
+    "justification": "The prompt explicitly says 'I asked Carmen six specific questions Thursday and I do not remember an answer coming back'. The escalation restates the six questions so Carmen cannot dodge them a second time. Ground truth of the six questions is in email_email_ab2391d62ab1 per OE 4.",
+    "evidence": "Check the content parameter of the send-email call to carmen.reyes@urbannestsolutions.com for the six numbered items covering (a) originally-requested unit type, (b) originally-confirmed unit type, (c) whether the confirmed unit changed, (d) approval trail and alternatives, (e) one-bedroom transfer availability with cost delta, (f) service credit posture."
+  },
+  {
+    "title": "The Agent's escalation email to Carmen sets a same-day response requirement and signals the message is an escalation, not another gentle nudge (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says 'escalate plainly by email, do not just send another gentle nudge' and Simone is being told today that MoveOps is waiting on UrbanNest for these facts. The escalation posture and same-day response demand are explicit.",
+    "evidence": "Check the content parameter and subject of the send-email call to carmen.reyes@urbannestsolutions.com for escalation framing and a same-day response requirement."
+  },
+  {
+    "title": "The Agent writes to Simone Richter's Airtable placement record recSimoneRichterBrightloop in base appMoveOpsOps001, table tblRelocations01, updating the Boston housing recovery item.",
+    "category": "outcome",
+    "justification": "The prompt says 'update her Airtable placement record so anyone reading it can see this is live and not resolved'. OE 9 confirms the target record ID and OE 20 confirms the update tool call shape.",
+    "evidence": "Look for an airtable update-records tool call with base_id appMoveOpsOps001, table_id tblRelocations01, and records containing the id recSimoneRichterBrightloop. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's write to Simone Richter's Airtable placement record recSimoneRichterBrightloop preserves the existing In Progress state because the unit-type mismatch has not been resolved by UrbanNest yet.",
+    "category": "outcome",
+    "justification": "The prompt says 'so anyone reading it can see this is live and not resolved'. OE 20 explicitly requires 'Do not move Status to Completed'. Moving Status to Completed would flip the live-state signal the prompt insists on.",
+    "evidence": "Check the fields parameter of the airtable update-records call targeting recSimoneRichterBrightloop. If the Status field is written, it must be In Progress. A change to Completed fails."
+  },
+  {
+    "title": "The Agent's update to Simone's Airtable record reflects the live mismatch state, including the unit-type mismatch confirmed by the employee, the UrbanNest escalation sent to Carmen Reyes today, a same-day response requested, and transfer availability plus credit posture pending (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks that the Airtable record show 'this is live and not resolved'. OE 20 specifies the Special Requirements content that carries the live-state signal: mismatch confirmed, UrbanNest escalation sent, same-day response requested, transfer availability and credit posture pending.",
+    "evidence": "Check the fields parameter of the airtable update-records call targeting recSimoneRichterBrightloop (Special Requirements or Notes field) for language covering unit-type mismatch confirmation, UrbanNest escalation to Carmen, same-day response request, and pending transfer availability plus credit posture."
+  },
+  {
+    "title": "The Agent's outbound reply to Marcus Webb about the 2019 Honda Civic vehicle-shipping stall is sent from julian.brooks@moveops.com to marcus.webb@brightloopanalytics.com, CC mina.hashimoto@moveops.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'email him a concrete next checkpoint, cc Mina' for Marcus. OE 17 binds marcus.webb@brightloopanalytics.com as the correct Marcus (rejecting m.webb@ironcladsec.com, marcus.webb.lab@gmail.com, and marcus.thorne@moveops.com). This is the core write action for the Marcus recovery, and the prompt's 'email him a concrete next checkpoint' phrasing pins the method to an outbound email reply.",
+    "evidence": "Look for a send-email tool call with sender julian.brooks@moveops.com, recipient marcus.webb@brightloopanalytics.com, and CC containing mina.hashimoto@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's email to Marcus states that the 2019 Honda Civic has been at the Indianapolis transfer hub since April 11 and the driver called off the final leg (or similar).",
+    "category": "outcome",
+    "justification": "The prompt tells Julian to 'get the current position from Road Runner' and email a concrete next checkpoint. Ground truth from OE 8 (email_email_a3ca1b6dd238) is the vehicle sitting at Indianapolis transfer hub after the driver called off the final leg. The message must anchor on the actual carrier-reported checkpoint.",
+    "evidence": "Check the content parameter of the send-email call to marcus.webb@brightloopanalytics.com for language covering the Indianapolis transfer hub location, the April 11 date, and the driver calling off the final leg."
+  },
+  {
+    "title": "The Agent's email to Marcus states the revised carrier delivery window as April 18 to April 20 (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks for a concrete next checkpoint. OE 8 identifies the revised carrier window as April 18 through April 20 from the Road Runner delay notice.",
+    "evidence": "Check the content parameter of the send-email call to marcus.webb@brightloopanalytics.com for the April 18 to April 20 revised carrier window."
+  },
+  {
+    "title": "The Agent's email to Marcus states directly that Road Runner cannot commit to a hard delivery date and is currently reassigning a driver, without softening the absence of a hard date (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says 'If the carrier still cannot give a hard delivery date, say that. Do not soften it.' This is an explicit content requirement that the message must not paper over. The rubric checks both the no-hard-date statement and the driver-reassignment framing.",
+    "evidence": "Check the content parameter of the send-email call to marcus.webb@brightloopanalytics.com for an explicit statement that no hard delivery date is available and Road Runner is reassigning a driver. Soft language such as 'hopefully soon' or 'should arrive shortly' without the explicit no-hard-date statement fails."
+  },
+  {
+    "title": "The Agent writes to Marcus Webb's Airtable placement record recMarcusWebbBrightloop in base appMoveOpsOps001, table tblRelocations01, updating the vehicle-shipping recovery item.",
+    "category": "outcome",
+    "justification": "The prompt says 'reflect the actual state on his Airtable placement record'. OE 10 confirms the record ID and OE 22 confirms the update tool call shape.",
+    "evidence": "Look for an airtable update-records tool call with base_id appMoveOpsOps001, table_id tblRelocations01, and records containing the id recMarcusWebbBrightloop. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's write to Marcus Webb's Airtable placement record recMarcusWebbBrightloop preserves the existing In Progress state because the 2019 Honda Civic has not yet been delivered.",
+    "category": "outcome",
+    "justification": "The vehicle move is not completed — it is stalled with no hard delivery date. Moving Status to Completed would misrepresent the state.",
+    "evidence": "Check the fields parameter of the airtable update-records call targeting recMarcusWebbBrightloop. If the Status field is written, it must be In Progress. A change to Completed fails."
+  },
+  {
+    "title": "The Agent's update to Marcus's Airtable record reflects the live carrier state, including the Indianapolis transfer hub stall since April 11, Road Runner reassigning the driver, the revised April 18 to 20 window, no hard delivery date yet, and Marcus notified today (or similar).",
+    "category": "outcome",
+    "justification": "OE 22 specifies the Special Requirements content that carries the live carrier state so a teammate reading the record sees the case is stalled and unresolved.",
+    "evidence": "Check the fields parameter of the airtable update-records call targeting recMarcusWebbBrightloop (Special Requirements or Notes field) for language covering the Indianapolis transfer hub, the April 11 stall date, the revised April 18 to 20 window, the absence of a hard delivery date, and the driver reassignment."
+  },
+  {
+    "title": "The Agent posts a message on the #customer-engagement Slack channel (channel_id C002 or channel name #customer-engagement) as a reply on Mina's audit thread with thread_ts 1776997200.000000 (the canonical BrightLoop audit parent), not as a fresh top-level post and not on any other thread.",
+    "category": "outcome",
+    "justification": "The prompt says 'put the Slack status update on the audit thread Mina raised Thursday, not in a fresh post'. OE 12 identifies the canonical parent as thread_ts 1776997200.000000 on channel C002 and explicitly rejects Julian's C007 orphan at ts 1777011000.000000 and Julian's C002 'Drafted and sent' post at ts 1777012200.000000 as decoys. Posting to any other parent or as a fresh top-level message fails.",
+    "evidence": "Look for a Slack conversations add-message call with channel_id C002 and thread_ts 1776997200.000000. Confirm the tool returned a success response. A call without thread_ts (fresh post) or with a different thread_ts fails."
+  },
+  {
+    "title": "The Agent's Slack reply on Mina's audit thread references the Simone unit-type mismatch escalated to Carmen at UrbanNest today with a same-day response required and the employee directly notified (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says 'put the Slack status update on the audit thread' — the payload must actually deliver the Simone live-state signal, not just be an empty acknowledgment. Ground truth from OE 23 identifies the Simone half of the payload.",
+    "evidence": "Check the payload parameter of the Slack conversations add-message call to channel C002 thread_ts 1776997200.000000 for language covering Simone's unit-type mismatch, UrbanNest / Carmen escalation, same-day response, and direct notification to the employee."
+  },
+  {
+    "title": "The Agent's Slack reply on Mina's audit thread references the Marcus vehicle stall at the Indianapolis transfer hub, the April 18 to 20 revised window, no hard delivery date, and the employee directly notified (or similar).",
+    "category": "outcome",
+    "justification": "The Slack status update must cover both BrightLoop cases. Splitting the Simone half and the Marcus half into separate rubrics allows an agent that covers one and omits the other to receive appropriate partial credit.",
+    "evidence": "Check the payload parameter of the Slack conversations add-message call to channel C002 thread_ts 1776997200.000000 for language covering the Marcus vehicle stall, the Indianapolis transfer hub, the April 18 to 20 window, the absence of a hard delivery date, and direct notification to the employee."
+  },
+  {
+    "title": "The Agent adds a Linear comment to issue linear_issue_f85be674c9b8 (the BrightLoop ops-gaps operational tracking issue).",
+    "category": "outcome",
+    "justification": "The prompt says 'Add a Linear comment on the ops-gaps issue tracking Marcus, Simone, Priya, and Oliver that captures where each employee stands and what the money impact looks like on the batch'. OE 14 identifies linear_issue_f85be674c9b8 as Chloe Vance's BrightLoop ops-gaps operational tracking issue whose title enumerates all four employees. OE 15 confirms this is the correct target, not Mina's sister audit issue linear_issue_c16357d188c6.",
+    "evidence": "Look for a linear create-comment tool call with issueId linear_issue_f85be674c9b8. Confirm the tool returned a success response. A comment on linear_issue_c16357d188c6 (Mina's audit issue) instead of linear_issue_f85be674c9b8 fails this rubric."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_f85be674c9b8 describes where Simone stands, including the wrong unit confirmation, the UrbanNest escalation sent to Carmen Reyes, and transfer availability plus credit posture pending (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says the Linear comment must capture 'where each employee stands'. Ground truth from OE 24 identifies the Simone half of the per-employee status.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_f85be674c9b8 for language covering Simone's wrong-unit confirmation, UrbanNest / Carmen escalation, and pending transfer availability plus credit posture."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_f85be674c9b8 describes where Marcus stands, including the Indianapolis transfer hub stall, the April 18 to 20 revised carrier window, and the absence of a hard delivery date (or similar).",
+    "category": "outcome",
+    "justification": "The Linear comment must cover the Marcus half of the per-employee status. Splitting the Simone half and the Marcus half into separate rubrics allows appropriate partial credit.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_f85be674c9b8 for language covering the Marcus Indianapolis transfer hub stall, the April 18 to 20 window, and the absence of a hard delivery date."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_f85be674c9b8 references batch invoice INV-2026-0308 with a total client exposure of approximately $11,350.",
+    "category": "outcome",
+    "justification": "The prompt says the Linear comment must capture 'what the money impact looks like on the batch, because the finance side of these two moves is not something I can answer with feelings on Wednesday'. OE 11 identifies invoice INV-2026-0308 with TotalAmt $11,350 as the finance scaffolding.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_f85be674c9b8 for a reference to invoice INV-2026-0308 and a total figure of approximately $11,350."
+  },
+  {
+    "title": "The Agent's Linear comment on linear_issue_f85be674c9b8 references the Simone-specific line items (standard relocation approximately $4,500 plus rush surcharge approximately $750) and the Marcus-specific line items (standard relocation approximately $4,500 plus vehicle shipping add-on approximately $1,100) from batch invoice INV-2026-0308.",
+    "category": "outcome",
+    "justification": "The prompt says the money impact must anchor the batch conversation. OE 11 identifies the per-employee line items on INV-2026-0308. Reporting only the total without the per-employee line-item split misses the finance signal the prompt is anchored on.",
+    "evidence": "Check the body parameter of the linear create-comment call targeting linear_issue_f85be674c9b8 for the Simone line items (approximately $4,500 standard relocation, approximately $750 rush surcharge) and the Marcus line items (approximately $4,500 standard relocation, approximately $1,100 vehicle shipping add-on) drawn from INV-2026-0308."
+  },
+  {
+    "title": "The Agent creates a new CRM engagement of type NOTE on company_brightloop.",
+    "category": "outcome",
+    "justification": "The prompt says 'Update the BrightLoop engagement on our CRM so it stops reading like the April cohort is basically done'. OE 16 and OE 25 establish that CRM engagements are create-only, so the correction is a new NOTE engagement on the BrightLoop company rather than an in-place edit of the 4/2 engagement.",
+    "evidence": "Look for a CRM create-engagement tool call with engagement_type NOTE and company_ids containing company_brightloop. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's new CRM engagement on company_brightloop states that the April cohort is not closed and corrects the earlier read of the cohort as basically done (or similar).",
+    "category": "outcome",
+    "justification": "The prompt says the CRM engagement 'stops reading like the April cohort is basically done'. The new engagement must explicitly correct that read.",
+    "evidence": "Check the body parameter of the CRM create-engagement call for company_brightloop for language stating the April cohort is not closed and correcting the earlier basically-done read."
+  },
+  {
+    "title": "The Agent's new CRM engagement on company_brightloop states that Simone is still in the wrong unit awaiting UrbanNest transfer confirmation (or similar).",
+    "category": "outcome",
+    "justification": "The prompt asks that the engagement reflect the actual live state, and OE 25 specifies the Simone half.",
+    "evidence": "Check the body parameter of the CRM create-engagement call for company_brightloop for language covering Simone still in the wrong unit awaiting UrbanNest transfer confirmation."
+  },
+  {
+    "title": "The Agent's new CRM engagement on company_brightloop states that Marcus is stalled at the Indianapolis transfer hub with an April 18 to 20 window and no hard delivery date (or similar).",
+    "category": "outcome",
+    "justification": "The engagement must cover both cases. Splitting the Simone and Marcus halves allows partial-credit resolution when only one is covered.",
+    "evidence": "Check the body parameter of the CRM create-engagement call for company_brightloop for language covering the Marcus Indianapolis transfer hub stall, the April 18 to 20 window, and the absence of a hard delivery date."
+  },
+  {
+    "title": "The Agent creates a 30-minute calendar event on April 28, 2026 (late Tuesday) for a recheck of Simone's housing outcome with julian.brooks@moveops.com as attendee.",
+    "category": "outcome",
+    "justification": "The prompt says 'Hold thirty minutes on my calendar late Tuesday to recheck Simone's housing outcome'. OE 26 binds start_datetime 2026-04-28T16:30:00-07:00, end 17:00:00-07:00 (30 minutes, late Tuesday), and Julian as the sole attendee.",
+    "evidence": "Look for a calendar add-calendar-event tool call with start on April 28, 2026 in the late-afternoon Pacific window (approximately 16:30 to 17:00) or a 30-minute duration on April 28, 2026, with title or description referencing a Simone housing recheck and attendees containing julian.brooks@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent sends an internal summary email from julian.brooks@moveops.com to mina.hashimoto@moveops.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'send Mina a short internal email pulling the whole position together in one place'. OE 27 confirms the write action shape (no CC required, sender Julian, recipient Mina).",
+    "evidence": "Look for a send-email tool call with sender julian.brooks@moveops.com and recipient mina.hashimoto@moveops.com. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's internal summary email to Mina covers the Simone position: unit mismatch escalated to Carmen at UrbanNest with a same-day response requested, direct employee reply sent, Airtable record updated (or similar).",
+    "category": "outcome",
+    "justification": "The internal summary must be a defensible one-place source for Tessa's weekly. OE 27 identifies the Simone half of the summary content.",
+    "evidence": "Check the content parameter of the send-email call to mina.hashimoto@moveops.com for language covering the Simone UrbanNest escalation, same-day response request, direct employee reply, and Airtable update."
+  },
+  {
+    "title": "The Agent's internal summary email to Mina covers the Marcus position: Indianapolis transfer hub stall, April 18 to 20 carrier window with no hard delivery date, direct employee reply sent, Airtable record updated (or similar).",
+    "category": "outcome",
+    "justification": "OE 27 identifies the Marcus half. Splitting the Simone and Marcus halves allows partial-credit resolution.",
+    "evidence": "Check the content parameter of the send-email call to mina.hashimoto@moveops.com for language covering the Marcus Indianapolis stall, the April 18 to 20 window, the absence of a hard delivery date, the direct employee reply, and the Airtable update."
+  },
+  {
+    "title": "The Agent's internal summary email to Mina references the internal actions taken: Slack status posted on Mina's audit thread, Linear comment added on Chloe's BrightLoop ops-gaps issue with the approximately $11,350 batch impact broken out per employee, CRM engagement corrected to reflect the cohort is not closed, and a calendar hold late Tuesday to recheck Simone's outcome (or similar).",
+    "category": "outcome",
+    "justification": "OE 27 says the summary gives Mina 'a single defensible source for the Tessa weekly'. The internal-actions block is what makes the email a defensible single source. Bundled because these four internal actions are tightly coupled artifacts of the same recovery-close cycle.",
+    "evidence": "Check the content parameter of the send-email call to mina.hashimoto@moveops.com for references to the Slack status on Mina's audit thread, the Linear comment on the BrightLoop ops-gaps issue with the approximately $11,350 batch impact, the corrected CRM engagement, and the calendar hold late Tuesday."
+  }
+]

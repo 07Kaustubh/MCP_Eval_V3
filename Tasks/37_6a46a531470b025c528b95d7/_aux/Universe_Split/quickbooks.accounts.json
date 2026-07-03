@@ -1,0 +1,114 @@
+[
+  {
+    "row_data": "{\"Id\": \"acct_broker_comp\", \"Name\": \"Broker Compensation Income\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Income\", \"Description\": \"Lender-paid broker compensation on closed loans.\", \"AccountSubType\": \"ServiceFeeIncome\", \"Classification\": \"Revenue\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Broker Compensation Income\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_processing_fees\", \"Name\": \"Processing Fee Income\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Income\", \"Description\": \"Flat processing fees collected from borrowers at closing.\", \"AccountSubType\": \"ServiceFeeIncome\", \"Classification\": \"Revenue\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Processing Fee Income\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_admin_fees\", \"Name\": \"Admin Fee Income\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Income\", \"Description\": \"Administrative fees on select loan files.\", \"AccountSubType\": \"ServiceFeeIncome\", \"Classification\": \"Revenue\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Admin Fee Income\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_interest_income\", \"Name\": \"Trust Account Interest\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Other Income\", \"Description\": \"Interest earned on escrow trust account.\", \"AccountSubType\": \"InterestEarned\", \"Classification\": \"Revenue\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Trust Account Interest\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_credit_report_expense\", \"Name\": \"Credit Report Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Cost of Goods Sold\", \"Description\": \"Tri-merge credit report costs from CoreLogic Credco.\", \"AccountSubType\": \"CostOfGoodsSold\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Credit Report Fees\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_title_expense\", \"Name\": \"Title Search Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Cost of Goods Sold\", \"Description\": \"Title search and settlement coordination charges.\", \"AccountSubType\": \"CostOfGoodsSold\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Title Search Fees\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_tolerance_cures\", \"Name\": \"Tolerance Cures\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Cost of Goods Sold\", \"Description\": \"TRID tolerance cure payments when LE-to-CD fee differences exceed thresholds.\", \"AccountSubType\": \"CostOfGoodsSold\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Tolerance Cures\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_lo_commissions\", \"Name\": \"LO Commissions Paid\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Cost of Goods Sold\", \"Description\": \"Loan officer commission splits on closed loans.\", \"AccountSubType\": \"CostOfGoodsSold\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"LO Commissions Paid\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_rent\", \"Name\": \"Rent & Occupancy\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Monthly office lease at 3100 Smoketree Ct, Suite 200.\", \"AccountSubType\": \"RentOrLeaseOfBuildings\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Rent & Occupancy\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_los_software\", \"Name\": \"LOS Software\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Encompass loan origination system subscription.\", \"AccountSubType\": \"OtherBusinessExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"LOS Software\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_crm_software\", \"Name\": \"CRM & Marketing Software\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"CRM platform and marketing automation tools.\", \"AccountSubType\": \"OtherBusinessExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"CRM & Marketing Software\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_marketing\", \"Name\": \"Marketing & Advertising\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Online ads, mailers, events, Zillow/LendingTree leads.\", \"AccountSubType\": \"AdvertisingPromotional\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Marketing & Advertising\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_eo_insurance\", \"Name\": \"E&O Insurance\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Errors & omissions professional liability insurance.\", \"AccountSubType\": \"Insurance\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"E&O Insurance\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_general_insurance\", \"Name\": \"General Liability Insurance\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"General business liability and property insurance.\", \"AccountSubType\": \"Insurance\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"General Liability Insurance\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_telecom\", \"Name\": \"Phone & Internet\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Business phone lines, internet, and fax service.\", \"AccountSubType\": \"Communication\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Phone & Internet\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_it_consulting\", \"Name\": \"IT Consulting\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"IT contractor services (Raj Anand, 2 days/week).\", \"AccountSubType\": \"OtherBusinessExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"IT Consulting\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_office_supplies\", \"Name\": \"Office Supplies\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Paper, toner, postage, and general office supplies.\", \"AccountSubType\": \"OfficeGeneralAdministrativeExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Office Supplies\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_cont_ed\", \"Name\": \"Continuing Education & Licensing\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"NMLS renewals, CE courses, state licensing fees.\", \"AccountSubType\": \"OtherBusinessExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Continuing Education & Licensing\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_payroll_fees\", \"Name\": \"Payroll Processing Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"ADP payroll processing and tax filing fees.\", \"AccountSubType\": \"OtherBusinessExpenses\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Payroll Processing Fees\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_professional_fees\", \"Name\": \"Professional Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Legal counsel, accounting, and audit fees.\", \"AccountSubType\": \"LegalAndProfessionalFees\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Professional Fees\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_meals\", \"Name\": \"Meals & Entertainment\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Client meals, team lunches, referral partner entertainment.\", \"AccountSubType\": \"EntertainmentMeals\", \"Classification\": \"Expense\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Meals & Entertainment\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_checking\", \"Name\": \"Operating Checking\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Bank\", \"Description\": \"Primary operating account at Truist Bank.\", \"AccountSubType\": \"Checking\", \"Classification\": \"Asset\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Operating Checking\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_trust\", \"Name\": \"Escrow Trust Account\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Bank\", \"Description\": \"Borrower escrow deposits held in trust.\", \"AccountSubType\": \"TrustAccounts\", \"Classification\": \"Asset\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Escrow Trust Account\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_ar\", \"Name\": \"Accounts Receivable\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Accounts Receivable\", \"Description\": \"Outstanding broker compensation from lenders.\", \"AccountSubType\": \"AccountsReceivable\", \"Classification\": \"Asset\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Accounts Receivable\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"acct_ap\", \"Name\": \"Accounts Payable\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Accounts Payable\", \"Description\": \"Outstanding vendor bills.\", \"AccountSubType\": \"AccountsPayable\", \"Classification\": \"Liability\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Accounts Payable\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"6351\", \"Name\": \"Rate Lock Extension Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Extension fees paid to keep borrower rate locks active.\", \"AccountSubType\": \"BankCharges\", \"Classification\": \"Expense\", \"CurrentBalance\": 375, \"FullyQualifiedName\": \"Expenses:Rate Lock Extension Fees\", \"CurrentBalanceWithSubAccounts\": 375}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"6350\", \"Name\": \"Appraisal Fees\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Expense\", \"Description\": \"Appraisal and valuation vendor charges\", \"AccountSubType\": \"ProfessionalFees\", \"Classification\": \"Expense\", \"CurrentBalance\": 18465, \"FullyQualifiedName\": \"Appraisal Fees\", \"CurrentBalanceWithSubAccounts\": 18465}",
+    "source": "quickbooks.accounts"
+  },
+  {
+    "row_data": "{\"Id\": \"842\", \"Name\": \"Revenue Impact Tracking\", \"Active\": true, \"MetaData\": null, \"SyncToken\": \"0\", \"SubAccount\": false, \"AccountType\": \"Other Current Asset\", \"Description\": \"Used for side-by-side delayed vs on-time closing impact snapshots.\", \"AccountSubType\": \"OtherCurrentAssets\", \"Classification\": \"Asset\", \"CurrentBalance\": 0, \"FullyQualifiedName\": \"Revenue Impact Tracking\", \"CurrentBalanceWithSubAccounts\": 0}",
+    "source": "quickbooks.accounts"
+  }
+]

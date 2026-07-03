@@ -1,0 +1,22 @@
+# S3 Todos — Rubrics Draft
+
+- [ ] Read all required inputs (5_Prompt, 6_Oracle_Events, Universe_Split, Universe_Index, Hardness_Plan, Fact_Ledger, Verification_s2)
+- [ ] Read Reference/Rubric_Format.md
+- [ ] Read Reference/Strict_Convention_Inventory.json
+- [ ] Read Docs/2_Rubrics_V3_Guidelines.md
+- [ ] Read Docs/12_Always_Failing_Rubrics.md
+- [ ] Read QC_Tasks/V3_Tasks/Task11..14/Rubrics.json (all four)
+- [ ] Walk OE list and identify every write action requiring Outcome 1.1
+- [ ] Walk prompt for every "tell me directly" cue requiring Outcome 2.1
+- [ ] Apply three-condition test to any Process candidate; default to zero process
+- [ ] Draft 7_Rubrics.json (flat schema: title/category/justification/evidence)
+- [ ] Run validator: python3 Validators/validate.py --phase rubrics
+- [ ] Fix all validator fails
+- [ ] Spawn Council A — Grounding (every concrete value grepped in Universe_Split)
+- [ ] Spawn Council B — Adversarial QC (ultrabrain, alt-path + reverse-coverage + atomicity + density + lever coverage)
+- [ ] Apply fixes from both councils; re-validate; re-run councils until clean
+- [ ] Spawn AUDIT (ultrabrain, STRICT, --phase rubrics) — auto-fire mandatory for S3
+- [ ] Iterate REVISE up to 3 rounds; REBUILD STOPs to REDO
+- [ ] Write _aux/Reasoning/Rubric_Coverage_Matrix.md
+- [ ] Write _aux/Verification_s3.md
+- [ ] Confirm exit criteria; STOP gate

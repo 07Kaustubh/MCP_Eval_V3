@@ -1,0 +1,5 @@
+# AF Justifications (Bucket 3 — All-Failing)
+
+## The Agent's reply to Craig Nguyen answers his April 11 open question on whether to open a formal insurance claim on the KeyMove side now or hold pending the client-side review, directing him to hold pending the client-side disposition (or similar deferring direction).
+
+In every run the agent directed Craig Nguyen to open the formal carrier insurance claim immediately instead of telling him to hold pending the client-side disposition that David Chen and Catalina Dubois are still packaging. The prompt grounds the correct move in the Mosaic precedent, where the carrier piece and the client-facing piece were structured as coordinated dispositions rather than independent ones, and Catalina is preparing the same client-side review now on the NorthWind side. The reasoning gap is the agent treating the $1,200 KeyMove rider as a closed vendor matter and missing that the formal carrier-claim shape depends on the open client-side review. This action-bias on a coordinated disposition question is the intended failure mode for the task.
