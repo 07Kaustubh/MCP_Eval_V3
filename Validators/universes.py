@@ -2,10 +2,11 @@
 """
 Universe registry — per-universe constants for multi-universe pipeline support.
 
-Three universes:
-- brookfield: CPAs & business advisory firm (current default)
+Four universes:
+- brookfield: CPAs & business advisory firm (current default, V3)
 - keystone: Residential mortgage brokerage (V3.1)
 - moveops: B2B remote-work relocation services (V2.1)
+- starpm: Residential property management SW Texas (V4)
 
 Every validator + runbook + council prompt should read constants via
 `get_universe_constants(detect_universe(task_dir))` rather than hardcoding
@@ -265,6 +266,115 @@ UNIVERSES = {
             "Persona-scope: 'my clients' / 'my relocations' binds to persona's CRM assignment or Airtable coordinator field (account_manager_email or coordinator_email = persona email). Verify every rubric value is in scope.",
         ],
     },
+
+    "starpm": {
+        "name": "Star Property Management",
+        "domain": "Residential property management (SW Texas)",
+        "base_path": "StarPM_Base_Universe",
+        "docs_path": "Docs_starpm",
+        "evals_path": "Evals_starpm",
+        "tool_catalog": "StarPM_Base_Universe/7_Server_Tools_Details.json",
+        "persona_briefs": "StarPM_Base_Universe/2_StarPM_PERSONA BRIEFS.md",
+        "business_function_doc": "StarPM_Base_Universe/3_StarPM_TASK CATEGORIES.md",
+        "universe_one_pager": "StarPM_Base_Universe/0_StarPM_One-Pager.md",
+        "qc_reference_path": "QC_Tasks/V4_Tasks",
+        "framework_version": "V4",
+
+        "today": "2026-07-01",
+        "today_tz": "America/Chicago",
+        "persona_email_domain": "starpm.com",
+        "business_functions": [
+            "Property Operations",
+            "Portfolio Coordination & Owner Relations",
+            "Quality Control & Field Services",
+            "Maintenance & Repairs",
+            "Leasing & Applicant Intake",
+        ],
+        "business_function_weights": {
+            "Property Operations": 0.25,
+            "Portfolio Coordination & Owner Relations": 0.20,
+            "Quality Control & Field Services": 0.15,
+            "Maintenance & Repairs": 0.25,
+            "Leasing & Applicant Intake": 0.15,
+        },
+        "tight_identifiers": [
+            "channel names", "Linear ticket IDs", "unit IDs", "vendor names", "owner names",
+            "tenant names", "dollar amounts", "dates", "property names",
+            "Airtable record IDs", "QuickBooks invoice IDs", "HubSpot deal IDs",
+        ],
+        "oe_service_map": {
+            "make_ready_turns": "airtable", "maintenance_tickets_airtable": "airtable",
+            "unit_records": "airtable",
+            "vendor_bills": "quickbooks", "owner_distributions": "quickbooks",
+            "rent_invoices": "quickbooks", "accounts": "quickbooks", "budget": "quickbooks",
+            "maintenance_issues": "linear", "repair_tickets": "linear", "pm_cycles": "linear",
+            "applicants": "hubspot", "deals": "hubspot", "leasing_pipeline": "hubspot",
+            "calendar_events": "gcalendar", "tour_scheduling": "gcalendar",
+            "owner_meetings": "gcalendar",
+            "email_threads": "gmail", "tenant_correspondence": "gmail",
+            "vendor_correspondence": "gmail",
+            "chat": "slack", "channels": "slack",
+            "contacts": "contacts",
+        },
+        "cross_service_pairs": [
+            ("gmail", "airtable"), ("gmail", "quickbooks"), ("gmail", "hubspot"),
+            ("airtable", "quickbooks"), ("airtable", "linear"), ("airtable", "slack"),
+            ("linear", "slack"), ("hubspot", "gcalendar"), ("hubspot", "gmail"),
+            ("quickbooks", "slack"),
+        ],
+
+        "retention_codes": set(),
+        "slack_channels": {f"C{n:03d}" for n in range(1, 9)},
+        "slack_channel_names": {
+            "C001": "#maintenance", "C002": "#leasing", "C003": "#general",
+            "C004": "#make-ready", "C005": "#vendors", "C006": "#owner-relations",
+            "C007": "#budget-review", "C008": "#applications",
+        },
+        "classifications": set(),
+        "blackline_exception_types": set(),
+        "npcs": {
+            "Alicia Vega", "Tony Reyes", "Wesley Tran", "Isela Juarez",
+            "Barry Sanderson", "Patricia Lowe",
+            "David Shea", "Robert Finley", "Linda Castillo", "Harry Harris",
+            "Gary Hoffman", "Dave Thomas", "Aurora Winona",
+        },
+        "authoring_personas": {
+            "Brooke Phillips", "Teresa Wood", "Lisa Smith", "Carlos Mendez",
+            "Patricia Nguyen", "John Smith", "Jaime Salinas", "Sandra Allen",
+            "Elias Navarro", "Kevin Okafor", "James Bennett", "Randy Jones",
+            "Denise Morales",
+        },
+        "services": ["airtable", "contacts", "gcalendar", "gmail", "hubspot",
+                     "linear", "quickbooks", "slack"],
+
+        "account_trap_check": False,
+        "entity_name_to_id": {
+            "starpm": "starpm", "star pm": "starpm",
+            "star property management": "starpm",
+        },
+        "lifecycle_check_kind": "make_ready",
+        "lifecycle_states_closed": {"completed", "closed", "re-leased", "cancelled"},
+        "lifecycle_states_open": {"in_progress", "open", "pending", "scheduled", "active"},
+
+        "tool_param_traps": {
+            "gmail_create_draft": {"content_field": "content", "wrong_field": "body"},
+            "slack_conversations_add_message": {"content_field": "payload", "wrong_field": "text"},
+            "linear_create_issue": {"required": "team", "wrong": "teamId"},
+            "quickbooks_create_bill": {"required": "vendor_id"},
+            "hubspot_create_deal": {"required": "pipeline_id"},
+        },
+
+        "landmines": [
+            "HVAC life-safety (SW Texas summer): HVAC compressor failures in summer (June-August) are life-safety events requiring immediate escalation, not routine scheduling. Any task involving HVAC in summer must treat urgency as highest-priority; never defer to a standard PM cycle.",
+            "Texas statutory rent-notice ladder: eviction filings must follow state-mandated sequence — first late notice → payment plan offer → 3-day pay-or-quit → court filing with court clerk Patricia Lowe. Skipping steps or misordering them is a rubric-breaking error.",
+            "Airtable Make-Ready Turns is SSOT for turnovers: the `Make-Ready Turns` table is source of truth for unit turnover state (move-out date, scope-set status, vendor assignments, QC sign-off). Linear tracks maintenance tickets; Airtable tracks the make-ready workflow. Never trust Linear for turnover status.",
+            "No filesystem MCP service: StarPM has no filesystem tool. Application documents, inspection reports, and screening notes flow through Gmail attachments, HubSpot notes, or Airtable record fields. `StarPM_Base_Universe/Data/Files/` contains read-only reference PDFs that CBs never edit.",
+            "Injection Quality Eval hard gate (V4 only): StarPM tasks require the INJECTION phase to run AFTER universe injection but BEFORE prompt authoring. All 7 structural gates AND composite difficulty score >= 3.5 must PASS before S1.",
+            "Dual-model verification (V4 only): StarPM tasks run against both Opus and Gemini. Verifier fails split into `8a_Verifier_Fails_Opus.txt` and `8b_Verifier_Fails_Gemini.txt`. Trajectories live in `Agent_Responses/Opus/` and `Agent_Responses/Gemini/`.",
+            "Gmail-chain truthfulness: 'X never responded' claims must be proven by (i) parent_id descendant walk from sender's Gmail thread, (ii) sender-filter across same subject prefix. Never trust prose 'no response' without the walk.",
+            "Persona-scope: 'my units' / 'my make-readies' / 'my tenants' binds to persona's portfolio assignment in Airtable (property_manager_email or assigned_manager = persona email). Verify every rubric value is in scope.",
+        ],
+    },
 }
 
 
@@ -273,6 +383,10 @@ def get_universe_constants(universe_name: str) -> dict:
     return UNIVERSES.get(universe_name.lower().strip(), UNIVERSES["brookfield"])
 
 
+_STARPM_SIGNALS = re.compile(
+    r"\b(?:starpm\.com|Star\s*PM|StarPM|Brooke\s+Phillips|make[- ]ready|Make[- ]Ready|Las\s+Palmas|Las\s+Vistas|Mesa\s+Vista|Rio\s+Bend|Ridgeview|gcalendar_|gmail_send|hubspot_|quickbooks_bill|tblMakeReady|tblMaintenance|Southwest\s+Texas|eviction|pay[-\s]or[-\s]quit|property\s+manager|maintenance\s+technician|Carlos\s+Mendez|Patricia\s+Nguyen|property\s+management)\b",
+    re.IGNORECASE,
+)
 _KEYSTONE_SIGNALS = re.compile(
     r"\b(?:mortgage_los|TRID|loan\s+estimate|closing\s+disclosure|Keystone\s+Mortgage|keystonemortgage\.com|borrower|loan\s+officer|underwriting\s+condition|wholesale\s+lender|rate\s+lock|stripe_create_charge|stripe_create_refund|mortgage_los_\w+|filesystem_\w+)\b",
     re.IGNORECASE,
@@ -299,7 +413,7 @@ def detect_universe(task_dir: Path) -> str:
         if cached in UNIVERSES:
             return cached
 
-    scores = {"brookfield": 0, "keystone": 0, "moveops": 0}
+    scores = {"brookfield": 0, "keystone": 0, "moveops": 0, "starpm": 0}
     for candidate in ("1_Business_Function.txt", "2_Persona.txt", "5_Prompt.txt"):
         f = task_dir / candidate
         if f.is_file():
@@ -307,6 +421,7 @@ def detect_universe(task_dir: Path) -> str:
             scores["keystone"] += len(_KEYSTONE_SIGNALS.findall(text))
             scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(text))
             scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(text))
+            scores["starpm"] += len(_STARPM_SIGNALS.findall(text))
 
     universe_data = task_dir / "3_UniverseDataForThisTask.json"
     if universe_data.is_file():
@@ -314,6 +429,7 @@ def detect_universe(task_dir: Path) -> str:
         scores["keystone"] += len(_KEYSTONE_SIGNALS.findall(sample))
         scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(sample))
         scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(sample))
+        scores["starpm"] += len(_STARPM_SIGNALS.findall(sample))
 
     if all(v == 0 for v in scores.values()):
         universe = "brookfield"

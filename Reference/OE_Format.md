@@ -74,6 +74,9 @@ When the task has a write-heavy finale, the last OE can summarize the final user
 - Not a script for the final response. They describe tool calls, not what to write to the user.
 - Not a list of every possible tool call. They are the minimum set of steps that produce a correct trajectory.
 - Not a place to add rubric reasoning. Rubrics get their own justifications.
+- **Not a source of truth (ML-confirmed July 2026).** OEs are the CB's interpretation of the prompt's critical path. They may be inaccurate or misaligned with the prompt or universe. Universe data (`_aux/Universe_Split/` + `Fact_Ledger.json`) is the SSOT for all verifiable values. If an OE step names a value (amount, ID, email, date) that contradicts what is in the universe, the universe is correct — fix the OE, never fix the universe to match a wrong OE.
+- **Not a substitute for prompt clarity.** The prompt must be unambiguous and solvable on its own. An agent that never reads the OEs must still be able to complete the task correctly from the prompt alone. OEs cannot resolve ambiguities the prompt fails to resolve.
+- **Not used to justify rubric values.** When deriving rubric criterion values, go to the universe directly. The OE tells you WHAT action to cover; the universe tells you WHAT VALUE to embed. Never copy a value from an OE step without first verifying it in `_aux/Universe_Split/` or `Fact_Ledger.json`.
 
 ## Machine-checkable conventions
 

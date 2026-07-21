@@ -56,3 +56,50 @@ Per task, HARDNESS produces `_aux/Hardness_Plan.md` containing:
 - Not over-stacking unrelated asks. That fails Coherence.
 - Not pre-solving the puzzle in the prompt. That fails Investigation.
 - Not naming tools or IDs the agent is supposed to discover. That fails Explicit Tool Mention.
+
+---
+
+## StarPM Adaptation (V4 — ML-confirmed July 2026)
+
+The 11-lever catalog above was built on Brookfield tasks. All 11 levers apply to StarPM tasks with the substitutions below. Read this section whenever `_aux/Universe.txt` = `starpm`.
+
+### Service substitutions
+
+Wherever the Brookfield lever catalog names a Brookfield-specific service, substitute the StarPM equivalent:
+
+| Brookfield service | StarPM equivalent | Notes |
+|---|---|---|
+| oracle_gl / SAP subledger | QuickBooks | Primary accounting surface |
+| BlackLine reconciliations | Airtable (Make-Ready Turns, Stipends) | Operational SSOT for unit state |
+| Records Vault | Gmail / HubSpot note attachments | No standalone vault; docs surface via email/CRM |
+| Linear (issues) | Linear (maintenance tickets MT-YYYY-NNNN) | Same service, different ticket taxonomy |
+| Email | Gmail (`gmail_create_draft` — NO send action) | Gmail only drafts; send is not available |
+| Slack | Slack (8 channels C001-C008) | Same service |
+| Contacts | Contacts | Same service |
+| Calendar | GCalendar | Same service |
+
+### Write-action mix for StarPM (target 3+ writes across 3+ services)
+
+Standard StarPM write-action menu (use 3-5 from this list per task):
+
+| Write action | Service | Tool hint |
+|---|---|---|
+| Draft email to tenant / vendor / owner | Gmail | `gmail_create_draft` |
+| Post to Slack channel | Slack | channel must be C001-C008 |
+| Create / update Linear maintenance ticket | Linear | `linear_create_issue` / `linear_update_issue` |
+| Update Airtable Make-Ready record | Airtable | `airtable_update_records` |
+| Create / update QuickBooks bill or payment | QuickBooks | `quickbooks_create_bill` |
+| Create / update HubSpot deal or note | HubSpot | `hubspot_create_deal` / note endpoint |
+| Schedule GCalendar event (inspection, walkthrough) | GCalendar | `gcalendar_create_event` |
+
+### L12 — Document cross-reference (StarPM-specific lever)
+
+**Failure mode:** A lease agreement, vendor invoice, or maintenance report in `StarPM_Base_Universe/Data/Files/` is the authoritative source for a key fact (charge amount, lease clause, inspection finding). The live service record (QuickBooks bill, Airtable status, Linear ticket) shows a different or incomplete value. Opus 4.8 trusts the live database field and skips reading the attached document.
+
+**How to engineer it:** Prompt references a specific document by natural context ("per the lease signed last month", "check the original invoice", "the QC inspection report"). Agent must trace the document reference through the service that holds the attachment (Gmail thread attachment, HubSpot note attachment, or Airtable attachment field) and read the PDF content. The stumping fact is only in the document, not mirrored in the live service record.
+
+**Tool-call cost:** 4-8 (find the email/record that references the doc + read attachment + cross-reference against live data + flag or act on the discrepancy).
+
+**Composition rule:** Pair L12 with L1 (Latching) — the live service record is the more-findable source and will latch the agent. Pair with L8 (Multi-link chain) — document reference is the second link (A = live record shows X → B = attached PDF shows Y → C = agent must act on the discrepancy).
+
+**Read-only constraint (hard):** Prompts using L12 MUST NOT ask the agent to modify, upload, or replace the PDF. The Files/ directory is read-only. The agent reads the document and acts on what it finds (email the finding, update a Linear ticket, flag the discrepancy to the owner) — it never writes back to the file.

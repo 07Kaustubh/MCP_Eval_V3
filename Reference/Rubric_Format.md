@@ -27,7 +27,7 @@ The validator still ACCEPTS the legacy nested shape (`{id, title, annotations: {
 | **No tool names in `title`** | Tool names are allowed only in `evidence` and `justification`. The validator greps the title against `8_Server_Tools_Details.json` and blocks matches. |
 | **No "at least N" in title** unless the prompt explicitly mandates a minimum | "At least N" is reward-hackable. For N independent write actions, write N atomic rubrics. |
 | **Self-contained** | Every expected value (email, amount, ID, account number, classification, retention code) embedded in the `title` itself. The judge does not have the universe; the judge has only the trajectory + the rubric set. |
-| **Atomic** | One independent claim per rubric. If the rubric can fail for two unrelated reasons, split it. |
+| **Atomic** | One independent claim per rubric. If the rubric can fail for two unrelated reasons, split it. **Multi-recipient send rule (ML-confirmed July 2026):** email *sent* to A, B, C = three separate 1.1 rubrics (one per send action). Email *content* that is identical to A, B, C = one 1.2 rubric (single content claim). Bundle ONLY when a single write action contains multiple interconnected parts of the exact same request. A catch-all summary criterion is never atomic — split it. |
 | **Grounded** | Every concrete value in the title must appear verbatim in this task's `_aux/Universe_Split/`. The validator does a substring sweep. |
 
 ## Outcome sub-categories
@@ -117,6 +117,31 @@ If any condition fails, drop the Process or tighten the Outcome.
 - "At least 5 follow-up issues" without prompt mandate → one rubric per issue grounded in ground truth.
 - "(or similar)" near an exact email or ID → drop the qualifier; emails / IDs are strict.
 - A Process rubric that names a specific tool path → delete it. If the work is provable from an Outcome value, tighten the Outcome.
+- **Tool capability mismatch (ML-confirmed July 2026):** Rubric requires an action the service cannot perform (e.g., "The Agent sends a Gmail message to X" when Gmail only supports `gmail_draft_email` — there is no send action). Rewrite as "The Agent drafts a Gmail message to X" or route to a service that does support sending.
+- **Single-channel lock-in (ML-confirmed July 2026):** Rubric mandates one specific communication channel (e.g., "The Agent sends a Slack message") when the prompt allows multiple valid channels and a reasonable agent might legitimately choose another. Use a Process rubric that names the goal ("Agent notifies the property manager") or name all valid paths in the criterion.
+- **Over-embedded non-required specifics (ML-confirmed July 2026):** Rubric pins free-text details (subject lines, paragraph wording, exact phrasing) to values not mandated by the prompt. Agent-generated content must use `(or similar)`. Only structured fields with exactly one correct value (IDs, emails, dollar amounts, dates) get exact-match criteria.
+- **Ambiguous universe data enforcement (ML-confirmed July 2026):** Rubric selects one interpretation of a genuinely ambiguous or conflicting universe field and penalizes the agent for choosing another reasonable reading. When universe data is ambiguous, either (a) tighten the prompt to resolve the ambiguity, or (b) accept all defensible interpretations in the criterion with `must be one of:`.
+- **De-duplication penalty (ML-confirmed July 2026):** Rubric counts specific send/create actions and fails the agent for making fewer calls than expected because the agent correctly de-duplicated redundant or conflicting records. A rubric must test outcomes, not call counts; if the agent achieves the correct business outcome through fewer operations, it passes.
+- **System-of-record vs. reality mismatch (ML-confirmed July 2026):** Rubric demands the agent echo a stale system-of-record field value when downstream evidence in the same universe (later emails, audit logs, subsequent records) clearly contradicts it. Rubrics must be grounded in the most authoritative available evidence; if the universe contains a confirmed correction, the rubric must reflect the corrected value.
+
+## Severity taxonomy (ML-confirmed July 2026)
+
+When a rubric defect is identified, assign severity using this taxonomy. The pipeline's absolute-count gates below use these tiers.
+
+| Defect type | Severity | Notes |
+|---|---|---|
+| Self-Containment failure (missing grounding) | **Major** | Judge cannot verify without universe data |
+| Incorrect value (wrong amount, wrong recipient, wrong ID) | **Major** | Rubric tests a value the agent cannot satisfy correctly |
+| Channel / method lock-in when valid alternative exists | **Major** | Escalates from Minor per Phase 2.7 rule; Minor only when no realistic alternative path exists |
+| **Overly Specific** (free-text field pinned to exact wording when agent-generated) | **Moderate** | Heavier penalty than before (July 2026 change). Use `(or similar)` for agent-generated text; keep exact only for structured fields with one correct value (IDs, emails, amounts, dates). |
+| Tool name in rubric title | **Moderate** | Validator catches; council confirms |
+| Wrong category (e.g., write action filed as Process) | **Moderate** | |
+| Passive voice phrasing | **Moderate** | "An email was sent" instead of "The Agent sends" |
+| **Under-Specific** (rubric so broad a wrong answer passes) | **Minor** | Lighter penalty than Overly Specific (July 2026 change). Flag but does not immediately block if the prompt direction is recoverable. |
+| `(or similar)` adjacent to an exact-match field (email, ID, date) | **Minor** | Qualifier must be removed |
+| Justification / evidence field thin or missing | **Minor** | |
+
+**Severity swap summary (July 2026):** Overly Specific promoted to Moderate; Under Specific demoted to Minor. Rationale: an over-specified rubric actively causes valid agent paths to fail; an under-specified rubric merely weakens discrimination but does not wrongly penalize correct behavior.
 
 ## Threshold math + dilution prevention
 

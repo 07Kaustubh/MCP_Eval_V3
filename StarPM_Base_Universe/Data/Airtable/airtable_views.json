@@ -1,0 +1,22 @@
+[
+  {
+    "source": "airtable.airtable_views",
+    "row_data": {
+      "id": "viwGridView",
+      "name": "All Tickets",
+      "type": "grid",
+      "table_id": "tblMaintenanceTickets",
+      "order_idx": 0
+    }
+  },
+  {
+    "source": "airtable.airtable_views",
+    "row_data": {
+      "id": "viwTurns",
+      "name": "All Turns",
+      "type": "grid",
+      "table_id": "tblMakeReady",
+      "order_idx": 0
+    }
+  }
+]

@@ -44,7 +44,7 @@ import re
 import sys
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -257,7 +257,7 @@ class Report:
         return "\n".join(lines)
 
 
-def load_tool_names(tool_catalog_path: Path = None) -> set:
+def load_tool_names(tool_catalog_path: Optional[Path] = None) -> set:
     if tool_catalog_path is None:
         tool_catalog_path = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
     if not Path(tool_catalog_path).is_file():
@@ -280,7 +280,7 @@ def load_tool_names(tool_catalog_path: Path = None) -> set:
     return names
 
 
-def load_tool_param_map(tool_catalog_path: Path = None) -> dict:
+def load_tool_param_map(tool_catalog_path: Optional[Path] = None) -> dict:
     if tool_catalog_path is None:
         tool_catalog_path = ROOT / "Brookfield_Base_Universe" / "8_Server_Tools_Details.json"
     if not Path(tool_catalog_path).is_file():
@@ -372,7 +372,7 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
                 rep.fail(f"persona is an NPC for {universe}: `{npc}`. NPCs appear as participants/counterparties, never as task author. See {consts['persona_briefs']} for valid authoring personas.")
                 break
         if local_persona_email_domain:
-            all_universe_domains = {"brookfieldcpas.com", "keystonemortgage.com", "moveops.com"}
+            all_universe_domains = {"brookfieldcpas.com", "keystonemortgage.com", "moveops.com", "starpm.com"}
             wrong_domains = all_universe_domains - {local_persona_email_domain}
             persona_lower = persona_text.lower()
             for wrong in wrong_domains:
@@ -559,17 +559,30 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
         for t in unknown:
             rep.fail(f"OE references unknown tool: `{t}` (not in {local_tool_catalog.name})")
 
-    if re.search(r"email_send_email[^.\n]{0,80}\bbody\s*[:=]", text):
-        rep.fail("email_send_email uses `body` — should be `content`")
+    tool_param_traps = consts.get("tool_param_traps", {})
+    email_tool = "gmail_create_draft" if universe == "starpm" else "email_send_email"
+    if re.search(rf"{re.escape(email_tool)}[^.\n]{{0,80}}\bbody\s*[:=]", text, re.IGNORECASE):
+        rep.fail(f"`{email_tool}` uses `body` — should be `content`")
+    if universe == "starpm" and re.search(r"\bgmail_send_email\b", text):
+        rep.fail("`gmail_send_email` does not exist in StarPM — Gmail only supports `gmail_create_draft`. Replace all `gmail_send_email` references.")
     if re.search(r"slack_conversations_add_message[^.\n]{0,80}\btext\s*[:=]", text):
         rep.fail("slack_conversations_add_message uses `text` — should be `payload`")
-
-    if re.search(r"records_vault_upload_document[^.\n]{0,100}\bfile\s*[:=]", text, re.IGNORECASE):
-        rep.fail("records_vault_upload_document uses `file` — should be `content_b64`")
-    if re.search(r"records_vault_upload_document[^.\n]{0,100}\bdata\s*[:=]", text, re.IGNORECASE):
-        rep.fail("records_vault_upload_document uses `data` — should be `content_b64`")
-    if re.search(r"linear_create_issue[^.\n]{0,100}\bteam\s*[:=]", text):
-        rep.fail("linear_create_issue uses `team` — should be `teamId`")
+    if universe not in ("starpm", "moveops"):
+        if re.search(r"records_vault_upload_document[^.\n]{0,100}\bfile\s*[:=]", text, re.IGNORECASE):
+            rep.fail("records_vault_upload_document uses `file` — should be `content_b64`")
+        if re.search(r"records_vault_upload_document[^.\n]{0,100}\bdata\s*[:=]", text, re.IGNORECASE):
+            rep.fail("records_vault_upload_document uses `data` — should be `content_b64`")
+    linear_trap = tool_param_traps.get("linear_create_issue", {})
+    if linear_trap:
+        wrong_param = linear_trap.get("wrong", "")
+        right_param = linear_trap.get("required", "")
+        if wrong_param and right_param and re.search(
+            rf"linear_create_issue[^.\n]{{0,100}}\b{re.escape(wrong_param)}\s*[:=]", text
+        ):
+            rep.fail(f"`linear_create_issue` uses `{wrong_param}` — should be `{right_param}` for {universe}")
+    elif universe == "brookfield":
+        if re.search(r"linear_create_issue[^.\n]{0,100}\bteam\s*[:=]", text):
+            rep.fail("linear_create_issue uses `team` — should be `teamId`")
 
     if local_retention_codes:
         for m in RETENTION_CODE_REF.finditer(text):
@@ -657,14 +670,19 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
     elif lifecycle:
         rep.note("no closed fiscal periods in Fact_Ledger.lifecycle.closed_periods — skipping lifecycle precondition check")
 
+    _email_action_pat = (
+        r"\b(?:gmail_create_draft)\b" if universe == "starpm"
+        else r"\b(?:sends?\s+(?:an?\s+)?email|email_send_email)\b"
+    )
     for i, step in enumerate(oe_steps_indexed, 1):
-        if re.search(r"\b(?:sends?\s+(?:an?\s+)?email|email_send_email)\b", step, re.IGNORECASE):
+        if re.search(_email_action_pat, step, re.IGNORECASE):
             emails_in_step = EMAIL_RE.findall(step)
             if emails_in_step:
                 prior_text = "".join(oe_steps_indexed[:i - 1])
                 has_lookup = bool(re.search(r"\b(?:look\s+up|contacts?_(?:search|list|get)|find\s+(?:the\s+)?contact|resolve\s+(?:the\s+)?(?:email|recipient)|get\s+(?:the\s+)?(?:contact|email))\b", prior_text, re.IGNORECASE))
                 if not has_lookup:
-                    rep.warn(f"OE step {i}: sends email to {emails_in_step[0]} but no earlier OE step performs a contact lookup. Dependency chain: typically needs contact-lookup step (contacts_search_contacts or similar) before the send.")
+                    email_tool_name = "gmail_create_draft" if universe == "starpm" else "email_send_email"
+                    rep.warn(f"OE step {i}: {email_tool_name} to {emails_in_step[0]} but no earlier OE step performs a contact lookup. Dependency chain: typically needs contact-lookup step (contacts_search_contacts or similar) before the draft/send.")
 
     if oe_steps_indexed and len(oe_steps_indexed) >= 3:
         pronoun_skip_oe = {"The", "If", "When", "Can", "Will", "Would", "Should", "Could", "Please", "Also", "But", "And", "Or", "So", "Now", "Then", "Just", "I", "A", "An", "It", "Here", "There", "This", "That", "OE", "Search", "Send", "Post", "Verify", "Use", "Call", "Look", "Lookup", "Query", "Pull", "Fetch", "Load", "Create", "Update", "Upload", "Add", "Confirm", "Schedule", "Retrieve", "Get", "List", "Check", "Read", "Identify", "Determine", "Filter", "Decide", "Find", "Inspect", "Review", "Compare", "Compute", "Calculate", "Reply", "Forward", "Notify", "Approve", "Reject", "Submit", "Certify", "Archive", "Dismiss", "Next", "Finally", "Optionally", "Resolve", "Write", "Draft", "Log", "Mark", "Set", "Reach"}
@@ -819,7 +837,8 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
         # Support both shapes:
         #   nested:  {annotations: {evidence, justification, rubric_category}}
         #   flat:    {evidence, justification, category}
-        ann = r.get("annotations") if isinstance(r.get("annotations"), dict) else {}
+        _ann = r.get("annotations")
+        ann: dict = _ann if isinstance(_ann, dict) else {}
         if ann:
             rep.warn(f"{loc}: nested schema is deprecated — convert to flat {{title, category, justification, evidence}}. New tasks must ship flat.")
         evidence = ann.get("evidence") or r.get("evidence")

@@ -262,6 +262,24 @@ Save to _aux/Council_Reports/<phase>_A_grounding.md.
 
 ---
 
+## OE Authority Rule (ML-confirmed July 2026)
+
+> **Oracle Events are CB internal planning documents, NOT ground truth.**
+
+This rule applies to all universes (Brookfield, Keystone, MoveOps, StarPM) and supersedes any prior framing that treated OEs as a source of truth for what the agent "must" do.
+
+**What this means in practice:**
+
+- The **prompt** must be unambiguous on its own. An agent that never reads the OEs must still be able to complete the task correctly from the prompt alone.
+- The **universe data** (`_aux/Universe_Split/` + `Fact_Ledger.json`) is the SSOT for all verifiable values. An OE step that names a value contradicting the universe is WRONG — fix the OE, not the universe.
+- **Rubrics are grounded in universe data, not in OE steps.** When a rubric value and an OE value disagree, the rubric value (if grounded in universe) is authoritative; the OE step needs the fix.
+- **OEs may not prescribe actions the prompt does not support.** An OE step that adds an action the prompt does not ask for or imply is an OE overreach — it should be removed, not used to justify a rubric.
+- **Council B-B6 propagation rule:** if an OE step contradicts the prompt or contradicts universe data, the fix is `PROPAGATE TO S2` (fix the OE) — never patch the rubric to accommodate a wrong OE.
+
+The Per-OE Verification Sign-Off Table in the S2 AUDIT (introduced in V4) makes this check explicit: every OE step must be verified against prompt + universe data before the OE chain ships.
+
+---
+
 ## Council B — Adversarial QC + Density + Hardness Preservation
 
 **Role:** scores against every applicable QC sub-dim, attempts adversarial moves, projects tool-call density vs the 40+ baseline, and confirms the deliverable still triggers the hardness levers HARDNESS phase selected.

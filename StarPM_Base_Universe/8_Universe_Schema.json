@@ -1,0 +1,4002 @@
+[
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_bases",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "workspace_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "permission_level",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_comments",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "base_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "table_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "record_id",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "author_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "text_body",
+        "position": 6,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "parent_comment_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "last_updated_time",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "mentioned_ids",
+        "position": 10,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_dashboard_elements",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "page_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "element_type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "source_table_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "field_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "summary_function",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "config",
+        "position": 8,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "order_idx",
+        "position": 9,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_fields",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "table_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 5,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "options",
+        "position": 6,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "order_idx",
+        "position": 7,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_primary",
+        "position": 8,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_interfaces",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "base_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_pages",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "interface_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "base_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "page_type",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "source_table_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "config",
+        "position": 7,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "order_idx",
+        "position": 8,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_records",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "table_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "fields",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "last_modified_time",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_by_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "last_modified_by_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_tables",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "base_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "primary_field_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "order_idx",
+        "position": 6,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_user_groups",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "member_ids",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_users",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "email",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_views",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "table_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "order_idx",
+        "position": 5,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "airtable",
+    "table_name": "airtable_workspaces",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "permission_level",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "contacts",
+    "table_name": "contacts",
+    "columns": [
+      {
+        "column": "contact_id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "first_name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "last_name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_user",
+        "position": 4,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "gender",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "age",
+        "position": 6,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "nationality",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "city_living",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "country",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "status",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "job",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 12,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "phone",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "email",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "address",
+        "position": 15,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gcalendar",
+    "table_name": "gcalendar_calendars",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "summary",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 3,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "time_zone",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "background_color",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "foreground_color",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "access_role",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "primary",
+        "position": 9,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "selected",
+        "position": 10,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "owner_email",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gcalendar",
+    "table_name": "gcalendar_events",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "calendar_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "properties",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "start_dt",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "end_dt",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_all_day",
+        "position": 6,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "status",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "creator_email",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "organizer_email",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "recurring_event_id",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gmail",
+    "table_name": "gmail_drafts",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "message_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gmail",
+    "table_name": "gmail_labels",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "message_list_visibility",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "label_list_visibility",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "text_color",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "background_color",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gmail",
+    "table_name": "gmail_messages",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "thread_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "history_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "label_ids",
+        "position": 4,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "snippet",
+        "position": 5,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "internal_date",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "size_estimate",
+        "position": 7,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "payload",
+        "position": 8,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "from_address",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "to_addresses",
+        "position": 10,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "cc_addresses",
+        "position": 11,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "subject",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "has_attachments",
+        "position": 13,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 15,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "gmail",
+    "table_name": "gmail_threads",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "history_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "snippet",
+        "position": 3,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "subject_normalized",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "last_internal_date",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_associations",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "integer",
+        "nullable": "NO",
+        "default": "nextval('hubspot.hubspot_associations_id_seq'::regclass)"
+      },
+      {
+        "column": "from_type",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "from_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "to_type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "to_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "labels",
+        "position": 6,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_campaign_asset_metrics",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "integer",
+        "nullable": "NO",
+        "default": "nextval('hubspot.hubspot_campaign_asset_metrics_id_seq'::regclass)"
+      },
+      {
+        "column": "campaign_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "asset_type",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "object_id",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "metrics",
+        "position": 5,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_campaign_attribution",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "integer",
+        "nullable": "NO",
+        "default": "nextval('hubspot.hubspot_campaign_attribution_id_seq'::regclass)"
+      },
+      {
+        "column": "campaign_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "contact_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "attribution_type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "attributed_at",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_campaigns",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "properties",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_job_titles",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_objects",
+    "columns": [
+      {
+        "column": "object_type",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "properties",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_owners",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "email",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "first_name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "last_name",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_active",
+        "position": 7,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "teams",
+        "position": 8,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_properties",
+    "columns": [
+      {
+        "column": "object_type",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "sort_idx",
+        "position": 3,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "label",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 5,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "field_type",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "group_name",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "options",
+        "position": 9,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived",
+        "position": 10,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "calculated",
+        "position": 11,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "hidden",
+        "position": 12,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_seats",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "hubspot",
+    "table_name": "hubspot_teams",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "member_owner_ids",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_attachments",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "issue_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "subtitle",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "url",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "metadata_json",
+        "position": 6,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "creator_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "content_type",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "size",
+        "position": 9,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "content_base64",
+        "position": 10,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_comments",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "author_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "body",
+        "position": 3,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "parent_id",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "issue_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "project_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "initiative_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "document_id",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "milestone_id",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "quoted_text",
+        "position": 10,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "resolved_at",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_cycles",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "team_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "number",
+        "position": 5,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "starts_at",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "ends_at",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "completed_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "progress",
+        "position": 9,
+        "type": "double precision",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_diff_threads",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "diff_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "file_path",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "line",
+        "position": 4,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "resolved",
+        "position": 5,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "author_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "body",
+        "position": 7,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_diffs",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "identifier",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "url",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "repo",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "owner",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "status",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "review_url",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "slug",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "author_id",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "issue_id",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_documents",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "slug",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "content",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "icon",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "creator_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "project_id",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "issue_id",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "initiative_id",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "cycle_id",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_initiative_status_updates",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "initiative_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "body",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "health",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_initiatives",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "slug",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "status",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "owner_id",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "target_date",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "icon",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "parent_initiative_ids",
+        "position": 11,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_issue_labels",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "team_id",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "parent_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_group",
+        "position": 6,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 7,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_issue_relations",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "issue_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "related_issue_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_issues",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "uuid",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "team_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 5,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "number",
+        "position": 6,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "state_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "project_id",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "cycle_id",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "milestone_id",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "parent_id",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "assignee_id",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "creator_id",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "priority",
+        "position": 14,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "estimate",
+        "position": 15,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "due_date",
+        "position": 16,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "completed_at",
+        "position": 17,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "label_ids",
+        "position": 18,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_archived",
+        "position": 19,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "url",
+        "position": 20,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "git_branch_name",
+        "position": 21,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_started_at",
+        "position": 22,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_medium_risk_at",
+        "position": 23,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_high_risk_at",
+        "position": 24,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_breaches_at",
+        "position": 25,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_type",
+        "position": 26,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 27,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 28,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_project_labels",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_project_milestones",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "project_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "target_date",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sort_order",
+        "position": 6,
+        "type": "double precision",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_project_status_updates",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "project_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "body",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "health",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_projects",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "slug",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "summary",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 5,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "state",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "lead_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "priority",
+        "position": 8,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "icon",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "start_date",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "target_date",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "start_date_resolution",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "target_date_resolution",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "archived_at",
+        "position": 15,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "team_ids",
+        "position": 16,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "member_ids",
+        "position": 17,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "initiative_ids",
+        "position": 18,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "label_ids",
+        "position": 19,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 20,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 21,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_team_memberships",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "team_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_teams",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "key",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 4,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "icon",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_archived",
+        "position": 7,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "next_issue_number",
+        "position": 8,
+        "type": "integer",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "sla_config",
+        "position": 9,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_users",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "display_name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "email",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "avatar_url",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_active",
+        "position": 6,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "linear",
+    "table_name": "linear_workflow_states",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "team_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "color",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "position",
+        "position": 6,
+        "type": "double precision",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "description",
+        "position": 7,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "updated_at",
+        "position": 9,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "public",
+    "table_name": "_changelog",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "bigint",
+        "nullable": "NO",
+        "default": "nextval('agent_env_internal._changelog_id_seq'::regclass)"
+      },
+      {
+        "column": "timestamp",
+        "position": 2,
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "default": "now()"
+      },
+      {
+        "column": "schema_name",
+        "position": 3,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "table_name",
+        "position": 4,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "operation",
+        "position": 5,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "row_id",
+        "position": 6,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "summary",
+        "position": 7,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "changed_fields",
+        "position": 8,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "quickbooks",
+    "table_name": "quickbooks_company_info",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "sync_token",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "properties",
+        "position": 3,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "last_updated_time",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "quickbooks",
+    "table_name": "quickbooks_entities",
+    "columns": [
+      {
+        "column": "entity_type",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "sync_token",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "properties",
+        "position": 4,
+        "type": "jsonb",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "active",
+        "position": 5,
+        "type": "boolean",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_time",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "last_updated_time",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_canvas_sections",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "integer",
+        "nullable": "NO",
+        "default": "nextval('slack.slack_canvas_sections_id_seq'::regclass)"
+      },
+      {
+        "column": "canvas_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "section_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "content",
+        "position": 4,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "order",
+        "position": 5,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_canvases",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "markdown_content",
+        "position": 3,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "author_id",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 5,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "updated_ts",
+        "position": 6,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "channels_json",
+        "position": 7,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_channels",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_channel",
+        "position": 3,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_private",
+        "position": 4,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_im",
+        "position": 5,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_mpim",
+        "position": 6,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_archived",
+        "position": 7,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_general",
+        "position": 8,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "num_members",
+        "position": 9,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "topic",
+        "position": 10,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "purpose",
+        "position": 11,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 12,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "creator_id",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "members_json",
+        "position": 14,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "topic_creator",
+        "position": 15,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "topic_last_set",
+        "position": 16,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "purpose_creator",
+        "position": 17,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "purpose_last_set",
+        "position": 18,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_shared",
+        "position": 19,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_ext_shared",
+        "position": 20,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_drafts",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "channel_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "owner_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "text",
+        "position": 4,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "thread_ts",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 6,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_files",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "mimetype",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "filetype",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "size",
+        "position": 6,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 7,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "channels_json",
+        "position": 9,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "permalink",
+        "position": 10,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "url_private",
+        "position": 11,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "content_text",
+        "position": 12,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "blob_path",
+        "position": 13,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_messages",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "ts",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "channel_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "type",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "text",
+        "position": 6,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "thread_parent_id",
+        "position": 7,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "thread_ts_legacy",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "reply_count",
+        "position": 9,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "reply_users_count",
+        "position": 10,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "latest_reply",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_activity_message",
+        "position": 12,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "subtype",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "reactions_json",
+        "position": 14,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "files_json",
+        "position": 15,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "attachments_json",
+        "position": 16,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_at",
+        "position": 17,
+        "type": "timestamp with time zone",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_reactions",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "integer",
+        "nullable": "NO",
+        "default": "nextval('slack.slack_reactions_id_seq'::regclass)"
+      },
+      {
+        "column": "channel_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "message_ts",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "emoji_name",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "user_id",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 6,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_scheduled_messages",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "channel_id",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "owner_id",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "text",
+        "position": 4,
+        "type": "text",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "post_at",
+        "position": 5,
+        "type": "integer",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "thread_ts",
+        "position": 6,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "reply_broadcast",
+        "position": 7,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "status",
+        "position": 8,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "created_ts",
+        "position": 9,
+        "type": "double precision",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  },
+  {
+    "table_schema": "slack",
+    "table_name": "slack_users",
+    "columns": [
+      {
+        "column": "id",
+        "position": 1,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "name",
+        "position": 2,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "real_name",
+        "position": 3,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "display_name",
+        "position": 4,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "email",
+        "position": 5,
+        "type": "character varying",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "avatar_url",
+        "position": 6,
+        "type": "text",
+        "nullable": "YES",
+        "default": null
+      },
+      {
+        "column": "is_bot",
+        "position": 7,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_admin",
+        "position": 8,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "deleted",
+        "position": 9,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "timezone",
+        "position": 10,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "pronouns",
+        "position": 11,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "title",
+        "position": 12,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "phone",
+        "position": 13,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "organization_name",
+        "position": 14,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "status_emoji",
+        "position": 15,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "status_text",
+        "position": 16,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_owner",
+        "position": 17,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "is_restricted",
+        "position": 18,
+        "type": "boolean",
+        "nullable": "NO",
+        "default": null
+      },
+      {
+        "column": "locale",
+        "position": 19,
+        "type": "character varying",
+        "nullable": "NO",
+        "default": null
+      }
+    ]
+  }
+]

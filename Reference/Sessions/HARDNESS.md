@@ -132,17 +132,17 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    ## Service Breadth (v11 G1)
    List each service the projected trajectory exercises with the projected call count per service. Cross-service breadth is a hardness multiplier — 50 calls across 5 services is structurally harder for Opus 4.8 than 50 calls in one service (single-service traps allow context lock-in; multi-service forces persistent cross-correlation).
 
+   **Use the universe-correct service rows.** Read `_aux/Universe.txt` and fill in only the services that exist in that universe:
+   - **Brookfield / KeyStone / MoveOps:** oracle_gl, email, slack, records_vault, blackline, linear, airtable, sap, contacts, other
+   - **StarPM (V4):** airtable, contacts, gcalendar, gmail, hubspot, linear, quickbooks, slack, other
+
    | Service | Calls | % of total |
    |---|---|---|
-   | oracle_gl | <n> | <pct> |
-   | email | <n> | <pct> |
-   | slack | <n> | <pct> |
-   | records_vault | <n> | <pct> |
-   | blackline | <n> | <pct> |
-   | linear | <n> | <pct> |
-   | airtable | <n> | <pct> |
-   | sap | <n> | <pct> |
-   | contacts | <n> | <pct> |
+   | <service_1> | <n> | <pct> |
+   | <service_2> | <n> | <pct> |
+   | <service_3> | <n> | <pct> |
+   | <service_4> | <n> | <pct> |
+   | <service_5> | <n> | <pct> |
    | other | <n> | <pct> |
    | **Distinct services** | **<count>** | — |
 

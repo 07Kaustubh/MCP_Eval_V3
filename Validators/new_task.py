@@ -85,8 +85,8 @@ def main():
     task_dir.mkdir()
     for fname, _ in paste_files:
         (task_dir / fname).touch()
-    (task_dir / "Agent_Responses").mkdir()
-    (task_dir / "trajectory-runs").mkdir()
+    (task_dir / "Agent_Responses" / "Opus").mkdir(parents=True)
+    (task_dir / "Agent_Responses" / "Gemini").mkdir(parents=True)
 
     print(f"Created: {task_dir}")
     print(f"Mode:    {mode}")
@@ -99,7 +99,8 @@ def main():
     if args.review:
         print(f"Also (OPTIONAL): if the candidate already ran trajectories on the platform,")
         print(f"drop the JSON files into:")
-        print(f"  {task_dir / 'trajectory-runs'}/")
+        print(f"  {task_dir / 'Agent_Responses' / 'Opus'}/")
+        print(f"  {task_dir / 'Agent_Responses' / 'Gemini'}/")
         print(f"and parse_trajectories.py will pick them up during REVIEW step 3.")
         print()
         print("Then run, in a fresh chat:")

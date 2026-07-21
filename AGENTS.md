@@ -1,19 +1,19 @@
 # MCP Eval V3 — Project Knowledge Base
 
-**Updated:** 2026-06-21
+**Updated:** 2026-07-21
 
 > **Operator?** Read [`QUICK_START.md`](QUICK_START.md) — the 1-page how-to.
 
 ## What this project is
 
-An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubrics) built on the **Brookfield CPAs & Advisors** synthetic universe. The pipeline produces 5-of-5 QC-grade deliverables that meaningfully stump **Opus 4.8** during the 6-run agent verification step.
+An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubrics) built on multiple synthetic universes: **Brookfield CPAs & Advisors** (V3), **Keystone Mortgage Partners** (V3.1), **MoveOps Inc.** (V2.1), and **Star Property Management** (V4). The pipeline produces 5-of-5 QC-grade deliverables that meaningfully stump **Opus 4.8** (and **Gemini** for V4 tasks) during the 6-run agent verification step.
 
 ## Hard rules (apply to every phase, every chat)
 
 1. **Opus 4.8 is the model under test.** All hardness engineering targets known Opus 4.8 failure modes from `Docs/4_Prompt_Hard_Tips.md` and `Reference/Hardness_Playbook.md`.
 2. **Per-task `3_UniverseDataForThisTask.json` is the ONLY universe source of truth.** Always work from the split written to `Tasks/<TASK_DIR>/_aux/Universe_Split/` for the current task.
 3. **`Brookfield_Base_Universe/` is stale by default.** The one stable file is `8_Server_Tools_Details.json` (tool definitions). Persona briefs in `2_Persona_Briefs.md` are also stable (personas do not change per task). Everything else in that directory describes a snapshot that may not match the per-task universe.
-4. **No universe edits in this pipeline.** Hardness comes from levers already present in the per-task data. If S0/HARDNESS finds fewer than 3 levers, stop and ask the user to decide.
+4. **No universe edits in this pipeline (V3 universes only).** For Brookfield, Keystone, and MoveOps tasks, hardness comes from levers already present in the per-task data — never edit the universe to create room for a lever. If S0/HARDNESS finds fewer than 3 levers, stop and ask the user to decide. **Exception — StarPM (V4):** universe injection is expected and required; the CB edits `9_Universe_inject.sql` and `4_Changelog.json`, then the INJECTION phase validates the edits before prompt authoring begins.
 5. **500-word cap on prompts. No em-dashes anywhere.** Validator blocks both.
 6. **No "at least N" in rubric titles** unless the prompt explicitly mandates a minimum. Atomic rubrics for multi-item write actions.
 7. **No tool names in prompts. No tool names in rubric titles.** Allowed only in OE bodies and in rubric evidence / justification fields.
@@ -45,9 +45,20 @@ Where the 4 evaluator specs (`Evals/1_Prompt_Eval.md` ... `Evals/4_Verifier_Fail
 
 When the spec gets a new version, re-check this table against the new spec. If a spec amendment resolves a contradiction differently than the pipeline's interpretation, update both the pipeline AND this table together.
 
+## V4 Spec Changes (StarPM — ML-confirmed July 2026)
+
+These changes apply to ALL new tasks authored after July 2026, regardless of universe. Existing shipped tasks are not retroactively affected.
+
+| Change | Old behavior | New behavior |
+|---|---|---|
+| **Atomicity — multi-recipient sends** | Unclear whether one rubric per send or bundling allowed | Email *sent* to A, B, C = **three separate 1.1 rubrics** (one per send action). Email *content* identical to A/B/C = **one 1.2 rubric** (single content claim, bundling OK). Catch-all summary criterion is never atomic. |
+| **Severity: Overly Specific** | Minor | **Moderate** (heavier penalty). Free-text / agent-generated fields must use `(or similar)` or approximate values. Structured fields with one correct value (IDs, emails, dates, amounts) stay exact. |
+| **Severity: Under Specific** | Moderate | **Minor** (lighter penalty). Weakens discrimination but does not wrongly penalize correct behavior. |
+| **OE Authority** | OEs treated as planning docs AND sometimes as ground truth | OEs are **CB internal planning docs, NOT ground truth**. Prompt must be clear on its own. Universe data is SSOT. Rubrics grounded in universe, not OE steps. See `Reference/Council_Protocol.md → OE Authority Rule`. |
+
 ## PIPELINE DISPATCH
 
-> **Supersedes the legacy `command workflow.txt`** (archived to `_archive/` in v21). The 16 PIPELINE triggers below are the only entry points the operator needs. The historical workflow doc is preserved at `_archive/command workflow.txt` for archaeological reference; the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
+> **Supersedes the legacy `command workflow.txt`** (archived to `_archive/` in v21). The 18 PIPELINE triggers below are the only entry points the operator needs. The historical workflow doc is preserved at `_archive/command workflow.txt` for archaeological reference; the runbook contracts it described are now codified in `Reference/Sessions/*.md`.
 
 Each trigger phrase below runs in a **fresh chat with zero prior context**. The runbook bootstraps itself. Find-replace `<TASK_DIR>` per task; everything else is fixed.
 
@@ -61,7 +72,9 @@ Each trigger phrase below runs in a **fresh chat with zero prior context**. The 
 | `PIPELINE S2 — Tasks/<TASK_DIR>` | [Reference/Sessions/S2.md](Reference/Sessions/S2.md) | Draft `6_Oracle_Events.txt`, validate, two councils |
 | `PIPELINE S3 — Tasks/<TASK_DIR>` | [Reference/Sessions/S3.md](Reference/Sessions/S3.md) | Draft `7_Rubrics.json`, validate, two councils (heaviest pass) |
 | `PIPELINE FINAL — Tasks/<TASK_DIR>` | [Reference/Sessions/FINAL.md](Reference/Sessions/FINAL.md) | Cross-artifact holistic council — answer-leakage scan, entity-drift check, lever-preservation end-to-end. **Required before platform upload.** |
-| `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste | [Reference/Sessions/S4.md](Reference/Sessions/S4.md) | Classify verifier fails, draft AF justifications |
+| `PIPELINE INJECTION — Tasks/<TASK_DIR>` | [Reference/Sessions/INJECTION.md](Reference/Sessions/INJECTION.md) | **(StarPM V4 only)** Hard-gate injection quality eval — runs AFTER universe injection, BEFORE S1. All 7 structural gates + difficulty score ≥ 3.5 must pass. |
+| `PIPELINE SUBMISSION_GATE — Tasks/<TASK_DIR>` | [Reference/Sessions/SUBMISSION_GATE.md](Reference/Sessions/SUBMISSION_GATE.md) | **(StarPM V4 only)** Zero-tolerance pre-upload check — runs AFTER FINAL. 6 defect families, 32 patterns. One failure = task FAIL. |
+| `PIPELINE S4 — Tasks/<TASK_DIR>` + verifier-fails paste | [Reference/Sessions/S4.md](Reference/Sessions/S4.md) | Classify verifier fails, draft AF justifications. StarPM V4 tasks: paste BOTH `8a_Verifier_Fails_Opus.txt` AND `8b_Verifier_Fails_Gemini.txt`. |
 | `PIPELINE REVIEW — Tasks/<TASK_DIR>` | [Reference/Sessions/REVIEW.md](Reference/Sessions/REVIEW.md) | Review-type task intake: full assessment (validator + Council A + Council B + AUDIT on original + FINAL) + deep trajectory analysis (S4-style bucket classification on original trajectories if present) + initialize `changes.md` with all rows auto-marked Applied. Does NOT materialize 14/15 (v16 split — MATERIALIZE does that). |
 | `PIPELINE MATERIALIZE — Tasks/<TASK_DIR>` | [Reference/Sessions/MATERIALIZE.md](Reference/Sessions/MATERIALIZE.md) | Apply Applied rows from `changes.md` to produce `14_Updated_Oracle_Events.txt` / `15_Updated_Rubrics.json` / `_aux/REVIEW_prompt_draft.txt`, then re-run full gate set (validator + Council A + Council B + AUDIT + FINAL) on the corrected materialization. Runs AFTER REVIEW, BEFORE FEEDBACK. |
 | `PIPELINE REDO — Tasks/<TASK_DIR>` | [Reference/Sessions/REDO.md](Reference/Sessions/REDO.md) | Reviewer redo: REVIEW done + fixes applied but trajectory failed on difficulty (pass@1 > 40%) or density (avg tool calls < 40). Archives candidate originals + rebuilds 5/6/7 from scratch as a full CB build. Also used when a CB's own task came back failing density / difficulty. |
@@ -91,6 +104,8 @@ MCP_Eval_V3/
 │   ├── OE_Convention_Inventory.json
 │   └── Sessions/
 │       ├── S0.md  HARDNESS.md  S1.md  S1.5.md  S2.md  S3.md  S4.md  REVIEW.md  COMPARE.md
+│       ├── INJECTION.md            # StarPM V4 only — injection quality hard gate
+│       └── SUBMISSION_GATE.md      # StarPM V4 only — zero-tolerance pre-upload check
 ├── Validators/
 │   ├── split_universe.py           # per-task data.py wrapper
 │   ├── build_universe_index.py     # per-task summaries
@@ -104,13 +119,35 @@ MCP_Eval_V3/
 │   ├── 8_Server_Tools_Details.json # STABLE — the tool / parameter reference
 │   ├── 9_Universe_Schema.json
 │   └── Data/                       # stale pre-baked universe split — do NOT use for per-task work
-├── Docs/                           # V3 framework specs and guidelines (stable)
-├── Evals/                          # phase eval specs (Prompt / OE / Rubrics / Verifier-Fails)
+├── StarPM_Base_Universe/           # V4 base universe (stable — CBs edit via 9_Universe_inject.sql only)
+│   ├── 0_StarPM_One-Pager.md ... 6_StarPM_GLOSSARY.md
+│   ├── 7_Server_Tools_Details.json # STABLE — StarPM tool / parameter reference
+│   ├── 8_Universe_Schema.json
+│   └── Data/                       # base universe data (9 service folders + Files/ read-only PDFs)
+├── Docs/                           # V3 framework specs and guidelines (stable, Brookfield)
+├── Docs_keystone/                  # V3.1 framework docs (Keystone)
+├── Docs_moveops/                   # V2.1 framework docs (MoveOps)
+├── Docs_starpm/                    # V4 framework docs (StarPM)
+├── Evals/                          # phase eval specs — Brookfield/Keystone/MoveOps (V3)
+├── Evals_keystone/                 # phase eval specs — Keystone
+├── Evals_moveops/                  # phase eval specs — MoveOps
+├── Evals_starpm/                   # phase eval specs — StarPM V4 (incl. Injection + Submission Gate)
 ├── Guide/                          # how-to docs and verifier-fails template
 ├── QC_Tasks/
-│   ├── V3_Tasks/                   # on-framework reference tasks (Task11..Task14)
-│   └── V2_Tasks/                   # legacy V2/Keystone — study craft, not framework
+│   ├── V3_Tasks/                   # on-framework reference tasks (Task11..Task14, Brookfield)
+│   ├── V3.1_Tasks/                 # Keystone reference tasks
+│   ├── V2.1_Tasks/                 # MoveOps reference tasks
+│   └── V4_Tasks/                   # StarPM V4 reference tasks (placeholder)
 ├── Tasks_Template/                 # platform-paste-target template
+│   ├── 1_Business_Function.txt … 9_Universe_inject.sql
+│   ├── 4_Changelog.json            # CB change manifest (StarPM; optional for V3)
+│   ├── 8_Verifier_Fails.txt        # V3 universes single-model verifier fails
+│   ├── 8a_Verifier_Fails_Opus.txt  # StarPM V4 — Opus model verifier fails
+│   ├── 8b_Verifier_Fails_Gemini.txt # StarPM V4 — Gemini model verifier fails
+│   └── Agent_Responses/
+│       ├── Run1..6_Trajectory.json  # V3 flat layout
+│       ├── Opus/                    # StarPM V4 — Opus trajectories
+│       └── Gemini/                  # StarPM V4 — Gemini trajectories
 ├── Tasks/                          # live tasks
 │   ├── <TASK_DIR>/                 # per-task work
 │   │   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
@@ -120,7 +157,7 @@ MCP_Eval_V3/
 │   │   ├── 15_Updated_Rubrics.json       # REVIEW flow only, IFF rubric fixes Applied
 │   │   ├── PersonaBrief.txt
 │   │   ├── changes.md              # review-tasks only
-│   │   ├── Agent_Responses/        # 6 trajectory JSONs (user-pasted)
+│   │   ├── Agent_Responses/        # trajectories (V3: flat Run1-6; StarPM V4: Opus/ + Gemini/ subfolders)
 │   │   └── _aux/                   # pipeline working directory
 │   │       ├── Universe_Split/     # per-task universe split
 │   │       ├── Universe_Index/     # service_inventory, entities_personas, key_facts, today_horizon, accounts_per_entity, graph_report
@@ -140,9 +177,9 @@ MCP_Eval_V3/
 └── data.py                         # smart forwarder — routes per-task input to Validators/split_universe.py
 ```
 
-## Universe constants (multi-universe — v20)
+## Universe constants (multi-universe — v21)
 
-Pipeline supports **three universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
+Pipeline supports **four universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
 
 ### Brookfield CPAs & Advisors (default — public accounting / business advisory)
 
@@ -192,19 +229,36 @@ Pipeline supports **three universes**. Detection is automatic via `Validators/de
 - **Framework version:** V2.1 (older framework than V3 — some rubric / OE conventions may differ slightly from V3 Brookfield + V3.1 KeyStone; QC sub-dim scoring rules in `Docs_moveops/2_Rubrics_V3_Guidelines.md` may have minor deltas — read it before applying validator behavior to MoveOps tasks).
 - **Docs:** `Docs_moveops/` · Evals: `Evals_moveops/` · QC ref: `QC_Tasks/V2.1_Tasks/`.
 
+### Star Property Management (V4 — residential property management, SW Texas)
+
+- **Base path:** `StarPM_Base_Universe/` · Tool catalog: `7_Server_Tools_Details.json` · Persona briefs: `2_StarPM_PERSONA BRIEFS.md`
+- **Universe today:** 2026-07-01 (America/Chicago). Confirm from `_aux/Universe_Index/today_horizon.json`.
+- **Single entity:** `starpm` (~45-person residential PM firm in SW Texas, ~10 apartment properties).
+- **NO account-number trap** (operational universe, not GL-based). `Airtable.Make-Ready Turns` is SSOT for unit turnovers; `QuickBooks` is primary accounting surface; `Linear` tracks maintenance tickets.
+- **HVAC life-safety (HARDCODED LANDMINE):** HVAC compressor failures in SW Texas summer are life-safety events requiring immediate escalation, not routine scheduling. Never defer HVAC failures in summer to a standard PM cycle.
+- **Texas statutory rent-notice ladder:** eviction filings must follow: first late notice → payment plan offer → 3-day pay-or-quit → court filing. Skipping or misordering is a rubric-breaking error.
+- **No filesystem MCP service:** documents flow through Gmail attachments, HubSpot notes, or Airtable record fields. `StarPM_Base_Universe/Data/Files/` contains read-only reference PDFs (contracts/, invoices/, reports/); CBs never edit them and prompts must never ask the agent to write or modify them. **Agents CAN read these PDFs** — access is via the service tool that surfaces the attachment (e.g., a Gmail tool call that returns email attachment content, a HubSpot tool call that returns a note with an attached file, or an Airtable tool call that returns a record with an attachment field). There is no direct file-read tool; the PDF content surfaces through whichever service holds the reference. **Hardness lever (optional):** prompts may ask agents to cross-reference a specific PDF (lease agreement, vendor invoice, maintenance report) against live service data — a document-vs-system mismatch is a natural stumping lever because Opus 4.8 tends to trust live database fields and skip document attachments. See `Reference/Hardness_Playbook.md` → StarPM adaptation section.
+- **Slack channels:** C001 #maintenance · C002 #leasing · C003 #general · C004 #make-ready · C005 #vendors · C006 #owner-relations · C007 #budget-review · C008 #applications.
+- **Parameter traps:** Gmail uses `content` (not `body`). Slack uses `payload` (not `text`). `linear_create_issue` uses `team` (NOT `teamId`). `quickbooks_create_bill` requires `vendor_id`. `hubspot_create_deal` requires `pipeline_id`.
+- **Services:** airtable, contacts, gcalendar, gmail, hubspot, linear, quickbooks, slack.
+- **Business functions (5):** Property Operations 25% · Portfolio Coordination & Owner Relations 20% · Quality Control & Field Services 15% · Maintenance & Repairs 25% · Leasing & Applicant Intake 15%.
+- **Framework version:** V4 — adds two hard-gate pipeline phases (INJECTION before S1, SUBMISSION_GATE after FINAL) and dual-model verification (Opus + Gemini). Verifier fails split into `8a_Verifier_Fails_Opus.txt` and `8b_Verifier_Fails_Gemini.txt`. Trajectories in `Agent_Responses/Opus/` and `Agent_Responses/Gemini/`.
+- **Docs:** `Docs_starpm/` · Evals: `Evals_starpm/` · QC ref: `QC_Tasks/V4_Tasks/`.
+
 ### Universe detection
 
 - Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents). Highest signal-score wins; ties default to brookfield.
-- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, or `moveops`).
+- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, `moveops`, or `starpm`).
 - Every validator / council / AUDIT / FINAL reads `_aux/Universe.txt` and routes constants/paths accordingly.
 
 ## Where to start
 
 - **Brand-new task (CB creation):** `PIPELINE NEW — <TASK_ID>` → paste 3 inputs → `PIPELINE S0 — Tasks/<TASK_DIR>`
 - **Brand-new task (review-type, deliverables prefilled):** `PIPELINE NEW REVIEW — <TASK_ID>` → paste 7 inputs → `PIPELINE REVIEW — Tasks/<TASK_DIR>`
+- **StarPM (V4) CB creation:** `PIPELINE NEW — <TASK_ID>` → paste 3 inputs → `PIPELINE S0` → inject universe → `PIPELINE INJECTION` → `PIPELINE HARDNESS` → `PIPELINE S1` → ... → `PIPELINE FINAL` → `PIPELINE SUBMISSION_GATE`
 - **Already-scaffolded task, continuing mid-pipeline:** invoke the next-trigger phrase the previous phase's STOP gate printed
 - **Stuck on a linter block:** `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste the linter output
-- **Verifier results came back:** `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails
+- **Verifier results came back:** `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails (StarPM: paste both `8a` Opus and `8b` Gemini files)
 - **Wrapping up:** `PIPELINE CLOSE — Tasks/<TASK_DIR>` (read-only final audit)
 
 ## Anti-patterns (this project)
@@ -214,5 +268,9 @@ Pipeline supports **three universes**. Detection is automatic via `Validators/de
 - Adding process rubrics without applying the three-condition test.
 - Using em-dashes or "at least N" without prompt mandate.
 - Mentioning guides / specs / frameworks in linter justifications or AF justifications.
-- Editing the per-task universe to "make room" for a hardness lever.
+- Editing the per-task universe to "make room" for a hardness lever (V3 universes — Brookfield, Keystone, MoveOps).
 - Shipping a deliverable that hasn't cleared both councils.
+- **StarPM (V4) specific:** Skipping `PIPELINE INJECTION` and going directly to S1 — INJECTION is a hard gate; no prompt work before it passes.
+- **StarPM (V4) specific:** Using only `8_Verifier_Fails.txt` for StarPM tasks — V4 requires `8a_Verifier_Fails_Opus.txt` AND `8b_Verifier_Fails_Gemini.txt` (dual-model).
+- **StarPM (V4) specific:** Writing to `StarPM_Base_Universe/Data/` directly — CBs inject via `9_Universe_inject.sql` only; the base universe data is read-only.
+- **All universes:** Treating OE steps as ground truth for rubric values — OEs are CB planning docs; universe data (`_aux/Universe_Split/`) is SSOT for all grounded values.
