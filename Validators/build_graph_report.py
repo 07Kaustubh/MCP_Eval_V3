@@ -28,6 +28,12 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+try:
+    from Validators.universes import detect_universe
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from universes import detect_universe
+
 
 def parse_inner(rec):
     if not isinstance(rec, dict):
@@ -187,6 +193,82 @@ def section_pairs(person_period_pairs):
     return "\n".join(rows)
 
 
+def section_starpm(by_source):
+    rows = []
+    atr = by_source.get("airtable.airtable_records", [])
+    if atr:
+        by_table = Counter()
+        mr_status = Counter()
+        mt_priority = Counter()
+        for r in atr:
+            t = r.get("table_id", "?")
+            by_table[t] += 1
+            fld = r.get("fields") if isinstance(r.get("fields"), dict) else {}
+            if t == "tblMakeReady":
+                mr_status[str(fld.get("fldTurnStatus", "?"))] += 1
+            elif t == "tblMaintenanceTickets":
+                mt_priority[str(fld.get("fldPriority", "?"))] += 1
+        rows += ["## Airtable make-ready + maintenance (StarPM system of record)", "", "| Table | Records |", "|---|---:|"]
+        for t, n in by_table.most_common():
+            rows.append(f"| `{t}` | {n} |")
+        rows.append("")
+        if mr_status:
+            rows += ["### Make-Ready by turn status", "", "| Status | Count |", "|---|---:|"]
+            for k, n in mr_status.most_common():
+                rows.append(f"| `{k}` | {n} |")
+            rows.append("")
+        if mt_priority:
+            rows += ["### Maintenance tickets by priority", "", "| Priority | Count |", "|---|---:|"]
+            for k, n in mt_priority.most_common():
+                rows.append(f"| `{k}` | {n} |")
+            rows.append("")
+    qbe = by_source.get("quickbooks.quickbooks_entities", [])
+    if qbe:
+        by_type = Counter(q.get("entity_type", "?") for q in qbe)
+        rows += ["## QuickBooks entities by type", "", "| Entity type | Count |", "|---|---:|"]
+        for k, n in by_type.most_common():
+            rows.append(f"| `{k}` | {n} |")
+        rows.append("")
+    hso = by_source.get("hubspot.hubspot_objects", [])
+    if hso:
+        by_otype = Counter(h.get("object_type", "?") for h in hso)
+        deal_stage = Counter()
+        for h in hso:
+            if h.get("object_type") == "deals":
+                props = h.get("properties")
+                if isinstance(props, str):
+                    try:
+                        props = json.loads(props)
+                    except json.JSONDecodeError:
+                        props = {}
+                if isinstance(props, dict):
+                    deal_stage[str(props.get("dealstage", "?"))] += 1
+        rows += ["## HubSpot objects by type", "", "| Object type | Count |", "|---|---:|"]
+        for k, n in by_otype.most_common():
+            rows.append(f"| `{k}` | {n} |")
+        rows.append("")
+        if deal_stage:
+            rows += ["### HubSpot deals by pipeline stage", "", "| Stage | Count |", "|---|---:|"]
+            for k, n in deal_stage.most_common():
+                rows.append(f"| `{k}` | {n} |")
+            rows.append("")
+    li = by_source.get("linear.linear_issues", [])
+    if li:
+        by_state = Counter(str(i.get("state_id", "?")) for i in li)
+        rows += ["## Linear issues by workflow state", "", "| state_id | Count |", "|---|---:|"]
+        for k, n in by_state.most_common():
+            rows.append(f"| `{k}` | {n} |")
+        rows.append("")
+    sm = by_source.get("slack.slack_messages", [])
+    if sm:
+        by_chan = Counter(str(m.get("channel_id", "?")) for m in sm)
+        rows += ["## Slack messages by channel", "", "| Channel | Count |", "|---|---:|"]
+        for k, n in by_chan.most_common():
+            rows.append(f"| `{k}` | {n} |")
+        rows.append("")
+    return "\n".join(rows)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task_dir")
@@ -207,19 +289,28 @@ def main():
             pass
 
     people_md, person_period_pairs = section_people(by_source, ledger_emails)
-    sections = [
+    try:
+        universe = detect_universe(task_dir)
+    except Exception:
+        universe = "brookfield"
+    header = [
         f"# Graph Report — `{task_dir.name}`",
         "",
         "Compact discovery map for HARDNESS lever selection. People marked `✓` are confirmed contacts in the Fact Ledger.",
         "",
         people_md,
-        section_periods(by_source),
-        section_exceptions(by_source),
-        section_recons(by_source),
-        section_ap(by_source),
-        section_docs(by_source),
-        section_pairs(person_period_pairs),
     ]
+    if universe == "starpm":
+        sections = header + [section_starpm(by_source), section_pairs(person_period_pairs)]
+    else:
+        sections = header + [
+            section_periods(by_source),
+            section_exceptions(by_source),
+            section_recons(by_source),
+            section_ap(by_source),
+            section_docs(by_source),
+            section_pairs(person_period_pairs),
+        ]
     out = task_dir / "_aux" / "Universe_Index" / "graph_report.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(sections), encoding="utf-8")

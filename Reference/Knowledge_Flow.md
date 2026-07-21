@@ -4,6 +4,8 @@ This is the canonical map of (a) what each phase reads and produces, (b) the fil
 
 ## Phase dependency chart
 
+> **Universe routing (v21):** rows below name the Brookfield (default) paths. For other universes substitute per `_aux/Universe.txt`: persona briefs / tool catalog from that universe's base dir (`Mortgage_Base_Universe/`, `MoveOps_Base_Universe/`, `StarPM_Base_Universe/` - StarPM catalog is prefix **7**, briefs `2_StarPM_PERSONA BRIEFS.md`), docs from `Docs_<universe>/`, evals from `Evals_<universe>/`, QC reference corpus from `QC_Tasks/V4_Tasks/` for StarPM. StarPM (v4) additionally flows: `4_Changelog.json` + `9_Universe_inject.sql` -> `validate.py --phase injection`; 5/6/7 -> `--phase submission_gate`; `8a/8b` + `Agent_Responses/{Opus,Gemini}/` -> `parse_trajectories.py` (dual-model); QC verdict artifacts (`QC_Feedback_Verdict.txt`, 9/10/11) -> `Validators/qc_verdict.py`.
+
 | Phase | Reads (primary) | Produces |
 |---|---|---|
 | **NEW** | `<TASK_ID>` argument | Folder skeleton at `Tasks/<TASK_DIR>/` with empty `1_Business_Function.txt`, `2_Persona.txt`, `3_UniverseDataForThisTask.json` (+ `5/6/7/8` in review mode), `Agent_Responses/`, `trajectory-runs/` |

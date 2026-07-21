@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent sends a rundown of the work to Daniel Jones (by email to daniel.jones@brookfieldcpas.com or by direct message to Daniel Jones).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to send Daniel the full rundown once the work is done so he has the picture before he reviews; the prompt names the recipient but not a channel, so email or a direct message both satisfy it.",
+        "evidence": "A sent email addressed to daniel.jones@brookfieldcpas.com, or a direct message to Daniel Jones, in the Agent's trajectory."
+    },
+    {
+        "title": "The Agent's rundown to Daniel Jones identifies the re-fired SLA reminders that traced to already-closed exceptions as the polling-glitch items that were cleared (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the rundown to tell Daniel plainly which reminders were just the glitch and got cleared.",
+        "evidence": "In the body of the Agent's rundown to Daniel, a statement distinguishing the stale closed-exception reminders that were cleared."
+    },
+    {
+        "title": "The Agent's rundown to Daniel Jones describes the genuinely open high-priority exceptions (Brookfield accounts 210000, 131000, 119000) and the disposition the Agent reached on each (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the rundown to tell Daniel which exceptions were real and what the Agent did about them; because the underlying transactional detail does not cleanly substantiate a single corrective entry on every item, the rubric grades that each live exception's disposition is reported, rather than requiring a posted entry on every account.",
+        "evidence": "In the body of the Agent's rundown to Daniel, a per-item description of the live exceptions and the action or disposition the Agent reached for each."
+    },
+    {
+        "title": "The Agent's rundown to Daniel Jones flags any exceptions that remain open or that it could not close (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the rundown to flag anything left hanging over the close so Daniel knows what is still outstanding; the medium and low urgency FP-2026-05 and Northstar items remain open after the high-priority fixes.",
+        "evidence": "In the body of the Agent's rundown to Daniel, a list or mention of the still-open / unresolved items."
+    },
+    {
+        "title": "The Agent prepares and submits a correcting journal entry for Brookfield in period FP-2026-05 that addresses the duplicate posting on account 210000 (advancing it at least through draft and submission; reaching the posted state is the ideal outcome).",
+        "category": "outcome",
+        "justification": "Account 210000 carries a high-urgency, SLA-breached duplicate-entry exception (reconciliation variance +$6,328.86, GL balance above supporting detail); the prompt asks the Agent to put the correcting entry through the lifecycle. Because the manager four-eyes approval control can block a single actor from reaching the posted state, the rubric credits a correctly drafted and submitted reversing entry.",
+        "evidence": "A journal entry in the Agent's trajectory for entity brookfield, period FP-2026-05, account 210000, created and submitted (reaching posted is ideal); a reversal of the duplicate is an equally valid form."
+    },
+    {
+        "title": "The Agent's correcting journal entry for account 210000 clears a duplicate of approximately $6,328.86.",
+        "category": "outcome",
+        "justification": "The reconciliation on 210000 (BL-516B536953DA) shows a GL balance of 67,744.03 against supporting detail of 61,415.17, a +$6,328.86 duplicate-posting variance, which is the amount the correcting entry must clear.",
+        "evidence": "The amount on the Agent's correcting journal entry for account 210000 is approximately $6,328.86."
+    },
+    {
+        "title": "The Agent closes the BlackLine exception for the approximately $6,328.86 duplicate on Brookfield account 210000 (FP-2026-05), recording a resolution and linking the corrective journal entry.",
+        "category": "outcome",
+        "justification": "The prompt requires closing each genuinely open exception out with the cause and how it was resolved; linking the corrective journal entry completes the workpaper trail.",
+        "evidence": "An exception-resolution write action in the Agent's trajectory for the 210000 duplicate exception, carrying a resolution summary and the corrective journal entry reference."
+    },
+    {
+        "title": "The Agent adds a BlackLine review note on the reconciliation for Brookfield account 210000 (FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to leave a review note so there is a clean workpaper trail for each item it fixes.",
+        "evidence": "A review note write action in the Agent's trajectory attached to the 210000 reconciliation (BL-516B536953DA)."
+    },
+    {
+        "title": "The Agent adds a BlackLine review note on the reconciliation for Brookfield account 131000 (FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to leave a review note for each item it fixes.",
+        "evidence": "A review note write action in the Agent's trajectory attached to the 131000 reconciliation (BL-7085321B04EA)."
+    },
+    {
+        "title": "The Agent adds a BlackLine review note on the reconciliation for Brookfield account 119000 (FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to leave a review note for each item it fixes.",
+        "evidence": "A review note write action in the Agent's trajectory attached to the 119000 reconciliation (BL-75810CD0FEE4)."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Brookfield account 110000 (FP-2025-07, $647.97 variance).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an exception that has already been closed; this exception is in a closed state, so its re-fired reminder is a polling glitch to clear.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_151b0bee7e374e on account 110000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Brookfield account 219000 ($46.52 variance).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_df0e3e636dfd4d on account 219000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Brookfield account 101000 ($120.11 timing difference).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_80548c7bc0d94b on account 101000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Northstar Legal account 225000 ($380.50 timing difference).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this Northstar exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_1ec70e0d938b4f on Northstar Legal account 225000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Northstar Legal account 103000 ($2,267.83 FX revaluation drift).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this Northstar exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_344bcd6e4c7a4c on Northstar Legal account 103000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Northstar Legal account 235000 ($583.94 subledger feed drop).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this Northstar exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_5221568d4e4047 on Northstar Legal account 235000."
+    },
+    {
+        "title": "The Agent clears the BlackLine SLA reminder tied to the already-closed exception on Acme Cloud account 225000 ($453.67 FX revaluation drift).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to clear every reminder that traces back to an already-closed exception; this Acme exception is closed.",
+        "evidence": "A reminder removal write action in the Agent's trajectory for the reminder referencing exception exc_49d97c6abdc14d on Acme Cloud account 225000."
+    },
+    {
+        "title": "The Agent does not reopen or change the state of any of the already-closed exceptions whose reminders it reviews (it clears the stale reminders without reactivating the underlying exceptions).",
+        "category": "outcome",
+        "justification": "The prompt explicitly warns not to reopen the closed items, because reopening restarts the cycle; the correct response to the polling glitch is to clear the reminder while leaving the closure intact.",
+        "evidence": "Absence in the Agent's trajectory of any exception write action that reopens or moves a closed exception (exc_151b0bee7e374e, exc_df0e3e636dfd4d, exc_80548c7bc0d94b, exc_1ec70e0d938b4f, exc_344bcd6e4c7a4c, exc_5221568d4e4047, exc_49d97c6abdc14d) out of its closed state."
+    },
+    {
+        "title": "The Agent posts a message in the #monthly-close-coordination channel.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to keep the running tally of the polling glitch current in the close coordination channel so the team can see how often it is hitting them.",
+        "evidence": "A message write action in the Agent's trajectory targeting the monthly-close-coordination channel (C005)."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination message records the recurring re-firing pattern on the closed-exception reminders (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to add the re-fire pattern to the running list so it stays tracked.",
+        "evidence": "In the body of the Agent's channel message, a note that the closed-exception SLA reminders re-fired again / the polling glitch recurred."
+    }
+]

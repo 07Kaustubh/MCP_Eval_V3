@@ -1,0 +1,5174 @@
+{
+  "servers": [
+    {
+      "name": "airtable",
+      "tools": [
+        {
+          "name": "airtable_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Airtable server."
+        },
+        {
+          "name": "ping",
+          "parameters": {},
+          "description": "Send a ping request to verify the Airtable server is responsive."
+        },
+        {
+          "name": "list_workspaces",
+          "parameters": {
+            "offset": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            }
+          },
+          "description": "List all available Airtable workspaces, with optional pagination via offset and pageSize."
+        },
+        {
+          "name": "list_bases",
+          "parameters": {
+            "offset": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            }
+          },
+          "description": "List all Airtable bases accessible to the current user, with optional pagination."
+        },
+        {
+          "name": "search_bases",
+          "parameters": {
+            "searchQuery": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Search for Airtable bases by name or keyword using a search query string."
+        },
+        {
+          "name": "list_tables_for_base",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "List all tables within a specified Airtable base."
+        },
+        {
+          "name": "get_table_schema",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tables": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Retrieve the schema (field definitions, types, and configurations) for one or more tables in a base."
+        },
+        {
+          "name": "list_records_for_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "fieldIds": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "recordIds": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "sort": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "List records from a specific table in a base, with support for filtering, sorting, field selection, pagination, and fetching specific record IDs."
+        },
+        {
+          "name": "search_records",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "table": {
+              "required": "required",
+              "type": "string"
+            },
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "fields": {
+              "required": "optional",
+              "type": "any"
+            }
+          },
+          "description": "Search for records in a specific table using a text query, optionally restricting results to specific fields."
+        },
+        {
+          "name": "create_records_for_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "records": {
+              "required": "required",
+              "type": "array"
+            },
+            "typecast": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "fieldIds": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create one or more new records in a specified table, with optional typecast for automatic field value conversion."
+        },
+        {
+          "name": "update_records_for_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "records": {
+              "required": "required",
+              "type": "array"
+            },
+            "typecast": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "fieldIds": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "performUpsert": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update one or more existing records in a specified table, with optional typecast and upsert behavior."
+        },
+        {
+          "name": "delete_records_for_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "recordIds": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Delete one or more records from a specified table by their record IDs."
+        },
+        {
+          "name": "list_record_comments",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "recordId": {
+              "required": "required",
+              "type": "string"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "offset": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all comments on a specific record in a table, with optional pagination."
+        },
+        {
+          "name": "create_record_comment",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "recordId": {
+              "required": "required",
+              "type": "string"
+            },
+            "text": {
+              "required": "required",
+              "type": "string"
+            },
+            "parentCommentId": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Add a new comment to a specific record, optionally as a reply to an existing comment via parentCommentId."
+        },
+        {
+          "name": "list_pages_for_base",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "List all interface designer pages available in a specified base."
+        },
+        {
+          "name": "list_records_for_page",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "pageId": {
+              "required": "required",
+              "type": "string"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            },
+            "elementId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List records associated with a specific interface page, with optional filtering, element targeting, and pagination."
+        },
+        {
+          "name": "get_record_for_page",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "path": {
+              "required": "required",
+              "type": "object"
+            }
+          },
+          "description": "Retrieve a specific record as rendered within an interface page, using a path object to identify it."
+        },
+        {
+          "name": "create_base",
+          "parameters": {
+            "workspaceId": {
+              "required": "required",
+              "type": "string"
+            },
+            "name": {
+              "required": "required",
+              "type": "string"
+            },
+            "tables": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create a new Airtable base in a specified workspace, optionally pre-configured with tables."
+        },
+        {
+          "name": "create_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "name": {
+              "required": "required",
+              "type": "string"
+            },
+            "fields": {
+              "required": "required",
+              "type": "array"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new table in a base with a name, required fields array, and an optional description."
+        },
+        {
+          "name": "update_table",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Update a table's name or description within a specified base."
+        },
+        {
+          "name": "create_field",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "field": {
+              "required": "required",
+              "type": "object"
+            }
+          },
+          "description": "Add a new field (column) to a table with a specified field configuration object."
+        },
+        {
+          "name": "update_field",
+          "parameters": {
+            "baseId": {
+              "required": "required",
+              "type": "string"
+            },
+            "tableId": {
+              "required": "required",
+              "type": "string"
+            },
+            "fieldId": {
+              "required": "required",
+              "type": "string"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "options": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing field's name, description, or type-specific options by fieldId."
+        }
+      ]
+    },
+    {
+      "name": "contacts",
+      "tools": [
+        {
+          "name": "contacts_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Contacts server."
+        },
+        {
+          "name": "contacts_get_contacts",
+          "parameters": {
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve a paginated list of all contacts, with optional limit and cursor for pagination."
+        },
+        {
+          "name": "contacts_get_contact",
+          "parameters": {
+            "contact_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a single contact by its unique contact_id."
+        },
+        {
+          "name": "contacts_add_new_contact",
+          "parameters": {
+            "first_name": {
+              "required": "required",
+              "type": "string"
+            },
+            "last_name": {
+              "required": "required",
+              "type": "string"
+            },
+            "gender": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "age": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "nationality": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "city_living": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "country": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "status": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "job": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "phone": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "email": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "address": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new contact with required first_name and last_name, plus optional fields including gender, age, nationality, city_living, country, status, job, description, phone, email, and address."
+        },
+        {
+          "name": "contacts_edit_contact",
+          "parameters": {
+            "contact_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "updates": {
+              "required": "required",
+              "type": "any"
+            }
+          },
+          "description": "Update an existing contact's information by its contact_id, passing the changed fields via an updates object."
+        },
+        {
+          "name": "contacts_delete_contact",
+          "parameters": {
+            "contact_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Permanently delete a contact by its unique contact_id."
+        },
+        {
+          "name": "contacts_search_contacts",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Search for contacts using a text query string, with optional limit and cursor for pagination."
+        },
+        {
+          "name": "contacts_show_data",
+          "parameters": {
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List and display raw contact data entries, with optional limit and cursor for pagination."
+        }
+      ]
+    },
+    {
+      "name": "gcalendar",
+      "tools": [
+        {
+          "name": "gcalendar_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Google Calendar server."
+        },
+        {
+          "name": "list_calendars",
+          "parameters": {
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "pageToken": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all calendars accessible to the current user, with optional pagination via pageSize and pageToken."
+        },
+        {
+          "name": "list_events",
+          "parameters": {
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "startTime": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "endTime": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "timeZone": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "pageToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "orderBy": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "fullText": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "eventTypeFilter": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "List events from a calendar with optional filtering by time range (startTime/endTime), text search (fullText), event type (eventTypeFilter), ordering (orderBy), time zone, and pagination."
+        },
+        {
+          "name": "get_event",
+          "parameters": {
+            "eventId": {
+              "required": "required",
+              "type": "string"
+            },
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the full details of a specific calendar event by its eventId, with an optional calendarId."
+        },
+        {
+          "name": "create_event",
+          "parameters": {
+            "summary": {
+              "required": "required",
+              "type": "string"
+            },
+            "startTime": {
+              "required": "required",
+              "type": "string"
+            },
+            "endTime": {
+              "required": "required",
+              "type": "string"
+            },
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "location": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "allDay": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "attendeeEmails": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "addGoogleMeetUrl": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "googleMeetUrl": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "colorId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "notificationLevel": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "overrideReminders": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "recurrenceData": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "visibility": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "timeZone": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new calendar event with required summary, startTime, and endTime, plus optional calendarId, description, location, allDay flag, attendeeEmails, Google Meet URL, colorId, notification level, reminders, recurrence rules, visibility, and timeZone."
+        },
+        {
+          "name": "update_event",
+          "parameters": {
+            "eventId": {
+              "required": "required",
+              "type": "string"
+            },
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "summary": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "location": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "startTime": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "endTime": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "addedAttendeeEmails": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removedAttendeeEmails": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "addGoogleMeetUrl": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "googleMeetUrl": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "colorId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "notificationLevel": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "overrideReminders": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "visibility": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "timeZone": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Update an existing calendar event by eventId, with optional changes to summary, description, location, start/end times, added/removed attendees, Google Meet URL, colorId, notification level, reminders, visibility, and timeZone."
+        },
+        {
+          "name": "delete_event",
+          "parameters": {
+            "eventId": {
+              "required": "required",
+              "type": "string"
+            },
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "notificationLevel": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Delete a specific event by eventId, with optional calendarId and notificationLevel to control cancellation notices."
+        },
+        {
+          "name": "respond_to_event",
+          "parameters": {
+            "eventId": {
+              "required": "required",
+              "type": "string"
+            },
+            "responseStatus": {
+              "required": "required",
+              "type": "string"
+            },
+            "calendarId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "notificationLevel": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "responseComment": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Respond to a calendar event invitation with a responseStatus (accepted, declined, tentative), with optional calendarId, notificationLevel, and responseComment."
+        },
+        {
+          "name": "suggest_time",
+          "parameters": {
+            "attendeeEmails": {
+              "required": "required",
+              "type": "array"
+            },
+            "startTime": {
+              "required": "required",
+              "type": "string"
+            },
+            "endTime": {
+              "required": "required",
+              "type": "string"
+            },
+            "durationMinutes": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "preferences": {
+              "required": "optional",
+              "type": "object | null"
+            },
+            "timeZone": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Find available time slots by checking the free/busy status of specified attendeeEmails within a startTime-to-endTime range, with optional durationMinutes, preferences, and timeZone."
+        }
+      ]
+    },
+    {
+      "name": "gmail",
+      "tools": [
+        {
+          "name": "gmail_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Gmail server."
+        },
+        {
+          "name": "search_threads",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "pageToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeTrash": {
+              "required": "optional",
+              "type": "boolean | null"
+            }
+          },
+          "description": "Search for email threads using an optional query string (Gmail search syntax), with optional pageSize, pageToken for pagination, and includeTrash flag."
+        },
+        {
+          "name": "get_thread",
+          "parameters": {
+            "threadId": {
+              "required": "required",
+              "type": "string"
+            },
+            "messageFormat": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the full details of a specific email thread by its threadId, with optional messageFormat to control output format."
+        },
+        {
+          "name": "list_drafts",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "pageToken": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List email drafts in the mailbox, with optional query filter, pageSize, and pageToken for pagination."
+        },
+        {
+          "name": "create_draft",
+          "parameters": {
+            "to": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "cc": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "bcc": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "subject": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "body": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "htmlBody": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "replyToMessageId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "attachments": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create a new email draft with optional to, cc, bcc recipient arrays, subject, body (plain text), htmlBody (HTML), replyToMessageId for threading, and attachments."
+        },
+        {
+          "name": "list_labels",
+          "parameters": {
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "pageToken": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all Gmail labels (both system and user-created) in the mailbox, with optional pagination."
+        },
+        {
+          "name": "create_label",
+          "parameters": {
+            "displayName": {
+              "required": "required",
+              "type": "string"
+            },
+            "color": {
+              "required": "optional",
+              "type": "object | null"
+            },
+            "messageListVisibility": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "labelListVisibility": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new Gmail label with a required displayName, plus optional color, messageListVisibility, and labelListVisibility settings."
+        },
+        {
+          "name": "update_label",
+          "parameters": {
+            "labelId": {
+              "required": "required",
+              "type": "string"
+            },
+            "displayName": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "color": {
+              "required": "optional",
+              "type": "object | null"
+            },
+            "messageListVisibility": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "labelListVisibility": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Update an existing Gmail label by labelId, with optional changes to displayName, color, messageListVisibility, and labelListVisibility."
+        },
+        {
+          "name": "delete_label",
+          "parameters": {
+            "labelId": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Permanently delete a Gmail label by its labelId. System labels cannot be deleted."
+        },
+        {
+          "name": "label_thread",
+          "parameters": {
+            "threadId": {
+              "required": "required",
+              "type": "string"
+            },
+            "labelIds": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Apply one or more labels (by labelIds array) to an entire email thread identified by threadId."
+        },
+        {
+          "name": "unlabel_thread",
+          "parameters": {
+            "threadId": {
+              "required": "required",
+              "type": "string"
+            },
+            "labelIds": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Remove one or more labels (by labelIds array) from an entire email thread identified by threadId."
+        },
+        {
+          "name": "label_message",
+          "parameters": {
+            "messageId": {
+              "required": "required",
+              "type": "string"
+            },
+            "labelIds": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Apply one or more labels (by labelIds array) to a specific email message identified by messageId."
+        },
+        {
+          "name": "unlabel_message",
+          "parameters": {
+            "messageId": {
+              "required": "required",
+              "type": "string"
+            },
+            "labelIds": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Remove one or more labels (by labelIds array) from a specific email message identified by messageId."
+        }
+      ]
+    },
+    {
+      "name": "hubspot",
+      "tools": [
+        {
+          "name": "hubspot_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the HubSpot CRM server."
+        },
+        {
+          "name": "get_user_details",
+          "parameters": {
+            "include": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Retrieve the profile and details of the current HubSpot user, with an optional include array to specify additional data sections."
+        },
+        {
+          "name": "get_organization_details",
+          "parameters": {
+            "include": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Retrieve details about the current HubSpot organization/portal, with an optional include array to specify additional data sections."
+        },
+        {
+          "name": "search_crm_objects",
+          "parameters": {
+            "object_type": {
+              "required": "required",
+              "type": "string"
+            },
+            "filter_groups": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "sorts": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "after": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Search for CRM objects of a specified object_type (contacts, companies, deals, tickets, etc.) using optional filter_groups, query string, sorts, property selection, and pagination (limit, after)."
+        },
+        {
+          "name": "get_crm_objects",
+          "parameters": {
+            "object_type": {
+              "required": "required",
+              "type": "string"
+            },
+            "object_ids": {
+              "required": "required",
+              "type": "array"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Retrieve one or more CRM objects by their object_ids for a specified object_type, with optional property selection."
+        },
+        {
+          "name": "manage_crm_objects",
+          "parameters": {
+            "object_type": {
+              "required": "required",
+              "type": "string"
+            },
+            "action": {
+              "required": "required",
+              "type": "string"
+            },
+            "objects": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Create, update, or delete CRM objects of a specified object_type by providing an action and an objects array with the relevant properties."
+        },
+        {
+          "name": "search_properties",
+          "parameters": {
+            "objectType": {
+              "required": "required",
+              "type": "string"
+            },
+            "keywords": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer | null"
+            }
+          },
+          "description": "Search for CRM property definitions for a required objectType, using optional keywords array, query string, and limit."
+        },
+        {
+          "name": "get_properties",
+          "parameters": {
+            "objectType": {
+              "required": "required",
+              "type": "string"
+            },
+            "propertyNames": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Retrieve detailed property definitions for a required objectType, optionally filtered to specific propertyNames."
+        },
+        {
+          "name": "search_owners",
+          "parameters": {
+            "searchQuery": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "ownerIds": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "offset": {
+              "required": "optional",
+              "type": "integer | null"
+            }
+          },
+          "description": "Search for HubSpot owners (assignable users) using an optional searchQuery or specific ownerIds, with pagination via limit and offset."
+        },
+        {
+          "name": "get_campaign_contacts_by_type",
+          "parameters": {
+            "campaignId": {
+              "required": "required",
+              "type": "string"
+            },
+            "contactType": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "offset": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "startDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "endDate": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve contacts associated with a marketing campaign (by campaignId) filtered by a required contactType (e.g., opened, clicked), with optional pagination and date range (startDate/endDate)."
+        },
+        {
+          "name": "get_campaign_analytics",
+          "parameters": {
+            "campaignIds": {
+              "required": "required",
+              "type": "array"
+            },
+            "metricType": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve performance analytics and metrics for one or more marketing campaigns specified by campaignIds array, with optional metricType filter."
+        },
+        {
+          "name": "get_campaign_asset_metrics",
+          "parameters": {
+            "campaignCrmObjectId": {
+              "required": "required",
+              "type": "string"
+            },
+            "assetType": {
+              "required": "required",
+              "type": "string"
+            },
+            "crmObjectIds": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Retrieve metrics for individual assets of a specified assetType within a campaign (by campaignCrmObjectId), with optional crmObjectIds filter."
+        },
+        {
+          "name": "submit_feedback",
+          "parameters": {
+            "feedback": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "feedback_text": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "category": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Submit feedback about the HubSpot CRM tools, with optional feedback value, feedback_text, and category."
+        },
+        {
+          "name": "tool_guidance",
+          "parameters": {
+            "toolNames": {
+              "required": "required",
+              "type": "array"
+            }
+          },
+          "description": "Retrieve contextual guidance and documentation for specified HubSpot CRM tools by providing a toolNames array."
+        }
+      ]
+    },
+    {
+      "name": "linear",
+      "tools": [
+        {
+          "name": "linear_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Linear project management server."
+        },
+        {
+          "name": "list_issues",
+          "parameters": {
+            "assignee": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "team": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "cycle": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "label": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "priority": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "parent": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "state": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "createdAfter": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "createdBefore": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "dueAfter": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "dueBefore": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeArchived": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List issues with optional filtering by assignee, team, project, cycle, label, priority, query text, parent, state, and date ranges (createdAfter/Before, dueAfter/Before), plus includeArchived flag and pagination (pageSize, cursor)."
+        },
+        {
+          "name": "get_issue",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeRelations": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeCustomerNeeds": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeReleases": {
+              "required": "optional",
+              "type": "boolean"
+            }
+          },
+          "description": "Retrieve the full details of a specific issue by its issue ID, including optional sub-issue expansion."
+        },
+        {
+          "name": "save_issue",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "title": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "team": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "assignee": {
+              "required": "optional",
+              "type": "null"
+            },
+            "priority": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "state": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "cycle": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "milestone": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "labels": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "links": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "parentId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "dueDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "estimate": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "blockedBy": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "blocks": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "relatedTo": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "duplicateOf": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeBlockedBy": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeBlocks": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeRelatedTo": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create or update an issue with fields such as title, description, status, assignee, team, project, priority, labels, due date, estimate, parent issue, and relations."
+        },
+        {
+          "name": "list_projects",
+          "parameters": {
+            "team": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "member": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiative": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "label": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "state": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeArchived": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List projects with optional filtering by team, status, lead, date ranges, health, and text search, with pagination."
+        },
+        {
+          "name": "get_project",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeMembers": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeMilestones": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeResources": {
+              "required": "optional",
+              "type": "boolean"
+            }
+          },
+          "description": "Retrieve the full details of a specific project by its project ID."
+        },
+        {
+          "name": "save_project",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "summary": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "state": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "priority": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "startDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "targetDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "lead": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "addTeams": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeTeams": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "setTeams": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "addMembers": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeMembers": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "setMembers": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "addInitiatives": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeInitiatives": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "setInitiatives": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "addLabels": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "removeLabels": {
+              "required": "optional",
+              "type": "array | null"
+            },
+            "setLabels": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create or update a project with fields such as name, description, status, lead, teams, dates, health, priority, and content."
+        },
+        {
+          "name": "list_teams",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all teams in the Linear workspace, with optional filtering and pagination."
+        },
+        {
+          "name": "get_team",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific team by its team ID."
+        },
+        {
+          "name": "list_users",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all users in the Linear workspace, with optional filtering and pagination."
+        },
+        {
+          "name": "get_user",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific user by their user ID."
+        },
+        {
+          "name": "list_comments",
+          "parameters": {
+            "issueId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "projectId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiativeId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "documentId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "milestoneId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List comments on issues or projects, with optional filtering by author, creation date, and body content, with pagination."
+        },
+        {
+          "name": "save_comment",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "body": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "parentId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "issueId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "projectId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiativeId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "documentId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "milestoneId": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "quotedText": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create or update a comment on an issue or project, with support for markdown body and document content."
+        },
+        {
+          "name": "delete_comment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Permanently delete a comment by its comment ID."
+        },
+        {
+          "name": "list_issue_statuses",
+          "parameters": {
+            "team": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "List all available issue workflow statuses, optionally filtered by team."
+        },
+        {
+          "name": "get_issue_status",
+          "parameters": {
+            "team": {
+              "required": "required",
+              "type": "string"
+            },
+            "name": {
+              "required": "required",
+              "type": "string"
+            },
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the details of a specific issue status by ID, or find a status by name and team."
+        },
+        {
+          "name": "list_issue_labels",
+          "parameters": {
+            "team": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List all issue labels available in the workspace, with optional team filtering."
+        },
+        {
+          "name": "create_issue_label",
+          "parameters": {
+            "name": {
+              "required": "required",
+              "type": "string"
+            },
+            "color": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "team": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "parent": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "isGroup": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new issue label with a specified name, color, description, and optional team/parent assignment."
+        },
+        {
+          "name": "list_project_labels",
+          "parameters": {},
+          "description": "List all project-specific labels available in the workspace."
+        },
+        {
+          "name": "list_initiatives",
+          "parameters": {
+            "owner": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "parentInitiative": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "status": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeArchived": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeProjects": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "includeSubInitiatives": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List strategic initiatives with optional filtering by status, date ranges, and text search, with pagination."
+        },
+        {
+          "name": "get_initiative",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific initiative by its ID."
+        },
+        {
+          "name": "save_initiative",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "status": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "owner": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "targetDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "parentInitiatives": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Create or update an initiative with fields such as name, description, status, owner, dates, and sort order."
+        },
+        {
+          "name": "list_milestones",
+          "parameters": {
+            "project": {
+              "required": "required",
+              "type": "string"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List project milestones with optional filtering by name and date ranges, with pagination."
+        },
+        {
+          "name": "get_milestone",
+          "parameters": {
+            "project": {
+              "required": "required",
+              "type": "string"
+            },
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the full details of a specific milestone by ID, optionally looked up by name."
+        },
+        {
+          "name": "save_milestone",
+          "parameters": {
+            "project": {
+              "required": "required",
+              "type": "string"
+            },
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "name": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "description": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "targetDate": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "sortOrder": {
+              "required": "optional",
+              "type": "number | null"
+            }
+          },
+          "description": "Create or update a milestone with fields such as name, description, dates, and sort order."
+        },
+        {
+          "name": "list_documents",
+          "parameters": {
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiative": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "creator": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "includeArchived": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List documents with optional filtering by project, creator, date, title, and content search, with pagination."
+        },
+        {
+          "name": "get_document",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "slug": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the full details of a specific document by its document ID."
+        },
+        {
+          "name": "save_document",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "title": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "content": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "icon": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "color": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "issue": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiative": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "cycle": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create or update a document with title, content (markdown), project association, icon, and color."
+        },
+        {
+          "name": "search_documentation",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Search across all Linear documentation and documents using a text query."
+        },
+        {
+          "name": "list_cycles",
+          "parameters": {
+            "teamId": {
+              "required": "required",
+              "type": "string"
+            },
+            "type": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List team cycles (sprints) with optional filtering by team, date range, status, and completion metrics."
+        },
+        {
+          "name": "get_status_updates",
+          "parameters": {
+            "type": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiative": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "user": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "startedAfter": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "startedBefore": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve status updates (project check-ins) with optional filtering by project, initiative, author, date, and health status."
+        },
+        {
+          "name": "save_status_update",
+          "parameters": {
+            "type": {
+              "required": "required",
+              "type": "string"
+            },
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "body": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "health": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "project": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "initiative": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create or update a status update for a project or initiative, including health, body content, and associated reactions."
+        },
+        {
+          "name": "delete_status_update",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            },
+            "type": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Permanently delete a status update by its ID."
+        },
+        {
+          "name": "create_attachment",
+          "parameters": {
+            "issue": {
+              "required": "required",
+              "type": "string"
+            },
+            "title": {
+              "required": "required",
+              "type": "string"
+            },
+            "contentBase64": {
+              "required": "required",
+              "type": "string"
+            },
+            "contentType": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "subtitle": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create a new attachment linked to an issue, using a URL, title, subtitle, icon, and metadata."
+        },
+        {
+          "name": "prepare_attachment_upload",
+          "parameters": {
+            "issue": {
+              "required": "required",
+              "type": "string"
+            },
+            "filename": {
+              "required": "required",
+              "type": "string"
+            },
+            "contentType": {
+              "required": "required",
+              "type": "string"
+            },
+            "size": {
+              "required": "required",
+              "type": "integer"
+            }
+          },
+          "description": "Prepare a file upload by requesting a pre-signed upload URL for a file of specified size and type."
+        },
+        {
+          "name": "create_attachment_from_upload",
+          "parameters": {
+            "issue": {
+              "required": "required",
+              "type": "string"
+            },
+            "assetUrl": {
+              "required": "required",
+              "type": "string"
+            },
+            "title": {
+              "required": "required",
+              "type": "string"
+            },
+            "subtitle": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "contentType": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Create an attachment on an issue from a previously uploaded file, with title, subtitle, and metadata."
+        },
+        {
+          "name": "get_attachment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the details of a specific attachment by its attachment ID."
+        },
+        {
+          "name": "delete_attachment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Permanently delete an attachment by its attachment ID."
+        },
+        {
+          "name": "extract_images",
+          "parameters": {
+            "content": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Extract all image URLs embedded within a specified issue's description or comments."
+        },
+        {
+          "name": "list_diffs",
+          "parameters": {
+            "owner": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "repo": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "status": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "pageSize": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "List code diffs (pull request references) linked to issues, with optional filtering by issue, status, author, and date."
+        },
+        {
+          "name": "get_diff",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific diff (pull request reference) by its ID."
+        },
+        {
+          "name": "get_diff_threads",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "resolved": {
+              "required": "optional",
+              "type": "boolean | null"
+            }
+          },
+          "description": "Retrieve review comment threads associated with a specific diff."
+        }
+      ]
+    },
+    {
+      "name": "quickbooks",
+      "tools": [
+        {
+          "name": "quickbooks_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the QuickBooks accounting server."
+        },
+        {
+          "name": "create_account",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new chart-of-accounts entry (e.g., bank, expense, revenue account) in QuickBooks."
+        },
+        {
+          "name": "create_attachable",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Upload and attach a file or note to a QuickBooks transaction or entity."
+        },
+        {
+          "name": "create_bill_payment",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a payment made against one or more vendor bills."
+        },
+        {
+          "name": "create-bill",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new vendor bill representing money owed for goods or services received."
+        },
+        {
+          "name": "create_class",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new class for categorizing transactions across departments or business segments."
+        },
+        {
+          "name": "create_credit_memo",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a credit memo to record a credit issued to a customer."
+        },
+        {
+          "name": "create_customer",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new customer record in QuickBooks with contact and billing details."
+        },
+        {
+          "name": "create_department",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new department for organizational reporting and tracking."
+        },
+        {
+          "name": "create_deposit",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a bank deposit, grouping one or more payments or other funds."
+        },
+        {
+          "name": "create_employee",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new employee record with personal and employment details."
+        },
+        {
+          "name": "create_estimate",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new estimate (quote or proposal) for a customer."
+        },
+        {
+          "name": "create_invoice",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new invoice to bill a customer for products or services."
+        },
+        {
+          "name": "create_item",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new product or service item used on invoices, bills, and other transactions."
+        },
+        {
+          "name": "create_journal_entry",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a manual journal entry with debit and credit lines."
+        },
+        {
+          "name": "create_payment_method",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new payment method type (e.g., cash, check, credit card)."
+        },
+        {
+          "name": "create_payment",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a customer payment received against one or more invoices."
+        },
+        {
+          "name": "create_purchase_order",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new purchase order to request goods or services from a vendor."
+        },
+        {
+          "name": "create_purchase",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a purchase transaction (expense or check) for goods or services."
+        },
+        {
+          "name": "create_refund_receipt",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a refund receipt to record a refund given to a customer."
+        },
+        {
+          "name": "create_sales_receipt",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a sales receipt for a point-of-sale transaction where payment is received immediately."
+        },
+        {
+          "name": "create_term",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create new payment terms (e.g., Net 30, Due on Receipt) for invoices and bills."
+        },
+        {
+          "name": "create_time_activity",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a time activity entry for an employee or vendor, tracking billable or non-billable hours."
+        },
+        {
+          "name": "create_transfer",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Record a funds transfer between two bank or financial accounts."
+        },
+        {
+          "name": "create_vendor_credit",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a vendor credit representing a credit received from a vendor."
+        },
+        {
+          "name": "create-vendor",
+          "parameters": {
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Create a new vendor record with contact and payment details."
+        },
+        {
+          "name": "delete_attachable",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete an attachment or linked note from a QuickBooks entity."
+        },
+        {
+          "name": "delete_bill_payment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a previously recorded bill payment."
+        },
+        {
+          "name": "delete-bill",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a vendor bill from QuickBooks."
+        },
+        {
+          "name": "delete_credit_memo",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a credit memo issued to a customer."
+        },
+        {
+          "name": "delete_customer",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete or deactivate a customer record."
+        },
+        {
+          "name": "delete_deposit",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a bank deposit record."
+        },
+        {
+          "name": "delete_employee",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete or deactivate an employee record."
+        },
+        {
+          "name": "delete_estimate",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete an estimate (quote) from QuickBooks."
+        },
+        {
+          "name": "delete_invoice",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete an invoice from QuickBooks."
+        },
+        {
+          "name": "delete_item",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete or deactivate a product or service item."
+        },
+        {
+          "name": "delete_journal_entry",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a manual journal entry."
+        },
+        {
+          "name": "delete_payment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a recorded customer payment."
+        },
+        {
+          "name": "delete_purchase_order",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a purchase order."
+        },
+        {
+          "name": "delete_purchase",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a purchase transaction (expense or check)."
+        },
+        {
+          "name": "delete_refund_receipt",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a refund receipt."
+        },
+        {
+          "name": "delete_sales_receipt",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a sales receipt."
+        },
+        {
+          "name": "delete_time_activity",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a time activity entry."
+        },
+        {
+          "name": "delete_transfer",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a funds transfer between accounts."
+        },
+        {
+          "name": "delete_vendor_credit",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete a vendor credit record."
+        },
+        {
+          "name": "delete-vendor",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Delete or deactivate a vendor record."
+        },
+        {
+          "name": "get_account",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific chart-of-accounts entry by its ID."
+        },
+        {
+          "name": "get_aged_payables",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate an aged payables report showing outstanding bills grouped by aging period, with optional date range, vendor filters, accounting method, and reporting preferences."
+        },
+        {
+          "name": "get_aged_receivables",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate an aged receivables report showing outstanding invoices grouped by aging period, with optional date range, customer filters, accounting method, and reporting preferences."
+        },
+        {
+          "name": "get_attachable",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the details of a specific attachment or linked note by its ID."
+        },
+        {
+          "name": "get_balance_sheet",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a balance sheet report showing assets, liabilities, and equity, with optional date range, accounting method, department, and reporting filters."
+        },
+        {
+          "name": "get_bill_payment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific bill payment by its ID."
+        },
+        {
+          "name": "get-bill",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific vendor bill by its ID."
+        },
+        {
+          "name": "get_cash_flow",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a cash flow statement showing operating, investing, and financing activities, with optional date range, accounting method, department, and reporting filters."
+        },
+        {
+          "name": "get_class",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific class by its ID."
+        },
+        {
+          "name": "get_company_info",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Retrieve the company profile and settings for the connected QuickBooks company."
+        },
+        {
+          "name": "get_credit_memo",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific credit memo by its ID."
+        },
+        {
+          "name": "get_customer_balance",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a customer balance summary or detail report, with optional date range, customer filters, and reporting preferences."
+        },
+        {
+          "name": "get_customer_sales",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a sales-by-customer report, with optional date range, customer filters, and reporting preferences."
+        },
+        {
+          "name": "get_customer",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific customer by its ID."
+        },
+        {
+          "name": "get_department",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific department by its ID."
+        },
+        {
+          "name": "get_deposit",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific bank deposit by its ID."
+        },
+        {
+          "name": "get_employee",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific employee by their ID."
+        },
+        {
+          "name": "get_estimate",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific estimate (quote) by its ID."
+        },
+        {
+          "name": "get_general_ledger",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a general ledger report showing all transactions posted to accounts, with optional date range, account filters, and reporting preferences."
+        },
+        {
+          "name": "get_journal_entry",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific journal entry by its ID."
+        },
+        {
+          "name": "get_payment_method",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific payment method by its ID."
+        },
+        {
+          "name": "get_payment",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific customer payment by its ID."
+        },
+        {
+          "name": "get_profit_and_loss",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a profit and loss (income statement) report, with optional date range, accounting method, customer, vendor, department, and reporting filters."
+        },
+        {
+          "name": "get_purchase_order",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific purchase order by its ID."
+        },
+        {
+          "name": "get_purchase",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific purchase transaction by its ID."
+        },
+        {
+          "name": "get_refund_receipt",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific refund receipt by its ID."
+        },
+        {
+          "name": "get_sales_receipt",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific sales receipt by its ID."
+        },
+        {
+          "name": "get_tax_agency",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific tax agency by its ID."
+        },
+        {
+          "name": "get_tax_code",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific tax code by its ID."
+        },
+        {
+          "name": "get_tax_rate",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific tax rate by its ID."
+        },
+        {
+          "name": "get_term",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific payment term by its ID."
+        },
+        {
+          "name": "get_time_activity",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific time activity entry by its ID."
+        },
+        {
+          "name": "get_transfer",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific funds transfer by its ID."
+        },
+        {
+          "name": "get_trial_balance",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a trial balance report showing debit and credit totals for all accounts, with optional date range, accounting method, department, and reporting filters."
+        },
+        {
+          "name": "get_vendor_balance",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a vendor balance summary or detail report, with optional date range, vendor filters, and reporting preferences."
+        },
+        {
+          "name": "get_vendor_credit",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific vendor credit by its ID."
+        },
+        {
+          "name": "get_vendor_expenses",
+          "parameters": {
+            "date_macro": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "start_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "end_date": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "accounting_method": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "customer": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "vendor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "columns": {
+              "required": "optional",
+              "type": "array | null"
+            }
+          },
+          "description": "Generate a vendor expense report showing purchases and bills by vendor, with optional date range, vendor filters, and reporting preferences."
+        },
+        {
+          "name": "get-vendor",
+          "parameters": {
+            "id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full details of a specific vendor by its ID."
+        },
+        {
+          "name": "read_invoice",
+          "parameters": {
+            "invoice_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Read and parse the full content of an invoice, including line items and payment status."
+        },
+        {
+          "name": "read_item",
+          "parameters": {
+            "item_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Read and parse the full content of a product or service item definition."
+        },
+        {
+          "name": "search_accounts",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for chart-of-accounts entries using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_attachables",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for attachments and linked notes using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_bill_payments",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for bill payment records using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_bills",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for vendor bills using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_budgets",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for budget records using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_classes",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for classes using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_credit_memos",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for credit memos using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_customers",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for customer records using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_departments",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for departments using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_deposits",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for bank deposits using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_employees",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for employee records using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_estimates",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for estimates (quotes) using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_invoices",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for invoices using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_items",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for product or service items using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_journal_entries",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for journal entries using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_payment_methods",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for payment methods using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_payments",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for customer payments using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_purchase_orders",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for purchase orders using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_purchases",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for purchase transactions using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_refund_receipts",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for refund receipts using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_sales_receipts",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for sales receipts using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_tax_agencies",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for tax agencies using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_tax_codes",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for tax codes using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_tax_rates",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for tax rates using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_terms",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for payment terms using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_time_activities",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for time activity entries using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_transfers",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for funds transfers using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_vendor_credits",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for vendor credits using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "search_vendors",
+          "parameters": {
+            "query": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "max_results": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "start_position": {
+              "required": "optional",
+              "type": "integer | null"
+            },
+            "active": {
+              "required": "optional",
+              "type": "boolean | null"
+            },
+            "filters": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Search for vendor records using an optional query string, with active status filter, filters object, and pagination (max_results, start_position)."
+        },
+        {
+          "name": "update_account",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing chart-of-accounts entry with new property values, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_attachable",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing attachment's metadata or linked content, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_bill_payment",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing bill payment record, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update-bill",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing vendor bill, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_class",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing class definition, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_company_info",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update the company profile and settings for the connected QuickBooks company."
+        },
+        {
+          "name": "update_credit_memo",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing credit memo, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_customer",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing customer record, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_department",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing department, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_deposit",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing bank deposit, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_employee",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing employee record, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_estimate",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing estimate (quote), using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_invoice",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing invoice, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_item",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing product or service item, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_journal_entry",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing journal entry, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_payment_method",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing payment method, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_payment",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing customer payment, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_purchase_order",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing purchase order, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_purchase",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing purchase transaction, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_refund_receipt",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing refund receipt, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_sales_receipt",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing sales receipt, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_term",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing payment term, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_time_activity",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing time activity entry, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_transfer",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing funds transfer, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update_vendor_credit",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing vendor credit, using optional id, SyncToken, and properties object."
+        },
+        {
+          "name": "update-vendor",
+          "parameters": {
+            "id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "SyncToken": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "properties": {
+              "required": "optional",
+              "type": "object | null"
+            }
+          },
+          "description": "Update an existing vendor record, using optional id, SyncToken, and properties object."
+        }
+      ]
+    },
+    {
+      "name": "slack",
+      "tools": [
+        {
+          "name": "slack_health",
+          "parameters": {},
+          "description": "Check the health and connectivity status of the Slack server."
+        },
+        {
+          "name": "slack_search_public",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "content_types": {
+              "required": "optional",
+              "type": "string"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            },
+            "include_context": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "sort": {
+              "required": "optional",
+              "type": "string"
+            },
+            "sort_dir": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Search for messages across all public Slack channels using a required query string, with optional limit, cursor, content_types, response_format, include_context flag, and sort/sort_dir."
+        },
+        {
+          "name": "slack_search_public_and_private",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "content_types": {
+              "required": "optional",
+              "type": "string"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            },
+            "include_context": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "sort": {
+              "required": "optional",
+              "type": "string"
+            },
+            "sort_dir": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Search for messages across both public and private Slack channels the user can access, using a required query string, with optional limit, cursor, content_types, response_format, include_context flag, and sort/sort_dir."
+        },
+        {
+          "name": "slack_search_users",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Search for Slack users by a required query string, with optional limit, cursor, and response_format."
+        },
+        {
+          "name": "slack_search_channels",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "channel_types": {
+              "required": "optional",
+              "type": "string"
+            },
+            "include_archived": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Search for Slack channels using a required query string, with optional limit, cursor, channel_types filter, include_archived flag, and response_format."
+        },
+        {
+          "name": "slack_search_emojis",
+          "parameters": {
+            "query": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Search for custom emoji in the Slack workspace by a required query string."
+        },
+        {
+          "name": "slack_read_channel",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Read messages from a specific Slack channel by required channel_id, with optional limit, cursor, and response_format."
+        },
+        {
+          "name": "slack_read_thread",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message_ts": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Read all replies in a specific Slack message thread, identified by required channel_id and message_ts, with optional limit, cursor, and response_format."
+        },
+        {
+          "name": "slack_read_file",
+          "parameters": {
+            "file_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the content and metadata of a specific file shared in Slack by its required file_id."
+        },
+        {
+          "name": "slack_read_user_profile",
+          "parameters": {
+            "user_id": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "include_locale": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve the full profile information of a Slack user by optional user_id, with optional include_locale flag and response_format."
+        },
+        {
+          "name": "slack_list_channel_members",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "limit": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "cursor": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "include_bots": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "include_deleted": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "response_format": {
+              "required": "optional",
+              "type": "string"
+            }
+          },
+          "description": "List all members of a specific Slack channel by required channel_id, with optional limit, cursor, include_bots, include_deleted flags, and response_format."
+        },
+        {
+          "name": "slack_read_canvas",
+          "parameters": {
+            "canvas_id": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Read the content of a Slack canvas (collaborative document) by its required canvas_id."
+        },
+        {
+          "name": "slack_get_reactions",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message_ts": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Retrieve all emoji reactions on a specific Slack message, identified by required channel_id and message_ts."
+        },
+        {
+          "name": "slack_send_message",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message": {
+              "required": "required",
+              "type": "string"
+            },
+            "thread_ts": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "reply_broadcast": {
+              "required": "optional",
+              "type": "boolean"
+            },
+            "draft_id": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Send a new message to a Slack channel by required channel_id with required message text, plus optional thread_ts for replies, reply_broadcast flag, and draft_id."
+        },
+        {
+          "name": "slack_send_message_draft",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message": {
+              "required": "required",
+              "type": "string"
+            },
+            "thread_ts": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Save a message draft in a Slack channel by required channel_id with required message text, plus optional thread_ts for threading."
+        },
+        {
+          "name": "slack_schedule_message",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message": {
+              "required": "required",
+              "type": "string"
+            },
+            "post_at": {
+              "required": "optional",
+              "type": "integer"
+            },
+            "thread_ts": {
+              "required": "optional",
+              "type": "string | null"
+            },
+            "reply_broadcast": {
+              "required": "optional",
+              "type": "boolean"
+            }
+          },
+          "description": "Schedule a message to be sent to a Slack channel by required channel_id with required message text, plus optional post_at timestamp, thread_ts for threading, and reply_broadcast flag."
+        },
+        {
+          "name": "slack_add_reaction",
+          "parameters": {
+            "channel_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "message_ts": {
+              "required": "required",
+              "type": "string"
+            },
+            "emoji": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Add an emoji reaction to a specific Slack message by required channel_id, message_ts, and emoji name."
+        },
+        {
+          "name": "slack_create_canvas",
+          "parameters": {
+            "title": {
+              "required": "required",
+              "type": "string"
+            },
+            "content": {
+              "required": "required",
+              "type": "string"
+            }
+          },
+          "description": "Create a new Slack canvas (collaborative document) with required title and content."
+        },
+        {
+          "name": "slack_update_canvas",
+          "parameters": {
+            "canvas_id": {
+              "required": "required",
+              "type": "string"
+            },
+            "action": {
+              "required": "required",
+              "type": "string"
+            },
+            "content": {
+              "required": "required",
+              "type": "string"
+            },
+            "section_id": {
+              "required": "optional",
+              "type": "string | null"
+            }
+          },
+          "description": "Update an existing Slack canvas by required canvas_id, with required action and content, plus optional section_id targeting."
+        }
+      ]
+    }
+  ]
+}

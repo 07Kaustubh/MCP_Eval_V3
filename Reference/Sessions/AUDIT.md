@@ -100,13 +100,16 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
   - brookfield → `Brookfield_Base_Universe/8_Server_Tools_Details.json`
   - keystone → `Mortgage_Base_Universe/6_Server_Tools_Details.json`
   - moveops → `MoveOps_Base_Universe/6_Server_Tools_Details.json`
+  - starpm → `StarPM_Base_Universe/7_Server_Tools_Details.json`
 
 ## Eval spec verified for this phase
-- Evals/<n>_<phase>_Eval.md :: <strictest reading applied>
+- Universe-correct eval set (per `_aux/Universe.txt`): brookfield → `Evals/`; keystone → `Evals_keystone/`; moveops → `Evals_moveops/`; starpm → `Evals_starpm/` (v4: also run `0_Injection_Quality_Eval.md` + `5_Submission_Gate_Eval.md` via `validate.py --phase injection` / `--phase submission_gate`)
+- Evals_<universe>/<n>_<phase>_Eval.md :: <strictest reading applied>
 
-## QC spec re-verified
-- Docs/7_QC_Spec_Doc1.json :: <all relevant sub-dims rescored under strict interpretation>
-- Docs/8_QC_Spec_Doc2.md :: <appendix issue taxonomy re-applied>
+## QC spec re-verified (universe-correct doc set: brookfield → `Docs/`; keystone → `Docs_keystone/`; moveops → `Docs_moveops/`; starpm → `Docs_starpm/`)
+- Docs_<universe>/7_QC_Spec_Doc1.json :: <all relevant sub-dims rescored under strict interpretation> (StarPM: 5 dims / 24 sub-dims; note the stale Jun-12 date string inside the JSON - the evals + `Docs_starpm/6_Prompt_Relative_Time_Updates.md` fix today at 2026-07-01 America/Chicago)
+- Docs_<universe>/8_QC_Spec_Doc2.md :: <appendix issue taxonomy re-applied>
+- StarPM caveat: `Docs_starpm/13_QC_Companion.md` is Brookfield-contaminated content (do NOT treat as StarPM SSOT; see `Validators/regression_baseline/ROUTING_DECISIONS.md`)
 
 ## All 9 lenses status
 - Lens 1 strict QC scoring :: <PASS/REVISE/REBUILD>
@@ -205,7 +208,7 @@ Empty evidence column → forced score ≤ 3. This prevents the v17-diagnosed fa
 
 **Per-universe landmines** (read `Tasks/<TASK_DIR>/_aux/Universe.txt`): full catalog SSOT is `Validators/universes.py` per-universe `landmines` block; enforced programmatically by `verify_universe_atoms.py`; full per-landmine descriptions in `AGENTS.md` "Universe constants (multi-universe — v20)" section.
 
-Critical landmine summary (for AUDIT context — full descriptions in AGENTS.md): Brookfield → account-number trap (105000/120000 per-entity) + email-chain truthfulness (parent_id walk + sender-filter for "X never responded" claims); KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop client analyst, NOT KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs.
+Critical landmine summary (for AUDIT context — full descriptions in AGENTS.md): Brookfield → account-number trap (105000/120000 per-entity) + email-chain truthfulness (parent_id walk + sender-filter for "X never responded" claims); KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop client analyst, NOT KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs; StarPM → near-duplicate decoy files (invoice-2026-419 vs invoice-2026-419-287, invoice-BILL-2026-0392 vs -920, tanya-mitchell agreement vs -2, laspalmas-8d-qc-inspection vs -2) + cross-property Unit 14 ambiguity + Tanya Mitchell accommodation-vs-eviction contradiction + Airtable-is-source-of-record vs Linear-secondary.
 
 The programmatic floor (`Validators/verify_universe_atoms.py`) runs first and catches structural atom defects. AUDIT's evidence-table requirement is the second pass that catches semantic mismatches the programmatic check can't reach (e.g., the role-claim language is ambiguous but the universe row is unambiguous).
 

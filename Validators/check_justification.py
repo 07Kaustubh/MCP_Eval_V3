@@ -25,6 +25,7 @@ FORBIDDEN = [
     ("guide / spec ref",    re.compile(r"\b(?:eval\s+guide|QC\s+spec(?:\s+doc)?|spec\s+doc|the\s+framework|the\s+playbook|the\s+runbook|guidelines\s+doc)\b", re.IGNORECASE)),
     ("V3 framework refs",   re.compile(r"\b(?:V3\s+framework|V3\s+rubric|Outcome\s+1\.\d|Process\s+rubric\s+three-condition)\b", re.IGNORECASE)),
     ("Brookfield meta refs",re.compile(r"\b(?:Brookfield[_ ]?Base[_ ]?Universe|per[- ]task\s+universe|stale\s+universe)\b", re.IGNORECASE)),
+    ("StarPM meta refs",    re.compile(r"\bStarPM[_ ]?Base[_ ]?Universe\b", re.IGNORECASE)),
 ]
 
 

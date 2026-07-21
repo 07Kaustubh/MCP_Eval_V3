@@ -1,7 +1,7 @@
 # Verification — <PHASE_NAME>
 
 **Task:** Tasks/<TASK_DIR>
-**Universe:** <brookfield | keystone>
+**Universe:** <brookfield | keystone | moveops | starpm>
 **Phase:** <s0 | hardness | s1 | s2 | s3 | final | s4 | review | materialize>
 **Timestamp:** <ISO 8601>
 
@@ -11,8 +11,8 @@
 |---|---|---|
 | Per-task data | `_aux/Fact_Ledger.json` | <atom counts, specific records consulted> |
 | Per-task data | `_aux/Universe_Split/<file>.json` | <specific rows / fields cross-checked> |
-| Eval spec | `Evals/<n>_<phase>_Eval.md` | <which sub-dim verdicts were applied this phase> |
-| QC spec | `Docs/7_QC_Spec_Doc1.json` | <which QC sub-dim scores were re-applied at this phase> |
+| Eval spec | universe-correct eval set: `Evals/` (brookfield), `Evals_keystone/`, `Evals_moveops/`, `Evals_starpm/` (v4 adds 0_Injection_Quality + 5_Submission_Gate) `<n>_<phase>_Eval.md` | <which sub-dim verdicts were applied this phase> |
+| QC spec | universe-correct doc set: `Docs/` (brookfield), `Docs_keystone/`, `Docs_moveops/`, `Docs_starpm/` `7_QC_Spec_Doc1.json` | <which QC sub-dim scores were re-applied at this phase> |
 | Prior phase verification | `_aux/Verification_<prior_phase>.md` | <upstream cross-check confirmed independently — name the specific atoms re-verified> |
 | Reference cards | `Reference/<phase>_Format.md`, inventories | <format conventions re-checked> |
 
@@ -21,7 +21,7 @@
 - [ ] Programmatic verification ran clean: `verify_universe_atoms.py` exit 0 (or documented WARNs noted)
 - [ ] No upstream `Verification_<phase>.md` claims were trusted without re-validation
 - [ ] Per-atom evidence table populated for all universe-grounded claims
-- [ ] Landmines for this universe checked (account trap, email-chain truthfulness, TRID timing, LOS vs CRM)
+- [ ] Landmines for this universe checked (Brookfield: account trap, email-chain truthfulness; KeyStone: TRID timing, LOS vs CRM; MoveOps: PHMSA hazmat, Airtable vs CRM; StarPM: near-duplicate decoy files, cross-property Unit 14, accommodation-vs-eviction, Airtable-is-SoR)
 - [ ] All numeric figures recomputed from atoms (not carried from prior phase prose)
 
 ## Discrepancies surfaced

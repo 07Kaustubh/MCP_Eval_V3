@@ -146,6 +146,8 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    | other | <n> | <pct> |
    | **Distinct services** | **<count>** | — |
 
+   (Service rows above are the Brookfield set - substitute the universe-correct service list from `Validators/universes.py`; StarPM: airtable, contacts, gcalendar, gmail, hubspot, linear, quickbooks, slack.)
+
    **Breadth gate:** ≥ 4 distinct services with each ≥ 5% of total = PASS; 3 distinct services with the dominant one < 60% = ACCEPTABLE (mark NOTE in plan); ≤ 2 distinct services OR dominant > 60% = `THIN_BREADTH` — the density may meet the floor but the task is structurally lever-thin. Document why the prompt cannot pull in more services (e.g., persona's role is single-domain) under `## THIN breadth acceptance` subsection.
 
    This catches the false-positive density pattern where the projected 50+ midpoint is achieved by stacking 50 GL calls (a single-service deep trap) instead of the cross-correlation chains that Opus 4.8 actually fails on.

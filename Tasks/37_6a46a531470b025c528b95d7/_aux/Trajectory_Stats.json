@@ -54,15 +54,15 @@
     "runs": [
       {
         "run": 1,
-        "passed": 28,
+        "passed": 23,
         "total": 30,
         "passes_all": false
       },
       {
         "run": 2,
-        "passed": 30,
+        "passed": 29,
         "total": 30,
-        "passes_all": true
+        "passes_all": false
       },
       {
         "run": 3,
@@ -72,9 +72,9 @@
       },
       {
         "run": 4,
-        "passed": 30,
+        "passed": 29,
         "total": 30,
-        "passes_all": true
+        "passes_all": false
       },
       {
         "run": 5,
@@ -84,14 +84,14 @@
       },
       {
         "run": 6,
-        "passed": 28,
+        "passed": 30,
         "total": 30,
-        "passes_all": false
+        "passes_all": true
       }
     ],
     "runs_total": 6,
-    "runs_passing_all_rubrics": 2,
-    "pass_at_1": 0.333
+    "runs_passing_all_rubrics": 1,
+    "pass_at_1": 0.167
   },
   "difficulty_ok_at_40pct": true,
   "verdict": "OK"

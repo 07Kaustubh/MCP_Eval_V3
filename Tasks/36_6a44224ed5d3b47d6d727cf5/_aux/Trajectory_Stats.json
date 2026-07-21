@@ -5,86 +5,86 @@
       "run": 1,
       "file": "trajectory-runs/trajectory-run-1 (23).json",
       "status": "ok",
-      "tool_calls_total": 38,
-      "tool_calls_mcp_only": 38
+      "tool_calls_total": 57,
+      "tool_calls_mcp_only": 36
     },
     {
       "run": 2,
       "file": "trajectory-runs/trajectory-run-2 (23).json",
       "status": "ok",
-      "tool_calls_total": 56,
-      "tool_calls_mcp_only": 35
+      "tool_calls_total": 62,
+      "tool_calls_mcp_only": 41
     },
     {
       "run": 3,
       "file": "trajectory-runs/trajectory-run-3 (25).json",
       "status": "ok",
-      "tool_calls_total": 55,
-      "tool_calls_mcp_only": 36
+      "tool_calls_total": 49,
+      "tool_calls_mcp_only": 43
     },
     {
       "run": 4,
       "file": "trajectory-runs/trajectory-run-4 (23).json",
       "status": "ok",
-      "tool_calls_total": 71,
-      "tool_calls_mcp_only": 45
+      "tool_calls_total": 54,
+      "tool_calls_mcp_only": 41
     },
     {
       "run": 5,
       "file": "trajectory-runs/trajectory-run-5 (28).json",
       "status": "ok",
-      "tool_calls_total": 57,
-      "tool_calls_mcp_only": 37
+      "tool_calls_total": 60,
+      "tool_calls_mcp_only": 39
     },
     {
       "run": 6,
       "file": "trajectory-runs/trajectory-run-6 (23).json",
       "status": "ok",
-      "tool_calls_total": 35,
-      "tool_calls_mcp_only": 35
+      "tool_calls_total": 48,
+      "tool_calls_mcp_only": 38
     }
   ],
   "runs_evaluated": 6,
-  "avg_tool_calls_total": 52,
-  "avg_tool_calls_mcp_only": 37.7,
-  "min_tool_calls_total": 35,
-  "max_tool_calls_total": 71,
+  "avg_tool_calls_total": 55,
+  "avg_tool_calls_mcp_only": 39.7,
+  "min_tool_calls_total": 48,
+  "max_tool_calls_total": 62,
   "density_ok_at_40": true,
   "verifier_fails": {
     "runs": [
       {
         "run": 1,
-        "passed": 27,
+        "passed": 24,
         "total": 34,
         "passes_all": false
       },
       {
         "run": 2,
-        "passed": 25,
+        "passed": 30,
         "total": 34,
         "passes_all": false
       },
       {
         "run": 3,
-        "passed": 25,
+        "passed": 33,
         "total": 34,
         "passes_all": false
       },
       {
         "run": 4,
-        "passed": 23,
+        "passed": 29,
         "total": 34,
         "passes_all": false
       },
       {
         "run": 5,
-        "passed": 28,
+        "passed": 29,
         "total": 34,
         "passes_all": false
       },
       {
         "run": 6,
-        "passed": 23,
+        "passed": 30,
         "total": 34,
         "passes_all": false
       }

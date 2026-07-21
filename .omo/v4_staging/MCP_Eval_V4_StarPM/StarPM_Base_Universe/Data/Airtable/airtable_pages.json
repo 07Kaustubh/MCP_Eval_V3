@@ -1,0 +1,40 @@
+[
+  {
+    "source": "airtable.airtable_pages",
+    "row_data": {
+      "id": "pagy2Lm8ZRhYi3ThF",
+      "name": "Maintenance Tickets List",
+      "config": {
+        "tablesByTableId": {
+          "tblMaintenanceTickets": {
+            "name": "Maintenance Tickets"
+          }
+        }
+      },
+      "base_id": "appPropertyOps",
+      "order_idx": 0,
+      "page_type": "list",
+      "interface_id": "pbdEQJXABSijObOfF",
+      "source_table_id": "tblMaintenanceTickets"
+    }
+  },
+  {
+    "source": "airtable.airtable_pages",
+    "row_data": {
+      "id": "pag0F9pnAsxwY0ikP",
+      "name": "Make-Ready Turns List",
+      "config": {
+        "tablesByTableId": {
+          "tblMakeReady": {
+            "name": "Make-Ready Turns"
+          }
+        }
+      },
+      "base_id": "appPropertyOps",
+      "order_idx": 1,
+      "page_type": "list",
+      "interface_id": "pbdEQJXABSijObOfF",
+      "source_table_id": "tblMakeReady"
+    }
+  }
+]

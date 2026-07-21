@@ -1,0 +1,18 @@
+[
+  {
+    "source": "linear.linear_teams",
+    "row_data": {
+      "id": "team_001",
+      "key": "OPS",
+      "icon": null,
+      "name": "Operations",
+      "color": null,
+      "created_at": "2026-07-01T14:00:00.000000Z",
+      "sla_config": {},
+      "updated_at": "2026-07-01T14:00:00.000000Z",
+      "description": "Operations team covering maintenance, make-ready turns, and vendor coordination. Maintenance work orders are tracked in the Airtable Maintenance Tickets table, which is the system of record. Linear is secondary for maintenance items and is used for broader operations and project tracking.",
+      "is_archived": false,
+      "next_issue_number": 1000
+    }
+  }
+]

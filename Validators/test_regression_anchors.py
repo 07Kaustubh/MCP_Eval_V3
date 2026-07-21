@@ -73,6 +73,27 @@ def _run_validate(task_dir: Path, phase: str) -> str:
     return result.stdout + "\n" + result.stderr
 
 
+
+def _write_v4_task(task_dir: Path, sql: str = "", rubrics: list = None) -> None:
+    """StarPM (v4) fixture: universe data + injection + rubrics for the v4-only phases."""
+    task_dir.mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux").mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")
+    (task_dir / "3_UniverseDataForThisTask.json").write_text(json.dumps({
+        "contacts": [{"id": "cnt_lopez01", "name": "Maria Lopez", "email": "maria.lopez@starpm.com"}],
+        "airtable": [{"id": "recABCDE12345", "unit": "Las Palmas 8D", "status": "In Progress"}],
+        "linear": [{"id": "MT-2026-0147", "title": "HVAC repair Las Palmas 8D"}],
+        "slack": [{"channel": "C001", "name": "maintenance"}],
+    }), encoding="utf-8")
+    (task_dir / "5_Prompt.txt").write_text(
+        "Check the make-ready record recABCDE12345 and ticket MT-2026-0147, then update me.", encoding="utf-8")
+    (task_dir / "4_Changelog.json").write_text("[]", encoding="utf-8")
+    if sql:
+        (task_dir / "9_Universe_inject.sql").write_text(sql, encoding="utf-8")
+    if rubrics is not None:
+        (task_dir / "7_Rubrics.json").write_text(json.dumps(rubrics, indent=2), encoding="utf-8")
+
+
 ANCHORS = [
     {
         "name": "R7 — NPC persona (Owen Mercer)",
@@ -489,6 +510,101 @@ ANCHORS = [
         "phase": "prompt",
         "fixture": lambda d: _write_task(d, prompt="I need help with the AP queue. The vendor invoice for the SAP subledger reconciliation came in. Post a journal entry to oracle_gl and check the BlackLine variance. Email Andre about it.", persona="Brenda Carter — brenda.carter@brookfieldcpas.com"),
         "expect": "universe: brookfield",
+    },
+    {
+        "name": "v-wave2 SP-1 - StarPM auto-detection (starpm.com / Star Property Management / hubspot / quickbooks / gcalendar / make-ready signals)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="I need help coordinating the make-ready turn at Star Property Management. Check the hubspot leasing deal and the quickbooks vendor bill, then look at the gcalendar owner meeting and post the status in owner-relations. Email the owner about the make-ready timeline and tell me where we stand.", persona="Brooke Phillips - brooke.phillips@starpm.com"),
+        "expect": "universe: starpm",
+    },
+    {
+        "name": "v-wave2 SP-2 - StarPM persona contaminated with Brookfield email domain",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I need help coordinating the make-ready turn with the hubspot leasing deal and the quickbooks vendor bill. Check the gcalendar owner meeting and post in owner-relations.", persona="Brooke Phillips - brooke.phillips@brookfieldcpas.com"), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "persona email domain mismatch",
+    },
+    {
+        "name": "v-wave2 SP-3 - StarPM persona contaminated with KeyStone email domain",
+        "phase": "prompt",
+        "fixture": lambda d: (_write_task(d, prompt="I need help coordinating the make-ready turn with the hubspot leasing deal and the quickbooks vendor bill. Check the gcalendar owner meeting and post in owner-relations.", persona="Patricia Nguyen - patricia.nguyen@keystonemortgage.com"), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "persona email domain mismatch",
+    },
+    {
+        "name": "v-wave2 SP-4 - Invalid StarPM Slack channel (C012; StarPM has only C001-C008)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready records.\nOE2: Post an update in channel C012 about the owner-relations status.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "C012",
+    },
+    {
+        "name": "v-wave2 SP-5 - Brookfield retention code (AICPA_SQMS_7Y) in a StarPM OE is not flagged (StarPM has no retention codes; check self-disables, mirrors KS-4)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready file.\nOE2: Upload the inspection report with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "PASS",
+    },
+    {
+        "name": "v-wave2 SP-6 - Brookfield baseline preserved after StarPM registry addition (guards the detect_universe tiebreak)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="I need help with the AP queue. The vendor invoice for the SAP subledger reconciliation came in. Post a journal entry to oracle_gl and check the BlackLine variance. Email Andre about it.", persona="Brenda Carter - brenda.carter@brookfieldcpas.com"),
+        "expect": "universe: brookfield",
+    },
+    # SP-7/8/9: StarPM OE parameter-trap flagging, now that validate.py drives the
+    # OE param check from consts["tool_param_traps"] (Wave 3). StarPM slack_send_message
+    # takes `message` (not payload/text) and create_draft takes `body` (not content);
+    # save_issue takes `team` (not teamId).
+    {
+        "name": "v-wave3 SP-7 - StarPM slack_send_message wrong param (payload) flagged via registry tool_param_traps (should be message)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready records in the owner-relations thread.\nOE2: Post an update using slack_send_message with payload: the make-ready status.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "should be `message`",
+    },
+    {
+        "name": "v-wave3 SP-8 - StarPM create_draft wrong body param (content) flagged (should be body)",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the owner-relations thread.\nOE2: Draft the owner note using create_draft with content: the make-ready summary.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "should be `body`",
+    },
+    {
+        "name": "v-wave3 SP-9 - StarPM correct slack_send_message (message) / create_draft (body) usage is not falsely flagged",
+        "phase": "oe",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready records in the owner-relations thread.\nOE2: Post an update using slack_send_message with channel_id C001 and message: the make-ready status.\nOE3: Draft the owner note using create_draft with body: the summary.\nOE4: File the follow-up using save_issue with team: Operations.\nOE5: Confirm.\nOE6: Mark.\nOE7: Log.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        "expect": "PASS",
+    },
+    # Wave 4a anchors: V4-only phases (injection quality / submission gate) from
+    # Evals_starpm 0 and 5. Gated on framework extra_phases; v3 universes SKIP.
+    {
+        "name": "v-wave4 SP-INJ-1 - valid StarPM injection passes all deterministic Eval0 gates",
+        "phase": "injection",
+        "fixture": lambda d: _write_v4_task(d, sql=(
+            "INSERT INTO slack_messages (id, channel_id, author, message, posted_at) VALUES "
+            "('msg_fix_001', 'C001', 'carlos.mendez@starpm.com', '8D HVAC parts in, invoice INV-2026-0666 hits QB tomorrow. recABCDE12345 still in progress.', '2026-06-20');"
+        )),
+        "expect": "Status:** PASS",
+    },
+    {
+        "name": "v-wave4 SP-INJ-2 - StarPM injection with out-of-window date fails Eval0 P3",
+        "phase": "injection",
+        "fixture": lambda d: _write_v4_task(d, sql=(
+            "INSERT INTO slack_messages (id, channel_id, author, message, posted_at) VALUES "
+            "('msg_fix_002', 'C001', 'carlos.mendez@starpm.com', 'HVAC note for recABCDE12345.', '2026-08-15');"
+        )),
+        "expect": "TEMPORAL_VIOLATION",
+    },
+    {
+        "name": "v-wave4 SP-SUB-1 - StarPM rubric citing phantom tool fails Eval5 F1",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_v4_task(d, rubrics=[
+            {"title": "The Agent removes stale bills via quickbooks_delete_all_bills for recABCDE12345.",
+             "category": "outcome", "justification": "cleanup", "evidence": "call args"},
+            {"title": "The Agent identifies the make-ready record recABCDE12345 as In Progress.",
+             "category": "outcome", "justification": "Airtable is source of record", "evidence": "final response"},
+        ]),
+        "expect": "IMPOSSIBLE",
+    },
+    {
+        "name": "v-wave4 SP-SUB-2 - v3 (brookfield) task gets SKIP not FAIL for injection phase",
+        "phase": "injection",
+        "fixture": lambda d: _write_task(d, prompt="Check the AP queue please.", persona="Brenda Carter"),
+        "expect": "not applicable",
     },
 ]
 

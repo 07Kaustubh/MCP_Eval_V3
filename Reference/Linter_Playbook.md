@@ -83,7 +83,7 @@ The script scans every justification file before ship and fails on any of these 
 | Script names | `validate.py`, `build_fact_ledger.py`, `parse_trajectories.py`, `check_justification.py`, `calc_similarity.py`, etc. | Tooling names belong in `_aux/` reports, not in reviewer-facing text. |
 | Guide / spec references | "the eval guide", "the QC spec doc", "the framework", "the playbook", "the runbook", "guidelines doc" | Reviewers do not care what document you read. They care whether you grounded the call in actual data. |
 | V3 framework refs | "V3 framework", "V3 rubric", "Outcome 1.1", "Process rubric three-condition test" | V3 is our internal taxonomy. Use plain words: "the email send", "the verification step". |
-| Brookfield meta refs | `Brookfield_Base_Universe`, "per-task universe", "stale universe" | Internal directory + pipeline jargon. Use the persona / entity / service name directly. |
+| Universe meta refs | `Brookfield_Base_Universe`, `StarPM_Base_Universe`, `Mortgage_Base_Universe`, `MoveOps_Base_Universe`, "per-task universe", "stale universe" | Internal directory + pipeline jargon. Use the persona / entity / service name directly. |
 
 The script is invoked with one or more file paths:
 

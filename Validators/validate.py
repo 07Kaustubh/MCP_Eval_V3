@@ -49,10 +49,10 @@ from typing import List
 ROOT = Path(__file__).resolve().parent.parent
 
 try:
-    from Validators.universes import detect_universe, get_universe_constants
+    from Validators.universes import detect_universe, get_universe_constants, get_framework_profile
 except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from universes import detect_universe, get_universe_constants
+    from universes import detect_universe, get_universe_constants, get_framework_profile
 
 EM_DASH_PATTERN = re.compile(r"[\u2014\u2013]")          # em-dash, en-dash
 TOOL_NAME_HINT = re.compile(r"\b(?:[a-z_]+_(?:list|search|get|create|update|send|add|upload|approve|reject|post|reply|submit|delete|show|history)_[a-z_]+|email_send_email|slack_conversations_add_message)\b")
@@ -94,6 +94,9 @@ SERVICE_KEYWORDS = {
     "airtable": re.compile(r"\bAirtable\b", re.IGNORECASE),
     "sap": re.compile(r"\b(?:SAP|subledger|AP\s+(?:invoice|inv\b)|vendor\s+master|accounts?\s+payable\s+sub)\b", re.IGNORECASE),
     "contacts": re.compile(r"\b(?:contacts?\s+(?:list|directory|lookup|search)|email\s+directory)\b", re.IGNORECASE),
+    "hubspot": re.compile(r"\bHubSpot\b", re.IGNORECASE),
+    "quickbooks": re.compile(r"\bQuickBooks\b", re.IGNORECASE),
+    "gcalendar": re.compile(r"\b(?:gcalendar|Google\s+Calendar)\b", re.IGNORECASE),
 }
 WRITE_ACTION_PROMPT_VERBS = [
     "send", "post", "create", "approve", "deny", "reject", "certify",
@@ -225,6 +228,20 @@ KNOWN_NPCS = {"Owen Mercer", "Brenda Abbas", "Sofia Halabi", "Farah Dlamini", "J
 NAMED_ENTITY_RE_PROMPT = re.compile(r"\b[A-Z][a-z]{2,}(?:\s+[A-Z][a-z]+)*\b|\$\d[\d,]*(?:\.\d+)?\b|\b[A-Z]{2,}-[A-Z0-9-]+\b|\b\d{4}-\d{2}-\d{2}\b")
 RUBRIC_VALUE_TOKENS = re.compile(r"\d{4}-\d{2}-\d{2}|\$[\d,]+(?:\.\d+)?|\b[A-Z]{2,}-[A-Z0-9-]+\b|\bexc_[a-f0-9]+\b|\bapinv_[a-f0-9]+\b|\bdoc_[a-f0-9]+\b|\bJE-[a-z_]+-FP-\d{4}-\d{2}-\d{4}\b")
 
+# StarPM (V4) ID shapes, selected when detect_universe() == "starpm". The
+# Brookfield regexes above stay the default for brookfield/keystone/moveops
+# (byte-identical); only starpm routes through these.
+STARPM_AIRTABLE_REC = re.compile(r"\brec[a-f0-9]{14,16}\b")
+STARPM_LINEAR_ISSUE = re.compile(r"\bOPS-\d{1,4}\b")
+STARPM_HUBSPOT_OBJ = re.compile(r"\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b")
+STARPM_INTERNAL_ID = re.compile(r"\b(?:rec[a-f0-9]{14,16}|OPS-\d{1,4}|(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}|comment_[a-f0-9]{32}|INV-2026-\d{3,7}(?:-\d{2,4})?|BILL-2026-\d{3,7})\b")
+STARPM_VALUE_TOKENS = re.compile(r"\d{4}-\d{2}-\d{2}|\$[\d,]+(?:\.\d+)?|\brec[a-f0-9]{14,16}\b|\bOPS-\d{1,4}\b|\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b|\b(?:INV|BILL)-2026-\d{3,7}(?:-\d{2,4})?\b")
+STARPM_GROUNDING = [
+    (STARPM_AIRTABLE_REC, "airtable record", "airtable_record"),
+    (STARPM_LINEAR_ISSUE, "linear issue", "linear_issue"),
+    (STARPM_HUBSPOT_OBJ, "hubspot object", "hubspot_object"),
+]
+
 
 class Report:
     def __init__(self, phase: str):
@@ -351,6 +368,33 @@ def amount_in_ledger(amt_raw: str, ledger: dict) -> bool:
     return target in ledger["amounts"]
 
 
+def check_oe_param_traps(text: str, consts: dict, rep: Report) -> None:
+    # Registry-driven OE parameter-trap checks (was hardcoded for Brookfield only).
+    # Reproduces the legacy checks byte-for-byte via per-trap window/ignorecase in
+    # consts["tool_param_traps"] (email/slack window 80 case-sensitive; records_vault
+    # window 100 case-insensitive; linear window 100) and extends per universe.
+    # content_field + wrong_field(s) => "uses W should be content_field"; required +
+    # wrong => "uses W should be required".
+    traps = consts.get("tool_param_traps", {}) or {}
+    for tool, spec in traps.items():
+        window = spec.get("window", 80)
+        flags = re.IGNORECASE if spec.get("ignorecase") else 0
+        content_field = spec.get("content_field")
+        wrong_fields = []
+        if spec.get("wrong_field"):
+            wrong_fields.append(spec["wrong_field"])
+        wrong_fields.extend(spec.get("wrong_fields", []) or [])
+        if content_field:
+            for wf in wrong_fields:
+                if re.search(rf"{re.escape(tool)}[^.\n]{{0,{window}}}\b{re.escape(wf)}\s*[:=]", text, flags):
+                    rep.fail(f"{tool} uses `{wf}` — should be `{content_field}`")
+        required = spec.get("required")
+        wrong = spec.get("wrong")
+        if required and wrong:
+            if re.search(rf"{re.escape(tool)}[^.\n]{{0,{window}}}\b{re.escape(wrong)}\s*[:=]", text, flags):
+                rep.fail(f"{tool} uses `{wrong}` — should be `{required}`")
+
+
 def validate_prompt(task_dir: Path, rep: Report) -> None:
     f = task_dir / "5_Prompt.txt"
     if not f.is_file():
@@ -372,7 +416,7 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
                 rep.fail(f"persona is an NPC for {universe}: `{npc}`. NPCs appear as participants/counterparties, never as task author. See {consts['persona_briefs']} for valid authoring personas.")
                 break
         if local_persona_email_domain:
-            all_universe_domains = {"brookfieldcpas.com", "keystonemortgage.com", "moveops.com"}
+            all_universe_domains = {"brookfieldcpas.com", "keystonemortgage.com", "moveops.com", "starpm.com"}
             wrong_domains = all_universe_domains - {local_persona_email_domain}
             persona_lower = persona_text.lower()
             for wrong in wrong_domains:
@@ -409,7 +453,8 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
     for m in MCP_SERVER_NAME.finditer(text):
         rep.fail(f"explicit MCP-server mention: `{m.group(0)}`")
 
-    for m in INTERNAL_ID.finditer(text):
+    internal_id_re = STARPM_INTERNAL_ID if universe == "starpm" else INTERNAL_ID
+    for m in internal_id_re.finditer(text):
         rep.fail(f"internal-ID leakage: `{m.group(0)}`")
 
     for m in PRE_SOLVE_HINT.finditer(text):
@@ -559,17 +604,7 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
         for t in unknown:
             rep.fail(f"OE references unknown tool: `{t}` (not in {local_tool_catalog.name})")
 
-    if re.search(r"email_send_email[^.\n]{0,80}\bbody\s*[:=]", text):
-        rep.fail("email_send_email uses `body` — should be `content`")
-    if re.search(r"slack_conversations_add_message[^.\n]{0,80}\btext\s*[:=]", text):
-        rep.fail("slack_conversations_add_message uses `text` — should be `payload`")
-
-    if re.search(r"records_vault_upload_document[^.\n]{0,100}\bfile\s*[:=]", text, re.IGNORECASE):
-        rep.fail("records_vault_upload_document uses `file` — should be `content_b64`")
-    if re.search(r"records_vault_upload_document[^.\n]{0,100}\bdata\s*[:=]", text, re.IGNORECASE):
-        rep.fail("records_vault_upload_document uses `data` — should be `content_b64`")
-    if re.search(r"linear_create_issue[^.\n]{0,100}\bteam\s*[:=]", text):
-        rep.fail("linear_create_issue uses `team` — should be `teamId`")
+    check_oe_param_traps(text, consts, rep)
 
     if local_retention_codes:
         for m in RETENTION_CODE_REF.finditer(text):
@@ -783,6 +818,22 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
     local_account_trap = consts["account_trap_check"]
     rep.note(f"universe: {universe}")
 
+    if universe == "starpm":
+        grounding_specs = STARPM_GROUNDING
+        value_tokens_re = STARPM_VALUE_TOKENS
+        suspicious_id_pats = (STARPM_AIRTABLE_REC, STARPM_LINEAR_ISSUE, STARPM_HUBSPOT_OBJ)
+    else:
+        grounding_specs = [
+            (JE_ID, "JE", "je"),
+            (EXC_ID, "exception", "exception"),
+            (DOC_ID, "doc", "doc"),
+            (VENDOR_ID, "vendor", "vendor"),
+            (APINV_ID, "apinv", "apinv"),
+            (RECON_ID, "recon", "recon"),
+        ]
+        value_tokens_re = RUBRIC_VALUE_TOKENS
+        suspicious_id_pats = (JE_ID, EXC_ID, RECON_ID, DOC_ID, VENDOR_ID, APINV_ID)
+
     ledger = load_fact_ledger(task_dir)
     universe_blob = load_universe_blob(task_dir) if not ledger else ""
     tool_names = load_tool_names(local_tool_catalog)
@@ -992,15 +1043,15 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                 rubric_severity[i]["major"] += 1
 
         if isinstance(evidence, str) and evidence and isinstance(title, str):
-            title_strict = set(RUBRIC_VALUE_TOKENS.findall(title))
-            ev_strict = set(RUBRIC_VALUE_TOKENS.findall(evidence))
+            title_strict = set(value_tokens_re.findall(title))
+            ev_strict = set(value_tokens_re.findall(evidence))
             extras = ev_strict - title_strict
             if extras:
                 rep.warn(f"{loc}: evidence contains dates/IDs/amounts NOT in criterion: {sorted(extras)[:3]}. Evidence must not be stricter than criterion (judge grades criterion text first).")
 
         if isinstance(title, str) and prompt_text:
             suspicious_ids_in_title = set()
-            for pat in (JE_ID, EXC_ID, RECON_ID, DOC_ID, VENDOR_ID, APINV_ID):
+            for pat in suspicious_id_pats:
                 suspicious_ids_in_title.update(m.group(0) for m in pat.finditer(title))
             oe_text_lc = ""
             oe_path = task_dir / "6_Oracle_Events.txt"
@@ -1027,14 +1078,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                 if m.group(0).lower() not in email_set:
                     rep.fail(f"{loc}: email `{m.group(0)}` not in Fact_Ledger")
             id_buckets = ledger.get("ids", {})
-            for pat, label, bucket in (
-                (JE_ID, "JE", "je"),
-                (EXC_ID, "exception", "exception"),
-                (DOC_ID, "doc", "doc"),
-                (VENDOR_ID, "vendor", "vendor"),
-                (APINV_ID, "apinv", "apinv"),
-                (RECON_ID, "recon", "recon"),
-            ):
+            for pat, label, bucket in grounding_specs:
                 bucket_set = set(id_buckets.get(bucket, []))
                 for m in pat.finditer(title):
                     if m.group(0) not in bucket_set:
@@ -1069,7 +1113,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             for m in EMAIL_RE.finditer(title):
                 if m.group(0).lower() not in universe_blob.lower():
                     rep.fail(f"{loc}: email `{m.group(0)}` not found in Universe_Split")
-            for pat, label in ((JE_ID, "JE"), (EXC_ID, "exception"), (DOC_ID, "doc"), (VENDOR_ID, "vendor"), (APINV_ID, "apinv"), (RECON_ID, "recon")):
+            for pat, label, _bucket in grounding_specs:
                 for m in pat.finditer(title):
                     if m.group(0) not in universe_blob:
                         rep.fail(f"{loc}: {label} id `{m.group(0)}` not found in Universe_Split")
@@ -1180,6 +1224,13 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                 atoms.add(("apinv", m.group(0)))
             for m in DOC_ID.finditer(text):
                 atoms.add(("doc", m.group(0)))
+            if universe == "starpm":
+                for m in STARPM_AIRTABLE_REC.finditer(text):
+                    atoms.add(("airtable_record", m.group(0)))
+                for m in STARPM_LINEAR_ISSUE.finditer(text):
+                    atoms.add(("linear_issue", m.group(0)))
+                for m in STARPM_HUBSPOT_OBJ.finditer(text):
+                    atoms.add(("hubspot_object", m.group(0)))
             for m in DATE_YMD.finditer(text):
                 atoms.add(("date", m.group(0)))
             for m in ACCOUNT_NUM.finditer(text):
@@ -1254,7 +1305,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--phase", required=True, choices=["prompt", "oe", "rubrics", "all"])
+    ap.add_argument("--phase", required=True, choices=["prompt", "oe", "rubrics", "all", "injection", "submission_gate"])
     ap.add_argument("--task", required=True, help="path to Tasks/<TASK_DIR>")
     args = ap.parse_args()
 
@@ -1276,6 +1327,22 @@ def main() -> None:
             validate_oe(task_dir, rep)
         elif phase == "rubrics":
             validate_rubrics(task_dir, rep)
+        elif phase in ("injection", "submission_gate"):
+            # V4-only gates (Evals_starpm 0 and 5); SKIP cleanly on v3-family universes
+            try:
+                from Validators import v4_gates
+            except ImportError:
+                import v4_gates
+            universe = detect_universe(task_dir)
+            consts = get_universe_constants(universe)
+            profile = get_framework_profile(universe)
+            fn = v4_gates.validate_injection if phase == "injection" else v4_gates.validate_submission_gate
+            ran = fn(task_dir, rep, universe, consts, profile)
+            if not ran:
+                out = out_dir / f"{phase}.md"
+                out.write_text(rep.render(), encoding="utf-8")
+                print(f"[SKIP] {phase}: not applicable to universe '{universe}' -> {out}")
+                continue
         out = out_dir / f"{phase}.md"
         out.write_text(rep.render(), encoding="utf-8")
         status = "FAIL" if rep.fails else "PASS"

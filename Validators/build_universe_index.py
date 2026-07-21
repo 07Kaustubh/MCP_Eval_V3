@@ -23,6 +23,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 UNIVERSE_FIXED_TODAY_DEFAULT = "2026-06-12"
+UNIVERSE_FIXED_TZ_DEFAULT = "America/New_York"
 
 try:
     from Validators.universes import detect_universe, get_universe_constants
@@ -38,6 +39,22 @@ def resolve_universe_today(task_dir: Path) -> str:
         return get_universe_constants(u).get("today", UNIVERSE_FIXED_TODAY_DEFAULT)
     except Exception:
         return UNIVERSE_FIXED_TODAY_DEFAULT
+
+
+def resolve_universe_tz(task_dir: Path) -> str:
+    # The index historically hardcoded "America/New_York" for the timezone field.
+    # That is wrong for moveops (registry today_tz=US/Pacific) and mislabeled for
+    # brookfield/keystone (registry today_tz=US/Eastern, the same zone under a
+    # different name). To keep the three pre-V4 universes byte-identical we preserve
+    # the legacy literal for them and route the registry tz only for starpm
+    # (America/Chicago). The pre-existing mislabel is left intact intentionally.
+    try:
+        u = detect_universe(task_dir)
+        if u == "starpm":
+            return get_universe_constants(u).get("today_tz", UNIVERSE_FIXED_TZ_DEFAULT)
+        return UNIVERSE_FIXED_TZ_DEFAULT
+    except Exception:
+        return UNIVERSE_FIXED_TZ_DEFAULT
 
 
 def load(path: Path):
@@ -119,6 +136,10 @@ def entities_personas(split_dir: Path, out: Path) -> None:
 
 def key_facts(split_dir: Path, out: Path) -> None:
     lines = ["# Key Facts (per-task)", ""]
+    try:
+        universe = detect_universe(split_dir.parent.parent)
+    except Exception:
+        universe = "brookfield"
 
     jes = list(rows_of(split_dir / "oracle_gl.ogl_journal_entries.json"))
     if jes:
@@ -216,10 +237,45 @@ def key_facts(split_dir: Path, out: Path) -> None:
             "",
         ]
 
+    if universe == "starpm":
+        atr = list(rows_of(split_dir / "airtable.airtable_records.json"))
+        if atr:
+            by_table = Counter(r.get("table_id", "?") for r in atr)
+            lines += [
+                "## Airtable Records (StarPM system of record)",
+                f"- Total records: **{len(atr)}**",
+                "- By table: " + ", ".join(f"`{k}`={v}" for k, v in by_table.most_common()),
+                "",
+            ]
+            mr_status = Counter()
+            for r in atr:
+                if r.get("table_id") == "tblMakeReady":
+                    fld = r.get("fields") if isinstance(r.get("fields"), dict) else {}
+                    mr_status[str(fld.get("fldTurnStatus", "?"))] += 1
+            if mr_status:
+                lines += ["- Make-Ready turn status: " + ", ".join(f"`{k}`={v}" for k, v in mr_status.most_common()), ""]
+        qbe = list(rows_of(split_dir / "quickbooks.quickbooks_entities.json"))
+        if qbe:
+            by_qtype = Counter(q.get("entity_type", "?") for q in qbe)
+            lines += [
+                "## QuickBooks Entities",
+                f"- Total: **{len(qbe)}**",
+                "- By type: " + ", ".join(f"`{k}`={v}" for k, v in by_qtype.most_common()),
+                "",
+            ]
+        hso = list(rows_of(split_dir / "hubspot.hubspot_objects.json"))
+        if hso:
+            by_otype = Counter(h.get("object_type", "?") for h in hso)
+            lines += [
+                "## HubSpot Objects (leasing funnel)",
+                f"- Total: **{len(hso)}**",
+                "- By type: " + ", ".join(f"`{k}`={v}" for k, v in by_otype.most_common()),
+                "",
+            ]
     out.write_text("\n".join(lines), encoding="utf-8")
 
 
-def today_horizon(split_dir: Path, out: Path, universe_today: str = UNIVERSE_FIXED_TODAY_DEFAULT) -> None:
+def today_horizon(split_dir: Path, out: Path, universe_today: str = UNIVERSE_FIXED_TODAY_DEFAULT, universe_tz: str = UNIVERSE_FIXED_TZ_DEFAULT) -> None:
     last_ts = None
     candidate_fields = ("posted_at", "created_at", "submitted_at", "approved_at", "timestamp", "due_date", "uploaded_at", "sent_at", "occurred_at", "ts", "filed_at", "completed_at")
     counter_post_today = 0
@@ -243,7 +299,7 @@ def today_horizon(split_dir: Path, out: Path, universe_today: str = UNIVERSE_FIX
 
     data = {
         "universe_today": universe_today,
-        "universe_timezone": "America/New_York",
+        "universe_timezone": universe_tz,
         "last_event_timestamp_seen": last_ts,
         "records_dated_after_today": counter_post_today,
         "note": "Records after today are legitimate when status=future (fiscal periods) or upcoming due_dates (AP).",
@@ -291,7 +347,7 @@ def main() -> None:
     service_inventory(split_dir, idx / "service_inventory.md")
     entities_personas(split_dir, idx / "entities_personas.md")
     key_facts(split_dir, idx / "key_facts.md")
-    today_horizon(split_dir, idx / "today_horizon.json", universe_today=resolve_universe_today(task_dir))
+    today_horizon(split_dir, idx / "today_horizon.json", universe_today=resolve_universe_today(task_dir), universe_tz=resolve_universe_tz(task_dir))
     accounts_per_entity(split_dir, idx / "accounts_per_entity.md")
 
     print(f"Built Universe_Index at: {idx}")

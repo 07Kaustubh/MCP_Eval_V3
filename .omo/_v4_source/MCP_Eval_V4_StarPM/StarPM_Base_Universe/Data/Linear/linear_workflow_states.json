@@ -1,0 +1,72 @@
+[
+  {
+    "source": "linear.linear_workflow_states",
+    "row_data": {
+      "id": "state_OPS_0",
+      "name": "Backlog",
+      "type": "backlog",
+      "color": "#bec2c8",
+      "team_id": "team_001",
+      "position": 0,
+      "created_at": "2026-05-01T05:00:00-05:00",
+      "updated_at": "2026-05-01T05:00:00-05:00",
+      "description": ""
+    }
+  },
+  {
+    "source": "linear.linear_workflow_states",
+    "row_data": {
+      "id": "state_OPS_1",
+      "name": "Todo",
+      "type": "unstarted",
+      "color": "#e2e2e2",
+      "team_id": "team_001",
+      "position": 1,
+      "created_at": "2026-05-01T05:00:00-05:00",
+      "updated_at": "2026-05-01T05:00:00-05:00",
+      "description": ""
+    }
+  },
+  {
+    "source": "linear.linear_workflow_states",
+    "row_data": {
+      "id": "state_OPS_2",
+      "name": "In Progress",
+      "type": "started",
+      "color": "#f2c94c",
+      "team_id": "team_001",
+      "position": 2,
+      "created_at": "2026-05-01T05:00:00-05:00",
+      "updated_at": "2026-05-01T05:00:00-05:00",
+      "description": ""
+    }
+  },
+  {
+    "source": "linear.linear_workflow_states",
+    "row_data": {
+      "id": "state_OPS_3",
+      "name": "In Review",
+      "type": "started",
+      "color": "#f2c94c",
+      "team_id": "team_001",
+      "position": 3,
+      "created_at": "2026-05-01T05:00:00-05:00",
+      "updated_at": "2026-05-01T05:00:00-05:00",
+      "description": ""
+    }
+  },
+  {
+    "source": "linear.linear_workflow_states",
+    "row_data": {
+      "id": "state_OPS_4",
+      "name": "Done",
+      "type": "completed",
+      "color": "#5e6ad2",
+      "team_id": "team_001",
+      "position": 4,
+      "created_at": "2026-05-01T05:00:00-05:00",
+      "updated_at": "2026-05-01T05:00:00-05:00",
+      "description": ""
+    }
+  }
+]

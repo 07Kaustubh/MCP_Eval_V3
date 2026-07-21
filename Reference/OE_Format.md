@@ -15,7 +15,7 @@ OE3: ...
 Each step covers:
 
 - **What action / discovery happens** (search, retrieve, post, send, update).
-- **What tool would be used** — exact tool name from `Brookfield_Base_Universe/8_Server_Tools_Details.json` (the one stable file).
+- **What tool would be used** — exact tool name from the universe-correct tool catalog (Brookfield: `Brookfield_Base_Universe/8_Server_Tools_Details.json`; KeyStone: `Mortgage_Base_Universe/6_Server_Tools_Details.json`; MoveOps: `MoveOps_Base_Universe/6_Server_Tools_Details.json`; StarPM: `StarPM_Base_Universe/7_Server_Tools_Details.json`).
 - **What parameters matter** — keys + concrete expected values from the per-task universe split.
 - **What the agent should conclude** from the step's output, when relevant (e.g., "exclude the $42,500 from the aggregate because the entry is reversed").
 
@@ -50,6 +50,7 @@ Each step covers:
 - `records_vault_upload_document` requires `kind`, `retention_policy_code`, `classification`, `content_b64`. Valid retention codes: `AICPA_SQMS_7Y`, `IRS_TAX_7Y`, `FIRM_INTERNAL`, `INDEFINITE`. **Do not use** `SOX_7Y` or `SEC_PERMANENT`.
 - `linear_create_comment` uses `issueId` + `body`.
 - `airtable_create_record` / `airtable_update_records` take `base_id`, `table_id`, `fields`.
+- **StarPM (v4) traps:** `slack_send_message(channel_id, message)` - `message`, NOT `payload`/`text`. Gmail `create_draft(to, subject, body)` - `body`, NOT `content`; draft-only, no send tool. Linear `save_issue(..., team)` - NOT `teamId`; `save_comment(issueId, body)`. Airtable camelCase `baseId`/`tableId`. HubSpot `manage_crm_objects(object_type, action, objects[])`. QuickBooks creates use one `properties` envelope. No retention codes / classifications in StarPM.
 
 ## Discovery-step phrasing
 

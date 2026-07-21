@@ -1,0 +1,8 @@
+Task Feedback
+Auditor Score and Feedback
+bad 2/5
+Feedback: Failing issues: Moderate issues: - [Overly Broad Criteria] Criteria 6 states "addresses Matthew Li's trust-side verification question - whether the item is trust-side or operating (or similar)", this allows for multiple answers some of which are incorrect, it should state that the item is not trust side and remove the word "whether". - [Overly Broad Criteria] Criteria 7 states "covers whether the evidence on reconciliation BL-72E451657112 supports a cash timing explanation (or similar assessment of the recon evidence)." This is also overly broad because the prompt states "whether the recon evidence checks out", so the rubric should also check if the email states something similar to "wrong document linked" and remove the word "whether". - [Overly Broad Criteria] Criteria 11 states "whether the refire is truly stale or still has an open thread", this is overly broad like the other two criteria above, same issue with the use of "whether" and not providing an actual final verdict assessment. - [Fail - 15%+ Moderate Rubric Errors] 3/19=~16% > 15% Non-failing issues: - [Non-Fail Suspected LLM Cheating] These criteria seem to be AI generated, they seem to be summarizing/rephrasing the prompt and do not provide concrete criteria. No other issues with this task.
+
+Selected Error Categories
+[Core Dimensions] [Original Work] [Non-Fail - Suspected LLM Cheating]
+[All] [All] [Fail - 15%+ Moderate Rubric Errors]

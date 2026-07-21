@@ -67,6 +67,12 @@ AIRTABLE_VS_CRM_CLAIM = re.compile(
     r"\bCRM\b[^.\n]{0,80}\b(?:relocation|vendor\s+assignment|coordinator\s+assignment|stipend|move\s+status|apartment|moving\s+company)\b",
     re.IGNORECASE,
 )
+STARPM_AIRTABLE_REC = re.compile(r"\brec[a-f0-9]{14,16}\b")
+STARPM_LINEAR_ISSUE = re.compile(r"\bOPS-\d{1,4}\b")
+STARPM_HUBSPOT_OBJ = re.compile(r"\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b")
+STARPM_INVOICE = re.compile(r"\b(?:INV-2026-\d{3,7}(?:-\d{2,4})?|BILL-2026-\d{3,7})\b")
+STARPM_SLACK_CHAN = re.compile(r"\bC\d{3}\b")
+STARPM_ISO_DATE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
 
 
 class AtomCheck:
@@ -232,6 +238,49 @@ def verify_airtable_vs_crm_claim_moveops(claim: dict, check: AtomCheck) -> None:
         verdict="POTENTIAL FAIL: claim cites CRM as source for relocation/vendor/coordinator state; that lives in Airtable tblRelocations01 / tblStipends00001. CRM holds the deal/engagement funnel only. Verify the rubric/OE doesn't trust CRM for relocation state.",
         severity="WARN",
     )
+
+
+def verify_starpm_atoms(text: str, indexed: dict, consts: dict, check: AtomCheck) -> None:
+    # Structured StarPM ids must exist in the universe (a phantom id is a FAIL).
+    for pat, label in ((STARPM_AIRTABLE_REC, "airtable record"),
+                       (STARPM_LINEAR_ISSUE, "linear issue"),
+                       (STARPM_HUBSPOT_OBJ, "hubspot object")):
+        for atom in sorted(set(pat.findall(text))):
+            verify_atom_presence(atom, label, indexed, check)
+    full_blob = json.dumps(indexed, default=str).lower()
+    # Invoice numbers live in a decoy-heavy space (near-duplicate files); WARN on
+    # absence rather than FAIL so the operator disambiguates the authoritative doc.
+    for inv in sorted(set(STARPM_INVOICE.findall(text))):
+        if inv.lower() not in full_blob:
+            check.record(
+                atom=f"invoice {inv}",
+                query="presence search in 3_UniverseDataForThisTask.json",
+                row="NOT FOUND",
+                verdict="invoice number not found in universe (verify against QuickBooks DocNumbers; watch for near-duplicate decoy files)",
+                severity="WARN",
+            )
+    # Slack channels must be within the StarPM range (C001-C008).
+    valid_channels = consts.get("slack_channels") or set()
+    for chan in sorted(set(STARPM_SLACK_CHAN.findall(text))):
+        if valid_channels and chan not in valid_channels:
+            check.record(
+                atom=f"slack channel {chan}",
+                query=f"channel in {sorted(valid_channels)}",
+                row=chan,
+                verdict=f"Slack channel {chan} outside the StarPM valid range (C001-C008)",
+                severity="WARN",
+            )
+    # Dates in a claim should fall in the StarPM active workflow window.
+    for y, mo, da in sorted(set(STARPM_ISO_DATE.findall(text))):
+        iso = f"{y}-{mo}-{da}"
+        if not ("2026-05-01" <= iso <= "2026-07-01"):
+            check.record(
+                atom=f"date {iso}",
+                query="StarPM active window 2026-05-01..2026-07-01",
+                row=iso,
+                verdict=f"date {iso} is outside the StarPM active workflow window (2026-05-01 to 2026-07-01); verify it is intentional",
+                severity="WARN",
+            )
 
 
 def verify_account_claim_brookfield(claim: dict, indexed: dict, check: AtomCheck) -> None:
@@ -424,6 +473,8 @@ def main():
             verify_phmsa_claim_moveops(c, indexed, check)
         for c in atoms["airtable_vs_crm_claims"]:
             verify_airtable_vs_crm_claim_moveops(c, check)
+    if universe == "starpm":
+        verify_starpm_atoms(combined, indexed, consts, check)
     for je in set(atoms["je_ids"]):
         verify_atom_presence(je, "JE", indexed, check)
     for vid in set(atoms["vendor_ids"]):

@@ -30,6 +30,12 @@ from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
+try:
+    from Validators.universes import detect_universe, get_universe_constants
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from universes import detect_universe, get_universe_constants
+
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 ISO_DATE_RE = re.compile(r"(?<!\d)(\d{4}-\d{2}-\d{2})(?!\d)")
 MONEY_FIELD_HINTS = (
@@ -54,6 +60,19 @@ ID_PATTERNS = {
     "slack_channel": (re.compile(r"\bC\d{3}\b"), "channel_id"),
     "contact": (re.compile(r"\bcontact_[a-f0-9]{8,16}\b"), "contact_id"),
     "persona": (re.compile(r"\bpersona_\d{3}\b"), "persona_id"),
+}
+
+# StarPM (V4) ID shapes, selected when detect_universe() == "starpm". Brookfield,
+# keystone and moveops keep ID_PATTERNS above (byte-identical); only starpm routes
+# through these. Bare-hex gmail/contact ids are intentionally omitted (they over-
+# collect); invoice DocNumbers are field-extracted below, not regex-scanned.
+STARPM_ID_PATTERNS = {
+    "airtable_record": (re.compile(r"\brec[a-f0-9]{14,16}\b"), "id"),
+    "linear_issue": (re.compile(r"\bOPS-\d{1,4}\b"), "id"),
+    "linear_comment": (re.compile(r"\bcomment_[a-f0-9]{32}\b"), "id"),
+    "hubspot_object": (re.compile(r"\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b"), "id"),
+    "slack_channel": (re.compile(r"\bC\d{3}\b"), "channel_id"),
+    "slack_user": (re.compile(r"\bU[A-Z0-9]{9,11}\b"), "user_id"),
 }
 
 
@@ -142,10 +161,16 @@ def build_ledger(task_dir):
 
     by_source = load_records(split_dir)
 
+    universe = detect_universe(task_dir)
+    consts = get_universe_constants(universe)
+    active_id_patterns = STARPM_ID_PATTERNS if universe == "starpm" else ID_PATTERNS
+
     emails = set()
     amounts = set()
     dates = set()
-    ids = {k: set() for k in ID_PATTERNS}
+    ids = {k: set() for k in active_id_patterns}
+    if universe == "starpm":
+        ids["invoice"] = set()
     accounts_by_entity = defaultdict(dict)
     fiscal_periods = {}
     personas = {}
@@ -158,7 +183,7 @@ def build_ledger(task_dir):
         for inner in rows:
             _collect(inner, emails, amounts, dates)
             blob = json.dumps(inner, default=str)
-            for kind, (pat, _key) in ID_PATTERNS.items():
+            for kind, (pat, _key) in active_id_patterns.items():
                 for m in pat.finditer(blob):
                     ids[kind].add(m.group(0))
             if isinstance(inner, dict) and inner.get("entity_id"):
@@ -185,6 +210,21 @@ def build_ledger(task_dir):
                         "period_label": inner.get("period_label"),
                         "entity_id": inner.get("entity_id"),
                     }
+
+        if universe == "starpm" and src.endswith("quickbooks_entities"):
+            for inner in rows:
+                if inner.get("entity_type") not in ("invoice", "bill", "credit_memo", "estimate"):
+                    continue
+                props = inner.get("properties")
+                if isinstance(props, str):
+                    try:
+                        props = json.loads(props)
+                    except json.JSONDecodeError:
+                        props = {}
+                if isinstance(props, dict):
+                    docnum = props.get("DocNumber")
+                    if docnum:
+                        ids["invoice"].add(str(docnum))
 
         if src.endswith("contacts"):
             for inner in rows:
@@ -256,13 +296,15 @@ def build_ledger(task_dir):
         "empty_in_base_tables_populated_in_task": empty_in_base_populated_in_task,
     }
 
+    closed_words = consts.get("lifecycle_states_closed", {"closed", "locked"})
+    open_words = consts.get("lifecycle_states_open", {"open", "draft", "active"})
     closed_periods_list = sorted(
         pid for pid, info in fiscal_periods.items()
-        if isinstance(info, dict) and (info.get("status") or "").lower() in ("closed", "locked")
+        if isinstance(info, dict) and (info.get("status") or "").lower() in closed_words
     )
     open_periods_list = sorted(
         pid for pid, info in fiscal_periods.items()
-        if isinstance(info, dict) and (info.get("status") or "").lower() in ("open", "draft", "active")
+        if isinstance(info, dict) and (info.get("status") or "").lower() in open_words
     )
     today_str = None
     today_horizon_path = task_dir / "_aux" / "Universe_Index" / "today_horizon.json"

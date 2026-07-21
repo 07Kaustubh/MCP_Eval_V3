@@ -140,9 +140,9 @@ MCP_Eval_V3/
 └── data.py                         # smart forwarder — routes per-task input to Validators/split_universe.py
 ```
 
-## Universe constants (multi-universe — v20)
+## Universe constants (multi-universe — v21)
 
-Pipeline supports **three universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
+Pipeline supports **four universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
 
 ### Brookfield CPAs & Advisors (default — public accounting / business advisory)
 
@@ -192,10 +192,29 @@ Pipeline supports **three universes**. Detection is automatic via `Validators/de
 - **Framework version:** V2.1 (older framework than V3 — some rubric / OE conventions may differ slightly from V3 Brookfield + V3.1 KeyStone; QC sub-dim scoring rules in `Docs_moveops/2_Rubrics_V3_Guidelines.md` may have minor deltas — read it before applying validator behavior to MoveOps tasks).
 - **Docs:** `Docs_moveops/` · Evals: `Evals_moveops/` · QC ref: `QC_Tasks/V2.1_Tasks/`.
 
+### Star Property Management (v21 — residential property management, V4 framework)
+
+- **Base path:** `StarPM_Base_Universe/` · Tool catalog: `7_Server_Tools_Details.json` (NOTE: prefix **7**, unlike Brookfield's 8) · Persona briefs: `2_StarPM_PERSONA BRIEFS.md` (space in filename) · Schema: `8_Universe_Schema.json`
+- **Universe today:** 2026-07-01 (America/Chicago). Active window 2026-05-01 to 2026-07-01. Confirm from `_aux/Universe_Index/today_horizon.json`. (The stale "Jun 12 US/Eastern" string inside `Docs_starpm/7_QC_Spec_Doc1.json` is superseded by `Docs_starpm/6_Prompt_Relative_Time_Updates.md` and the evals.)
+- **Single entity:** `starpm` (Star Property Management, LLC — San Antonio TX multifamily property manager, domain `starpm.com`). 13 authoring personas p_000..p_014 (all `@starpm.com`) + ~47 NPCs.
+- **V4 framework deltas (vs V3):** dual-model verification (Opus 4.8 + Gemini): `8a_Verifier_Fails_Opus.txt` + `8b_Verifier_Fails_Gemini.txt` + `Agent_Responses/{Opus,Gemini}/Run1-6_Trajectory.json`; injection is a first-class artifact (`9_Universe_inject.sql` + `4_Changelog.json`) gated by `validate.py --phase injection` (Evals_starpm/0, 7 hard gates + difficulty >= 3.5); pre-upload gate `validate.py --phase submission_gate` (Evals_starpm/5, defect families F1-F6, any single defect = FAIL); QC feedback/dispute artifact chain `9_QC_Feedback.txt` / `10_PT_Dispute_To_QC_Feedback.txt` / `11_Final_QC_Validation_On_PT_Dispute.txt` handled by `Validators/qc_verdict.py` (parse / classify / selftest / audit / feedback).
+- **Density:** design target 40+ avg tool calls (Docs_starpm/1: "AVERAGE TOOL CALL COUNT OF ALL AGENT RUNS MUST BE 40+"); QC-spec fail floor is 15. pass@1 <= 40% unchanged.
+- **NO account-number trap, NO retention codes, NO classifications** (property-management universe, not GL-based).
+- **Near-duplicate decoy files (HARDCODED LANDMINE):** `invoice-2026-419.pdf` vs `invoice-2026-419-287.pdf`; `invoice-BILL-2026-0392.pdf` vs `invoice-BILL-2026-0392-920.pdf`; `agreement-...-tanya-mitchell.pdf` vs `-2.pdf`; `report-laspalmas-8d-qc-inspection.pdf` vs `-2.pdf`. Tasks must cross-check WHICH file is authoritative against Airtable/QuickBooks records, never trust filename prose.
+- **Tanya Mitchell contradiction (LANDMINE):** reasonable-accommodation intake documents vs eviction-track make-ready records coexist — tasks touching her unit must reconcile the accommodation-vs-eviction state from the records, not assume either.
+- **Cross-property "Unit 14" ambiguity (LANDMINE):** Unit 14 exists at multiple properties (Rio Bend, Sunset Ridge, Tanya Mitchell eviction track) — always disambiguate by property.
+- **Airtable is source of record** for make-ready/unit/property state; Linear is secondary (mirror tickets). Never trust Linear over Airtable.
+- **Slack channels:** C001 #maintenance · C002 #leasing · C003 #general · C004 #make-ready · C005 #vendors · C006 #owner-relations · C007 #budget-review · C008 #applications.
+- **Parameter traps (DIFFER from the other three universes):** Slack `slack_send_message(channel_id, message)` — text param is `message`, NOT `payload`/`text`. Gmail is **draft-only**: `create_draft(to[], subject, body)` — `body`, NOT `content`, and there is NO send tool. Linear upsert `save_issue(..., team, ...)` (NOT `teamId`) / `save_comment(issueId, body)`. Airtable camelCase `baseId`/`tableId`/`records[]`. HubSpot `manage_crm_objects(object_type, action, objects[])`. QuickBooks creates take a single `properties` envelope.
+- **Services:** airtable, contacts, gcalendar, gmail, hubspot, linear, quickbooks, slack.
+- **Business functions (5):** Property Operations 32% · Portfolio Coordination & Owner Relations 20% · Leasing & Applicant Intake 20% · Maintenance & Repairs 18% · QC & Field Services 10%.
+- **Framework version:** V4. QC verdict ground truth: `QC_Tasks/V4_Tasks/` (16 labeled tasks in 4 buckets: QC_Passed / QC_True_Fails / QC_Non_Fails / QC_False_Fails_PT_Dispute_Accepted — note their CONTENT is Brookfield-fixture flavored; they are verdict-logic ground truth, not StarPM universe facts). `Docs_starpm/13_QC_Companion.md` is Brookfield-contaminated — do NOT treat as StarPM SSOT (see `Validators/regression_baseline/ROUTING_DECISIONS.md`).
+- **Docs:** `Docs_starpm/` · Evals: `Evals_starpm/` (6 evals: adds 0_Injection_Quality + 5_Submission_Gate) · Guide: `Guide_starpm/` · Task template: `Tasks_Template_starpm/` · QC ref: `QC_Tasks/V4_Tasks/`.
+
 ### Universe detection
 
 - Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents). Highest signal-score wins; ties default to brookfield.
-- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, or `moveops`).
+- Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, `moveops`, or `starpm`).
 - Every validator / council / AUDIT / FINAL reads `_aux/Universe.txt` and routes constants/paths accordingly.
 
 ## Where to start

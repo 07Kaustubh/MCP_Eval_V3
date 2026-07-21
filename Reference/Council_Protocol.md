@@ -70,7 +70,7 @@ Handled deterministically by `Validators/validate.py` A3 (NPC blocklist + positi
 ### A6 — Persona Scope (prompt + rubrics phase)
 When the prompt uses possessive scope ("my X", "our X", "my vendors", "my open POs", "my drafts", "the items in my queue"), the scope is bound to the PERSONA's universe assignments — not the firm's full inventory. For every rubric value that is universe-grounded (vendor_id, JE_id, exception_id, recon_id, amount, recipient), verify the value belongs to the persona's assignment scope per `_aux/Universe_Split/`.
 
-How to verify the scope: read the persona's role from `Brookfield_Base_Universe/2_Persona_Briefs.md` + the persona's assigned entities/queues/owners from `_aux/Universe_Split/` (e.g., `journal_entries.json` rows where `created_by` or `owner_email` = persona email; `ap_invoices.json` rows where `approver_email` = persona email; etc.). Build the persona's assignment set.
+How to verify the scope: read the persona's role from the universe-correct persona briefs (Brookfield: `Brookfield_Base_Universe/2_Persona_Briefs.md`; KeyStone: `Mortgage_Base_Universe/3_Persona_Briefs.md`; MoveOps: `MoveOps_Base_Universe/2_Persona_Briefs.md`; StarPM: `StarPM_Base_Universe/2_StarPM_PERSONA BRIEFS.md`) + the persona's assigned entities/queues/owners from `_aux/Universe_Split/` (e.g., `journal_entries.json` rows where `created_by` or `owner_email` = persona email; `ap_invoices.json` rows where `approver_email` = persona email; etc.). Build the persona's assignment set.
 
 For each rubric value: if the value is in the persona's assignment set → PASS. If absent → FLAG as `SCOPE_DRIFT: rubric[i] tests <value> NOT in persona scope. Either the prompt's "my X" framing is wrong, or the rubric tests a value the persona has no claim to.` BLOCK.
 
@@ -158,9 +158,12 @@ Same rule for authority/permission: persona lacks the role to do the asked
 action (e.g., AR clerk overriding partner sign-off without explicit grant) ->
 FLAG AUTHORITY_GAP. BLOCK.
 
-[A5 — Persona Authorship Whitelist] (prompt phase only) Read
-Brookfield_Base_Universe/2_Persona_Briefs.md end to end (28 authoring personas).
-Verify Tasks/<TASK_DIR>/2_Persona.txt assigns one of the 28 by name AND role.
+[A5 — Persona Authorship Whitelist] (prompt phase only) Read the
+universe-correct persona briefs end to end (Brookfield:
+Brookfield_Base_Universe/2_Persona_Briefs.md, 28 authoring personas; StarPM:
+StarPM_Base_Universe/2_StarPM_PERSONA BRIEFS.md, 13 authoring personas, all
+@starpm.com; KeyStone / MoveOps per their base universe briefs).
+Verify Tasks/<TASK_DIR>/2_Persona.txt assigns a listed persona by name AND role.
 Output: PERSONA <name> -> POSITION <n>/28 (or NOT_IN_LIST). NOT_IN_LIST = BLOCK.
 This is the POSITIVE-whitelist check; the validator only catches the 7 NPCs by
 name (Owen Mercer / Brenda Abbas / Sofia Halabi / Farah Dlamini / James Randall /
@@ -208,6 +211,11 @@ the registry:
   MoveOps: `MoveOps_Base_Universe/3_Task_Categories_Business_Functions.md`
   — 5 categories: Operations 25%, Customer Engagement / Support 30%,
   Engineering 20%, Finance 15%, Executive 10%.
+
+  StarPM: `StarPM_Base_Universe/3_StarPM_TASK CATEGORIES.md` — 5 categories:
+  Property Operations 32%, Portfolio Coordination & Owner Relations 20%,
+  Leasing & Applicant Intake 20%, Maintenance & Repairs 18%,
+  QC & Field Services 10%.
 
 Verify assigned business function matches the prompt's primary scenario.
 False = BLOCK (CB cannot change assigned business function). Ambiguous =
@@ -361,6 +369,7 @@ For each OE step, verify the named tool/service matches the data type the step q
 - **Brookfield**: reconciliations / exceptions → BlackLine (NOT Oracle GL); AP invoices / vendor master → SAP subledger; JEs / accounts / fiscal periods → Oracle GL; retention / docs → Records Vault; tickets → Linear; HR → Airtable; chat → Slack; email → Email.
 - **KeyStone**: loans / borrowers / conditions / disclosures (TRID) → mortgage_los (NOT CRM); AP invoices / bills / accounts → QuickBooks; payments / charges → Stripe; borrower PDFs → filesystem; leads / deals → CRM; chat → Slack; email → Email.
 - **MoveOps**: relocations / stipends / client accounts → Airtable (NOT CRM); AP invoices / customers / accruals → QuickBooks; deals / engagements → CRM; tickets / projects → Linear; calendar events → Calendar; chat → Slack; email → Email.
+- **StarPM**: make-ready / units / property records → Airtable (source of record, NOT Linear); invoices / bills / vendors → QuickBooks; maintenance tickets → Linear (secondary to Airtable); owner/tenant relationships + deals → HubSpot; calendar → GCalendar; email → Gmail (draft-only, no send tool); chat → Slack; contacts → Contacts.
 
 Output per misaligned step: `OE_SERVICE_MISMATCH: OE<n> queries <data type> in <wrong service>. Data type belongs in <correct service>. Following this OE literally would return wrong-or-no results.`
 
@@ -473,6 +482,13 @@ airtable; AP invoices / vendor bills / customers / accruals -> quickbooks;
 deals / engagements / leads -> crm; tickets / issues / projects -> linear;
 calendar events -> calendar; chat / channels -> slack; email threads ->
 email; contacts -> contacts.
+
+StarPM map: make-ready / units / property records / applications ->
+airtable (source of record); invoices / bills / vendors / payments ->
+quickbooks; maintenance tickets / issues -> linear (secondary to airtable);
+owners / tenants / deals / campaigns -> hubspot; calendar events ->
+gcalendar; email threads / drafts -> gmail (draft-only, no send tool);
+chat / channels -> slack; contacts -> contacts.
 
 Output per misaligned step: OE_SERVICE_MISMATCH: OE<n> queries <data type>
 in <wrong service>. Belongs in <correct service>.
