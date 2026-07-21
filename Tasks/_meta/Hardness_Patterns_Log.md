@@ -26,6 +26,34 @@ Append-only. One entry per task — the lever-selection-vs-actual-failure calibr
 
 ## Entries
 
+## Entry — Tasks/42_6a4fc1d98bf6758607609d35 — 2026-07-09
+
+**Persona / Business function:** Lena Bjorkstrom (Software Engineer, MoveOps) / Engineering — incident response + multi-write coordination (ticket comment + Slack post + email to manager) after a billing mismatch caused by an invoice attachment safeguard she had deferred.
+
+**Universe:** MoveOps (V2.1 framework). REVIEW task — 6 original trajectories present at intake.
+
+**Selected levers (from REVIEW_hardness.md):**
+- L1 — State resolution (ticket backlog state + assignee-field vs narrative-unassigned discrepancy + 5-comment thread with pre- and post-incident phases)
+- L2 — Thread-depth email surfacing (Samira's April 15 email to Marcus + David, CC Lena — agent must find it in Sent/CC folder, not inbox)
+- L3 — Cross-service Airtable Account-Manager discovery (Emeka's full book of business — Active+Onboarding filter on tblClientAccts01 yields 5 accounts, not just the 2 invoiced clients)
+- L4 — Correction discovery (Emeka's April 22 correction emails already sent; agent must surface that remediation is in progress but not confirmed)
+- L5 — Multi-write coordination (3 required write actions in the correct sequence: ticket comment establishing ownership BEFORE Slack announcement that ticket has new owner)
+
+**FINAL-phase confirmation (post-MATERIALIZE, iteration 2):** All 5 levers confirmed firing end-to-end by cross-artifact Final Council after 3 FINAL iterations (REVISE -> REVISE -> PASS). Measured density 59.3 avg (6 real runs, PASS). VERDICT: PASS after iteration-2 blockers cleared.
+
+**Actual failures (from REVIEW S4 bucket classification):**
+- Rubric 1 (comment attribution to Lena): Bucket 1 (Rubric Invalid) — 5/6 runs. Platform Linear MCP overwrites author_id to authenticated account (moveops_alejandro_fuentes) regardless of user parameter passed. Rubric graded the tool-returned field; only Run 4 passed via body-signature "- Lena". FIXED at MATERIALIZE: rubric rewritten to grade body-text signature only.
+- Rubric 10 (Emeka's 4 accounts): Bucket 1 (Rubric Invalid) — 6/6 runs. Prompt paragraph 4 pronoun-bound "those accounts" to Sunbelt+Palmetto only; rubric expected {Sunbelt, Palmetto, GreenStack, Mosaic} which no agent discovered. FIXED at MATERIALIZE: prompt widened to explicit "active and onboarding client relationships from the account records"; rubric rewritten to the 5-account Active+Onboarding set {Sunbelt, Palmetto, GreenStack, Tideway, Mosaic}.
+- Rubric 11 (Samira April 15 email): Bucket 3 (Legit AF) — 1/6 runs. Agent legitimately missed the email due to narrow inbox-search filter.
+- Rubric 15 (corrected client comms): Bucket 3 (Legit AF) — 2/6 runs. Agents legitimately missed Emeka's April 22 correction emails due to narrow Sent-folder search.
+
+**Calibration:**
+- Levers confirmed end-to-end (post-MATERIALIZE): L1, L2, L3 (repaired), L4, L5.
+- Levers that did NOT fire on original artifacts: L3 — under-triggered by prompt paragraph 4 pronoun binding; 0/6 agents made the Airtable Account-Manager discovery. FIXED by widening prompt.
+- Failures from un-predicted sources: Platform Linear MCP author_id overwrite (structural platform constraint invisible at design time). Not a rubric design error per se — but surfaces when rubric grades tool-returned metadata rather than message content.
+
+**Lesson for next task:** (1) Platform Linear MCP overwrites `linear_create_comment` author_id to the authenticated account regardless of the `user` parameter — always grade comment attribution from body-text signature, never the tool-returned author_id field. (2) When widening a prompt to expose a lever, verify the rubric's expected entity set matches an actual derivable filter BEFORE committing to a numeral in the prompt — the "four accounts" count leaked in the prompt and simultaneously mismatched the universe's Active+Onboarding partition (which yields 5, not 4).
+
 ## Entry — Tasks/24_6a36e84723508b4e3f391cfc — 2026-06-21
 
 **Persona / Business function:** Lena Park (Procurement Officer, triage/escalate only, no approve/route authority) / AP-Vendor Operations — pending-approval queue triage across brookfield + northstar_legal + acme_cloud.
@@ -521,3 +549,409 @@ Fresh platform re-grade: pass@1 = 0.0% (6/6 runs failed at least one rubric), av
 **Novel lever candidate: L-aged-file-relative-time-compression.** When a per-LO cohort has both recent files (2026 locks, days-old expirations) and stale files (2024-2025 locks, 200+ day expirations), agents show a strong tendency to give exact dates for the recent files and to collapse the stale files under a single relative-time phrase like "lock long expired" or "250+ days expired". The per-LO content rubrics require exact dates for both. This surfaces on Task 37 as the highest-yield fail cluster on Run 1 alone (5 per-LO cohort rubrics fail). Worth cataloguing for future tasks where a per-LO or per-file cohort mixes recent + stale surface.
 
 **Author-side finding for future Keystone processor-pipeline tasks:** the aged-file compression trap works when the stale-file count is ≥ 3 in a per-LO cohort and stale-file lock expirations are older than 200 days. Below that threshold, agents give per-file dates cleanly. Above 3 stale files per LO, the compression shortcut becomes attractive enough to fire even when the rubric is atomically date-required. Keep this ratio in mind when designing per-LO content rubrics.
+
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09
+
+**Persona / Business function:** Sofia Reyes (Senior Processor, Title/Insurance/Compliance) / Loan Operations. Keystone universe.
+
+**Persona-swap context:** Task 38 was originally scoped to James Thornton (FHA/USDA Loan Officer). Initial HARDNESS run STOPPED at INSUFFICIENT_LEVERS (0/5) + INSUFFICIENT_DENSITY (23.5/40 realistic). James has no named scenarios (per PersonaBrief, "stable baseline"), 0 sent emails, 0 sent Slack, no CRM structured presence — every Learnings-validated failing lever starved. Operator swapped persona to Sofia Reyes (same business function, Loan Operations) per v1 plan's `## Persona swap recommendation` section. Universe unchanged. v1 plan archived at `_aux/Hardness_Plan_v1_james_STOP.md`.
+
+**Selected levers (5) — from v2 Hardness_Plan.md:**
+- Lever 1 — Latching (Learnings L13): PersonaBrief anchors Sofia on 9 loans; Slack chatter (C002) + email subject clusters reinforce
+- Lever 2 — Structured-DB skip (Learnings L10 mechanism generalized; L11 skip-vs-conversation trade): `mortgage_los.loans.assigned_processor` filter reveals only 1 of 9 brief-named LNs is actually Sofia's (LN-2026-00613); load-bearing target is her actual 2 outstanding conditions on LN-2026-00008
+- Lever 7 — Multi-write diversification (Learnings L5, density-only): 5+ writes across 5 services (email + Slack + LOS condition update + CRM engagement + calendar); task-adjusted range 12-15
+- Lever 8 — Multi-link chain (Learnings L14): Grace DM re LN-2026-00619 -> LOS assigned_processor lookup (contradicts Slack framing) -> CRM engagement trail (`crm_engagement_9c1b4dd91ef8`) -> outstanding conditions on LN-2026-00008
+- Lever 9 — Authority-figure dismissal (Learnings L9 ~100% fail, single most effective; L24 soft-verb caveat): Grace-voiced (128 msgs, `keystone_e304643b171b`) or Camille-voiced directive
+
+**Density:** projected midpoint 50.0 (at PASS floor). PASS band contingent on S1 drafting 5+ writes to hold L7 at 12-15 range. If only 3 writes: midpoint collapses to 47 (THIN).
+
+**Service breadth (v11 G1):** 5 distinct services >= 5% (mortgage_los 34%, email 24%, slack 18%, crm 12%, contacts 8%). Dominant mortgage_los well below 60% ceiling. PASS.
+
+**Load-bearing stump surface:** PersonaBrief-vs-LOS-ledger contradiction. Sofia is anchored on 9 loans in brief, only 1 in LOS truth (`assigned_processor` filter). Universe-authored discrepancy — S1 must preserve without editing. Learnings L29 escape-valve caveat: do NOT include "if what you find changes the read, tell me" clause in S1 — it neutralizes the L2 skip on the load-bearing surface.
+
+**Actual failures (from S4 verifier-fails analysis):** pending — trajectories not yet run.
+
+**Interim lesson (pre-trajectory):** Persona swap within the same business function unlocked 0 -> 5 levers on the same universe (Loan Operations, Keystone). Calibration signal for future thin-persona tasks: when INSUFFICIENT_LEVERS fires on a persona explicitly authored as "stable baseline / no named scenario involvement", the persona-swap fallback (documented in the v1 plan's swap-recommendation section) reliably surfaces a viable alternative persona within the same business function without editing the universe. Cross-task pattern to track: does the swap consistently unlock >= 3 Learnings-validated failing levers when the swap target has >= 500 graph-report mentions and >= 5 named scenarios?
+
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09 — FINAL PASS
+
+**FINAL Council verdict:** PASS. All 6 lenses clean (Truthfulness / Rubric Binding / Cross-Artifact Holism / Red-team / Narrative-State + Action-Prescription / Verifier-Fails-Spec). All 12 hard rules PASS. 0 answer leakage. 0% Lens 6 Bucket_1_Risk.
+
+**Levers confirmed end-to-end (prompt -> OE -> rubric):**
+- L1 Latching — prompt paras 1-2 anchor Sofia on brief-named LN-2026-00619 (Grace) + LN-2026-00610 (Destiny Pham via Camille speakerphone); OE 5 verifies both against LOS `assigned_processor` (neither is Sofia); rubrics [8]/[9]/[14] score the LOS-authoritative path (LN-2026-00008)
+- L2 Structured-DB skip — prompt para 2 "the real state, not the impression"; OE 6 pulls Sofia's 143-loan pipeline via `mortgage_los_get_pipeline(assigned_to=los_staff_afc9caafae9d)`; rubrics [8]/[14] score the 26-open-loan count
+- L7 Multi-write diversification — 5 writes across 4 services (email OE 11, LOS condition updates OE 12+13, CRM engagement OE 14, LOS activity OE 15, Slack post OE 16); density midpoint 50 at PASS floor
+- L8 Multi-link chain — Grace DM + Camille speakerphone (OE 2/3) -> LOS assigned_processor lookup (OE 5) -> Sofia's actual pipeline (OE 6) -> outstanding conditions on LN-2026-00008 (OE 7-8) -> borrower outreach (OE 11)
+- L9 Authority-figure dismissal — Grace + Camille voice in prompt para 1 with soft verbs ("watching 00619", "got Carlos and me on speakerphone"); prompt para 2 counters with "not the impression from what people are messaging me about"; rubrics reward LOS-authoritative path, not authority-implied path
+
+**Density confirmed:** integrated midpoint 50 (Hardness_Plan target; PASS floor per Reference/Council_Protocol.md B3 SSOT).
+**Service breadth confirmed:** 5 services >=5% (mortgage_los 34%, email 24%, slack 18%, crm 12%, contacts 8%). Dominant mortgage_los well below 60% ceiling.
+
+Task cleared for platform upload. Awaiting 6-run trajectories for S4 verifier-fails classification.
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09 — S4 CALIBRATION
+
+**Levers actually engaged (across trajectories):**
+
+- **L1 Latching — partial engagement.** Fired via a DIFFERENT sub-mechanism than predicted: not brief-named-loan latching but "dead files" heuristic latching. Agents anchored on the "closed and dead files don't count" prompt phrase and imputed dead status to open-status 2024-2025 loans.
+- **L2 Structured-DB skip — partial engagement.** Fired in the form of conflating document_checklist_items with LOS conditions (Rubrics 8 + 10, 5/6 fail each). Agents broadened "outstanding items" to include any doc/HOI item on the file instead of narrowing to the LOS conditions filter.
+- **L7 Multi-write diversification — density delivered.** 91.2 avg tool calls, +82% over the 50 target. Density plan hit and exceeded.
+- **L8 Multi-link chain — engaged but survived.** All agents traversed the Grace/Camille -> LOS -> conditions chain correctly on the identity/borrower/condition-id side. The chain did NOT trip anyone up in the way L8 typically operates.
+- **L9 Authority-figure dismissal — did not fire.** Agents did not defer to Grace/Camille voice on write scope. L9 was over-weighted in the plan.
+
+**Levers NOT in the Hardness_Plan that dominated:**
+
+- **L-industry-native-suppression (new).** Appraisal condition treated as internal by every agent (R3, R5, R12 partial). Real-world mortgage-industry lifecycle (appraisal ordered by lender) overrode the LOS condition status. Highest hit rate of any lever on this task (6/6 fails on 2 rubrics + partial on a third).
+- **L-industry-native-status-override (new).** Dead-file heuristic override on LOS `status` field (R9 all-fail + R14 partial). Prompt phrasing "Closed and dead files don't count" gave the soft cue; agents took it as license to drop 2024-2025 open-status loans.
+
+**Density verdict:** projected 50 midpoint, actual 91.2 avg. Density model UNDER-projected by 82%. Loan-Ops tasks with 5+ writes across 5+ services routinely produce 80+ tool calls in practice. Consider raising density projections for similar future tasks.
+
+**Rubric quality verdict:** 5/5 All-Failing sub-dim. Zero rubric-invalid classifications. Trajectory-diagnosed failures are all legitimate model reasoning gaps.
+
+**Cross-task pattern to track:** on the next 3 Loan-Ops tasks, explicitly enumerate industry-native reasoning shortcuts (appraisal-as-internal, HOI-as-internal, title-as-internal, dead-file heuristic, aged-file relative-time compression) as first-class stump hypotheses alongside the classical Learnings-catalog levers. If they consistently outperform L1/L2 in raw fail-rate, formalize them as L-industry-native-* levers in the Hardness_Playbook.
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09 — S4 CALIBRATION (post-fix rerun)
+
+**Post-fix rerun of the same task after prompt + rubric fixes were applied.**
+
+Rubric count now 13 (was 14; R5-old appraisal condition update was deleted). Fixes applied:
+- Prompt §3: "outstanding items" narrowed to "outstanding condition on the borrower's side"
+- Prompt §7: pipeline bound to five open LOS statuses (closed / denied / withdrawn excluded)
+- R3 (email appraisal FYI): $291K anchor no longer required in the email body
+- R8 (Slack 26-loan roster): 26-loan enumeration moved to evidence + tolerance widened to +/- 2 days
+- R9 (final sole-outstanding): reshaped
+- OE 15: `follow_up_reminder / reminder_set / or similar` -> `follow_up_scheduled`
+
+**What the fixes resolved (previously all-failing, now resolved):**
+
+- **Slack 26-loan roster:** was 0/6 pre-fix (all-failing), now 6/6. Moving the enumeration to evidence with +/- 2 day tolerance fully resolved the dead-files heuristic override.
+- **26-count in final response:** was 3/6 pass pre-fix, now 6/6. Binding the pipeline definition to the five open statuses removed the ambiguity that let the dead-files heuristic drop 2024-2025 loans.
+- **Appraisal condition update:** was 0/6 pre-fix (all-failing), now removed from the rubric set.
+- **Appraisal FYI in email:** was 0/6 pre-fix (all-failing), now 1/6 (passes Run 3). No longer AF. Softened FYI framing is passable.
+
+**Novel stump surfaces first observed on the rerun (not in original Hardness_Plan):**
+
+- **Compliance-hold hallucination (Runs 2 and 6).** Agents invent a "compliance review hold" or "breach-response communications hold" on LN-2026-00008 with no supporting universe artifact. Origin: KeyStone universe has a Slack C003 spoofed-wire incident on LN-2026-00605 (unrelated file). Agents generalize the incident into a per-loan comms hold and withhold outreach to Yuki Wilson. Drove all fails in R1, R2, R4 for those runs and cascaded into R5, R6, R7, R9.
+- **Cron-syntax two-day confusion (Runs 2, 3, 5).** Agents encode the two-day follow-up as `day-of-month=11, month=7` (July 11) instead of `day-of-month=30, month=4` (April 30). Not a domain reasoning error — a raw cron-syntax bug. Runs 1 and 4 got it right (`3 9 30 4 *` and `47 8 30 4 *`).
+
+**Confirmed on the rerun (already known from pre-fix):**
+
+- **Appraisal-as-internal industry bias.** Even with the softened R3, agents still substitute HOI binder for appraisal in 4 of 6 emails and in 4 of 6 final responses. Only Run 3 correctly surfaced the appraisal as an FYI. Loan-Ops tasks reliably surface this bias.
+- **document_checklist_items vs LOS conditions conflation.** Drove 8-file broadening in Runs 1, 4, 5 on R7 and R9. Even with the prompt qualifier "borrower's side", agents give equal weight to the checklist table and the conditions table.
+
+**Hypotheses that MISSED again on the rerun:**
+
+- **H1 (assigned-processor contradiction miss):** MISS on second run too. Every agent correctly ran the LOS filter. This lever is functionally dead on this task — the LOS query is too natural.
+- **H2 (authority-figure deferral on write scope):** MISS. No agent mis-scoped a write to brief-named 00619 / 00610.
+- **H3 (missing-reply / thread-hidden disposition):** NOT OBSERVED.
+
+**Density verdict (rerun):** avg 92.3 tool calls (target 50+). Density remained ~2x the projection. Loan-Ops tasks with 5+ writes across 5+ services consistently produce 80+ tool calls.
+
+**Rubric quality verdict:** 5/5 All-Failing sub-dim. Zero Bucket 1 classifications. Every failing rubric passes in at least one run.
+
+**Cross-task pattern to formalize:** compliance-hold hallucination is a distinct stump surface from generic authority-figure deferral (L9). Agent picks up a real universe-authored incident on File X and generalizes it into a policy constraint on unrelated File Y. Worth adding to the lever catalog as **L-incident-generalization**: when the universe carries a real incident with a communications restriction on one loan, agents generalize the restriction to any loan that "feels similar" without checking whether the restriction actually applies. In this task, the LN-2026-00605 spoofed-wire incident generalized to LN-2026-00008 despite zero overlap (different borrower, different lender, different loan status, different incident).
+
+
+## Task 38 (Sofia Reyes, KeyStone Mortgage) — post-fix S4 rerun — 2026-07-09
+
+Post-fix trajectory pass: 6 runs, avg 92.3 tool calls, pass@1 = 0/6 = 0.0%. All 10 failing rubrics classified Bucket 3.
+
+### Pattern: appraisal-as-internal industry bias (confirmed, robust across fix)
+
+Even after the R3 evidence was softened to allow FYI framing without a $291K anchor in the email body, agents still substitute an HOI-binder ask for the appraisal contingency in 4 of 6 runs. Root cause is real-world mortgage practice — appraisals are lender-ordered so the agent's "borrower-provided item" instinct fills the slot with the next thing they know borrowers provide (HOI). Only Run 3 surfaced the appraisal FYI correctly. Drove R3 (5 fails) and R11 (4 fails) on this run.
+
+**Carry-forward.** Any Loan-Ops task that requires the agent to surface both a borrower-provided and a lender-ordered condition in the same outreach faces this bias. Rubric-side mitigations available: (a) split the two items into separate atomic rubrics so partial credit is preserved, (b) soften evidence to accept any appraisal-adjacent mention including "we're finalizing on our end", (c) escalate to prompt-side by explicitly listing "the appraisal contingency is one of the two items" — but this crosses into pre-solving.
+
+### Pattern: document_checklist_items vs conditions conflation (confirmed, robust)
+
+Agents read `mortgage_los.document_checklist_items` (per-loan checklist rows) and treat any row marked "outstanding" or "missing" as a borrower-side outstanding item, broadening the LN-2026-00008 sole-outstanding claim to 8 files. Only Run 2 (correctly narrow) and Run 3 (correctly narrow) navigate the distinction. Drove R7 (5 fails) and R9 (4 fails).
+
+**Carry-forward.** The KeyStone data model has two overlapping tables for "what's missing on this file" (`conditions` = underwriter-authoritative, `document_checklist_items` = processor-workflow). Future prompts on this universe should call out the specific table when the rubric is table-specific.
+
+### Novel pattern: compliance-hold hallucination (first observed)
+
+Runs 2 and 6 invented a compliance / breach-response communications hold on LN-2026-00008 with no supporting universe artifact. Root cause is generalization from a real Slack C003 incident-mode discussion of a spoofed-wire email on LN-2026-00605 — the agent extrapolates a per-loan comms hold policy that does not exist. Drove all R1 / R2 / R4 fails and cascaded into R5 / R6 / R7 in both runs.
+
+**Carry-forward.** Any KeyStone task where the prompt tacitly asks the agent to send borrower email risks this hallucination when the universe contains ANY incident-mode Slack chatter (spoofed wire, TCPA complaint, breach alert). Consider either (a) removing incident-mode chatter from universes for outreach-heavy tasks, or (b) accepting the outreach-withheld path as a valid rubric alternative when incident chatter is present — but option (b) undermines the outreach-focused task design.
+
+### Novel pattern: cron-syntax two-day confusion (first observed)
+
+Runs 2, 3, 5 encode a two-day follow-up from 2026-04-28 as `day-of-month=11, month=7` (July 11) instead of `day-of-month=30, month=4` (April 30). This is a raw cron-syntax bug where the agent puts the "day" and "month" values in the wrong cron field positions. Runs 1, 4 hit the correct April 30 cron. Drove 3 of the 4 R6 fails.
+
+**Carry-forward.** When the KeyStone tool catalog exposes a generic `CronCreate` scheduler alongside domain tools, agents default to the scheduler and hit this bug. Route reminder-style tasks to the domain tool (`mortgage_los_add_activity` with `follow_up_scheduled`) — the OE 15 fix already codified this as the KeyStone-native fit.
+
+
+## Entry — Tasks/40_6a4f56f2a17df14b36807b01 — 2026-07-09
+
+**Persona / Business function:** Reshma Patel (Firm Operations Coordinator) / HR & Operations Administration — Brookfield HR guidance close-out (settled vs open items on employee file handling + new starter access checklist).
+
+**Selected levers (from `_aux/Council_Reports/REVIEW_hardness.md` — REVIEW-flow task, no `Hardness_Plan.md`):**
+- Airtable-record discovery under non-HR-labeled base (record `airtable_ddadfe58b867` in `Client Access and Onboarding Admin` base; not HR-named)
+- Cross-service investigation depth (8 services: email, Slack, Airtable, Records Vault, Linear, Reminders, Calendar, Contacts)
+- Settled-vs-open discrimination across Yusuf / Rachel / Clint / Peter / Marina messages
+- Anti-external-send anti-pattern (floor)
+
+**Actual failures (from `_aux/Council_Reports/S4_verdict.md`):**
+
+| Rubric surface | Fails / 6 | Classification | Mechanism |
+|---|---|---|---|
+| Stale HR-only policy reminder replaced | 3/6 (Runs 2, 3, 4) | Bucket 3 | reminders-service discovery gap (NEW — under-predicted) |
+| Email states HR admin tracking was updated | 3/6 (Runs 4, 5, 6) | Bucket 3 | meta-confirmation sentence attrition (NEW — under-predicted) |
+| HR files not in shared or team folders — tracking | 2/6 (Runs 4, 5) | Bucket 3 | phrase-specificity: agents wrote "restricted storage" without the shared-folder exclusion |
+| HR files not in shared or team folders — email | 2/6 (Runs 4, 5) | Bucket 3 | same as above on email artifact |
+| Standard access day-one gating — email | 2/6 (Runs 1, 4) | Bucket 3 | two-tier content completeness (NEW — under-predicted); half the split failed |
+| Standard access day-one gating — tracking | 1/6 (Run 4) | Bucket 3 | same |
+| Elevated access separate manager approval — email | 1/6 (Run 4) | Bucket 3 | two-tier content completeness (other half of split) |
+| Elevated access separate manager approval — tracking | 1/6 (Run 4) | Bucket 3 | same |
+| Airtable tracking title exact-match | 1/6 (Run 1) | Bucket 3 | Airtable-record discovery gap (predicted) — Run 1 substituted a Reminders record |
+| Intake / exception approval routing unresolved — tracking | 1/6 (Run 1) | Bucket 3 | settled-vs-open misclassification (predicted) — Run 1 placed routing in Settled section |
+| Stray-copies removal / containment — tracking | 1/6 (Run 4) | Bucket 3 | compound-AND preemptive split (fix #7); agent stated misrouted rule but skipped stray-copy rule |
+| Packet-scope unresolved — email | 1/6 (Run 5) | Bucket 3 | settled-vs-open (predicted) |
+| Packet-scope unresolved — tracking | 1/6 (Run 5) | Bucket 3 | settled-vs-open (predicted) |
+| Legacy shared-drive cleanup unresolved — email | 1/6 (Run 6) | Bucket 3 | settled-vs-open (predicted) |
+| Legacy shared-drive cleanup unresolved — tracking | 1/6 (Run 6) | Bucket 3 | settled-vs-open (predicted) |
+
+**Density:** 46.3 avg total tool calls (range 39-55). Above the 40 floor, below the 50+ design target. THIN_DENSITY band. **Difficulty:** pass@1 = 0% on the 33-rubric expanded verifier-evaluated set (33.3% on the 22-rubric parsed reference set). Both hard gates PASS. **Verdict: SHIP if operator accepts THIN_DENSITY; otherwise consider a density-margin patch before re-upload.**
+
+**Calibration:**
+
+- **Levers that fired as predicted:**
+  - Settled-vs-open discrimination — 5 fail instances across Runs 1, 5, 6 tracked exactly to the predicted mechanism.
+  - Airtable-record discovery — Run 1 fired the title-match rubric; Runs 5 and 6 found the record but produced downstream content omissions (partial hit).
+  - Anti-external-send floor — 0 violations across all 6 runs.
+
+- **Levers under-predicted (add to catalog):**
+  - **L-adjacent-service-discovery-gap** — the reminders-service replacement rubric failed 3/6 despite the Airtable-record-discovery lever being the named primary. Two similar-purpose services in one task systematically triggers a discovery gap on the secondary one.
+  - **L-two-tier-content-completeness** — post-materialize atomicity splits on standard-vs-elevated access surfaced this as a discrete lever; Run 4 dropped one of the two tiers on both artifacts.
+  - **L-meta-confirmation-attrition** — "email states tracking was updated" failed 3/6 despite runs producing clean summary bodies. Related to the L-final-response-depth-anchor pattern cataloged for Task 37 but on the email artifact.
+
+- **Density:** projected 50+ (per REVIEW density-lift OE hardening fixes #9-#11), actual 46.3 (THIN band). Under-projected by ~4 tool calls. The explicit base/table discovery OE addition (fix #11) has not yet been platform-verified; expect a modest lift on the next trajectory cycle.
+
+- **Bucket 1 collapse post-materialize.** The pre-materialize REVIEW walk found 5 Bucket 1 instances across 3 compound rubrics (rubrics 3, 13, 14 in the parsed set). MATERIALIZE atomicity splits eliminated all 5. Post-materialize the same 22 fail instances all classify Bucket 3. **This is a strong empirical proof point** that per-phase auto-AUDIT catching atomicity defects at the producing phase (as the pipeline hard rule 12 mandates) is materially cheaper than downstream S4 re-classification — the atomicity fixes were mechanical once identified, but classifying compound-AND fails against per-run trajectories is expensive.
+
+**Lesson for next task:**
+
+- **Adjacent-service-discovery** is a real Brookfield/KeyStone stumping mechanism when a task has both an Airtable admin tracking item AND a stale Reminders record. Two similar-purpose services in one task create predictable under-coverage on the secondary. Whenever a task's OE chain names both, ensure the OE prescribes the discovery walk for the less-obvious service explicitly.
+- **Meta-confirmation sentences** in downstream artifacts are attrition-vulnerable. When the rubric requires "email states X was updated" or "final response confirms Y was filed", phrase the rubric evidence unambiguously and pin an atomic evidence example.
+- **THIN_DENSITY operator-acceptance pattern reproduced.** REVIEW-mode tasks with density fixes applied at MATERIALIZE tend to land ~4 calls below the projected 50+ target. Consider prescribing an extra verification-read call in the OE post-materialize when the REVIEW density projection is between 44-49.
+
+## Entry — Tasks/42_6a4fc1d98bf6758607609d35 — 2026-07-10 (S4 post-trajectory update)
+
+**S4 run context:** New runs after REVIEW + MATERIALIZE fixes (prompt widened to Emeka's full book, CRM rubric expanded to 5 accounts, attribution rubric rewritten to body-text grading, JSON defect fixed).
+
+**Actual failures (S4 new runs — post-MATERIALIZE):**
+- R16 (5-account CRM+Airtable check): Bucket 3 (Legit AF) — 5/6 runs. Agents searched CRM by name (Sunbelt, Palmetto, Mosaic, Axiom, Tideway) but made zero Airtable calls. GreenStack Energy (recAcct000000003, Active) and Tideway Hospitality Tech (recAcct000000069, Active) never queried. Only Run 6 made the Airtable account-manager discovery step and passed.
+- R15 (corrected comms - Emeka April 22 emails): Bucket 3 (Legit AF) — 1/6 runs (Run 3). Agent searched inbox + Sent at limit 30; Sent cutoff excluded April 22 corrections. 5/6 runs found them.
+- R12 (Samira April 15 email): Bucket 3 (Legit AF) — 1/6 runs (Run 3). Agent searched "Samira" in inbox, did not identify the specific April 15 email among results. 5/6 runs found it.
+
+**Calibration (post-MATERIALIZE):**
+- L3 (Airtable AM discovery): CONFIRMED HIGH — fires 5/6 runs. Most reliable stumper on the task. Prompt widening preserved the lever; agents still do not perform the Airtable filter step without explicit column-level instruction.
+- L4 (correction discovery): LOW-YIELD — fires 1/6 runs only. Most agents search broadly enough to find the April 22 emails after MATERIALIZE.
+- L2 (email surfacing): LOW-YIELD — fires 1/6 runs only. Samira April 15 email easily found on "Samira" inbox search in 5/6 runs.
+- L1, L5: did not fire (0/6) on new runs.
+
+**Pass@1:** 16.7% (1/6 runs pass all rubrics). Difficulty gate: PASS. Density avg 59.3 total / 50.8 MCP: PASS.
+
+**Lesson for next task:** When designing a cross-service account-discovery task in MoveOps, L3 (Airtable AM filter) is load-bearing and survives prompt widening. L4 (correction emails) and L2 (thread-depth email surfacing) are low-yield after prompt fixes because they are findable with standard inbox-search patterns. Reserve L4 and L2 as secondary levers and keep at least one L3-type cross-service discovery step as the primary stumper.
+
+## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10
+
+**Persona / Business function:** Marcus Knell (Billing Coordinator) / Engagement Mgmt & Client Operations. Brookfield universe. New v47 seat; natural authoring seats Cat 1.4 (WIP-to-revenue) + Cat 8 (quarterly AR aging).
+
+**Selected levers (5) — from Hardness_Plan.md:**
+- Lever 1 — Latching (Learnings L13 + L9 authority-dismissal): George McAdam (1,407 universe artifact mentions, BlackLine exception identifier) voices the latching directive -- "the $4,390.62 is a BD3 feed-timing artifact, don't hold billing for it." Agent must self-discover the exception is NOT a timing artifact and net the figure correctly.
+- Lever 2 — Structured-DB skip (Learnings L10): two approved-not-posted WIP JEs (`je_01de85923ce744ba` + `je_46e6033b6aa946e7`) on account 119000 (brookfield_FP-2026-05). Status=approved is NOT posted; agent must transition both before computing net billable WIP.
+- Lever 7 — Multi-write diversification (density): 8 write actions across 7 services (oracle_gl JE post x2, blackline corrective JE, blackline update, records_vault upload, email Daniel Jones, slack C005, reminder).
+- Lever 9 — Universe-grounded gotcha (Learnings L18 figure-is-the-rubric): correct net billable WIP = $29,454.31 (gross $33,844.93 minus $4,390.62 exception); George frames the gross as authoritative.
+- Lever 11 — Net-vs-gross framing: gross WIP ($33,844.93) vs correct net billable WIP ($29,454.31). Load-bearing figure is the rubric.
+
+**Density projection:** range 45-71, midpoint 58. PASS (>=50 design target).
+
+**Service breadth:** 7 services >=5% (oracle_gl, sap_subledger, blackline, records_vault, email, slack, contacts). PASS.
+
+**Actual failures (from S4 verifier-fails analysis):** pending -- trajectories not yet run.
+
+## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10
+
+**Persona / Business function:** Marcus Knell (Billing Coordinator) / Engagement Mgmt & Client Operations. Brookfield universe. Scenario seat: May close billing-cycle owner deriving May WIP billing basis for Daniel Jones's June invoice batch.
+
+**Selected levers (5) — from Hardness_Plan.md:**
+- Lever 1 — Latching (L9 authority-dismissal): Marcus paraphrases George McAdam's steer that the submitted audit AR entry (je_1f83fec3cf0346db, $43,950.76) "covers the full billing cycle and is just waiting on the approver click." Agent must override via GL status check.
+- Lever 2 — Structured-DB skip (L10 SAP invisibility): SAP subledger has zero mirrors for je_1f83fec3cf0346db (submitted, never cleared approval workflow). Two approved WIP JEs have 2 mirrors each. Absence-of-mirror is the second structural discriminator.
+- Lever 7 — Multi-write diversification (L5 density): 5 writes across 5 services (email Daniel, Records Vault memo, Slack C005 post, calendar hold, reminder).
+- Lever 8 — Multi-link chain (L8 analogue): 4-step derivation: George steer → GL status=submitted (blocked) → SAP absence-of-mirror → aggregate two approved 119000 WIP JEs → $33,844.93.
+- Lever 9 — Universe-grounded gotcha (3 sub-traps): (a) JE lifecycle rule (submitted not billing-eligible); (b) account-role trap (wrong JE debits 110000 AR not 119000 WIP); (c) entity filter (northstar draft WIP chatter in C005 must be excluded).
+
+**Density projection:** range 40-60, midpoint 50. THIN_DENSITY under strict-minimum reading (~42 realistic per AUDIT_prompt iter3b); operator accepted with per-task justification. OE-normal exploration hits 45-55.
+
+**Service breadth:** 8 distinct services (oracle_gl, sap_subledger, contacts, email, records_vault, slack, calendar, reminder). PASS.
+
+**Stump hypotheses:**
+1. [HIGH] Agent emails $43,950.76 (trusts George's steer without GL status check) — Lever 1 + L9.
+2. [HIGH] Agent never queries SAP subledger for submitted JE absence — Lever 2 + L10.
+3. [MED] Agent treats status=submitted as effectively-approved — Lever 9a.
+4. [MED] Agent sums revenue credits (401000+403000) instead of WIP debits (119000) — Lever 9b.
+
+**Remediation history:** Previous attempt built around BlackLine exception exc_1ddfc978ce5a4d was poisoned — partner-approved disposition email (Hannah Grant) created a valid Reading A destroying the net-vs-gross discriminator. All 7 non-closed brookfield BlackLine exceptions had email/Slack approval threads. Replaced with submitted-vs-approved JE discriminator (B6 propagation).
+
+**FINAL Council findings (pre-ship):**
+- 0 BLOCKERs
+- 2 MAJORs fixed: R9 attendee lock-in (softened: Daniel removed as hard evidence requirement); R11 AND-bundle (softened: individual amounts not required if sum + JE IDs stated)
+- THIN_DENSITY carry-forward (accepted)
+
+**Actual failures (from S4 verifier-fails analysis):** pending -- trajectories not yet run.
+
+## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10
+
+**Persona / Business function:** Marcus Knell (Billing Coordinator) / Engagement Mgmt & Client Operations — May close billing basis derivation for June invoice batch
+
+**Universe:** Brookfield CPAs (V3). CB creation task.
+
+**Selected levers (from Hardness_Plan.md):**
+- Lever 1 — Latching (Marcus paraphrases George's authority steer about submitted advisory+audit entry)
+- Lever 2 — Structured-DB skip (SAP subledger absence-of-mirror for submitted JE)
+- Lever 7 — Multi-write diversification (5 writes: email Daniel, Slack C005, Records Vault upload, calendar hold, reminder)
+- Lever 8 — Multi-link chain (4-link: George steer → GL status check → SAP subledger absence → 119000 WIP aggregation → $33,844.93)
+- Lever 9 — Universe-grounded gotcha (JE lifecycle, account-role trap 110000 vs 119000, entity discipline)
+
+**Actual failures (from S4 verifier-fails analysis):**
+- R#14 SAP subledger check: Bucket 3 — 6/6 fail (true AF). Zero sap_subledger tool_use calls in any run. Lever 2 achieved 100% predicted fail rate.
+- R#2 Email figure: Bucket 3 — 5/6 fail (Runs 1, 3, 4, 5, 6 sent $89,425; Run 2 recovered and sent $33,844.93)
+- R#5 Memo related_resource_id: Bucket 3 — 5/6 fail (Runs 1, 3, 4, 5, 6 tied to je_53962aed96fe4b67; Run 2 tied to je_46e6033b6aa946e7)
+- R#6 Memo figure: Bucket 3 — 5/6 fail (same cascade as R#2)
+- R#8 C005 figure: Bucket 3 — 5/6 fail (same cascade as R#2)
+- R#11 Identifies correct derivation: Bucket 3 — 5/6 fail. Runs 1, 3, 4, 5, 6 computed $89,425 or explicitly excluded 119000 WIP JEs as "approved-but-unposted"; Run 2 correctly derived $33,844.93 from both JE IDs.
+- R#13 Account-role identification: Bucket 3 — 4/6 fail. Runs 1, 3, 4, 5 stopped at submitted-status exclusion without naming 110000 vs 119000; Runs 2 and 6 explicitly cited the AR / 110000 characterization.
+- R#4 Retention code: Bucket 3 — 1/6 fail (Run 3 only). Run 3 used FIRM_INTERNAL instead of AICPA_SQMS_7Y.
+- R#12 Submitted status identification: Bucket 3 — 1/6 fail (Run 3 only). Run 3 misidentified George's entry as je_53962aed96fe4b67 (posted); never surfaced je_1f83fec3cf0346db submitted status. All other runs passed.
+- R#9 Calendar date: PASS 6/6. Every run placed the hold at 2026-06-30 (confirmed by direct tool_use trajectory inspection).
+
+**Calibration:**
+- Levers that fired as predicted: Lever 2 (100% SAP skip on R#14), Lever 7 (density delivered 40.2 avg, THIN_DENSITY band), Lever 9 account-role trap (R1, 3, 4, 5 failed R#13).
+- Levers that did NOT fire as predicted: Lever 1 did not cause agents to use the submitted JE as billing basis — 5/6 correctly rejected it and then latched on a different wrong entry (adjacent posted revenue-recognition entry je_53962aed96fe4b67).
+- Failures from un-predicted sources: "Adjacent-posted-entry anchor" — agents correctly excluded submitted JE on status, found je_53962aed96fe4b67 (posted, $147,825 total), extracted its AR debit leg ($89,425) as the billing basis. Account-type discrimination (WIP 119000 vs AR 110000) was insufficient to deter this anchoring in 5/6 runs. Run 2 recovered by summing the 119000 debits.
+- Recovery observation: The task has one clean-recovery run (Run 2 passed 13/14, missing only R#14 SAP subledger). The stump is not deterministic — a correct WIP-side aggregation path exists and one Opus 4.8 run followed it.
+
+**Lesson for next task:** When a submitted-JE stump coexists with a large posted revenue-recognition entry in the same period, agents will reject the submitted JE correctly and then anchor on the posted entry ~83% of the time. The posted entry must be clearly non-billing-eligible on its own terms (e.g., wrong entity, prior-period, different cost center), or the correct billing basis must be the only entry touching the target account in the period. Account-type discrimination (WIP vs AR) alone does not deter anchoring on posted entries. Note: an SAP-subledger absence-of-mirror rubric (Lever 2 shape) is the highest-yield single mechanism observed on this task — 6/6 zero-tool-call rate — and is worth keeping in the catalog for future JE-eligibility tasks.
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-10
+
+**Persona / Business function:** Anaya Wallace (Trainee Accountant, Brookfield CPAs & Advisors, AP-escalation family) / Business Function 7 (BlackLine Close-Discipline & Variance).
+
+**Selected levers (from Hardness_Plan.md, 5 chosen):**
+- L8 multi-link chain (3 services) — BL review-notes → SAP subledger AR/AP + feed_runs → Oracle GL JE history on acct 119000 for FP-2026-05.
+- L9 authority-figure dismissal — soft-verb dismissal cover from Harry Marks (materialized universe reroutes to George's C005 parent thread + Hannah Grant's accept-timing disposition email trail; documented Lens 5 narrative-fiction gap kept under trap-design latitude).
+- L10 SAP subledger invisibility — true root cause sits on `brookfield_tax_engagement_trust_feed` partial_failure `run_e0365372e21545` (ten rejected rows), NOT the AP feed the prompt describes.
+- L25 existing-output anchor trap — three FP-2026-05 candidate JEs on account 119000 (je_01de85923ce744ba $18,621.37 AR approved, je_46e6033b6aa946e7 $15,223.56 AR approved, je_53962aed96fe4b67 $147,825 manual posted with doubled-prefix entry_number quirk); none match the residual on amount / purpose / exc reference.
+- L26 decoy parent Slack thread — C005 George McAdam parent ts 1780248600.000000 is the correct authority thread carrying the review-note pointer + Edith's vault-sweep confirmation; more-recent George parent ts 1780327320 (BD1 close-entries announcement) is the decoy.
+
+**Predicted stump hypotheses (from Hardness_Plan.md, awaiting S4 confirmation):**
+- [HIGH] Opus accepts Harry's soft-verb dismissal and closes exc_1ddfc978ce5a4d without derivation.
+- [HIGH] Opus never opens `sap_subledger.subledger_transactions` / `ogl_subledger_feed_runs` on 119000 for May, missing the L10 anchor.
+- [MED] Opus mistakes je_46e6033b6aa946e7 or a peer for prior handling and refuses to draft the NEW correcting JE.
+- [MED] Opus posts to the decoy Slack parent 1780327320 instead of authority parent 1780248600.000000.
+
+**Density projection:** Hardness_Plan midpoint 55.5 (range 44-67); FINAL integrated projection 45-50 (THIN-band-at-risk NOTE; Verification_s3.md carries AUDIT inherited THIN band 43 from OE audit). Passes Council_Protocol B3 tiered gate with per-task justification. Watch S4 for platform-density underflow (< 40 floor).
+
+**Novel Brookfield anchors documented for future tasks:**
+- L25 existing-output anchor with three plausibly-similar approved+posted FP-05 JEs on the same account.
+- L26 decoy parent thread via C005 (829-msg density enables plausible more-recent decoy).
+- Doubled-entity-prefix entry_number quirk on je_53962aed96fe4b67 (`JE-brookfield-brookfield_FP-2026-05-0057`) — noted in OE 14 as universe-stored form; future tasks using ogl_journal_entries on brookfield should expect this shape on some rows.
+- Account 119000 `verify_universe_atoms.py` schema-shape false-positive (nested `row_data`) — worth reporting to Validators maintainer separately.
+
+**Actual failures (from S4_verdict.md, 2026-07-10; corrected 2026-07-10 from stale trajectory files):**
+- pass@1 = 0.0% (0/6 runs passed all criteria). Per-run pass counts: 5/4/3/3/3/10 = 28/120 = 23.3%.
+- 7 all-failing criteria + 11 partial-fail + 2 perfect-pass (Slack thread_ts 1780248600.000000; $4,390.62 variance walk).
+- Bucket 1 = 0, Bucket 2 = 0, Bucket 3 = 18. All-Failing Rubrics sub-dim = 5/5 PASS.
+- Density 45.8 avg total, 35.8 avg MCP. Above 40 floor, below 50 design target — trust-feed skip shaved 5-8 discovery calls per run.
+
+**Calibration (3 of 4 predictions hit):**
+- **HIT** L9 authority-figure dismissal — 5/6 runs cited Hannah's accept-timing or Harry's soft close-out as reason to refuse the corrective JE and the exception update. Highest-yield single mechanism on this task.
+- **HIT (strong)** L10 SAP subledger invisibility — 0/6 runs discovered `run_e0365372e21545` or `brookfield_tax_engagement_trust_feed`. Runs 4 and 5 saw partial_failure in the feeds-list response but never followed up with a get-run call. Cascades into three all-failing criteria (exception root_cause, vault memo derivation, corrective JE business_justification).
+- **BLOCKED-BY-L9** L25 existing-output anchor — not observed as a distinct failure. The L9 authority-dismissal refusal fired upstream and short-circuited the JE-history check that would have exposed the anchor. Not a task defect; a design lesson.
+- **MISS (over-predicted)** L26 decoy Slack thread — 6/6 runs used the correct thread_ts 1780248600.000000. The BD1 close-entries decoy at 1780327320 was too topically distinguishable from the target exception thread to fire.
+
+**New sub-mode named — status-glance-only skip:** Runs 4 and 5 observed `partial_failure` status in the feed-list response and did NOT follow up with a get-run call. This is a distinct sub-mode of L10 SAP invisibility (status-visible + detail-invisible). Future L10 designs can lean on this by making the partial_failure status visible in the list response but the identifying run_id only reachable through the get-run call the agent skips.
+
+**Lesson for next task:**
+- L9 remains the strongest single stump on Brookfield authority-anchor scenarios. Design should budget for L9 to dominate — either accept that downstream levers may not fire, or split L9 across a subset of writes so other levers can be independently measured.
+- L10 cascades into multiple derived criteria (root_cause, memo derivation, JE business_justification) without artificial multiplication. A single L10 anchor efficiently produces three or more all-failing rubrics.
+- L26 needs stronger decoy similarity to fire against Opus 4.8. Future L26 designs should share subject-line keywords, account references, or timestamps within an hour or two of the target thread. Pure topical distinguishability is insufficient.
+- Density at 45.8 avg total sits above the 40 floor despite the trust-feed skip shaving 5-8 discovery calls per run. The 50+ design target provided the necessary buffer — without it the task would have landed near or below the 40 floor. If a task's L10 anchor is a "not-attempted" surface (agent should touch it but does not), the density projection should assume the calls will not be made and pad the base discovery accordingly. *(Corrected 2026-07-10: prior entry cited 41.3 from stale trajectory files.)*
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-11
+
+**Persona / Business function:** Anaya Wallace (Trainee Accountant, npc) / BlackLine Close-Discipline & Variance
+
+**Selected levers (from Hardness_Plan.md):**
+- Lever 1 — Latching (Slack C005 partial-feed narrative vs BlackLine proposed_resolution corrective JE with source_module=manual)
+- Lever 3 — Missing reply (rn_564e65ce0d594f on BL-75810CD0FEE4: state=open, response=null, SLA 2026-06-02 — 10 days overdue)
+- Lever 5 — Thread-reply blindness (ts=1780248600.000000 in high-traffic C005; resolution context in replies, not top-level post)
+- Lever 6 — Near-miss entity confusion (account 119000: brookfield=WIP-Unbilled Services vs northstar_legal=WIP-Unbilled Time)
+- Lever 7 — Multi-write diversification (5 write surfaces: oracle_gl JE x2, blackline exception update x2, records_vault upload x2, slack post, email)
+- Lever 8 — Multi-link chain (exception -> related_reconciliation_id BL-75810CD0FEE4 -> blackline_list_review_notes -> null-response check; 4-hop chain)
+- Lever 9 — Universe-grounded gotcha (two past-SLA exceptions same assignee same period; agent likely resolves only the larger first-returned one)
+
+**All 7 levers confirmed end-to-end by FINAL Council (VERDICT: PASS, 0 BLOCKER, 0 MAJOR, 3 MINOR).**
+
+**Actual failures (from S4 verifier-fails analysis):**
+- Rubrics 8, 9, 10, 11 (exception status updates): Bucket 1 — Rubric Invalid. EX.SLA_OVERDUE hard-blocks all state transitions; no escalation tool in catalog; both exceptions already escalated=true in universe. Rubrics required success responses that the system architecture prevents. FIXED: rewritten to test attempt + call parameters instead of stored outcome.
+- Rubrics 12, 13 (vault uploads kind=journal_entry_support): Bucket 3 — Legitimate AF. All 4 runs that attempted uploads used kind='reconciliation_support'. Agents defaulted to workflow context (reconciliation exception) rather than document type (JE support memo). Lever 7 (multi-write) partially covered this surface; the specific kind-parameter trap was not predicted.
+- Rubrics 1, 2, 5, 6 (JE creation): Bucket 3 partial fail — R4 cited invented manager directive; R5 cited invented SOX blocker. Novel latching variants not in stump hypothesis.
+- Rubrics 3, 7 (JE post): Bucket 3 partial fail — R3 submitted but did not post after receiving nonstandard_manager_required=true flag; did not know to call oracle_gl_approve_journal_entry to handle the flag.
+- Rubric 4 (BL variance update): Bucket 3 partial fail — R3 used blackline_attach_evidence instead of blackline_update_reconciliation_variances (wrong tool for the re-run-recon step).
+- Rubrics 14, 16 (Slack + email execution): Bucket 3 partial fail — R5 and R6 drafted output but did not call the send tools.
+- Rubric 19 (Edith's review note): Passed all 6 runs. Lever 3/8 chain did not stump any run.
+
+**Calibration:**
+- Levers that fired: Lever 1 (latching, partial — novel variants in R4/R5), Lever 7 (multi-write, partial — kind-parameter gap exposed), Lever 9 (gotcha, partial — R4/R5 missed both exceptions)
+- Levers that did NOT fire: Lever 3 (missing reply — 6/6 found Edith's note), Lever 6 (entity confusion — 0 mismatches among runs that engaged), Lever 8 (multi-link chain — 6/6 traversed correctly)
+- Failures from un-predicted sources: EX.SLA_OVERDUE rubric design flaw (most impactful — caused 4 of 6 AF rubrics to be Bucket 1); kind='reconciliation_support' vault default; nonstandard_manager_required handling gap in R3
+
+**Lesson for next task:** Before writing exception-update rubrics, verify universe `sla_due_at` vs universe today and confirm an escalation tool exists if the SLA has passed. If no escalation tool is available and SLA is overdue, rewrite the rubric to test the attempt + call parameters, not the stored outcome. Add this check to S3 rubric QC.
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-11 (Post-fix re-run correction)
+
+Corrects the 2026-07-11 entry above. Bucket 1 fixes applied to 7_Rubrics.json; verifier re-ran
+against the fixed rubric set. T1 density confirmed from actual trajectory files.
+
+**Corrected calibration (post re-run):**
+- Bucket 1: 0 rubrics (rubrics 8-11 absorbed into fixed criteria that now pass in R1/R2/R3/R6).
+- Bucket 3: 2 rubrics (12, 13 — vault kind parameter, both legitimate AF).
+- All-Failing Rubrics sub-dim: 5/5 PASS (0/2 = 0%). Corrected from 1/5 FAIL (4/6 = 67% in prior run).
+- Density: 65.8 avg total, 55.3 avg MCP — PASS at 50 design target (prior 2026-07-11 entry cited
+  stale pre-trajectory values).
+
+**Confirmed replicable failure — kind='reconciliation_support' vault default:**
+4/4 runs that attempted vault uploads (R1, R2, R3, R6) used kind='reconciliation_support' instead
+of kind='journal_entry_support'. This is a stable model gap: agents categorize vault documents by
+the workflow that produced them (exception resolution = reconciliation) rather than the document's
+content type (JE support memo). Future tasks using records_vault_upload_document with a
+kind=journal_entry_support rubric should plan for an AF justification on this parameter.
+
+**Lesson update:** Core lesson unchanged. Additional lesson confirmed: when testing vault upload kind
+parameters, the reconciliation-vs-JE-support distinction is a reliable stumping surface. Budget for
+it as a legitimate AF rather than treating it as a rubric design issue.
+
+## Entry — Tasks/45_6a5edd95a6946f6c4d160b5a — 2026-07-21
+
+**Persona / Business function:** Denise Morales, Onsite Property Manager / Property Operations
+
+**Selected levers (from Hardness_Plan.md):**
+- L9 — HVAC life-safety gotcha + authority-figure dismissal (Tony Reyes Slack + Gmail reply)
+- L2 — QB credit memo skip ($1,840 gross vs $1,550 net, CM-2026-SR208)
+- L8 — Multi-link chain: Gmail tenant report → Airtable ticket → Linear issue → QB bill
+- L12 — Document cross-reference: Alamo HVAC inspection report (Gmail) vs Airtable structured field
+- L7 — Multi-write: 5 write actions across 5 services
+
+**Actual failures (from S4 verifier-fails analysis):**
+- TBD — pending platform run and S4 verifier-fails paste
+
+**Calibration:**
+- Levers that fired as predicted: TBD
+- Levers that did NOT fire: TBD
+- Failures that came from un-predicted sources: TBD
+
+**Lesson for next task:** TBD — update after S4.

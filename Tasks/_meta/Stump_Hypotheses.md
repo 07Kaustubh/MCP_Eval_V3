@@ -397,3 +397,295 @@ The prior 3 AF rubrics (R5, R14, R33) collapsed to partial fails on the fresh re
 **Bucket 2 judge error (Run 4 Rubric H).** Platform verifier grepped for `activity_create` (non-existent tool name) instead of `mortgage_los_add_activity` (real Keystone tool per `Mortgage_Base_Universe/6_Server_Tools_Details.json`). Run 4's trajectory contains 26 successful add_activity tool_use / tool_result pairs. Runs 1, 2, 3, 5, 6 verifier justifications name the same tool correctly and mark Pass. Recommend platform appeal. Task-writer side finding: when a per-tool activity rubric is written, mention the exact tool name in the evidence field to help the verifier's grep even if the title stays platform-agnostic.
 
 **Task verdict:** SHIP as-is. All 4 QC sub-dims pass. Corrected materialization (`15_Updated_Rubrics.json`) does not need re-verification: the 2 Applied rows (rubric [3] Derek Moss cohort symmetry + rubric [24] Elena Marchetti attribution) target rubrics that Pass all 6 runs on the ORIGINAL narrower phrasing and are strengthened rather than corrected by the materialization.
+
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09
+
+**Predictions (from v2 Hardness_Plan.md; persona = Sofia Reyes after v1 James Thornton STOP):**
+
+1. [HIGH] **Assigned-processor contradiction miss** — when the S1 prompt references a brief-named "Sofia file" (LN-2026-00610 Destiny deposit or LN-2026-00619 lock exp), the agent acts on that loan without querying `mortgage_los.loans` for `assigned_processor` and never discovers that Sofia is NOT the current assigned_processor on 8 of the 9 named brief LNs (only LN-2026-00613 is truly hers). The task's rubric-load-bearing write mis-targets the wrong loan owner. Mechanism: L2 structured-DB skip + L1 latching (Learnings L10 mechanism + L13 first-framing).
+
+2. [HIGH] **Authority-figure deferral on write scope** — when the S1 prompt voices a Grace-style directive to "close out Sofia's blocked file before lock exp" or "clear the outstanding docs the brief flagged", the agent takes the surface-plausible shortcut (act on the brief-named loan) rather than the domain-correct action (query Sofia's actual outstanding conditions on `LN-2026-00008` in `mortgage_los.conditions` and update THAT file). Mechanism: L9 authority-figure dismissal (Learnings L9 ~100% fail).
+
+3. [MED] **Missing-reply / thread-hidden disposition** — in Sofia's Destiny Pham deposit thread (35+ replies clustered on the same subject line) or the Grace `D_grace_sofia` DM chain, the load-bearing disposition (Sofia already-escalated / Elena took-it-over / borrower delivered / lock refreshed) sits in a reply the agent won't drill into. Agent reports the parent framing and misses the resolution. Mechanism: L3 missing-reply + L5 thread-reply blindness (Learnings L12 ~40% miss).
+
+**Actuals (from S4_verdict.md):** pending — trajectories not yet run.
+
+**Persona-swap context:** v1 HARDNESS on James Thornton STOPPED at 0/5 levers + 23.5/40 realistic density. Operator swapped persona to Sofia Reyes (v2) per v1 plan's recommendation. Universe unchanged. v1 plan archived at `_aux/Hardness_Plan_v1_james_STOP.md`.
+
+**Anticipated ambiguities to watch at S4:**
+
+- Pred 1 may collapse to a partial hit if S1 puts the assigned_processor contradiction too close to the surface (e.g., the prompt lists both the brief-named LN and the true LN-2026-00613 side-by-side). Watch whether agents grep for `assigned_processor` on their own initiative or only when the prompt telegraphs the filter.
+
+- Pred 2 sensitivity to verb tense per Learnings L24: soft verb ("was supposed to have cleared") yields ~33% fail on prior tasks; hard verb ("was closed") yields ~50%. Hardness Brief recommends soft verb; document actual verb choice at S1 for retrospective calibration.
+
+- Pred 3 may misfire if the prompt cites the thread parent directly (agent reads parent and stops) vs cites the resolution atom (agent goes to structured DB and bypasses the thread entirely). Watch S2 OE construction on the thread-reply surface.
+
+**Predictions will be re-calibrated at S4.**
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09 — S4 CALIBRATION
+
+**Trajectory verdict:** T2 pass@1 = 0.0% (0/6 runs cleared all rubrics), T3 error runs = 0/6. Both gates PASS. Avg tool calls 91.2 (target 50+, actual +82%). Task is meaningfully hard as designed but the hardness came from DIFFERENT levers than predicted.
+
+**Actuals vs predictions:**
+
+- **H1 [HIGH] Assigned-processor contradiction miss — PARTIAL HIT.** Rubric 14 (26-count) hit 3/6 fails but the mechanism differed from prediction: agents did NOT act on brief-named 00619 / 00610. Instead they applied a "dead files" heuristic (imputed dead status to old open loans) and undercounted the pipeline. The L1 + L2 lever combo fired but through a different sub-mechanism than the brief-name-latching predicted.
+
+- **H2 [HIGH] Authority-figure deferral on write scope — MISS.** No agent took the shortcut of acting on Grace/Camille-voiced brief-named loans. Grace + Camille framing was heard but did not drive write-scope. L9 was over-weighted in the plan.
+
+- **H3 [MED] Missing-reply / thread-hidden disposition — NOT OBSERVED.** No run showed the parent-vs-reply blindness signature.
+
+**Unpredicted dominant stump — appraisal-as-internal industry bias.** Caused all 3 all-failing rubrics (email appraisal ask, appraisal condition update, two-outstanding-items final). Agents applied real-world mortgage practice (appraisals ordered by lender, not requested from borrower) and suppressed the LOS-outstanding appraisal condition entirely from the outreach + condition-update loop. Industry-native reasoning heuristics behaved as a first-class stump surface here. Worth adding to the Hardness_Playbook lever catalog as **L-industry-native-suppression**: when the LOS condition catalog contains an item whose real-world lifecycle is internal-facing (appraisals, HOI ordering, title runs), agents apply real-world lifecycle bias and drop the item from borrower-facing writes even when it is universe-authored as still outstanding.
+
+**Unpredicted secondary stump — dead-files heuristic.** Caused Rubric 9 (all-failing 26-loan roster) + Rubric 14 (3/6 partial). Agents imputed a "dead file" status to open-status loans past their rate lock by more than a year and dropped them from the past-lock roster. The prompt's "closed and dead files don't count" phrase provides a soft cue but the LOS `status` field is authoritative. Worth cataloguing as **L-industry-native-status-override**: agents override the authoritative status field with an industry-common informal category ("dead", "stale", "abandoned") when the prompt phrasing gives even a soft cue.
+
+**Calibration lesson.** The Hardness_Plan's lever-inventory framework is sound but the stump-hypothesis phase should specifically enumerate "what industry-native shortcuts does this business function tempt?" separately from the classical Learnings-catalog levers. In Loan Ops, industry-native shortcuts (appraisal-as-internal, dead-file heuristic) beat the Learnings-catalog levers (L1 latching / L2 structured-DB skip in their classic form). Future Loan-Ops tasks should list industry-native reasoning shortcuts as a distinct stump-hypothesis category.
+
+**All-Failing Rubrics sub-dim:** 5/5. Zero of 11 failing rubrics traces to invalid rubric design.
+
+## Entry — Tasks/38_6a4e9f9a28328f89d031fd66 — 2026-07-09 — S4 CALIBRATION (post-fix rerun)
+
+**Post-fix rerun trajectory verdict:** T2 pass@1 = 0.0% (0/6 runs cleared all 13 rubrics), T3 error runs = 0/6. Both gates PASS. Avg tool calls 92.3.
+
+**H1 [HIGH] Assigned-processor contradiction miss — MISS again.** All 6 runs ran the LOS `assigned_processor` filter correctly. Rubric 13 (26-count) passes 6/6 on the rerun (was 3/6 pre-fix). Rubric 8 (Slack roster) passes 6/6 (was 0/6 pre-fix — the prior all-failing was resolved by the roster-in-evidence + tolerance widening). The lever is functionally dead on this task shape — the LOS query is too natural once the prompt binds the scope to the five open statuses.
+
+**H2 [HIGH] Authority-figure deferral on write scope — MISS again.** Grace/Camille voice heard, not used to drive write-scope in any run.
+
+**H3 [MED] Missing-reply / thread-hidden disposition — NOT OBSERVED again.**
+
+**Post-fix novel stump surfaces (both first observed on this rerun):**
+
+- **L-incident-generalization / compliance-hold hallucination.** Runs 2 and 6 hallucinated a compliance / breach-response communications hold on LN-2026-00008 and withheld borrower outreach. Origin trace: the KeyStone universe has a real spoofed-wire incident on LN-2026-00605 (per Slack C003), and Runs 2 and 6 generalized that incident into a per-loan comms hold on 00008 despite zero overlap. This is distinct from L9 (authority-figure deferral): the agent isn't deferring to a stated directive, they are inferring a policy from a nearby incident. New pattern to add to the Hardness_Playbook.
+
+- **Cron-syntax two-day confusion.** Runs 2, 3, 5 encoded the two-day follow-up as `day-of-month=11, month=7` (July 11) instead of `day-of-month=30, month=4` (April 30). A raw cron-syntax bug, not a domain reasoning error. Runs 1 and 4 got the cron right. Not a stump surface to engineer for — a bug to be aware of and to consider when writing reminder-adjacent OEs (a `follow_up_scheduled` action on `mortgage_los_add_activity` avoids cron entirely and would eliminate this class of failure if the tool catalog surfaces it prominently).
+
+**Confirmed dominant stumps from the pre-fix run (still dominant post-fix):**
+
+- **Appraisal-as-internal industry bias.** R3 fails 5/6, R11 fails 4/6. Softening R3 to accept FYI framing helped Run 3 pass but the other 4 agents still substituted HOI binder for the appraisal in both the email and the final response. Reliably fires in Loan-Ops tasks — first-class stump surface.
+- **document_checklist_items vs LOS conditions conflation.** R7 fails 5/6, R9 fails 4/6. Even with the prompt qualifier "borrower's side", agents give equal weight to the checklist table (any missing doc counts as an outstanding item) and the conditions table (only prior_to_docs / prior_to_closing rows with outstanding status count). First-class stump surface for KeyStone-shaped LOS tasks.
+
+**Calibration lesson.** The Hardness_Plan lever inventory correctly identified the load-bearing surfaces (L1 latching / L2 structured-DB skip) but predicted the wrong sub-mechanisms. The task's real hardness came from:
+- 2 industry-native reasoning biases (appraisal-as-internal, checklist-vs-conditions) — reliably fire, expect them on future Loan-Ops tasks
+- 1 incident-generalization hallucination (compliance-hold on 00008 from spoofed-wire on 00605) — novel, worth watching
+- 1 cron-syntax bug — infrastructure noise, not a stump surface
+
+**All-Failing Rubrics sub-dim (post-fix):** 5/5. Zero of 10 failing rubrics traces to invalid rubric design. **Ready to ship.**
+
+
+## Task 38 (Sofia Reyes, KeyStone) — post-fix S4 rerun — 2026-07-09
+
+Post-fix rerun continues to miss all three predicted hypotheses from `Hardness_Plan.md`:
+
+| Hypothesis | Prediction | Actual (both pre-fix and post-fix) |
+|---|---|---|
+| H1 [HIGH] Assigned-processor contradiction miss | Agent latches on brief-named LNs (00619, 00610); never runs LOS `assigned_processor` filter | **MISS.** All 6 runs correctly filter LOS by Sofia's staff id and enumerate the 26 open loans. R13 (26-count) and R8 (26-loan roster) both pass 6/6. |
+| H2 [HIGH] Authority-figure deferral on write scope | Agent takes Grace / Camille surface directive and mis-scopes writes to brief-named loans | **MISS.** No run mis-scoped writes to the brief-named loans. Grace / Camille voice was heard but did not drive write-scope in any run. |
+| H3 [MED] Missing-reply / thread-hidden disposition | Load-bearing disposition sits in a Slack / email reply the agent skips | **NOT OBSERVED.** No failing rubric traces to a reply-blindness cause. |
+
+Delta from pre-fix run: hypothesis miss profile is identical. The Hardness_Plan levers (L1 latching, L2 structured-DB skip, L8 multi-link, L9 authority-figure) were correctly selected in the abstract but they targeted the wrong stumps. The actual stumps are industry-native reasoning biases (appraisal-as-internal, checklist-vs-conditions, compliance-hold generalization) which live below the level of the abstract lever taxonomy.
+
+**Learning for future KeyStone task design.** Loan-Ops tasks stump reliably on real-world reasoning heuristics that override the LOS table's authoritative signal, not on data-navigation misses. Future Hardness_Plans on this universe should ADD a fourth axis: "industry-native false-positive substitution" (e.g. HOI-for-appraisal, document-checklist-broadening, spoofed-wire-generalized-hold). This axis is orthogonal to L1-L11 and needs its own hypothesis slot.
+
+
+## Entry — Tasks/40_6a4f56f2a17df14b36807b01 — 2026-07-09
+
+REVIEW-flow task (Brookfield HR guidance close-out, Reshma Patel). No original Hardness_Plan.md; calibration is against `_aux/Council_Reports/REVIEW_hardness.md` (which named 4 levers based on pre-materialize trajectory reading) and against the post-materialize atomicity splits applied via `changes.md`.
+
+**Levers named at REVIEW time (calibration baseline):**
+1. [HIGH] Airtable-record discovery under a non-HR-labeled base — record `airtable_ddadfe58b867` sits in `Client Access and Onboarding Admin` base (not HR-named); the correct discovery walk is list_bases → list_tables → list_records.
+2. [MED] Cross-service investigation depth (8 services: email, Slack, Airtable, Records Vault, Linear, Reminders, Calendar, Contacts).
+3. [MED] Settled-vs-open discrimination across Yusuf / Rachel / Clint / Peter / Marina messages, without treating open items as final.
+4. [Floor] Anti-external-send anti-pattern — no manager reminder to external recipients.
+
+**Actuals (from `_aux/Council_Reports/S4_verdict.md`):**
+- pass@1 = 0% on the 33-rubric expanded verifier-evaluated set (0 of 6 runs passed all 33 rubrics). `parse_trajectories.py` reports 33.3% on the 22-rubric parsed reference set — both pass the ≤ 40% ceiling.
+- 22 fail instances across 6 runs, spanning 15 unique rubric titles.
+- No rubric failed all 6 runs. The highest per-rubric fail count is 3/6 (reminders-service replacement rubric, plus the "email states tracking was updated" rubric).
+- 0 Bucket 1, 0 Bucket 2, 22 Bucket 3.
+
+**Hit rate on the REVIEW levers:** 3/4 hit + 2 under-predicted levers surfaced.
+- Airtable-record discovery HIT partial. Only Run 1 substituted a Reminders record for the title-match rubric outright; Runs 5 and 6 found the Airtable record correctly but their downstream notes still omitted packet scope and legacy cleanup items respectively (a related but different manifestation).
+- Cross-service depth HIT under-forecast. All 8 services touched; density landed at 46.3 avg (THIN band) instead of the 50+ target.
+- Settled-vs-open HIT directly. Runs 5 and 6 failed on packet scope + legacy cleanup exactly as the lever predicted.
+- Anti-external-send confirmed floor. 0 violations across 6 runs.
+
+**Under-predicted levers observed (add to catalog):**
+- **Reminders-service discovery gap.** Rubric requiring the agent to update or replace the stale reminder `reminder_19fbc3082838` failed Runs 2, 3, and 4. Run 3 never called any reminder tool; Runs 2 and 4 searched adjacent surfaces (email drafts, records vault) and reported "none found." This is a distinct discovery lever from Airtable-record discovery — the reminders service is often the last service agents check when the prompt describes a "tracking item" that already lives in Airtable. Catalog as **L-adjacent-service-discovery-gap** when a task requires action on two similar-purpose services (Airtable admin tracking + Reminders admin tracking).
+- **Two-tier access gating (standard vs elevated).** Rubrics splitting standard-access day-one gating from elevated-access separate-approval-required both failed on Run 4 across both artifacts (email + tracking). The two-tier structure is a discrete lever from the workstream-separation lever REVIEW named; agents can carry the workstream split but drop one of the two tiers within the operational half. Catalog as **L-two-tier-content-completeness**.
+
+**Emergent partial pattern — mention-of-tracking-update-in-email.** Runs 4, 5, and 6 all wrote clean summary emails but forgot to state that the Airtable tracking record was updated. Prompt asks Rachel to know the shared source now reflects the corrected view. This is a "closing-sentence-after-substantive-body" attrition pattern — the agent completes the substance and skips the meta-confirmation. Related to the L-final-response-depth-anchor lever cataloged for Task 37 but on the email surface instead of the final response.
+
+**Lesson for the lever catalog:**
+- When a task requires a write to service A (Airtable) but there is an adjacent similar-purpose service B (Reminders) with a stale artifact that also needs updating, expect a discovery gap on B in ~50% of runs. Include an explicit OE step naming service B's tools when the design intends both services to be touched.
+- When a rubric bundles standard-behavior + exception-behavior (baseline access + elevated access; misrouted-doc routing + stray-copy cleanup; storage location + sharing conditions), split the rubric even when the compound reads naturally in prose. Task 40 pre-materialize had three such compound rubrics, all classified Bucket 1; MATERIALIZE splits collapsed them into atomic units that classified 100% Bucket 3.
+- Meta-confirmation sentences ("I updated X", "I filed Y in Z") in a downstream artifact are cheap to omit and reliably fail 40-50% of runs. When the rubric requires this sentence, phrase it clearly on both artifact and content-side so the atomic evidence is unambiguous.
+
+## Entry — Tasks/42_6a4fc1d98bf6758607609d35 — 2026-07-10
+
+**Predictions (from REVIEW_hardness.md — post-MATERIALIZE lever set):**
+1. [HIGH] L3 Airtable AM discovery — agents fail to filter tblClientAccts01 by account_manager=Emeka and miss GreenStack + Tideway
+2. [MED] L4 Correction discovery — agents miss Emeka's April 22 correction emails to Sunbelt + Palmetto
+3. [MED] L2 Email surfacing — agents miss Samira's April 15 email (CC Lena) in inbox search
+4. [LOW-MED] L1 Ticket state — agents misread backlog/assignee state
+5. [LOW-MED] L5 Multi-write ordering — Slack posted before ticket comment
+
+**Actuals (from S4_verdict.md):**
+- AF rubrics: 3 partial-fail rubrics (none fail ALL 6 runs)
+- R16 (5-account check): fails R1, R2, R3, R4, R5 — agent never queries Airtable by account manager; finds only accounts named in context (Sunbelt, Palmetto, Mosaic) + false positive (Axiom, which is Cold Outreach); GreenStack and Tideway not in CRM context
+- R15 (corrected comms): fails R3 only — agent searched inbox + Sent at limit 30 but Sent cutoff excluded the April 22 correction emails
+- R12 (Samira April 15 email): fails R3 only — agent searched "Samira" in inbox, got results, but did not identify the specific April 15 email in the result set
+
+**Hit rate:** 1/5 HIGH-confidence predictions confirmed at high fail rate (L3 fired 5/6). 2/5 fired at LOW rate (L4 1/6, L2 1/6). 2/5 did not fire (L1, L5 both 0/6 fails on new runs after MATERIALIZE fixes).
+
+**Misses (predicted, did not fail):**
+- L1 (ticket state): 0/6 fails. Post-fix agents correctly identify ENG-187 in backlog, unassigned. Lever was neutralized by clear prompt language after MATERIALIZE widening.
+- L5 (multi-write ordering): 0/6 fails. Agents consistently posted ticket comment before Slack announcement in all new runs.
+
+**Surprises (failed, did not predict):**
+- R15 and R12 failing in Run 3 only: not predicted at this specificity. Run 3 used a narrower Sent-folder limit (30 records) and did not interpret the "Samira" inbox search results correctly. Single-run failures of this type are L4/L2 at low yield, not a new mechanism.
+
+**Lesson for the lever catalog:** L3 (Airtable AM discovery) remains the single most reliable stumper in MoveOps tasks where the prompt context names only 2 of N accounts managed by a persona. After prompt widening, agents still do not perform the Airtable account-manager filter step unless the prompt literally names the table and column. The cross-service leap from "this person manages accounts" to "query the account table by AM field" is consistently missed. Design future tasks to require this step when cross-account coverage is a load-bearing rubric.
+
+## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10
+
+**Persona / Business function:** Marcus Knell (Billing Coordinator) / Engagement Mgmt & Client Operations. Brookfield universe.
+
+**Predictions (from Hardness_Plan.md):**
+
+1. [HIGH] **George McAdam authority-latch** — Marcus's billing close is framed by George McAdam's voice (1,407 universe artifact mentions, exception identifier, authority figure) asserting the $4,390.62 BlackLine exception is a BD3 feed-timing artifact that should not hold billing. Agent latches on George's framing and bills $33,844.93 without querying `exc_1ddfc978ce5a4d`. The exception state=investigating and proposed_resolution requires a corrective JE -- neither is consistent with a timing artifact. Mechanism: L9 authority-dismissal (~100% fail per Learnings L9) + L1 latching (Learnings L13 first-framing anchor).
+
+2. [HIGH] **JE approved-vs-posted blindspot** -- two WIP JEs (`je_01de85923ce744ba` + `je_46e6033b6aa946e7`) are status=approved, NOT posted. Agent treats approved as sufficient for billing close and does not transition either to posted. The correct path requires posting both JEs before computing net billable WIP. Mechanism: L2 structured-DB skip (Learnings L10) on oracle_gl JE status field.
+
+3. [MED] **Net-vs-gross propagation gap** -- agent correctly derives net billable WIP $29,454.31 (= $33,844.93 - $4,390.62) in one artifact but reverts to the $33,844.93 gross in a downstream artifact (email to Daniel Jones or Slack C005). Mechanism: L11 net-vs-gross framing (Learnings L18 figure-is-the-rubric).
+
+4. [MED] **SAP subledger invisibility** -- agent discovers oracle_gl JEs on account 119000 but does not cross-check SAP subledger transactions (`brookfield_6000000943` + `brookfield_6000000949`). Misses that both GL and subledger entries are consistent and that the corrective JE must reference `exc_1ddfc978ce5a4d` in its business_justification with source_module=manual. Mechanism: L10 structured-DB skip on SAP subledger (Learnings L10 ~0% find rate on SAP per sub-agent).
+
+**Actuals:** pending -- trajectories not yet run.
+
+**Anticipated ambiguities to watch at S4:**
+- Pred 1 sensitivity to George's exact verb in the prompt. Per Learnings L24, soft-verb ("the exception looks like a timing artifact") yields ~33% authority-latch; hard-verb ("the exception IS a timing artifact") yields ~50%. Hardness Brief recommends soft verb. Watch actual verb choice at S1.
+- Pred 2 may collapse to a partial hit if the prompt quote explicitly uses the word "approved" -- that may suppress the status-blindspot by surfacing it to the agent.
+- Pred 3 is secondary -- typically fires 2-3/6 runs when the primary authority-latch (Pred 1) fires simultaneously.
+
+## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10
+
+**Predictions (from Hardness_Plan.md):**
+1. [HIGH] Agent reports $43,950.76 as the May billing basis and emails Daniel that figure — Mechanism: Latching (Lever 1) + persona-relayed authority
+2. [HIGH] Agent never queries SAP subledger for the submitted JE's absence-of-mirror — Mechanism: Structured-DB skip (Lever 2)
+3. [MED] Agent treats submitted status as effectively approved and proceeds on that JE — Mechanism: Lever 9 universe-grounded gotcha
+4. [MED] Agent sums revenue credits (401000+403000) rather than WIP debits (119000) — Mechanism: Lever 9 account-role trap
+
+**Actuals (from S4_verdict.md):**
+- True AF rubric (6/6 fail): R#14 SAP subledger absence — zero sap_subledger tool_use calls in any run (100% fail rate; Lever 2 delivered exactly as predicted).
+- Cascade partial-fail cluster (5/6 fail): R#2 email figure, R#5 memo related_resource_id, R#6 memo figure, R#8 C005 figure, R#11 identifies correct derivation — all trace to the same $89,425 anchoring on je_53962aed96fe4b67. Run 2 recovered by correctly summing the two 119000 WIP JEs to $33,844.93 and passed all five.
+- Other partial fails: R#13 (4/6 — Runs 1, 3, 4, 5 stopped at status exclusion; Runs 2, 6 named 110000 AR debit), R#4 retention (1/6 — Run 3 used FIRM_INTERNAL instead of AICPA_SQMS_7Y), R#12 (1/6 — Run 3 misidentified George's entry as the posted JE).
+- R#9 calendar date: PASS 6/6. Every run placed the hold at 2026-06-30 (direct tool_use trajectory inspection confirmed).
+
+**Hit rate:** 3/4
+
+**Misses (predicted, did not fail):**
+- Prediction 1 partial miss: Agents correctly rejected the submitted JE on status grounds but anchored on a different wrong JE (adjacent posted revenue-recognition entry je_53962aed96fe4b67 with an AR debit leg of $89,425), not the submitted one. Wrong-figure stump fired but via an unexpected path in 5/6 runs.
+- Prediction 3 partial miss: Runs 1, 2, 4, 5, 6 correctly identified submitted status; the stump fired in Run 3 only, and through entry misidentification (conflating George's reference with the posted JE), not through status misinterpretation.
+
+**Surprises (failed, did not predict):**
+- Adjacent-posted-entry anchor: 5/6 runs latched onto je_53962aed96fe4b67 (posted WIP-to-revenue-recognition entry, $147,825 total, $89,425 AR debit leg) rather than the two approved 119000 WIP JEs. When a large posted revenue entry exists in the same period alongside the correct billing basis entries, agents prefer the posted entry regardless of account-type distinction. Cascades into 5 rubrics (R#2, R#5, R#6, R#8, R#11).
+- Run 3 outlier: single-run failures on R#4 (retention) and R#12 (submitted status ID) reflect Run 3's distinct wrong-anchor path — Run 3 conflated George's referenced entry with the posted JE and used FIRM_INTERNAL retention. Both are legitimate reasoning errors, not systematic stumps.
+- Run 2 recovery: 13/14 pass demonstrates a clean-recovery path exists; the stump is not deterministic on Opus 4.8.
+
+**Lesson for the lever catalog:** When designing a submitted-JE stump, ensure no large posted entry in the same period has a plausible billing-basis interpretation. If a posted entry exists with an AR debit component, agents anchor on it after correctly rejecting the submitted JE, arriving at a wrong figure through a different path than predicted. Account-type discrimination (119000 WIP debit vs 110000 AR debit) is insufficient to deter anchoring on the adjacent posted entry — ~83% of runs still latch. SAP-subledger absence-of-mirror (Lever 2) remains the highest-yield single mechanism observed (6/6 zero-tool-call rate) and should stay in the catalog for future JE-eligibility tasks.
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-10
+
+**Persona / Business function:** Anaya Wallace (Trainee Accountant, Brookfield CPAs & Advisors, AP-escalation family) / BlackLine Close-Discipline & Variance.
+
+**Confirmed stump hypotheses (2 of 4 predictions hit, 1 blocked, 1 missed):**
+
+1. **[HIGH → CONFIRMED]** L9 authority-figure dismissal (Harry Marks soft-verb close-out + Hannah Grant accept-timing disposition). 5/6 runs cited Hannah or Harry as reason to leave the corrective JE undrafted and the exception unmodified. Run 1: "Did NOT on purpose." Run 3: "Hannah instructed leave as-is." Run 4: "Hannah explicitly said to leave the disposition trail as-is." Run 5: "Hannah explicitly said leave the exception as-is until June." This is the strongest single stump on the task and the primary discriminating signal — it drove all-failing status on the corrective JE creation, all lifecycle steps, and the exception update.
+
+2. **[HIGH → CONFIRMED (strong)]** L10 SAP subledger invisibility (`brookfield_tax_engagement_trust_feed` partial_failure `run_e0365372e21545` with ten rejected rows). 0/6 runs discovered the trust feed. Runs 4 and 5 saw partial_failure status surface in the feeds-list response but never followed up with a get-run call — a new **status-glance-only skip** sub-mode of L10 worth adding to the catalog. Runs 1, 3, 5 arrived at the wrong conclusion "all feeds ran clean." L10 cascaded into three all-failing criteria (exception root_cause replace, vault memo derivation, corrective JE business_justification) without artificial multiplication.
+
+3. **[MED → BLOCKED-BY-L9]** L25 existing-output anchor trap. Not observed as a distinct failure. The L9 authority-dismissal refusal fired upstream and short-circuited the JE-history check that would have exposed the anchor. Design lesson: L25 cannot be independently measured when chained downstream of L9 in the same task.
+
+4. **[MED → OVER-PREDICTED]** L26 decoy parent Slack thread. 6/6 runs used the correct thread_ts 1780248600.000000. The decoy 1780327320 (BD1 close-entries announcement) was too topically distinguishable to fire. L26 needs stronger subject/account/timestamp overlap with the target thread to work against Opus 4.8.
+
+**Novel Brookfield anchors observed (worth reusing on future tasks):**
+- L10 status-glance-only skip: agents saw partial_failure status in the feeds-list response but skipped the get-run call that carries the run_id. Future L10 designs can lean on this by keeping the identifying run_id one hop away from the list surface.
+- L9 authority-dismissal via superseded partner-level disposition (Hannah's accept-timing note) chained with soft-verb close-out (Harry's Slack message) is more compelling than either alone — 5/6 runs cited one or the other, and the two together made the refusal feel doubly grounded.
+
+**Outcome:** pass@1 = 0.0%. 5-of-5 hardness surface. Per-run passes: 5/4/3/3/3/10 = 28/120 = 23.3%. 7 all-failing criteria + 11 partial-fail + 2 perfect-pass. All 7 all-failing criteria classified as legitimate model failures (Bucket 3); zero Bucket 1 rubric-design defects. All-Failing Rubrics sub-dim = 5/5. Avg density 45.8 total / 35.8 MCP. *(Corrected 2026-07-10: prior entry sourced stale trajectory files showing 13 AF rubrics and per-run counts 4/2/4/1/5/6; re-parsed from trajectory-run-1..6.json.)*
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-11
+
+**Predictions (from Hardness_Plan.md):**
+1. [HIGH] Agent anchors to Slack C005 partial-feed narrative for exc_1ddfc978ce5a4d, skips BlackLine proposed_resolution, does not post corrective GL JE — Mechanism: Latching (Lever 1)
+2. [HIGH] Agent fails to find/flag review note rn_564e65ce0d594f (Edith Banda, state=open, response=null, SLA 2026-06-02 overdue) — Mechanism: Multi-link chain (Lever 8) + Missing reply (Lever 3)
+3. [MED] Agent resolves only exc_1ddfc978ce5a4d, leaves exc_06b89e3937b04a unaddressed — Mechanism: Universe-grounded gotcha (Lever 9)
+4. [MED] Agent mis-labels account 119000 as "WIP-Unbilled Time" (northstar_legal label) instead of "WIP-Unbilled Services" (brookfield label) — Mechanism: Near-miss entity confusion (Lever 6)
+
+**Actuals (from S4_verdict.md):**
+- AF rubrics: 6 total (rubrics 8, 9, 10, 11 = Bucket 1 invalid; rubrics 12, 13 = Bucket 3 legit)
+- Rubric 8 (updates exc_1ddfc to resolved): Bucket 1 — EX.SLA_OVERDUE hard-block, no escalation tool
+- Rubric 9 (exc_1ddfc update content): Bucket 1 — cascade from rubric 8
+- Rubric 10 (updates exc_06b89 to resolved): Bucket 1 — same SLA_OVERDUE block
+- Rubric 11 (exc_06b89 update content): Bucket 1 — cascade from rubric 10
+- Rubric 12 (vault upload exc_1ddfc, kind=journal_entry_support): Bucket 3 — all 4 uploading runs used kind='reconciliation_support'
+- Rubric 13 (vault upload exc_06b89, kind=journal_entry_support): Bucket 3 — same wrong kind in all 4 uploading runs
+- Partial fails: R4 and R5 abandoned all JE creation (Lever 1 latching variants); R3 submitted JEs but did not post (nonstandard_manager_required flag not handled); R5/R6 drafted Slack/email but did not execute tool calls
+
+**Hit rate:** 1/4 clean predictions hit.
+- Pred 1 (latching): PARTIAL — R4 and R5 fell for latching variants ("Hannah's directive", "SOX concerns"), but R1, R2, R3, R6 correctly queried BlackLine and posted JEs. Over-predicted frequency.
+- Pred 2 (review note miss): MISS — all 6 runs correctly reported rn_564e65ce0d594f. Lever 3/8 chain did not stump any run.
+- Pred 3 (gotcha second exception): PARTIAL — R4 and R5 missed both exceptions; R2 missed the exception status update for exc_06b89 specifically. Most runs found both.
+- Pred 4 (entity confusion): MISS — all runs that created the corrective JE used the correct brookfield label "Work in Process - Unbilled Services."
+
+**Misses (predicted, did not fail):**
+- Edith's review note (Lever 3/8): Passed 6/6. The prompt language directing a check on "Edith's question" and the 4-hop chain may have been clear enough to guide agents through it.
+- Entity confusion (Lever 6): Passed for all runs that engaged with the task. Entity filtering appears more reliable than expected when the BlackLine exception record explicitly names the entity.
+
+**Surprises (failed, did not predict):**
+- EX.SLA_OVERDUE rubric design flaw: Both exceptions had `sla_due_at` 11 days past universe today. No `blackline_escalate_exception` tool exists and both exceptions were already `escalated: true`. The rubric required a success response that the system architecture makes impossible. This is a rubric-QC miss, not a model failure.
+- kind='reconciliation_support' default: Agents uploading vault docs consistently chose 'reconciliation_support' over 'journal_entry_support' — defaulting to the workflow context (exception resolution) rather than the document content type (JE memo). Not predicted; a real model gap.
+- Novel latching variants: R4 invented managerial directives ("Hannah said not to post"), R5 invented SOX compliance blockers. These are more creative refusal patterns than the predicted Slack-narrative anchor.
+
+**Lesson for the lever catalog:** When designing exception-update rubrics, verify universe sla_due_at vs universe today — if sla_due_at is in the past and no escalation tool exists, the rubric must test attempt rather than stored outcome. This check should be added to the S3 rubric QC sweep.
+
+## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-11 (Post-fix re-run correction)
+
+Corrects the 2026-07-11 entry above. Bucket 1 fixes were applied to 7_Rubrics.json; verifier
+re-ran against the fixed rubric set. T1 density confirmed from actual trajectory files.
+
+**Corrected actuals (post Bucket-1-fix re-run):**
+- AF rubrics: 2 (rubrics 12, 13 — vault upload kind=journal_entry_support). Both Bucket 3.
+- Rubrics 8, 9, 10, 11: no longer all-failing. Now pass in R1, R2, R3, R6 with the fixed
+  attempt-based criteria.
+- All-Failing Rubrics sub-dim: 0/2 = 0% -> 5/5 PASS (corrected from 1/5 FAIL).
+- T1 density confirmed: 65.8 avg total tool calls, 55.3 avg MCP (PASS at both 50 design target
+  and 40 floor). Prior entry cited T1 as UNVERIFIABLE.
+
+**Hit rate (updated):** 0/4 clean predictions hit. Pred 1 (latching) partial only — novel
+variants in R4/R5, not the predicted Slack-narrative anchor. Pred 2 (review note) and Pred 4
+(entity confusion) missed entirely. Pred 3 (gotcha) partial only.
+
+**Confirmed replicable gap:** kind='reconciliation_support' vault default fires across all runs
+that attempt uploads (R1/R2/R3/R6 — 4/4). Agents categorize the document by workflow context
+(reconciliation exception) rather than document type (JE support memo). Future vault-upload
+rubrics testing the kind parameter should budget for AF justifications on this gap.
+
+## Entry — Tasks/45_6a5edd95a6946f6c4d160b5a — 2026-07-21
+
+**Predictions (from Hardness_Plan.md):**
+1. [HIGH] Agent accepts Tony Reyes authority dismissal (Slack C001 + Gmail reply: "dirty filter, not urgent, Thursday") and fails to escalate HVAC failure to life-safety emergency — never reads Alamo HVAC inspection report. Mechanism: L9 (universe-grounded gotcha / authority-figure dismissal)
+2. [HIGH] Agent reports Alamo HVAC net cost as $1,840 gross (QB bill 2026-HVAC-SR208) instead of $1,550 net (after $290 credit memo CM-2026-SR208) — skips QB credit-memo query. Mechanism: L2 (QB credit memo skip / net-vs-gross)
+3. [MED] Agent propagates wrong diagnosis ("dirty filter, medium priority") from injected Airtable ticket into new Linear issue and QB work-order note without reading Gmail inspection report. Mechanism: L8 (multi-link chain, 4 services)
+4. [MED] Agent creates GCalendar event for Thursday routine slot rather than immediate emergency slot, and updates Airtable ticket as medium priority, because it trusted Airtable structured field over Gmail document content. Mechanism: L12 (document cross-reference) + L9 reinforcement
+
+**Actuals (from S4_verdict.md):**
+- TBD — pending platform run and S4 verifier-fails paste
+
+**Hit rate:** TBD
+
+**Misses (predicted, did not fail):** TBD
+
+**Surprises (failed, did not predict):** TBD
+
+**Lesson for the lever catalog:** TBD — update after S4.
