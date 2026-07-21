@@ -4,7 +4,9 @@ Triggered by: `PIPELINE HARDNESS — Tasks/<TASK_DIR>`
 
 ## What this phase does
 
-Reads the per-task universe and identifies which Opus-4.8 stumping levers are present without any universe edits. Projects expected tool-call density across the 6 final runs. Produces a `Hardness_Plan.md` that the S1 prompt-writing phase consumes verbatim.
+Reads the per-task universe and identifies which Opus-4.8 stumping levers are available. Projects expected tool-call density across the 6 final runs. Produces a `Hardness_Plan.md` that the S1 prompt-writing phase consumes verbatim.
+
+**StarPM (V4) addition:** Because the StarPM base universe is fixed and CBs inject task-specific scenario data, HARDNESS additionally produces an `## Injection Plan` section in `Hardness_Plan.md`. This plan specifies exactly what records to inject — which services, tables, field values, cross-service references, and decoys — to support the chosen levers. The INJECTION phase reads this plan and authors `9_Universe_inject.sql` from it. For V3 universes (Brookfield, Keystone, MoveOps), the injection planning step is skipped entirely.
 
 **Two hard gates: INSUFFICIENT_LEVERS (< 3 levers) and a tiered density gate.** Density bands: midpoint ≥ 50 = PASS (design target — produces ~40+ tool calls in real platform runs); midpoint 40-49 = THIN_DENSITY (operator may continue with explicit per-task justification, but the task is at risk of underflow on real runs); midpoint < 40 = INSUFFICIENT_DENSITY (STOPs the pipeline — operator must expand levers or write actions). INSUFFICIENT_LEVERS or INSUFFICIENT_DENSITY both force user intervention.
 
@@ -98,6 +100,21 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    - Confidence (high / med / low) with one-line reasoning citing levers and the Learnings entry.
    - The mechanism (latching, structured-DB skip, missing reply, authority dismissal, etc.).
 
+6.5 **(StarPM V4 only) Sub-agent task: Injection Planning.** Skip this step entirely for Brookfield, Keystone, and MoveOps. For StarPM, the INJECTION phase will author `9_Universe_inject.sql` from this plan — it must be precise enough to write correct SQL without further research. For each selected lever, specify:
+
+   - **Service + table:** which of the 8 StarPM services (gmail, slack, linear, airtable, quickbooks, hubspot, gcalendar, contacts) and which table
+   - **Operation:** INSERT (new record) / UPDATE (modify existing) — avoid DELETE unless essential
+   - **Records — field list for every injected record:**
+     - IDs: describe the naming pattern (e.g., "follow Linear issue format `MT-2026-NNNN`, next unused after sampling base") — do NOT invent specific IDs here; the INJECTION phase will sample base and assign
+     - Amounts / dates: specify exact values (e.g., `$4,200`, `2026-06-18`, weekday)
+     - Text fields: draft the actual message / email / comment text — short and casual for Slack, natural length for Gmail; no corporate filler, no emojis
+     - Foreign key references: name the exact base record this links to (e.g., "link to existing contact `cnt_041` Maria Lopez")
+   - **Cross-service references:** for each injected record that mentions another service's entity, name both sides (e.g., "Slack message references Linear ticket `MT-2026-0072` — confirm that ticket exists in base OR plan a matching injection")
+   - **Decoys / traps:** for each decoy record, describe what makes it misleading (e.g., "nearly-matching invoice amount $4,020 from a different vendor — correct amount is $4,200")
+   - **Reachability path:** name the MCP tool + filter that surfaces this record (e.g., `gmail_search_threads(query="HVAC Las Palmas")`)
+
+   This plan must be complete enough that the INJECTION phase can write correct SQL without returning to you for clarification. Target Phase 8 difficulty minimums: Cross-Service Spread ≥ 4 services, Tool Call Depth midpoint ≥ 3.5, Reasoning Chain midpoint ≥ 3.5.
+
 7. **Produce `_aux/Hardness_Plan.md`** with these sections:
 
    ```markdown
@@ -159,6 +176,33 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
 
    ## Hardness Brief for the Prompt Writer
    <one tight paragraph the S1 sub-agent will use, naming the selected levers and the projected tool-call density target>
+
+   ## Injection Plan (StarPM V4 only — omit entirely for Brookfield / Keystone / MoveOps)
+
+   ### Lever <n> → Records to inject
+
+   **Service:** <service_name>
+   **Table:** <table_name>
+   **Operation:** INSERT / UPDATE
+   **Fields:**
+   - id: <naming pattern — INJECTION will sample base and assign the next unused value>
+   - <field>: <exact value>
+   - <text_field>: "<exact draft text — short, casual, human-sounding>"
+   **Foreign keys:** <e.g., channel_id: C001 #maintenance (existing base record)>
+   **Cross-service refs:** <e.g., this email body references QB bill INV-0089 — confirm that bill exists in base>
+   **Reachability:** `<tool_name>(param="<filter>")` → record surfaces
+   **Decoy record (if any):** <service/table> — <description: what makes it misleading and why it is wrong>
+
+   ### Lever <n+1> → Records to inject
+   <repeat pattern above>
+
+   ### Injection Summary
+   | Service | New records | Tables |
+   |---|---|---|
+   | <service> | <count> | <table names> |
+   | **Total** | **<n>** | — |
+
+   **Phase 8 difficulty targets:** Cross-Service Spread ≥ 4 / Tool Call Depth ≥ 3.5 / Reasoning Chain ≥ 3.5
    ```
 
 8. **Gates.** Tiered handling:
@@ -176,9 +220,12 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
 
 ## STOP gate
 
-This phase ends here. End your response. Wait for the user to invoke `PIPELINE S1 — Tasks/<TASK_DIR>` in a fresh chat.
+This phase ends here. End your response.
 
-If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to (a) edit the universe, (b) swap the persona to a different one within the SAME business function (allowed in both CB and REVIEW flows), (c) swap the task, or (d) accept a lower hardness target before invoking S1.
+- **Brookfield / Keystone / MoveOps (V3):** Wait for the user to invoke `PIPELINE S1 — Tasks/<TASK_DIR>` in a fresh chat.
+- **StarPM (V4):** Wait for the user to invoke `PIPELINE INJECTION — Tasks/<TASK_DIR>` in a fresh chat. The INJECTION phase will read `## Injection Plan` from `Hardness_Plan.md`, author `9_Universe_inject.sql`, audit it via oracle council, then instruct the CB to inject on the platform before S1 begins.
+
+If a STOP gate fired (`INSUFFICIENT_LEVERS` or `INSUFFICIENT_DENSITY`): also end your response with the stop reason clearly stated — the user has to decide whether to (a) edit the universe (V3: forbidden; StarPM: extend the Injection Plan to add more records/services), (b) swap the persona to a different one within the SAME business function (allowed in both CB and REVIEW flows), (c) swap the task, or (d) accept a lower hardness target before proceeding.
 
 Do NOT proceed to prompt drafting in this chat.
 
