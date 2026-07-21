@@ -4,15 +4,15 @@
 
 **Universe:** StarPM (V4) only. This phase does not apply to Brookfield, Keystone, or MoveOps tasks.
 
-**Position in pipeline:** Runs AFTER universe injection (`9_Universe_inject.sql` populated, `4_Changelog.json` populated) and AFTER S0 completes, but BEFORE S1 (prompt authoring). It is a hard gate — no prompt work begins until INJECTION returns PASS.
+**Position in pipeline:** Runs AFTER HARDNESS (which produces the Injection Plan in `Hardness_Plan.md`) and BEFORE S1. Two-phase: (A) author the injection SQL, (B) audit it via oracle council. Hard gate — no prompt work begins until INJECTION returns PASS.
 
 ---
 
 ## Purpose
 
-Verify that the CB's universe edits are structurally sound, temporally consistent, cross-service coherent, naturalistic, reachable by MCP tools, appropriately obscured, and genuinely difficult. A broken injection poisons everything downstream — rubrics will reference phantom data, agents will hit dead ends, and QC will fail the task.
+Author task-specific universe injection data based on the HARDNESS-produced Injection Plan, then validate that the injection is structurally sound, temporally consistent, cross-service coherent, naturalistic, reachable by MCP tools, appropriately obscured, and genuinely difficult.
 
-The eval produces a binary PASS/FAIL verdict (all 7 structural gates must pass) PLUS a composite difficulty score (minimum 3.5 required). One structural defect or difficulty score < 3.5 = BLOCKER.
+Phase A (Author) writes `9_Universe_inject.sql` directly in this session. Phase B (Audit) fires an oracle sub-agent against the 7-gate eval spec. If the audit fails, the agent revises the SQL inline and re-audits (cap 3 rounds). On PASS, the CB takes the SQL to the platform.
 
 ---
 
@@ -21,35 +21,59 @@ The eval produces a binary PASS/FAIL verdict (all 7 structural gates must pass) 
 Before invoking, verify ALL of these are true:
 
 - [ ] `_aux/Universe.txt` contains `starpm`
-- [ ] `9_Universe_inject.sql` is populated (non-empty)
-- [ ] `4_Changelog.json` is populated with the CB's change manifest
+- [ ] `_aux/Hardness_Plan.md` exists and contains an `## Injection Plan` section (produced by HARDNESS)
 - [ ] `S0_Setup_Report.md` exists in `_aux/` (S0 has completed)
 - [ ] `_aux/Universe_Split/` is populated
 - [ ] `_aux/Universe_Index/` is populated
 
-If any prerequisite is missing, STOP and print: `INJECTION BLOCKED: <missing item> not yet available. Complete S0 and paste universe injection files before invoking INJECTION.`
+If any prerequisite is missing, STOP and print: `INJECTION BLOCKED: <missing item> not yet available. Complete the prerequisite step before invoking INJECTION.`
+
+**Note:** `9_Universe_inject.sql` does NOT need to exist before invoking — this phase creates it. `4_Changelog.json` is provided by the platform after the CB injects there.
 
 ---
 
-## Required Inputs
+## Required Reading
 
 | File | Role |
 |---|---|
-| `9_Universe_inject.sql` | PRIMARY — SQL INSERT/UPDATE/DELETE statements injecting scenario data |
-| `4_Changelog.json` | CB's structured change manifest (added/modified/deleted records) |
-| `3_UniverseDataForThisTask.json` | Task-specific snapshot (may be empty; use base + changelog as fallback) |
-| `StarPM_Base_Universe/Data/` | Base universe for BEFORE-state comparison (all 9 service folders) |
-| `StarPM_Base_Universe/8_Universe_Schema.json` | Schema — column names, types, constraints, foreign keys |
-| `StarPM_Base_Universe/7_Server_Tools_Details.json` | MCP tool inventory for reachability checks |
-| `5_Prompt.txt` | If already drafted — used for reachability chain tracing (optional at this stage) |
+| `Tasks/<TASK_DIR>/_aux/Hardness_Plan.md` | PRIMARY — `## Injection Plan` section drives everything: which services, tables, records, values, and decoys to inject |
+| `StarPM_Base_Universe/8_Universe_Schema.json` | Schema — column names, types, NOT NULLs, FKs, enum sets |
+| `StarPM_Base_Universe/Data/` | Base universe — sample existing IDs to establish patterns; verify FK targets; check for collisions |
+| `StarPM_Base_Universe/7_Server_Tools_Details.json` | MCP tool inventory — reachability planning |
+| `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | Entity atoms — names, emails, IDs already in use |
 
 ---
 
 ## Execution
 
-Invoke as a single `oracle` sub-agent with the full eval from `Evals_starpm/0_Injection_Quality_Eval.md`. The sub-agent must execute ALL phases of the eval in order.
+### Phase A — Author
 
-**Sub-agent prompt template:**
+**You (the orchestrating agent) author the SQL directly.** Do not delegate Phase A to a sub-agent — you have the Injection Plan context and need to write correct SQL.
+
+**Step A1: Sample existing IDs per table.**
+For every table you will inject into, read 3+ existing records from `StarPM_Base_Universe/Data/` to establish the ID pattern (format, prefix, numbering scheme). Pick the next unused ID that fits the pattern. Never invent IDs that deviate from the established convention.
+
+**Step A2: Verify FK targets.**
+For every foreign key field in the Injection Plan, confirm the referenced record exists in `StarPM_Base_Universe/Data/`. If it does not, either use a correct existing record or add an additional INSERT for the FK target (ordered before the dependent record in the SQL).
+
+**Step A3: Assign timestamps.**
+All timestamps must fall within 2026-05-01 to 2026-07-01 (America/Chicago). Business communications (Slack, Gmail) on weekdays only (Mon–Fri). For Slack `ts` fields, compute the UNIX timestamp from the intended datetime and confirm it resolves to a date within the window. Reply timestamps must be strictly greater than parent timestamps. Email `sent_at` must be before `received_at`.
+
+**Step A4: Draft text fields.**
+Write Slack messages in the casual, short style of existing messages in `#maintenance`, `#leasing`, `#general` in the base universe. Write Gmail email bodies matching the formality and length of existing threads. No corporate filler phrases ("circle back", "per our earlier discussion"), no emojis, no unnaturally long messages. 3+ injected text fields with clear AI-tell patterns = audit failure.
+
+**Step A5: Write `Tasks/<TASK_DIR>/9_Universe_inject.sql`.**
+One SQL statement per record. Include a brief SQL comment (`--`) above each block naming the lever it supports (e.g., `-- L8: subledger-reduction — QB bill for HVAC compressor replacement`). Order: INSERTs for FK-referenced tables first, then dependent records.
+
+**Step A6 — done.** Phase A ends after the SQL is written. `4_Changelog.json` is NOT authored by the pipeline — it is provided by the platform after the CB executes the SQL there.
+
+---
+
+### Phase B — Audit
+
+Fire an `oracle` sub-agent with the full eval from `Evals_starpm/0_Injection_Quality_Eval.md`.
+
+**Sub-agent prompt:**
 
 ```
 You are the INJECTION QUALITY EVALUATOR for a StarPM (V4) task.
@@ -57,8 +81,7 @@ You are the INJECTION QUALITY EVALUATOR for a StarPM (V4) task.
 TASK DIR: Tasks/<TASK_DIR>
 EVAL SPEC: Evals_starpm/0_Injection_Quality_Eval.md
 PRIMARY INPUT: Tasks/<TASK_DIR>/9_Universe_inject.sql
-CHANGELOG: Tasks/<TASK_DIR>/4_Changelog.json
-UNIVERSE SNAPSHOT: Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json
+CHANGELOG: Tasks/<TASK_DIR>/4_Changelog.json (optional — may not exist yet; use the SQL as primary source if absent)
 BASE UNIVERSE: StarPM_Base_Universe/Data/
 SCHEMA: StarPM_Base_Universe/8_Universe_Schema.json
 TOOL CATALOG: StarPM_Base_Universe/7_Server_Tools_Details.json
@@ -71,40 +94,79 @@ Produce a verdict for each of the 7 structural gates (Phase 1-7) plus the diffic
   Tasks/<TASK_DIR>/_aux/Council_Reports/INJECTION_report.md
 
 Final verdict format (at end of report):
-  GATE 1 Schema & Structure: PASS / FAIL
-  GATE 2 ID Format: PASS / FAIL
-  GATE 3 Date & Time: PASS / FAIL
-  GATE 4 Cross-Service Consistency: PASS / FAIL
-  GATE 5 Naturalness: PASS / FAIL
-  GATE 6 Reachability: PASS / FAIL
-  GATE 7 Pre-Solve Check: PASS / FAIL
+  GATE 1 Schema & Structure:      PASS / FAIL — <one-line finding>
+  GATE 2 ID Format:               PASS / FAIL — <one-line finding>
+  GATE 3 Date & Time:             PASS / FAIL — <one-line finding>
+  GATE 4 Cross-Service Consistency: PASS / FAIL — <one-line finding>
+  GATE 5 Naturalness:             PASS / FAIL — <one-line finding>
+  GATE 6 Reachability:            PASS / FAIL — <one-line finding>
+  GATE 7 Pre-Solve Check:         PASS / FAIL — <one-line finding>
   DIFFICULTY SCORE: <composite 1.0-5.0> / RATING: <Too Easy|Medium|Hard|Very Hard>
   OVERALL VERDICT: PASS / FAIL
-  BLOCKER ISSUES: <list, or "none">
+  BLOCKER ISSUES: <specific fix instructions per gate, or "none">
 ```
 
 ---
 
-## Exit Criteria
+### Revision Loop (if FAIL)
 
-| Condition | Next step |
-|---|---|
-| All 7 gates PASS AND difficulty score >= 3.5 | `INJECTION PASS. Proceed to: PIPELINE S1 — Tasks/<TASK_DIR>` |
-| Any gate FAILS OR difficulty < 3.5 | `INJECTION FAIL. Fix the listed blocker(s), re-inject, and re-run PIPELINE INJECTION.` |
+If the oracle returns FAIL or difficulty < 3.5:
 
-**INJECTION FAIL is not a soft stop.** The CB must fix the injection and re-run this phase. Proceeding to S1 with a failed INJECTION is a pipeline policy violation.
+1. Read `_aux/Council_Reports/INJECTION_report.md` and extract the BLOCKER ISSUES list.
+2. Revise `9_Universe_inject.sql` in place to address every listed blocker.
+3. Re-fire the oracle audit sub-agent against the revised files.
+4. Repeat until PASS or the cap is reached (3 revision rounds total).
+
+**After 3 failed rounds:** STOP. Print the final `INJECTION_report.md` blocker list and tell the user:
+
+```
+INJECTION BLOCKED after 3 revision rounds.
+Manual intervention required — review blockers in:
+  Tasks/<TASK_DIR>/_aux/Council_Reports/INJECTION_report.md
+
+Options:
+  (a) Amend the ## Injection Plan section in _aux/Hardness_Plan.md to address the structural
+      issues, then re-run PIPELINE INJECTION in a fresh chat.
+  (b) If the plan is fundamentally flawed (wrong services, unreachable data), re-run
+      PIPELINE HARDNESS in a fresh chat to produce a revised Injection Plan.
+```
 
 ---
 
-## Output
+## Exit Criteria — INJECTION PASS
 
-`Tasks/<TASK_DIR>/_aux/Council_Reports/INJECTION_report.md`
+When all 7 gates PASS AND difficulty score ≥ 3.5:
 
-Contains:
-- Phase-by-phase findings for all 8 evaluation phases
-- Per-record verdict table (schema / ID / temporal / cross-service / naturalness / reachability / pre-solve)
-- Difficulty scoring breakdown (7 dimensions, composite score, rating band)
-- Final gate summary + overall PASS/FAIL
+1. Print the gate summary from `INJECTION_report.md`.
+2. Print the following CB instructions verbatim:
+
+```
+INJECTION PASS (difficulty: <score> / <rating>)
+
+Next steps for the CB:
+1. Open Tasks/<TASK_DIR>/9_Universe_inject.sql — execute it on the platform to inject
+   the scenario data into the StarPM task universe.
+2. After injection, the platform will provide updated universe data. Paste whichever
+   the platform exports into Tasks/<TASK_DIR>/:
+     - 3_UniverseDataForThisTask.json (full post-injection snapshot — preferred), and/or
+     - 4_Changelog.json (structured change manifest)
+   At minimum one of these must be present before the next step.
+3. Then invoke in a fresh chat:
+     PIPELINE INJECT-CHECKER — Tasks/<TASK_DIR>
+   INJECT-CHECKER will verify every injected record landed correctly and auto-rebuild
+   _aux/Universe_Split/ on PASS. Do NOT manually run data.py — INJECT-CHECKER does it.
+```
+
+---
+
+## Output Files
+
+| File | Written by | When |
+|---|---|---|
+| `Tasks/<TASK_DIR>/9_Universe_inject.sql` | Phase A — this session | Before Phase B |
+| `Tasks/<TASK_DIR>/4_Changelog.json` | Platform (after CB injection) | After CB executes SQL on platform |
+| `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json` | Platform (after CB injection) | After CB executes SQL on platform |
+| `Tasks/<TASK_DIR>/_aux/Council_Reports/INJECTION_report.md` | Phase B — oracle sub-agent | After each audit round |
 
 ---
 
@@ -112,11 +174,16 @@ Contains:
 
 ```
 PIPELINE NEW       — scaffold task folder
-PIPELINE S0        — split universe, build index + fact ledger
-                   ← paste 9_Universe_inject.sql + 4_Changelog.json
-PIPELINE INJECTION — this phase (hard gate)
-PIPELINE HARDNESS  — lever identification
-PIPELINE S1        — prompt authoring (BLOCKED until INJECTION PASS)
+PIPELINE S0        — split base universe, build index + fact ledger
+PIPELINE HARDNESS  — lever identification + injection planning → _aux/Hardness_Plan.md
+PIPELINE INJECTION — THIS PHASE:
+                     Phase A: author 9_Universe_inject.sql
+                     Phase B: oracle audit (7 structural gates + difficulty score)
+                     Revise loop if FAIL (cap 3 rounds)
+                   ← CB takes 9_Universe_inject.sql to platform, executes it
+                   ← CB pastes back 3_UniverseDataForThisTask.json (post-injection snapshot)
+PIPELINE INJECT-CHECKER — verifies all records landed, auto-rebuilds _aux/Universe_Split/
+PIPELINE S1        — prompt authoring (BLOCKED until INJECT-CHECKER PASS)
 PIPELINE S1.5      — linter blocker handling (if needed)
 PIPELINE S2        — oracle events
 PIPELINE S3        — rubrics
@@ -125,3 +192,7 @@ PIPELINE SUBMISSION_GATE — zero-tolerance final check
 PIPELINE S4        — verifier fails (after platform runs, dual-model)
 PIPELINE CLOSE     — final sanity check
 ```
+
+## Bootstrap
+
+Read root `AGENTS.md` first. The PIPELINE HARD RULES apply. `_aux/Hardness_Plan.md → ## Injection Plan` is the single source of truth for what to inject — do not deviate from it without documenting a specific reason in `INJECTION_report.md`.
