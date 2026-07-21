@@ -4,9 +4,11 @@ One task = one walk through this list.
 
 ---
 
-## Universe (auto-detected — v20)
+## Universe (auto-detected — v21)
 
-Pipeline supports three universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default), **Keystone Mortgage Partners** (residential mortgage brokerage; v18+), and **MoveOps Inc.** (B2B remote-work relocation services; V2.1 framework; v20+). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+Pipeline supports four universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default), **Keystone Mortgage Partners** (residential mortgage brokerage; v18+), **MoveOps Inc.** (B2B remote-work relocation services; V2.1 framework; v20+), and **Star Property Management** (residential property management, SW Texas; V4 framework; v21+). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+
+**StarPM V4 differs from V3 universes in two ways:** (a) there is no pre-baked `3_UniverseDataForThisTask.json` — instead HARDNESS plans the injection, INJECTION authors and audits `9_Universe_inject.sql`, and the platform provides the updated universe after the CB executes the SQL there; (b) the pipeline has three additional hard-gate phases — INJECTION (after HARDNESS, authors and audits the SQL), INJECT-CHECKER (after CB injects on platform, verifies all records landed), and SUBMISSION_GATE (after FINAL, before upload). All three must pass before continuing.
 
 ## Setup once per task (one trigger does the folder + paths)
 
@@ -18,15 +20,19 @@ Pipeline supports three universes: **Brookfield CPAs & Advisors** (public accoun
 `<TASK_ID>` is either the hex id alone (auto-picks next index) OR `<index>_<hex>` (uses given index). NEW prints exact paste paths + the next-trigger phrase (S0 for CB, REVIEW for review).
 
 CB-mode files to paste:
-- `1_Business_Function.txt` · `2_Persona.txt` · `3_UniverseDataForThisTask.json`
+- **V3 universes (Brookfield / Keystone / MoveOps):** `1_Business_Function.txt` · `2_Persona.txt` · `3_UniverseDataForThisTask.json`
+- **StarPM V4:** `1_Business_Function.txt` · `2_Persona.txt` only. The pipeline authors `9_Universe_inject.sql` during INJECTION; the platform provides `3_UniverseDataForThisTask.json` and/or `4_Changelog.json` after the CB executes the SQL on the platform.
 
 Review-mode files to paste (CB list + 4 more):
-- `5_Prompt.txt` · `6_Oracle_Events.txt` · `7_Rubrics.json` · `8_Verifier_Fails.txt` (optional — only if candidate already ran trajectories)
-- If candidate trajectories exist, drop the JSONs into `trajectory-runs/`. `parse_trajectories.py` will pick them up.
+- `5_Prompt.txt` · `6_Oracle_Events.txt` · `7_Rubrics.json`
+- **V3 universes:** `8_Verifier_Fails.txt` (optional — only if candidate already ran trajectories); drop trajectory JSONs into `trajectory-runs/`
+- **StarPM V4:** `8a_Verifier_Fails_Opus.txt` + `8b_Verifier_Fails_Gemini.txt` (optional); drop Opus trajectories into `Agent_Responses/Opus/` and Gemini trajectories into `Agent_Responses/Gemini/`
 
 ---
 
-## The 7 mandatory commands (each in a NEW chat, in order)
+## Mandatory commands (each in a NEW chat, in order)
+
+**V3 universes (Brookfield / Keystone / MoveOps) — 7 commands:**
 
 ```
 PIPELINE S0       — Tasks/<TASK_DIR>
@@ -45,6 +51,37 @@ PIPELINE S4       — Tasks/<TASK_DIR>
 ```
 
 Paste `8_Verifier_Fails.txt` into the task folder + 6 trajectories into `trajectory-runs/` (or `Agent_Responses/`) before S4.
+
+---
+
+**StarPM V4 — 10 commands (3 extra hard gates):**
+
+```
+PIPELINE S0        — Tasks/<TASK_DIR>
+PIPELINE HARDNESS  — Tasks/<TASK_DIR>
+PIPELINE INJECTION — Tasks/<TASK_DIR>
+```
+↓ INJECTION authors 9_Universe_inject.sql + audits it; CB executes SQL on platform ↓
+↓ CB pastes back 3_UniverseDataForThisTask.json (platform-exported post-injection snapshot) ↓
+```
+PIPELINE INJECT-CHECKER — Tasks/<TASK_DIR>
+PIPELINE S1             — Tasks/<TASK_DIR>
+```
+↓ submit prompt to platform ↓
+```
+PIPELINE S2              — Tasks/<TASK_DIR>
+PIPELINE S3              — Tasks/<TASK_DIR>
+PIPELINE FINAL           — Tasks/<TASK_DIR>
+PIPELINE SUBMISSION_GATE — Tasks/<TASK_DIR>
+```
+↓ upload deliverables, run 6 Opus + 6 Gemini trajectories on platform ↓
+```
+PIPELINE S4 — Tasks/<TASK_DIR>
+```
+
+Paste `8a_Verifier_Fails_Opus.txt` + `8b_Verifier_Fails_Gemini.txt` into the task folder + Opus trajectories into `Agent_Responses/Opus/` + Gemini trajectories into `Agent_Responses/Gemini/` before S4.
+
+**INJECT-CHECKER** verifies every injected record landed correctly and auto-rebuilds `_aux/Universe_Split/` on PASS. No manual `python data.py` needed.
 
 ---
 
@@ -128,18 +165,20 @@ For critical deliverables (benchmark submission, redo of a rejected task): appen
 - **S0** → universe split + fact ledger + graph report on disk
 - **HARDNESS** → 4-5 levers picked (3 OK only with high-cost lever combo + per-task justification), density projected **≥ 50 (design target)** / 40-49 = THIN (continue with per-task justification, task at risk of underflow) / < 40 = STOP. Stump hypothesis recorded. STOPs hard if INSUFFICIENT_LEVERS or INSUFFICIENT_DENSITY.
 - **S1 / S2 / S3** → drafts validated + Council A (grounding) + Council B (6 perspectives × 5 lenses, B6 catches upstream propagation issues) + **inline AUDIT (strict veteran second-opinion)**. All must GO. Each runbook starts with a `phase_ready.py` check that refuses to start if upstream artifacts are missing. **S1 additionally runs `calc_similarity.py` after Council B before AUDIT**: < 30 PASS, 30-39 WARN (logged), ≥ 40 STOP with Class B pivot mandatory (the 40% project ceiling — pivot using `Reference/Similarity_Pivot.md`).
+- **INJECTION** *(StarPM V4 only)* → hard-gate quality eval on `9_Universe_inject.sql` + `4_Changelog.json`. 7 structural gates + difficulty score ≥ 3.5 must all pass before any prompt work begins.
 - **FINAL** → cross-artifact check (answer leakage, entity drift, lever regression, integrated density). Mandatory before upload.
+- **SUBMISSION_GATE** *(StarPM V4 only)* → zero-tolerance pre-upload check after FINAL. 6 defect families, 32 patterns. One failure = task FAIL.
 - **AUDIT** → auto-fires inline from S1/S2/S3 (and S1.5 on prompt revise, REVIEW on corrected materialization) as the per-phase strict-interpretation exit gate. Also invokable on-demand in a fresh chat via `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt|oe|rubrics|all}` for high-stakes pre-upload sanity check, post-rejection retro, or post-pipeline-change re-audit. Strictest interpretation: 5/5 only (no NON-FAIL band), density bar 50+ (not 40), every "should" → "must". Read-only.
-- **S4** → real `parse_trajectories.py` measurement of avg tool calls + pass@1 from the 6 platform runs you just pasted in. Each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written AND run through `check_justification.py` before ship.
+- **S4** → real `parse_trajectories.py` measurement of avg tool calls + pass@1 from the platform runs you pasted in. V3 universes: 6 runs, single verifier-fails file. StarPM V4: 12 runs (6 Opus + 6 Gemini), two separate verifier-fails files (`8a` + `8b`). Each failing rubric classified Rubric-Invalid / Judge-Error / Legit-Fail. AF justifications written AND run through `check_justification.py` before ship.
 
 ## When trajectories appear
 
-Trajectories are platform output. They don't exist until you upload + kick off the 6 runs.
+Trajectories are platform output. They don't exist until you upload + kick off the runs (6 for V3 universes; 6 Opus + 6 Gemini for StarPM V4).
 
 | Phase | Are trajectories available? | What the pipeline uses |
 |---|---|---|
-| S0 / HARDNESS / S1 / S1.5 / S2 / S3 / FINAL | No (pre-upload) | Projected density + lever coverage + answer-leakage scan |
-| S4 | Yes — you just pasted them in | Measured pass@1 + avg tool calls (`parse_trajectories.py`) |
+| S0 / HARDNESS / S1 / S1.5 / S2 / S3 / FINAL / INJECTION / SUBMISSION_GATE | No (pre-upload) | Projected density + lever coverage + answer-leakage scan |
+| S4 | Yes — you just pasted them in | Measured pass@1 + avg tool calls (`parse_trajectories.py`). StarPM V4: separate Opus + Gemini measurement. |
 | REDO | Yes (the failed trajectory is why REDO fired) | `_aux/REDO_reason.md` carries the failure numbers |
 | REVIEW | Maybe — depends on whether the candidate already submitted to the platform | Measured if present, projected if not |
 
