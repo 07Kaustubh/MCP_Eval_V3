@@ -2,7 +2,7 @@
 
 **Trigger:** `PIPELINE REDO — Tasks/<TASK_DIR>`
 
-**When to run:** REVIEW already ran, fixes were applied to `14_Updated_Oracle_Events.txt` and/or `15_Updated_Rubrics.json`, the corrected version was uploaded to the platform, 6 trajectories ran — and the task failed on **difficulty** (pass@1 > 40%) or **density** (average tool calls < 40). The candidate's structural design is unsalvageable. The reviewer has to rebuild from scratch like a CB.
+**When to run:** REVIEW already ran, fixes were applied to `14_Updated_Oracle_Events.txt` and/or `15_Updated_Rubrics.json`, the corrected version was uploaded to the platform, 6 trajectories ran — and the task failed on **difficulty** (Opus pass@1 > 40% — Gemini pass rate is not gated and does not trigger REDO) or **density** (average tool calls < 40). The candidate's structural design is unsalvageable. The reviewer has to rebuild from scratch like a CB.
 
 This is also the trigger when a CB's own task came back failing density / difficulty and needs to be rewritten end-to-end.
 
@@ -41,7 +41,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_redo.md` listing ev
 ## Procedure
 
 1. **Confirm the failure reason** from the trajectories:
-   - Compute `pass@1 = (runs that passed all rubrics) / 6`. If > 0.4 → difficulty fail.
+   - Compute `Opus pass@1 = (Opus runs that passed all rubrics) / 6`. If > 0.4 → difficulty fail. (Gemini pass@1 is informational only — does not trigger difficulty fail.)
    - Compute average tool calls across the 6 runs. If < 40 → density fail.
    - If neither failed but FINAL had a BLOCKER that couldn't be patched in 3 REVISE rounds → also redo territory.
    - Document which one(s) in `_aux/REDO_reason.md`: file paths, computed numbers, one-paragraph explanation.
@@ -69,7 +69,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_redo.md` listing ev
 
    What this means
    The task as submitted (with the reviewer's corrections applied) ran 6 trajectories on the
-   platform. <pass@1 was X.XX, above the 40% ceiling | average tool calls were YY, below the
+   platform. <Opus pass@1 was X.XX, above the 40% ceiling | average tool calls were YY, below the
    40 floor>. The corrections fixed surface-level QC issues but the underlying scenario
    <was not hard enough for Opus 4.8 | did not exercise enough services to hit the call-count
    target>. The task has been rebuilt from scratch.
