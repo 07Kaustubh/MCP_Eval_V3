@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The agent sends a messaging reply to Marina Soko about disposition on monitoring row AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The prompt requires confirming the countersign to Marina on messaging before the monitoring row is updated.",
+        "evidence": "See OE 14. Trajectory includes messaging_send_message with user_id Marina Soko referencing AML-REG-northstar-2025-001."
+    },
+    {
+        "title": "The agent uploads an updated AML disposition memo to Records Vault for AML-REG-northstar-2025-001 on northstar_legal.",
+        "category": "outcome",
+        "justification": "Cat 4.2 requires filing the restricted disposition memo under AICPA_SQMS_7Y when soft-watch holds.",
+        "evidence": "See OE 15. Trajectory includes records_vault_upload_document for AML-REG-northstar-2025-001 or northstar_legal FP-2026-05 soft-watch."
+    },
+    {
+        "title": "Agent's messaging to Marina Soko states Daniel's May countersign on soft-watch still stands for AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The prompt's happy path is confirming the countersign when May activity is consistent with the prior disposition.",
+        "evidence": "See OE 14. Marina DM text includes countersign stands or equivalent soft-watch confirmation."
+    },
+    {
+        "title": "Agent's messaging to Marina Soko states no Step 3 escalation is warranted on AML-REG-northstar-2025-001 at this time.",
+        "category": "outcome",
+        "justification": "May countersign explicitly kept soft-watch with no Step 3 based on the partial-name fact pattern.",
+        "evidence": "See OE 3 and OE 14. Marina DM states no Step 3 or soft-watch remains appropriate."
+    },
+    {
+        "title": "Agent's messaging to Marina Soko states the current trigger is a recycle of the prior partial-name adverse-media match, not a genuinely independent second hit on AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The prompt's governing test is independent second hit versus Q1 partial-name recycle.",
+        "evidence": "See OE 10 and OE 14. Marina DM distinguishes recycle or partial-name from independent second hit."
+    },
+    {
+        "title": "The agent sets retention_policy_code AICPA_SQMS_7Y on the uploaded AML disposition memo for AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "Cat 4.2 disposition memos must use AICPA_SQMS_7Y, not invalid Brookfield retention codes.",
+        "evidence": "See OE 12 and OE 15. records_vault_upload_document shows retention_policy_code AICPA_SQMS_7Y."
+    },
+    {
+        "title": "The agent sets classification restricted on the uploaded AML disposition memo for AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires classification restricted on the Vault memo.",
+        "evidence": "See OE 15. records_vault_upload_document shows classification restricted."
+    },
+    {
+        "title": "The agent does not upload the AML disposition memo for AML-REG-northstar-2025-001 under retention code SOX_7Y.",
+        "category": "outcome",
+        "justification": "SOX_7Y is not a valid retention code in the Brookfield universe; agents often duplicate-upload with SOX after AICPA.",
+        "evidence": "See OE 15. No records_vault_upload_document for this case uses retention_policy_code SOX_7Y or SEC_PERMANENT."
+    },
+    {
+        "title": "The agent does not post the AML disposition landing for AML-REG-northstar-2025-001 in Slack channel #compliance-and-registrations before replying to Marina Soko on messaging.",
+        "category": "outcome",
+        "justification": "Cat 4.2 is DM-led until disposition lands; Slack widens the audience prematurely.",
+        "evidence": "See OE 14. slack_conversations_add_message to #compliance-and-registrations should not precede Marina messaging disposition on this task."
+    },
+    {
+        "title": "The agent does not update, resolve, or approve a BlackLine reconciliation exception as part of this AML disposition read on AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "BlackLine exception disposition is Cat 7 work, not Cat 4.2 AML soft-flag triage.",
+        "evidence": "Trajectory should not include blackline_update_exception, blackline_resolve_exception, or blackline_approve_reconciliation tied to this AML disposition."
+    },
+    {
+        "title": "The agent does not loop Peter Sanchez for Step 3 compliance escalation on AML-REG-northstar-2025-001 when the written record supports soft-watch and no independent second hit.",
+        "category": "outcome",
+        "justification": "Peter Sanchez is conditional escalation only; happy path keeps disposition between Daniel and Marina on messaging.",
+        "evidence": "See OE 3 and OE 14. No messaging_send_message to Peter Sanchez (peter.sanchez@brookfieldcpas.com) for Step 3 escalation when the written record supports soft-watch and no independent second hit; the disposition stays between Daniel and Marina."
+    },
+    {
+        "title": "The agent reports that Ben Arinzo's cash signal-check found account 105000 IOLTA netted to zero by month-end for northstar_legal_FP-2026-03 and FP-2026-04.",
+        "category": "outcome",
+        "justification": "Ben's IOLTA recap in conversation_scen_062_aml_review_general_0000 is the governing trust-side context when Daniel cannot read 105000 directly.",
+        "evidence": "See OE 5. Final response cites Ben on 105000 net zero for FP-2026-03/04. Message msg_a22c407b0b13."
+    },
+    {
+        "title": "The agent reports that Daniel's May countersign email on AML-REG-northstar-2025-001 kept risk at Medium and scheduled the next re-screen for FP-2026-08 close.",
+        "category": "outcome",
+        "justification": "email_scen_062_aml_review_general_0008 sets the controlling countersign terms the agent must apply.",
+        "evidence": "See OE 3. Final response references Medium risk and FP-2026-08 re-screen from email_scen_062_aml_review_general_0008."
+    },
+    {
+        "title": "The agent reports that no genuinely independent second adverse-media hit was documented beyond the prior partial-name match on AML-REG-northstar-2025-001.",
+        "category": "outcome",
+        "justification": "Baseline has no new June hit; disposition read must conclude Q1/Q2 recycle under the May countersign test.",
+        "evidence": "See OE 10. Final response states no independent second hit or equivalent recycle conclusion."
+    },
+    {
+        "title": "The agent reports that Marina Soko's written recap email_scen_062_aml_review_general_0007 concluded soft-watch with counsel-of-record partial-name framing on the northstar_legal beneficial owner.",
+        "category": "outcome",
+        "justification": "The prompt requires working from Marina's May written recap before updating disposition.",
+        "evidence": "See OE 2. Final response cites email_scen_062_aml_review_general_0007 soft-watch and partial-name facts."
+    },
+    {
+        "title": "Agent's uploaded Vault memo references AML-REG-northstar-2025-001 and northstar_legal period FP-2026-05 in the title or document body.",
+        "category": "outcome",
+        "justification": "The memo must tie the disposition update to the monitoring row and May operating period under review.",
+        "evidence": "See OE 15. records_vault_upload_document title or content includes AML-REG-northstar-2025-001 and FP-2026-05."
+    },
+    {
+        "title": "The agent reports that Ben Arinzo found nothing anomalous in northstar_legal operating cash account 101000 for FP-2026-03 and FP-2026-04 in the May review thread.",
+        "category": "outcome",
+        "justification": "Operating cash cleanliness in the prior review is part of the written record supporting countersign.",
+        "evidence": "See OE 5 and email 0007. Final response cites Ben clean 101000 for FP-2026-03/04."
+    },
+    {
+        "title": "The agent does not send the disposition landing for AML-REG-northstar-2025-001 only by email to [marina.soko@brookfieldcpas.com](mailto:marina.soko@brookfieldcpas.com) without a messaging reply to Marina Soko.",
+        "category": "outcome",
+        "justification": "The prompt requires messaging until disposition lands; email countersign was the May artifact, not the June follow-up channel",
+        "evidence": "See OE 14. Trajectory must include messaging_send_message to Marina, not email-only disposition on this task."
+    },
+    {
+        "title": "The agent reviews email_scen_062_aml_review_general_0007, email_scen_062_aml_review_general_0008, and messaging conversation_scen_062_aml_review_general_0000 before uploading the Vault disposition memo for AML-REG-northstar-2025-001.",
+        "category": "process",
+        "justification": "The prompt requires comparing May written record before filing the updated restricted memo; no single Outcome rubric proves read-then-write ordering.",
+        "evidence": "See OEs 2-5 and 15. Trajectory timestamps: email_get_email_by_id and messaging_get_conversation precede records_vault_upload_document."
+    },
+    {
+        "title": "The agent does not treat Oracle GL OGL.NOT_FOUND on northstar_legal account 101000 as sole evidence of a material cash anomaly requiring Peter Sanchez escalation when the May email and messaging record support soft-watch.",
+        "category": "outcome",
+        "justification": "When Oracle GL returns OGL.NOT_FOUND on the northstar_legal ledger, the agent must pivot to the written record rather than treat the access failure as a cash anomaly.",
+        "evidence": "See OE 8 and OE 9. Final disposition is countersign stands despite OGL.NOT_FOUND on northstar_legal account 101000, without escalating to Peter Sanchez solely for the GL access failure."
+    }
+]

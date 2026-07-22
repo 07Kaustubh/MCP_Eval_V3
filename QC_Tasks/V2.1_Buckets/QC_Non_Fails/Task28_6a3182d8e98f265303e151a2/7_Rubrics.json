@@ -1,0 +1,62 @@
+[
+    {
+        "title": "The Agent uploads a memo to the records vault with the retention policy set to AICPA audit retention (AICPA_SQMS_7Y) and classification set to restricted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to file the memo in the records vault under standard AICPA audit retention with restricted access.",
+        "evidence": "Look for the records_vault_upload_document tool call. Check that the retention policy is AICPA_SQMS_7Y and classification is restricted."
+    },
+    {
+        "title": "The Agent's uploaded memo includes the four active blockers from the Close Blocker Triage Log: exc_af7274fb658844, exc_abd8e711f5f347, exc_4d5d3582698946, and exc_cb0a9a94a3084c.",
+        "category": "outcome",
+        "justification": "The prompt asks for a deep-dive into every active blocker in the log, and there are exactly four active exceptions.",
+        "evidence": "Check the content of the uploaded document in the records vault."
+    },
+    {
+        "title": "The Agent's uploaded memo includes the underlying BlackLine reconciliations corresponding to the active blockers: BL-3F60ED1C7107, BL-18FFAE0E20D0, BL-0DEC7D2FD9E6, and BL-3E4ED5B5B9BA.",
+        "category": "outcome",
+        "justification": "The prompt requires tracing the blockers back to the underlying reconciliations in BlackLine.",
+        "evidence": "Check the content of the uploaded document in the records vault."
+    },
+    {
+        "title": "The Agent's uploaded memo includes the GL accounts affected by the active blockers: 102000, 101000, 105000, and 131000.",
+        "category": "outcome",
+        "justification": "The prompt requires checking the affected GL accounts to understand the current state for the memo.",
+        "evidence": "Check the content of the uploaded document in the records vault."
+    },
+    {
+        "title": "The Agent's uploaded memo includes recent resolution progress updates from the assigned owners (Priya Singh, Margaret Sullivan, Owen Mercer, and George McAdam).",
+        "category": "outcome",
+        "justification": "The prompt asks to pull together recent updates the assigned owners have shared in Slack and email about resolution progress.",
+        "evidence": "Check the content of the uploaded document in the records vault for summaries or mentions of updates from these owners."
+    },
+    {
+        "title": "The Agent sends a direct message to [mia.hartwell@brookfieldcpas.com](mailto:mia.hartwell@brookfieldcpas.com) and [ryan.delgado@brookfieldcpas.com](mailto:ryan.delgado@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to DM Mia and Ryan.",
+        "evidence": "Look for a messaging or Slack tool call sending a message to Mia Hartwell and Ryan Delgado."
+    },
+    {
+        "title": "The Agent's direct message to Mia and Ryan includes a link or reference to the uploaded audit readiness exception memo.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to DM them with a link to the memo so they can start remediation.",
+        "evidence": "Check the content of the direct message sent to Mia and Ryan."
+    },
+    {
+        "title": "The Agent sends an email to [devon.beale@brookfieldcpas.com](mailto:devon.beale@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt requires drafting an email to James Randall but routing it through the persona (Devon Beale) before sending.",
+        "evidence": "Look for an email sent to the persona's email address."
+    },
+    {
+        "title": "The Agent's email to Devon Beale includes a draft message intended for [james.randall@brookfieldcpas.com](mailto:james.randall@brookfieldcpas.com) confirming that the preliminary exception review is ready for his perusal.",
+        "category": "outcome",
+        "justification": "The prompt asks to draft an email for James Randall confirming the review is ready, routed through the persona.",
+        "evidence": "Check the content of the email sent to Devon Beale for the draft."
+    },
+    {
+        "title": "The Agent verifies that the client consent letters for the audit engagements are on file in the records vault.",
+        "category": "process",
+        "justification": "The prompt explicitly asks to make sure the client consent letters are on file before pulling workpapers. A Process rubric is required because this verification step is not guaranteed to be reflected in the resulting memo or emails.",
+        "evidence": "Look for a tool call (such as records_vault_list_documents) checking for consent letters in the trajectory."
+    }
+]

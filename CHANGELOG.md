@@ -1,3 +1,34 @@
+## v21.2 (2026-07-22) - Source parity restoration + corpus expansion + upstream-drift tooling
+
+Source-of-truth audit against the four upstream zips (V3 Brookfield, V3.1 KeyStone, V2.1 MoveOps, V4 StarPM re-drop):
+
+- **Regression found and fixed: the Brookfield lane was one spec generation stale.** KeyStone/MoveOps/StarPM repo copies were byte-identical to source, but `Evals/1-4`, `Docs/7+8`, `Guide/`, and `Tasks_Template/` lagged the current upstream drop, which backports the V4-era hard gates (T9-T12, Gap 1-7, UGT precision guardrail, phantom tight-identifier grep, act-vs-defer, dimensional feasibility, write-as-deliverable, pre-verdict sweep) to Brookfield. Adopted upstream verbatim; eval hash pins refreshed (18 files).
+- **Flavor correction kept where upstream is self-contaminated:** the new `Docs/7_QC_Spec_Doc1.json` still says "v3 = Keystone Mortgage"; repo carries the Brookfield-corrected copy (rules verbatim, labels fixed), pinned in `Validators/source_sync_deviations.json`.
+- **QC ground-truth corpora vendored for ALL universes:** `QC_Tasks/V3_Buckets/` (16), `V3.1_Buckets/` (16), `V2.1_Buckets/` (80) join `V4_Tasks/` (16). `qc_verdict.py selftest` is bucket-correct on all 128 labeled tasks with zero parser changes - evidence the verdict engine is structural, not fixture-fitted.
+- **Injection validation generalized:** every upstream template now ships `9_Universe_inject.sql` + `4_Changelog.json`; `validate.py --phase injection` is presence-gated for all universes (comment-only headers SKIP; V3-family date ceiling = registry `today`; per-universe ID token classes; StarPM keeps the full fixed-window V4 gates). New anchor SP-INJ-3; SP-SUB-2 retargeted; anchors now 62.
+- **Per-universe task templates:** `Tasks_Template_keystone/` + `Tasks_Template_moveops/` vendored; `new_task.py` routes template content per universe and seeds injection artifacts into V3-family scaffolds.
+- **New tool `check_source_sync.py`:** hash pins only detect repo-side edits - they can never see an upstream release (root cause of the stale Brookfield lane). The sync tool diffs repo spec surfaces against an extracted upstream drop, with documented-deviation support (`--expect-deviations`).
+- **Practice benchmark (web research):** pipeline already matches 2026 industry guidance (frozen regression baseline ~ Anthropic regression suites; S4 buckets ~ scorer-wrong/agent-wrong attribution; dispute trio ~ expert reconciliation; deterministic-first graders). Known open item: councils are uncalibrated LLM judges - the 128-task corpus is now available as a calibration set (kappa >= 0.6 target per industry baseline) but calibration runs are not yet part of any phase.
+
+Gates at closure: check_regression PASS (anchors 62/62, reports 21/21 identical, verdicts 7/7 unchanged) - selftest 128/128 across 4 corpora - source sync PASS x4 (brookfield with 2 documented deviations).
+
+## v21.1 (2026-07-22) - V4 parity closure + consumer audit
+
+Post-integration review pass (industry-veteran parity audit of every V4 consumer surface):
+
+- **validate.py**: read-only task dirs now fail gracefully (exit 2 + message) instead of PermissionError traceback.
+- **close_task.py**: V4 (per_model) tasks now require `4_Changelog.json` + `9_Universe_inject.sql` to ship and warn on missing `8a`/`8b` dual-model verifier files. V3 behavior byte-identical.
+- **phase_ready.py**: for starpm, `--phase s4` requires `8a_Verifier_Fails_Opus.txt` + `8b_Verifier_Fails_Gemini.txt` (replacing `8_Verifier_Fails.txt`), `--phase final` additionally requires `4_Changelog.json` + `9_Universe_inject.sql`.
+- **FINAL.md**: QC-spec docs row routed per `_aux/Universe.txt`; V4 hard gates added (`--phase injection` + `--phase submission_gate` must PASS pre-council; StarPM density 40+/15 per model; dual-model sign-off note).
+- **S0.md**: V4 injection gate - non-empty `9_Universe_inject.sql` must clear Evals_starpm/0 deterministic gates before HARDNESS.
+- **S4.md**: dual-model loop documented (run eval once per model; per-model pass@1 <= 40% and density; per-model bucket files; qc_verdict parse/classify/audit for QC-feedback-stage tasks).
+- **FEEDBACK.md**: universe-routed spec baseline (Docs_starpm/7+8 for starpm; 13_QC_Companion explicitly excluded as contaminated); V4 originals include 4/9/8a/8b; every finding must cite an SSOT atom, enforced via `qc_verdict.py audit` (NO-ATOM-CITED findings go back for revision); `qc_verdict.py feedback` provides the skeleton draft.
+- **NEW.md**: V4 scaffolding documented (`new_task.py --universe starpm [--review]`, full V4 file shape, injection as first-class authoring artifact).
+- **AGENTS.md**: hard-rule 4 now carries the V4 injection exception (inject-not-edit); hard-rule 11 density scheme scoped per framework (V3: 50/40 · V4: 40/15 per model).
+- **Main-branch comparison**: main's latest commit (358c6ed) is a repo-layout restructure only - zero V4/StarPM content (no registry, no v4 phases, no QC verdict engine, 4-phase validate.py). OMEGA is a strict superset on V4; main's filename-only universe detection is weaker than the registry's signal-scored detection and was not adopted.
+
+Gates at closure: check_regression PASS (anchors 61/61, reports 21/21 identical, verdicts 7/7 unchanged) · qc_verdict selftest 16/16 bucket-correct.
+
 # Changelog
 
 ## 2026-06-30 — v21: Pipeline Consolidation (6 Tracks — Spec Sync + Bloat Trim + SSOT Pointers + Orphan Archive + Conditional AUDIT + Deterministic Promotion)

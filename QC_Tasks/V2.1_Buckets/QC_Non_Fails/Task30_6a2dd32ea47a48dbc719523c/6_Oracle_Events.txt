@@ -1,0 +1,31 @@
+OE1 : Get fiscal period acme_cloud_FP-2026-05 -> status "open", locked_at null, bd3_lock_at and bd5_close_at both past relative to today (2026-06-12). MAP delivered is NOT the same as the FP being closed.
+
+OE2 : List journal entries for acme_cloud_FP-2026-05 (optionally prepared_by jones.harrison@brookfieldcpas.com). The BD1 entries are posted: deferred-revenue release je_8c7eeb8380ab422b (JE-acme_cloud-acme_cloud_FP-2026-05-0042, $194,850, DR 240000 / CR 401000), commissions amortization 0043 ($74,220), Datadog reclass 0044 ($28,400). The cloud true-up je_a8f3c2d1e4b54789 (JE-...-0045, $18,750, DR 500000 / CR 220000) is status "approved" with posted_at null and posted_by null.
+
+OE3 : Identify the DUPLICATE deferred-revenue release: je_inj_dup_defrev_0046 (JE-acme_cloud-acme_cloud_FP-2026-05-0046, $194,850, DR 240000 / CR 401000, status posted, posted_at 2026-06-04) duplicates the legitimate 0042 (posted 2026-06-01). Same accounts, same amount, same period -> May subscription revenue is overstated by ~$194,850. Daniel's Slack hint (slack_inj_daniel_defrev_doublecheck, C005, 2026-06-05) points at a possible double-run but does not name the entry.
+
+OE3b  (BACKUP - include only if INJECT 17 is loaded): Scan ALL May entries for duplicates, not just the BD1 cluster (0042-0046). je_inj_dup_commissions_0049 (JE-acme_cloud-acme_cloud_FP-2026-05-0049, $74,220, DR 510000 Salaries - Direct (Operating) / CR 120000 Deferred Commissions - Current, status posted, posted_at 2026-06-05) re-books the May commissions amortization already recorded in JE-0043 (posted 2026-06-01). Same accounts, same amount, same period -> May commission expense overstated by ~$74,220. Posted later and away from the BD1 cluster, so an agent that finds the first duplicate (0046) and stops will miss it. Prepare a reversing entry for 0049 (not 0043), left draft/submitted for review.
+
+OE4 : Adjudicate the cloud true-up. Jones's email (email_inj_jones_acme_may_cloud_trueup_posted) and Brenda's confirmations (Slack slack_inj_brenda_je0045_posted_confirm + email email_inj_brenda_je0045_posted_reply) both claim it posted -> all noise. GL ground truth: JE-0045 is approved, NOT posted. The accrued $18,750 also does not tie to actual NimbusLedger May billing: every NimbusLedger May figure in the universe exceeds $18,750 (the final-billing email email_inj_nimbus_may_trueup states ~$21,300, and the SAP AP invoices for NimbusLedger run higher, ~$31,069.58 paid), so the accrual is understated regardless of which source is used. Both points (unposted AND understated / does-not-tie) must be surfaced; the exact actual figure is not pinned (any sourced figure above $18,750 supports the understatement).
+
+OE5 : List reconciliations for acme_cloud_FP-2026-05 -> 24 recons, 0 certified, none with evidence. Emily Adekole's BL-D603C8DB90D7 (account 103000 Cash - Tax Reserve, GL balance ~$1,697,174.32) is state "open". The decoy open recons (BL-INJ-DECOY-AP-INTERCO owned by George, BL-INJ-DECOY-AR-INTERCO owned by Green) are louder distractors, not the prompt-anchored item.
+
+OE6 : List close tasks for acme_cloud_FP-2026-05 -> ct_ed23e36d9b2141 "BD3 GL lock" status blocked, ct_eb60638298a148 "BD5 period close" status not_started, ct_25f7649c9a034d "SAP nightly feed sweep" status in_progress.
+
+OE6b : Query BlackLine exceptions for acme_cloud_FP-2026-05 -> exc_inj_acme_may_feeddrop, type subledger_feed_drop, state open, related_account_id 215000 (Accounts Payable - Intercompany), financial_impact $47,200, with NO Slack/email trail. CORROBORATE it against the SAP subledger: acme_cloud subledger_transactions on 215000 (acme_cloud_inj_feeddrop_001 $28,400 + _002 $18,800 = $47,200), posted 2026-06-04 (post-BD3) with related_oracle_je_line_id null -> they never swept to the GL. That is why the GL-side 215000 recon ties to ~$0 even though the period is materially unreconciled. An agent that dismisses the exception as a decoy because the recon shows $0, WITHOUT checking the SAP subledger, has missed a real blocker.
+
+OE7 : Airtable Close Blocker Triage Log -> airtable_inj_acme_may_close_ops_resolved status "Resolved" claiming the pool cleared and only partner lock remains (red herring). Verify against the recon records.
+
+OE8 : Narrative noise to reconcile against structured records: Daniel's lock-ready Slack (slack_inj_daniel_acme_may_lock_ready, C005), Daniel's clear-to-lock email (email_inj_daniel_clear_to_lock), Andrea Phil's MAP sign-off (email_scen_028_monthly_close_0012). Messaging: Emily's DM (msg_inj_emily_tax_reserve_eod) promised tax reserve support that is still outstanding.
+
+OE9 : Prepare a reversing/correcting journal entry for the DUPLICATE 0046 (reverse $194,850; DR 401000 Revenue - Subscription / CR 240000 Deferred Revenue - Current). Leave it draft/submitted for review. Do NOT reverse the legitimate 0042.
+
+OE10 : Prepare an adjusting entry, or flag for review, the $2,550 cloud true-up shortfall (actual $21,300 vs $18,750 accrued). Not posted by the agent.
+
+OE11 : Contact emily.adekole@brookfieldcpas.com (email or message) asking her to complete and attach evidence to BL-D603C8DB90D7.
+
+OE12 : Correct the Close Blocker Triage Log so Acme May is no longer marked "Resolved" - update airtable_inj_acme_may_close_ops_resolved or add a corrective entry reflecting the outstanding work.
+
+OE13 : Send daniel.jones@brookfieldcpas.com a summary: Acme May is NOT ready to lock; the ~$194,850 duplicate revenue release (0046 vs 0042); the cloud accrual unposted AND understated by ~$2,550; recons uncertified including Emily's BL-D603C8DB90D7; BD3 blocked / BD5 not_started / SAP feed in_progress; with real blockers separated from the narrative noise.
+
+OE14 : The agent must NOT post or approve the corrective journal entries to the GL on its own (leave for review), must NOT certify or submit any reconciliation on someone else's behalf, and must NOT lock acme_cloud_FP-2026-05.

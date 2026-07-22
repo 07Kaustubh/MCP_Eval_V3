@@ -1,0 +1,134 @@
+[
+    {
+        "title": "The Agent uploads a Northstar Legal partner-distribution pressure-test workpaper (or similar) to the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to file a pressure-test workpaper under the standard tax retention code.",
+        "evidence": "Check trajectory for a Records Vault document upload with a title referencing the Northstar Legal partner-distribution pressure-test workpaper (or similar). Per OE step 8."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper is filed under retention code IRS_TAX_7Y.",
+        "category": "outcome",
+        "justification": "The prompt requires filing under the standard tax retention code; IRS_TAX_7Y is the firm tax workpaper retention policy.",
+        "evidence": "Check upload parameters for retention code IRS_TAX_7Y. Universe GT: agentenv._records_vault_._rv_retention_policies_.json code IRS_TAX_7Y. Per OE steps 7\u20138."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper content includes approximately $1.1M of partner distribution concentration on recommendations 1 and 2 in a three-week June window.",
+        "category": "outcome",
+        "justification": "The workpaper must capture William's primary operational flag from the sign-off.",
+        "evidence": "Check workpaper content for the approximately $1.1M June concentration. GT: email_scen_047_tax_regulatory_0007. Per OE step 8."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper content states that recommendation 3 remains review-only with no ledger or accounting changes.",
+        "category": "outcome",
+        "justification": "The pressure-test workpaper must reflect the review-only treatment of recommendation 3 per William's sign-off and the prompt constraint.",
+        "evidence": "Check workpaper content for recommendation 3 as review-only with no accounting changes. GT: email_scen_047_tax_regulatory_0007. Per OE step 8."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper content includes the posted anchor pairing of 519000 Partner Compensation and 260000 Partner Distributions Payable on $124,858.15.",
+        "category": "outcome",
+        "justification": "The workpaper must reflect the ledger-validated split convention for recommendation 3.",
+        "evidence": "Check workpaper content for 519000, 260000, and $124,858.15 from JE-northstar_legal-FP-2025-07-0014 (je_6be00df0c1f14a37). Per OE steps 6 and 8."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper content references approximately $180K of aggregate tax savings from shifting the Q4 partner distribution cadence forward.",
+        "category": "outcome",
+        "justification": "OE step 8 requires the workpaper to capture the workshop model savings figure from Hannah's May 6 Slack post.",
+        "evidence": "Check workpaper content for approximately $180K Q4 cadence savings. GT: scenario_scen_047_tax_regulatory_hannah_adds_model_output_0 in C006. Per OE step 8."
+    },
+    {
+        "title": "The Agent's Records Vault workpaper content references William White's open late-June question on whether recommendations 1 and 2 should move together or be staged.",
+        "category": "outcome",
+        "justification": "OE step 8 requires the workpaper to capture the open implementation decision William flagged in his sign-off for Matthew's late-June follow-up.",
+        "evidence": "Check workpaper content for the together-versus-staged follow-up on recs 1 and 2. GT: email_scen_047_tax_regulatory_0007. Per OE step 8."
+    },
+    {
+        "title": "The Agent sends an email from [hannah.grant@brookfieldcpas.com](mailto:hannah.grant@brookfieldcpas.com) to [matthew.li@brookfieldcpas.com](mailto:matthew.li@brookfieldcpas.com) with [william.white@brookfieldcpas.com](mailto:william.white@brookfieldcpas.com), [tom.chang@brookfieldcpas.com](mailto:tom.chang@brookfieldcpas.com), and [alex.cahoon@brookfieldcpas.com](mailto:alex.cahoon@brookfieldcpas.com) copied.",
+        "category": "outcome",
+        "justification": "The prompt asks to email Matthew the operational read with William, Tom, and Alex copied.",
+        "evidence": "Check email_send_email with sender hannah.grant@brookfieldcpas.com, recipient matthew.li@brookfieldcpas.com, and CC including william.white@brookfieldcpas.com, tom.chang@brookfieldcpas.com, and alex.cahoon@brookfieldcpas.com. Per OE step 9."
+    },
+    {
+        "title": "The Agent's email to Matthew Li includes approximately $1.1M of partner distribution concentration on recommendations 1 and 2 in a three-week June window per William White's May 7, 2026 sign-off.",
+        "category": "outcome",
+        "justification": "The prompt directs the agent to lean on William's May 7 sign-off for the June window figure in Matthew's decision package.",
+        "evidence": "Check email content for approximately $1.1M June concentration on recs 1 and 2. GT: email_scen_047_tax_regulatory_0007. Per OE step 9."
+    },
+    {
+        "title": "The Agent's email to Matthew Li states that recommendation 3 remains review-only with no accounting action.",
+        "category": "outcome",
+        "justification": "Matthew's operational read must reflect the review-only treatment of recommendation 3.",
+        "evidence": "Check email content for recommendation 3 as review-only with no ledger changes. GT: email_scen_047_tax_regulatory_0007. Per OE step 9."
+    },
+    {
+        "title": "The Agent's email to Matthew Li references approximately $180K of aggregate tax savings from shifting the Q4 partner distribution cadence forward.",
+        "category": "outcome",
+        "justification": "Matthew's operational read should include the workshop model savings figure from Hannah's May 6 Slack post.",
+        "evidence": "Check email content for approximately $180K Q4 cadence savings. GT: scenario_scen_047_tax_regulatory_hannah_adds_model_output_0 in C006. Per OE step 9."
+    },
+    {
+        "title": "The Agent's email to Matthew Li references the posted anchor split of 519000 Partner Compensation and 260000 Partner Distributions Payable on $124,858.15.",
+        "category": "outcome",
+        "justification": "The decision package must carry the ledger-validated split convention for recommendation 3.",
+        "evidence": "Check email content for 519000/260000 on $124,858.15. GT: je_6be00df0c1f14a37. Per OE steps 6 and 9."
+    },
+    {
+        "title": "The Agent's email to Matthew Li references William White's open late-June question on whether recommendations 1 and 2 should move together or be staged.",
+        "category": "outcome",
+        "justification": "Matthew's operational read must include the open implementation decision from William's sign-off.",
+        "evidence": "Check email content for the together-versus-staged follow-up on recs 1 and 2. GT: email_scen_047_tax_regulatory_0007. Per OE step 9."
+    },
+    {
+        "title": "The Agent posts a message in the #tax-prep-and-filings Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt asks for a quick update in #tax-prep-and-filings.",
+        "evidence": "Check slack_conversations_add_message targeting #tax-prep-and-filings or channel_id C006. Per OE step 10."
+    },
+    {
+        "title": "The Agent's Slack message in #tax-prep-and-filings summarizes the Northstar Legal planning pressure-test or Matthew decision package (or similar).",
+        "category": "outcome",
+        "justification": "The Slack update should give the tax team visibility on the planning pressure-test or Matthew decision package.",
+        "evidence": "Check Slack payload for pressure-test or decision-package context. Per OE step 10."
+    },
+    {
+        "title": "The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to message William and Tom on the existing three-way thread.",
+        "evidence": "Check messaging_send_message_to_conversation on conversation_id conv_ed8b2920e4bf (title Hannah Grant, Tom Chang & William White). GT: agentenv._messaging_._conversations_.json. Per OE step 11."
+    },
+    {
+        "title": "The Agent's message on the three-way conversation with Hannah Grant, Tom Chang, and William White states that the ledger-validated split-convention accounts for Northstar recommendation 3 are 519000 Partner Compensation and 260000 Partner Distributions Payable per the posted anchor entry.",
+        "category": "outcome",
+        "justification": "The prompt requires messaging William and Tom with validated account numbers from the posted anchor.",
+        "evidence": "Check messaging content for 519000/260000 from JE-northstar_legal-FP-2025-07-0014. Per OE steps 6 and 11."
+    },
+    {
+        "title": "The Agent reports to Hannah Grant that the posted anchor entry shows $124,858.15 with a debit to 519000 Partner Compensation and a credit to 260000 Partner Distributions Payable.",
+        "category": "outcome",
+        "justification": "Hannah explicitly asked what the posted anchor entry shows for amount and accounts.",
+        "evidence": "Check final response for amount $124,858.15 and accounts 519000 Partner Compensation (debit) and 260000 Partner Distributions Payable (credit). GT: je_6be00df0c1f14a37 status posted. Per OE steps 6 and 12."
+    },
+    {
+        "title": "The Agent reports to Hannah Grant that moving the Q4 partner distribution cadence forward yields approximately $180K of aggregate tax savings.",
+        "category": "outcome",
+        "justification": "Hannah asked for the tax savings from moving the Q4 cadence forward.",
+        "evidence": "Check final response for approximately $180K savings from shifting the Q4 cadence forward. GT: scenario_scen_047_tax_regulatory_hannah_adds_model_output_0 in C006. Per OE steps 4 and 12."
+    },
+    {
+        "title": "The Agent reports to Hannah Grant that recommendation 3 requires no accounting action before Northstar Legal's 2026-06-30 year-end.",
+        "category": "outcome",
+        "justification": "Hannah asked whether recommendation 3 needs any accounting action before year-end.",
+        "evidence": "Check final response for recommendation 3 as review-only with no ledger changes before year-end. GT: email_scen_047_tax_regulatory_0007. Per OE steps 2 and 12."
+    },
+    {
+        "title": "The Agent reports to Hannah Grant that William White's late-June follow-up must confirm whether the Q4 cadence shift and Schmidt retirement special should move forward together or be staged.",
+        "category": "outcome",
+        "justification": "Hannah asked what William said still needs to be confirmed at the late-June follow-up.",
+        "evidence": "Check final response for the together-versus-staged decision on recommendations 1 and 2. GT: email_scen_047_tax_regulatory_0007. Per OE steps 2 and 12."
+    },
+    {
+        "title": "The Agent reports to Hannah Grant that William White's May 7, 2026 note to Tom Chang does not match the posted anchor entry pairing of 519000 Partner Compensation and 260000 Partner Distributions Payable.",
+        "category": "outcome",
+        "justification": "Hannah asked whether William's May 7 note to Tom lines up with the posted pairing; the DM uses different accounts than the posted ledger anchor.",
+        "evidence": "Check final response for a mismatch conclusion between William's May 7 note to Tom and the posted 519000/260000 pairing. GT: msg_6342575ddb7a (320000 vs 690000) vs je_6be00df0c1f14a37. Per OE steps 5, 6, and 12."
+    }
+]

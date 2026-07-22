@@ -1,0 +1,9 @@
+The AP workflow standardization items need to be current before the next scan cycle. Several process gaps from the last few exception rounds are still open on the board and I need to confirm where each one stands.
+
+The duplicate-detection rule that came out of the CrownPeak review needs a decision. Matthew asked me to own the final call on whether to tighten the fuzzy-match logic across all three entities before any production change. I need the test results and the current rule scope before I can sign off or push back.
+
+The orphan-approver routing fix from the LatticeHill case should have been implemented after Andrea approved the release in May. Confirm whether the routing rule was patched and whether the sweep for additional orphan-approver cases on Brookfield turned up anything - that count was due weeks ago.
+
+The Bridgefield Backup Systems invoice has been pending approval since last summer and keeps surfacing as a standardization example. The approval chain stall was supposed to be exactly the kind of gap this effort addresses. I need to know what is still blocking it and whether the handoff rules were updated.
+
+Pull the current status on each item, update the tracking board, and bring the open issues current. Message Tariq with the Bridgefield status so he can prep the approval chain fix, and give Daniel a heads-up that the standardization board is being updated. Schedule a working session for the standardization review this week and set me a reminder the morning of.

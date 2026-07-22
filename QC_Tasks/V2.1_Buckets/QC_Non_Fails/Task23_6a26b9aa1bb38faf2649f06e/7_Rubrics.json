@@ -1,0 +1,74 @@
+[
+    {
+        "title": "The Agent determines that the correct net release amount for the undisputed portion of TimeLedger Nexus invoice VEN-010-514242 is $9,250, not the $17,825 that Steven Perry approved.",
+        "category": "outcome",
+        "justification": "The $17,825 approved figure is reduced by three adjustments: a $4,250 advance payment already disbursed (Oracle GL JE-acme_cloud-FP-2026-04-0097), a $1,875 vendor credit note for a late-delivery penalty (SAP subledger acme_cloud_6000009701), and a $2,450 prior overpayment offset from VEN-010-391726 (per Margaret Sullivan's instruction and Records Vault doc_tln_offset_auth_0001). $17,825 - $4,250 - $1,875 - $2,450 = $9,250. An agent that releases $17,825 (accepts Owen's dismissal), $13,575 (misses credit note and offset), $15,950 (misses advance and offset), or $11,125 (misses credit note) fails.",
+        "evidence": "je_tln_adv_042026_0001 (Dr 210000 $4,250, description: 'against VEN-010-514242 undisputed portion'); acme_cloud_6000009701 (Dr 210000 $1,875, description: 'undisputed Phases 1-2 services'); doc_tln_offset_auth_0001 + email_tln_offset_auth_0001 ($2,450 offset instruction). Net = $9,250."
+    },
+    {
+        "title": "The Agent identifies the $4,250 advance payment posted April 18, 2026 (JE-acme_cloud-FP-2026-04-0097) as a prior partial disbursement against the undisputed portion of VEN-010-514242 that reduces the remaining release amount.",
+        "category": "outcome",
+        "justification": "The advance is the first reduction and is the system-of-record proof (Oracle GL) that the undisputed AP balance has already been partially reduced. The JE description explicitly says 'against VEN-010-514242 undisputed portion,' contradicting Owen Mercer's Slack claim that it was for a separate billing cycle. An agent that accepts Owen's dismissal misses this reduction.",
+        "evidence": "Oracle GL je_tln_adv_042026_0001: Dr 210000 $4,250 / Cr 101000 $4,250, posted 2026-04-18, description 'Advance payment to TimeLedger Nexus - goodwill partial against VEN-010-514242 undisputed portion while Phase-3 dispute resolution pending.'"
+    },
+    {
+        "title": "The Agent identifies the $1,875 vendor credit note (SAP subledger acme_cloud_6000009701, posted 2026-05-28) as a late-delivery penalty on the undisputed Phases 1-2 services that reduces the release amount.",
+        "category": "outcome",
+        "justification": "The credit note is the second reduction and is recorded only in the SAP subledger (no corresponding Oracle GL entry). The description says 'undisputed Phases 1-2 services,' contradicting Owen Mercer's Slack claim that it is earmarked against the disputed Phase-3 portion. An agent that never queries the subledger or accepts Owen's dismissal misses this reduction.",
+        "evidence": "SAP subledger acme_cloud_6000009701: debit $1,875, GL account 210000, description 'Vendor credit note - TimeLedger Nexus late-delivery penalty per SOW clause 4.2 on undisputed Phases 1-2 services (VEN-010-514242 / apinv_d3019cdcc6ed44b2); reduces AP balance on undisputed portion.'"
+    },
+    {
+        "title": "The Agent identifies the $2,450 prior overpayment offset from invoice VEN-010-391726 (per Margaret Sullivan's instruction and Records Vault document doc_tln_offset_auth_0001) as an amount to be netted against the current release.",
+        "category": "outcome",
+        "justification": "The overpayment offset is the third reduction. Margaret Sullivan's email instructs Owen Mercer to 'net this $2,450 against the release amount' before the next TimeLedger payment goes out. The Records Vault document is linked to apinv_d3019cdcc6ed44b2. An agent that dismisses this as unsubstantiated fails.",
+        "evidence": "email_tln_offset_auth_0001 (Margaret to Owen, cc Daniel, June 3): 'please net this $2,450 against the release amount'; doc_tln_offset_auth_0001 title: 'Acme Cloud - TimeLedger Nexus Q4 2025 overpayment offset authorization ($2,450 from VEN-010-391726 to apply against current release)', related_resource_id: apinv_d3019cdcc6ed44b2."
+    },
+    {
+        "title": "The Agent sends an email to [steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com) informing him that the release amount has been revised from $17,825 to $9,250 due to three adjustments discovered during payment preparation.",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to copy Steven on the final confirmation. Since the release amount differs from what Steven approved, the agent must inform Steven of the revised figure and the reasons. Emailing Steven with the wrong figure ($17,825) fails this rubric.",
+        "evidence": "Prompt: 'Copy Steven on the final confirmation once the payment is queued.' Steven approved $17,825 (email_scen_029_ap_escalation_0008); correct figure is $9,250."
+    },
+    {
+        "title": "The Agent's email to Steven Perry includes the three adjustments that reduce the release: the $4,250 advance payment, the $1,875 vendor credit note, and the $2,450 overpayment offset, and states the net release is $9,250.",
+        "category": "outcome",
+        "justification": "Steven approved $17,825 and needs to understand why the actual release is lower. The email must carry the breakdown so Steven can verify the revised figure.",
+        "evidence": "Three reductions: $4,250 (GL advance), $1,875 (subledger credit note), $2,450 (overpayment offset). $17,825 - $4,250 - $1,875 - $2,450 = $9,250."
+    },
+    {
+        "title": "The Agent sends an email or written notification to [brenda.abbas@brookfieldcpas.com](mailto:brenda.abbas@brookfieldcpas.com) confirming that the undisputed portion of VEN-010-514242 is being released.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to notify Brenda Abbas at TimeLedger that the undisputed portion is being released. The notification confirms the payment is proceeding.",
+        "evidence": "Prompt: 'notify Brenda Abbas that the undisputed portion is being released.' Brenda's email: brenda.abbas@brookfieldcpas.com (fact ledger id_registry, NPC contact for TimeLedger Nexus vendor relationship)."
+    },
+    {
+        "title": "The Agent's notification to Brenda Abbas states the release amount as $9,250 (not $17,825) and notes that the disputed $6,650.25 remains held pending resolution of the Phase-3 dispute.",
+        "category": "outcome",
+        "justification": "The vendor needs to know the actual payment amount they will receive. Stating $17,825 (the pre-adjustment figure) would be incorrect and create a reconciliation discrepancy on the vendor side.",
+        "evidence": "Correct release $9,250; disputed portion $6,650.25 still held (per Steven's approval and the original dispute framing)."
+    },
+    {
+        "title": "The Agent updates or comments on the Linear issue (issue_e6fbc488077344c28cc7cd13640c54bc) to reflect the final disposition of the AP escalation.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to close out the Linear ticket. The AP escalation has a standing Linear issue tracking it.",
+        "evidence": "Linear issue issue_e6fbc488077344c28cc7cd13640c54bc: 'AP escalation: TimeLedger Nexus VEN-010-514242 / apinv_d3019cdcc6ed44b2', state_id: todo."
+    },
+    {
+        "title": "The Agent's Linear issue update or comment states that the release amount is $9,250 (not $17,825) and that the AP escalation is resolved with payment queued for the corrected undisputed portion.",
+        "category": "outcome",
+        "justification": "The Linear issue description currently shows the recommended disposition as 'release $17,825.' The update must reflect the actual corrected figure so the ticket accurately records the final outcome. An agent that closes the ticket with the wrong amount or without stating the disposition leaves the record inaccurate.",
+        "evidence": "Linear issue description recommends $17,825; correct release is $9,250 per the three adjustments ($4,250 advance + $1,875 credit note + $2,450 offset)."
+    },
+    {
+        "title": "The Agent posts a wrap-up message in the #vendor-bills-and-ap Slack channel (C010) summarizing the release disposition.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to drop a wrap-up note in the vendor-bills channel so the team knows this one is done.",
+        "evidence": "Prompt: 'drop a wrap-up note in the vendor-bills channel so the team knows this one is done.' C010 = #vendor-bills-and-ap (slack_channels.json)."
+    },
+    {
+        "title": "The Agent's wrap-up message in #vendor-bills-and-ap states the correct release amount of $9,250 and notes the adjustments that reduced it from the originally approved $17,825.",
+        "category": "outcome",
+        "justification": "Owen Mercer previously posted in this channel affirming $17,825. The wrap-up must correct the record with the accurate $9,250 figure and the reasons for the difference, so the team has the right information.",
+        "evidence": "Owen's Slack message (b4e7c2a9f1d3058a6c8e0b2d4f6a8c01) affirmed $17,825; correct figure is $9,250 per the three adjustments."
+    }
+]

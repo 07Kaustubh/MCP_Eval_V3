@@ -1,0 +1,34 @@
+Task: Task10_6a36d9114aab5fba781fa894
+Business Function: Bookkeeping
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing issues:
+-
+
+Non-failing issues:
+
+[Non-Fail - Up to 10% Major Errors]
+- Total major rubric errors ~8.3% (1/12)
+- Missing Criteria - Outcome x 1:
+  - The prompt explicitly asks the agent to "cc George on anything from his bank-rec follow-up that affects the tie-out" but C10 only checks that George was cc'd and C12 checks that the operating cash was stated being short. There is no criterion that checks if the content states whether the offsetting side ties / whether the sweep explanation holds although this is also mentioned in the oracle events.
+
+[Non-Fail - Minor Factual Errors]
+- Daniel's June 11 email sets the deadline as "EOD tomorrow," which is June 12 (the universe "today"). The prompt however states the deadline is "before end of day tomorrow" without adjustment which pushes the deadline to June 13. OE1 mentions both dates and the discrepancy but doesn't really provide any explanation. This is a minor factual error: the date is wrong relative to its source, but no required action depends on resolving it and none of the trajectory failures trace to deadline confusion
+
+Discussion:
+-
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 10% Major Errors]","[All] [All] [Non-Fail - Minor Factual Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

@@ -1,0 +1,23 @@
+Task: Task6_6a3aaa279b25b23eafd0760f
+Business Function: Executive / Partner Oversight
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Inaccurate Oracle Events] OE3 states "using records_vault_list_documents (kind: "memo", entity_id: "acme_cloud")", but the kind calue should be "tax_return". The related_resource_type would be "memo".
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Inaccurate Oracle Events]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

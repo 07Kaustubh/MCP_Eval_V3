@@ -1,0 +1,98 @@
+[
+    {
+        "title": "The Agent updates the AP Workflow Exceptions tracking board with current status for the Bridgefield Backup Systems item (invoice VEN-019-583136)",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'update the tracking board.' The Bridgefield Backup Systems item is a key open exception on the AP Workflow Exceptions board and is one of the primary items the user discusses.",
+        "evidence": "Look for an update to the Bridgefield record (airtable_ff019d106853) in the AP Workflow Exceptions table (airtable_8ee8b6013413) via airtable_update_records. The update should reflect investigation findings about the invoice status."
+    },
+    {
+        "title": "The Agent updates the CrownPeak partner sign-off issue ('Add partner sign-off conditions to CrownPeak duplicate-detection follow-up' or similar) in the project tracker with current status.",
+        "category": "outcome",
+        "justification": "The prompt says 'bring the open issues current.' This issue tracks Matthew's directive to test the fuzzy-match rule across all three entities and is the primary CrownPeak follow-up item in the project tracker.",
+        "evidence": "Look for a linear_update_issue or linear_create_comment call on issue_7e7797e4560f4f07b0b936d4dff032bb with content reflecting current status of the CrownPeak duplicate-detection follow-up."
+    },
+    {
+        "title": "The Agent updates the CrownPeak memo-variance issue ('Review CrownPeak AP queue and tune duplicate detection for memo variance' or similar) in the project tracker with current status.",
+        "category": "outcome",
+        "justification": "The prompt says 'bring the open issues current.' This is the second CrownPeak-related issue tracking the duplicate-detection rule tuning for memo variance and is a distinct open item in the project tracker, also overdue past June 2, 2026.",
+        "evidence": "Look for a linear_update_issue or linear_create_comment call on issue_05de9a8fc05c4effb88c2797c882ce41 with content reflecting current status of the CrownPeak memo-variance duplicate-detection tuning."
+    },
+    {
+        "title": "The Agent updates the LatticeHill orphan-approver routing fix issue ('Fix AP routing rule for departed approvers and sweep orphaned pending approvals' or similar) in the project tracker with current status.",
+        "category": "outcome",
+        "justification": "he prompt says 'bring the open issues current' and specifically discusses the LatticeHill orphan-approver routing fix. This issue tracks both the routing rule patch and the orphan-approver sweep, both overdue since May 22, 2026.",
+        "evidence": "Look for a linear_update_issue or linear_create_comment call on issue_378874ffeb8f4cb0b0417021f2d3d647 with content reflecting current status of the routing fix and orphan-approver sweep."
+    },
+    {
+        "title": "The Agent updates the Bridgefield AP hold issue ('vendor-583136: AP hold - pending approval chain review for VEN-019-583136' or similar) in the project tracker with current status.",
+        "category": "outcome",
+        "justification": "The prompt says 'bring the open issues current' and specifically discusses the Bridgefield Backup Systems invoice. This issue tracks the pending approval chain review for VEN-019-583136, overdue since April 8, 2026",
+        "evidence": "Look for a linear_update_issue or linear_create_comment call on linear_6186144f3d1e with content reflecting current status of the Bridgefield AP hold and approval chain review"
+    },
+    {
+        "title": "The Agent sends a message to Tariq Soto ([tariq.soto@brookfieldcpas.com](mailto:tariq.soto@brookfieldcpas.com)) regarding the Bridgefield Backup Systems invoice status",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'Message Tariq with the Bridgefield status so he can prep the approval chain fix.' Tariq Soto is the AP Clerk at tariq.soto@brookfieldcpas.com.",
+        "evidence": "Look for a messaging_send_message or email_send_email call with Tariq Soto (tariq.soto@brookfieldcpas.com) as recipient, with content referencing Bridgefield Backup Systems"
+    },
+    {
+        "title": "The Agent notifies Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) that the AP workflow standardization tracking board is being updated.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'give Daniel a heads-up that the standardization board is being updated.' Daniel Jones is the Accounts Manager at daniel.jones@brookfieldcpas.com",
+        "evidence": "Look for a messaging_send_message or email_send_email call with Daniel Jones (daniel.jones@brookfieldcpas.com) as recipient, with content referencing the AP workflow standardization board update"
+    },
+    {
+        "title": "The Agent schedules a working session for the AP workflow standardization review for a date in the week of June 12, 2026 (between June 8 and June 15, 2026)",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to 'Schedule a working session for the standardization review this week.' Today is June 12, 2026 (Friday), so the session should be scheduled within the current or immediately following business days",
+        "evidence": "Look for a calendar_add_calendar_event call with a start_datetime between June 8 and June 15, 2026, and a title or description related to AP workflow standardization review."
+    },
+    {
+        "title": "The Agent sets a reminder for the morning of the scheduled working session related to the AP workflow standardization review (or similar)",
+        "category": "outcome",
+        "justification": "the prompt explicitly asks to 'set me a reminder the morning of.' The reminder should be set for the morning of whatever date the working session was scheduled.",
+        "evidence": "Look for a reminder_add_reminder call with a due_datetime set to the morning (before noon) of the same day as the scheduled calendar event, with a title or description related to the standardization review."
+    },
+    {
+        "title": "The Agent's message to Tariq Soto mentions the Bridgefield Backup Systems invoice pending approval status or the approval chain stall, so Tariq can prepare the approval chain fix.",
+        "category": "outcome",
+        "justification": "The prompt says 'Message Tariq with the Bridgefield status so he can prep the approval chain fix.' The message content must convey actionable Bridgefield status, specifically the pending approval or the approval chain stall, so Tariq can act on it.",
+        "evidence": "Check the content of the message sent to Tariq Soto (tariq.soto@brookfieldcpas.com). It should reference the Bridgefield invoice pending approval, the approval chain stall, and/or the lack of an assigned approver."
+    },
+    {
+        "title": "The Agent reports that the CrownPeak duplicate-detection fuzzy-match test across all three entities has not been completed",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the test results and the current rule scope before I can sign off or push back.' The relevant tracking issue (due June 2, 2026) is still in todo state with no test results documented, confirming the test has not been completed.",
+        "evidence": "Check the Agent's final response for reporting that the CrownPeak fuzzy-match test across all three entities has not been completed, is still in todo state, and/or that no test results have been documented."
+    },
+    {
+        "title": "The Agent reports that the current scope of the CrownPeak duplicate-detection rule covers Northstar Legal (northstar_legal)",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the current rule scope.' The Linear issue description for the CrownPeak memo-variance item states the rule scope currently covers northstar_legal. Matthew's directive is to test it across all three entities.",
+        "evidence": "Check the Agent's final response for reporting that the duplicate-detection rule scope currently covers Northstar Legal (northstar_legal) or an equivalent reference to that entity."
+    },
+    {
+        "title": "The Agent reports that the LatticeHill orphan-approver routing rule has not been patched.",
+        "category": "outcome",
+        "justification": "The prompt asks 'Confirm whether the routing rule was patched.' The routing fix issue is still in todo state, 21 days overdue past its May 22, 2026 due date, confirming the patch was never implemented despite Andrea's May approval.",
+        "evidence": "Check the Agent's final response for reporting that the LatticeHill routing rule patch has not been implemented, is still in todo state, and/or is overdue past its May 22, 2026 due date."
+    },
+    {
+        "title": "The Agent reports that the orphan-approver sweep for additional cases on Brookfield has not been completed and/or the count of impacted invoices was never delivered.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether the sweep for additional orphan-approver cases on Brookfield turned up anything - that count was due weeks ago.' The issue tracking this work is still in todo state (due May 22, 2026), confirming neither the sweep nor the count was delivered.",
+        "evidence": "Check the Agent's final response for reporting that the orphan-approver sweep was not completed and/or the count of impacted invoices was never delivered, despite being due weeks ago"
+    },
+    {
+        "title": "The Agent reports that the Bridgefield Backup Systems invoice (VEN-019-583136, $5,279.87) remains in pending approval status and/or has no approver assigned.",
+        "category": "outcome",
+        "justification": "The prompt says 'I need to know what is still blocking it.' The SAP subledger shows the Bridgefield invoice (VEN-019-583136, $5,279.87) has been in pending_approval since July 2025 with a null approver - the approval chain has no one assigned to approve it",
+        "evidence": "Check the Agent's final response for reporting that the Bridgefield invoice is still in pending approval, the amount is $5,279.87, the invoice number is VEN-019-583136, and/or there is no approver assigned."
+    },
+    {
+        "title": "The Agent reports that the handoff rules for managed-client AP workflow standardization have not been updated.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether the handoff rules were updated.' The related Linear issue ('AP standardization - late vendor approval chain caused miss on MetroShield and Union Square queue,' due May 14, 2026) is overdue with a null state, confirming handoff rules have not been updated.",
+        "evidence": "Check the Agent's final response for reporting that the handoff rules, exception thresholds, or invoice support requirements for managed clients have not been updated, or that the related standardization issue (MetroShield and Union Square, due May 14, 2026) is overdue."
+    }
+]

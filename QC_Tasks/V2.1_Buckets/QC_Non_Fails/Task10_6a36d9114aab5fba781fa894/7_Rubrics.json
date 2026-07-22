@@ -1,0 +1,74 @@
+[
+    {
+        "title": "The Agent submits draft journal entry JE-northstar_legal-FP-2026-05-0057 for manager review.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to code the evidence-backed correcting entry and route it to Daniel for review. The accrual true-up on JE-northstar_legal-FP-2026-05-0057 is the supported clearing posting because operating cash is short and only this entry carries the vault support.",
+        "evidence": "Per OE 11. Look for a journal-entry submit action on entry je_injtsk_nsl_accr057 (entry number JE-northstar_legal-FP-2026-05-0057); confirm the post-submit status changes from draft to submitted."
+    },
+    {
+        "title": "The Agent does not submit draft journal entry JE-northstar_legal-FP-2026-05-0056; it remains in draft.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to submit only the supported entry, not to post the other, and not to leave both in draft. JE-northstar_legal-FP-2026-05-0056 is the unsupported IOLTA trust reclass and credits operating cash, which would worsen the shortfall.",
+        "evidence": "Per OE 11. Confirm there is no submit action on entry je_injtsk_nsl_trust056 (JE-northstar_legal-FP-2026-05-0056) and that it remains in draft status in the trajectory."
+    },
+    {
+        "title": "The Agent updates the Northstar FP-2026-05 operating cash close blocker record (airtable_89e9965af72a) on the Close Blocker Triage Log.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to bring the close-blocker entry on the tracker in line with what it finds.",
+        "evidence": "Per OE 12. Look for an Airtable record update on record airtable_89e9965af72a in base airtable_e86eaf439d1d, table airtable_1a80ff5c1ed3 (Close Blocker Triage Log); confirm the update returns success."
+    },
+    {
+        "title": "The Agent's close blocker update reflects in its notes or status that the operating cash timing item is cleared by the submitted true-up on JE-northstar_legal-FP-2026-05-0057 (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the blocker to reflect the real state after the investigation, which is that the operating cash gap is resolved by the submitted accrual true-up rather than the earlier FX, sweep, or trust readings.",
+        "evidence": "Per OE 12. Check the airtable_89e9965af72a update fields for notes or status indicating the operating cash item is resolved or cleared by the submitted JE-northstar_legal-FP-2026-05-0057 (or similar)."
+    },
+    {
+        "title": "The Agent replies to Remy Mas at [remy.mas@brookfieldcpas.com](mailto:remy.mas@brookfieldcpas.com) about the May 24 disbursement treatment.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to reply to Remy on whether the trust treatment holds or it stays on operating cash.",
+        "evidence": "Per OE 13. Look for an email reply or email sent to remy.mas@brookfieldcpas.com from sean.williams@brookfieldcpas.com referencing the May 24 disbursement; confirm success."
+    },
+    {
+        "title": "The Agent's reply to Remy Mas states that the May 24 item stays on operating cash rather than being reclassified to the IOLTA trust (or similar).",
+        "category": "outcome",
+        "justification": "Ground truth is that operating cash is short against supporting detail, so the item is an operating cash true-up, not an operating-to-IOLTA reclass; Remy's proposed trust treatment does not hold.",
+        "evidence": "Per OE 13. Check the reply content to remy.mas@brookfieldcpas.com states the $572.87 May 24 item stays on operating cash rather than being reclassified to the IOLTA trust (or similar)."
+    },
+    {
+        "title": "The Agent posts a message to the #monthly-close-coordination Slack channel (channel_id C005).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to post a short update in monthly close coordination.",
+        "evidence": "Per OE 14. Look for a Slack post to channel_id C005 (or channel name monthly-close-coordination); confirm success."
+    },
+    {
+        "title": "The Agent's Slack message references the Northstar FP-2026-05 operating cash disposition that the operating cash timing item is being cleared by a submitted true-up (or similar).",
+        "category": "outcome",
+        "justification": "The coordination update should reflect the evidence-backed disposition that was reached, not the earlier FX or sweep narratives.",
+        "evidence": "Per OE 14. Check the Slack payload to C005 references the Northstar FP-2026-05 operating cash disposition, that the operating cash timing item is being cleared by a submitted true-up (or similar)."
+    },
+    {
+        "title": "The Agent sends an email from [sean.williams@brookfieldcpas.com](mailto:sean.williams@brookfieldcpas.com) to [sean.williams@brookfieldcpas.com](mailto:sean.williams@brookfieldcpas.com) with the investigation conclusion.",
+        "category": "outcome",
+        "justification": "The prompt asks Sean to receive an email with the agent's conclusion.",
+        "evidence": "Per OE 15. Look for an email from sean.williams@brookfieldcpas.com with recipient sean.williams@brookfieldcpas.com containing the investigation conclusion; confirm success."
+    },
+    {
+        "title": "The Agent ccs [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com) on the conclusion email to Sean Williams.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to cc George on anything from his bank-rec follow-up that affects the tie-out.",
+        "evidence": "Per OE 15. Check the cc field of the conclusion email to sean.williams@brookfieldcpas.com contains george.mcadam@brookfieldcpas.com."
+    },
+    {
+        "title": "The Agent's conclusion email identifies the supported clearing entry as the operating cash true-up on JE-northstar_legal-FP-2026-05-0057, not the IOLTA trust reclass on JE-northstar_legal-FP-2026-05-0056.",
+        "category": "outcome",
+        "justification": "The discriminating ground truth is which of the two draft entries the evidence backs; the supported entry debits operating cash to clear the shortfall, while the trust reclass credits operating cash and has no support. Getting this right proves the agent reconciled the conflicting reads against primary support.",
+        "evidence": "Per OE 8 and OE 15. Check the conclusion email identifies the supported clearing entry as the operating cash true-up on JE-northstar_legal-FP-2026-05-0057, and not the IOLTA trust reclass on JE-northstar_legal-FP-2026-05-0056. The true-up debits account 101000 Cash - Operating to clear the shortfall, which is why it is the supported entry."
+    },
+    {
+        "title": "The Agent's conclusion email states that Northstar operating cash was short by $572.87 against supporting detail on reconciliation BL-72E451657112.",
+        "category": "outcome",
+        "justification": "The variance direction and amount are the reason the clearing entry debits operating cash; reporting it correctly proves the agent pulled the reconciliation rather than relying on chatter.",
+        "evidence": "Per OE 3 and OE 15. Check the conclusion email states operating cash was short by $572.87 against supporting detail on reconciliation BL-72E451657112."
+    }
+]

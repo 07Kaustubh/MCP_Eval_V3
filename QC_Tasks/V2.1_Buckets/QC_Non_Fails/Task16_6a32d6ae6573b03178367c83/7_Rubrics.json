@@ -1,0 +1,68 @@
+[
+    {
+        "title": "The Agent identifies that Acme Cloud's SaaS revenue is sales-taxable in only four states - TX, NY, WA, and AZ - and that GA and NC are SaaS-exempt with no Acme liability.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pin down which states actually drove the sales-tax effort. The governing Q1 determination establishes TX/NY/WA/AZ as taxable and GA/NC as SaaS-exempt for Acme.",
+        "evidence": "Final response should name TX, NY, WA, and AZ as the taxable states and state that GA and NC are exempt. Grounded in the determination memo (doc_84905e8e14ad4d96) change note, the accrual JE-acme_cloud-FP-2026-03-0076, and the #tax-prep-and-filings (C006) thread."
+    },
+    {
+        "title": "The Agent concludes that the change order's recurring sales-tax scope (TX/GA/NC) is not fully supported because GA and NC are exempt and do not belong in scope.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the recurring scope put on the change order is fully backed by what the file shows. The executed CO scopes TX/GA/NC, but GA and NC are exempt - so the CO over-includes states that carry no Acme liability.",
+        "evidence": "Final response should connect the change order's TX/GA/NC scope to the determination and conclude the recurring sales-tax basis is not fully supported because GA and NC are exempt."
+    },
+    {
+        "title": "The Agent identifies that the change order omits NY, WA, and AZ - the states (besides TX) that actually carry Acme's recurring sales-tax obligation.",
+        "category": "outcome",
+        "justification": "The prompt asks where the scope line really sits. Separate from the exempt GA/NC over-inclusion, the change order also fails to reflect the genuinely taxable states NY/WA/AZ, so its recurring basis is incomplete.",
+        "evidence": "Final response should note that NY, WA, and AZ - taxable per the determination - are not reflected in the change order's recurring sales-tax scope."
+    },
+    {
+        "title": "The Agent reports that the Q1 sales-tax payable was miscoded to account 225000 (Accrued Salaries & Bonuses) because Acme has no dedicated sales-tax payable account.",
+        "category": "outcome",
+        "justification": "The prompt asks for any knock-on corrections that flowed from the sales-tax work. The $42,180.55 Q1 accrual credited the payable to account 225000 (payroll) because Acme has no dedicated sales-tax payable account - a coding error to correct.",
+        "evidence": "Final response or filed workpaper should flag that account 225000 (Accrued Salaries & Bonuses) carries the sales-tax payable and recommend a reclass to a proper sales-tax payable account. Sourced from JE-acme_cloud-FP-2026-03-0076 (DR 525000 Sales Tax Expense / CR 225000)."
+    },
+    {
+        "title": "The Agent reports that AR-aging cleanup is carried on the executed change order as a recurring line, but Andrea Phil's disposition treated it as a one-time April cleanup, so it is mis-positioned as recurring.",
+        "category": "outcome",
+        "justification": "The prompt asks where the scope line really sits on the AR-aging cleanup. Andrea's disposition absorbed AR-aging as one-off; the CO carries it as recurring - a scope-classification drift to correct.",
+        "evidence": "Final response should note the executed change order carries AR-aging as a recurring line while Andrea Phil's disposition framed it as a one-time April cleanup. Sourced from Andrea's disposition email (email_scen_064_oos_review_acme_0006, 2026-05-06) and the change-order scope."
+    },
+    {
+        "title": "The Agent reports an assessment of whether the Q1 AR-aging package is consistent with its supporting AR/allowance reconciliations before partner review (e.g., confirming it ties to the FP-2026-03 reconciliations or flagging a specific item to resolve first).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks whether the Q1 AR-aging package is consistent with that same support before it goes up for partner review.",
+        "evidence": "Final response should give a consistency/readiness conclusion on the Q1 AR-aging package grounded in its FP-2026-03 supporting reconciliations - e.g., confirming it ties to the AR (110000) / allowance (117000) recons, or flagging a specific item to clear first."
+    },
+    {
+        "title": "The Agent files a findings and corrected-support workpaper under the Acme Cloud engagement records.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to make sure its findings and any corrected support are properly on file under the Acme engagement folder so the record matches reality.",
+        "evidence": "Look for a document uploaded to the records repository under the Acme Cloud engagement (scope-basis findings / corrected support). Confirm the upload returned success in the trajectory."
+    },
+    {
+        "title": "The Agent sends Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com), Accounts Manager) a recap of the findings.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the agent to send Daniel a recap. The prompt names the goal (send a recap), not a channel, so any delivery to Daniel qualifies.",
+        "evidence": "Look for a recap delivered to Daniel Jones - an email to daniel.jones@brookfieldcpas.com or an equivalent direct message; confirm it was sent."
+    },
+    {
+        "title": "The Agent's recap to Daniel covers all three of: (a) what is supported, (b) what needs to be corrected, and (c) who should own each follow-up.",
+        "category": "outcome",
+        "justification": "The prompt specifies the recap to Daniel must lay out what is supported, what needs to be corrected, and who should own each follow-up.",
+        "evidence": "Check the recap to Daniel (email body or message text) for all three elements: (a) what is supported, (b) what needs to be corrected, and (c) a named owner for each follow-up."
+    },
+    {
+        "title": "The Agent logs the systemic process gap as a tracked issue - that managed-client change-order scope was issued without tying the recurring fee basis to primary source support - so it is not repeated on managed-client work.",
+        "category": "outcome",
+        "justification": "The prompt asks, if this traces back to a broader process gap, to log it in the right place so it stops recurring on managed-client work. The recurring multi-month pattern makes it systemic, not a one-off.",
+        "evidence": "Look for a created tracked issue (e.g., on the managed-client AP workflow standardization project / Client Accounting Operations) describing that managed-client change-order scope was issued without tying the recurring fee basis to primary source support; confirm success."
+    },
+    {
+        "title": "The Agent provides George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) a short, Andrea-ready summary of the Acme scope position.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to send the requester (George) the short version he can take to Andrea without reconstructing the whole thing.",
+        "evidence": "Look for a concise summary delivered to george.mcadam@brookfieldcpas.com (or a distinct short summary in the final response addressed to George) covering the Acme scope position."
+    }
+]

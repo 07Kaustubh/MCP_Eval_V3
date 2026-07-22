@@ -1,0 +1,29 @@
+OE 1: Search emails for the Northstar FY2025 return using email_search_emails (query: "Northstar" or "SALT" or "FY2025" or similar) then email_get_email_by_id. Expected discovery: Hannah's Step 3 sign-off request (email 0006, June 11) stating $4,820.30 SALT shortfall on account 230000; William's authorization (email 0008, June 11) approving DR 530000 / CR 230000 for $4,820.30 and circulation. These establish the WRONG anchoring figure of $4,820.30.
+
+OE 2: Search Slack #tax-prep-and-filings (C006) using slack_conversations_search_messages or slack_conversations_history (channel_id: C006), then slack_conversations_replies on the parent thread. Expected discovery: Hannah's parent (cb20bc3f..., June 9) flagging SALT understated; Tom's reply (14c2397f..., June 10) quantifying $4,820.30; and Hannah's LATER reply (c9e5f1a3..., June 12 07:00) warning "a few items have posted against 230000 since the shortfall was calculated. An estimated payment, a credit, and a small refund all hit the SALT payable after Tom ran the number." This hint does NOT state amounts or the correct figure.
+
+OE 3: Verify the GL entries on account 230000 using oracle_gl_list_journal_entries (period_id: northstar_legal_FP-2025-12) or oracle_gl_get_account (account_number: 230000). Expected discovery: THREE JEs affecting account 230000: (a) je_ns068_salt_placeholder, $4,820.30 CR to 230000, posted June 10 (the placeholder); (b) je_ns068_il_est_payment, $1,200.00 DR to 230000, posted June 9 (REDUCTION 1 - Illinois estimated payment reduces the payable); (c) je_ns068_il_filing_refund, $315.50 DR to 230000, posted June 5 (REDUCTION 3 - prior-period overpayment credit reduces the payable). The agent must recognize that reductions (b) and (c) reduce the actual SALT shortfall below $4,820.30.
+
+OE 4: Verify the fiscal period status using oracle_gl_list_fiscal_periods. Expected: northstar_legal_FP-2025-12 is closed, locked Jan 5 2026 by julia.vance@brookfieldcpas.com.
+
+OE 5: Search the SAP subledger for additional account 230000 activity using sap_subledger_list_subledger_transactions (gl_account_number: 230000). Expected discovery: northstar_legal_6000009801, $504.80 DR to 230000, "State R&D tax credit apportionment - Illinois", posted May 28 (REDUCTION 2). This is NOT in Oracle GL (not swept). The agent must find this in the subledger.
+
+OE 6: Search Records Vault using records_vault_list_documents (entity_id: northstar_legal) or records_vault_get_document for known IDs. Expected: doc_03f88abe3bb5482a (tax-prep package, June 8), doc_212b1dffc93d4968 (SALT flag memo, June 9), and doc_il_drev_filing_refund_068 (Illinois filing-fee refund $315.50, June 5, corroborates reduction 3).
+
+OE 7: Search messaging using messaging_search_conversations or messaging_list_conversations. Expected: conversation_scen_068_northstar_annual_corp_tax_0000 (Tom-Hannah tax-prep collation, June 8).
+
+OE 8: Check May planning using calendar_search_events or email_search_emails (query: "workshop" or "distribution"). Expected: scen_047 (May 6 workshop, June 24 follow-up) = FY2026 planning only.
+
+OE 9: Compute the correct SALT shortfall. The agent must calculate: $4,820.30 (original) - $1,200.00 (GL estimated payment) - $504.80 (subledger R&D credit) - $315.50 (GL filing-fee refund) = $2,800.00. This figure is NEVER stated in any email, Slack, or document. The agent must derive it from the three reductions found across GL and SAP subledger.
+
+OE 10: Look up contacts using contacts_search_contacts and channel using slack_channels_list. Confirm ming.chang@brookfieldcpas.com, hannah.grant@brookfieldcpas.com, tom.chang@brookfieldcpas.com, C006 = #tax-prep-and-filings.
+
+OE 11: Send email to Ming Chang using email_send_email (sender: alex.cahoon@brookfieldcpas.com, recipients: ["ming.chang@brookfieldcpas.com"]). Content: The originally reported SALT shortfall of $4,820.30 is stale. Three items posted to account 230000 after the calculation: $1,200.00 estimated payment, $504.80 R&D credit, $315.50 filing-fee refund. Correct shortfall = $2,800.00. The $4,820.30 placeholder needs reversal and rebooking at $2,800.00. NOT ready for release until corrected.
+
+OE 12: Notify Hannah Grant using email_send_email or messaging_send_message. Content: Status update; the SALT position needs recalculation; correct shortfall is $2,800.00.
+
+OE 13: Contact Tom Chang using messaging_send_message (user_id: tom.chang@brookfieldcpas.com) or email_send_email. Content: Reverse the $4,820.30 placeholder and post $2,800.00. Filing package needs updating.
+
+OE 14: Post in #tax-prep-and-filings using slack_conversations_add_message (channel_id: C006, payload noting revised SALT shortfall $2,800.00, placeholder reversal needed, return not ready).
+
+OE 15: Create reminder using reminder_add_reminder (title: Northstar FY2025 follow-up, due_datetime: 2026-06-15T09:00:00, description: Follow up on Northstar FY2025 return - confirm $4,820.30 reversed and $2,800.00 posted).

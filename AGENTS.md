@@ -13,14 +13,14 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 1. **Opus 4.8 is the model under test.** All hardness engineering targets known Opus 4.8 failure modes from `Docs/4_Prompt_Hard_Tips.md` and `Reference/Hardness_Playbook.md`.
 2. **Per-task `3_UniverseDataForThisTask.json` is the ONLY universe source of truth.** Always work from the split written to `Tasks/<TASK_DIR>/_aux/Universe_Split/` for the current task.
 3. **`Brookfield_Base_Universe/` is stale by default.** The one stable file is `8_Server_Tools_Details.json` (tool definitions). Persona briefs in `2_Persona_Briefs.md` are also stable (personas do not change per task). Everything else in that directory describes a snapshot that may not match the per-task universe.
-4. **No universe edits in this pipeline.** Hardness comes from levers already present in the per-task data. If S0/HARDNESS finds fewer than 3 levers, stop and ask the user to decide.
+4. **No universe edits in this pipeline.** Hardness comes from levers already present in the per-task data. If S0/HARDNESS finds fewer than 3 levers, stop and ask the user to decide. **V4 (StarPM) exception: INJECTION is allowed and first-class.** A V4 task may ADD scenario data via `9_Universe_inject.sql` + `4_Changelog.json` - that is injection, not editing: base universe rows are never modified or deleted, and every injection must clear `validate.py --phase injection` (Evals_starpm/0: 7 hard gates + difficulty >= 3.5 at council). Editing existing base-universe data remains forbidden in ALL universes. As of v21.2 every upstream Tasks_Template (all four universes) ships `9_Universe_inject.sql` + `4_Changelog.json`, and `validate.py --phase injection` runs for ANY universe whenever the inject file carries executable statements (comment-only template headers SKIP): V4 gets the full Evals_starpm/0 window gates; V3-family gets the same deterministic gates with the date ceiling set to that universe's registry `today`.
 5. **500-word cap on prompts. No em-dashes anywhere.** Validator blocks both.
 6. **No "at least N" in rubric titles** unless the prompt explicitly mandates a minimum. Atomic rubrics for multi-item write actions.
 7. **No tool names in prompts. No tool names in rubric titles.** Allowed only in OE bodies and in rubric evidence / justification fields.
 8. **Outcome must outnumber Process in rubrics.** All 4 V3 reference tasks have zero process rubrics. Default to zero. Three-condition test before adding any.
 9. **Platform similarity ≥ 40% is not allowed.** Pivot the prompt using `Reference/Similarity_Pivot.md`.
 10. **5 of 5 on every QC sub-dim is the bar.** Both councils must return GO before any deliverable ships.
-11. **50+ tool calls midpoint is the design target; 40 is the absolute floor.** Council B-B3 (tool-call density projection), HARDNESS, AUDIT, and FINAL all use this tiered scheme: midpoint ≥ 50 = PASS; midpoint 40-49 = THIN_DENSITY (operator can continue with explicit per-task justification, but the task is at risk of underflow on real platform runs); midpoint < 40 = INSUFFICIENT_DENSITY (BLOCKER, STOPs the pipeline). The 50+ design target was set after tasks shipped with 40+ projected density came back from the platform failing density on real runs — designing for 50+ produces ~40+ tool calls in reality.
+11. **Density is framework-scoped. V3-family (Brookfield/KeyStone/MoveOps): 50+ tool calls midpoint is the design target; 40 is the absolute floor. V4 (StarPM): 40+ average is the design target (Docs_starpm/1 hard gate), 15 is the QC-spec fail floor, applied PER MODEL (Opus and Gemini separately).** For V3-family: Council B-B3 (tool-call density projection), HARDNESS, AUDIT, and FINAL all use this tiered scheme: midpoint ≥ 50 = PASS; midpoint 40-49 = THIN_DENSITY (operator can continue with explicit per-task justification, but the task is at risk of underflow on real platform runs); midpoint < 40 = INSUFFICIENT_DENSITY (BLOCKER, STOPs the pipeline). The 50+ design target was set after tasks shipped with 40+ projected density came back from the platform failing density on real runs — designing for 50+ produces ~40+ tool calls in reality.
 12. **Strict veteran AUDIT runs after every per-phase deliverable.** S1/S2/S3 (and S1.5 on prompt revise, and REVIEW on corrected materialization) auto-fire an AUDIT sub-agent inline after Council A + Council B pass. `PASS (STRICT)` is a required exit criterion for those phases. `REVISE` iterates the producing phase (cap 3 rounds); `REBUILD` STOPs to `PIPELINE REDO`. Catching defects at the producing phase is the project policy — downstream re-iteration at FINAL or platform-reviewer time is more expensive than the ~3 additional sub-agent calls per task that auto-AUDIT costs.
 
 ## Pipeline Deviations from Eval Specs
@@ -41,7 +41,7 @@ Where the 4 evaluator specs (`Evals/1_Prompt_Eval.md` ... `Evals/4_Verifier_Fail
 | Eval specs require "TODO list at Step 0 HARD GATE" + "Phase 0 deep universe exploration" | No mechanism to verify | Pipeline runbooks list required inputs per phase; v11 E1 + E2 add `phase_ready.py` checks for TODO and reference-read logs. Without those, operator discipline is the only enforcement. |
 | Tool-name handling differs per artifact (Prompt = FAIL anywhere; OE = MANDATORY; Rubric = NOT in title, OK in evidence) | Specs don't cross-reference each other | Pipeline `validate.py` handles per-phase correctly: prompt phase FAILs any tool-name token; OE phase FAILs only on UNKNOWN tool names; rubric phase FAILs tool names in title only. Per-phase distinction is intentional and stable. |
 | MoveOps source zip folder `MCP_Eval_V2.1_Move_Ops/` ships V2.1 framework docs | V2.1 predates V3 — `Docs_moveops/2_Rubrics_V3_Guidelines.md` is filename-labeled V3 but framework-labeled V2.1; some rubric / OE conventions may have minor deltas from V3 Brookfield + V3.1 KeyStone | Pipeline registry tags MoveOps as `V2.1` (see `MoveOps_Base_Universe/` notes and `Validators/universes.py`). Read `Docs_moveops/2_Rubrics_V3_Guidelines.md` before applying validator behavior to MoveOps tasks; per-phase deltas are deferred (validator currently treats MoveOps with the same scoring as Brookfield/KeyStone — flag a deviation here if a real MoveOps task surfaces a divergence). |
-| Upstream zip folder `MCP_Eval_V3 (2)/MCP_Eval_V3_BrookField/Docs/` is filename-labeled "BrookField" but content-labeled KeyStone (references `Mortgage_Base_Universe/3_Persona_Briefs.md` + "v3 = Keystone Mortgage") | Source-folder hygiene issue at upstream zip-distribution level | Operator warning only — pipeline `Docs/` is the correct Brookfield-flavored copy; pipeline `Docs_keystone/` is the correct KeyStone-flavored copy. Do NOT use the mis-named source folder as authoritative; trust `Validators/universes.py` registry paths. |
+| Upstream Brookfield drops (incl. the v21.2-generation `MCP_Eval_V3.zip`) ship `Docs/7_QC_Spec_Doc1.json` + one `Guide/` tree line with KeyStone-mislabeled universe prose ("v3 = Keystone Mortgage", `Mortgage_Base_Universe/` paths, `keystonemortgage.com` example) | Source-template hygiene issue persisting across upstream releases | Repo keeps flavor-corrected copies: ALL scoring rules adopted upstream-verbatim, only the universe-label prose corrected to Brookfield. Divergences are pinned in `Validators/source_sync_deviations.json` and verified by `check_source_sync.py --expect-deviations`. Everything else (Evals 1-4, Docs 8, templates, base universe) is upstream byte-identical as of the 2026-07 drops. |
 
 When the spec gets a new version, re-check this table against the new spec. If a spec amendment resolves a contradiction differently than the pipeline's interpretation, update both the pipeline AND this table together.
 
@@ -97,6 +97,8 @@ MCP_Eval_V3/
 │   ├── build_fact_ledger.py        # per-task atom surface (emails, amounts, dates, ids, accounts, personas)
 │   ├── build_graph_report.py       # per-task compact density map (people, periods, exceptions, AP, docs)
 │   ├── compare_rubrics.py          # local vs platform-paste-back rubric diff
+│   ├── check_source_sync.py        # repo spec surfaces vs extracted upstream drop (catches upstream releases hash pins cannot see)
+│   ├── qc_verdict.py               # deterministic QC verdict engine (parse/classify/selftest/audit/feedback), 128/128 on the 4 bucket corpora
 │   └── validate.py                 # phase-aware validator (prompt | oe | rubrics | all)
 ├── Brookfield_Base_Universe/       # STALE except 8_Server_Tools_Details.json + 2_Persona_Briefs.md
 │   ├── 1_Summary.md ... 7_*.md     # stale reference, do not trust over per-task data
@@ -109,7 +111,12 @@ MCP_Eval_V3/
 ├── Guide/                          # how-to docs and verifier-fails template
 ├── QC_Tasks/
 │   ├── V3_Tasks/                   # on-framework reference tasks (Task11..Task14)
-│   └── V2_Tasks/                   # legacy V2/Keystone — study craft, not framework
+│   ├── V2_Tasks/                   # legacy V2/Keystone — study craft, not framework
+│   ├── V3_Buckets/                 # Brookfield labeled QC verdict ground truth (16 tasks, 4 buckets)
+│   ├── V3.1_Buckets/               # KeyStone labeled QC verdict ground truth (16 tasks, 4 buckets)
+│   ├── V2.1_Buckets/               # MoveOps labeled QC verdict ground truth (80 tasks, 4 buckets)
+│   └── V4_Tasks/                   # StarPM labeled QC verdict ground truth (16 tasks, 4 buckets)
+│                                   # all four corpora: qc_verdict.py selftest == bucket-correct 128/128
 ├── Tasks_Template/                 # platform-paste-target template
 ├── Tasks/                          # live tasks
 │   ├── <TASK_DIR>/                 # per-task work

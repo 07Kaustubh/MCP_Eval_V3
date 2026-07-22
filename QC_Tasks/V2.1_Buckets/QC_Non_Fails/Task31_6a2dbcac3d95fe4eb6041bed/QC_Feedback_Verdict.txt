@@ -1,0 +1,25 @@
+Task: Task31_6a2dbcac3d95fe4eb6041bed
+Business Function: HR & People Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Minor OE Inaccuracies] OE5 is missing the inclusion of Daniel Jones and Margot Reyes in the emails from March to May.
+- [Non-Fail - Inaccurate Oracle Events] OE1 states it needs to pull contact details for Yusuf and Reshma, because "addresses are needed for the write actions later in the task", but these two emails are not needed according to the prompt, and the following OE's don't even use Yusuf's email.
+Note: OE11 is not needed to satisfy the prompt.
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Inaccurate Oracle Events]","[All] [All] [Non-Fail - Minor OE Inaccuracies]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

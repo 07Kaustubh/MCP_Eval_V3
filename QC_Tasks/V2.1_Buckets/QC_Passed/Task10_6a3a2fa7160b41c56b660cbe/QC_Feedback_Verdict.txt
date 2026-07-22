@@ -1,0 +1,34 @@
+Task: Task10_6a3a2fa7160b41c56b660cbe
+Business Function: Compliance & Internal Controls
+QC Score: 5
+Final Score: 5
+
+============================================================
+
+## QC Auditor Feedback
+
+No failing or non-failing issues found.
+
+Discussion:
+- The prompt has a unique ground truth. The prompt is completely actionable by an LLM agent and contains no conflicting instructions. Prompt does not explicitly state the use of tools.
+- Prompt has little to no room for misinterpretation, prompt is neither contrived or unnatural and contains no factual errors or misleading statements.
+- Prompt requires investigation across 2+ services to answer correctly and is one cohesive situation.
+- Prompt aligns with the selected persona, clearly reflects a realistic scenario within the assigned business function.
+
+- Prompt does not contradict today's daye. All core facts required to solve the task exist in the universe. Universe edits are internally consistent and coherent across services.
+
+- Oracle events describe the full critical path, are factually accurate and the tools, services parameters and expected data match the universe.
+
+- No issues found with rubric quality, all rubrics that failed all completed runs are valid, more outcome rubrics than process rubrics.
+
+- The average tool count for all trajectories is 80, which is above the minimum threshold 15. No runs pass all outcome rubrics, task is sufficiently difficult. All runs were successfully completed.
+
+## Error Categories
+
+[]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 5 — PASS

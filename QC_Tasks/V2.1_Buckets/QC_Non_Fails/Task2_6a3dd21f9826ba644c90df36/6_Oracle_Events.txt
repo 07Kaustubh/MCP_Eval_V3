@@ -1,0 +1,60 @@
+OE 1: Discover the open BlackLine work on Elita's plate. Call blackline_list_reconciliations(preparer="elita.moore@brookfieldcpas.com"). Agent finds BL-9C4E12A7F3D8 (acme_cloud FP-2026-05, AP 210000, in_progress, $4,120.00 variance, reviewer george.mcadam), BL-5E2D7B9F1A3C (brookfield FP-2026-05, accrued 220000, in_progress, $5,280.00 variance, reviewer daniel.jones), and BL-3F8A6C2E0D91 (northstar_legal FP-2026-05, cash 101000, submitted, $0.00 variance, reviewer edith.banda).
+
+OE 2: Read Elita's own prep note on the S1 recon. Call blackline_list_review_notes(recon_id="BL-9C4E12A7F3D8"). Finds rn_d2e9f4a3c1b850: "AP will not tie from the GL side - looks like a vendor invoice may have been posted twice." Motivates the SAP-vs-GL trace.
+
+OE 3: Discover Daniel's ping in #monthly-close-coordination. Call slack_conversations_search_messages(search_query="Lockton invoice", filter_in_channel="C005") or query "unrecorded invoice accrual". Finds Daniel's June 11 message (id b8f31c47..., user persona_002) flagging the unrecorded Lockton May insurance invoice (~$5.3k) and asking to loop @hannah.grant on expense-vs-prepaid treatment before booking.
+
+OE 4: Discover the stale close-blocker on the Airtable triage board. Call airtable_list_records / airtable_search_records on the "Daily outsourced accounting close blocker triage" base (airtable_e86eaf439d1d, table airtable_1a80ff5c1ed3). Finds record airtable_d47b9f15e2c8 - status "Open", recon_id BL-3F8A6C2E0D91, "Northstar operating cash variance pending feed".
+
+OE 5: Pull the S1 recon + exception. Call blackline_get_reconciliation(recon_id="BL-9C4E12A7F3D8") and blackline_get_exception(exception_id="exc_4a7d2e9c1b8f53"). Confirms $4,120.00 AP overstatement on account 210000, type duplicate_entry_detected, approver george.mcadam, assigned elita.
+
+OE 6: Pull SAP AP detail behind the variance. Call sap_subledger_list_subledger_transactions(entity_id="acme_cloud", gl_account_number="210000", posting_date_from="2026-05-01", posting_date_to="2026-05-31"). Finds two identical Brightline Software Ltd May SaaS-licence postings: acme_cloud_6100006207 ($4,120.00 on May 18) and acme_cloud_6100006231 ($4,120.00 on May 20) - same vendor, same amount, two days apart = a duplicate posting that overstates AP by $4,120.00.
+
+OE 7: Confirm the duplicate against the GL. Call oracle_gl_list_journal_entries (or list transactions) for acme_cloud, account 210000, period acme_cloud_FP-2026-05. Both Brightline postings hit the GL, so AP carries the invoice twice - the second posting (acme_cloud_6100006231) is the duplicate to reverse.
+
+OE 8: Draft the reversing JE for the duplicate posting. Call oracle_gl_create_journal_entry(period_id="acme_cloud_FP-2026-05", posting_date="2026-06-12", description="Reverse duplicate Brightline Software Ltd May SaaS-licence posting acme_cloud_6100006231 (mirror of 6100006207), per BL-9C4E12A7F3D8 / exc_4a7d2e9c1b8f53", lines=[reversing pair for $4,120.00 against AP 210000 and the contra/expense account], is_standard_entry=false, prepared_by="elita.moore@brookfieldcpas.com", business_justification="Duplicate vendor invoice posted twice; reversing the second posting only"). Draft state.
+
+OE 9: Submit the S1 JE. Call oracle_gl_submit_journal_entry(entry_id=<draft id>). State submitted. Do NOT approve or post (trainee scope).
+
+OE 10: Attach supporting evidence to the S1 recon BEFORE it goes for sign-off. Call blackline_attach_evidence(recon_id="BL-9C4E12A7F3D8", ...) with the SAP AP duplicate detail. (Close-discipline gate: nothing goes up for sign-off without evidence attached.)
+
+OE 11: Leave a review note identifying the duplicate. Call blackline_create_review_note(recon_id="BL-9C4E12A7F3D8", author="elita.moore@brookfieldcpas.com", body="AP 210000 overstated $4,120.00 by a duplicate Brightline Software Ltd May SaaS-licence posting: acme_cloud_6100006207 (May 18) and acme_cloud_6100006231 (May 20), same vendor/amount. Reversing JE drafted and submitted (entry_id: <id>) awaiting George's approval.").
+
+OE 12: Update the S1 exception. Call blackline_update_exception(exception_id="exc_4a7d2e9c1b8f53", root_cause="Duplicate Brightline Software Ltd May SaaS-licence invoice posted twice (acme_cloud_6100006207 and acme_cloud_6100006231), overstating AP 210000 by $4,120.00", proposed_resolution="Reversing JE submitted (entry_id: <id>) awaiting George approval", state="investigating", actor="elita.moore@brookfieldcpas.com"). Non-resolved state (investigating or awaiting_approval); trainee cannot resolve.
+
+OE 13: Update variance explanations and submit the S1 recon. Call blackline_update_reconciliation_variances(recon_id="BL-9C4E12A7F3D8", ...) then blackline_submit_reconciliation(recon_id="BL-9C4E12A7F3D8"). Recon moves in_progress -> submitted. Never approve/certify.
+
+OE 14: Notify George on the S1 piece. Call email_send_email (or message) from elita.moore to george.mcadam@brookfieldcpas.com referencing BL-9C4E12A7F3D8: the duplicate Brightline posting, the submitted reversing JE awaiting his approval, and the recon submitted for sign-off. Channel is the agent's choice.
+
+
+OE 15: Pull the S2 recon + exception. Call blackline_get_reconciliation(recon_id="BL-5E2D7B9F1A3C") and blackline_get_exception(exception_id="exc_2d6b8e4a1f7c09"). Confirms $5,280.00 on accrued 220000, type unrecorded_invoice, approver daniel.jones, sox_implications true.
+
+OE 16: Pull SAP AP detail to locate the unrecorded invoice. Call sap_subledger_list_subledger_transactions(entity_id="brookfield", gl_account_number="220000") or list ap detail. Finds brookfield_6200008140 ($5,280.00 Lockton Insurance May D&O premium, related_oracle_je_line_id=null) - the invoice that never hit the GL.
+
+OE 17: Confirm the GL absence. Check Oracle GL for brookfield FP-2026-05 / accrued 220000 - the Lockton premium is not accrued. Confirms the unrecorded invoice.
+
+OE 18: Draft the accrual JE for the Lockton premium. Call oracle_gl_create_journal_entry(period_id="brookfield_FP-2026-05", posting_date="2026-06-12", description="Accrue unrecorded Lockton Insurance May D&O premium brookfield_6200008140 ($5,280.00), per BL-5E2D7B9F1A3C / exc_2d6b8e4a1f7c09", lines=[CR Accrued Professional Services 220000 $5,280.00 / DR insurance expense (or prepaid - pending Hannah's treatment direction)], is_standard_entry=false, prepared_by="elita.moore@brookfieldcpas.com", business_justification="Accrual amount certain; expense-vs-prepaid treatment routed to Hannah before finalisation"). Draft state.
+
+OE 19: Submit the S2 JE. Call oracle_gl_submit_journal_entry(entry_id=<draft id>). Submitted; not approved/posted.
+
+OE 20: Attach evidence to the S2 recon BEFORE sign-off. Call blackline_attach_evidence(recon_id="BL-5E2D7B9F1A3C", ...) with the SAP Lockton invoice detail.
+
+OE 21: Leave a review note on the S2 recon. Call blackline_create_review_note(recon_id="BL-5E2D7B9F1A3C", author="elita.moore@brookfieldcpas.com", body="Unrecorded Lockton Insurance May D&O premium brookfield_6200008140 ($5,280.00) confirmed not in GL. Accrual drafted and submitted (entry_id: <id>) awaiting Daniel approval. Expense-vs-prepaid treatment routed to Hannah Grant before finalising direction.").
+
+OE 22: Update the S2 exception. Call blackline_update_exception(exception_id="exc_2d6b8e4a1f7c09", root_cause="Lockton May D&O premium invoice (6200008140) not picked up in AP close - never accrued in GL", proposed_resolution="Accrual JE submitted (entry_id: <id>) awaiting Daniel approval; expense-vs-prepaid treatment pending Hannah", state="investigating", actor="elita.moore@brookfieldcpas.com").
+
+OE 23: Submit the S2 recon. Call blackline_submit_reconciliation(recon_id="BL-5E2D7B9F1A3C"). in_progress -> submitted.
+
+OE 24: Notify Hannah and Daniel on the S2 piece. Call email_send_email from elita.moore to hannah.grant@brookfieldcpas.com and daniel.jones@brookfieldcpas.com: Lockton invoice identified, accrual submitted, explicit expense-vs-prepaid question to Hannah, JE awaiting Daniel approval.
+
+OE 25: Reply in Daniel's Slack thread. Call slack_conversations_add_message(channel_id="C005", thread_ts="1781171100.041700", payload="Confirmed the Lockton May premium ($5,280) never hit the GL. Accrual drafted and submitted; looped Hannah on expense-vs-prepaid before we finalise treatment.").
+
+OE 26: Verify the S3 recon/exception actually cleared. Call blackline_get_reconciliation(recon_id="BL-3F8A6C2E0D91") and blackline_get_exception(exception_id="exc_7e1a3c9d5b2f64"). Confirms recon submitted with $0.00 variance and exception state "resolved" (resolution_executed_at 2026-06-08) - the timing variance cleared on the 06-08 feed refresh. Do NOT reopen or re-touch the BlackLine records.
+
+OE 27: Re-read the stale Airtable blocker. Call airtable_get_record(record_id="airtable_d47b9f15e2c8") - still status "Open" though the underlying recon/exception cleared on 06-08. Conflict between the board and BlackLine.
+
+OE 28: Update the Airtable close-blocker to reflect reality. Call airtable_update_records(record_id="airtable_d47b9f15e2c8", fields={status: "Closed" (or "Cleared"), notes: "Resolved - Northstar operating-cash timing variance cleared on the 2026-06-08 feed refresh; recon BL-3F8A6C2E0D91 submitted, exception exc_7e1a3c9d5b2f64 resolved. No longer blocking the close."}). Board now matches BlackLine.
+
+OE 29: Create the calendar slot for the partner review. Call calendar_add_calendar_event(title="May close BlackLine sign-off - three items pending (Acme AP duplicate BL-9C4E12A7F3D8, Brookfield Lockton accrual BL-5E2D7B9F1A3C, Northstar close-blocker cleared)", start_datetime="2026-06-17T10:00:00-04:00", end_datetime="2026-06-17T11:00:00-04:00", organizer="elita.moore@brookfieldcpas.com", attendees=["george.mcadam@brookfieldcpas.com","daniel.jones@brookfieldcpas.com","hannah.grant@brookfieldcpas.com","elita.moore@brookfieldcpas.com"], description="Walk reviewers through the submitted items before sign-off.").
+
+OE 30: Create the follow-up reminder. Call reminder_add_reminder(title="Chase sign-offs on the May close items", due_datetime="2026-06-16T09:00:00+00:00", description="Pending: George to approve the Acme duplicate reversal JE; Hannah on Lockton expense-vs-prepaid + Daniel on the accrual direction. Northstar close-blocker already updated.").

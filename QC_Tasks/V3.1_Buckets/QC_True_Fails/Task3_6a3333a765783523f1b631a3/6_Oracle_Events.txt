@@ -1,0 +1,15 @@
+OE 1: Search email for the outside-counsel accrual thread (email_search / list+get on Andrea's mailbox, query "outside-counsel accrual" / "Lattimer & Crowe" / "accrual"). Find BOTH George's estimate email (email_cb_counsel_accrual_0001, $12,400) AND its reply (email_cb_counsel_accrual_0002) saying to net out what the firm has already invoiced. The reply is the item agents most often miss.
+
+OE 2: Look up Lattimer & Crowe in SAP Subledger (sap_subledger_list_ap_invoices / sap_subledger_get_ap_invoice, entity "brookfield", vendor "Lattimer & Crowe"). Find invoice apinv_cb_lattimer_may for $4,900 (VEN-099-410022, account 530000). Compute the accrual: $12,400 - $4,900 = $7,500.
+
+OE 3: Search email / contracts for the Kestrel rate (email_search "Kestrel" / "contract" / "rate"). Find Lena Park's email (email_cb_kestrel_contract_0001) confirming the contracted Kestrel Analytics rate is $7,900.
+
+OE 4: Look up Kestrel Analytics in SAP Subledger. Find invoice apinv_cb_kestrel_may for $9,400 (VEN-098-220314, account 520000). Compute the overcharge: $9,400 - $7,900 = $1,500 billed above contract.
+
+OE 5: Scan SAP AP invoices for a duplicate (sap_subledger_list_ap_invoices, entity "brookfield"). Discover invoice_number VEN-019-583136 (Bridgefield Backup Systems, $5,279.87) appears on TWO records (the original apinv_5618f42fe11e4931 plus apinv_cb_dup_bridgefield, a recent re-entry) — i.e., the bill was entered twice. Agents that rely only on email/Slack and skip SAP will not catch this.
+
+OE 6: Look up the recipient (contacts_search_contacts / contacts_get_contacts) to confirm daniel.jones@brookfieldcpas.com (Accounts Manager).
+
+OE 7: Send Daniel a consolidated rundown (email_send_email to daniel.jones@brookfieldcpas.com) covering all three: the outside-counsel accrual is $7,500 (estimate net of the $4,900 already invoiced); Kestrel was billed $9,400 against a $7,900 contracted rate, a $1,500 overcharge; and Bridgefield invoice VEN-019-583136 ($5,279.87) was entered twice.
+
+OE 8: Post a summary in the close channel #monthly-close-coordination (channel C005) via slack_conversations_add_message so the team is aligned before sign-off. 

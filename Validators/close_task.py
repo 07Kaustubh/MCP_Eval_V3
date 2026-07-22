@@ -33,6 +33,32 @@ REVIEW_ARTIFACTS = [
     "13_Feedback.txt",
 ]
 
+# V4 (per_model frameworks, e.g. starpm): injection is a first-class authoring
+# artifact and verification is dual-model. 4_Changelog + inject SQL are required
+# to ship; 8a/8b are warned about (mirrors V3 treatment of 8_Verifier_Fails.txt).
+V4_REQUIRED_EXTRA = [
+    "4_Changelog.json",
+    "9_Universe_inject.sql",
+]
+V4_VERIFIER_FILES = [
+    "8a_Verifier_Fails_Opus.txt",
+    "8b_Verifier_Fails_Gemini.txt",
+]
+
+
+def task_is_v4(task_dir):
+    try:
+        try:
+            from Validators.universes import detect_universe, get_framework_profile
+        except ImportError:
+            import sys as _sys
+            _sys.path.insert(0, str(Path(__file__).resolve().parent))
+            from universes import detect_universe, get_framework_profile
+        profile = get_framework_profile(detect_universe(task_dir))
+        return profile.get("trajectory_layout") == "per_model"
+    except Exception:
+        return False
+
 
 def nonempty(p):
     return p.exists() and (p.is_dir() or p.stat().st_size > 0)
@@ -47,7 +73,16 @@ def main():
         print(f"ERROR: {task_dir} not a directory", file=sys.stderr)
         sys.exit(2)
 
-    missing = [f for f in REQUIRED_FOR_SHIP if not nonempty(task_dir / f)]
+    required = list(REQUIRED_FOR_SHIP)
+    is_v4 = task_is_v4(task_dir)
+    if is_v4:
+        required += V4_REQUIRED_EXTRA
+    missing = [f for f in required if not nonempty(task_dir / f)]
+    if is_v4:
+        for vf in V4_VERIFIER_FILES:
+            if not nonempty(task_dir / vf):
+                print(f"WARN: V4 dual-model verifier file missing/empty: {vf} "
+                      f"(required before platform verification sign-off)")
     has_review = nonempty(task_dir / "changes.md") or nonempty(task_dir / "13_Feedback.txt")
     flow = "REVIEW" if has_review else "CB"
 

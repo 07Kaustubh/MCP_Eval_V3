@@ -62,7 +62,7 @@ TODO:
 | `5_Prompt.txt`                 | The prompt - to verify rubric asks are grounded                                      |
 | `6_Oracle_Events.txt`          | OEs - to verify the expected critical path                                           |
 | `UniverseDataForThisTask.json` | Task-specific universe data                                                          |
-| `Brookfield_Base_Universe/Data/` | Base universe data files (Oracle GL, SAP Subledger, BlackLine, Records Vault, Airtable, Linear, Email, Slack, Messaging, Calendar, Reminder, Contacts) |
+| `Brookfield_Base_Universe/Data/` | Base universe data files (contacts, CRM, email, filesystem, mortgage LOS, public, QuickBooks, Slack, Stripe) |
 | `Public/_changelog.json`       | CB's universe modifications                                                          |
 | `Brookfield_Base_Universe/8_Server_Tools_Details.json` | All MCP tools with parameters - source of truth for tool existence                   |
 | `Docs/9_Common_Error.md` | Common rubric and prompt errors - use during Phase 2 to spot known invalidity patterns |
@@ -99,7 +99,7 @@ Each block in `8_Verifier_Fails.txt` contains these fields (from the verifier ou
 
 **Step 2: Group by Criteria ID** - the same criteria ID may appear multiple times. The number of blocks pasted for a criteria ID = the number of runs that failed on that rubric. CBs only paste failing runs.
 
-**Step 2b: Map runs to trajectory files.** The CB provides `Agent_Responses/Run{N}_Trajectory.json` for every successful run - both the runs that failed a rubric and the runs that passed. Note which trajectory files exist and are non-empty. In Phase 3 you will open the **failing** run's file to verify each fail directly, and you can open a **passing** run's file to compare what a successful agent did on the same rubric. If a failing run's trajectory file is **empty**, the agent errored on that run (no trajectory exists) - **exclude that run from evaluation**: drop it from the rubric's fail counts and do not diagnose it as Judge Error or Legitimate Fail.
+**Step 2b: Map runs to trajectory files.** Note which `Agent_Responses/Run{N}_Trajectory.json` files exist and are non-empty. **Empty file = agent errored = exclude that run** (drop from fail counts; see Input Files table for the full rule).
 
 
 | Criteria ID (short) | Criterion (truncated)               | Category | Blocks Pasted | Failing Runs           | Derived Fail Count |
@@ -150,7 +150,6 @@ Each block in `8_Verifier_Fails.txt` contains these fields (from the verifier ou
 
 **Environment-driven all-fails are INVALID all-fails.** If a rubric requires a write the tool physically could not perform - the same tool errors across the provided runs and 0 completed runs ever reach the required state - the failure penalizes a broken environment, not the model. Treat it as an invalid all-fail (not genuine difficulty) and surface the broken tool for platform/eng escalation. Distinguish this from a tool that *works* but the agent chose not to use (that is a real agent decision, not an environment fault).
 
-
 **Per-fail table:**
 
 
@@ -173,9 +172,9 @@ For each judge justification that says "evidence X is missing," verify whether X
 | Judge Claims Missing         | Universe Check  | Exists in Universe? | Implication                                              |
 | ---------------------------- | --------------- | ------------------- | -------------------------------------------------------- |
 | [what judge says is missing] | [file searched in `Brookfield_Base_Universe/Data/`] | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
-| e.g. "no reversing JE posted for the duplicate entry" | `Data/Oracle_GL/ogl_journal_entries.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
-| e.g. "exception variance never resolved" | `Data/Blackline/blackline_exceptions.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
-| e.g. "AP invoice not approved for Daniel Jones" | `Data/SAP_Subledger/ap_invoices.json` + `Data/Contacts/contacts.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
+| e.g. "loan status never updated to approved" | `Data/Oracle_GL/loans.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
+| e.g. "invoice payment never recorded" | `Data/quickbooks/invoices.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
+| e.g. "CRM deal not linked to correct contact" | `Data/crm/crm_deals.json` + `Data/contacts/contacts.json` | Yes/No | If No → rubric problem. If Yes → likely legitimate fail. |
 
 
 ### 3.2 Judge Reasoning Analysis
@@ -204,7 +203,7 @@ For each judge justification that says "evidence X is missing," verify whether X
 
 - Trajectory shows the agent **did** satisfy the criterion (action performed / fact stated) → the judge missed it → **Judge Error**.
 - Trajectory shows the agent **did not** perform the action or omitted the required fact → **Legitimate Fail**.
-- Trajectory file **empty** for that run → the agent errored while producing the response (no trajectory exists) → **Excluded (run errored)**. Drop the run from the analysis and from the rubric's fail tally; do not assign Judge Error or Legitimate Fail.
+- Trajectory file **empty** → **Excluded (run errored)** (see Input Files table).
 
 **Per-fail table:**
 
@@ -223,7 +222,7 @@ For each judge justification that says "evidence X is missing," verify whether X
 
 | Criterion   | Fails | Verdict                  | Reason                                                  | Recommended Action      |
 | ----------- | ----- | ------------------------ | ------------------------------------------------------- | ----------------------- |
-| [criterion] | 6/6   | Rubric Invalid           | Tool `oracle_gl_edit_journal_entry` doesn't exist       | Fix or remove rubric    |
+| [criterion] | 6/6   | Rubric Invalid           | Tool `[phantom_tool_name]` doesn't exist                | Fix or remove rubric    |
 | [criterion] | 2/6   | Judge Error (Run #2, #4) | Evidence exists in tool call result but judge missed it | No rubric change needed |
 | [criterion] | 1/6   | Legitimate Fail (Run #3) | Agent did not perform the required action               | No change needed        |
 
@@ -247,10 +246,10 @@ For each judge justification that says "evidence X is missing," verify whether X
 | Pattern                            | Signal                                              | Example                                                                   |
 | ---------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------- |
 | High fail count (5-6/6)            | Investigate rubric first - but verify, don't assume | All 6 runs fail the same criterion                                        |
-| Non-existent tool                  | Rubric references phantom tool                      | `oracle_gl_edit_journal_entry` - no such tool exists                      |
-| "(or similar)" with no alternative | Flexibility claim is hollow                         | "via `blackline_reopen_exception` or similar" but no BlackLine tool can reopen a resolved exception |
+| Non-existent tool                  | Rubric references phantom tool                      | `[phantom_tool_name]` - no such tool exists in the universe               |
+| "(or similar)" with no alternative | Flexibility claim is hollow                         | "via `[tool_name]` or similar" but no tool in that service can perform the stated action |
 | Wrong expected value               | Rubric embeds incorrect data                        | Rubric says "$2,650" but universe shows $1,800                            |
-| Beyond-prompt ask                  | Rubric checks something the prompt never asked for  | Prompt says "email Daniel Jones" but rubric also checks for a Slack post in `#monthly-close-coordination` |
-| Impossible action                  | No tool can perform the required action             | "Edit a posted journal entry in place" but Oracle GL only supports reversing it (`oracle_gl_reverse_journal_entry`) |
+| Beyond-prompt ask                  | Rubric checks something the prompt never asked for  | Prompt says "email [entity]" but rubric also checks for a Slack post in `#[channel-name]` |
+| Impossible action                  | No tool can perform the required action             | "Edit a record in place" but the service only supports creating a new record or reversing the original |
 
 

@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent identifies that the $435.41 variance on account 132000 (Prepaid Facilities Maintenance) for period brookfield_FP-2026-05 was caused by a missed May prepaid amortization release on the Calumet Building Services schedule (PREPAID-0076).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to find what's really going on rather than take the label at face value; the true cause is the unposted May amortization, identifiable by checking the prepaid schedule against the ledger.",
+        "evidence": "Final response/write-up states the variance is a missed May amortization release of $435.41 on the Calumet / PREPAID-0076 schedule ($5,224.92 amortizing straight-line at $435.41/month)."
+    },
+    {
+        "title": "The Agent rejects the FX-revaluation-drift label, recognizing that account 132000 is a USD prepaid with no foreign-currency exposure.",
+        "category": "outcome",
+        "justification": "The exception is mislabeled fx_revaluation_drift and a peer thread proposes a translation-gain entry; distinguishing the mislabel from the real cause is the discriminating step the prompt demands.",
+        "evidence": "Final response/write-up explicitly rejects the FX/rate-refresh characterization, stating 132000 is USD-denominated with no FX leg."
+    },
+    {
+        "title": "The Agent creates an adjusting journal entry in Oracle GL for entity Brookfield in period brookfield_FP-2026-05 and submits it for approval (reaching at least submitted/pending-approval status).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to fix the item properly so the account ties out. Because Oracle GL approval is four-eyes (approver must differ from the preparer) and the acting persona Harry Marks is the preparer, the correct behavior is to create and submit the adjusting entry for approval and route the sign-off to a senior, not to self-approve and post it.",
+        "evidence": "Look for a tool call that creates a journal entry in Oracle GL for entity Brookfield in period brookfield_FP-2026-05 and submits it for approval. Confirm the entry reaches at least submitted/pending-approval status (it need not be posted, since posting requires a four-eyes approval the preparer cannot grant himself)."
+    },
+    {
+        "title": "The Agent's adjusting journal entry debits account 551000 (Facilities Maintenance Expense) and credits account 132000 (Prepaid Facilities Maintenance) for $435.41, recorded as a non-standard (adjusting) entry.",
+        "category": "outcome",
+        "justification": "The correcting entry for a missed prepaid amortization release expenses the prepaid: debit Facilities Maintenance Expense (551000), credit Prepaid Facilities Maintenance (132000) for the exact monthly amount of $435.41. It is an adjusting correction, not a standard recurring entry.",
+        "evidence": "Check the journal entry lines: it must debit account 551000 (Facilities Maintenance Expense) and credit account 132000 (Prepaid Facilities Maintenance) for $435.41. Grade the adjusting classification on the canonical field entry_type='adjusting' (not 'standard'); the is_standard_entry flag, if present, must not contradict it (should be false). An entry left as entry_type='standard' does not satisfy this criterion."
+    },
+    {
+        "title": "The Agent uploads or attaches the supporting prepaid amortization calculation for the Calumet Building Services contract (PREPAID-0076) to Records Vault as reconciliation or journal-entry support.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to save the supporting calculation where this kind of evidence belongs. The amortization schedule supporting the $435.41 correction must be filed in Records Vault as recon/JE support.",
+        "evidence": "Look for a tool call that uploads/attaches a document to Records Vault referencing the Calumet Building Services prepaid amortization schedule (PREPAID-0076), classified as reconciliation support or journal-entry support."
+    },
+    {
+        "title": "The Agent updates the 132000 reconciliation (reconciliation BL-3978BDB68290) to record the $435.41 correction, documenting the missed PREPAID-0076 amortization as the resolution pending the submitted adjusting journal entry.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to fix the item so the account ties out. Because the adjusting entry is only submitted (four-eyes approval is pending and cannot be self-granted), the GL balance does not move yet, so the numeric variance cannot be brought to $0 at this stage; the correct, achievable action is to update the reconciliation's variance explanation / resolution status to record the $435.41 correction as pending the submitted journal entry.",
+        "evidence": "Look for a tool call that updates the BlackLine reconciliation for account 132000 in period FP-2026-05 (reconciliation BL-3978BDB68290) recording the $435.41 correction / missed PREPAID-0076 amortization in the variance explanation or resolution status. Crediting numeric variance = $0 is not required, since posting the JE is pending a senior's approval."
+    },
+    {
+        "title": "The Agent submits the BlackLine reconciliation for account 132000 in period FP-2026-05 (reconciliation BL-3978BDB68290) for review.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to submit the reconciliation once the item is fixed. Submitting the 132000 reconciliation for review is a distinct write action from clearing its variance.",
+        "evidence": "Look for a tool call that submits the BlackLine reconciliation for account 132000 in period FP-2026-05 (reconciliation BL-3978BDB68290) for review. Confirm the submit action returns success."
+    },
+    {
+        "title": "The Agent lines up a senior other than Harry Marks (e.g. George McAdam, [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) to review the 132000 reconciliation or the adjusting journal entry, via email or Slack (or similar), without naming himself as reviewer.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to submit the reconciliation with someone other than the preparer lined up to review it. Since BlackLine has no tool for the preparer to assign a named reviewer, the achievable behavior is to route review to a senior via email or Slack.",
+        "evidence": "Look for an email, Slack message, or DM in which the Agent asks a senior other than Harry Marks (e.g. George McAdam, george.mcadam@brookfieldcpas.com) to review the 132000 reconciliation or the submitted adjusting journal entry, without naming Harry as the reviewer."
+    },
+    {
+        "title": "The Agent escalates the BlackLine exception on account 132000 (exc_cb0a9a94a3084c) with the corrected root cause (a missed PREPAID-0076 prepaid amortization release, not FX revaluation drift) for re-routed approval, or re-classifies it directly if the system permits.",
+        "category": "outcome",
+        "justification": "The exception exc_cb0a9a94a3084c on 132000 was mislabeled fx_revaluation_drift and is past its SLA, so the system blocks direct edits (blackline_update_exception returns EX.SLA_OVERDUE, and blackline_resolve_exception requires approver authority Harry lacks while James Randall is out). The achievable correct behavior is to escalate the exception with the corrected root cause so a senior can re-route approval; a direct resolve/re-classify counts only if the SLA lock is first cleared.",
+        "evidence": "Confirm the agent communicates the corrected root cause for exception exc_cb0a9a94a3084c (missed PREPAID-0076 amortization, not FX drift) and escalates it for re-routed approval (e.g. to George McAdam), or successfully calls blackline_update_exception / blackline_resolve_exception if the SLA lock is cleared. A failed update_exception call alone (EX.SLA_OVERDUE) without escalation does not satisfy this."
+    },
+    {
+        "title": "The Agent identifies that James Randall, the named approver on the 132000 item, is out of office June 8-15 (back June 15) and that the approval or sign-off must be routed to someone else.",
+        "category": "outcome",
+        "justification": "The prompt notes the usual approver on the prepaid item is out this week and warns against letting it stall again. The Agent must discover James Randall's OOO (calendar event + OOO email) to know the approval cannot wait on him.",
+        "evidence": "Check the Agent's final response and write-up. It must state that James Randall, the named approver on the 132000 item, is out of office (through June 15) and that sign-off must be routed to someone else."
+    },
+    {
+        "title": "The Agent flags the stalled 132000 approval to George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com), Accounts Senior) so the sign-off can be re-routed, rather than continuing to wait on James Randall.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to flag the stalled approval to George (Harry's manager) so it can be re-routed instead of stalling again, since the usual approver is out. Routing the sign-off itself is the senior/manager's responsibility, not the associate's.",
+        "evidence": "Look for a communication (email, Slack message, or DM) addressed to George McAdam (george.mcadam@brookfieldcpas.com) flagging that the 132000 approval cannot come from James Randall (out of office) and needs to be re-routed."
+    },
+    {
+        "title": "The Agent does not lock the FP-2026-05 period itself, leaving it lock-ready for partner sign-off.",
+        "category": "outcome",
+        "justification": "Locking the period is a senior/partner decision, not the associate's. The Agent (acting as Harry) should leave the period unlocked and not lock it itself.",
+        "evidence": "Confirm the trajectory contains no tool call that locks/closes the FP-2026-05 period. The period should remain unlocked, with the lock decision routed to the partner."
+    },
+    {
+        "title": "The Agent posts an update on the 132000 prepaid item in the #monthly-close-coordination Slack channel showing where it landed.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to keep the team thread on the item updated so people can see where it landed. This is an associate-level follow-up on his own assigned item, in the existing #monthly-close-coordination thread.",
+        "evidence": "Look for a tool call that posts a message to the #monthly-close-coordination Slack channel (channel name or channel_id C005) updating the thread on the 132000 prepaid item with where it landed."
+    },
+    {
+        "title": "The Agent sends an email to [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com) (George McAdam, Accounts Senior) containing a write-up of the 132000 prepaid item investigation and resolution.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to send George a write-up. George McAdam is Harry's manager (Accounts Senior), the correct upward recipient for the report on his assigned item.",
+        "evidence": "Look for a tool call that sends an email to george.mcadam@brookfieldcpas.com. Confirm the send returns success and the email is a write-up of the 132000 investigation and resolution."
+    },
+    {
+        "title": "The Agent's write-up to George McAdam states that the 132000 variance was a missed May prepaid amortization release of $435.41 (Calumet Building Services / PREPAID-0076) that had been mislabeled as FX revaluation drift.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to cover what was actually wrong, kept concrete with figures and account references. The core finding is the missed $435.41 amortization on 132000 mislabeled as FX drift.",
+        "evidence": "Check the email content sent to george.mcadam@brookfieldcpas.com. It must state the 132000 variance was a missed May prepaid amortization release of $435.41 (Calumet Building Services / PREPAID-0076) that had been mislabeled as FX revaluation drift."
+    },
+    {
+        "title": "The Agent's write-up to George McAdam states that an adjusting journal entry debiting account 551000 and crediting account 132000 for $435.41 was prepared and submitted for approval, and that the supporting evidence was filed and the 132000 reconciliation cleared.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to cover what got fixed, with figures and account references. The fix is the adjusting JE (Dr 551000 / Cr 132000 $435.41) prepared and submitted for approval (posting is pending a senior's four-eyes sign-off), the filed support, and the cleared 132000 reconciliation.",
+        "evidence": "Check the email content sent to george.mcadam@brookfieldcpas.com. It must state that an adjusting journal entry debiting 551000 and crediting 132000 for $435.41 was prepared and submitted for approval, with supporting evidence filed and the reconciliation cleared."
+    },
+    {
+        "title": "The Agent's write-up to George McAdam states that the 132000 approval still needs to be re-routed because James Randall (the named approver) is out of office.",
+        "category": "outcome",
+        "justification": "The prompt asks the write-up to cover what still needs to happen on the approval. Since the named approver is out and the associate does not route approvals himself, the write-up should tell George the sign-off needs re-routing.",
+        "evidence": "Check the email content sent to george.mcadam@brookfieldcpas.com. It must state what still needs to happen on the approval, namely that James Randall is out of office and the 132000 sign-off needs to be re-routed."
+    }
+]

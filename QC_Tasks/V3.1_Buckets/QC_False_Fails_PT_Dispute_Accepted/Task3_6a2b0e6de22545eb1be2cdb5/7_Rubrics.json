@@ -1,0 +1,116 @@
+[
+    {
+        "title": "The Agent updates the Airtable close blocker log record (airtable_89e9965af72a) for exception exc_af7274fb658844 to correct the mismatched fields.",
+        "category": "outcome",
+        "justification": "The prompt says 'fix the log if it's wrong.' The close blocker log entry has the correct exception_id but three wrong fields (recon, account, entity). This rubric confirms the Agent executed the write action to correct it.",
+        "evidence": "Look for an Airtable update call targeting record airtable_89e9965af72a in the Close Blocker Triage Log table (table_id airtable_1a80ff5c1ed3, base_id airtable_e86eaf439d1d). Confirm the call returned success."
+    },
+    {
+        "title": "The Agent's corrected close blocker log entry sets the recon_id to BL-72E451657112, the gl_account to 101000 Cash - Operating, and updates the entity reference to Northstar Legal (correcting from BL-3F60ED1C7107, 102000 Cash - Payroll, and Acme Cloud).",
+        "category": "outcome",
+        "justification": "The prompt notes the log shows 'a completely different recon, different account, and a different entity entirely.' The original entry pointed to BL-3F60ED1C7107 / 102000 Cash - Payroll / Acme Cloud. The correct values are BL-72E451657112 / 101000 Cash - Operating / Northstar Legal.",
+        "evidence": "In the Airtable update call for airtable_89e9965af72a, check the fields object for recon_id = BL-72E451657112, gl_account containing 101000 or Cash - Operating, and blocker_title referencing Northstar Legal (not Acme Cloud)."
+    },
+    {
+        "title": "The Agent sends an email to george.mcadam@brookfieldcpas.com covering the Northstar investigation findings.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'send George an email covering the Northstar investigation.' George McAdam's email is george.mcadam@brookfieldcpas.com per the contacts directory.",
+        "evidence": "Look for an email send action with recipients including george.mcadam@brookfieldcpas.com and sender sean.williams@brookfieldcpas.com. Confirm the call returned success."
+    },
+    {
+        "title": "The Agent's email to George McAdam covers the subledger feed status for the Northstar entity, referencing the cash receipts feed run for FP-2026-05 (or similar feed run details).",
+        "category": "outcome",
+        "justification": "The prompt says the email should cover 'the feed status.' The northstar_legal_cash_receipts_feed ran successfully for FP-2026-05 (430 rows posted). The Agent's email should report on this.",
+        "evidence": "In the email content to george.mcadam@brookfieldcpas.com, look for references to the subledger feed, cash receipts feed, feed run status, or row counts for the Northstar FP-2026-05 period."
+    },
+    {
+        "title": "The Agent's email to George McAdam covers the approver gap - that Daniel Jones offered to take the approver slot but the approver field on exc_af7274fb658844 remains unassigned (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the email should cover 'the approver gap.' The exception has approver=null despite Daniel's Slack commitment.",
+        "evidence": "In the email content to george.mcadam@brookfieldcpas.com, look for mention of the approver being unassigned/null and Daniel Jones's commitment or offer to take the slot."
+    },
+    {
+        "title": "The Agent's email to George McAdam addresses Matthew Li's trust-side verification question - whether the item is trust-side or operating (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the email should cover 'whether Matthew's trust question got answered.' Matthew raised in the Slack thread that they need to verify the item is not trust-side (IOLTA) before closing it out.",
+        "evidence": "In the email content to george.mcadam@brookfieldcpas.com, look for references to Matthew Li, trust-side, IOLTA, account 105000, or the operating vs trust distinction."
+    },
+    {
+        "title": "The Agent's email to George McAdam covers whether the evidence on reconciliation BL-72E451657112 supports a cash timing explanation (or similar assessment of the recon evidence).",
+        "category": "outcome",
+        "justification": "The prompt says the email should cover 'whether the recon evidence checks out.' The Agent should report on the evidence status for the Northstar reconciliation.",
+        "evidence": "In the email content to george.mcadam@brookfieldcpas.com, look for discussion of the recon evidence, attached documents, or whether the evidence supports the cash timing explanation."
+    },
+    {
+        "title": "The Agent posts a consolidated update in #monthly-close-coordination covering both the Northstar and Brookfield items.",
+        "category": "outcome",
+        "justification": "The prompt says 'post a consolidated update in the monthly close coordination channel covering both items.' The channel is #monthly-close-coordination (channel_id C005).",
+        "evidence": "Look for a Slack message post to channel C005 or #monthly-close-coordination. The message should reference both the Northstar and Brookfield exceptions. Confirm the call returned success."
+    },
+    {
+        "title": "The Agent's consolidated Slack update reports the Northstar exception's live variance of -$572.87 (or references the variance amount).",
+        "category": "outcome",
+        "justification": "The prompt says the Slack update should cover 'the live Northstar variance.' The variance on exc_af7274fb658844 is -$572.87.",
+        "evidence": "In the Slack message to #monthly-close-coordination, look for the Northstar variance amount ($572.87 or -$572.87)."
+    },
+    {
+        "title": "The Agent's consolidated Slack update notes that the Northstar exception remains in investigating state with the SLA breached (or similar description of an open, overdue status).",
+        "category": "outcome",
+        "justification": "The prompt says the Slack update should cover 'the live Northstar variance and current state.' The exception state is investigating and the SLA due date (2026-05-27) has passed, meaning the SLA is breached.",
+        "evidence": "In the Slack message to #monthly-close-coordination, look for a description indicating the Northstar exception is still open/investigating and overdue or SLA-breached. Agents who state the exception is closed or resolved should fail."
+    },
+    {
+        "title": "The Agent's consolidated Slack update covers the Brookfield exception and whether the refire is truly stale or still has an open thread (or similar assessment).",
+        "category": "outcome",
+        "justification": "The prompt says the Slack update should cover 'whether the Brookfield refire is truly stale or still has an open thread.' The Agent should state whether the resurfacing SLA reminder is a stale artifact or indicates a real issue.",
+        "evidence": "In the Slack message to #monthly-close-coordination, look for the Brookfield exception assessment - whether the reminder refire is stale/dismissed or has an open thread/gap remaining."
+    },
+    {
+        "title": "The Agent identifies that the close blocker log entry for exc_af7274fb658844 has mismatched data - the log shows recon BL-3F60ED1C7107, account 102000 Cash - Payroll, and references Acme Cloud, while the actual exception is on recon BL-72E451657112, account 101000 Cash - Operating, for Northstar Legal.",
+        "category": "outcome",
+        "justification": "The prompt says 'the close blocker log has an entry tied to the same exception but it's showing a completely different recon, different account, and a different entity entirely.' The Agent should report this mismatch to the user.",
+        "evidence": "In the Agent's final response, look for identification of the close blocker log mismatch - wrong recon (BL-3F60ED1C7107), wrong account (102000 / Payroll), and wrong entity (Acme Cloud) versus the correct values (BL-72E451657112, 101000, Northstar Legal)."
+    },
+    {
+        "title": "The Agent reports that the northstar_legal_cash_receipts_feed ran successfully for FP-2026-05 with 430 rows posted.",
+        "category": "outcome",
+        "justification": "The prompt says 'check the subledger feed run history' and 'I want the feed data to confirm it.' The cash receipts feed (run_0448d8808c6540) completed with status=success, 430 rows posted. This is the primary feed status finding.",
+        "evidence": "In the Agent's final response, look for reference to the cash receipts feed running successfully for FP-2026-05 with 430 rows (or equivalent successful status description)."
+    },
+    {
+        "title": "The Agent reports that the Northstar exception (exc_af7274fb658844) has no approver assigned despite Daniel Jones's commitment in the Slack thread to take the approver slot.",
+        "category": "outcome",
+        "justification": "The prompt says 'It's sitting in investigation with no approver even though Daniel said in the Slack thread he'd take that slot.' The Agent should confirm the approver field is null and reference Daniel's unfulfilled commitment.",
+        "evidence": "In the Agent's final response, look for confirmation that the approver field is null/unassigned on the exception and that Daniel Jones offered to take the slot but it was never set."
+    },
+    {
+        "title": "The Agent identifies that the evidence attached to reconciliation BL-72E451657112 is not a cash timing document - specifically a Westlaw/Lexis research subscription support document that was misfiled on the reconciliation.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'whether the evidence attached to the recon actually supports a cash timing explanation or if someone linked the wrong document.' The evidence (evid_697a22e89fec40) links to doc_5673a916921f4d98, which is a journal_entry_support document titled 'Supporting documentation for Westlaw / Lexis research subscription' - not cash timing related at all.",
+        "evidence": "In the Agent's final response, look for identification of the evidence document on BL-72E451657112 as a Westlaw/Lexis research subscription document (or similar non-cash-timing document). The Agent should conclude the wrong document was linked. Evidence record evid_697a22e89fec40 links to doc_5673a916921f4d98 in the universe data."
+    },
+    {
+        "title": "The Agent identifies a timeline discrepancy in the Brookfield exception's audit trail - the audit trail entries show the exception closed on 2026-01-02 but the resolution_executed_at date is 2026-01-04 (or identifies a multi-day gap between the audit trail close date and the resolution execution timestamp).",
+        "category": "outcome",
+        "justification": "The prompt asks to 'check whether the audit trail actually lines up with what everyone's been saying about when it was resolved.' All four audit trail transitions occurred on 2026-01-02 (the last being closed at 20:21:21), but the exception's resolution_executed_at is 2026-01-04T19:01:54 - a 2-day gap. The timeline does NOT fully line up.",
+        "evidence": "In the Agent's final response, look for identification of the January 2 vs January 4 date mismatch, or any statement that the audit trail and resolution date do not fully align. Agents who state the 'audit trail lines up' without noting this discrepancy should fail."
+    },
+    {
+        "title": "The Agent reports that Ryan Delgado's walkthrough note for exc_80548c7bc0d94b is only in email and has not been uploaded to the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'verify whether Ryan's walkthrough note made it into the vault or is just sitting in email.' The email (email_scen_006_orphan_exception_0009) exists but no corresponding document appears in the Records Vault. Ryan's note is email-only.",
+        "evidence": "In the Agent's final response, look for a statement that Ryan's walkthrough note is only in email and not in the Records Vault (or that it was never uploaded/filed to the vault)."
+    },
+    {
+        "title": "The Agent identifies that the evidence attached to reconciliation BL-CC6863D12B78 is not cash-timing related - specifically an audit engagement revenue realization document that was misfiled on the reconciliation.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'check whether the evidence on the old recon is actually cash-timing related and not something unrelated that got misfiled.' The evidence (evid_b55819357ba048) links to doc_ae1a96d2e8fb44f2, an audit_evidence document titled 'Supporting documentation for Audit engagement revenue realization' - entirely unrelated to cash timing.",
+        "evidence": "In the Agent's final response, look for identification of the Brookfield recon evidence as an unrelated document (audit engagement revenue or similar). The Agent should conclude the evidence is misfiled. Evidence record evid_b55819357ba048 links to doc_ae1a96d2e8fb44f2 in the universe data."
+    },
+    {
+        "title": "The Agent confirms that Alex Cahoon verified via DM that the Brookfield exception (exc_80548c7bc0d94b) is the same December intercompany-clearing sweep case from January (or similar confirmation from Alex's direct message).",
+        "category": "outcome",
+        "justification": "The prompt mentions 'Alex confirmed over DM it was the same intercompany-clearing sweep issue from January.' A thorough Agent verifies this claim by finding Alex Cahoon's DM (conversation_scen_006_orphan_exception_0001) and reports the confirmation.",
+        "evidence": "In the Agent's final response, look for reference to Alex Cahoon's DM confirming the Brookfield exception is the December intercompany-clearing sweep case. The DM is in conversation_scen_006_orphan_exception_0001 where Alex states 'exc_80548c7bc0d94b is the December case from the BD3 intercompany-clearing sweep gap.'"
+    }
+]

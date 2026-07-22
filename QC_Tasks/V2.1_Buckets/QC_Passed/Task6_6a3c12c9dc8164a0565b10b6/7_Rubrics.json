@@ -1,0 +1,230 @@
+[
+    {
+        "title": "The Agent files a support note for the Acme Cloud Q1 AR-aging cleanup in the Records Vault/workpapers under AICPA_SQMS_7Y, with a title or description related to Acme Cloud Q1 AR-aging collectibility or Daniel sign-off support (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for a short support note to be filed with the workpapers. The retention context keeps the note in the correct Brookfield workpaper lane without requiring a separate BlackLine attachment.",
+        "evidence": "Verify a successful Records Vault/workpaper filing for Acme Cloud with AICPA_SQMS_7Y retention and a title or description matching the AR-aging cleanup/sign-off support purpose."
+    },
+    {
+        "title": "The Agent states in the support note that Acme Cloud AR should be anchored to account 110000 (Accounts Receivable - Trade) and that the old 120000 label in the Q1 aging trail should not be treated as the correct AR control account.",
+        "category": "outcome",
+        "justification": "This is the central source-record correction. Runs that accept 120000 as Acme AR miss the chart-of-accounts trap and can produce a misleading client-ready view.",
+        "evidence": "Inspect the support note content for account 110000, the Accounts Receivable - Trade meaning, and the correction or caveat around the old 120000 aging label."
+    },
+    {
+        "title": "The Agent includes in the support note the Q1 aging position as approximately $4.2M total AR, $2.95M current, $760K in 1-30 days, $310K in 31-60 days, $143K in 61-90 days, and $42K in 90+ days.",
+        "category": "outcome",
+        "justification": "The prompt asks to rebuild the aging position, not merely state that aging exists. These bucket values are the source-record aging position the agent must carry into the workpaper support.",
+        "evidence": "Inspect the support note content for the total AR figure and each bucket amount, accepting clear rounding around the stated values."
+    },
+    {
+        "title": "The Agent states in the support note that CUST-acme-1187 has approximately $82K in 61-90 days and is a contract-consistent net-90 payer requiring only a soft chase or low-concern follow-up.",
+        "category": "outcome",
+        "justification": "This customer is the low-risk past-60-day comparator and proves the agent checked receipts rather than treating all old balances alike.",
+        "evidence": "Inspect the support note content for CUST-acme-1187, the approximate $82K amount, the 61-90 bucket, and the net-90/soft-chase conclusion."
+    },
+    {
+        "title": "The Agent states in the support note that CUST-acme-1294 has approximately $61K in 61-90 days, is standard net-30, has no 2026-Q1 payment activity, and represents real slippage needing active collections follow-up.",
+        "category": "outcome",
+        "justification": "This customer is the real-slippage finding. Missing it causes Daniel's sign-off package to understate the collection risk.",
+        "evidence": "Inspect the support note content for CUST-acme-1294, the approximate $61K amount, the 61-90 bucket, no Q1 payment activity, and the real-slippage/collections conclusion."
+    },
+    {
+        "title": "The Agent states in the support note that CUST-acme-1356 has approximately $42K in 90+ days, has had no payment activity since 2025-Q4, and has an unresolved October 2025 payment-plan request.",
+        "category": "outcome",
+        "justification": "This is the highest-risk past-60-day customer and the key collectibility concern.",
+        "evidence": "Inspect the support note content for CUST-acme-1356, the approximate $42K amount, the 90+ bucket, no receipts since 2025-Q4, and the unresolved October 2025 payment-plan request."
+    },
+    {
+        "title": "The Agent states in the support note that CUST-acme-1356 may warrant an allowance or bad-debt discussion only if Acme CFO direction is obtained, and that Brookfield should not book or push an allowance in the current cycle absent that CFO direction.",
+        "category": "outcome",
+        "justification": "The prompt prohibits allowance postings, and the source evidence frames CUST-acme-1356 as a discussion item rather than an immediate accounting action.",
+        "evidence": "Inspect the support note content for the CFO-direction condition and the no-current-cycle allowance posting conclusion for CUST-acme-1356."
+    },
+    {
+        "title": "The Agent states in the support note that AR-aging bucket cleanup is formally covered by Acme Cloud Engagement Letter Addendum #1, but the May 2026 follow-through is not cleanly evidenced as a separate operational tracker in the workflow/issue/close evidence and risks being buried in the base monthly close.",
+        "category": "outcome",
+        "justification": "This is the discriminating scope-tracking nuance. A run that says the work is already cleanly tracked as post-addendum work misses the formal-versus-operational distinction.",
+        "evidence": "Inspect the support note content for both sides of the conclusion: formal Addendum #1 coverage and the lack of clean separate May operational tracking."
+    },
+    {
+        "title": "The Agent states in the support note that no write-off, allowance posting, or customer-status change was made for the Acme AR-aging cleanup or the 60+ customers.",
+        "category": "outcome",
+        "justification": "The user explicitly limits the task to a collectibility read and sign-off support, not accounting or customer-account changes.",
+        "evidence": "Inspect the support note content for the no-write-off, no-allowance-posting, and no-customer-status-change statement."
+    },
+    {
+        "title": "The Agent posts an internal status message in the #monthly-close-coordination channel (C005).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for an internal status in the close coordination channel.",
+        "evidence": "Verify a successful Slack/internal-message action targeting #monthly-close-coordination or channel C005."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that the Acme Q1 AR-aging support note was filed with the workpapers.",
+        "category": "outcome",
+        "justification": "The close team needs to know the support note exists and where the workpaper trail now lives.",
+        "evidence": "Inspect the channel message content for a statement that the Acme Q1 AR-aging support note was filed with the workpapers."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that the collectibility read is complete.",
+        "category": "outcome",
+        "justification": "The status message should communicate that the requested AR-aging collectibility review was completed, not merely that work is ongoing.",
+        "evidence": "Inspect the channel message content for a completed collectibility-read statement."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that no write-off, allowance posting, or customer-status change was made.",
+        "category": "outcome",
+        "justification": "The close team must see that the agent respected the user's no-posting and no-customer-status-change boundary.",
+        "evidence": "Inspect the channel message content for the no-write-off, no-allowance-posting, and no-customer-status-change statement."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that CUST-acme-1187 is contract-consistent net-90/soft-chase only.",
+        "category": "outcome",
+        "justification": "The internal status should preserve the low-risk customer conclusion separately from the higher-risk items.",
+        "evidence": "Inspect the channel message content for CUST-acme-1187 and the net-90/soft-chase conclusion."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that CUST-acme-1294 has no 2026-Q1 receipts and represents real slippage.",
+        "category": "outcome",
+        "justification": "This is the customer requiring active collections attention and should be visible in the close status.",
+        "evidence": "Inspect the channel message content for CUST-acme-1294, no Q1 receipts, and real-slippage language."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that CUST-acme-1356 is 90+ with no receipts since 2025-Q4.",
+        "category": "outcome",
+        "justification": "This preserves the highest-risk customer conclusion in the team-facing status.",
+        "evidence": "Inspect the channel message content for CUST-acme-1356, the 90+ status, and no receipts since 2025-Q4."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that any CUST-acme-1356 allowance consideration requires Acme CFO direction.",
+        "category": "outcome",
+        "justification": "This preserves the no-posting boundary for the highest-risk customer in the team-facing status by conditioning any allowance on CFO direction.",
+        "evidence": "This preserves the no-posting boundary for the highest-risk customer in the team-facing status by conditioning any allowance on CFO direction."
+    },
+    {
+        "title": "The Agent states in the #monthly-close-coordination status that AR-aging cleanup is formally included in Addendum #1 but should not be buried in base monthly close because separate May 2026 tracking is not cleanly evidenced.",
+        "category": "outcome",
+        "justification": "This prevents a misleading internal status that treats the formal addendum as proof of operational tracking.",
+        "evidence": "Inspect the channel message content for the Addendum #1 coverage and the separate-tracking gap/risk."
+    },
+    {
+        "title": "The Agent sends the sign-off summary email from [jones.harrison@brookfieldcpas.com](mailto:jones.harrison@brookfieldcpas.com) to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) with [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) in CC.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks Jones to send Daniel the sign-off summary with Andrea copied for change-order context.",
+        "evidence": "Verify a successful outbound email with Jones as sender, Daniel as recipient, and Andrea in CC."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that Acme Cloud AR should be anchored to account 110000 (Accounts Receivable - Trade) even though the old Q1 aging trail used the 120000 label.",
+        "category": "outcome",
+        "justification": "Daniel's sign-off package must contain the source-record account correction, not merely the old thread summary.",
+        "evidence": "Inspect the email body for account 110000, Accounts Receivable - Trade, and the old 120000 label caveat."
+    },
+    {
+        "title": "The Agent includes in the email to Daniel the Q1 aging position as approximately $4.2M total AR, $2.95M current, $760K in 1-30 days, $310K in 31-60 days, $143K in 61-90 days, and $42K in 90+ days.",
+        "category": "outcome",
+        "justification": "Daniel needs the rebuilt aging position for sign-off, not only the disposition of selected customers.",
+        "evidence": "Inspect the email body for the total AR figure and each aging bucket amount, accepting clear rounding around the stated values."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that CUST-acme-1187 has approximately $82K in 61-90 days and is a contract-consistent net-90 payer requiring only a soft chase or low-concern follow-up.",
+        "category": "outcome",
+        "justification": "This customer is the low-risk comparator Daniel needs in the sign-off summary.",
+        "evidence": "Inspect the email body for CUST-acme-1187, the approximate $82K amount, the 61-90 bucket, and the net-90/soft-chase conclusion."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that CUST-acme-1294 has approximately $61K in 61-90 days, is standard net-30, has no 2026-Q1 payment activity, and represents real slippage needing active collections follow-up.",
+        "category": "outcome",
+        "justification": "This customer is one of Daniel's collection follow-up decisions and must not be hidden inside a generic aging summary.",
+        "evidence": "Inspect the email body for CUST-acme-1294, the approximate $61K amount, the 61-90 bucket, no Q1 payment activity, and real-slippage/collections language."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that CUST-acme-1356 has approximately $42K in 90+ days, has had no payment activity since 2025-Q4, and has an unresolved October 2025 payment-plan request.",
+        "category": "outcome",
+        "justification": "Daniel needs this highest-risk customer fact for sign-off and escalation decisions.",
+        "evidence": "Inspect the email body for CUST-acme-1356, the approximate $42K amount, the 90+ bucket, no receipts since 2025-Q4, and the unresolved October 2025 payment-plan request."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that no write-off, allowance posting, or customer-status update was posted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly forbids these changes, and Daniel should not infer that the sign-off summary included accounting or customer-account updates.",
+        "evidence": "Inspect the email body for the no-write-off, no-allowance-posting, and no-customer-status-update statement."
+    },
+    {
+        "title": "The Agent states in the email to Daniel that any CUST-acme-1356 allowance or bad-debt position requires Acme CFO direction before Brookfield books or pushes it.",
+        "category": "outcome",
+        "justification": "This is the specific conditional treatment for the highest-risk customer and prevents an unauthorized allowance recommendation from being treated as booked.",
+        "evidence": "Inspect the email body for the CFO-direction condition before any CUST-acme-1356 allowance or bad-debt position."
+    },
+    {
+        "title": "The Agent tells Daniel in the email that AR-aging cleanup is formally covered by Acme Cloud Engagement Letter Addendum #1, but the May 2026 follow-through is not cleanly evidenced as a separate operational tracker and risks being buried in base monthly close.",
+        "category": "outcome",
+        "justification": "This is the scope answer Daniel needs for sign-off and Andrea needs for change-order context.",
+        "evidence": "Inspect the email body for both formal Addendum #1 coverage and the operational tracking gap/risk."
+    },
+    {
+        "title": "The Agent tells Daniel in the email to decide or escalate collections follow-up for CUST-acme-1294 and CUST-acme-1356.",
+        "category": "outcome",
+        "justification": "The collectibility read identifies these customers as the follow-up decisions Daniel must own or escalate.",
+        "evidence": "Inspect the email body for a collections follow-up or escalation item covering both CUST-acme-1294 and CUST-acme-1356."
+    },
+    {
+        "title": "The Agent tells Daniel in the email to ensure May 2026 AR-aging cleanup is tracked as an Addendum #1 scope item rather than folded into base monthly close.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the cleanup is being tracked as post-addendum scope, and the sign-off summary should convert the tracking gap into Daniel's action item.",
+        "evidence": "Inspect the email body for the May 2026 separate Addendum #1 tracking item."
+    },
+    {
+        "title": "The Agent completes the task without posting any write-off entry, allowance entry, or customer-status change for Acme Cloud AR account 110000, CUST-acme-1187, CUST-acme-1294, or CUST-acme-1356.",
+        "category": "outcome",
+        "justification": "The user explicitly says not to post write-off, allowance, or customer-status changes. This rubric checks the actual universe-changing behavior, not just whether the agent claimed restraint.",
+        "evidence": "Review the trajectory and confirm that no accounting entry, allowance posting, or customer-account/status update was created for these Acme AR items or customers."
+    },
+    {
+        "title": "The Agent reports in the final response that Acme Cloud AR should be anchored to account 110000 (Accounts Receivable - Trade) and that the old 120000 label should not be treated as the correct Acme AR control account.",
+        "category": "outcome",
+        "justification": "The user asked not to rely on the old thread summary and needed a source-record rebuild. The final response should surface the account correction.",
+        "evidence": "Inspect the final response for account 110000, Accounts Receivable - Trade, and the old 120000 label caveat."
+    },
+    {
+        "title": "The Agent reports in the final response the Q1 aging position as approximately $4.2M total AR, $2.95M current, $760K in 1-30 days, $310K in 31-60 days, $143K in 61-90 days, and $42K in 90+ days.",
+        "category": "outcome",
+        "justification": "The user asked for the aging position rebuilt from source records, so the final response should include the reconstructed position.",
+        "evidence": "Inspect the final response for the total AR figure and each aging bucket amount, accepting clear rounding around the stated values."
+    },
+    {
+        "title": "The Agent reports in the final response that CUST-acme-1187 has approximately $82K in 61-90 days and is a contract-consistent net-90 payer requiring only a soft chase or low-concern follow-up.",
+        "category": "outcome",
+        "justification": "This customer is one of the required past-60-day cash-receipts reads and is the low-risk comparator.",
+        "evidence": "Inspect the final response for CUST-acme-1187, the approximate $82K amount, the 61-90 bucket, and the net-90/soft-chase conclusion."
+    },
+    {
+        "title": "The Agent reports in the final response that CUST-acme-1294 has approximately $61K in 61-90 days, is standard net-30, has no 2026-Q1 payment activity, and represents real slippage needing active collections follow-up.",
+        "category": "outcome",
+        "justification": "This customer is the required real-slippage finding and should not be collapsed into generic aging risk.",
+        "evidence": "Inspect the final response for CUST-acme-1294, the approximate $61K amount, the 61-90 bucket, no Q1 payment activity, and the real-slippage/collections conclusion."
+    },
+    {
+        "title": "The Agent reports in the final response that CUST-acme-1356 has approximately $42K in 90+ days, has had no payment activity since 2025-Q4, and has an unresolved October 2025 payment-plan request.",
+        "category": "outcome",
+        "justification": "This is the highest-risk past-60-day customer and the key collectibility concern in the final response.",
+        "evidence": "Inspect the final response for CUST-acme-1356, the approximate $42K amount, the 90+ bucket, no receipts since 2025-Q4, and the unresolved October 2025 payment-plan request."
+    },
+    {
+        "title": "The Agent reports in the final response that any CUST-acme-1356 allowance or bad-debt discussion requires Acme CFO direction before Brookfield books or pushes it.",
+        "category": "outcome",
+        "justification": "This is the main no-posting boundary for the highest-risk customer; a correct answer must distinguish discussion from immediate allowance action.",
+        "evidence": "Inspect the final response for the CFO-direction condition before any CUST-acme-1356 allowance or bad-debt position."
+    },
+    {
+        "title": "The Agent reports in the final response that AR-aging bucket cleanup is formally included in Acme Cloud Engagement Letter Addendum #1, but the May 2026 follow-through is not cleanly evidenced as a separate operational tracker and risks being buried in the base monthly close.",
+        "category": "outcome",
+        "justification": "The user directly asks whether the cleanup is tracked as post-addendum scope rather than buried in base close. This is the required answer to that question.",
+        "evidence": "Inspect the final response for both formal Addendum #1 coverage and the lack of clean separate May operational tracking."
+    },
+    {
+        "title": "The Agent reports in the final response that no write-off, allowance posting, or customer-status change was posted for the Acme AR-aging cleanup or the 60+ customer population.",
+        "category": "outcome",
+        "justification": "The user asked for a collectibility read only and explicitly prohibited those changes, so the final response should confirm the boundary was respected.",
+        "evidence": "Inspect the final response for a statement that no write-off, allowance posting, or customer-status change was made."
+    }
+]

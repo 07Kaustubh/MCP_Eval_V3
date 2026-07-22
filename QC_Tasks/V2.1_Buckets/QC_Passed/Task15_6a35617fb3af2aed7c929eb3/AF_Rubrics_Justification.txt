@@ -1,0 +1,18 @@
+=== Failing Rubrics ===
+R16 [outcome]: The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.
+
+=== AF Model Justifications ===
+Run 1 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: The agent sent the message to conversation_scen_047_tax_regulatory_0001 (which was a Tom Chang & William White two-way thread, not the three-way Hannah/Tom/William conversation). The GT specifies conv_ed8b2920e4bf. The agent added Hannah to an existing Tom-William thread rather than using the correct pre-existing three-way conversation.
+
+Run 2 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: The agent sent the message to conversation_scen_047_tax_regulatory_0001 (titled 'Tom Chang & William White' — a two-person thread), not to the correct three-way conversation conv_ed8b2920e4bf (Hannah Grant, Tom Chang & William White). The correct three-way conversation was never found in the trajectory.
+
+Run 3 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: The agent sent to conversation_scen_047_tax_regulatory_0001 (originally 'Tom Chang & William White', then Hannah was added). The GT expects conversation_id conv_ed8b2920e4bf titled 'Hannah Grant, Tom Chang & William White'. The agent failed to find the pre-existing three-way conversation and instead converted a two-way thread.
+
+Run 4 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: The agent created a NEW conversation (messaging_create_conversation at step [111]) rather than using the existing three-way conversation conv_ed8b2920e4bf (Hannah Grant, Tom Chang & William White). The criterion requires messaging on the existing conversation.
+
+Run 5 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: Agent created a NEW conversation (9f60ee1234304a01bad5baff7a422fd4) via messaging_create_conversation instead of sending on the existing three-way conversation conv_ed8b2920e4bf (Hannah Grant, Tom Chang & William White).
+
+Run 6 [FAIL] The Agent sends a message on the existing three-way conversation with Hannah Grant, Tom Chang, and William White.: The agent sent to conversation_scen_047_tax_regulatory_0001 which is titled 'Tom Chang & William White' (a two-person conversation), not the three-way conversation with Hannah Grant, Tom Chang, and William White (conv_ed8b2920e4bf). The criteria requires the existing three-way conversation.
+
+=== Failing Rubric Justifications (CB) ===
+R16 [outcome]: The prompt requires messaging on our existing three-way thread with Hannah, Tom, and William. GT has exactly one match: conv_ed8b2920e4bf (title Hannah Grant, Tom Chang & William White). All completed runs instead posted to conversation_scen_047_tax_regulatory_0001 (the William/Tom Northstar split-convention thread from investigation) or created a new conversation neither satisfies "existing three-way thread." A capable agent can pass by listing/searching conversations for that title before sending.

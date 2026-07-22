@@ -1,0 +1,128 @@
+[
+    {
+        "title": "The Agent prepares a corrective journal entry for the Brookfield Deferred Revenue - Client Retainers account (240000) to record the unrecorded client billing surfaced by exception exc_06b89e3937b04a.",
+        "category": "outcome",
+        "justification": "The prompt says 'Where something genuinely needs a correction booked, prepare the entry.' Of the three in-scope open FP-2026-05 exceptions, only the 240000 unrecorded-invoice item (exc_06b89e3937b04a, recon BL-433E3BEEFD66) is a genuine unrecorded billing that must be booked rather than accepted as timing. Preparing this entry is the load-bearing book-not-roll decision.",
+        "evidence": "Look for a create-journal-entry tool call whose lines affect account 240000 and whose description or business_justification references exception exc_06b89e3937b04a (and/or reconciliation BL-433E3BEEFD66). Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent books the corrective journal entry in the June period (FP-2026-06), not the past-lock May period (FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt warns 'we are already past the May lock date even though the period is being held open to finish the close.' FP-2026-05 is open but past its BD3 lock (2026-06-03) and BD5 close (2026-06-05); the corrective entry therefore belongs in FP-2026-06. Booking it in May would violate the lock discipline.",
+        "evidence": "Check the period_id parameter of the create-journal-entry call. It must be brookfield_FP-2026-06, not brookfield_FP-2026-05."
+    },
+    {
+        "title": "The Agent's corrective journal entry brings the account 240000 balance into agreement with its supporting balance, adjusting it by $172.62.",
+        "category": "outcome",
+        "justification": "Per OE5/OE9, reconciliation BL-433E3BEEFD66 shows the 240000 general-ledger balance ($1,763,703.31) sits $172.62 below the supporting balance ($1,763,875.93). A correct corrective entry adjusts account 240000 by exactly this $172.62 variance; a token or differently sized entry does not clear the exception.",
+        "evidence": "Check the journal-entry lines for an amount of $172.62 against account 240000. Confirm the entry magnitude matches the reconciliation variance of 172.62."
+    },
+    {
+        "title": "The Agent routes the corrective journal entry for review rather than posting it, and does not self-approve or self-post it.",
+        "category": "outcome",
+        "justification": "The prompt says to 'route it to George for review rather than posting anything yourself, since he is the one signing the period off.' The agent must move the entry into a routed-for-review posture and must not approve or post it itself. Routing for review is satisfied by the in-system submitted state or by a draft entry explicitly attached to or referenced in a review message to George; the hard requirement is that the agent does not self-approve or self-post.",
+        "evidence": "Confirm EITHER a submit-for-review (submit-journal-entry) call on the draft 240000 entry leaving it in submitted state, OR a draft 240000 entry explicitly attached to or referenced in a review message to George, AND the ABSENCE of any approve-journal-entry or post-journal-entry call by the agent on that entry."
+    },
+    {
+        "title": "The Agent routes the account 260000 (Partner Distributions Payable) exception exc_652c0931bb2546 to its named approver Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) for sign-off, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt says 'make sure anything waiting on a named approval is routed to the right person rather than left sitting.' Exception exc_652c0931bb2546 is in awaiting_approval state with daniel.jones@brookfieldcpas.com as the named approver. Phrased method-agnostically because the prompt names the goal (route to the right person) without naming a channel.",
+        "evidence": "Look for a send-email, messaging, or Slack direct message addressed to daniel.jones@brookfieldcpas.com. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's message to Daniel Jones references the account 260000 timing difference (exception exc_652c0931bb2546) and requests his approval to dispose of it (or similar).",
+        "category": "outcome",
+        "justification": "The routing must tell Daniel Jones what he is approving. Per OE11 the message conveys that the 260000 Partner Distributions Payable timing difference is immaterial and requests his named approval as approver of record. Kept separate from the 1.1 routing rubric so an empty or unrelated message fails on content.",
+        "evidence": "Check the content/payload of the message to daniel.jones@brookfieldcpas.com for reference to the 260000 item (or exc_652c0931bb2546) and a request for his approval or sign-off."
+    },
+    {
+        "title": "The Agent documents the disposition of the account 240000 item on its reconciliation BL-433E3BEEFD66.",
+        "category": "outcome",
+        "justification": "The prompt says 'Update the reconciliations ... so each item reflects how it was settled.' Reconciliation BL-433E3BEEFD66 carries the 240000 deferred-revenue exception; its settlement (corrective entry prepared in June, routed to George) must be recorded against it. Atomic per reconciliation.",
+        "evidence": "Look for a review-note or reconciliation-update tool call targeting recon_id BL-433E3BEEFD66 with a body describing the 240000 settlement. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent documents the disposition of the account 260000 item on its reconciliation BL-1F548113B049.",
+        "category": "outcome",
+        "justification": "The prompt says to update the reconciliations so each item reflects how it was settled. Reconciliation BL-1F548113B049 carries the 260000 Partner Distributions Payable exception; its settlement (accepted as immaterial timing, routed to Daniel Jones) must be recorded against it. Atomic per reconciliation.",
+        "evidence": "Look for a review-note or reconciliation-update tool call targeting recon_id BL-1F548113B049 with a body describing the 260000 settlement. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent documents the disposition of the account 102000 item on its reconciliation BL-333FF9956BC6.",
+        "category": "outcome",
+        "justification": "The prompt says to update the reconciliations so each item reflects how it was settled. Reconciliation BL-333FF9956BC6 carries the 102000 Cash - Payroll feed-drop exception; its settlement (accepted as timing, awaiting the June feed retry) must be recorded against it. Atomic per reconciliation.",
+        "evidence": "Look for a review-note or reconciliation-update tool call targeting recon_id BL-333FF9956BC6 with a body describing the 102000 settlement. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent logs the account 240000 item (exception exc_06b89e3937b04a) in the Close Blocker Triage Log.",
+        "category": "outcome",
+        "justification": "The prompt says to update 'the close blocker tracker so each item reflects how it was settled.' The Close Blocker Triage Log table (in Airtable base airtable_e86eaf439d1d) must carry a record for the in-scope 240000 exception. Atomic per exception.",
+        "evidence": "Look for a create-record tool call into the Close Blocker Triage Log table referencing exc_06b89e3937b04a or account 240000. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent logs the account 260000 item (exception exc_652c0931bb2546) in the Close Blocker Triage Log.",
+        "category": "outcome",
+        "justification": "The prompt says to update the close blocker tracker so each item reflects how it was settled. The Close Blocker Triage Log must carry a record for the in-scope 260000 exception. Atomic per exception.",
+        "evidence": "Look for a create-record tool call into the Close Blocker Triage Log table referencing exc_652c0931bb2546 or account 260000. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent logs the account 102000 item (exception exc_aade06f6129e43) in the Close Blocker Triage Log.",
+        "category": "outcome",
+        "justification": "The prompt says to update the close blocker tracker so each item reflects how it was settled. The Close Blocker Triage Log must carry a record for the in-scope 102000 exception. Atomic per exception.",
+        "evidence": "Look for a create-record tool call into the Close Blocker Triage Log table referencing exc_aade06f6129e43 or account 102000. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent posts a status note to the #monthly-close-coordination Slack channel (channel_id C005).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Put a short note in the monthly close coordination channel so the team can see where each one landed.' This confirms the channel-level write action to C005 (#monthly-close-coordination).",
+        "evidence": "Look for a Slack add-message tool call targeting channel_id C005 or channel name monthly-close-coordination. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's #monthly-close-coordination note states where the three open exceptions landed: the 240000 item booked for correction in June and routed to George, the 260000 item accepted as timing and routed to Daniel Jones, and the 102000 item accepted as timing pending the June feed retry (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a short note 'so the team can see where each one landed.' The note must convey the disposition of all three in-scope items. Kept as a single content rubric because the prompt asks for one short summary note covering each landing.",
+        "evidence": "Check the payload of the Slack C005 message for the disposition of all three items (240000 corrected/booked, 260000 accepted and routed, 102000 accepted pending retry), allowing for paraphrase."
+    },
+    {
+        "title": "The Agent sends George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) a close summary he can finalize the period from, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt says 'send George a summary he can finalize the period from, taking him through what you found on each exception and why you treated it the way you did.' This confirms the summary reached George. Method-agnostic because the prompt names the goal (get George a summary) without specifying a channel.",
+        "evidence": "Look for a send-email, messaging, or Slack direct message addressed to george.mcadam@brookfieldcpas.com containing a per-exception close summary. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent's summary to George states that the account 240000 (Deferred Revenue - Client Retainers) item is a genuine unrecorded billing requiring a corrective entry prepared in June and routed to him for review, rather than being rolled as timing (or similar).",
+        "category": "outcome",
+        "justification": "Per OE5/OE8 the discriminating disposition is that the 240000 item must be booked, not waved through as timing despite the 'May is clean' framing. George needs this reasoning to certify the period. This is the primary discriminating content criterion.",
+        "evidence": "Check the content of the George summary for a statement that the 240000 deferred-revenue item is a real unrecorded item booked via a corrective entry in June and routed to George, not accepted as timing."
+    },
+    {
+        "title": "The Agent's summary to George states that the account 260000 (Partner Distributions Payable) item is immaterial timing that was accepted and routed to its named approver Daniel Jones (or similar).",
+        "category": "outcome",
+        "justification": "Per OE6/OE8 the 260000 item is correctly accept-timing under materiality and, being in awaiting_approval state, is routed to Daniel Jones. George needs this per-item disposition to finalize. Atomic per exception.",
+        "evidence": "Check the content of the George summary for a statement that the 260000 timing item was accepted as immaterial and routed to Daniel Jones for his named approval."
+    },
+    {
+        "title": "The Agent's summary to George states that the account 102000 (Cash - Payroll) item is an immaterial feed-drop accepted as timing, pending the June feed retry (or similar).",
+        "category": "outcome",
+        "justification": "Per OE7/OE8 the 102000 subledger-feed-drop item is correctly accept-timing, left logged pending the queued June feed retry, with no journal entry. George needs this per-item disposition to finalize. Atomic per exception.",
+        "evidence": "Check the content of the George summary for a statement that the 102000 feed-drop item was accepted as immaterial timing pending the June feed retry, with no corrective entry booked."
+    },
+    {
+        "title": "The Agent creates a reminder to confirm the account 240000 corrective entry (exception exc_06b89e3937b04a) has been actioned before the May period is certified.",
+        "category": "outcome",
+        "justification": "The prompt says 'set me a reminder to confirm the booking has actually been actioned before May is certified.' The reminder is for the persona (Harry) and must reference confirming the corrective entry is posted ahead of the FP-2026-05 certification.",
+        "evidence": "Look for a create-reminder tool call whose title or description references confirming the 240000 corrective entry (exc_06b89e3937b04a) is actioned/posted before May (FP-2026-05) is certified, with a near-term due date. Confirm the tool returned a success response."
+    },
+    {
+        "title": "The Agent does not prepare or route a corrective journal entry for the larger reconciliation variances the prompt places outside its scope (accounts 210000, 131000, 119000).",
+        "category": "outcome",
+        "justification": "The prompt states the bigger variances are already known and being handled on their own tracks and asks Harry to take only the handful of smaller exceptions. The in-scope set is exactly the three small exceptions exc_06b89e3937b04a (240000), exc_652c0931bb2546 (260000) and exc_aade06f6129e43 (102000); the three large open FP-2026-05 exceptions exc_a0f77f2a19104e (210000), exc_4d5d3582698946 (131000) and exc_1ddfc978ce5a4d (119000) are out of scope. Booking a correction for any of them works an item owned on another track, and for a past-lock period it books an unauthorized entry.",
+        "evidence": "Confirm the ABSENCE of any create-journal-entry call whose lines affect account 210000, 131000 or 119000, or whose description or business_justification cites exc_a0f77f2a19104e, exc_4d5d3582698946 or exc_1ddfc978ce5a4d. Any such entry fails this criterion."
+    },
+    {
+        "title": "The Agent leaves the account 102000 (Cash - Payroll) feed-drop exception exc_aade06f6129e43 in its logged state pending the June feed retry, rather than resolving or closing it.",
+        "category": "outcome",
+        "justification": "Per the 102000 disposition the subledger-feed-drop is accept-timing, but the exception stays in logged state because the June feed retry has not run and the dropped rows are still unreconciled. Resolving or closing the exception asserts a reconciliation that has not occurred.",
+        "evidence": "Confirm the ABSENCE of a resolve-exception or other state-change call closing exc_aade06f6129e43; it should remain in logged state. A resolve-exception call on exc_aade06f6129e43 fails this criterion."
+    }
+]

@@ -1315,7 +1315,13 @@ def main() -> None:
         sys.exit(2)
 
     out_dir = task_dir / "_aux" / "Validator_Reports"
-    out_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        out_dir.mkdir(parents=True, exist_ok=True)
+    except PermissionError:
+        print(f"ERROR: {task_dir} is not writable (read-only template or vendored dir); "
+              f"validate.py needs to write _aux/Validator_Reports. Copy the task into Tasks/ first.",
+              file=sys.stderr)
+        sys.exit(2)
 
     phases = [args.phase] if args.phase != "all" else ["prompt", "oe", "rubrics"]
     overall_fail = False

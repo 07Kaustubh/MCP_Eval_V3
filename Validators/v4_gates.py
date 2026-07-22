@@ -33,6 +33,18 @@ ID_TOKEN_RE = re.compile(
     r"deal_[A-Za-z0-9_]{3,}|cnt_[A-Za-z0-9_]{2,}|thr_[A-Za-z0-9_]{2,}|msg_[A-Za-z0-9_]{2,}|"
     r"iss_[A-Za-z0-9_]{2,}|evt_[A-Za-z0-9_]{2,}|inv_[A-Za-z0-9_]{2,}|p_\d{3})\b"
 )
+V3_ID_TOKEN_RE = re.compile(
+    r"\b(?:JE-[A-Z0-9-]{4,}|BL-[A-F0-9]{8,}|exc_[a-z0-9_]{4,}|doc_[a-f0-9]{8,}|"
+    r"email_scen_[a-z0-9_]{6,}|scenario_[a-f0-9]{6,}|FP-20\d{2}-\d{2}|"
+    r"ap_inv_[a-z0-9_]{4,}|recon_[a-z0-9_]{4,}|vend_[a-z0-9_]{3,}|LN-20\d{2}-\d{4,}|"
+    r"rec[A-Z0-9][A-Za-z0-9]{4,}|tbl[A-Z0-9][A-Za-z0-9]{4,}|C0\d{2}|U0\d{2}|p_\d{3})\b"
+)
+
+
+def id_token_re_for(universe: str):
+    return ID_TOKEN_RE if universe == "starpm" else V3_ID_TOKEN_RE
+
+
 AI_TELL_PHRASES = [
     "i wanted to formally", "i wanted to circle back", "circle back on",
     "i hope this email finds you well", "i hope this finds you well",
@@ -224,11 +236,16 @@ def load_rubrics(task_dir: Path):
 
 def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile: dict) -> bool:
     """Returns True if phase ran, False if skipped (non-v4 framework)."""
-    if "injection" not in profile.get("extra_phases", ()):
-        rep.note(f"SKIP: injection phase not applicable to universe '{universe}' (framework {profile.get('framework_version', 'v3')}); v4-only gate")
-        return False
-
     sql_path = task_dir / "9_Universe_inject.sql"
+    is_v4 = "injection" in profile.get("extra_phases", ())
+    # "declared" means the file carries executable statements, not just the template's comment header
+    _sql_raw = sql_path.read_text(encoding="utf-8", errors="replace") if sql_path.is_file() else ""
+    _sql_body = re.sub(r"--[^\n]*", "", _sql_raw)
+    has_sql = bool(re.search(r"\b(?:INSERT|UPDATE|DELETE)\b", _sql_body, re.IGNORECASE))
+    if not is_v4 and not has_sql:
+        rep.note(f"SKIP: no injection declared for universe '{universe}' (9_Universe_inject.sql absent or empty); "
+                 f"injection validation runs whenever an inject file is present - all universes ship it in Tasks_Template")
+        return False
     chg_path = task_dir / "4_Changelog.json"
     uni_path = task_dir / "3_UniverseDataForThisTask.json"
     base_text = _read(uni_path)
@@ -253,7 +270,8 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
     if changelog is not None and not isinstance(changelog, (list, dict)):
         rep.fail("[Eval0 P1 SCHEMA_VIOLATION] 4_Changelog.json must be a JSON array or object")
 
-    base_ids = set(ID_TOKEN_RE.findall(base_text))
+    tok_re = id_token_re_for(universe)
+    base_ids = set(tok_re.findall(base_text))
     base_emails = set(e.lower() for e in EMAIL_RE.findall(base_text))
     personas = {e.lower() for e in (consts.get("personas") or {})} if isinstance(consts.get("personas"), dict) else set()
     valid_channels = set()
@@ -266,11 +284,12 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
         for row in ins["rows"]:
             all_rows.append((ins["table"], row))
             blob = " ".join(str(v) for v in row.values())
-            injected_ids.update(ID_TOKEN_RE.findall(blob))
+            injected_ids.update(tok_re.findall(blob))
             injected_emails.update(e.lower() for e in EMAIL_RE.findall(blob))
 
-    # P2 ID format  [Eval0 P2 ID_VIOLATION]
-    for table, row in all_rows:
+    # P2 ID format  [Eval0 P2 ID_VIOLATION] - convention catalog exists only for starpm (v4);
+    # v3-family conventions vary per service, covered by collision/cross-ref checks instead
+    for table, row in (all_rows if is_v4 else []):
         for col, val in row.items():
             if col.lower() in ("id",) or col.lower().endswith("_id"):
                 sval = str(val).strip()
@@ -279,17 +298,28 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
                         rep.fail(f"[Eval0 P2 ID_VIOLATION] {table}.{col} = '{sval}' does not match any StarPM ID convention observed in the base universe")
 
     # P3 dates  [Eval0 P3 TEMPORAL_VIOLATION]
+    # V4 (starpm): fixed active window. V3-family: ceiling = universe today from the registry
+    # (future-dated injections are wrong in every universe); no lower bound.
+    if is_v4:
+        win_lo, win_hi = WINDOW_START, WINDOW_END
+    else:
+        try:
+            t = consts.get("today", "")
+            win_hi = date(int(t[0:4]), int(t[5:7]), int(t[8:10])) if t else WINDOW_END
+        except (ValueError, TypeError):
+            win_hi = WINDOW_END
+        win_lo = date(2000, 1, 1)
     for table, row in all_rows:
         blob = " ".join(f"{c}={v}" for c, v in row.items())
         for d, raw in _dates_in(blob):
             if d is None:
                 rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] {table}: invalid calendar date '{raw}'")
-            elif not (WINDOW_START <= d <= WINDOW_END):
-                rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] {table}: injected date {raw} outside universe window {WINDOW_START}..{WINDOW_END} (today = {WINDOW_END})")
+            elif not (win_lo <= d <= win_hi):
+                rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] {table}: injected date {raw} outside universe window {win_lo}..{win_hi} (universe today = {win_hi})")
     for upd in updates:
         for d, raw in _dates_in(upd["set"]):
-            if d is not None and not (WINDOW_START <= d <= WINDOW_END):
-                rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] UPDATE {upd['table']}: date {raw} outside window {WINDOW_START}..{WINDOW_END}")
+            if d is not None and not (win_lo <= d <= win_hi):
+                rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] UPDATE {upd['table']}: date {raw} outside window {win_lo}..{win_hi}")
 
     # P4 integrity & cross-service  [Eval0 P4]
     for table, row in all_rows:
@@ -299,7 +329,7 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
                 rep.fail(f"[Eval0 P4 COLLISION] {table}.{col} '{val}' already exists in the base universe (record collision)")
     for table, row in all_rows:
         blob = " ".join(str(v) for v in row.values())
-        for ref in ID_TOKEN_RE.findall(blob):
+        for ref in tok_re.findall(blob):
             if ref not in base_ids and ref not in injected_ids:
                 rep.fail(f"[Eval0 P4 CROSS_SERVICE_VIOLATION] {table}: broken cross-reference '{ref}' - not found in base universe or injection")
         for ch in SLACK_CH_RE.findall(blob):
@@ -323,11 +353,11 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
     rep.note("[Eval0 P5] COUNCIL: formality/length/register match vs channel norms requires semantic judgment - deterministic layer counts phrase/emoji tells")
 
     # P6 reachability  [Eval0 P6 ORPHANED]
-    prompt_atoms = set(ID_TOKEN_RE.findall(prompt_text)) | {e.lower() for e in EMAIL_RE.findall(prompt_text)}
+    prompt_atoms = set(tok_re.findall(prompt_text)) | {e.lower() for e in EMAIL_RE.findall(prompt_text)}
     for ins in inserts:
         for row in ins["rows"]:
             blob = " ".join(str(v) for v in row.values())
-            row_atoms = set(ID_TOKEN_RE.findall(blob)) | {e.lower() for e in EMAIL_RE.findall(blob)}
+            row_atoms = set(tok_re.findall(blob)) | {e.lower() for e in EMAIL_RE.findall(blob)}
             anchored = bool(row_atoms & (base_ids | base_emails | prompt_atoms)) or bool((row_atoms - {next(iter(row_atoms))} if row_atoms else set()) & injected_ids)
             if row_atoms and not anchored and not (row_atoms & injected_ids or row_atoms & injected_emails):
                 rep.fail(f"[Eval0 P6 ORPHANED] {ins['table']} row shares no identifier/email with base universe, prompt, or other injected rows - no discovery path")

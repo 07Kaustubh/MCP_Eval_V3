@@ -1,0 +1,18 @@
+=== Failing Rubrics ===
+R16 [outcome]: The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).
+
+=== AF Model Justifications ===
+Run 1 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: The email body does not mention Hannah Grant or her tax-timing constraint requiring the credit memo and prior-period over-amortization adjustments to land in FP-2026-05 rather than being deferred to FP-2026-06. Hannah Grant was not found in the trajectory.
+
+Run 2 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: The email body does not mention Hannah Grant or her tax-timing constraint. The email says the true-up timing is 'a judgment call for you/Andrea' without referencing the requirement that entries must land in FP-2026-05 and not be deferred to FP-2026-06.
+
+Run 3 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: The email does not mention Hannah Grant or a tax-timing constraint requiring entries to land in FP-2026-05 rather than being deferred to FP-2026-06.
+
+Run 4 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: The email body does not mention Hannah Grant or her tax-timing constraint. There is no language about the credit memo recognition or prior-period adjustments needing to land in FP-2026-05 and not being deferred to FP-2026-06 for tax-timing reasons.
+
+Run 5 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: The email body does not mention Hannah Grant or her tax-timing constraint requiring the credit memo recognition and over-amortization adjustments to land in FP-2026-05 rather than being deferred to FP-2026-06.
+
+Run 6 [FAIL] The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).: Hannah Grant is not mentioned in the email body, and neither is the tax-timing constraint or the requirement for entries to land in FP-2026-05 rather than being deferred to June.
+
+=== Failing Rubric Justifications (CB) ===
+R16 [outcome]: The email body contains no reference to Hannah Grant or her tax-timing constraint. Hannah Grant's June 2 threaded reply in #monthly-close-coordination (C005) explicitly requires that the credit memo recognition and the prior-period over-amortization for March and April land in FP-2026-05 and not be deferred to FP-2026-06. The agent did not surface this constraint in the email to George, leaving George without the routing information he needs before Andrea signs the lock. This is separate from the open-period check, and since every run read the #monthly-close-coordination thread to pull the Verdant context, the omission is a genuine synthesis gap rather than missing data.

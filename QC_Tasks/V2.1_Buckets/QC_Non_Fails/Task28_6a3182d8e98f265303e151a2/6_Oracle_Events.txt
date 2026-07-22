@@ -1,0 +1,19 @@
+OE1: Discover the active items in the Close Blocker Triage Log using airtable_list_records (base_id: airtable_e86eaf439d1d, table_name: "Close Blocker Triage Log"). Find 4 active records with exception IDs exc_af7274fb658844, exc_abd8e711f5f347, exc_4d5d3582698946, and exc_cb0a9a94a3084c, their corresponding recon IDs (BL-3F60ED1C7107, BL-18FFAE0E20D0, BL-0DEC7D2FD9E6, BL-3E4ED5B5B9BA), affected GL accounts (102000, 101000, 105000, 131000), and assigned owners (Priya Singh, Margaret Sullivan, Owen Mercer, George McAdam).
+
+OE2: Look up each of the 4 underlying reconciliations in BlackLine using blackline_get_reconciliation (recon_id: BL-3F60ED1C7107, then BL-18FFAE0E20D0, then BL-0DEC7D2FD9E6, then BL-3E4ED5B5B9BA). Retrieve the current state, variance detail, and any open items for each reconciliation corresponding to the blockers identified in OE1.
+
+OE3: Look up each of the 4 affected GL accounts in Oracle GL using oracle_gl_get_account (account_number: 102000, then 101000, then 105000, then 131000) to understand the current account state. Alternatively use oracle_gl_get_account_balance with the relevant period_id for each account to retrieve current period balances.
+
+OE4: Search Slack for recent updates from the assigned owners using slack_conversations_search_messages (search_query: owner names such as "Priya Singh", "Margaret Sullivan", "Owen Mercer", "George McAdam", or exception IDs such as exc_af7274fb658844, exc_abd8e711f5f347, exc_4d5d3582698946, exc_cb0a9a94a3084c). Find any recent messages sharing resolution progress on the open blockers.
+
+OE5: Search email for recent updates from the assigned owners using email_search_emails (query: owner names or exception/recon IDs such as "BL-3F60ED1C7107" or "exc_af7274fb658844"). Find any emails sharing resolution progress or status updates from Priya Singh, Margaret Sullivan, Owen Mercer, or George McAdam.
+
+OE6: Verify that client consent letters for audit engagements are on file in the Records Vault using records_vault_list_documents (kind: client_consent_letter). Find 4 active documents covering Acme Cloud (Audit to Tax Information Sharing and Audit to Accounting Services Information Sharing) and Northstar Legal (Audit to Tax Information Sharing and Audit to Accounting Services Information Sharing), all with classification restricted.
+
+OE7: Look up contact information for Mia Hartwell, Ryan Delgado, and James Randall using contacts_search_contacts (query: "Mia Hartwell", then "Ryan Delgado", then "James Randall"). Retrieve mia.hartwell@brookfieldcpas.com, ryan.delgado@brookfieldcpas.com, and james.randall@brookfieldcpas.com to use as recipients for the DM and email steps.
+
+OE8: Upload the comprehensive audit readiness exception memo to the Records Vault using records_vault_upload_document (kind: memo, retention_policy_code: AICPA_SQMS_7Y, classification: restricted, content_b64 with the full memo covering all 4 open blockers, their reconciliation status, GL account state, owner update summary, and audit readiness assessment).
+
+OE9: DM Mia Hartwell and Ryan Delgado using messaging_send_message (user_id: "Mia Hartwell", content containing a link to the uploaded memo) and a second call (user_id: "Ryan Delgado", same content). Alternatively use messaging_create_conversation (participant_ids: ["Mia Hartwell", "Ryan Delgado"]) to create a group thread, then send the memo link via messaging_send_message_to_conversation.
+
+OE10: Route the draft email to James Randall through Devon Beale for review using email_send_email (sender: devon.beale@brookfieldcpas.com, recipients: ["devon.beale@brookfieldcpas.com"], content containing the full draft email to James Randall confirming the preliminary exception review is complete and ready for his perusal ahead of E&P fieldwork).

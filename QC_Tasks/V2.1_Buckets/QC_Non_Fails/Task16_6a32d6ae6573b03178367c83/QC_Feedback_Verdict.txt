@@ -1,0 +1,36 @@
+Task: Task16_6a32d6ae6573b03178367c83
+Business Function: Engagement Mgmt & Client Operations
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- Rubric Quality [Non-Fail - Up to 10% Major Errors]: 1/11(9.1%) major issues in rubric, one [Missing Criteria — Outcome]. The over-accrual ($1,816) is not covered by any of the outcome rubrics, and the prompt asks for "any knock-on corrections that flowed from them(sales-tax-work and the AR-aging cleanup)". 1/6 agent runs cover this correctly (run 5), including the actual over-accrual in the Knock-on GL corrections section of the final response, and the over-accrual is also mentioned in the OE. All other prompt requests are covered by the rubrics.
+
+Discussion:
+- The prompt has a unique ground truth answer, is completely actionable by an LLM agent, contains no conflicting instructions and does not explicitly state the use of tools.
+- There is no room for misinterpretation of the specific request. The prompt is neither contrived or unnatural, has no factual errors, no misleading statements, requires investigation across 2+ services to answer correctly and clearly requires investigation.
+- Prompt is one cohesive situation, aligns with the selected persona and reflects a realistic scenario within the assigned business function.
+
+- Prompt and universe are aligned with "today's" date.
+
+- All core facts required to solve the task exist in the universe and are retrievable via tool. Universe edits are internally consistent and coherent across services.
+
+- OEs decribe the full critical path and are factually accurate. Tools, services, parameters and expected data match the universe.
+
+- One missing rubric found. None of the rubrics failed all runs, 2 runs passed all rubrics. No process rubrics included, all outcome rubrics. All rubrics are written as an action performed by the agent.
+
+- Average tool count for trajectories is 81.5, well above the required 15 threshold. 2/6 runs pass all rubrics, below more than 2 pass threshold, task is sufficiently difficult. All 6 runs completed successfully.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 10% Major Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

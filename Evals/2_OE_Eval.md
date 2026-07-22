@@ -10,7 +10,7 @@ Oracle Events describe the key tool-use steps a correct AI agent would take to s
 
 **CRITICAL PRINCIPLES:**
 - Every OE claim - every tool name, every service reference, every expected data value, every persona/entity name, every dollar amount - MUST be verified against the actual universe data. No assumptions. No shortcuts.
-- **Accuracy is everything.** If an OE says "search BlackLine for X" but X lives in SAP Subledger, that's an inaccuracy. If an OE says "find 4 open exceptions" but the universe has 6, that's an inaccuracy. You MUST deep-explore the universe data to catch these.
+- **Accuracy is everything.** If an OE says "search service X for data" but the data lives in a different service, that's an inaccuracy. If an OE says "find 4 records" but the universe has 6, that's an inaccuracy. You MUST deep-explore the universe data to catch these.
 - Every tool reference MUST be verified against `Brookfield_Base_Universe/8_Server_Tools_Details.json` - correct tool name, correct service, correct parameters.
 - When in doubt, dig deeper. Read more files. Search more broadly. The cost of missing an OE inaccuracy is that it propagates into broken rubrics.
 
@@ -24,7 +24,7 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 TODO:
 - [ ] Phase 0.1: Read all reference documents (QC specs, tool details)
 - [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in Brookfield_Base_Universe/Data/ BEFORE evaluating anything - Critical
-- [ ] Phase 0.3: Explore sample Oracle Events in `QC_Tasks/V3_Tasks/` (on-framework) and `QC_Tasks/V2_Tasks/` - Understand what good OEs look like (study structure/quality; V2 category labels are deprecated) - Critical
+- [ ] Phase 0.3: Explore sample Oracle Events in `QC_Tasks/QC_Passed/` (score-5 reference) + `QC_Tasks/QC_Non_Fails/` (score-3 defects) + `QC_Tasks/QC_True_Fails/` (hard fails) - Critical
 - [ ] Phase 1.1: OE Inventory - List and classify each OE
 - [ ] Phase 1.2: Tool-Use Step Validation - Flag non-tool steps
 - [ ] Phase 1.3: Prompt ↔ OE Alignment - Map asks to OEs
@@ -32,10 +32,13 @@ TODO:
 - [ ] Phase 2.2: Per-OE Service Verification (data exists in that service?)
 - [ ] Phase 2.3: Per-OE Parameter Verification (queries would work?)
 - [ ] Phase 2.4: Per-OE Ground Truth Verification (CRITICAL - verify EVERY claim against universe data)
+  - [ ] HARD GATE (Gap 2): Per-OE Verification Sign-Off Table - Fill in mandatory table for EVERY OE with file searched, value found, accurate?; evaluation CANNOT proceed to Phase 3 without completed table
+  - [ ] HARD GATE (T9): Act-vs-Defer Override - For every write-action OE based on proposed_resolution, scan accessible Slack/Email/Messaging for documented defer/accept-timing decisions before accepting the write as the only valid path
 - [ ] Phase 2.5: Date/Time Consistency - If prompt uses relative time, verify OE dates resolve consistently (from June 12, 2026)
 - [ ] Phase 3.1: Critical Path Completeness - All steps covered?
 - [ ] Phase 3.2: Dependency Chain Verification - Logical flow?
 - [ ] Phase 3.3: Write-Action Coverage - All write actions have OEs?
+- [ ] Phase 4.0: MANDATORY Pre-Verdict Completeness Sweep (Gap 7) - Final pass for one wrong count, one wrong tool, one missing write-action OE, one act-vs-defer conflict
 - [ ] Phase 4.1: Final Scoring Table
 - [ ] Phase 4.2: Verdict + Issues + Recommendations
 ```
@@ -96,12 +99,10 @@ Refer to the complete list in `1_Prompt_Eval.md`. Use these files to verify ever
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
-**Read and understand ALL data files in `Brookfield_Base_Universe/Data/` BEFORE evaluating any OE.** This is critical for verifying every factual claim in the OEs - tool references, service locations, expected data values, persona/entity names, dollar amounts, everything.
-
-You MUST explore the universe data exhaustively so you know what data exists where: which personas/entities relate to which client (Brookfield / Northstar Legal / Acme Cloud), what JEs and balances are in Oracle GL, what AP/asset/prepaid/lease detail is in SAP Subledger, what reconciliations and exceptions are in BlackLine, what documents live in Records Vault, etc. Without this deep understanding, you WILL miss OE inaccuracies.
+**Read ALL data files in `Brookfield_Base_Universe/Data/` BEFORE evaluating any OE.** Exhaustive upfront knowledge of what data exists where (personas, entities, JEs, recons, exceptions, contacts) is the only way to catch OE inaccuracies in Phase 2.
 
 **Explore these files (all paths relative to `Brookfield_Base_Universe/Data/`):**
-- `Base_Universe_Complete_Data.json` - Complete data in one file (or pull via `Brookfield_Base_Universe/Get_Universe_Data.sql`)
+- `Brookfield_Base_Universe_Complete_Data.json` - Complete data in one file (or pull via `Brookfield_Base_Universe/Get_Universe_Data.sql`)
 - `Oracle_GL/ogl_accounts.json`, `ogl_fiscal_periods.json`, `ogl_journal_entries.json`, `ogl_transactions.json` (empty in base), `ogl_subledger_feeds.json`, `ogl_subledger_feed_runs.json` - Chart of accounts, fiscal-period status/locks, JE lifecycle, subledger feeds
 - `SAP_Subledger/ap_invoices.json`, `subledger_transactions.json`, `fixed_assets.json`, `depreciation_schedule.json`, `lease_schedules.json`, `prepaid_periods.json`, `prepaid_schedules.json` - AP invoices, fixed assets, depreciation, ASC 842 leases, prepaid amortization
 - `Blackline/blackline_reconciliations.json`, `blackline_exceptions.json`, `blackline_review_notes.json`, `blackline_close_tasks.json`, `blackline_evidence.json`, `blackline_sox_controls.json` (empty in base), `blackline_audit_trail.json`, `blackline_archived_reconciliations.json` - Reconciliation state, exceptions + state, review notes, close tasks, evidence, audit trail, archives
@@ -116,13 +117,13 @@ You MUST explore the universe data exhaustively so you know what data exists whe
 - `Contacts/contacts.json` - Vendor/client/regulator contact details and email addresses
 - `Public/_changelog.json` - CB's universe modifications (empty until the CB edits the universe)
 
-**Note:** Brookfield documents live in **Records Vault as JSON rows** (`Records_Vault/rv_documents.json` + versions/classifications), not as a filesystem of PDFs. Verify entity names, dollar amounts, dates, account numbers, and persona details in these JSON records against OE claims the same way you verify any other universe data.
+**Note:** Brookfield documents live in **Records Vault as JSON rows** as PDFs and in database tables as structured data. Verify entity names, dollar amounts, dates, account numbers, and persona details in these JSON records against OE claims the same way you verify any other universe data.
 
 **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** all `Linear/*`, `Email/threads.json` · `mailboxes.json` · `jmap_emails.json`, `Oracle_GL/ogl_transactions.json`, `Blackline/blackline_sox_controls.json`, `Records_Vault/rv_chain_of_custody.json` · `rv_legal_holds.json`, and `Public/_changelog.json`. A task may populate them via `UniverseDataForThisTask.json`, so always verify against the task-specific data too.
 
 ### 0.3 Explore QC-Passed Task Oracle Events
 
-**Read the `Oracle_Events.txt` files from sample tasks in `QC_Tasks/V3_Tasks/` (on-framework, Brookfield universe) and `QC_Tasks/V2_Tasks/` to understand how good OEs are written.** Each `Task*/` folder contains `Oracle_Events.txt`, `Prompt.txt`, `Rubrics.json`, `Quality_Scores.json`, and `Task_Info.json`. This gives you a baseline for quality - how OEs describe tool-use steps, reference parameters, state expected data, and cover the full critical path.
+**Read the `Oracle_Events.txt` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good OEs are written.** This gives you a baseline for quality - how OEs describe tool-use steps, reference parameters, state expected data, and cover the full critical path.
 
 **Pay attention to:**
 - How each OE ties a tool call to a specific discovery or action
@@ -130,9 +131,7 @@ You MUST explore the universe data exhaustively so you know what data exists whe
 - How the critical path flows from investigation to write actions
 - How parameters are described (query terms, recipients, entity names)
 
-**To study OE mistakes:** there is no separate failed-task folder. Instead, open `Quality_Scores.json` inside `QC_Tasks/V3_Tasks/Task*/` or `QC_Tasks/V2_Tasks/Task*/` and look at tasks with lower **OE Completeness / OE Accuracy** scores - the score rationales explain what OE mistakes (wrong tools, missing steps, inaccurate claims) drove the deductions.
-
-> **Caveat:** the `QC_Tasks/V2_Tasks/` samples are **V2-framework examples on the old (Keystone) universe** - study their *structure and quality bar*, not their category labels or universe specifics. The `QC_Tasks/V3_Tasks/` samples are on the current V3 framework and Brookfield universe, so use those as the primary reference.
+**To study OE mistakes:** review `QC_Tasks/QC_Non_Fails/` (score-3 tasks — see `QC_Score3_Knowledge_Extract.md` for consolidated defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails). Also check `QC_Tasks/QC_False_Fails_PT_Dispute_Accepted/` for cases where QC over-flagged OE issues that were later overturned on dispute.
 
 ---
 
@@ -277,30 +276,19 @@ Reasoning OEs (flagged): [X]
 
 ---
 
-### 2.4 Ground Truth Verification - THE DEEPEST CHECK
-
-**⚠️ MOST CRITICAL CHECK - Verify EVERY factual claim in EVERY OE against the actual universe data files. No shortcuts. No assumptions. Go to the raw JSON files and search.**
+### 2.4 Ground Truth Verification - THE DEEPEST CHECK (HARD GATE — mandatory sign-off table)
 
 **⚠️ HARD GATE: Per-OE Verification Sign-Off Table.** You MUST fill in the table below for **every single OE** before proceeding to Phase 3. Evaluation CANNOT proceed without a completed table. Every row must have a specific file path searched and a concrete value found (or "NOT FOUND"). Writing "verified" or "checked" without evidence is NOT acceptable. This is the single most impactful quality gate — 7 of 19 score-3 QC outcomes and 2-3 of 13 score-2 outcomes traced to inaccurate OEs that a mandatory sign-off table would have caught.
 
 | OE # | Claim in OE | File(s) Actually Searched (full path) | Search Term / Query | Value Found (exact quote or "NOT FOUND") | Accurate? | Discrepancy |
 |------|------------|--------------------------------------|--------------------|-----------------------------------------|-----------|-------------|
-| 1 | "Acme Cloud has an open BlackLine exception for FP-2026-05" | `Brookfield_Base_Universe/Data/Blackline/blackline_exceptions.json` | grep `entity_id="acme_cloud"` + `status="open"` + period `FP-2026-05` | `"exception_id": "exc_...", "status": "open"` | Yes/No | ... |
-| 2 | "Daniel Jones is the Accounts Manager on the Acme engagement" | `Brookfield_Base_Universe/Data/Contacts/contacts.json`, `Brookfield_Base_Universe/2_Persona_Briefs.md` | grep "Daniel Jones" | `"role": "Accounts Manager"`, daniel.jones@brookfieldcpas.com | Yes/No | ... |
-| 3 | "6 open exceptions across the May close" | `Brookfield_Base_Universe/Data/Blackline/blackline_exceptions.json` | count where `status="open"` AND `period_id="FP-2026-05"` | Found: 4 (NOT 6) | **No** | "OE says 6 but only 4 exist in FP-2026-05" |
-| 4 | "$12,400 AP invoice from VEN-010-514242 is unpaid" | `Brookfield_Base_Universe/Data/SAP_Subledger/ap_invoices.json` | grep `vendor_id="VEN-010-514242"` + amount + status | `"amount": 12400, "status": "unpaid"` | Yes/No | ... |
-| 5 | "Andrea Phil approved JE-acme_cloud-FP-2026-04-0052" | `Brookfield_Base_Universe/Data/Oracle_GL/ogl_journal_entries.json` | grep `je_id="JE-acme_cloud-FP-2026-04-0052"` + `approver` | `"approver": "andrea.phil@brookfieldcpas.com", "status": "approved"` | Yes/No | ... |
+| 1 | "Acme has an open BlackLine exception for FP-2026-05" | Blackline/blackline_exceptions.json | grep "acme" + status "open" | `"exception_id": "exc_...", "status": "open"` | Yes/No | ... |
+| 2 | "Daniel Jones is the Accounts Manager on the Acme engagement" | Contacts/contacts.json | grep "Daniel Jones" | `"role": "Accounts Manager"` | Yes/No | ... |
+| 3 | "6 open exceptions across the May close" | Blackline/blackline_exceptions.json | count where status="open" + period="May" | Found: 4 (NOT 6) | **No** | "OE says 6 but only 4 exist" |
+| 4 | "$12,400 AP invoice from the vendor is unpaid" | SAP_Subledger/ap_invoices.json | grep amount + status | `"amount": 12400, "status": "unpaid"` | Yes/No | ... |
 | ... | ... | ... | ... | ... | ... | ... |
 
 **Completion rule:** Every OE must have a row. Every row must have a non-empty "File(s) Actually Searched" and "Value Found" column. If you cannot find a claim → mark "NOT FOUND" in the value column and flag the OE as inaccurate. Do NOT leave rows blank or write generic "verified" without the specific file and value.
-
-| OE # | Claim in OE | Verified Against | Accurate? | Discrepancy |
-|------|------------|-----------------|-----------|-------------|
-| 1 | "Acme has an open BlackLine exception for FP-2026-05" | Blackline/blackline_exceptions.json | Yes/No | ... |
-| 2 | "Daniel Jones is the Accounts Manager on the Acme engagement" | Contacts/contacts.json | Yes/No | ... |
-| 3 | "6 open exceptions across the May close" | Blackline/blackline_exceptions.json | Yes/No | "Only 4 found" |
-| 4 | "$12,400 AP invoice from the vendor is unpaid" | SAP_Subledger/ap_invoices.json | Yes/No | ... |
-| ... | ... | ... | ... | ... |
 
 **Pay Special Attention To:**
 - **Entity/exception/JE COUNTS** - verify every item listed, count them yourself in the universe data
@@ -310,7 +298,7 @@ Reasoning OEs (flagged): [X]
 - **Email addresses** - verify they exist in `Contacts/contacts.json` or email data
 - **Status claims** - if an OE says "exception is open" or "invoice is unpaid," verify the actual status
 - **Names and spellings** - verify every person's name is spelled exactly as it appears in the universe
-- **Act-vs-defer override (HARD GATE for write-action OEs):** When an OE describes a write action (corrective JE post via `oracle_gl_create_journal_entry` / `oracle_gl_post_journal_entry`, BlackLine exception resolution via `blackline_resolve_exception`, SAP AP invoice approval via `sap_subledger_approve_ap_invoice`, Records Vault filing via `records_vault_upload_document`, Linear issue creation via `linear_create_issue`) whose basis is an exception's `proposed_resolution` field or a system-generated remediation suggestion, you MUST scan the **accessible** record set — Slack channels the authoring persona is a member of (C001 #general · C002 #water-cooler · C003 #announcements · C004 #client-onboarding · C005 #monthly-close-coordination · C006 #tax-prep-and-filings · C007 #audit-engagements · C008 #compliance-and-registrations · C009 #cash-management-and-banking · C010 #vendor-bills-and-ap · C012) + the persona's Email inbox (`Email/emails.json`, threading via `parent_id`) + Messaging conversations (`Messaging/conversations.json`, `Messaging/messages.json`) — for a **documented decision to defer, accept-timing, not-act, or override**. If such a decision is found in accessible data, the OE's expected write action is **not the only valid path** — an agent that correctly defers is also correct, and the OE is inaccurate or incomplete if it mandates only the write. Flag: "OE #X mandates [write action] from `proposed_resolution`, but [channel/email-thread/conversation] contains a defer/accept-timing decision — the OE should acknowledge the defer path as equally valid." **Do NOT take `proposed_resolution` at face value — always cross-check accessible Slack/Email/Messaging.**
+- **Act-vs-defer override (HARD GATE for write-action OEs):** When an OE describes a write action (corrective JE, exception resolution, invoice payment) whose basis is an exception's `proposed_resolution` or a system-generated remediation suggestion, you MUST scan the **accessible** record set — Slack channels the authoring persona is a member of + the persona's Email inbox + Messaging conversations — for a **documented decision to defer, accept-timing, not-act, or override**. If such a decision is found in accessible data, the OE's expected write action is **not the only valid path** — an agent that correctly defers is also correct, and the OE is inaccurate or incomplete if it mandates only the write. Flag: "OE #X mandates [write action] from `proposed_resolution`, but [channel/email] contains a defer/accept-timing decision — the OE should acknowledge the defer path as equally valid." **Do NOT take `proposed_resolution` at face value — always cross-check accessible comms.**
 
 **If you cannot find the data in the universe files, the OE claim is unverifiable and should be flagged.**
 
@@ -386,22 +374,22 @@ A critical path step is one where: without it, you can't imagine a successful tr
 
 ---
 
-## PHASE 4.0: Pre-Verdict Completeness Sweep (MANDATORY — run before scoring)
+## PHASE 4: Final Evaluation
 
-**Before filling in the scoring table, run this last-mile quality check.** Quick sweep for the most common single-blemish OE issues that slip past Phases 2–3 and become QC findings.
+### 4.0 Pre-Verdict Completeness Sweep (MANDATORY — run before scoring)
+
+**Before filling in the scoring table, run this last-mile quality check.** Quick sweep for the most common single-blemish OE issues.
 
 | # | Check | What to look for | Finding |
 |---|-------|-----------------|---------|
-| 1 | **One OE with wrong count** | Re-check any OE that states a count ("4 open exceptions", "3 unpaid AP invoices", "6 JEs"). Does the count match the universe (`Blackline/blackline_exceptions.json`, `SAP_Subledger/ap_invoices.json`, `Oracle_GL/ogl_journal_entries.json`)? | PASS / [flag it] |
-| 2 | **One OE with wrong tool** | Is there ONE OE referencing a tool that doesn't exist or belongs to a different service (e.g., `blackline_get_exception_by_id` — no `_by_id` variant exists, use `blackline_get_exception`; `conversations_*` — server is `messaging_*`; `*_search_*` on Oracle GL or Records Vault — they use `list`/`get` not `search`)? Verify against `Brookfield_Base_Universe/8_Server_Tools_Details.json`. | PASS / [flag it] |
-| 3 | **One missing critical write-action OE** | Does the prompt require a write action (email send, JE post, BlackLine review note, Linear issue, Slack post, Records Vault upload) that has NO covering OE? | PASS / [flag it] |
-| 4 | **One act-vs-defer conflict** | Did the act-vs-defer override scan (Phase 2.4) miss any write-action OE from `proposed_resolution` where accessible Slack/Email/Messaging contains a defer/accept-timing/not-act decision? | PASS / [flag it] |
+| 1 | **One OE with wrong count** | Re-check any OE that states a count ("4 open exceptions", "3 JEs"). Does the count match the universe? | PASS / [flag it] |
+| 2 | **One OE with wrong tool** | Is there ONE OE referencing a tool that doesn't exist or belongs to a different service? | PASS / [flag it] |
+| 3 | **One missing critical write-action OE** | Does the prompt require a write action that has NO covering OE? | PASS / [flag it] |
+| 4 | **One act-vs-defer conflict** | Did the T9 scan (Phase 2.4) miss any write-action OE from `proposed_resolution` where accessible comms contain a defer decision? | PASS / [flag it] |
 
 **If any item flags a finding:** go back to the relevant phase, update the finding, and adjust the score. Do NOT score until the sweep is complete.
 
 ---
-
-## PHASE 4: Final Evaluation
 
 ### 4.1 Final Scoring Table
 
@@ -511,14 +499,12 @@ A critical path step is one where: without it, you can't imagine a successful tr
 | Missing write action | Prompt requires action, no OE for it | Non-Fail (Completeness) |
 | Wrong email address | Search `Contacts/contacts.json` | Non-Fail (Accuracy) |
 | Wrong approver/persona-entity mapping | Verify against Contacts / Oracle GL / SAP Subledger | Non-Fail (Accuracy) |
+| **Act-vs-defer override missed** | **OE mandates write from `proposed_resolution` without scanning accessible Slack/Email/Messaging for a defer/accept-timing decision** | **Non-Fail (Accuracy)** |
 
 ---
 
 ## Evaluation Mindset
 
-**Remember:**
-- **Be ruthlessly skeptical** - Assume EVERY OE claim is wrong until you have personally verified it in the universe data files
-- **Be exhaustively thorough** - Check every tool, every parameter, every expected value, every name, every dollar amount. No matter how long it takes.
-- **Be evidence-based** - Document file paths, line numbers, and exact quotes for every finding
-- **Be systematic** - Follow the phases in order, mark TODOs complete
-- **Deep explore, then evaluate** - Your Phase 0.2 universe exploration is not optional. It is the foundation that makes all subsequent verification possible. Without it, you WILL miss inaccuracies.
+- **Be skeptical** — assume every OE claim is wrong until verified in universe data
+- **Be evidence-based** — the per-OE sign-off table (Phase 2.4) is the enforcing mechanism; no unverified claims pass
+- **Never take `proposed_resolution` at face value** — always cross-check accessible comms for override decisions

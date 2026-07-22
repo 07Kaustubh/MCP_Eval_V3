@@ -78,6 +78,95 @@ PERSON_FIELDS = (
 )
 
 
+def build_id_map(by_source):
+    """StarPM: map slack/linear/airtable/hubspot/contacts user-id -> email."""
+    m = {}
+    for key, idf in (
+        ("slack.slack_users", "id"),
+        ("linear.linear_users", "id"),
+        ("airtable.airtable_users", "id"),
+        ("hubspot.hubspot_owners", "id"),
+        ("contacts.contacts", "contact_id"),
+    ):
+        for u in by_source.get(key, []):
+            uid = u.get(idf)
+            email = u.get("email")
+            if not email:
+                prof = u.get("profile") if isinstance(u.get("profile"), dict) else {}
+                if isinstance(prof, dict):
+                    email = prof.get("email")
+            if uid and email:
+                m[str(uid)] = str(email).lower()
+    return m
+
+
+STARPM_PERSON_FIELDS = PERSON_FIELDS + (
+    "from_address", "to_addresses", "cc_addresses", "bcc_addresses",
+    "creator_email", "organizer_email",
+)
+
+
+def _emit_person_token(v, out):
+    if isinstance(v, str):
+        s = v.strip()
+        if s.startswith("[") and s.endswith("]"):
+            try:
+                arr = json.loads(s)
+            except json.JSONDecodeError:
+                arr = None
+            if isinstance(arr, list):
+                for e in arr:
+                    if isinstance(e, str):
+                        out.append(e)
+                return
+        out.append(v)
+    elif isinstance(v, list):
+        for e in v:
+            if isinstance(e, str):
+                _emit_person_token(e, out)
+
+
+def walk_persons_deep(obj, out, fields):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k in fields:
+                _emit_person_token(v, out)
+            else:
+                walk_persons_deep(v, out, fields)
+    elif isinstance(obj, list):
+        for x in obj:
+            walk_persons_deep(x, out, fields)
+
+
+def _section_people_starpm(by_source, ledger_emails, id_map):
+    counter = Counter()
+    person_period_pairs = Counter()
+    for src, rows in by_source.items():
+        for inner in rows:
+            tokens = []
+            walk_persons_deep(inner, tokens, STARPM_PERSON_FIELDS)
+            cleaned = []
+            for t in tokens:
+                if not isinstance(t, str):
+                    continue
+                t = t.strip()
+                if not t or t in ("[]", "{}", "null", "None"):
+                    continue
+                t = id_map.get(t, t).lower()
+                cleaned.append(t)
+            for p in set(cleaned):
+                counter[p] += 1
+                pid = inner.get("period_id")
+                if pid:
+                    person_period_pairs[(p, str(pid))] += 1
+    rows = ["## People by artifact density (top 30)", "", "| Person | Mentions |", "|---|---:|"]
+    for person, n in counter.most_common(30):
+        marker = " ✓" if person in ledger_emails else ""
+        rows.append(f"| `{person}`{marker} | {n} |")
+    rows.append("")
+    return "\n".join(rows), person_period_pairs
+
+
 def walk_persons(obj, out):
     if isinstance(obj, dict):
         for k, v in obj.items():
@@ -93,7 +182,9 @@ def walk_persons(obj, out):
             walk_persons(x, out)
 
 
-def section_people(by_source, ledger_emails):
+def section_people(by_source, ledger_emails, universe="brookfield", id_map=None):
+    if universe == "starpm":
+        return _section_people_starpm(by_source, ledger_emails, id_map or {})
     counter = Counter()
     person_period_pairs = Counter()
     for src, rows in by_source.items():
@@ -288,11 +379,12 @@ def main():
         except json.JSONDecodeError:
             pass
 
-    people_md, person_period_pairs = section_people(by_source, ledger_emails)
     try:
         universe = detect_universe(task_dir)
     except Exception:
         universe = "brookfield"
+    id_map = build_id_map(by_source) if universe == "starpm" else {}
+    people_md, person_period_pairs = section_people(by_source, ledger_emails, universe, id_map)
     header = [
         f"# Graph Report — `{task_dir.name}`",
         "",

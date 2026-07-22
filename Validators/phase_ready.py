@@ -86,7 +86,25 @@ def main():
         print(f"ERROR: {task_dir} not a directory", file=sys.stderr)
         sys.exit(2)
 
-    required = PHASES[args.phase]
+    required = list(PHASES[args.phase])
+    # V4 (per_model) tasks: verification is dual-model and injection is first-class.
+    uni_file = Path(args.task) / "_aux" / "Universe.txt" if hasattr(args, "task") else None
+    task_path = Path(args.task).resolve() if hasattr(args, "task") else None
+    try:
+        try:
+            from Validators.universes import detect_universe, get_framework_profile
+        except ImportError:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            from universes import detect_universe, get_framework_profile
+        _profile = get_framework_profile(detect_universe(task_path)) if task_path else {}
+    except Exception:
+        _profile = {}
+    if _profile.get("trajectory_layout") == "per_model":
+        if args.phase == "s4":
+            required = [r for r in required if r != "8_Verifier_Fails.txt"]
+            required += ["8a_Verifier_Fails_Opus.txt", "8b_Verifier_Fails_Gemini.txt"]
+        if args.phase == "final":
+            required += ["4_Changelog.json", "9_Universe_inject.sql"]
     if not required:
         print(f"[OK] {args.phase}: no preconditions (entry-point phase)")
         sys.exit(0)

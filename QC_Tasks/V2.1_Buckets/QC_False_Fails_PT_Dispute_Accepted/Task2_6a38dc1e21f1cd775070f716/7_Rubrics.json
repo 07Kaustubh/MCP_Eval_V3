@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent identifies the Acme Cloud FP-2026-05 Trial Balance + Management Package close task as not started, due by BD5, with Jones Harrison as the reviewer.",
+        "category": "outcome",
+        "justification": "The not-started BD5 trial-balance package is the main open close task and the trainee-level risk the prompt is most worried about.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies the Trial Balance + Management Package task as not started, due by BD5, reviewed by Jones Harrison."
+    },
+    {
+        "title": "The Agent states that Green Spatz’s Acme Cloud FP-2026-05 AP + AR Control Accounts close task is already complete and was reviewed by Hannah Grant.",
+        "category": "outcome",
+        "justification": "A correct read must separate Green’s completed AP/AR control-account task from the still-open close work.",
+        "evidence": "Look at the final response or close-support note. Verify the Agent states the AP + AR Control Accounts task is complete/done and reviewed by Hannah Grant, and does not treat it as the active blocker."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0002 as a draft external-audit accrual with no approver assigned.",
+        "category": "outcome",
+        "justification": "This stranded external-audit accrual is one of the two draft entries Green needs routed for review.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0002 as draft/not submitted, tied to Professional Services - External Audit, with no approver assigned."
+    },
+    {
+        "title": "The Agent states that JE-acme_cloud-FP-2026-05-0002 is for $57,425.46 and uses accounts 531000 and 210000.",
+        "category": "outcome",
+        "justification": "Exact support details let the reviewer understand the external-audit accrual issue.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent includes the $57,425.46 amount and accounts 531000 and 210000 for JE-acme_cloud-FP-2026-05-0002."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0004 as a draft customer-payment entry with no approver assigned.",
+        "category": "outcome",
+        "justification": "This stranded customer-payment entry affects cash and AR close readiness and is the item Green is least sure about.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0004 as draft/not submitted, tied to Customer Payment Received, with no approver assigned."
+    },
+    {
+        "title": "The Agent states that JE-acme_cloud-FP-2026-05-0004 is for $64,791.97 and uses accounts 101000 and 110000.",
+        "category": "outcome",
+        "justification": "Exact cash and AR details let the reviewer understand why the customer-payment entry affects close readiness.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent includes the $64,791.97 amount and accounts 101000 and 110000 for JE-acme_cloud-FP-2026-05-0004."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0033 (subscription revenue recognition, $176,964.69) as approved by Daniel Jones but not yet posted.",
+        "category": "outcome",
+        "justification": "This is one of four approved-but-unposted entries that remain a close-readiness risk distinct from the drafts.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0033 as approved by Daniel Jones, amount $176,964.69, and not yet posted."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0035 (subscription revenue recognition, $243,146.80) as approved by Alex Cahoon but not yet posted.",
+        "category": "outcome",
+        "justification": "This is one of four approved-but-unposted entries that remain a close-readiness risk distinct from the drafts.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0035 as approved by Alex Cahoon, amount $243,146.80, and not yet posted."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0012 (operating-lease expense, ASC 842, $102,444.09) as approved by Alex Cahoon but not yet posted.",
+        "category": "outcome",
+        "justification": "This is one of four approved-but-unposted entries that remain a close-readiness risk distinct from the drafts.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0012 as approved by Alex Cahoon, amount $102,444.09, and not yet posted."
+    },
+    {
+        "title": "The Agent identifies JE-acme_cloud-FP-2026-05-0023 (bad debt allowance, $26,379.62) as approved by George McAdam but not yet posted.",
+        "category": "outcome",
+        "justification": "This is one of four approved-but-unposted entries that remain a close-readiness risk distinct from the drafts.",
+        "evidence": "Look at the final response, close-support note, or escalation. Verify the Agent identifies JE-acme_cloud-FP-2026-05-0023 as approved by George McAdam, amount $26,379.62, and not yet posted."
+    },
+    {
+        "title": "The Agent states that no reviewed Acme Cloud FP-2026-05 reconciliation variance exceeds the $10 threshold.",
+        "category": "outcome",
+        "justification": "The correct conclusion is that the immediate problem is workflow/close readiness, not an out-of-tolerance reconciliation variance.",
+        "evidence": "Look at the final response or close-support note. Verify the Agent states the reviewed reconciliation variances are within tolerance or do not exceed the $10 threshold."
+    },
+    {
+        "title": "The Agent identifies the Deferred Revenue - Current reconciliation (account 240000) as the largest variance at approximately $9.56, still within the $10 threshold.",
+        "category": "outcome",
+        "justification": "Surfacing the closest-to-threshold reconciliation shows the Agent actually checked the numbers rather than asserting tolerance generically.",
+        "evidence": "Look at the final response or close-support note. Verify the Agent identifies account 240000 (Deferred Revenue - Current) with an approximately $9.56 variance as the largest, still under $10."
+    },
+    {
+        "title": "The Agent states that the Cash - Operating (101000) and Accounts Receivable - Trade (110000) reconciliations show a $0.00 variance.",
+        "category": "outcome",
+        "justification": "The cash/AR reconciliations tie out even though the related customer-payment JE is still draft, which is the conflict Green flagged.",
+        "evidence": "Look at the final response or close-support note. Verify the Agent states accounts 101000 and 110000 reconciliations have $0.00 variance."
+    },
+    {
+        "title": "The Agent states that the Acme Cloud FP-2026-05 period is still open and past its BD5 close date.",
+        "category": "outcome",
+        "justification": "The overdue-but-open period is the time pressure driving the escalation and is grounded in the period status.",
+        "evidence": "Look at the final response or close-support note. Verify the Agent states the FP-2026-05 period is still open and past its BD5 close date (overdue)."
+    },
+    {
+        "title": "The Agent concludes that Green Spatz’s Acme Cloud FP-2026-05 support is not clean enough to move forward or be certified as-is.",
+        "category": "outcome",
+        "justification": "The prompt asks for a clean-or-not verdict; given the stranded and unposted entries and the not-started task, the support is not ready.",
+        "evidence": "Look at the final response. Verify the Agent concludes the support is not clean/not ready to move forward or certify, rather than declaring it ready."
+    },
+    {
+        "title": "The Agent creates or updates a close-support note (or equivalent internal documentation) for the Acme Cloud FP-2026-05 close support.",
+        "category": "outcome",
+        "justification": "The prompt asks Green to document the support clearly in a note she can leave on file.",
+        "evidence": "Look for a created or updated support note, task note, close note, document, or equivalent internal documentation tied to the Acme Cloud FP-2026-05 close. Verify the write action returned success in the trajectory."
+    },
+    {
+        "title": "The Agent’s close-support note documents what does and does not reconcile, including the stranded draft entries, the approved-but-unposted entries, and the reconciliation status.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the note to capture what does and doesn't reconcile so the reviewer can act on it.",
+        "evidence": "Look at the content of the created/updated note. Verify it covers the draft entries, the approved-but-unposted entries, and the reconciliation status."
+    },
+    {
+        "title": "The Agent routes the open Acme Cloud FP-2026-05 close items to Jones Harrison or another appropriate senior reviewer.",
+        "category": "outcome",
+        "justification": "Green is a Trainee Accountant who should escalate unresolved close risks to a senior rather than resolve them alone.",
+        "evidence": "Look at the email, messages, or other write actions in the trajectory. Verify the Agent routes the open items to Jones Harrison or another appropriate senior reviewer."
+    },
+    {
+        "title": "The Agent’s escalation flags the not-started trial-balance package and the stranded/unposted journal entries as the items needing senior action.",
+        "category": "outcome",
+        "justification": "The escalation must tell the senior which specific items are at risk so they can be cleared before the close drags on further.",
+        "evidence": "Look at the content of the escalation message/email. Verify it identifies the not-started trial-balance package and the stranded draft and approved-but-unposted entries."
+    },
+    {
+        "title": "The Agent does not approve, post, or certify any Acme Cloud FP-2026-05 journal entries or the close, and does not clear the reconciliations, on Green Spatz’s behalf.",
+        "category": "outcome",
+        "justification": "Approving, posting, certifying, or clearing reconciliations is outside a Trainee Accountant’s authority and would be an incorrect action.",
+        "evidence": "Look at all write actions in the trajectory. Verify the Agent does not approve, post, or certify any FP-2026-05 journal entries or the close, and does not submit/approve/certify the reconciliations as Green Spatz."
+    }
+]

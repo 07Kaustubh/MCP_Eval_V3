@@ -1,0 +1,58 @@
+OE 1: Look up Northstar's chart of accounts via oracle_gl_list_accounts with entity_id="northstar_legal" to identify which GL accounts correspond to the "trust account" and "operating account" referenced in the prompt. Expected discovery: account 101000 (role=cash_operating, type=asset) is the operating account and account 105000 (role=cash_trust, type=asset, description "Interest on Lawyer Trust Account - state-regulated, separate banking") is the trust (IOLTA) account. Note: account 105000 also exists under entity_id "brookfield" and "acme_cloud" - the agent must disambiguate by entity_id.
+
+OE 2: Check Northstar's current-period close status via oracle_gl_get_fiscal_period with period_id="northstar_legal_FP-2026-05". Expected discovery: status="open", bd3_lock_at="2026-06-03T12:35:42-04:00", locked_at=null, locked_by=null, fiscal_year=2026, start="2026-04-30T20:00:00-04:00", end="2026-05-31T19:59:59-04:00". The May 2026 close is in progress - BD3 lock was applied June 3 but the period is not yet fully closed/locked.
+
+OE 3: List all open Northstar BlackLine exceptions via blackline_list_exceptions (paginating with offset/limit; the tool has no entity_id filter, so the agent must retrieve all exceptions and filter by entity_id="northstar_legal" in the results, filtering for state="investigating" or state="awaiting_approval"). Expected discovery: exactly 2 open Northstar exceptions:
+  - exc_af7274fb658844: type=timing_difference_over_sla, state=investigating, account 101000 (operating cash), financial_impact=-$572.87, assigned_to=sean.williams@brookfieldcpas.com, identified_at=2026-05-25, sla_due_at=2026-05-27 (past SLA), root_cause="Manual reclassification entry not yet posted before BD3"
+  - exc_3e121025060b4b: type=duplicate_entry_detected, state=awaiting_approval, account 120000, financial_impact=-$1,103.75, assigned_to=emily.adekole@brookfieldcpas.com, identified_at=2025-10-04, identified_by=daniel.jones@brookfieldcpas.com, approver=edith.banda@brookfieldcpas.com
+The remaining 4 Northstar exceptions (on accounts 225000, 103000, 260000, and 235000) are all in closed or resolved states and are not current blockers.
+
+OE 4: Get the operating account (101000) reconciliation status for the current period via blackline_list_reconciliations with period_id="northstar_legal_FP-2026-05" and account_id="101000". Expected discovery: reconciliation BL-72E451657112, state=in_progress, variance=-572.87, preparer noted. The -$572.87 variance ties directly to open exception exc_af7274fb658844 from OE 3.
+
+OE 5: Get the trust account (105000) reconciliation status for the current period via blackline_list_reconciliations with period_id="northstar_legal_FP-2026-05" and account_id="105000". Expected discovery: NO reconciliations returned - there is no BlackLine reconciliation for Northstar's IOLTA trust account (105000) for FP-2026-05 (or any period). This absence is itself a material audit finding: a state-regulated trust account with no reconciliation on file.
+
+OE 6: Check for foreign-currency variances across all Northstar current-period reconciliations via blackline_list_reconciliations with period_id="northstar_legal_FP-2026-05" (paginating as needed to cover all 20 active-pipeline recons). Expected discovery: reconciliation BL-AA054D9F0898 on account 220000 with variance=$2.31, state=submitted, preparer=green.spatz@brookfieldcpas.com, created_at=2026-05-25. This is the EUR FX rounding variance from scen_039.
+
+OE 7: Search email for details on the FX variance via email_search_emails with query="BL-AA054D9F0898" (or "EUR" or "220000 variance" or similar). Expected discovery: email_scen_039_recon_currency_refresh_0008 from daniel.jones@brookfieldcpas.com, subject "Recap for BL-AA054D9F0898 variance review", confirming the $2.31 is a mechanical EUR rounding residual from USD/EUR closing rate 0.9201 across 14 EUR sub-lines including the Brussels co-counsel accrual, with recommended disposition of accept-and-document since it falls well below the $50 materiality floor.
+
+OE 8: Check the quarterly independence control test status (scen_042) via email_search_emails with query="independence" or "control test" or "FY26 Q1" (or similar). Expected discovery: email thread including:
+  - email_scen_042_audit_compliance_0001 from marina.soko@brookfieldcpas.com: "FY26 Q1 control test kickoff and sample methodology"
+  - email_scen_042_audit_compliance_0005: "FY26 Q1 independence summary memo and CLEAR recommendation"
+  - A later email from steven.perry@brookfieldcpas.com confirming "Peter and Julia have completed their review cycle" and granting partner clearance with a CLEAR result, plus scheduling FY26 Q2 for 2026-08-04. Julia Vance is explicitly named as a recipient in the thread.
+
+OE 9: Search for regulatory or AML concerns on the Northstar engagement via email_search_emails with query="AML" or "adverse media" or "Northstar compliance" or "soft-flag" or "AML-REG-northstar" (or similar). Expected discovery: scen_062 AML soft-flag triage emails:
+  - email_scen_062_aml_review_general_0007 from marina.soko@brookfieldcpas.com: "Written recap: AML-REG-northstar-2025-001 soft-watch disposition" - reports an adverse-media partial-name match on a Northstar BO with >25% LLP interest; Ben Arinzo's cash review of accounts 101000 and 105000 for FP-2026-03 and FP-2026-04 came back clean; disposition is soft-watch with no Step 3 escalation
+  - email_scen_062_aml_review_general_0008 from daniel.jones@brookfieldcpas.com: countersigns the soft-watch disposition, sets next re-screen for FP-2026-08 close
+
+OE 10: Corroborate AML findings in Slack via slack_conversations_search_messages with search_query="AML" or "northstar" or "soft-flag" or "adverse" (optionally with filter_in_channel="C008" for #compliance-and-registrations). Expected discovery: Marina Soko's triage thread opening (persona_005, 2026-05-19) noting the adverse-media partial-name match on northstar_legal, AML-REG-northstar-2025-001, Ben's clean cash check on 101000 and 105000, with initial lean toward soft-watch.
+
+OE 11: Check cross-team consent documentation via records_vault_list_documents with entity_id="northstar_legal" (the agent may also filter by kind or search for "consent" in titles). Expected discovery: two active consent documents both uploaded 2026-01-15 by edith.banda@brookfieldcpas.com:
+  - "Client Consent - Northstar Legal - Audit to Tax Information Sharing - FY2026" (status=active, classification=restricted)
+  - "Client Consent - Northstar Legal - Audit to Accounting Services Information Sharing - FY2026" (status=active, classification=restricted)
+Both consent documents are on file, covering the audit-to-tax and audit-to-accounting-services cross-team information sharing Julia needs.
+
+OE 12: Confirm FY2025 annual accounts sign-off status via records_vault_list_documents with entity_id="northstar_legal" (browsing results for annual accounts). Expected discovery: "Northstar Legal FY2025 Annual Accounts - Partner-Signed Final" (status=active, uploaded_at=2026-05-22, classification=restricted). The annual accounts have been signed off. However, a secondary discovery from scen_068 may surface: a $4,820.30 SALT accrual late-post to FP-2025-12 was authorized by William White (email_scen_068_northstar_annual_corp_tax_0008) around June 9, which could affect the already-signed FY2025 accounts.
+
+OE 13: Confirm FY2025 partnership return filing status via records_vault_list_documents with entity_id="northstar_legal" (browsing results for tax returns). Expected discovery: "Northstar Legal FY2025 Federal Form 1065 + State Returns - Signed/E-Filed" (status=active, uploaded_at=2026-06-12T09:30:00-04:00, classification=restricted). The return was filed today (June 12, 2026).
+
+OE 14: Pull all pending Northstar AP invoices via sap_subledger_list_ap_invoices with entity_id="northstar_legal" and status="pending_approval" (paginating with offset/limit since there are far more than the default 20 results). Expected discovery: 87 invoices with status=pending_approval, totaling approximately $302,063.22. The oldest invoice dates from 2025-07-08 and the newest from 2026-05-02, confirming the "months" of aging described in the prompt. This total represents material AP exposure relevant to the FY2026 audit engagement.
+
+OE 15: Look up contact details for Ryan Delgado and Daniel Jones via contacts_search_contacts with query="Ryan Delgado" (then separately "Daniel Jones") to resolve their email addresses for the calendar invite. Expected discovery: ryan.delgado@brookfieldcpas.com and daniel.jones@brookfieldcpas.com.
+
+OE 16 (WRITE): Create a readiness review calendar event via calendar_add_calendar_event. Key parameters:
+  - title: relating to "Northstar FY2026 Audit Readiness Review" (or similar)
+  - start_datetime: 2026-06-17 (next Wednesday from today June 12, 2026) at a reasonable business hour
+  - attendees: ["ryan.delgado@brookfieldcpas.com", "daniel.jones@brookfieldcpas.com"] (and optionally julia.vance@brookfieldcpas.com as organizer)
+  - organizer: julia.vance@brookfieldcpas.com
+  - description: covering audit readiness review topics and outstanding blockers
+
+OE 17 (WRITE): Post a heads-up message to the audit channel via slack_conversations_add_message. Key parameters:
+  - channel_id: "C007" (#audit-engagements)
+  - payload: summarizing the Northstar FY2026 audit readiness status, key findings, upcoming readiness review meeting on June 17, and any material blockers identified
+
+OE 18 (WRITE): Create a tracking issue for material audit blockers via linear_create_issue. Key parameters:
+  - team: "Audit" (team key "AUD", or the agent discovers the team via linear_list_teams)
+  - title: relating to "Northstar FY2026 Audit Blockers" or "Audit Readiness - Northstar Blockers Tracking" (or similar)
+  - description: listing the material blockers identified - open BlackLine exceptions (exc_af7274fb658844 on 101000, exc_3e121025060b4b on 120000), missing trust account (105000) reconciliation, $302K pending AP exposure, AML soft-flag (AML-REG-northstar-2025-001), and the potential impact of the $4,820.30 SALT late-post on signed FY2025 annual accounts
+  - priority: appropriate priority level reflecting urgency
+The prompt conditions this on "if there are material blockers" - ground truth confirms multiple material blockers exist, so this issue creation is required.

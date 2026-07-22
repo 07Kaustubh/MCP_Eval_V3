@@ -1,0 +1,68 @@
+OE 1: Resolve the acting user, recipients, and internal channel.
+- Use `contacts_search_contacts` with queries for "Jones Harrison", "Daniel Jones", and "Andrea Phil".
+- Expected data: Jones Harrison is `jones.harrison@brookfieldcpas.com`; Daniel Jones is `daniel.jones@brookfieldcpas.com`; Andrea Phil is `andrea.phil@brookfieldcpas.com`.
+- Use `slack_channels_list` with `channel_types: "public_channel,private_channel"` to identify `#monthly-close-coordination`.
+- Expected data: the internal close status should be posted in the monthly close coordination channel, channel id `C005`.
+
+OE 2: Rebuild the AR account anchor from Oracle GL rather than relying on the old AR-aging thread label.
+- Use `oracle_gl_list_accounts` filtered to `entity_id: "acme_cloud"` and inspect the active asset accounts around `110000` and `120000`.
+- Expected data: Acme account `110000` is `Accounts Receivable - Trade`; Acme account `120000` is `Deferred Commissions - Current`.
+- The agent should treat the old thread's reference to account `120000` as a legacy label/source-context issue, not as the correct Acme AR control account.
+
+OE 3: Anchor the current close workpaper target for the May follow-through.
+- Use `blackline_list_reconciliations` with `period_id: "acme_cloud_FP-2026-05"` and `account_id: "110000"`.
+- Expected data: reconciliation `BL-6BD9195E546B` is the Acme Cloud May 2026 reconciliation for account `110000`, state `open`, with Elita Moore as preparer and no reviewer set.
+
+OE 4: Recover the Q1 AR-aging bucket position from the original internal aging trail.
+- Use `slack_conversations_search_messages` and `messaging_search_conversations` for terms such as "Acme Q1 AR aging", "CUST-acme-1187", "CUST-acme-1294", "CUST-acme-1356", "account 120000", and "FP-2026-03".
+- Expected data: the aging trail says total AR is `$4.2M`; current is `$2.95M`; 1-30 is `$760K`; 31-60 is `$310K`; 61-90 is `$143K`; 90+ is `$42K`.
+- Expected data: the 60+ customer callouts are `CUST-acme-1187` at `$82K` in 61-90, `CUST-acme-1294` at `$61K` in 61-90, and `CUST-acme-1356` at `$42K` fully in 90+.
+- Expected handling: because this trail labels the package as account `120000`, the agent should reconcile it with OE 2's chart-of-accounts check and present the customer aging as the historical Q1 aging support that must be anchored back to Acme AR account `110000`, not as evidence that `120000` is the correct AR account.
+
+OE 5: Cross-check the AR-aging package Daniel was asked to sign off.
+- Use `email_search_emails` for terms such as "Acme Cloud Q1 2026 AR aging package", "CUST-acme-1187", "CUST-acme-1294", and "CUST-acme-1356".
+- Expected data: George's email to Daniel repeats the same Q1 aging totals and customer callouts, asks Daniel for sign-off, and states that no accounting-system updates, write-off entries, allowance postings, or customer-account status changes were made.
+- Expected handling: the email is corroborating support for the customer-level aging and sign-off posture; it should not override the Acme chart-of-accounts correction in OE 2.
+
+OE 6: Check the customer-specific cash-receipts history for every 60+ customer.
+- Use `slack_conversations_search_messages` for the cash-receipts trail on `CUST-acme-1187`, `CUST-acme-1294`, and `CUST-acme-1356`.
+- Expected data: Ben Arinzo reports that `CUST-acme-1187` has been paying on net-90 consistently, so the `$82K` in 61-90 is contract-consistent and only needs a soft chase.
+- Expected data: Ben reports that `CUST-acme-1294` is standard net-30 with no 2026-Q1 payment activity, so the `$61K` in 61-90 is real slippage.
+- Expected data: Ben reports that `CUST-acme-1356` has had no payment activity since 2025-Q4 and that an October 2025 payment-plan request never fully closed, so the `$42K` in 90+ may need an allowance discussion.
+
+OE 7: Check the tax/allowance caution before summarizing collectibility.
+- Use `slack_conversations_search_messages` for terms such as "CUST-acme-1356", "§166", "bad-debt", and "specific allowance".
+- Expected data: Hannah Grant says `CUST-acme-1356` could support a partial bad-debt deduction or specific allowance if Acme's CFO decides to take the position, but absent that CFO call Brookfield should not book or push the allowance in the current cycle.
+
+OE 8: Reconstruct why the AR-aging cleanup belongs to the post-addendum scope discussion.
+- Use `slack_conversations_search_messages` and `email_search_emails` for terms such as "Acme April overrun", "AR-aging bucket cleanup", "change-order workflow", and "May 2026 MMA".
+- Expected data: April Acme Cloud MMA ran 47 hours against a 32-hour plan, including about 6 hours of AR-aging bucket reconciliation; Daniel recommended a formal change-order workflow; Andrea said April would be absorbed as goodwill but recurring May 2026 work should move into the formal change-order process.
+
+OE 9: Confirm the executed addendum and its retention context.
+- Use `records_vault_list_documents` with `kind: "engagement_letter_addendum"`, `retention_policy_code: "AICPA_SQMS_7Y"`, and `entity_id: "acme_cloud"`.
+- Expected data: document `doc_eb7cb30c59bd4f03`, titled `Acme Cloud FY2026 Engagement Letter Addendum #1 - Scope Expansion (Multi-State Sales Tax + AR-Aging Bucket)`, is active, restricted, retained under `AICPA_SQMS_7Y`, and tied to Acme Cloud scope expansion.
+- Use `email_search_emails` for "Engagement Letter Addendum #1 filed" and "AR-aging bucket cleanup".
+- Expected data: Andrea states that May 2026 MMA onward should track two new scope lines separately: multi-state sales tax work and AR-aging bucket cleanup.
+
+OE 10: Check whether the May follow-through is operationally tracked as a separate post-addendum item.
+- Use `airtable_list_bases` and `airtable_list_tables` to identify relevant Acme engagement, budget, close, or workflow tables, then use `airtable_list_records` with the discovered `base_id` and `table_name` values to inspect for a separate May 2026 AR-aging bucket cleanup/change-order line.
+- Use `linear_list_issues` with queries such as "Acme AR-aging", "AR-aging bucket cleanup", "Addendum #1", and "May 2026 MMA".
+- Use `blackline_list_reconciliations` for Acme May 2026 account `110000` and review the available BlackLine workpaper context.
+- Expected data: the formal addendum requires AR-aging bucket cleanup to be tracked separately from May 2026 onward, but the current operational evidence does not show a clean dedicated Airtable, Linear, or BlackLine tracker separating the AR-aging cleanup from the base monthly close. Daniel's sign-off package therefore needs to flag the tracking gap rather than say it is already cleanly tracked.
+
+OE 11: Create the support note for the workpapers.
+- Use `records_vault_upload_document` with `kind: "reconciliation_support"`, `retention_policy_code: "AICPA_SQMS_7Y"`, `classification: "internal"`, `uploaded_by: "jones.harrison@brookfieldcpas.com"`, a populated `content_b64`, and a title such as "Acme Cloud Q1 AR-Aging Cleanup - Collectibility Read and Sign-off Support Note".
+- Expected content: the note identifies Acme AR as account `110000` and calls out the old `120000` label issue; references the May AR workpaper trail or reconciliation `BL-6BD9195E546B`; restates the `$4.2M` aging position and the bucket totals; lists the three 60+ customers and cash-receipts conclusions; states that `CUST-acme-1356` is an allowance-discussion item only if Acme CFO direction is obtained; states that no write-off, allowance, or customer-status changes were posted; and states that the AR-aging cleanup is formally covered by Addendum #1 but still needs separate May tracking rather than being buried in base monthly close.
+
+OE 12: Post the internal close-coordination status.
+- Use `slack_conversations_add_message` in channel `C005`.
+- Expected content: the message says the support note was filed, the collectibility read is complete, and no write-off, allowance, or customer-status changes were made.
+- Expected content: it summarizes the three customer conclusions: `CUST-acme-1187` is contract-consistent net-90/soft chase; `CUST-acme-1294` is true slippage/no Q1 receipts; `CUST-acme-1356` is 90+ with no receipts since 2025-Q4 and only CFO-directed allowance consideration.
+- Expected content: it flags that AR-aging cleanup is formally in Addendum #1 but should not be buried in base monthly close because separate May tracking is not cleanly evidenced.
+
+OE 13: Send Daniel the sign-off summary with Andrea copied.
+- Use `email_send_email` with `sender: "jones.harrison@brookfieldcpas.com"`, `recipients: ["daniel.jones@brookfieldcpas.com"]`, `cc: ["andrea.phil@brookfieldcpas.com"]`, and a subject such as "Acme Q1 AR-aging cleanup - sign-off summary".
+- Expected content: the email gives Daniel the source-record read, including that Acme AR should be anchored to account `110000` even though the old Q1 aging thread/email used `120000`.
+- Expected content: the email includes the aging totals and customer-level collectibility read for `CUST-acme-1187`, `CUST-acme-1294`, and `CUST-acme-1356`.
+- Expected content: the email states that no write-off, allowance, or customer-status updates were posted, and that any `CUST-acme-1356` allowance/bad-debt position requires Acme CFO direction.
+- Expected content: the email gives Daniel the corrected AR-aging support he needs for sign-off, asks him to decide/escalate collections follow-up for `CUST-acme-1294` and `CUST-acme-1356`, and asks him to ensure May 2026 AR-aging cleanup is tracked as an Addendum #1 scope item rather than buried in the base monthly close.

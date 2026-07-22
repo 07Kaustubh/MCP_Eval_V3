@@ -32,6 +32,18 @@ ROOT = Path(__file__).resolve().parent.parent
 TASKS_DIR = ROOT / "Tasks"
 
 TASKS_TEMPLATE_STARPM = ROOT / "Tasks_Template_starpm"
+# v21.2: upstream ships per-universe templates (3_UniverseDataForThisTask stub +
+# 9_Universe_inject.sql header are universe-flavored). Fall back to the shared
+# Brookfield-flavored Tasks_Template when a universe-specific dir is absent.
+TEMPLATE_BY_UNIVERSE = {
+    "keystone": ROOT / "Tasks_Template_keystone",
+    "moveops": ROOT / "Tasks_Template_moveops",
+}
+
+
+def template_root_for(universe):
+    cand = TEMPLATE_BY_UNIVERSE.get(universe)
+    return cand if cand is not None and cand.is_dir() else ROOT / "Tasks_Template"
 V4_QC_PLACEHOLDER_FILES = [
     "9_QC_Feedback.txt",
     "10_PT_Dispute_To_QC_Feedback.txt",
@@ -152,6 +164,14 @@ def main():
     task_dir.mkdir()
     for fname, _ in paste_files:
         (task_dir / fname).touch()
+    # v21.2: every universe's upstream Tasks_Template ships injection artifacts.
+    # Seed them from the universe-correct template so the CB gets the right
+    # universe-flavored authoring header (validated by validate.py --phase injection).
+    tmpl = template_root_for(args.universe)
+    for fname in ("4_Changelog.json", "9_Universe_inject.sql"):
+        src = tmpl / fname
+        if src.is_file() and not (task_dir / fname).exists():
+            (task_dir / fname).write_bytes(src.read_bytes())
     (task_dir / "Agent_Responses").mkdir()
     (task_dir / "trajectory-runs").mkdir()
 

@@ -601,10 +601,25 @@ ANCHORS = [
         "expect": "IMPOSSIBLE",
     },
     {
-        "name": "v-wave4 SP-SUB-2 - v3 (brookfield) task gets SKIP not FAIL for injection phase",
+        "name": "v-wave4 SP-SUB-2 - v3 (brookfield) task without inject file gets SKIP not FAIL for injection phase",
         "phase": "injection",
         "fixture": lambda d: _write_task(d, prompt="Check the AP queue please.", persona="Brenda Carter"),
-        "expect": "not applicable",
+        "expect": "no injection declared",
+    },
+    # v21.2: injection validation is presence-gated for ALL universes (upstream now ships
+    # 9_Universe_inject.sql + 4_Changelog.json in every Tasks_Template).
+    {
+        "name": "v21.2 SP-INJ-3 - brookfield injection with future-dated row is flagged (ceiling = universe today)",
+        "phase": "injection",
+        "fixture": lambda d: (
+            _write_task(d, prompt="Check the AP queue please.", persona="Brenda Carter"),
+            (Path(d) / "9_Universe_inject.sql").write_text(
+                "INSERT INTO emails (id, sender, content, sent_at) VALUES "
+                "('email_scen_099_test_0001', 'brenda.carter@brookfieldcpas.com', 'AP follow-up note.', '2026-09-30');",
+                encoding="utf-8"),
+            (Path(d) / "4_Changelog.json").write_text("[]", encoding="utf-8"),
+        ),
+        "expect": "TEMPORAL_VIOLATION",
     },
 ]
 

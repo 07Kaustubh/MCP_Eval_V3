@@ -1,0 +1,140 @@
+[
+    {
+        "title": "The Agent attaches document_id=doc_4a1c9e7b22f08d61 (\"Accrued Professional Services accrual support - Brookfield May 2026 (FP-2026-05)\") as supporting evidence to reconciliation BL-9C24A7F1E0B3 (exception exc_2f8a17c4be9d40, Brookfield Accrued Professional Services, FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt directs Green to attach the matching workpaper as supporting evidence to each exception. doc_4a1c9e7b22f08d61 has related_resource_id=BL-9C24A7F1E0B3  an unambiguous match to exc_2f8a17c4be9d40.",
+        "evidence": "A successful attach-evidence write action in the trajectory binds doc_4a1c9e7b22f08d61 to recon_id BL-9C24A7F1E0B3."
+    },
+    {
+        "title": "The Agent attaches document_id=doc_8e2f5a0c91b7d4a3 (\"AP subledger cutover support - Acme Cloud May 2026 (FP-2026-05)\") as supporting evidence to reconciliation BL-1D5F8E20C7A4 (exception exc_7b3e90d5ac6142, Acme Cloud Accounts Payable - External Vendors, FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt directs Green to attach the matching workpaper as supporting evidence to each exception. doc_8e2f5a0c91b7d4a3 has related_resource_id=BL-1D5F8E20C7A4  an unambiguous match to exc_7b3e90d5ac6142.",
+        "evidence": "A successful attach-evidence write action in the trajectory binds doc_8e2f5a0c91b7d4a3 to recon_id BL-1D5F8E20C7A4."
+    },
+    {
+        "title": "The Agent does NOT attach any document to any reconciliation other than BL-9C24A7F1E0B3 and BL-1D5F8E20C7A4 (in particular, no document is attached to BL-3B7D0F61EA92, the recon for exception exc_5c1a86f2d4e039, Brookfield Income Tax Payable, FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to flag rather than attach when a candidate workpaper looks plausible but the description is ambiguous. The only ambiguous-candidate recon in this task is BL-3B7D0F61EA92; attaching to any non-target recon would violate the prompt.",
+        "evidence": "No attach-evidence write action in the trajectory targets a recon_id outside {BL-9C24A7F1E0B3, BL-1D5F8E20C7A4}."
+    },
+    {
+        "title": "The Agent does NOT attach document_id=doc_6f0b3d7c81e2a594 (\"Tax accrual timing support - Brookfield Q2 2026\") to any reconciliation.",
+        "category": "outcome",
+        "justification": "doc_6f0b3d7c81e2a594 is Q2-scoped (not FP-2026-05-specific) and has related_resource_id=null, so its match to exc_5c1a86f2d4e039 is ambiguous. The prompt forbids attaching ambiguous workpapers blindly.",
+        "evidence": "No attach-evidence write action in the trajectory uses document_id=doc_6f0b3d7c81e2a594."
+    },
+    {
+        "title": "The Agent posts a review note on reconciliation BL-9C24A7F1E0B3 confirming that doc_4a1c9e7b22f08d61 (\"Accrued Professional Services accrual support - Brookfield May 2026 (FP-2026-05)\") was attached as supporting evidence and that it came from Brookfield's Records Vault folder (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires a brief review note confirming what was attached and where it came from.",
+        "evidence": "A review-note write action on recon_id BL-9C24A7F1E0B3 whose body references doc_4a1c9e7b22f08d61 (or its title) and identifies the Brookfield / Records Vault source."
+    },
+    {
+        "title": "The Agent posts a review note on reconciliation BL-1D5F8E20C7A4 confirming that doc_8e2f5a0c91b7d4a3 (\"AP subledger cutover support - Acme Cloud May 2026 (FP-2026-05)\") was attached as supporting evidence and that it came from Acme Cloud's Records Vault folder (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires a brief review note confirming what was attached and where it came from.",
+        "evidence": "A review-note write action on recon_id BL-1D5F8E20C7A4 whose body references doc_8e2f5a0c91b7d4a3 (or its title) and identifies the Acme Cloud / Records Vault source."
+    },
+    {
+        "title": "The Agent posts a review note on reconciliation BL-3B7D0F61EA92 (the recon for exception exc_5c1a86f2d4e039, Brookfield Income Tax Payable, FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt requires a review note on the ambiguous-workpaper case so Daniel has a written record of why nothing was attached. This rubric verifies the write action itself occurred on the correct reconciliation.",
+        "evidence": "A successful review-note write action in the trajectory targets recon_id BL-3B7D0F61EA92."
+    },
+    {
+        "title": "The Agent's review note on reconciliation BL-3B7D0F61EA92 references doc_6f0b3d7c81e2a594 (\"Tax accrual timing support - Brookfield Q2 2026\") and explains the ambiguity  that it covers account 230000 Income Tax Payable and the Q2 period bucket (which contains May) but is not FP-2026-05-specific and has no related_resource_id link (or similar phrasing).",
+        "category": "outcome",
+        "justification": "The prompt is explicit: if a workpaper looks like it covers the right period and account but the description is ambiguous, note that in the review note. This rubric verifies the ambiguity reason is documented.",
+        "evidence": "The body of the review-note write action on recon_id BL-3B7D0F61EA92 names doc_6f0b3d7c81e2a594 (or its title) and conveys the ambiguity reason (Q2-scoped, not May-specific, no related_resource_id link)."
+    },
+    {
+        "title": "The Agent's review note on reconciliation BL-3B7D0F61EA92 explicitly flags the item back to George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) for confirmation (or similar phrasing).",
+        "category": "outcome",
+        "justification": "The prompt is explicit: flag it for George rather than attaching it blind. This rubric verifies the escalation to George is captured in the note.",
+        "evidence": "The body of the review-note write action on recon_id BL-3B7D0F61EA92 names George (george.mcadam@brookfieldcpas.com) and asks for confirmation / escalates the item."
+    },
+    {
+        "title": "The Agent's final response reports the aggregate count of open exceptions across Brookfield, Northstar, and Acme as 13 (or an equivalent unambiguous reference, e.g. \"13 total open exceptions\").",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to pull the full open-exceptions list across the three entities so Daniel has a clean picture before partner reviews start. The aggregate count is the headline number Daniel needs to size the remaining workload.",
+        "evidence": "Final response contains \"13\" as the count of open exceptions across the three entities."
+    },
+    {
+        "title": "The Agent's final response conveys the entity-level distribution of open exceptions as Brookfield 9, Northstar 2, and Acme 2 (in any format  sentence, bullet list, table, parenthetical, or equivalent phrasing such as \"9 Brookfield / 2 Northstar / 2 Acme\" or \"Brookfield (9), Northstar (2), Acme (2)\"). The numbers must be correct; the format is free.",
+        "category": "outcome",
+        "justification": "The prompt names the three entities explicitly (\"across Brookfield, Northstar, and Acme\") and asks for a clean picture before partner reviews start. The per-entity split tells Daniel where the remaining load sits. Format is irrelevant; only the per-entity counts being present and correct matters.",
+        "evidence": "The final response associates each of the three entity names (Brookfield, Northstar, Acme) with its correct open-exception count (9, 2, 2 respectively) in any readable form. A response missing one or more entity counts, or reporting any count incorrectly, fails."
+    },
+    {
+        "title": "The Agent's delivered work makes each of the following 13 open exceptions individually identifiable to Daniel  through any combination of (i) exception IDs named in the final response, (ii) recon_id references in the new Airtable \"Close Blocker Triage Log\" rows the Agent created this session, or (iii) the BlackLine recon_ids targeted by the Agent's attach-evidence / review-note write actions: exc_aade06f6129e43, exc_1ddfc978ce5a4d, exc_4d5d3582698946, exc_cb0a9a94a3084c, exc_a0f77f2a19104e, exc_06b89e3937b04a, exc_652c0931bb2546, exc_2f8a17c4be9d40, exc_5c1a86f2d4e039, exc_3e121025060b4b, exc_af7274fb658844, exc_abd8e711f5f347, exc_7b3e90d5ac6142.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to pull the full open-exceptions list across Brookfield, Northstar, and Acme so Daniel has a clean, actionable picture before partner reviews start. What matters is that each individual exception is traceable to Daniel from the Agent's delivered work  not that all 13 IDs are verbatim re-pasted in the chat summary when several are already individually represented in the Airtable rows the Agent created and the BlackLine recons it touched.",
+        "evidence": "For each of the 13 exception IDs, at least one of the following holds: the ID appears in the final response; OR the Agent created an Airtable \"Close Blocker Triage Log\" row whose recon_id matches the exception's related_reconciliation_id; OR the Agent issued an attach-evidence or review-note write action against the exception's related_reconciliation_id this session. If any of the 13 exceptions is not individually identifiable by any of these three paths, the rubric fails."
+    },
+    {
+        "title": "The Agent does NOT mark any of the four existing rows in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) those linked to exception_id values exc_af7274fb658844, exc_abd8e711f5f347, exc_4d5d3582698946, and exc_cb0a9a94a3084c as resolved.",
+        "category": "outcome",
+        "justification": "The prompt asks to update the log for any exception that's now resolved. BlackLine confirms all four exceptions are still non-closed (investigating x 2 = exc_4d5d3582698946 + exc_af7274fb658844; awaiting_approval x 2 = exc_cb0a9a94a3084c + exc_abd8e711f5f347), so none qualify for a resolved flip.",
+        "evidence": "No update write action in the trajectory flips any of those four existing rows to a resolved-equivalent status value."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-04239CB19763 (Acme Cloud, account 210000, submitted 2026-05-26), and the row references recon_id=BL-04239CB19763 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-04239CB19763 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff (2 business days before the 2026-06-12 anchor), so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-04239CB19763 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-0814B26D9EC0 (Northstar Legal, account 230000, submitted 2026-05-26), and the row references recon_id=BL-0814B26D9EC0 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-0814B26D9EC0 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-0814B26D9EC0 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-87D1B18158A0 (Acme Cloud, account 102000, submitted 2026-05-28), and the row references recon_id=BL-87D1B18158A0 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-87D1B18158A0 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-87D1B18158A0 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-AA054D9F0898 (Northstar Legal, account 220000, submitted 2026-05-29), and the row references recon_id=BL-AA054D9F0898 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-AA054D9F0898 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-AA054D9F0898 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-DBD9915BCD18 (Acme Cloud, account 226000, submitted 2026-05-29), and the row references recon_id=BL-DBD9915BCD18 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-DBD9915BCD18 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-DBD9915BCD18 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-3322BCC99B01 (Northstar Legal, account 132000, submitted 2026-06-01), and the row references recon_id=BL-3322BCC99B01 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-3322BCC99B01 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-3322BCC99B01 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-FACA06612502 (Acme Cloud, account 215000, submitted 2026-06-01), and the row references recon_id=BL-FACA06612502 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-FACA06612502 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-FACA06612502 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-EF7C7DA25318 (Acme Cloud, account 132000, submitted 2026-06-02), and the row references recon_id=BL-EF7C7DA25318 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-EF7C7DA25318 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-EF7C7DA25318 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-5EEFDB2C1618 (Acme Cloud, account 235000, submitted 2026-06-03), and the row references recon_id=BL-5EEFDB2C1618 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-5EEFDB2C1618 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-5EEFDB2C1618 and one content field flagging the >2-BD review delay."
+    },
+    {
+        "title": "The Agent creates a new row in the Airtable \"Close Blocker Triage Log\" (base airtable_e86eaf439d1d) for reconciliation BL-B27C051A73B1 (Northstar Legal, account 119000, submitted 2026-06-03), and the row references recon_id=BL-B27C051A73B1 and conveys the &gt;2-business-day review-delay reason in one of the row's content fields (blocker_title, notes, or status  or similar).",
+        "category": "outcome",
+        "justification": "BL-B27C051A73B1 is one of the ten reconciliations in state=submitted with submitted_at on or before the 2026-06-10 cutoff, so the prompt requires a new line for it.",
+        "evidence": "A create-record write action on table \"Close Blocker Triage Log\" in base airtable_e86eaf439d1d whose fields include recon_id=BL-B27C051A73B1 and one content field flagging the >2-BD review delay."
+    }
+]

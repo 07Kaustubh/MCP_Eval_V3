@@ -34,22 +34,20 @@ MCP_Eval_V3/
 │   ├── 10_How_To_Load_and_Edit_Universe.md # Universe loading instructions
 │   ├── 11_Taxonomy.md                      # Task taxonomy and version guidance
 │   └── 12_Always_Failing_Rubrics.md        # All-failing-rubric patterns
-├── Brookfield_Base_Universe/       # Brookfield CPAs & Advisors universe (source of truth)
-│   ├── 1_Summary.md               # Company summary, personas, clients, scenarios
-│   ├── 2_Persona_Briefs.md        # Detailed per-persona profiles
+├── Brookfield_Base_Universe/        # Brookfield CPAs & Advisors universe (source of truth)
+│   ├── 7_Brookfield_Universe_One_pager.md     # Universe overview and what's new
+│   ├── 1_Summary.md              # Company summary, personas, clients, scenarios
+│   ├── 2_Persona_Briefs.md       # Detailed per-persona profiles
+│   ├── 4_Scenario_Storylines.md  # Scenario storylines
 │   ├── 3_Task_Categories_Business_Functions.md # Business function categories
-│   ├── 4_Scenario_Storylines.md   # Scenario storylines
-│   ├── 5_Artifacts_Universe_Ref_Sheet.md # Dense reference (personas, schemas, accounts)
-│   ├── 6_Glossary.md              # Accounting terms and universe conventions
-│   ├── 7_Brookfield_Universe_One_pager.md # Universe one-pager
 │   ├── 8_Server_Tools_Details.json # All MCP tools with parameters
-│   ├── 9_Universe_Schema.json     # Database schema
-│   ├── Get_Universe_Data.sql      # SQL to extract universe data
-│   └── Data/                      # All JSON data files (Oracle GL, SAP Subledger, BlackLine, Records Vault, Email, Slack, etc.)
+│   ├── 9_Universe_Schema.json    # Database schema
+│   ├── Get_Universe_Data.sql     # SQL to extract universe data
+│   └── Data/                     # All JSON data files (Oracle GL, SAP subledger, BlackLine, Records Vault, Airtable, Linear, Email, Slack, Messaging, Calendar, Contacts)
 ├── QC_Tasks/                       # Sample tasks for reference
 │   ├── V3_Tasks/                  # On-framework (V3) tasks on the Brookfield universe - primary reference
 │   │   └── TaskXX_XXXXX/          # Each has: Prompt, OEs, Rubrics, Quality_Scores, Task_Info
-│   └── V2_Tasks/                  # V2/Keystone samples - study structure/craft only, apply the V3 framework
+│   └── V2_Tasks/                  # V2 samples - study structure/craft only, apply the V3 framework
 ├── Tasks_Template/                 # Templates for task files (includes Agent_Responses/ for run trajectories)
 └── Tasks/                          # Actual tasks to evaluate
     └── TaskXX_XXXXX/              # Each task folder with its files
@@ -244,7 +242,7 @@ Analyze the verifier fails using @Tasks/TaskXX_XXXXX/8_Verifier_Fails.txt, the a
 - Always verify dollar amounts by doing the math yourself from the raw data rather than trusting summaries.
 - When the prompt references "my team" or "my clients", verify persona-scoped data vs company-wide totals.
 - Universe date is June 12, 2026. All relative time references should resolve against this date.
-- Check the QC_Tasks for reference if unsure what good prompts/OEs/rubrics look like (`V3_Tasks/` are on-framework, Brookfield; `V2_Tasks/` are V2/Keystone samples - study craft, apply the V3 framework).
+- Check the QC_Tasks for reference if unsure what good prompts/OEs/rubrics look like (`V3_Tasks/` are on-framework, Brookfield; `V2_Tasks/` are earlier V2 samples - study craft, apply the V3 framework).
 
 **Prompt:**
 

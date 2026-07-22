@@ -142,3 +142,10 @@ Do NOT proceed to CLOSE in this chat.
 ## Bootstrap
 
 Read root `AGENTS.md` first. The candidate is rated on their ORIGINAL submission against the QC SPEC BASELINE — not on our internal exceeds-spec bar. We hold ourselves to a higher standard internally; the rating is fair only when measured against the publicly-defined criteria the candidate had access to.
+
+## V4 (StarPM) feedback deltas
+
+- Spec baseline routing: for starpm tasks the QC spec is `Docs_starpm/7_QC_Spec_Doc1.json` + `Docs_starpm/8_QC_Spec_Doc2.md` (allowlist replaces the Brookfield `Docs/7+8` rows). NEVER rate a StarPM candidate against the Brookfield spec or vice versa. Note: `Docs_starpm/13_QC_Companion.md` is Brookfield-contaminated - it is NOT part of the StarPM baseline (see `Validators/regression_baseline/ROUTING_DECISIONS.md`).
+- The candidate's originals for V4 additionally include `4_Changelog.json`, `9_Universe_inject.sql`, `8a_Verifier_Fails_Opus.txt`, `8b_Verifier_Fails_Gemini.txt` - all part of the rated submission (injection quality is rated against Evals_starpm/0's documented bar).
+- Grounding requirement (all universes, mandatory for V4): every finding in `13_Feedback.txt` MUST cite a specific verifiable SSOT atom (ID / email / amount / date / rubric number). Run `python3 Validators/qc_verdict.py audit Tasks/<TASK_DIR>` after drafting: any finding line reported as NO-ATOM-CITED goes back for revision before the feedback ships.
+- `python3 Validators/qc_verdict.py feedback Tasks/<TASK_DIR>` emits a 9_QC_Feedback-format skeleton pre-filled from the deterministic validator findings with SSOT citations - use it as the starting draft, then apply human judgment on top.

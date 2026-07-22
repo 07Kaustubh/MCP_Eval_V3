@@ -1,0 +1,32 @@
+Task: Task12_6a325387c79cf16b48eedbda
+Business Function: Compliance & Internal Controls
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+[FAILING ISSUES]
+N/A
+
+[NON-FAILING ISSUES]
+
+[Non-Fail - Minor OE Inaccuracies]
+OE 12 correctly lists the five reconciliation IDs and the preparer/certifier pairs, but it does not mention that several of these reconciliations are actually from `FP-2025-07`, not a FY2026 quarter-labeled period. This fits the spec for OEs that are “substantively correct but contain minor imprecisions.”
+
+[Non-Fail - Up to 15% Moderate Errors]
+Overly Broad Criteria: C12 says the Linear issue may be “optionally” placed in `proj_aml_onboarding`, but the universe and OE15/OE20 identify that project as the intended Compliance controls workstream. 
+
+[OTHER DISCUSSION]
+The updated data (I recall these should be in the second sandbox) are not visible in the universe. The trajectories are clear enough to evaluate, but it would be materially stronger evidence if those data were present. Also, the rubric verifier has verified them.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Minor OE Inaccuracies]","[All] [All] [Non-Fail - Up to 15% Moderate Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

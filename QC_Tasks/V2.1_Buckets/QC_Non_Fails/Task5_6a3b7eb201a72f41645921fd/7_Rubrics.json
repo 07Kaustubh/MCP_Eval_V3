@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent sends an email to [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com) requesting his partner sign-off before responding to the IRS on the CP161 notice.",
+        "category": "outcome",
+        "justification": "The prompt says to send Ming the recommended position so he can sign off before anything goes back to the IRS.",
+        "evidence": "See OE 11: look for an email_send_email call to ming.chang@brookfieldcpas.com that requests his sign-off before the firm responds to the IRS."
+    },
+    {
+        "title": "The Agent's email to Ming Chang states the recommended position that the payment was timely but applied to 2026 Q2, so the IRS should be asked to reapply it to Q1 2026 and abate the penalty and interest.",
+        "category": "outcome",
+        "justification": "The prompt asks for the recommended position with the full picture. The determination is that the payment was timely but misapplied to Q2, so the fix is reapplication to Q1 plus abatement.",
+        "evidence": "See OE 7 and OE 11: check the email content to ming.chang@brookfieldcpas.com for the reapplication request (Q2 to Q1) and abatement of the penalty and interest."
+    },
+    {
+        "title": "The Agent sends an email to [hannah.grant@brookfieldcpas.com](mailto:hannah.grant@brookfieldcpas.com) with the determination on the CP161 notice.",
+        "category": "outcome",
+        "justification": "The prompt says to send Hannah the same determination for the tax-team file. Hannah was also cc'd on the original notice.",
+        "evidence": "See OE 12: look for an email_send_email call to hannah.grant@brookfieldcpas.com conveying the determination on the CP161 notice."
+    },
+    {
+        "title": "The Agent uploads its workpaper to Records Vault with retention policy code IRS_TAX_7Y.",
+        "category": "outcome",
+        "justification": "The prompt says to file the workpaper in Records Vault under the IRS tax-records retention (IRS_TAX_7Y).",
+        "evidence": "See OE 13: look for a records_vault_upload_document call with retention_policy_code IRS_TAX_7Y."
+    },
+    {
+        "title": "The Agent drafts the response to the IRS, stating that the payment was timely but applied to 2026 Q2 and requesting reapplication to Q1 2026 and abatement of the penalty and interest.",
+        "category": "outcome",
+        "justification": "The prompt says to draft the response the firm would send the IRS. The draft should set out the timely-but-misapplied basis and the reapplication-plus-abatement ask.",
+        "evidence": "See OE 13: check the workpaper, the email to Ming, or the final response for a drafted IRS response that states the misapplication and requests reapplication to Q1 and abatement."
+    },
+    {
+        "title": "The Agent creates an issue to track the CP161 matter through to resolution.",
+        "category": "outcome",
+        "justification": "The prompt says to open an issue to track the matter through to resolution before the response deadline.",
+        "evidence": "See OE 14: look for a linear_create_issue call that tracks the Acme Cloud CP161 matter, referencing the July 9, 2026 response deadline."
+    },
+    {
+        "title": "The Agent posts a message in the tax-prep-and-filings channel that the CP161 notice is being handled.",
+        "category": "outcome",
+        "justification": "The Agent posts a message in the tax-prep-and-filings channel that the CP161 notice is being handled.",
+        "evidence": "See OE 15: look for a slack_conversations_add_message call to the tax-prep-and-filings channel stating the CP161 notice is being handled."
+    },
+    {
+        "title": "The Agent determines that Acme Cloud's $416,050.00 federal payment went out and settled on time on April 14, 2026, before the April 15, 2026 due date.",
+        "category": "outcome",
+        "justification": "The payment JE posted 2026-04-14 and the EFTPS confirmation settled 2026-04-14, both before the April 15 due date, so the payment itself was timely.",
+        "evidence": "See OE 5 and OE 7: check the deliverables or final response for the determination that the $416,050.00 payment settled on April 14, 2026, ahead of the April 15, 2026 deadline."
+    },
+    {
+        "title": "The Agent identifies that the payment was applied to the 2026 Q2 estimated tax period instead of Q1 2026, per the EFTPS confirmation (number 270584199630), which is why the IRS shows Q1 as unpaid.",
+        "category": "outcome",
+        "justification": "The EFTPS confirmation shows the payment was applied to 2026 Q2 while the books recorded it as Q1. This misapplication, not a missed payment, is the root cause of the notice.",
+        "evidence": "See OE 4 and OE 7: check the deliverables or final response for identification that the payment was applied to 2026 Q2 rather than Q1 2026, leaving Q1 unsatisfied."
+    },
+    {
+        "title": "The Agent recommends requesting the IRS reapply the $416,050.00 payment from 2026 Q2 to Q1 2026 and abate the penalty and interest, with no additional Q1 tax owed.",
+        "category": "outcome",
+        "justification": "Because the payment was timely but misapplied, the correct action is reapplication to Q1 plus abatement as a posting error, not a simple dispute.",
+        "evidence": "See OE 7 and OE 11: check the email to Ming, the email to Hannah, or the final response for the reapplication-plus-abatement recommendation and that no additional Q1 tax is owed."
+    },
+    {
+        "title": "The Agent identifies that reapplying the payment to Q1 leaves the 2026 Q2 estimate uncovered, and flags that Q2 will need to be funded separately.",
+        "category": "outcome",
+        "justification": "The $416,050 currently sits in the Q2 period. Moving it to Q1 leaves Q2 with no payment, so the agent should flag that Q2 must be funded separately to avoid creating a new shortfall.",
+        "evidence": "See OE 8: check the email to Ming or the final response for recognition that reapplying the payment to Q1 leaves the 2026 Q2 estimate uncovered and needing separate funding."
+    },
+    {
+        "title": "The Agent identifies that the state estimates for the quarter (approximately $82,400: CA $58,200, NY $14,400, MA $9,800) have no remittance record and flags the state portion as an open item to confirm.",
+        "category": "outcome",
+        "justification": "The provision accrued $498,450 (federal plus state) but only the $416,050 federal payment is in the records. The state estimates show no remittance, which the agent should flag.",
+        "evidence": "See OE 6 and OE 9: check the deliverables or final response for a finding that the state estimates (about $82,400) are not evidenced as remitted and need confirmation."
+    },
+    {
+        "title": "The Agent reports that the CP161 notice assesses $9,707.50 in penalty and interest on the $416,050.00 Q1 2026 federal estimate, with a response deadline of July 9, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to pin down exactly what the IRS is assessing and the date to respond by.",
+        "evidence": "See OE 1: check the deliverables or final response for the $9,707.50 assessment on the $416,050.00 federal estimate and the July 9, 2026 response deadline."
+    },
+    {
+        "title": "The Agent confirms the $416,050.00 federal estimate was internally reviewed and approved and booked to the ledger before the determination.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to walk the trail for how the estimate was worked up, approved, and booked. The estimate was approved by Ming Chang and booked via the provision entry.",
+        "evidence": "See OE 5 and OE 6: check the deliverables or final response for confirmation that the federal estimate was approved (Sofia Halabi / Hannah Grant / Ming Chang) and booked to the ledger."
+    },
+    {
+        "title": "The Agent confirms there is no other outstanding IRS correspondence on Acme Cloud beyond the CP161 notice.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to make sure nothing else from the IRS on Acme has been missed.",
+        "evidence": "See OE 2: check the deliverables or final response for a statement that CP161 is the only open IRS item on Acme Cloud."
+    },
+    {
+        "title": "The Agent recommends remediation for the unremitted state estimates, specifically remitting the approximately $82,400 state portion and addressing the resulting state late-payment exposure, rather than only flagging it as open.",
+        "category": "outcome",
+        "justification": "The prompt asks for the remediation actually needed, not just a flag. The $82,400 state portion is accrued but unremitted and past due, so it must be remitted and its late-payment exposure addressed.",
+        "evidence": "See OE 9a: check the deliverables or final response for a recommendation to remit the approximately $82,400 state estimates and address the state late-payment exposure."
+    },
+    {
+        "title": "The Agent recommends a control or process improvement to prevent a recurrence of the period misapplication, for example verifying the EFTPS period designation on estimated-tax payments.",
+        "category": "outcome",
+        "justification": "The prompt asks what to tighten so a mistake like this does not slip through again. A control or process recommendation addressing the period mis-tagging is the responsive finding.",
+        "evidence": "See OE 9b: check the deliverables or final response for a control or process recommendation aimed at preventing future period misapplication."
+    }
+]

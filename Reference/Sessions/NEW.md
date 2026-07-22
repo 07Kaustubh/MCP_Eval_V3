@@ -46,3 +46,14 @@ Do NOT proceed to the next phase in this chat — the user controls the paste st
 ## Bootstrap
 
 Read root `AGENTS.md` first. This is the entry-point trigger for any new task; `PIPELINE NEW` lives BEFORE `PIPELINE S0` in the workflow.
+
+## V4 (StarPM) scaffolding
+
+For a StarPM task, pass the universe explicitly - the scaffolder produces the V4 dual-model shape from `Tasks_Template_starpm/`:
+
+```
+python Validators/new_task.py <task_id_or_full_name> --universe starpm            # V4 CB mode
+python Validators/new_task.py <task_id_or_full_name> --universe starpm --review  # V4 review mode
+```
+
+V4 shape adds over V3: `4_Changelog.json`, `8a_Verifier_Fails_Opus.txt`, `8b_Verifier_Fails_Gemini.txt`, `9_Universe_inject.sql`, `Agent_Responses/{Opus,Gemini}/Run1-6_Trajectory.json`, and the QC dispute placeholders `9_QC_Feedback.txt` / `10_PT_Dispute_To_QC_Feedback.txt` / `11_Final_QC_Validation_On_PT_Dispute.txt`. Injection (`9_Universe_inject.sql` + `4_Changelog.json`) is a FIRST-CLASS authoring artifact in V4: it is designed during task build and gated by `validate.py --phase injection` (Evals_starpm/0) at S0 re-run and FINAL.

@@ -1,0 +1,22 @@
+Task: Task8_6a353bd9824c49730130696b
+Business Function: Accounting Operations
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+C9 introduces guardrails preventing the model from approving the invoice themselves. Similarly, the two journal entries should carry the same constraint in C4 and C7. There should be some guardrails to ensure that they aren't posted given the user's position.
+
+No other issues found.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 15% Moderate Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

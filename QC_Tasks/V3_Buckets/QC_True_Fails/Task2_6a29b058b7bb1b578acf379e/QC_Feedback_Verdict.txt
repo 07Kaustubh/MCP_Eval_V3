@@ -1,0 +1,57 @@
+Task: Task2_6a29b058b7bb1b578acf379e
+Business Function: Accounting Operations
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing issues:
+- [Fail - 10%+ Major Rubric Errors]
+1. The rubric does not check whether Andrea's status summary includes the GL posted and draft status. The prompt explicitly asks for "which entries posted, which are stuck in draft" and also asks that Andrea receive a summary of "exactly what is resolved and what is still open". The criteria checks that Andrea gets a status summary, but it does not require that summary to include the 9 posted entries or the 11 draft entries. This is a missing outcome criterion because the GL backlog is central to close readiness.
+
+2. The rubric does not check the final conclusion for Margaret's revenue-recognition question. The prompt explicitly asks whether the issue "creates a real problem for certification or if it is already handled". The existing rubric only checks that the agent identifies Margaret's email, the "$960K to $1.2M" change, and the "roughly $20K" monthly delta. It does not require the agent to conclude whether certification is actually blocked or not. This is a major missing outcome because the user asked for a decision, not just the underlying facts.
+
+3. The criteria does not cover open exceptions at all. The prompt explicitly asks the agent to check "the open exceptions". The oracle content establishes a clear expected answer, including "No exceptions exist" for the May period and one prior-period exception that "does not directly block" the current close. None of the rubric criteria checks whether the agent reports this exception status. This is an objective criteria gap because an agent could completely omit exceptions and still avoid failing any criteria.
+
+3/17 > 10%.
+
+Non-failing issues:
+
+Discussion:
+No other issues found in this task.
+
+## Error Categories
+
+["[All] [All] [Fail - 10%+ Major Rubric Errors]"]
+
+============================================================
+
+## Project Team Dispute
+
+Verdict: Disagree
+Proposed Score: 4
+
+Feedback:
+None of the three flagged items is an unrepresented major outcome. At most one is arguably a refinement, and one issue out of 17 is 5.9 percent, which sits inside the Non-Fail band. The Fail rests on counting all three as major, and the evidence does not support that.
+
+The posted/draft counts are not missing. The prompt puts "which entries posted, which are stuck in draft" in the sentence about what Jones needs reported to him, and rubrics 9 and 10 grade exactly that against the agent's response (9 of 44 posted, 11 in draft). The data confirms the numbers: the period holds 44 journal entries, 9 posted and 11 draft. Andrea's instruction is a different sentence with different language, "a status summary so she knows exactly what is resolved and what is still open," and the content that decides her certification call is the open blockers, which rubrics 4, 5, and 6 already check (the second Datadog invoice of $34,200 still on GL 500000, Emily's Cash-Tax Reserve recon open and unsubmitted, Margaret's deferred-revenue concern and the ~$20K monthly delta). OE20 does list the counts inside the ideal Andrea email, but an Oracle Event is the full ideal output, not a mandate that every line become a rubric. The agent's determination of 9 posted and 11 draft is already locked by rubrics 9 and 10, so a second rubric re-checking the same fact inside Andrea's email is redundant by the spec's own definition, not added coverage. The missing-criteria bar is a requirement "not represented by any outcome criterion," and this one is represented. Re-stating it in a second artifact is at most a placement point, which is moderate, never major.
+
+The exception flag is not a missing outcome either. The prompt separates where to look ("go through everything - the GL entries, the reconciliations, the open exceptions, whatever is in the close blocker log, the AP side") from what to report back ("I need to know which entries posted, which are stuck in draft, whether Emily's recon cleared, what the Datadog situation actually looks like end to end including anything Owen raised, and whether Margaret's revenue recognition question creates a real problem ... Also check if I have any overdue follow-ups"). Every item on that report-back list is covered: posted is rubric 9, draft is 10, Emily's recon is 13, Datadog end to end including Owen is 11 and 12, Margaret is 14, overdue follow-ups is 15. "The open exceptions" appears only in the where-to-look sentence. The finding is also empty and inert: the data shows zero open exceptions for acme_cloud_FP-2026-05, and the one lingering item is a prior-period exception (acme_cloud_FP-2025-11, awaiting_approval, $1,014.33, assigned to Anaya Wallace, recon BL-5A8EA3B0B7B2, called an FX revaluation drift in OE6) that OE6 states "does not directly block the current May close." None of the deliverable Oracle Events touch it - OE20, OE21, and OE22 carry no exception content - because it changes none of the three write actions. The agent runs confirm it is immaterial: runs 1, 4, and 5 omit exception status from the final answer entirely, and where it does appear it is a single negative line (run 2: "No open BlackLine exceptions on the period"; run 3: "Exceptions: 0 open for the period (none with SOX implications)"; run 6: "No open BlackLine exceptions remain on the May Acme period"). In no run does it produce a blocker or an action. A verified negative finding that drives nothing is not an explicit requirement that "affects the final answer or action," so it needs no criterion.
+
+The Margaret conclusion is also represented in substance. Rubric 14 requires the agent to identify the ~$20K monthly delta "that may be unrecognized in the deferred revenue schedule," and rubric 6 requires that same concern to appear in Andrea's certification summary, so the agent cannot pass without surfacing it as an open, unrecognized item going into the partner review. The ground truth treats it the same way: OE21 frames it as needing "a controller decision on whether the $20K monthly delta requires a true-up before certification" - an open item, not something already handled. What is not pinned down is an explicit verdict label in the criterion text, which is a wording refinement, not an unrepresented outcome. I will tighten rubric 14 to state the verdict (real problem versus already handled) outright, but the substance the user asked for is already graded.
+
+Put together, the counts are covered (rubrics 9, 10) and re-checking them is redundant at most; exceptions are a verified empty finding outside the report-back ask and absent from every deliverable OE; and Margaret's concern is already graded as an open item by rubrics 6 and 14. The strongest defensible count of major errors here is one (5.9 percent), and even if the counts point is also held it lands as moderate, leaving majors at 5.9 percent and moderate-plus-major at 11.8 percent - both inside Non-Fail. This should be a 4 on Overall Rubric Quality.
+
+============================================================
+
+## QC Validation (Response to Dispute)
+
+Decision: Reject
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

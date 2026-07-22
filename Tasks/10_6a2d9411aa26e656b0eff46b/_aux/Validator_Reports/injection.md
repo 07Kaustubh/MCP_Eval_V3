@@ -4,4 +4,4 @@
 **Fails:** 0 · **Warns:** 0 · **Notes:** 1
 
 ## NOTE
-- SKIP: injection phase not applicable to universe 'brookfield' (framework v3); v4-only gate
+- SKIP: no injection declared for universe 'brookfield' (9_Universe_inject.sql absent or empty); injection validation runs whenever an inject file is present - all universes ship it in Tasks_Template

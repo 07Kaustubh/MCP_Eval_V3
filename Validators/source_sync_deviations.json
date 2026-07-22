@@ -1,0 +1,7 @@
+{
+  "_comment": "Known, documented divergences between repo spec surfaces and upstream drops. Every entry MUST have a matching row in the AGENTS.md Pipeline Deviations table. check_source_sync --expect-deviations passes when the only deltas are these.",
+  "brookfield": {
+    "Docs/7_QC_Spec_Doc1.json": "Upstream ships KeyStone-mislabeled universe prose (v3 = Keystone Mortgage, Mortgage_Base_Universe paths, keystonemortgage.com example). Repo keeps the flavor-corrected Brookfield copy; all scoring rules are upstream-verbatim.",
+    "Guide/How_To_Use_This_Eval.md": "Upstream directory-tree comment lists KeyStone-era data dirs (mortgage LOS, Stripe). Repo corrects the one line to Brookfield's actual Data/ layout."
+  }
+}

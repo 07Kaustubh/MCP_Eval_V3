@@ -10,7 +10,7 @@
 -- HOW TO CREATE THIS (use Cursor with Claude Opus 4.6):
 --
 -- 1. UNDERSTAND THE SCHEMA
---    Read every JSON file in MCP_Eval_V2.2/Mortgage_Base_Universe/Data/ to understand:
+--    Read every JSON file in Brookfield_Base_Universe/Data/ to understand:
 --    - Table structures and column types (parse row_data fields)
 --    - ID formats and naming conventions (e.g., rec*, issue_*, deal_*, inv_*, etc.)
 --    - Relationships between tables (foreign keys, shared identifiers)
@@ -19,20 +19,20 @@
 -- 2. DESIGN A NEW SCENARIO
 --    Create a business scenario that is:
 --    - Completely different from existing scenarios (not a rehash)
---    - Aligned with one of the business functions: Operations, Customer Engagement, Engineering, Finance, or Executive
---    - Natural and realistic - something that would actually happen at MoveOps Inc.
+--    - Aligned with one of the business functions: Loan Operations, Compliance & Risk, Sales & Client Relations, Finance & Accounting, Executive, or IT & Security
+--    - Natural and realistic - something that would actually happen at Brookfield CPAs
 --    - Complex enough to require cross-service investigation (3+ MCP services)
 --
 -- 3. INJECT DATA ACROSS ALL RELEVANT SERVICES
 --    The scenario MUST have consistent data in EVERY service it touches.
---    If a relocation exists in Airtable, there must also be:
---    - A CRM deal (crm_deals) with matching amounts and employee names
+--    If a loan exists in the mortgage LOS, there must also be:
+--    - A CRM deal (crm_deals) with matching amounts and client names
 --    - Contact records (contacts, crm_contacts) for all people involved
 --    - Email threads (emails) with relevant correspondence
 --    - Slack messages (slack_messages) in appropriate channels
---    - Linear tickets (linear_issues) if engineering/tracking is involved
 --    - QuickBooks records (invoices, bills) if money is involved
---    - Calendar events if meetings are referenced
+--    - Stripe records (charges, payouts) if payments are involved
+--    - Filesystem documents if files or attachments are referenced
 --
 --    DO NOT inject partial data. Every entity referenced anywhere must exist
 --    everywhere it logically should. Incomplete injection = broken task.
@@ -41,11 +41,11 @@
 --    - Names must be spelled identically across all services
 --    - Dollar amounts must match between CRM deals and QuickBooks records
 --    - Dates must be consistent (no email from April referencing a May event as past)
---    - Status fields must align (Airtable "In Progress" ↔ Linear "in_progress")
---    - Coordinator/AM assignments must match across Airtable, CRM, and contacts
+--    - Status fields must align (mortgage LOS "processing" ↔ CRM "in_progress")
+--    - Loan officer/processor assignments must match across mortgage LOS, CRM, and contacts
 --    - Email addresses must match contacts records exactly
 --    - Slack channel IDs must reference real channels from slack_channels
---    - Company names must match between CRM companies, deals, and Airtable records
+--    - Company names must match between CRM companies, deals, and mortgage LOS records
 --    - Record IDs must follow existing format conventions
 --    - New people must have entries in contacts AND crm_contacts if they are clients
 --
@@ -56,11 +56,11 @@
 --    [ ] Every deal mentioned has matching QuickBooks invoice/bill records
 --    [ ] Every email thread has sender AND recipient in contacts
 --    [ ] Every Slack message references a valid channel ID and user
---    [ ] Every Linear issue references a valid project and assignee
---    [ ] Every Airtable record has all required fields populated
+--    [ ] Every Stripe record references a valid customer and payment method
+--    [ ] Every mortgage LOS record has all required fields populated
 --    [ ] No orphan references (nothing points to data that doesn't exist)
 --    [ ] Timeline is internally consistent across all services
---    [ ] Dollar amounts balance across CRM, QuickBooks, and any Airtable references
+--    [ ] Dollar amounts balance across CRM, QuickBooks, and any mortgage LOS references
 --
 -- 6. VALIDATE
 --    After writing the SQL, re-read it and ask:

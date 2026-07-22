@@ -1,0 +1,29 @@
+OE 1: Search Daniel Jones inbox for AML-REG-northstar-2025-001 or soft-watch disposition using email_search_emails (query: northstar AML, Marina Soko, or AML-REG-northstar-2025-001).
+
+OE 2: Open Marina's written recap using email_get_email_by_id on email_scen_062_aml_review_general_0007. Confirm soft-watch outcome, partial-name adverse-media trigger on northstar_legal beneficial owner >25% LLP interest, counsel-of-record framing, Ben's clean 101000/105000 review for FP-2026-03 and FP-2026-04, and George's Q4 2025 parallel partial-match note.
+
+OE 3: Open Daniel's May countersign using email_get_email_by_id on email_scen_062_aml_review_general_0008 (parent email_scen_062_aml_review_general_0007). Confirm Daniel kept soft-watch and Medium risk, cited Ben's 101000/105000 review, set next re-screen for FP-2026-08 close, and required paging Daniel only if a genuinely independent second adverse-media hit appears before then.
+
+OE 4: Search messaging for Marina Soko or AML-REG-northstar using messaging_search_conversations. Open Ben Arinzo and Marina Soko cash signal-check thread conversation_scen_062_aml_review_general_0000 using messaging_get_conversation.
+
+OE 5: Read Ben Arinzo's cash signal-check in conversation_scen_062_aml_review_general_0000 (message msg_a22c407b0b13). Confirm nothing anomalous in 101000 for FP-2026-03/04, 105000 IOLTA netted to zero in both periods, and the 2026-04-22 $14,200 partner draw appears consistent with the standing draw schedule.
+
+OE 6: Pull re-screen context using reminder_get_all_reminders or email/reminder search for reminder_scen_062_aml_review_general_0009. Confirm scheduled re-screen after FP-2026-08 close and rule to escalate Daniel immediately if an independent hit surfaces before that window.
+
+OE 7: Confirm fiscal period northstar_legal_FP-2026-05 exists and is open as of 2026-06-12 using oracle_gl_get_fiscal_period (period_id northstar_legal_FP-2026-05).
+
+OE 8: Attempt northstar_legal operating cash read for FP-2026-05 using oracle_gl_get_account (account_number 101000, entity_id northstar_legal) and/or oracle_gl_list_transactions (account_number 101000, period_id northstar_legal_FP-2026-05). If platform returns OGL.NOT_FOUND, pivot to the May email and messaging written record without treating the error as a cash anomaly.
+
+OE 9: Attempt IOLTA context on 105000 for FP-2026-05 using oracle_gl_get_account or oracle_gl_list_transactions with entity_id northstar_legal. If Daniel's seat returns OGL.NOT_FOUND, rely on Ben's FP-2026-03/04 IOLTA recap from OE 5 and email 0007 rather than escalating on access failure alone.
+
+OE 10: Compare May operating activity (from OE 8 if available, otherwise prior written record) against the May soft-watch disposition facts. Conclude the picture is consistent with soft-watch and does not show a genuinely independent second adverse-media hit.
+
+OE 11: Search Records Vault for an existing northstar AML soft-watch disposition memo on AML-REG-northstar-2025-001 using records_vault_list_documents (search_query AML northstar or related filters). Expect no prior northstar-specific AML memo; an updated memo is a new upload.
+
+OE 12: Confirm retention policy AICPA_SQMS_7Y is valid for a restricted AML disposition memo using records_vault_list_retention_policies or records_vault_get_retention_policy (code AICPA_SQMS_7Y).
+
+OE 13: Look up Marina Soko and Peter Sanchez contact records using contacts_search_contacts before messaging (marina.soko@brookfieldcpas.com, peter.sanchez@brookfieldcpas.com).
+
+OE 14: Send disposition reply to Marina Soko on messaging using messaging_send_message (user_id Marina Soko). State the May countersign stands, soft-watch remains appropriate, no Step 3, and the trigger is a recycle of the prior partial-name match rather than an independent second hit. Keep the exchange on messaging, not Slack channels.
+
+OE 15: Upload an updated restricted AML disposition memo to Records Vault using records_vault_upload_document for AML-REG-northstar-2025-001 / northstar_legal FP-2026-05 soft-watch confirmation. Set retention_policy_code AICPA_SQMS_7Y and classification restricted. Do not use SOX_7Y or SEC_PERMANENT.

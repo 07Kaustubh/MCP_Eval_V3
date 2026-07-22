@@ -1,0 +1,60 @@
+OE 1: Find Harry's open close item (the exception)
+Discovery: the agent needs to locate the open item on the firm's own May close. It surfaces the BlackLine exception exc_cb0a9a94a3084c.
+Tool: blackline_list_exceptions (filter type = fx_revaluation_drift, optionally sox_implications = true, to narrow the list) then blackline_get_exception (exception_id = exc_cb0a9a94a3084c).
+Expected data: type = fx_revaluation_drift, state = awaiting_approval, urgency = medium, escalated = true, related_account_id = 132000, related_period_id = brookfield_FP-2026-05, related_reconciliation_id = BL-3978BDB68290, financial_impact = 435.41, assigned_to = harry.marks@brookfieldcpas.com, identified_by = jones.harrison@brookfieldcpas.com, approver = james.randall@brookfieldcpas.com, sox_implications = true, proposed_resolution = "Wait for the next feed run to settle, then re-evaluate variance.", root_cause = "Intercompany clearing journal didn't sweep on schedule." (this root_cause is an early misdirection and is not the real driver).
+
+
+OE 2: Pull the reconciliation and read the variance
+Discovery: the agent needs the recon numbers behind the exception.
+Tool: blackline_get_reconciliation (recon_id = BL-3978BDB68290).
+Expected data: account_id = 132000 Prepaid Facilities Maintenance, period_id = brookfield_FP-2026-05, state = in_progress, preparer = harry.marks@brookfieldcpas.com, gl_balance = 71965.02, supporting_balance = 72400.43, variance = -435.41 (GL is lower than the supporting schedule by 435.41), variance_threshold = 10. The variance_explanations entry on the recon reads "Three vendor invoices arrived after BD3 lock - caught up in next-period feed." this is a second misdirection, not the real cause.
+
+
+OE 3: Tie account 132000 to its amortization schedule
+Discovery: the agent must reconcile the GL balance to the prepaid amortization support to see which schedule moves the number.
+Tools: oracle_gl_get_account_balance (account_number = 132000, period_id = brookfield_FP-2026-05, entity_id = brookfield) and sap_subledger_list_prepaid_amortization_schedules (account_number = 132000).
+Expected data: schedule prepaid_londonfx052601 (contract_reference PREPAID-0042), original_amount 41910.00, straight_line, 3492.50 per period, FP-2026-05 remaining_balance 28375.41. This is the London corporate-services foreign-currency prepaid the prompt refers to as "part of the balance." The supporting schedule total (72400.43) is higher than the GL balance (71965.02), and PREPAID-0042 is the only contract carrying an FX difference, so the 435.41 sits entirely on this GBP tranche.
+
+
+OE 4: Establish whether the period-end rate was actually applied (the real root cause)
+Discovery: the agent must not take the recon note or the exception root_cause at face value. It needs the period-end FX detail behind the GBP tranche, which lives in the reconciliation working paper, not in the recon note.
+Tool: records_vault_get_document (document_id = doc_wp_132000_may2026) the May 2026 prepaid facilities maintenance recon working paper attached to BL-3978BDB68290 as evidence (evid_682ebdb09cad48). The SAP prepaid schedule from OE 3 corroborates the supported (period-end) value of 28375.41.
+Expected data: the working paper states PREPAID-0042 is GBP 33,000 paid 02-Feb-2026, straight-line 12 months to 31-Jan-2027, with GBP 22,000 remaining at 31-May-2026. It is carried in the GL at the February transaction rate GBP/USD 1.2700 = USD 27,940.00, whereas at the 31-May-2026 period-end rate GBP/USD 1.2898 it is worth USD 28,375.41. The GL still carries the GBP block at the February transaction rate.
+Derivation the agent must perform: the period-end value of the GBP 22,000 remaining at 1.2898 is USD 28,375.41 (per the SAP schedule), minus the GL carrying value at the February transaction rate of 1.2700 = USD 27,940.00, gives a difference of 435.41. This exactly equals the recon variance and the exception impact, confirming the period-end rate was NOT applied, the GL asset is understated by 435.41, and the item is a genuine remeasurement (not translation noise that unwinds).
+
+
+OE 5: Reconcile against what Jones told Harry and settle the treatment
+Discovery: the prompt says Jones gave mixed signals. The agent must gather all of Jones's input and identify his final, authoritative position.
+Tool: messaging_get_conversation (conversation_id = conversation_scen_013_orphan_exception_0001).
+Expected data: the thread shows the conflicting steers. Jones first says "I wouldn't book a corrective JE for that one ... FX translation noise from the GBP payment timing ... document it and leave the recon support clear" (msg_12430cee17be) and then "I'd treat exc_cb0a9a94a3084c as acceptable translation noise" (msg_bde4ae486a7d). His later, deciding message reverses the position: "Corrective JE is the right call here. The London corporate-services prepaid block was GBP 33K paid in February 2026 and it amortizes through January 2027, so the May period-end FX move is what created the $435 drift on 132000." (msg_182df88749b9, dated 2026-06-03T13:25). He follows up immediately with "If we take it as noise, we under-amortize the prepaid across the remaining eight months. Loop Ben in for the JE shape and he can sanity-check the schedule side before James approves it." (msg_20dd4d6224a8, dated 2026-06-03T13:26:13, the most recent message in the thread). These two later messages are the authoritative position. Harry's own outgoing approval email to James Randall (in his SENT folder, cc Jones/Ben/Hannah) corroborates the settled treatment: a corrective adjusting JE in the open May period (brookfield_FP-2026-05), DR 132000 Prepaid Facilities Maintenance 435.41 / CR 493000 Foreign Exchange Gain 435.41. Settled treatment: a real FP-2026-05 adjusting entry, review-ready, not noise; the vendor-invoice and intercompany notes are disregarded as the driver.
+
+
+OE 6: Confirm the posting accounts on the Brookfield chart of accounts
+Discovery: the agent needs the correct GL accounts before drafting the entry.
+Tools: oracle_gl_get_account (account_number = 132000 and account_number = 493000, entity_id = brookfield) or oracle_gl_list_accounts.
+Expected data: 132000 Prepaid Facilities Maintenance (asset, role prepaid_maintenance, normal balance debit, active, brookfield) and 493000 Foreign Exchange Gain (revenue, role fx_gain, normal balance credit, active, brookfield, description "Currency-translation gains/losses on foreign-currency balances (e.g., GBP service contracts)"). 493000 is the foreign-exchange profit-and-loss account on Brookfield, so the remeasurement gain routes through it.
+
+
+OE 7: Prepare the adjusting journal entry, review-ready (do not submit or post)
+Action: draft the remeasurement entry.
+Tool: oracle_gl_create_journal_entry with period_id = brookfield_FP-2026-05, posting_date within the May close (for example 2026-05-31), description referencing the FX remeasurement of the 132000 London corporate-services prepaid and exc_cb0a9a94a3084c, is_standard_entry = false (adjusting), prepared_by = harry.marks@brookfieldcpas.com, business_justification noting the period-end GBP/USD rate of 1.2898 was not applied to the GBP 22,000 tranche still carried at the February rate of 1.2700.
+Lines: debit 132000 Prepaid Facilities Maintenance 435.41, credit 493000 Foreign Exchange Gain 435.41 (the debit writes the understated asset up from the GL balance of 71965.02 toward the supported 72400.43 so the recon ties i.e., it recognizes the period-end revaluation gain on the GBP block).
+The entry must remain a draft. The agent must NOT call oracle_gl_submit_journal_entry, oracle_gl_approve_journal_entry, or oracle_gl_post_journal_entry, because the prompt asks for it to be ready for review only, and James Randall is the named approver.
+
+
+OE 8: Put Harry's close-tracker line right
+Discovery and action: the close task tied to this item is Harry's and its state is stale, so it must be corrected.
+Tools: blackline_list_close_tasks (period_id = brookfield_FP-2026-05, owner = harry.marks@brookfieldcpas.com) to locate the close task ct_harry132000may01 ("Reconcile prepaid facilities maintenance (132000)", related_reconciliation_id = BL-3978BDB68290, reviewer george.mcadam@brookfieldcpas.com, currently status not_started). Then blackline_update_close_task_status (task_id = ct_harry132000may01, status, note) to advance it off not_started (e.g., to in_progress, reflecting that the recon work is done but the period cannot lock yet) and set the note so it reflects reality: a confirmed period-end FX remeasurement of 435.41 on account 132000 because the close rate was not applied, with the adjusting entry prepared and review-ready, pending James Randall's approval of the exception before the period can lock.
+
+
+OE 9: Leave a short note on the working paper for the account
+Action: annotate the account working paper.
+Tools: records_vault_get_document (document_id = doc_wp_132000_may2026) then records_vault_add_document_version (document_id = doc_wp_132000_may2026, with a short change_note and updated content version).
+Expected content of the note: the 132000 prepaid ties to the amortization schedule except for the London PREPAID-0042 GBP tranche; the period-end GBP/USD rate (1.2898) was not applied to the remaining GBP 22,000 still carried at the February rate (1.2700), producing the 435.41 drift and leaving the GL understated; treatment is a real FX remeasurement booked as a review-ready adjusting entry debiting 132000 and crediting 493000; the vendor-invoice and intercompany notes were not the driver.
+
+
+OE 10: Give George a status
+Action: send the status to Harry's manager.
+Discovery: George McAdam manages Harry; his address is george.mcadam@brookfieldcpas.com.
+Tool: email_send_email from harry.marks@brookfieldcpas.com to george.mcadam@brookfieldcpas.com (a Slack or messaging update to George is an acceptable alternative channel).
+Expected content: the 132000 prepaid was tied to the amortization schedule; the 435.41 difference comes from the period-end GBP rate (1.2898) not being applied to the London PREPAID-0042 tranche (GBP 22,000 still carried at 1.2700), so it is a real FX remeasurement rather than noise; this matches the treatment Jones settled on in his follow-up; an adjusting entry debiting 132000 and crediting 493000 is prepared and review-ready; the close-tracker line and the account working paper have been updated; the only remaining step before the period can lock is James Randall's approval of the exception.

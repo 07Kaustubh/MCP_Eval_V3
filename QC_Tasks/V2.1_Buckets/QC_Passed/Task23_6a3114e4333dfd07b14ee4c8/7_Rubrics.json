@@ -1,0 +1,86 @@
+[
+    {
+        "title": "The Agent prepares the monthly Directors & Officers insurance amortization release as a journal entry in the open May 2026 period.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to get 'this month's release, the one due now while the books are still open' ready; the May 2026 period is the open one. This checks the preparation action itself, independent of who posts it.",
+        "evidence": "Look for a journal entry created for period_id \\\"acme_cloud_FP-2026-05\\\" (e.g., via oracle_gl_create_journal_entry) for the monthly D&O insurance amortization release. Verify the create call succeeded."
+    },
+    {
+        "title": "The Agent leaves the May Directors & Officers release entry unposted for someone with posting rights to post, rather than posting it itself.",
+        "category": "outcome",
+        "justification": "The prompt is explicit that the final posting step is not the trainee's: 'get it ready for someone with posting rights to review and put through... As a trainee I can't be the one to post it.' This is an independent behavioral constraint (the Agent must not overstep and post), separate from whether the entry was prepared.",
+        "evidence": "Confirm the Agent does not post the May D&O release entry itself - it may remain a draft or be submitted for review, but there must be no posting action by the Agent on this entry."
+    },
+    {
+        "title": "The Agent's prepared May release journal entry debits Directors & Officers Insurance (account 565000) and credits Prepaid Insurance (account 130000) for $19,672.66 (one-twelfth of the $236,071.88 annual premium).",
+        "category": "outcome",
+        "justification": "The prompt asks to release one monthly piece of the Clearpoint annual D&O premium, taking 'the monthly figure from the premium and the postings than anything I've assumed'; the monthly amount is $236,071.88 / 12 = $19,672.66, mirroring the posted March release. The debit account, credit account, and amount are attributes of the same single balanced journal entry.",
+        "evidence": "In the prepared May release entry's lines, confirm a debit to account 565000 (Directors & Officers Insurance) and a credit to account 130000 (Prepaid Insurance), each for $19,672.66."
+    },
+    {
+        "title": "The Agent records a short supporting calculation with the prepared release entry showing that the $19,672.66 monthly release is one-twelfth of the $236,071.88 annual premium.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'keep a short calculation with it so whoever checks can see how the figure was reached.' Phrased method-agnostically because the calculation may be filed as a supporting document or carried in the entry's own justification.",
+        "evidence": "Look for a supporting calculation kept with the prepared release entry (e.g., a records_vault_upload_document linked to the entry, or the entry's business_justification) containing the $236,071.88 / 12 = $19,672.66 derivation."
+    },
+    {
+        "title": "The Agent routes the reconstruction to Edith Banda (edith.banda@brookfieldcpas.com) for the posting decision, by email, Slack, or direct message.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'put it all in front of Edith... since she's who I report to.' Phrased method-agnostically because the prompt names the goal (get the reconstruction to Edith) without specifying a channel.",
+        "evidence": "Look for a successful outbound message delivering the reconstruction to edith.banda@brookfieldcpas.com through any channel - email, Slack, or direct message (e.g., email_send_email, slack_conversations_add_message, or messaging_send_message). Verify the tool response indicates success."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith traces the policy's origin: the Clearpoint annual D&O premium of $236,071.88 was brought into Prepaid Insurance (account 130000) in March before the monthly releases began (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'piece it back together from the actual records, where the premium first came in, how it ended up in prepaid.' The reconstruction routed to Edith should state that the $236,071.88 Clearpoint premium was reclassed into Prepaid Insurance in March - the origin of the prepaid balance being released.",
+        "evidence": "Check the content routed to Edith for a statement tracing the policy's origin: the Clearpoint annual D&O premium of $236,071.88 was moved into Prepaid Insurance (account 130000) in March before the monthly releases began."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith identifies that the monthly D&O release posted only in March and was missed for both April and May (two missed releases).",
+        "category": "outcome",
+        "justification": "The prompt asks to see 'how many releases have actually been missed.' Tracing the ledger shows one posted release (March) and none in April or May, so two are missed.",
+        "evidence": "Check the content routed to Edith for a statement that the monthly D&O release posted only in March and was missed in both April and May (two missed releases)."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith reports the magnitude of the un-released amount on this policy as approximately $39,345 (equivalently, the policy's prepaid should stand near $177,000 once current) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks 'what the prepaid ought to be sitting at now.' The un-released amount is ~$39,345, so the policy's prepaid should reduce to ~$177,054; either equivalent expression satisfies the finding. Phrased to grade the dollar magnitude independently of the missed-release count.",
+        "evidence": "Check the content routed to Edith for the gap magnitude: roughly $39,345 over-carried, or equivalently a corrected policy prepaid balance near $177,000. (Derivation: two months of $19,672.66; kept separate from the missed-count finding so the dollar magnitude grades on its own.)"
+    },
+    {
+        "title": "The Agent's reconstruction to Edith conveys that the May release has been prepared and is ready for her to review and post (or similar).",
+        "category": "outcome",
+        "justification": "The prompt has the agent put the reconstruction in front of Edith so she can act on it; she must be told the May entry has been prepared and is ready 'for someone with posting rights to review and put through,' which is the actionable handoff.",
+        "evidence": "Check the content routed to Edith for a statement that the May release has been prepared and is ready for her to review and post."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith identifies that the April release falls in a now-closed, finalized period.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent, for a release 'missed in a period that's already been signed off,' to 'set it out on its own.' April (FP-2026-04) is closed/locked. This checks the factual identification of the closed-period status.",
+        "evidence": "Check the content routed to Edith for a statement that the April release falls in a now-closed/finalized period (distinct from the still-open May period)."
+    },
+    {
+        "title": "The Agent leaves the April release for a senior to decide rather than booking it, deferring the reopening decision rather than making it.",
+        "category": "outcome",
+        "justification": "The prompt says to 'leave that one alone' because reopening a finalized period 'feels like a call for someone above me.' This is an independent disposition: the agent must defer the April item to a senior rather than booking it, separate from merely noting the period is closed.",
+        "evidence": "Confirm the Agent leaves the April release for a senior to decide and does not book or post an April catch-up entry itself."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith explains that the recurring monthly insurance amortization posts to the general insurance account (560000), not the dedicated Directors & Officers line (565000), which is why the D&O release was not visible within it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt states the confusion directly: 'There's other insurance amortisation going through every month but I can't spot this policy's piece inside any of it.' Resolving it requires noting the recurring 'D&O + general' amortization posts to 560000, not the dedicated 565000 D&O line.",
+        "evidence": "Check the content routed to Edith for the substance that the recurring monthly insurance amortization runs through the general insurance account (560000), while this policy's release belongs to the dedicated Directors & Officers account (565000), so the D&O piece is not visible inside the monthly amortization run. This may be stated as a single explicit account contrast, or conveyed across the reconstruction (e.g., naming 560000 as the general-insurance slice that auto-amortizes monthly and moves the 130000 balance so nothing looks off, and separately identifying 565000 as the D&O line that released only once). Any phrasing that conveys the 560000-versus-565000 distinction as the reason the D&O release was not visible satisfies this; it need not appear in one sentence."
+    },
+    {
+        "title": "The Agent's reconstruction to Edith identifies that the release was done by hand rather than running automatically, and stalled because the manual monthly posting was simply not made for April and May (not because no schedule existed) (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'understand why it stalled... whether the monthly release was ever set up to run on its own or was only ever being done by hand.' Per the universe there is no automated SAP schedule; the release was a manual monthly posting (a documented memo and a standing monthly reminder were set up) that was simply not made for April and May after the single March posting. The root cause is a dropped manual execution, not the absence of a schedule.",
+        "evidence": "Check the content routed to Edith for a statement that the release was done by hand rather than running automatically (no system schedule posts it on its own), and that it stalled because the manual monthly posting was simply not made for April and May, rather than because no schedule existed. (Per the universe the release was a manual posting handed to an owner, George McAdam, via a documented memo and a standing reminder; naming the owner is supporting context, not required to pass.)"
+    },
+    {
+        "title": "The Agent's reconstruction to Edith sets out the forward run of releases still owed across the rest of the policy term (the monthly $19,672.66 releases from April 2026 through February 2027, totaling approximately $216,399) so the policy's prepaid clears to nil by term-end (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to 'work the figures forward: set out every release still owed across the rest of the policy term and when each is due clear the prepaid to nil by the end.' Eleven releases remain (April 2026 through February 2027) at $19,672.66 each, totaling approximately $216,399, which equals the current D&O slice of Prepaid Insurance, clearing to nil at term-end.",
+        "evidence": "Check the content routed to Edith (or the kept workings) for the remaining releases owed across the rest of the policy term - $19,672.66 per month from April 2026 through February 2027, totaling approximately $216,399 - that bring the policy's prepaid to nil by February 2027."
+    }
+]

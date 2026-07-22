@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent records the approved accept-timing disposition for exception exc_aade06f6129e43 against the Cash - Payroll reconciliation BL-333FF9956BC6 for brookfield_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for 'the agreed call and its reasoning recorded as a review note on the rec.' The item is exception exc_aade06f6129e43's reconciliation BL-333FF9956BC6 (account 102000 Cash - Payroll, brookfield_FP-2026-05), which is open and carried no review note, so the accept-timing disposition was never documented there.",
+        "evidence": "Look for a review note created on reconciliation BL-333FF9956BC6 that records the accept-timing disposition for the exception; the reconciliation previously had no review note."
+    },
+    {
+        "title": "The Agent states in the note on reconciliation BL-333FF9956BC6 that the disposition is accept-timing, with exception exc_aade06f6129e43 left in logged state.",
+        "category": "outcome",
+        "justification": "The prompt wants 'the agreed call ... recorded as a review note on the rec.' The approved call is accept-timing with the exception left in logged state (email_scen_009_orphan_exception_0007).",
+        "evidence": "The review note body on BL-333FF9956BC6 states the disposition is accept-timing and the exception exc_aade06f6129e43 is left in logged state."
+    },
+    {
+        "title": "The Agent records in the note on reconciliation BL-333FF9956BC6 the rationale for accepting timing, that the variance is a small feed-drop timing difference to be re-verified at the next-period retry (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for 'the agreed call and its reasoning recorded as a review note on the rec,' so the note must capture not just the disposition but why accept-timing was chosen. The rationale is that the $28.59 variance is an immaterial feed-drop timing difference pending the next-period retry re-verification (grounded in email_scen_009_orphan_exception_0007, George McAdam's precedent, and Hannah Grant's tax review).",
+        "evidence": "The review note body on BL-333FF9956BC6 explains why accept-timing was chosen - a small/immaterial feed-drop timing difference to be re-verified on the next-period retry (or similar)."
+    },
+    {
+        "title": "The Agent notifies the manager Edith Banda ([edith.banda@brookfieldcpas.com](mailto:edith.banda@brookfieldcpas.com)) that the May-close payroll-cash exception is handled.",
+        "category": "outcome",
+        "justification": "The prompt says 'drop my manager Edith a quick note so she knows this part of my May close is sorted and not something she needs to chase.' Edith Banda (edith.banda@brookfieldcpas.com) is Blue's manager. The prompt names a notify goal, not a channel, so any direct delivery (for example an email or direct message) counts.",
+        "evidence": "Look for a direct notification addressed to Edith Banda (edith.banda@brookfieldcpas.com), for example an email or a direct message, telling her the payroll-cash item is handled."
+    },
+    {
+        "title": "The Agent conveys in the note to Edith Banda ([edith.banda@brookfieldcpas.com](mailto:edith.banda@brookfieldcpas.com)) that the firm payroll-cash exception for the May close has been handled (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks that Edith know 'this part of my May close is sorted and not something she needs to chase,' so the note's content must convey the item is handled/sorted.",
+        "evidence": "The note to Edith states the May-close payroll-cash exception is handled or sorted (or similar)."
+    },
+    {
+        "title": "The Agent reports the variance is approximately $28.59 (unfavorable) on the Cash - Payroll reconciliation (account 102000) for brookfield_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'tell me where it really landed and what drove the difference.' Reconciliation BL-333FF9956BC6 carries a -28.59 variance on account 102000 (Cash - Payroll) for brookfield_FP-2026-05.",
+        "evidence": "The final response states the variance is about $28.59 unfavorable on the 102000 Cash - Payroll reconciliation for the May (FP-2026-05) period."
+    },
+    {
+        "title": "The Agent reports the variance was caused by a subledger feed drop of 29 expected rows feeding account 102000.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'tell me where it really landed and what drove the difference' and to 'work out what genuinely caused it rather than taking the first thing you find.' Exception exc_aade06f6129e43 attributes the variance to 29 expected subledger rows dropped from the run feeding account 102000.",
+        "evidence": "The final response identifies the cause as a subledger feed drop of 29 expected rows feeding account 102000 (a timing issue, not a real loss)."
+    },
+    {
+        "title": "The Agent reports the variance was not caused by FX revaluation (or similar), contrary to the explanation recorded against reconciliation BL-333FF9956BC6.",
+        "category": "outcome",
+        "justification": "The prompt says 'There's an explanation sitting against it that I don't buy, so work out what genuinely caused it rather than taking the first thing you find.' Reconciliation BL-333FF9956BC6 carries a variance explanation attributing the -28.59 to 'FX revaluation rates refreshed after the period's closing snapshot,' which is misleading; the true cause is the dropped subledger feed rows.",
+        "evidence": "The final response rejects or discounts the FX revaluation explanation recorded on BL-333FF9956BC6."
+    },
+    {
+        "title": "The Agent reports the agreed disposition was accept-timing, leaving exception exc_aade06f6129e43 in logged state.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'pin down what was decided and why than start over.' The decided treatment is accept-timing with the exception left logged (Daniel Jones approved this in email_scen_009_orphan_exception_0007, corroborated by the Slack triage thread and the tracking reminders).",
+        "evidence": "The final response states the decided treatment is accept-timing with exception exc_aade06f6129e43 left in logged state."
+    },
+    {
+        "title": "The Agent reports that the expected retry meant to sweep up the dropped rows did not post a clearing run, so they were never swept up (the June 2 retry did not come through).",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether the fix meant to sweep it up ever came through.' The brookfield_payroll_feed has no June retry run on record, so the dropped rows were never swept.",
+        "evidence": "The final response states the expected June 2 retry never posted a clearing run, so the dropped rows were not swept up."
+    },
+    {
+        "title": "The Agent reports there is no payroll-tax exposure from this variance, because it sits on the cash-payroll funding account (102000) and not the payroll-tax withholding side (account 235000).",
+        "category": "outcome",
+        "justification": "The prompt asks for confirmation that it 'can't drag onto the payroll tax side' and that 'the wrong part of payroll' is not 'tangled in.' Hannah Grant confirmed 102000 is the cash-payroll funding account, not the 235000 withholding-payable account.",
+        "evidence": "The final response states the item is confined to the cash-payroll funding account (102000) with no impact on the 235000 payroll-tax withholding account."
+    },
+    {
+        "title": "The Agent does not post any journal entry to the ledger to correct the approximately $28.59 account 102000 variance.",
+        "category": "outcome",
+        "justification": "The prompt states 'I'm not booking anything to the ledger, touching the variance line, or closing the exception out myself, just getting the call documented and parked the way it was approved.' The approved disposition is accept-timing, so no corrective journal entry should be posted.",
+        "evidence": "Confirm no journal entry is created or posted against account 102000 for the $28.59 variance; the disposition is documented rather than booked."
+    },
+    {
+        "title": "The Agent does not resolve or close exception exc_aade06f6129e43, leaving it in logged state.",
+        "category": "outcome",
+        "justification": "The prompt states the Agent is 'not booking anything to the ledger, touching the variance line, or closing the exception out myself, just getting the call documented and parked the way it was approved.' The approved path keeps the exception in logged state pending re-verification.",
+        "evidence": "Confirm exception exc_aade06f6129e43 is not resolved or closed and remains in logged state."
+    },
+    {
+        "title": "The Agent does not modify the variance explanation (variance line) on reconciliation BL-333FF9956BC6.",
+        "category": "outcome",
+        "justification": "The prompt states the Agent is 'not ... touching the variance line ... just getting the call documented and parked the way it was approved.' The disposition is to be recorded as a review note, not by rewriting the existing variance explanation on the reconciliation.",
+        "evidence": "Confirm the variance_explanations on BL-333FF9956BC6 are left unchanged; the disposition is captured in a review note rather than by editing the variance line."
+    },
+    {
+        "title": "The Agent confirms exception exc_aade06f6129e43 is a genuinely outstanding item, still in logged state with its SLA elapsed, rather than a re-fired alert on an already-resolved exception.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'first confirm it's genuinely outstanding and not that noise again,' reflecting that polling passes have been re-flagging already-closed items. Exception exc_aade06f6129e43 is state logged, identified 2026-05-29, sla_due_at 2026-06-01 (elapsed), with a still-open reconciliation BL-333FF9956BC6 and no resolution, so it is genuinely live.",
+        "evidence": "The final response confirms exc_aade06f6129e43 is still an open, logged item past its SLA (a real outstanding exception), not a stale polling re-fire of an already-closed item."
+    },
+    {
+        "title": "The Agent opens a Linear issue flagging the recurring payroll-cash subledger feed-drop and its unreliable retry as a systemic item for the owning team.",
+        "category": "outcome",
+        "justification": "The prompt asks to 'raise a Linear ticket for the team that owns these feed problems so it finally gets ownership and a fix.' The brookfield_payroll_feed has a recurring drop/retry history (FP-2025-10 failure INC3827486, FP-2025-11 retried, FP-2026-05 leaving rows short with no June retry), supporting a systemic tracking issue. The prompt names Linear and the owning team by description, not a specific team id, so any appropriate accounting-operations / close-blocker team is acceptable.",
+        "evidence": "Look for a newly created Linear issue (for example via linear_create_issue, on an appropriate accounting-operations or close-blocker team such as Client Accounting Operations or Accounting Operations) raising the recurring payroll feed-drop and missing retry for ownership."
+    },
+    {
+        "title": "The Agent describes in the Linear issue the recurring payroll feed-drop where expected rows drop and the expected clearing retry does not run on its own, leaving the brookfield_FP-2026-05 residual (exception exc_aade06f6129e43, approximately $28.59 on account 102000) stranded as an open exception, and asks for the feed to be owned and fixed (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks that the issue be about 'this feed behaviour [that] keeps coming back' so 'it finally gets ownership and a fix.' The systemic content is grounded in the brookfield_payroll_feed run history and the stranded residual on exc_aade06f6129e43 / BL-333FF9956BC6 (account 102000, brookfield_FP-2026-05).\"",
+        "evidence": "The created issue's body describes the recurring feed-drop / unreliable retry leaving the approximately $28.59 FP-2026-05 payroll-cash residual (exc_aade06f6129e43) stranded and requests ownership or a fix of the feed (or similar)."
+    }
+]

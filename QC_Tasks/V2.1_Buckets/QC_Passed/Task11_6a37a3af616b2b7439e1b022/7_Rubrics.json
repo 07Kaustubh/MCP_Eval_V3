@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent uploads a reviewer cover memo on the Acme Cloud FP-2026-05 close review to the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires preparing a reviewer cover memo and filing it in the Records Vault before the file is archived.",
+        "evidence": "Look for a records_vault_upload_document call uploading a reviewer cover memo for acme_cloud whose title or content references the FP-2026-05 close-integrity / Datadog reclassification review. Per OE 11."
+    },
+    {
+        "title": "The Agent files the reviewer cover memo under the AICPA_SQMS_7Y retention category.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires filing the cover memo in Records Vault under the AICPA_SQMS_7Y retention category.",
+        "evidence": "Check the records_vault_upload_document call for the reviewer cover memo and confirm retention_policy_code is AICPA_SQMS_7Y. Per OE 11."
+    },
+    {
+        "title": "The Agent's reviewer cover memo states the conclusion that the Datadog reclassification is supportable on a go-forward basis (with or without documentation gaps to address).",
+        "category": "outcome",
+        "justification": "The prompt requires the cover memo to set out the Agent's conclusion. The universe evidence (SAB 99 memo, immaterial-to-net-income, partner sign-off) establishes that the go-forward treatment is supportable.",
+        "evidence": "Check the content of the uploaded reviewer cover memo (the records_vault_upload_document content parameter) for a stated conclusion on the supportability of the Datadog reclassification and its go-forward treatment."
+    },
+    {
+        "title": "The Agent's reviewer cover memo includes at least one recommendation that would help the file withstand an inspection (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the cover memo to list recommendations that would let the file withstand an inspection.",
+        "evidence": "Check the content of the uploaded reviewer cover memo for at least one recommendation. Acceptable examples include completing and certifying the close before archiving, retaining a standalone SAB 99 materiality working paper, substantiating the cumulative figure, or remediating the AP vendor-coding default."
+    },
+    {
+        "title": "The Agent sends an email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to send Daniel Jones a concise email so the review is on record before the file is archived.",
+        "evidence": "Look for an email_send_email call with recipient daniel.jones@brookfieldcpas.com sent from matthew.li@brookfieldcpas.com. The address can be resolved via contacts_search_contacts. Per OE 12."
+    },
+    {
+        "title": "The Agent's email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states the conclusion that the Datadog reclassification is supportable on a go-forward basis (with or without documentation gaps to address).",
+        "category": "outcome",
+        "justification": "The prompt requires the email to state the Agent's conclusion; the universe evidence establishes the go-forward treatment is supportable.",
+        "evidence": "Check the content of the email to daniel.jones@brookfieldcpas.com for a stated conclusion on the supportability of the Datadog reclassification on a go-forward basis."
+    },
+    {
+        "title": "The Agent's email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) includes at least one recommendation that would help the file withstand an inspection (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the email to include the Agent's recommendations.",
+        "evidence": "Check the content of the email to daniel.jones@brookfieldcpas.com for at least one recommendation. Acceptable examples include completing and certifying the close before archiving, retaining a standalone SAB 99 working paper, substantiating the cumulative figure, or remediating the AP vendor-coding default."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) identifies that the Datadog reclassification amount is approximately $28,400.",
+        "category": "outcome",
+        "justification": "The reclassification is the transaction under review; its amount is core evidence behind the conclusion the prompt asks the Agent to present.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the reclassification amount. Grounded in journal entry je_1ce7247752034cbc ($28,400.00)."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) identifies account 500000 (Cost of Revenue - Cloud Infrastructure) as the account the Datadog charge was reclassified out of.",
+        "category": "outcome",
+        "justification": "Identifying which account the Datadog charge was reclassified out of is core evidence behind the conclusion the prompt asks the Agent to present.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the source account. Grounded in journal entry je_1ce7247752034cbc (credit 500000 Cost of Revenue - Cloud Infrastructure $28,400.00)."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) identifies account 521000 (Engineering Tools & Observability) as the account the Datadog charge was reclassified into.",
+        "category": "outcome",
+        "justification": "Identifying which account the Datadog charge was reclassified into is core evidence behind the conclusion the prompt asks the Agent to present.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the destination account. Grounded in journal entry je_1ce7247752034cbc (debit 521000 Engineering Tools & Observability $28,400.00)."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states that the Datadog misclassification is immaterial to net income.",
+        "category": "outcome",
+        "justification": "The supportability of the go-forward treatment rests on the SAB 99 materiality conclusion, which the prompt requires the Agent to confirm as the evidence behind the conclusion.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the materiality conclusion. Grounded in the #monthly-close-coordination (C005) discussion and the SAB 99 memo, where the cumulative FY25 misclassification (approximately $340K) is concluded immaterial to net income and a gross-margin presentation matter only. Per OE 3."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) reports that in prior periods (for example April FP-2026-04) the same Datadog charge was left in account 500000 with no reclassification.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires checking how the same charge was treated in earlier periods.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the prior-period factual finding. Grounded in journal entry je_dd500_acme_2026_04 (April Datadog charge posted to account 500000, no reclass) and the January through March siblings je_dd500_acme_2026_01 through _03. Per OE 5."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) concludes that the May reclass is consistent with the documented go-forward treatment rather than a departure from prior practice.",
+        "category": "outcome",
+        "justification": "The prompt requires the Agent to determine whether the rationale was applied consistently or whether the treatment departed from prior practice.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the consistency conclusion drawn from the prior-period comparison. Grounded in OE 5: prior periods consistently left Datadog in 500000 and the May reclass is the first correction."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) reports that the asserted approximately $340K cumulative misclassification cannot be independently substantiated from the subledger or ledger records and is asserted in the close discussion rather than evidenced.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires confirming whether a figure being relied on can actually be substantiated from the records rather than only asserted in the close discussion; the approximately $340K cumulative is the headline relied-on figure.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the substantiation gap on the headline cumulative figure. Grounded in OE 6: SAP has no Datadog vendor and no $28,400 AP invoice, and the only Datadog ledger evidence is the four FP-2026-01 through FP-2026-04 monthly JEs totaling $113,600 plus the May reclass, so the approximately $340K cumulative figure asserted in the close discussion cannot be independently substantiated from the records."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) reports that the FP-2026-05 close is not actually locked or complete despite the sign-off, because the fiscal period is still open.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires confirming whether the close is genuinely in the state the sign-off implies and whether everything treated as finished is actually finished.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the close-state finding. Grounded in OE 7: oracle_gl_get_fiscal_period shows acme_cloud_FP-2026-05 status open with locked_at null even though the BD3 lock date has passed."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) reports that the period's reconciliations remain uncertified (none certified) behind the sign-off.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks whether there are items still sitting open behind the sign-off.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the open-item finding. Grounded in OE 7: all 22 FP-2026-05 reconciliations are pre-approval (open, in_progress, or submitted) with zero certified."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) explains that the reported gross-margin improvement is a presentation effect of the reclassification rather than a genuine operating improvement.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires the reported gross-margin movement to be explained accurately.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the gross-margin explanation. Grounded in OE 9: the management accounts attribute the gross-margin movement to the Datadog reclass moving cost out of 500000, a presentation change rather than an operating improvement."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) distinguishes the presentation-driven margin movement from the separate Helix Bio consumption-normalization operating narrative (or similar).",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires the gross-margin movement to be grounded in what genuinely happened in the business. Helix Bio consumption normalization is the single determinate genuine operating driver in the universe, so a review that fully answers this ask identifies it (or describes it equivalently) rather than only labelling the move presentation-driven. The '(or similar)' marker preserves paraphrase flexibility while keeping the genuine-driver identification required.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for what genuinely happened in the business. Grounded in OE 9 and email_scen_028_monthly_close_0009: the Helix Bio consumption normalizing toward a Q3 baseline is the genuine operating narrative for the period, distinct from the reclassification's presentation effect."
+    },
+    {
+        "title": "The Agent's cover memo or email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) concludes that the underlying Datadog miscoding is recurring or systemic rather than contained to May.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks whether whatever caused this is contained to May or something that will keep recurring.",
+        "evidence": "Check the cover memo or the email to daniel.jones@brookfieldcpas.com for the recurrence conclusion. Grounded in OE 5 (the same charge sat in 500000 in January through April) and OE 10 (the AP vendor-coding control gap is unremediated), so the underlying miscoding will recur close after close rather than being contained to May."
+    },
+    {
+        "title": "The Agent files the reviewer cover memo before sending the summary email to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com).",
+        "category": "process",
+        "justification": "The prompt directs the Agent to prepare and file the cover memo and then send Daniel the summary email so the completed review is on record before archiving. The two write-action Outcome rubrics pass regardless of order, so only a Process rubric can verify the memo was filed before the email was sent.",
+        "evidence": "Compare the ordering in the trajectory: the records_vault_upload_document call for the cover memo should occur before the email_send_email call to daniel.jones@brookfieldcpas.com."
+    }
+]

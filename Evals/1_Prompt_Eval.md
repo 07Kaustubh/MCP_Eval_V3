@@ -28,11 +28,16 @@ TODO:
 - [ ] Phase 1.3: Structural Anti-Patterns - Command list, bolt-on, pre-solving, tool mention
 - [ ] Phase 1.4: Prompt Diversity - Is this meaningfully different from "investigate + send email"?
 - [ ] Phase 2.1: Unique Ground Truth - Ambiguity analysis
-- [ ] Phase 2.2: Feasibility - Tool capability verification
+  - [ ] HARD GATE: End-State Divergence - Enumerate candidate final universe states under each reasonable reading; different end-states → FAIL UGT
+  - [ ] HARD GATE (T11): UGT Precision Guardrail - Before FAILING UGT, run three-part test: (1) enumerate concrete writes under each reading, (2) check if rubric accepts variation via "(or similar)", (3) verify deliverables actually differ. Only fail if writes/deliverables materially differ
+- [ ] Phase 2.2: Feasibility - Tool capability + Data existence + Dimensional feasibility verification
+  - [ ] HARD GATE (T10): Dimensional Feasibility - For every per-X breakdown the prompt asks for, confirm the universe data carries that dimension field; missing field → FAIL Feasibility
 - [ ] Phase 2.3: Truthfulness - EXHAUSTIVE universe data verification (CRITICAL)
+  - [ ] HARD GATE: Phantom Tight-Identifier Grep - Extract every tight identifier (channel names, IDs, vendor/entity names, account numbers, amounts, dates) and grep each against universe JSON; no match = phantom = FAIL
 - [ ] Phase 2.4: Cross-Service Requirement - Service mapping
 - [ ] Phase 2.5: Investigation + Action - Read/Write balance
 - [ ] Phase 2.6: Clarity & Specificity - Interpretation analysis
+  - [ ] HARD GATE: Write-Action Divergence - Enumerate write action(s) under each reasonable reading; different write actions (or write vs no-write / act vs defer) → FAIL Clarity (Action Decision Ambiguity)
 - [ ] Phase 2.7: Contrived vs Natural Difficulty - Pattern analysis
 - [ ] Phase 2.8: Alignment with Today's Date - Detect relative time, apply the "would answer change?" litmus test, verify resolution against fixed date (June 12, 2026)
 - [ ] Phase 3.1: Data Existence - Per-entity verification in universe files
@@ -61,21 +66,21 @@ TODO:
 | **Common Errors** | `Docs/9_Common_Error.md` | Frequent errors in prompt and rubric creation with fixes |
 | **Taxonomy** | `Docs/11_Taxonomy.md` | Key version updates, task version guidance |
 | **Relative Time Updates** | `Docs/6_Prompt_Relative_Time_Updates.md` | Fixed date rules (June 12, 2026), relative time examples, resolution logic |
-| **How To Load/Edit Universe** | `Docs/10_How_To_Load_and_Edit_Universe.md` | How to load and edit the Brookfield universe in the sandbox |
+| **How To Load/Edit Universe** | `Docs/10_How_To_Load_and_Edit_Universe.md` | How to load and edit the universe in the sandbox |
 | **Always-Failing Rubrics** | `Docs/12_Always_Failing_Rubrics.md` | Guidance on handling all-failing (AF) rubrics |
+| **Universe One-Pager** | `Brookfield_Base_Universe/7_Brookfield_Universe_One_pager.md` | Concise overview of the Brookfield universe and what's new |
 | **Universe Summary** | `Brookfield_Base_Universe/1_Summary.md` | Company summary, personas, scenarios, org chart, systems, company context |
 | **Persona Briefs** | `Brookfield_Base_Universe/2_Persona_Briefs.md` | Detailed per-persona profiles - active work, relationships, open threads |
-| **Task Categories** | `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` | The 10 task categories with tool/artifact guidance and worked examples |
-| **Scenario Storylines** | `Brookfield_Base_Universe/4_Scenario_Storylines.md` | 52 merged scenario storylines for context and feasibility checks |
-| **Artifacts / Ref Sheet** | `Brookfield_Base_Universe/5_Artifacts_Universe_Ref_Sheet.md` | Dense reference - personas + NPCs + system schemas + useful accounts + scenario index |
-| **Glossary** | `Brookfield_Base_Universe/6_Glossary.md` | Accounting terms and universe conventions (JE, GL, AP, AR, WIP, AML, ASC 606/340-40/842, etc.) |
-| **Universe One-Pager** | `Brookfield_Base_Universe/7_Brookfield_Universe_One_pager.md` | Concise overview of the Brookfield universe and what's new |
-| **Tool Details** | `Brookfield_Base_Universe/8_Server_Tools_Details.json` | All MCP tools across the 12 servers with parameters and capabilities |
+| **Scenario Storylines** | `Brookfield_Base_Universe/4_Scenario_Storylines.md` | Merged scenario storylines for context and feasibility checks |
+| **Task Categories** | `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` | Task categories with tool/artifact guidance and worked examples |
+| **Tool Details** | `Brookfield_Base_Universe/8_Server_Tools_Details.json` | All MCP tools across the services with parameters and capabilities |
 | **Universe Schema** | `Brookfield_Base_Universe/9_Universe_Schema.json` | Database schema for all universe tables and columns |
 
-**Sample QC Tasks (for comparison):**
-- `QC_Tasks/V3_Tasks/` - **V3-framework tasks on the Brookfield universe** - the closest reference to what you're evaluating (correct framework, correct universe, correct category labels). Study prompts, OEs, and rubrics here first.
-- `QC_Tasks/V2_Tasks/` - V2-framework examples on the old (Keystone) universe. **Caveat:** study their **structure, quality, and naturalness**, not their category labels or universe specifics.
+**Sample QC Tasks (for comparison — 4 categories):**
+- `QC_Tasks/QC_Passed/` — QC score 5. Clean reference tasks; study their prompts, OEs, and rubrics for what quality looks like.
+- `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing quality issues (non-atomic criteria, inaccurate OEs, missing outcome checks). Study these + `QC_Score3_Knowledge_Extract.md` for the specific defect patterns this eval must catch.
+- `QC_Tasks/QC_True_Fails/` — QC score 2 (confirmed fails). Tasks with structural failures — rubric misreads prompt, impossible requests, contradictory universe data. Study these for hard-fail patterns.
+- `QC_Tasks/QC_False_Fails_PT_Dispute_Accepted/` — QC score 2 overturned to 3-5 on dispute. Tasks where QC over-applied a fail category; study these for where the eval should prevent over-flagging.
 
 ---
 
@@ -95,22 +100,18 @@ TODO:
 
 | Service | Files | What to Verify |
 |---------|-------|----------------|
-| **Oracle GL** (ledger) | `Oracle_GL/ogl_accounts.json`, `ogl_fiscal_periods.json`, `ogl_journal_entries.json`, `ogl_transactions.json`, `ogl_subledger_feeds.json`, `ogl_subledger_feed_runs.json` | Chart of accounts (per entity), fiscal-period `status` (`open`/`closed`/`future`) + lock fields (`locked_at`, `bd3_lock_at`, `bd5_close_at`), JE lifecycle/status, entity-prefixed JE IDs, subledger feeds. (`ogl_transactions.json` is empty in base) |
-| **SAP Subledger** (AP/assets/prepaid/lease) | `SAP_Subledger/ap_invoices.json`, `subledger_transactions.json`, `fixed_assets.json`, `depreciation_schedule.json`, `lease_schedules.json`, `prepaid_periods.json`, `prepaid_schedules.json` | AP invoices (status, vendor, amount, due date), fixed assets, depreciation, ASC 842 leases, prepaid amortization |
-| **BlackLine** (reconciliations) | `Blackline/blackline_reconciliations.json`, `blackline_exceptions.json`, `blackline_review_notes.json`, `blackline_close_tasks.json`, `blackline_evidence.json`, `blackline_sox_controls.json`, `blackline_audit_trail.json`, `blackline_archived_reconciliations.json` | Reconciliation state, exceptions (6 types: `unrecorded_invoice`, `duplicate_entry_detected`, `timing_difference_over_sla`, `subledger_feed_drop`, `missing_accrual_variance`, `fx_revaluation_drift`) + state, review notes, close tasks, evidence, audit trail, archives. (`blackline_sox_controls.json` is empty in base) |
-| **Records Vault** (documents) | `Records_Vault/rv_documents.json`, `rv_document_versions.json`, `rv_classifications.json`, `rv_retention_policies.json`, `rv_access_grants.json`, `rv_chain_of_custody.json`, `rv_legal_holds.json` | Documents + versions, classification code (`public`/`internal`/`restricted`; `restricted` requires elevated role), retention codes, access grants. (`rv_chain_of_custody.json` and `rv_legal_holds.json` are empty in base) |
-| **Airtable** (workflows) | `Airtable/bases.json`, `tables.json`, `records.json` | Workflow bases/tables/records. Two bases in base universe: "Daily outsourced accounting close blocker triage - bank feed exceptions and cash posting follow-up" and "Multi-state annual report catch-up and filing readiness control center" |
-| **Linear** (issues) | `Linear/linear_issues.json`, `linear_projects.json`, `linear_teams.json`, `linear_comments.json`, `linear_users.json`, `linear_team_memberships.json` | **Write-target - all Linear tables are empty in the base universe.** Used for agent-created systemic-issue tracking via `linear_create_issue`. Don't treat its emptiness as a feasibility gap |
-| **Email** | `Email/emails.json` (populated; threading via `parent_id`), `threads.json`, `mailboxes.json`, `jmap_emails.json` (empty in base) | Senders, recipients, subject, content, folder, thread chains (`parent_id`) - all in `emails.json` |
-| **Slack** | `Slack/slack_messages.json`, `slack_channels.json`, `slack_users.json` | Messages, channels (`C001`–`C010`, `C012`), user mappings |
-| **Messaging** | `Messaging/conversations.json`, `messages.json` | DMs and small-group threads |
-| **Calendar** | `Calendar/events.json` | Close kickoffs, partner reviews, audit kickoffs |
-| **Reminder** | `Reminder/reminders.json` | SLA tracking, deadline triggers (stale-tickler patterns) |
-| **Contacts** | `Contacts/contacts.json` | Vendor/client/regulator contact details, email addresses |
-| **Changelog** | `Public/_changelog.json` | CB's universe modifications (empty until the CB edits the universe) |
-| **Complete Dump** | `Base_Universe_Complete_Data.json` | All data in one file (use for comprehensive searches). The full dataset can also be pulled via `Brookfield_Base_Universe/Get_Universe_Data.sql`. |
+| **Contacts** | `contacts/contacts.json` | Contact details for all personnel |
+| **CRM** | `crm/crm_companies.json`, `crm_contacts.json`, `crm_deals.json`, `crm_engagements.json`, `crm_leads.json` | CRM companies, contacts, deals, engagements, leads |
+| **Email** | `email/emails.json` (populated; threading via `parent_id`), `threads.json`, `mailboxes.json`, `jmap_emails.json` | Senders, recipients, subject, content, folder, thread chains |
+| **Filesystem** | `filesystem/` | File storage (see README.md) |
+| **Oracle GL** | `Oracle_GL/activity_log_entries.json`, `borrowers.json`, `conditions.json`, `document_checklist_items.json`, `lenders.json`, `loans.json`, `milestones.json`, `staff.json`, `vendors.json` | Loan origination system data |
+| **Changelog** | `public/_changelog.json` | CB's universe modifications (empty until the CB edits the universe) |
+| **QuickBooks** | `quickbooks/accounts.json`, `bills.json`, `customers.json`, `invoices.json`, `items.json`, `vendors.json` | Accounting records |
+| **Slack** | `slack/slack_channels.json`, `slack_drafts.json`, `slack_emojis.json`, `slack_files.json`, `slack_messages.json`, `slack_scheduled_messages.json`, `slack_users.json` | Messages, channels, user mappings |
+| **Stripe** | `stripe/` (many files: balance_transactions, charges, customers, disputes, invoices, payment_intents, payment_methods, payouts, prices, products, refunds, subscriptions, etc.) | Payment processing data |
+| **Complete Dump** | `Brookfield_Base_Universe_Complete_Data.json` | All data in one file (use for comprehensive searches). The full dataset can also be pulled via `Brookfield_Base_Universe/Get_Universe_Data.sql`. |
 
-> **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** all `Linear/*` tables, `Email/threads.json` · `mailboxes.json` · `jmap_emails.json`, `Oracle_GL/ogl_transactions.json`, `Blackline/blackline_sox_controls.json`, `Records_Vault/rv_chain_of_custody.json` · `rv_legal_holds.json`, and `Public/_changelog.json`. These are write-targets or per-task-populated tables - their emptiness in the base universe is expected. A task may populate them via `UniverseDataForThisTask.json`, so always verify against the task-specific data too.
+> **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** `public/_changelog.json` and any tables that are write-targets or per-task-populated. Their emptiness in the base universe is expected. Check each service's files to determine which are populated vs. empty in the base. A task may populate them via `UniverseDataForThisTask.json`, so always verify against the task-specific data too.
 
 ---
 
@@ -122,26 +123,24 @@ TODO:
 
 Pull paths and "what to extract" from the [Reference Documents](#reference-documents-must-read-before-evaluation) table above. Cover them in this priority order:
 
-1. **Read in full:** `7_QC_Spec_Doc1.json` (pass/fail criteria per sub-dimension), `8_QC_Spec_Doc2.md` (severity + auditor guidance), `9_Common_Error.md` (common prompt/rubric errors), `1_Summary.md` (personas, the three client entities, systems, relationships), `2_Persona_Briefs.md` (per-persona active work and relationships).
-2. **Skim for context:** `4_Scenario_Storylines.md` (scenario storylines) and `8_Server_Tools_Details.json` (what tools exist across the 12 servers).
+1. **Read in full:** `7_QC_Spec_Doc1.json` (pass/fail criteria per sub-dimension), `8_QC_Spec_Doc2.md` (severity + auditor guidance), `9_Common_Error.md` (common prompt/rubric errors), `1_Summary.md` (personas, company context, systems, relationships), `2_Persona_Briefs.md` (per-persona active work and relationships).
+2. **Skim for context:** `4_Scenario_Storylines.md` (scenario storylines) and `8_Server_Tools_Details.json` (what tools exist across the services).
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
-**Read and understand ALL data files in `Brookfield_Base_Universe/Data/` BEFORE evaluating anything. This is critical for feasibility, truthfulness, and data existence checks later.**
-
-You MUST explore the universe data exhaustively so you know what exists, what doesn't, who is connected to whom, what scenarios are active, and what data is retrievable. Without this deep understanding, you WILL miss factual errors, phantom references, and feasibility gaps in later phases.
+**Read ALL data files in `Brookfield_Base_Universe/Data/` BEFORE evaluating anything.** Exhaustive upfront knowledge of what exists (entities, relationships, scenarios, retrievable data) is the only way to catch phantom references and feasibility gaps in later phases.
 
 **Explore EVERY file in the [Universe Data Files](#universe-data-files-for-verification) table above** - that table is the single source of truth for file paths, what to verify in each service, and which tables are empty in the base universe. Reading order:
 
-1. **Start broad:** read `Base_Universe_Complete_Data.json` (or pull via `Brookfield_Base_Universe/Get_Universe_Data.sql`) for a whole-universe pass.
+1. **Start broad:** read `Brookfield_Base_Universe_Complete_Data.json` (or pull via `Brookfield_Base_Universe/Get_Universe_Data.sql`) for a whole-universe pass.
 2. **Drill in per service:** open each service's per-file JSON for detail, prioritizing the services the prompt under evaluation actually touches.
 3. **Skip the empty-in-base tables** for existence checks (see the empty-table note under the table) - but still check whether the task populates them via `UniverseDataForThisTask.json`.
 
-**Note:** Brookfield documents live in **Records Vault as JSON rows** (`Records_Vault/rv_documents.json` + versions/classifications), not as a filesystem of PDFs. Verify entity names, dollar amounts, dates, account numbers, and persona details in these JSON records against prompt claims the same way you verify any other universe data.
+**Note:** Documents in the universe are stored as JSON data across the service files. Verify entity names, dollar amounts, dates, account numbers, and persona details in these JSON records against prompt claims the same way you verify any other universe data.
 
 ### 0.3 Explore QC-Passed Task Prompts
 
-**Read the `Prompt.txt` files from sample tasks in `QC_Tasks/V3_Tasks/` (on-framework, Brookfield universe) and `QC_Tasks/V2_Tasks/` to understand how good prompts are written.** This gives you a baseline for what quality looks like - tone, complexity, natural language, persona voice, how asks are woven into a coherent scenario, and how difficulty is created organically. **Caveat for `V2_Tasks/`:** these are V2-framework examples on the old (Keystone) universe - study their **structure, quality, and naturalness**, not their category labels or universe specifics.
+**Read the `Prompt.txt` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good prompts are written.** This gives you a baseline for what quality looks like - tone, complexity, natural language, persona voice, how asks are woven into a coherent scenario, and how difficulty is created organically. Also review `QC_Tasks/QC_Non_Fails/` (score-3 tasks with non-failing issues) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails) to see what real prompt/universe defects look like. See `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md` for a consolidated summary of score-3 defect patterns.
 
 **Pay attention to:**
 - How the prompt introduces the situation naturally (not as a spec document)
@@ -172,7 +171,7 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 | Access Plausibility | Would this persona know about this situation (portfolio/entity access)? | Yes/No - [reason] |
 | Responsibility Scope | Does request fall within persona's department/level (prepare/review/approve)? | Yes/No - [reason] |
 
-**IMPORTANT:** Refer to `Brookfield_Base_Universe/1_Summary.md` (org chart) and `2_Persona_Briefs.md` for the complete persona list with traits and Style lines. Only the **28 authoring personas** can be the acting voice - NPCs (e.g., Owen Mercer, Brenda Abbas, Sofia Halabi, Farah Dlamini, James Randall, Lucia Ferreira, Mateo Kovac) never author tasks; they appear only as participants/counterparties. Anchor personas you'll see most: George McAdam (Accounts Senior, primary), Daniel Jones (Accounts Manager), Andrea Phil / Matthew Li (partners), Hannah Grant (Corporate Tax Senior), Ryan Delgado (Audit Senior), Marina Soko (Compliance Officer), Steven Perry (Managing Partner). Do NOT rely on memory.
+**IMPORTANT:** Refer to `Brookfield_Base_Universe/1_Summary.md` (org chart) and `2_Persona_Briefs.md` for the complete persona list with traits and Style lines. Only the authoring personas can be the acting voice - NPCs never author tasks; they appear only as participants/counterparties. Do NOT rely on memory.
 
 **Scoring (from 7_QC_Spec_Doc1.json):**
 - FAIL (1-2): Prompt cannot plausibly be written by the assigned persona
@@ -246,9 +245,9 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 
 | Indicator | Found? | Quote |
 |-----------|--------|-------|
-| Tool function names (oracle_gl_create_journal_entry, email_send_email, linear_create_issue, blackline_create_exception) | Yes/No | "..." |
-| Parameter names (entity, account_id, recipient, sender) | Yes/No | "..." |
-| Internal IDs (JE-acme_cloud-FP-2026-04-0052, BL-A81316258BCB, exc_151b0bee7e374e, VEN-010-514242) | Yes/No | "..." |
+| Tool function names (email_send_email, slack_post_message, etc.) | Yes/No | "..." |
+| Parameter names (recipient, sender, channel_id, etc.) | Yes/No | "..." |
+| Internal IDs that the agent should discover, not be given | Yes/No | "..." |
 
 **Note:** Natural service references OK ("check my emails") vs unnatural ("use the Email MCP server")
 
@@ -258,26 +257,15 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 
 ### 1.4 Prompt Diversity Check
 
-**Prompt diversity is a major quality bar.** Refer to `Docs/5_Prompt_Diversity_Business_Function.md` for the business function framing, example prompts, and write tool coverage matrix. For the authoritative category list and worked examples, cross-check `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` and the QC spec - the 10 Brookfield task categories are:
+**Prompt diversity is a major quality bar.** Refer to `Docs/5_Prompt_Diversity_Business_Function.md` for the business function framing, example prompts, and write tool coverage matrix. For the authoritative category list and worked examples, cross-check the task categories defined in `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` and the QC spec.
 
-1. Accounting Operations
-2. Bookkeeping
-3. Tax
-4. Compliance & Internal Controls
-5. Audit
-6. AP / Vendor Operations
-7. BlackLine Close-Discipline & Variance
-8. Engagement Mgmt & Client Operations
-9. Executive / Partner Oversight
-10. HR & People Operations
-
-> **Caveat:** `Docs/5_Prompt_Diversity_Business_Function.md` may still describe the older Keystone business-function set. When the doc and the Brookfield universe doc / QC spec disagree, **treat `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` and the QC spec as authoritative.**
+> **Caveat:** `Docs/5_Prompt_Diversity_Business_Function.md` may describe a different business-function set. When the doc and `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md` / QC spec disagree, **treat the latter as authoritative.**
 
 | Check | Finding |
 |-------|---------|
 | Does this prompt go beyond "investigate + send email"? | Yes/No |
-| Which of the 10 Brookfield task categories does it target? | ... |
-| Does it use diverse write actions? (not just `email_send_email`) | Yes/No - list write tools expected (e.g., `oracle_gl_create_journal_entry`, `blackline_submit_reconciliation`, `linear_create_issue`, `airtable_create_record`, `sap_subledger_approve_ap_invoice`) |
+| Which task category does it target? | ... |
+| Does it use diverse write actions? (not just `email_send_email`) | Yes/No - list write tools expected |
 | Does the workflow shape differ from typical tasks? (branching, stacking, batch updates, etc.) | Yes/No |
 
 **Not a hard fail** - but if the prompt is yet another "research something, send one email," flag it as a diversity concern in your final verdict.
@@ -301,13 +289,12 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 - NON-FAIL (3-4): **REMOVED 06/09** — there is no passing middle band for UGT. Either the prompt has a single ground-truth end-state (5) or it FAILs (1-2). (Path/wording differences that converge on the same end-state are NOT multiple valid answers.)
 - PASS (5): All experts reach the same end-state on the key findings/actions; only the path or wording differs.
 - **HARD GATE — end-state divergence (mandatory before scoring UGT):** Enumerate the candidate **final universe states** under each reasonable reading of the prompt. If the prompt's literal text implies one action while the universe state implies another (e.g., literal "file it now" vs. "defer until a still-pending sign-off completes"), those are two different end-states → **FAIL**. Other classic shapes: act-now vs. defer, write A vs. write B, escalate to person A vs. person B, file in location X vs. Y. A leading interpretation does **not** rescue it (06/09). Only path/wording differences that converge on the *same* end-state are acceptable.
-
 - **PRECISION GUARDRAIL — wording/label-only variation (mandatory before FAILING UGT):** Before failing UGT, confirm the divergence represents a **different write action or different final universe state**, not merely a wording or single-label variation that all converge on the same end-state. Apply this three-part test:
-  1. **Enumerate the concrete write actions and deliverables** under each reading. If both readings produce the **exact same set** of writes (same emails sent, same JEs posted, same BlackLine review notes created, same Linear issues filed, same Slack posts, same Records Vault uploads) → NOT a UGT fail, even if a label or field value differs.
+  1. **Enumerate the concrete write actions and deliverables** under each reading. If both readings produce the **exact same set** of writes (same emails sent, same notes created, same issues filed, same Slack posts) → NOT a UGT fail, even if a label or field value differs.
   2. **Check whether the rubric explicitly accepts the variation.** If a criterion uses "(or similar)", "any defensible …", or "may be marked as …" phrasing that covers both readings → the variation is **within the rubric's own acceptance band** and is NOT multiple valid answers.
-  3. **Verify the deliverables change.** Inspect every deliverable the prompt asks for (emails, Slack posts, BlackLine review notes, Linear issues, JEs, Records Vault filings, final response). If the content of ALL deliverables is **identical** under both readings → the divergence is immaterial → NOT a UGT fail.
-  Only fail UGT if **at least one write action or deliverable materially differs** between the two readings AND the rubric does NOT explicitly accept the variation. A single-label variation on one record (e.g., a BlackLine exception labeled "recurring" vs "one-off" where `root_cause` is null) where the rubric accepts any defensible basis is a **wording-only divergence, not a UGT fail**.
-  **Why this guardrail exists:** This exact over-fire caused a wrongful QC fail (Task8 6a32aa51) — UGT was failed because one exception could be labeled recurring or one-off, but the rubric accepted "any defensible recurrence basis (or similar)" and all deliverables (BlackLine review notes, email to Daniel Jones, Slack post to #monthly-close-coordination, etc.) were identical either way. The dispute was accepted.
+  3. **Verify the deliverables change.** Inspect every deliverable the prompt asks for (emails, Slack posts, notes, final response). If the content of ALL deliverables is **identical** under both readings → the divergence is immaterial → NOT a UGT fail.
+  Only fail UGT if **at least one write action or deliverable materially differs** between the two readings AND the rubric does NOT explicitly accept the variation. A single-label variation on one record (e.g., "recurring" vs "one-off" on an exception with null `root_cause`) where the rubric accepts any defensible basis is a **wording-only divergence, not a UGT fail**.
+  **Why this guardrail exists:** This exact over-fire caused a wrongful QC fail (Task8 6a32aa51) — UGT was failed because one exception could be labeled recurring or one-off, but C18 accepted "any defensible recurrence basis (or similar)" and all deliverables (notes, email, Slack post, etc.) were identical either way. The dispute was accepted.
 
 ---
 
@@ -330,24 +317,20 @@ You MUST explore the universe data exhaustively so you know what exists, what do
 
 | Information Needed to Solve | Where Should It Exist? | Actually Searched? | Found? | Evidence |
 |----------------------------|----------------------|-------------------|--------|----------|
-| [Key fact 1] | Email/emails.json | Yes/No | Yes/No | "..." |
-| [Key fact 2] | Oracle_GL/ogl_journal_entries.json | Yes/No | Yes/No | "..." |
-| [Key discovery the agent must make] | Slack/slack_messages.json | Yes/No | Yes/No | "..." |
+| [Key fact 1] | email/emails.json | Yes/No | Yes/No | "..." |
+| [Key fact 2] | Oracle_GL/loans.json | Yes/No | Yes/No | "..." |
+| [Key discovery the agent must make] | slack/slack_messages.json | Yes/No | Yes/No | "..." |
 
 **No matter how long it takes - search the data files. If you cannot find the data, the task is NOT feasible.**
 
 **C. Dimensional Feasibility (HARD GATE — mandatory when the prompt asks for a breakdown)**
 
-When the prompt asks for a quantitative result **broken down by a dimension** (per-entity, per-JE-status, per-fiscal-period, per-vendor, per-account, per-classification, per-retention-code, per-persona, per-exception-type, etc.), you MUST verify that the universe data **actually carries that dimension** as a field before passing feasibility. If it doesn't, the breakdown is impossible / requires secondary input and the prompt is not solvable as stated.
+When the prompt asks for a quantitative result **broken down by a dimension** (per-state, per-vendor, per-period, per-entity, per-jurisdiction, per-cost-center, per-employee, etc.), you MUST verify that the universe data **actually carries that dimension** as a field before passing feasibility. If it doesn't, the breakdown is impossible / requires secondary input and the prompt is not solvable as stated.
 
 | Breakdown Requested in Prompt | Dimension Field Required | Table(s) to Check | Field Exists? | Verdict |
 |-------------------------------|--------------------------|--------------------|--------------:|---------|
-| [e.g., "per client entity"] | entity_id (brookfield / northstar_legal / acme_cloud) | `Oracle_GL/ogl_accounts.json`, `Oracle_GL/ogl_journal_entries.json` | Yes/No | Feasible / **FAIL** |
-| [e.g., "by JE status"] | status (draft / submitted / approved / posted / reversed) | `Oracle_GL/ogl_journal_entries.json` | Yes/No | Feasible / **FAIL** |
-| [e.g., "by vendor"] | vendor_id or vendor_name | `SAP_Subledger/ap_invoices.json`, `Contacts/contacts.json` | Yes/No | Feasible / **FAIL** |
-| [e.g., "by retention code"] | retention_code (AICPA_SQMS_7Y / IRS_TAX_7Y / FIRM_INTERNAL / INDEFINITE) | `Records_Vault/rv_documents.json`, `Records_Vault/rv_retention_policies.json` | Yes/No | Feasible / **FAIL** |
-| [e.g., "by fiscal period"] | period_id / period_label | `Oracle_GL/ogl_fiscal_periods.json` | Yes/No | Feasible / **FAIL** |
-| [e.g., "by exception type"] | exception_type (unrecorded_invoice / duplicate_entry_detected / timing_difference_over_sla / subledger_feed_drop / missing_accrual_variance / fx_revaluation_drift) | `Blackline/blackline_exceptions.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "per loan status"] | status field | Oracle_GL/loans.json | Yes/No | Feasible / **FAIL** |
+| [e.g., "by vendor"] | vendor_id or vendor_name | Oracle_GL/vendors.json, quickbooks/vendors.json | Yes/No | Feasible / **FAIL** |
 
 **Procedure (mandatory):**
 1. Extract every quantitative ask from the prompt that requests a breakdown or per-X split.
@@ -367,6 +350,7 @@ When the prompt asks for a quantitative result **broken down by a dimension** (p
 | No impossible requests (human judgment, physical actions) | |
 | No conflicting instructions | |
 | No requests beyond MCP tool access | |
+| **Dimensional feasibility: every per-X breakdown the prompt asks for has a corresponding field in the universe data** | |
 
 **Scoring:**
 - FAIL (1-2): Contains impossible/impractical requests, conflicting instructions, OR required data does not exist in the universe
@@ -382,10 +366,10 @@ When the prompt asks for a quantitative result **broken down by a dimension** (p
 **MANDATORY: Verify EVERY factual claim in the prompt against universe data.**
 
 **Major vs Minor classification (06/10) — apply this when you find an error:**
-- **Major (1 = FAIL):** errors in **tight identifiers** — channel names, document IDs, JE IDs, vendor/company entity names, account numbers, dollar amounts, dates, fiscal periods, ticket/issue IDs, retention codes. These are passed literally into tool calls and do not tolerate near-matches. A phantom identifier (named entity that returns nothing when grepped in the relevant universe JSON) is always Major.
+- **Major (1 = FAIL):** errors in **tight identifiers** — channel names, document IDs, vendor/company entity names, account numbers, dollar amounts, dates, ticket/issue IDs. These are passed literally into tool calls and do not tolerate near-matches. A phantom identifier (named entity that returns nothing when grepped in the relevant universe JSON) is always Major.
 - **Minor (1 = NON-FAIL, 2+ = FAIL):** errors in **loose descriptors** — person first-name-only references where the universe context disambiguates, role titles, casual entity references. Natural language absorbs these.
 - **Escalation:** a Minor error escalates to Major if it actually causes agent failure (e.g., a first name where two people in the universe share it).
-- **HARD GATE — phantom tight-identifier grep (mandatory before a Truthfulness pass):** Extract **every** tight identifier in the prompt — channel names, document/JE/ticket/issue IDs, vendor & company entity names, account numbers, dollar amounts, dates, fiscal periods, retention codes — and grep each against the relevant universe JSON. Any that returns no match = phantom = **Major (FAIL)**. **Near-match trap:** a partial/substring match is NOT a match — if the prompt names channel 'X' but only 'X-and-Y' exists, 'X' is a phantom (it is passed literally into the tool call and fails). Do **not** assume "that's what they meant." Do not skip this gate.
+- **HARD GATE — phantom tight-identifier grep (mandatory before a Truthfulness pass):** Extract **every** tight identifier in the prompt — channel names, document/ticket/issue IDs, vendor & company entity names, account numbers, dollar amounts, dates — and grep each against the relevant universe JSON. Any that returns no match = phantom = **Major (FAIL)**. **Near-match trap:** a partial/substring match is NOT a match — if the prompt names channel 'X' but only 'X-and-Y' exists, 'X' is a phantom (it is passed literally into the tool call and fails). Do **not** assume "that's what they meant." Do not skip this gate.
 
 **Verification Protocol:**
 
@@ -395,11 +379,11 @@ When the prompt asks for a quantitative result **broken down by a dimension** (p
 
 | Entity/Fact from Prompt | Search Query | File(s) Searched | Found? | Accurate? | Evidence |
 |------------------------|--------------|------------------|--------|-----------|----------|
-| [Person name] | grep "[name]" | Contacts/contacts.json, Email/emails.json | Yes/No | Yes/No | Line X: "..." |
-| [Entity / vendor / client] | grep "[name]" | SAP_Subledger/ap_invoices.json, Contacts/contacts.json | Yes/No | Yes/No | Line X: "..." |
-| [Event/situation] | grep "[keywords]" | Email/emails.json, Slack/slack_messages.json | Yes/No | Yes/No | Line X: "..." |
+| [Person name] | grep "[name]" | contacts/contacts.json, email/emails.json | Yes/No | Yes/No | Line X: "..." |
+| [Entity / vendor / client] | grep "[name]" | crm/crm_companies.json, contacts/contacts.json | Yes/No | Yes/No | Line X: "..." |
+| [Event/situation] | grep "[keywords]" | email/emails.json, slack/slack_messages.json | Yes/No | Yes/No | Line X: "..." |
 | [Relationship claim] | grep "[person]" | Brookfield_Base_Universe/1_Summary.md (org chart) | Yes/No | Yes/No | Line X: "..." |
-| [Dollar amount] | grep "[amount]" | Oracle_GL/ogl_journal_entries.json, SAP_Subledger/ap_invoices.json | Yes/No | Yes/No | Line X: "..." |
+| [Dollar amount] | grep "[amount]" | Oracle_GL/loans.json, quickbooks/invoices.json | Yes/No | Yes/No | Line X: "..." |
 
 **Deep Verification Checklist:**
 
@@ -427,18 +411,14 @@ When the prompt asks for a quantitative result **broken down by a dimension** (p
 
 | Service | Why Needed | Read/Write | Evidence from Prompt |
 |---------|-----------|------------|---------------------|
-| Oracle GL | | Read / Write | "..." |
-| SAP Subledger | | Read / Write | "..." |
-| BlackLine | | Read / Write | "..." |
-| Records Vault | | Read / Write | "..." |
-| Airtable | | Read / Write | "..." |
-| Linear | | Read / Write | "..." |
-| Email | | Read / Write | "..." |
-| Slack | | Read / Write | "..." |
-| Messaging | | Read / Write | "..." |
-| Calendar | | Read / Write | "..." |
-| Reminder | | Read / Write | "..." |
 | Contacts | | Read / Write | "..." |
+| CRM | | Read / Write | "..." |
+| Email | | Read / Write | "..." |
+| Filesystem | | Read / Write | "..." |
+| Oracle GL | | Read / Write | "..." |
+| QuickBooks | | Read / Write | "..." |
+| Slack | | Read / Write | "..." |
+| Stripe | | Read / Write | "..." |
 
 **Validation:**
 ```
@@ -537,7 +517,7 @@ Services required: [count]
 | Relative past | "recently", "a few weeks back", "lately", "the past few days" | Resolve and verify |
 | Named days | "Thursday", "Monday", "tomorrow", "yesterday", "last night" | Resolve and verify |
 | Time-bound "now" | "right now", "currently" when tied to a time window | Resolve and verify |
-| Safe (no flag) | Named events ("the duplicate-payment alert"), absolute months ("the May close"), state-based ("open JEs", "unresolved exceptions") | No action needed |
+| Safe (no flag) | Named events ("the duplicate-payment alert"), absolute months ("the May close"), state-based ("open loans", "unresolved conditions") | No action needed |
 
 **Step 2: Apply the litmus test for each relative phrase found.**
 
@@ -547,9 +527,9 @@ Services required: [count]
 |--------------------|-----------------------------------|-------------------------------|---------|
 | [phrase] | [resolved date/range] | Yes/No | OK / Flag |
 
-**Step 3: Verify resolved dates have data in the universe.** For each resolved date/range, search the universe data files to confirm relevant records exist in that window. If the window is empty → the prompt's time reference is broken even with the fixed date. Note the close cadence: the **May 2026 close** (`period_label` "2026-05 (May 2026)") is the active `open` period being worked; fiscal periods carry a `status` of `open`/`closed`/`future` plus a BD3 lock timestamp (`bd3_lock_at`), so "this month"/"the current close" should resolve consistently with the open-period state in `Oracle_GL/ogl_fiscal_periods.json`.
+**Step 3: Verify resolved dates have data in the universe.** For each resolved date/range, search the universe data files to confirm relevant records exist in that window. If the window is empty → the prompt's time reference is broken even with the fixed date. Verify that relative time references resolve consistently with the data present in the universe files.
 
-**Step 4: Universe-level date alignment check.** Separate from the prompt's relative-time resolution, check whether the default universe data (emails, Slack messages, JE/recon activity, etc.) is broadly consistent with June 12, 2026. A misaligned universe (e.g., many default messages dated months before the fixed date) is only a FAIL if that misalignment actually breaks the task - i.e., it causes an agent failure. If the agent can still solve the prompt despite the universe-date misalignment, this is NOT a fail (the "still-solvable" exception).
+**Step 4: Universe-level date alignment check.** Separate from the prompt's relative-time resolution, check whether the default universe data (emails, Slack messages, loan activity, etc.) is broadly consistent with June 12, 2026. A misaligned universe (e.g., many default messages dated months before the fixed date) is only a FAIL if that misalignment actually breaks the task - i.e., it causes an agent failure. If the agent can still solve the prompt despite the universe-date misalignment, this is NOT a fail (the "still-solvable" exception).
 
 **Scoring:**
 - FAIL (1-2):
@@ -568,23 +548,13 @@ Services required: [count]
 
 ### 3.1 Data Existence Verification
 
-**⚠️ EXHAUSTIVE CHECK REQUIRED - Verify EVERY entity exists and is retrievable.**
+All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phase 2.3 (Truthfulness). Phase 3.1 adds one additional check: confirm every verified entity is also **programmatically retrievable via MCP tool queries** (not just present in the raw JSON). Cross-check with `Brookfield_Base_Universe/8_Server_Tools_Details.json`.
 
-**For each entity/fact referenced in the prompt:**
-
-| Entity/Fact | File(s) to Search | Search Method | Exists? | Retrievable via MCP? | Notes |
-|-------------|------------------|---------------|---------|---------------------|-------|
-| [person] | Contacts/contacts.json, Brookfield_Base_Universe/2_Persona_Briefs.md | grep "[name]" | Yes/No | Yes/No | ... |
-| [entity / vendor / client] | SAP_Subledger/ap_invoices.json, Oracle_GL/ogl_accounts.json | grep "[name]" | Yes/No | Yes/No | ... |
-| [event] | Email/emails.json, Slack/slack_messages.json | grep "[keywords]" | Yes/No | Yes/No | ... |
-
-**Validation:**
-- [ ] All core facts required to solve the task exist in universe data
-- [ ] All core facts are retrievable via available MCP tools (cross-check with `Brookfield_Base_Universe/8_Server_Tools_Details.json`)
-- [ ] No phantom references (email threads that don't exist, JEs not in Oracle GL, reconciliations not in BlackLine, people not in contacts)
+- [ ] All core facts verified in Phase 2.2B/2.3 are retrievable via available MCP tools
+- [ ] No entity exists only in a file the tools can't query
 
 **Scoring:**
-- FAIL (1-2): Key facts/entities don't exist or can't be retrieved
+- FAIL (1-2): Key facts/entities can't be retrieved via MCP tools
 - PASS (5): All core facts exist and are retrievable
 
 ---
@@ -602,12 +572,12 @@ Services required: [count]
 | [Edit 2] | ... | ... | ... | ... |
 
 **Duplicate / conflicting data check (run whenever the task injects new records):**
-- [ ] Watch for exact-duplicate injected records (two records with the same key fields and conflicting values — e.g., two JEs sharing a `je_id` with different amounts, two BlackLine exceptions with the same `exception_id` and conflicting status, two Records Vault documents with the same `document_id` and conflicting `classification` or `retention_code`).
-- [ ] Confirm injected records do not contradict established data in the base universe (e.g., a JE marked `posted` in `Oracle_GL/ogl_journal_entries.json` but flagged as still in `submitted` state by a downstream BlackLine audit-trail entry; a contact with conflicting email addresses across `Contacts/contacts.json` and `Email/emails.json`; a BlackLine reconciliation flagged complete in `blackline_reconciliations.json` but with an open exception in `blackline_exceptions.json` still pointing at it; an AP invoice marked paid in SAP Subledger but with no matching payment record in Oracle GL).
-- [ ] Verify that injected data is temporally consistent — new records must not predate or conflict with existing activity logs, fiscal-period locks (`bd3_lock_at`, `bd5_close_at` in `Oracle_GL/ogl_fiscal_periods.json`), BlackLine audit-trail timestamps, Records Vault chain-of-custody entries, or email/Slack timestamps. JE lifecycle transitions (draft → submitted → approved → posted → reversed) must respect the 300-second minimum gap between transitions; closed-period posts must carry a `late_post_authorization_id` on `oracle_gl_post_journal_entry`.
+- [ ] Watch for exact-duplicate injected records (two records with the same key fields and conflicting values).
+- [ ] Confirm injected records do not contradict established data in the base universe (e.g., a loan marked as closed in one service but active in another, a contact with conflicting details across CRM and Contacts).
+- [ ] Verify that injected data is temporally consistent — new records should not predate or conflict with existing activity logs, milestones, or email timestamps.
 
 **Scoring:**
-- FAIL (1-2): Edits create contradictions that break solvability or realism
+- FAIL (1-2): Edits create contradictions that break solvability or realism (i.e., [Fail - Incoherent Universe Changes] / [Fail - Task Relies on Misaligned Data])
 - PASS (5): Edits are internally consistent and coherent across services
 
 ---
@@ -725,7 +695,7 @@ Services required: [count]
 
 | Mistake | How to Detect | Severity |
 |---------|---------------|----------|
-| Phantom entities | Search universe data - JE/vendor/recon/document/person not found | Major (Truthfulness) |
+| Phantom entity / tight identifier | Named entity or tight ID (channel, vendor, amount, date) returns no match on grep of universe JSON | Major (Truthfulness) |
 | Wrong relationships | Verify preparer→reviewer→approver and entity/portfolio mappings against the org chart in `1_Summary.md` | Major (Truthfulness) |
 | Pre-solved prompt | Root cause stated in prompt | Major (Pre-Solving) |
 | Bolt-on asks | Remove sentence test - rest still makes sense | Major (Coherence) |
@@ -733,21 +703,18 @@ Services required: [count]
 | Single-service task | Only one service needed | Major (Cross-Service) |
 | No write action | Only investigation, no action | Major (Investigation+Action) |
 | Contrived difficulty | Arbitrary precision requirements | Major (Contrived) |
-| Persona mismatch | Request outside persona's scope (e.g., a senior approving their own JE) | Major (Persona) |
+| Persona mismatch | Request outside persona's scope | Major (Persona) |
 | Ambiguous end-state | Two readings → different final universe states (file vs defer, write A vs B) | Major (Unique Ground Truth) |
 | Action decision ambiguity | Two readings → different write actions (or write vs no-write / act vs defer) | Major (Clarity - 06/09) |
-| Phantom tight identifier | Named channel/ID/vendor/amount/date returns nothing on grep of universe JSON | Major (Truthfulness) |
-| Wrong business function | Category doesn't match the 10 Brookfield task categories | Major (Business Function) |
+| Wrong business function | Category doesn't match the task categories | Major (Business Function) |
 | Lacks diversity | Yet another "investigate + send email" pattern | Flag (Diversity) |
+| **Impossible dimensional breakdown** | **Prompt asks for a per-X split (per-state, per-vendor, etc.) but the universe data has no field for that dimension** | **Major (Feasibility)** |
+| **UGT over-fire on wording variation** | **UGT failed but the divergence is a label/wording variation with identical deliverables, and the rubric explicitly accepts it via "(or similar)" — apply the precision guardrail** | **Check before FAIL (UGT)** |
 
 ---
 
 ## Evaluation Mindset
 
-**Remember:**
-- **Be skeptical** - Assume claims are wrong until verified
-- **Be thorough** - Check every entity, every relationship, every fact
-- **Be objective** - Use QC_Spec_Doc definitions, not personal judgment
-- **Be systematic** - Follow the phases in order, mark TODOs complete
-- **Be evidence-based** - Document file paths and line numbers for every finding
-- **Be diversity-aware** - Flag prompts that repeat the same "investigate + send email" pattern. Refer to `Docs/5_Prompt_Diversity_Business_Function.md` (and the 10 task categories in `Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md`) for what good diversity looks like.
+- **Be skeptical** — assume claims are wrong until verified against universe data
+- **Be objective** — score from `7_QC_Spec_Doc1.json` definitions, not personal judgment
+- **Be diversity-aware** — flag prompts repeating the "investigate + send email" pattern (see `Docs/5_Prompt_Diversity_Business_Function.md`)

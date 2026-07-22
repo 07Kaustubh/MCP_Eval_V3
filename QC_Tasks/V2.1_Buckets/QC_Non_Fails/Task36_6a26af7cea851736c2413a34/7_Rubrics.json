@@ -1,0 +1,134 @@
+[
+    {
+        "title": "The Agent reverses journal entry JE-brookfield-FP-2026-05-0092 (the duplicate SignalForge posting of $3,847.50) in Oracle GL for entity brookfield in period brookfield_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to \"reverse the duplicate journal entry\" for the overpayment. JE-brookfield-FP-2026-05-0092 is the duplicate $3,847.50 posting to 580000/210000 that was processed on May 29. The agent must identify this as the duplicate (not JE-brookfield-FP-2026-05-0091 which is the original) and reverse it.",
+        "evidence": "Look for an oracle_gl_reverse_journal_entry tool call with entry_id referencing je_sf02_dup_580000 or entry number JE-brookfield-FP-2026-05-0092. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent sends a message to [accounts@signalforgerevenue.com](mailto:accounts@signalforgerevenue.com) (SignalForge Revenue Studio) requesting recovery of the $3,847.50 overpayment on invoice VEN-036-847612.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"arrange recovery with the vendor\" for the overpayment. The vendor (Lisa Pemberton at SignalForge) has already notified Brookfield about the duplicate payment and is holding funds. The agent must contact the vendor to arrange recovery. Since this is an external vendor, email is the only available communication channel.",
+        "evidence": "Look for an email_send_email tool call with recipients including accounts@signalforgerevenue.com. Confirm the content references $3,847.50 and VEN-036-847612."
+    },
+    {
+        "title": "The Agent's recovery message to SignalForge references both invoice VEN-036-841295 (original, paid May 22) and VEN-036-847612 (duplicate, paid May 29) so the vendor can identify and process the overpayment.",
+        "category": "outcome",
+        "justification": "Both invoice numbers are needed for SignalForge to match the overpayment against their records. The agent must discover both invoices through SAP investigation and include them in the recovery request.",
+        "evidence": "Check the content of the email_send_email call to accounts@signalforgerevenue.com for both VEN-036-841295 and VEN-036-847612."
+    },
+    {
+        "title": "The Agent identifies that VEN-036-847612 is a duplicate of VEN-036-841295, both for $3,847.50 from SignalForge Revenue Studio, and that the duplicate was processed during the late-May compressed AP batch (or similar reference to the timing).",
+        "category": "outcome",
+        "justification": "The prompt asks to \"work through each issue and tell me exactly what happened.\" The agent must discover and report the root cause: the same $3,847.50 invoice was paid twice because the first payment had not cleared in SAP when the second batch was pulled.",
+        "evidence": "Check the agent's final response or the consolidated summary to Andrea Phil for mention of SignalForge duplicate payment, the amount $3,847.50, and both invoice numbers."
+    },
+    {
+        "title": "The Agent creates a journal entry on northstar_legal_FP-2026-05 in Oracle GL for $20,952 (40% of the Summit Shield Q2 premium), debiting account 560000 and crediting account 210000.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"post the corrective allocation entries to split it across the right entities.\" The Summit Shield renewal email specifies a 60/40 split: $31,428 to Acme Cloud and $20,952 to Northstar Legal. The original JE posted the full $52,380 to acme_cloud only. The agent must create a new JE on northstar_legal for the 40% share.",
+        "evidence": "Look for an oracle_gl_create_journal_entry tool call with period_id northstar_legal_FP-2026-05, total amount $20,952, debit to 560000, credit to 210000. Confirm success."
+    },
+    {
+        "title": "The Agent reverses or adjusts journal entry JE-acme_cloud-FP-2026-05-0091 on acme_cloud_FP-2026-05 to correct the Summit Shield insurance expense from the full $52,380 to the acme_cloud portion of $31,428 (60%).",
+        "category": "outcome",
+        "justification": "The prompt says \"post the corrective allocation entries to split it across the right entities.\" R5 covers the northstar_legal side. This rubric covers the acme_cloud side: the original $52,380 posting must be reduced to $31,428 so both entities reflect the correct allocation. Without this, acme_cloud's books would overstate insurance by $20,952.",
+        "evidence": "Look for an oracle_gl_reverse_journal_entry call targeting je_ss01_560000_acme or JE-acme_cloud-FP-2026-05-0091, or an oracle_gl_create_journal_entry call on acme_cloud_FP-2026-05 that adjusts the 560000 balance. The net result should be $31,428 on acme_cloud 560000."
+    },
+    {
+        "title": "The Agent notifies [steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com) (Managing Partner) that the Summit Shield Q2 renewal invoice totaling $52,380 exceeds the $50,000 AP approval threshold and requires partner sign-off, including the supporting allocation detail.",
+        "category": "outcome",
+        "justification": "The prompt says \"route the portion that exceeds the partner approval threshold to the appropriate partner with the supporting detail.\" The total Summit Shield invoice is $52,380, which exceeds the $50,000 threshold. Steven Perry is the Managing Partner responsible for AP approvals over $50,000 on acme_cloud. The agent must discover this threshold and the correct partner through investigation.",
+        "evidence": "Look for an email_send_email or messaging_send_message tool call directed to steven.perry@brookfieldcpas.com. Check that the content references $52,380, the $50,000 threshold (or similar), and Summit Shield Casualty."
+    },
+    {
+        "title": "The Agent's notification to Steven Perry includes the correct 60/40 allocation split: $31,428 for Acme Cloud (60%) and $20,952 for Northstar Legal (40%).",
+        "category": "outcome",
+        "justification": "The allocation split is a critical detail for the partner to understand the corrective action taken. The agent must discover these amounts from the Summit Shield renewal email (from Mark Caldwell) which specifies the endorsement schedule.",
+        "evidence": "Check the content of the communication to steven.perry@brookfieldcpas.com for the amounts $31,428 and $20,952 (or the 60/40 percentages with correct dollar values)."
+    },
+    {
+        "title": "The Agent reports that the Summit Shield Q2 premium increased by $14,140, from $38,240 in Q1 to $52,380 in Q2.",
+        "category": "outcome",
+        "justification": "The prompt asks to tell Daniel \"exactly what happened\" with the renewal invoice. The premium increase amount is a key fact discoverable from the renewal email. The agent should surface the increase amount.",
+        "evidence": "Check the agent's final response or the summary to Andrea Phil for mention of $14,140 increase, $38,240 prior quarter, or $52,380 current quarter."
+    },
+    {
+        "title": "The Agent identifies that the full $52,380 Summit Shield premium was booked entirely to acme_cloud (on JE-acme_cloud-FP-2026-05-0091) when it should have been split 60/40 between acme_cloud ($31,428) and northstar_legal ($20,952).",
+        "category": "outcome",
+        "justification": "This is the core finding for the Summit Shield scenario. The agent must trace the GL posting, compare it to the endorsement terms, and report the misallocation. This is the \"wrong entity's books\" issue the prompt references.",
+        "evidence": "Check the agent's final response or summary to Andrea for mention of the full amount posted to acme_cloud, the correct 60/40 split, and the northstar_legal allocation that was missed."
+    },
+    {
+        "title": "The Agent sends a message to [support@oakroutetech.com](mailto:support@oakroutetech.com) (Oakroute Managed Technology) requesting a credit memo for the overcharged invoices VEN-015-667834 and VEN-015-678912.",
+        "category": "outcome",
+        "justification": "The prompt asks to \"request a credit memo from the vendor.\" The agent must contact Oakroute about the billing error. Since this is an external vendor, email is the only available communication channel.",
+        "evidence": "Look for an email_send_email tool call with recipients including support@oakroutetech.com. Confirm the content references a credit memo and the two invoice numbers."
+    },
+    {
+        "title": "The Agent's credit memo request to Oakroute specifies the total overcharge of $1,600 across two months, with each invoice at $3,200 (Premium rate) instead of the agreed $2,400 (Standard rate).",
+        "category": "outcome",
+        "justification": "The specific amounts are needed for Oakroute to process the credit. The agent must calculate the overcharge ($800/month x 2 months = $1,600) from the SAP invoice data and the April downgrade confirmation.",
+        "evidence": "Check the content of the email to support@oakroutetech.com for $1,600 total, $3,200 billed vs $2,400 correct rate, and reference to both invoices."
+    },
+    {
+        "title": "The Agent communicates that further payments to Oakroute Managed Technology are being held until billing is corrected to the Standard tier rate of $2,400/month.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"hold further payments until the billing is corrected.\" The agent must communicate this hold directive in the email to Oakroute, in the summary to Andrea, or in the Airtable update.",
+        "evidence": "Check the email to support@oakroutetech.com, the summary to Andrea Phil, or the Airtable exception update for mention of holding or suspending further payments until the rate is corrected."
+    },
+    {
+        "title": "The Agent reports that Daniel Jones confirmed the service tier downgrade from Premium ($3,200/month) to Standard ($2,400/month) with Oakroute in April, and that Nathan Cross at Oakroute acknowledged the change, but the May and June invoices were never updated to the new rate.",
+        "category": "outcome",
+        "justification": "The prompt says \"I confirmed a service change with one of these vendors back in April\" and asks the agent to find this. The agent must discover Daniel's April 15 email to Oakroute and Nathan Cross's April 16 reply confirming the downgrade, then connect this to the two overcharged invoices.",
+        "evidence": "Check the agent's final response or summary to Andrea for mention of the April downgrade, Premium vs Standard tier, $3,200 vs $2,400 rates, and the two months of overcharges."
+    },
+    {
+        "title": "The Agent sends a consolidated summary to [andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com) covering all three vendor exception items and the corrective actions taken for each.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"Send Andrea a consolidated summary of all three items and the corrective path for each, since the close pack is waiting on this.\" Andrea Phil is Daniel's reporting partner and the close-pack certifier.",
+        "evidence": "Look for an email_send_email or messaging_send_message tool call directed to andrea.phil@brookfieldcpas.com. Confirm the content covers all three vendors (SignalForge, Summit Shield, Oakroute)."
+    },
+    {
+        "title": "The Agent's summary to Andrea Phil includes the SignalForge duplicate reversal of $3,847.50 and recovery arrangement with the vendor.",
+        "category": "outcome",
+        "justification": "Andrea needs the financial details and corrective path for each item to confirm the close pack is unblocked. The SignalForge item involves a $3,847.50 duplicate payment that was reversed, with recovery in progress.",
+        "evidence": "Check the content of the communication to andrea.phil@brookfieldcpas.com for $3,847.50 and the SignalForge reversal/recovery status."
+    },
+    {
+        "title": "The Agent's summary to Andrea Phil includes the Summit Shield 60/40 reallocation ($31,428 to Acme Cloud / $20,952 to Northstar Legal) and that Steven Perry has been routed the item for threshold approval.",
+        "category": "outcome",
+        "justification": "Andrea needs to know the corrective allocation and that the partner approval has been initiated for the amount exceeding $50,000.",
+        "evidence": "Check the content of the communication to andrea.phil@brookfieldcpas.com for the 60/40 split amounts and Steven Perry routing."
+    },
+    {
+        "title": "The Agent's summary to Andrea Phil includes the Oakroute $1,600 overcharge, the credit memo request, and the payment hold.",
+        "category": "outcome",
+        "justification": "Andrea needs to know the Oakroute billing error amount, that a credit memo has been requested, and that payments are held until billing is corrected.",
+        "evidence": "Check the content of the communication to andrea.phil@brookfieldcpas.com for $1,600 overcharge, credit memo, and payment hold (or similar)."
+    },
+    {
+        "title": "The Agent updates the SignalForge AP Workflow Exception record in Airtable (table: AP Workflow Exceptions) to reflect the reversal and recovery status.",
+        "category": "outcome",
+        "justification": "The prompt says \"Update the AP workflow exception records.\" The SignalForge exception record (status: Open) must be updated to reflect that the duplicate JE has been reversed and recovery is in progress with the vendor.",
+        "evidence": "Look for an airtable_update_records tool call targeting table_id airtable_8ee8b6013413 that updates the SignalForge record (airtable_7c4d2e5f6a8b)."
+    },
+    {
+        "title": "The Agent updates the Summit Shield AP Workflow Exception record in Airtable (table: AP Workflow Exceptions) to reflect the corrective allocation and partner approval routing.",
+        "category": "outcome",
+        "justification": "The Summit Shield exception record must be updated to reflect that corrective JEs have been posted and the item has been routed to Steven Perry for threshold approval.",
+        "evidence": "Look for an airtable_update_records tool call targeting table_id airtable_8ee8b6013413 that updates the Summit Shield record (airtable_8d5e3f6a7b9c)."
+    },
+    {
+        "title": "The Agent updates the Oakroute AP Workflow Exception record in Airtable (table: AP Workflow Exceptions) to reflect the credit memo request and payment hold.",
+        "category": "outcome",
+        "justification": "The Oakroute exception record must be updated to reflect that a credit memo has been requested from the vendor and further payments are held until billing is corrected.",
+        "evidence": "Look for an airtable_update_records tool call targeting table_id airtable_8ee8b6013413 that updates the Oakroute record (airtable_6b3c1d4e5f7a)."
+    },
+    {
+        "title": "The Agent adds a comment to the AP workflow standardization issue in Linear, referencing the three vendor exceptions as examples of process gaps the standardized controls should address.",
+        "category": "outcome",
+        "justification": "The prompt says \"add a comment to the open AP standardization issue so the team can see these as examples of what the new controls need to catch.\" The AP standardization issue already has existing comments discussing AP workflow gaps. The agent must add its own comment with the three vendor exception examples.",
+        "evidence": "Look for a linear_create_comment tool call. Confirm the body references the three vendor exceptions and the types of controls needed (duplicate check, allocation verification, rate validation, or similar)."
+    }
+]

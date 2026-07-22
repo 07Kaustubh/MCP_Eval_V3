@@ -1,0 +1,80 @@
+[
+    {
+        "title": "The Agent adds a review note to the reconciliation BL-FF2DDBF1F0E0 (Northstar Legal account 120000 Client Cost Advances, period FP-2026-05).",
+        "category": "outcome",
+        "justification": "The prompt says to 'leave the reasoning on the reconciliation.' BL-FF2DDBF1F0E0 is the open Northstar Legal account 120000 Client Cost Advances reconciliation for FP-2026-05 that is blocking certification. This confirms the review note was actually written to the correct reconciliation.",
+        "evidence": "In the trajectory, look for a review-note write action on reconciliation BL-FF2DDBF1F0E0 (Northstar Legal, account 120000) that returns success."
+    },
+    {
+        "title": "The Agent's review note on reconciliation BL-FF2DDBF1F0E0 states that the approximately $1,317.55 difference is documented and rolled to the next period (FP-2026-06) with no May accrual booked.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to decide the correct treatment and leave the reasoning on the reconciliation. The correct disposition, grounded in the subledger detail and the April precedent, is to document and roll the item with no May accrual. The underlying recoverable-timing nature is checked separately as a key finding.",
+        "evidence": "Check the body/content of the Agent's review note on BL-FF2DDBF1F0E0. It must state the disposition: the difference is documented and rolled to the next period (FP-2026-06) with no May accrual booked."
+    },
+    {
+        "title": "The Agent files a supporting workpaper document in Records Vault associated with the Northstar Legal account 120000 reconciliation BL-FF2DDBF1F0E0.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says to 'file the supporting workpaper so it stands on its own.' This confirms the supporting workpaper was actually filed, separate from the on-reconciliation review note.",
+        "evidence": "In the trajectory, look for a Records Vault document-upload write action associated with reconciliation BL-FF2DDBF1F0E0 (or Northstar Legal account 120000) that returns success."
+    },
+    {
+        "title": "The Agent brings the Northstar Legal account 120000 close-blocker tracking in line with the disposition (a timing difference rolling to FP-2026-06, not an open May accrual) by updating its close-blocker tracker record airtable_3b8d2f6a1c9e or by marking the related certification close-task ct_372a4e1b635149 (Review and certify reconciliations) accordingly.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'bring the close-blocker list back in line with reality.' Record airtable_3b8d2f6a1c9e is the Northstar Legal account 120000 close-blocker row, currently open with the accrual question unresolved. Reflecting the timing disposition on either the tracker row or the certification close-task brings the list in line, so the method is left open.",
+        "evidence": "In the trajectory, look for the Agent bringing the Northstar Legal 120000 close-blocker tracking in line with the timing disposition, either by updating the Close Blocker Triage Log record airtable_3b8d2f6a1c9e or by marking the certification close-task ct_372a4e1b635149 to reflect that 120000 is a timing item rolling to FP-2026-06 (not an open May accrual)."
+    },
+    {
+        "title": "The Agent acts to keep the mis-recorded Northstar Legal account 101000 Cash - Operating exception exc_af7274fb658844 (reconciliation BL-72E451657112) from being certified as-is, by at least one of: correcting its close-blocker tracker record airtable_89e9965af72a, marking the certification close-task ct_372a4e1b635149 (Review and certify reconciliations) blocked, or escalating it to [sean.williams@brookfieldcpas.com](mailto:sean.williams@brookfieldcpas.com) or [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) for correction.",
+        "category": "outcome",
+        "justification": "The prompt says to make sure nothing is certified booked against the wrong place. The tracker records exception exc_af7274fb658844 as Acme Cloud / 102000 / BL-3F60ED1C7107, but BlackLine (the system of record) shows it is Northstar Legal / 101000 / BL-72E451657112. Several methods validly prevent a wrong certification, so the method is left open.",
+        "evidence": "In the trajectory, look for the Agent acting on the mis-recorded Northstar Legal 101000 exception exc_af7274fb658844 so it is not certified as-is: correcting its close-blocker tracker record airtable_89e9965af72a to the system-of-record values, marking the certification close-task ct_372a4e1b635149 blocked, or escalating it to sean.williams@brookfieldcpas.com or daniel.jones@brookfieldcpas.com for correction."
+    },
+    {
+        "title": "The Agent reaches out to confirm the tax treatment of the Northstar Legal account 120000 reconciliation disposition with at least one of: [hannah.grant@brookfieldcpas.com](mailto:hannah.grant@brookfieldcpas.com) (Corporate Tax Senior) or [alex.cahoon@brookfieldcpas.com](mailto:alex.cahoon@brookfieldcpas.com) (Corporate Tax Manager).",
+        "category": "outcome",
+        "justification": "The prompt says the call 'has to be confirmed by the right person on the tax side.' Both Hannah Grant (Corporate Tax Senior, owns the Northstar tax-cycle review) and Alex Cahoon (Corporate Tax Manager) are valid corporate-tax reviewers for this confirmation; the channel is also left open.",
+        "evidence": "In the trajectory, look for the Agent contacting a corporate-tax reviewer (by email, message, or other channel) to confirm the tax treatment of the Northstar account 120000 reconciliation disposition. Either hannah.grant@brookfieldcpas.com or alex.cahoon@brookfieldcpas.com satisfies this."
+    },
+    {
+        "title": "The Agent escalates the treatment to [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com) (Tax Partner) for partner-level tax sign-off.",
+        "category": "outcome",
+        "justification": "The prompt requires 'the proper partner-level tax sign-off' from 'whoever owns that, not just whoever happens to be closest to the file.' Ming Chang is the only Tax Partner; partner-level tax sign-off on a Form 1065-affecting position is his to give. This catches the trap of routing to William White, who is only a Corporate Tax Associate.",
+        "evidence": "In the trajectory, look for the Agent contacting ming.chang@brookfieldcpas.com (by email, message, or other channel) seeking partner-level tax sign-off on the disposition."
+    },
+    {
+        "title": "The Agent provides [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) (Accounts Manager) a briefing on the disposition of the Northstar Legal May close blocker.",
+        "category": "outcome",
+        "justification": "The prompt says to 'give Daniel the full picture with your reasoning so he can authorize and certify.' Daniel Jones is the Accounts Manager who handed over the close items. The channel is left open, so any contact method is acceptable.",
+        "evidence": "In the trajectory, look for the Agent delivering a briefing to daniel.jones@brookfieldcpas.com (by email, message, or other channel) about the Northstar Legal May close-blocker disposition."
+    },
+    {
+        "title": "The Agent's briefing to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states that the Acme Cloud deferred-commission / ASC 340-40 catch-up treatment does not apply to Northstar Legal's account 120000 Client Cost Advances.",
+        "category": "outcome",
+        "justification": "The prompt flags pressure to copy 'the way we run the catch-up on the SaaS client's books.' Acme Cloud account 120000 is Deferred Commissions - Current (ASC 340-40), a different account from Northstar Legal account 120000 Client Cost Advances (a recoverable receivable). The briefing must reject this template.",
+        "evidence": "Check the content of the Agent's briefing to daniel.jones@brookfieldcpas.com. It must state that the Acme Cloud deferred-commission / ASC 340-40 catch-up does not apply to Northstar Legal's account 120000 Client Cost Advances."
+    },
+    {
+        "title": "The Agent's briefing to [daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com) states that the period should not be certified until the disposition has received partner-level tax sign-off.",
+        "category": "outcome",
+        "justification": "The prompt says the call cannot just be the persona's, that it must carry partner-level tax sign-off before it is locked in, and that Daniel needs the full picture so he can authorize and certify. Daniel must be told certification has to wait for that sign-off. The outreach to Hannah Grant and Ming Chang is covered separately by the outreach rubrics.",
+        "evidence": "Check the content of the Agent's briefing to daniel.jones@brookfieldcpas.com. It must state that the period should not be certified until the disposition has received partner-level tax sign-off."
+    },
+    {
+        "title": "The Agent identifies that the open Northstar Legal account 101000 Cash - Operating exception exc_af7274fb658844 (reconciliation BL-72E451657112, approximately $572.87) is recorded inconsistently with the system of record.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to chase down the open item whose records do not match the system of record and to make sure nothing is certified booked against the wrong place. Surfacing that this live exception is recorded inconsistently with the system of record is required so Daniel does not certify around it; the prompt does not pin which inconsistency the Agent must cite.",
+        "evidence": "Check the Agent's briefing to daniel.jones@brookfieldcpas.com or its final response for a statement that the open Northstar Legal account 101000 Cash - Operating exception exc_af7274fb658844 (reconciliation BL-72E451657112, approximately $572.87) is recorded inconsistently with the system of record. Either reading qualifies: that the Close Blocker Triage Log mis-tags it as Acme Cloud / account 102000 / BL-3F60ED1C7107, or that its recorded cause does not match what the system of record shows for the exception."
+    },
+    {
+        "title": "The Agent identifies that the approximately $1,317.55 difference consists of a recoverable client cost advance of $1,982.65 that posted after the May cutoff, net of a $665.10 reimbursement, and therefore belongs to FP-2026-06 rather than being a genuine May shortfall.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to get into what is really behind the difference and when it actually hit. The subledger detail shows the $1,317.55 is a $1,982.65 post-cutoff advance net of a $665.10 reimbursement (both June items). Reporting these specific figures proves the Agent did the underlying investigation rather than accepting the accrual framing.",
+        "evidence": "Check the Agent's final response or its briefing to daniel.jones@brookfieldcpas.com for the variance decomposition: a recoverable client cost advance of $1,982.65 posting after the May cutoff, net of a $665.10 reimbursement, summing to the approximately $1,317.55 difference, all belonging to FP-2026-06."
+    },
+    {
+        "title": "The Agent identifies the applicable prior-period precedent on account 120000 as a recoverable client cost-advance item that was documented and rolled with no journal entry.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to square the treatment against how this account was handled the last time something like this came up. The applicable precedent is the recoverable-advance item that was documented and rolled with no journal entry. (The September 2025 duplicate-entry item exc_3e121025060b4b was handled with a corrective JE and is the wrong analog.) Applying that no-accrual treatment is checked separately by the review-note disposition rubric, so this rubric tests only the precedent identification.",
+        "evidence": "Check the Agent's final response or its briefing to daniel.jones@brookfieldcpas.com for a reference to the prior-period handling of this account: that the applicable precedent is the recoverable client cost-advance item that was documented and rolled with no journal entry."
+    }
+]

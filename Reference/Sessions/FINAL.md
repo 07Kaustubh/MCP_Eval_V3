@@ -26,7 +26,7 @@
 | `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 atom surface |
 | `Tasks/<TASK_DIR>/_aux/Universe_Index/` | S0 summaries |
 | `Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure modes |
-| `Docs/7_QC_Spec_Doc1.json` + `Docs/8_QC_Spec_Doc2.md` | QC scoring |
+| QC spec docs routed by `_aux/Universe.txt`: Brookfield `Docs/7+8` · KeyStone `Docs_keystone/7+8` · MoveOps `Docs_moveops` QC guidelines · StarPM `Docs_starpm/7_QC_Spec_Doc1.json` + `Docs_starpm/8_QC_Spec_Doc2.md` (NEVER cross-load another universe's spec) | QC scoring |
 | `Reference/Council_Protocol.md` | council instructions |
 
 ## Roster (4 perspectives in a single high-rigor sub-agent call)
@@ -270,3 +270,17 @@ Do NOT proceed to platform-upload guidance or `PIPELINE S4` inside this chat.
 ## Bootstrap
 
 Read root `AGENTS.md` first. This phase is mandatory before platform upload — never ship a task without a Final Council PASS. The cross-artifact gate is the last line of defense before the platform reviewer sees the work.
+
+## V4 (StarPM / per_model framework) additional hard gates
+
+For tasks whose universe has framework v4 (check `_aux/Universe.txt` == `starpm`), FINAL runs TWO extra deterministic gates BEFORE the council call. Both must PASS; a FAIL is a BLOCKER exactly like a validator FAIL.
+
+```
+python3 Validators/validate.py --phase injection --task Tasks/<TASK_DIR>
+python3 Validators/validate.py --phase submission_gate --task Tasks/<TASK_DIR>
+```
+
+- `injection` enforces Evals_starpm/0 (7 hard gates: schema, ID format, date window 2026-05-01..2026-07-01, cross-service integrity, naturalness census, reachability, pre-solve). Difficulty >= 3.5 is a COUNCIL judgment: feed the report's COUNCIL note lines to the Final Council.
+- `submission_gate` enforces Evals_starpm/5 (defect families F1-F6; any single deterministic defect = FAIL). Council reviews the report's COUNCIL lines (under-strictness 6.3, exclusion coverage 6.6, OE authority 6.9, strict feasibility 6.10, date alignment 6.11).
+- Density for StarPM: design target 40+ avg tool calls (Docs_starpm/1 hard gate: "AVERAGE TOOL CALL COUNT OF ALL AGENT RUNS MUST BE 40+"); the QC-spec fail floor is 15. Do NOT apply the Brookfield 50/40 scheme to StarPM or vice versa.
+- Verification is dual-model: FINAL sign-off notes must state that BOTH Opus and Gemini runs are expected downstream (8a/8b + `Agent_Responses/{Opus,Gemini}/`).

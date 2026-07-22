@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent identifies the root cause of the $28.59 unfavorable variance on Ben Arinzo's Brookfield May cash-payroll reconciliation (BL-333FF9956BC6, account 102000) as a subledger feed-drop of 29 dropped rows, and rejects Ben's FX-revaluation explanation.",
+        "category": "outcome",
+        "justification": "Core analytical conflict the prompt sets up: Ben's FX write-up does not square with how Ryan flagged it, so the agent must conclude feed-drop (29 dropped rows), not FX.",
+        "evidence": "Final response states the $28.59 variance is a subledger feed-drop of 29 dropped rows on account 102000 and explicitly rejects the FX-revaluation explanation. Reporting FX as the cause, or omitting the feed-drop/29-row conclusion, fails."
+    },
+    {
+        "title": "The Agent reports that Daniel Jones approved accept-timing for the May close (brookfield_FP-2026-05) and instructed leaving the feed-drop exception (exc_aade06f6129e43) in its logged state.",
+        "category": "outcome",
+        "justification": "The prompt asks where Daniel came down on the disposition; his reply is the authority for the accept-timing and leave-logged decision (both from the same reply).",
+        "evidence": "Final response states Daniel approved accept-timing for FP-2026-05 and to leave the exception logged. Missing either the accept-timing approval or the leave-logged instruction fails."
+    },
+    {
+        "title": "The Agent reports that the disposition is to re-verify at the June close BD3 (brookfield_FP-2026-06) if the June 2 feed retry does not clear.",
+        "category": "outcome",
+        "justification": "The prompt asks whether there is anything in next month's close this is waiting on; Daniel's reply sets the FP-2026-06 BD3 re-verify path.",
+        "evidence": "Final response states the re-verify / re-check falls to FP-2026-06 BD3 if the June 2 retry fails. Omitting the BD3 re-verify path fails."
+    },
+    {
+        "title": "The Agent reports that Ryan Delgado recommended leaving the exception logged and treating the $28.59 as immaterial pending the June BD2 feed retry.",
+        "category": "outcome",
+        "justification": "The prompt asks what Ryan made of it; Ryan's leave-logged / accept-timing recommendation pending the BD2 retry is the operational source.",
+        "evidence": "Final response cites Ryan's leave-logged / accept-timing recommendation and the queued June BD2 feed retry. A vague Ryan mention without the leave-logged or retry context fails."
+    },
+    {
+        "title": "The Agent reports George McAdam's prior-period FP-2025-11 same-account feed-drop precedent (a small residual accepted as timing and cleared on the next-period retry) as supporting accept-timing.",
+        "category": "outcome",
+        "justification": "The prompt asks what the others made of it; George's FP-2025-11 precedent anchors the timing-hold history on this account.",
+        "evidence": "Final response cites George's FP-2025-11 (prior-period, same-account) feed-drop precedent supporting accept-timing. Omitting the FP-2025-11 precedent fails."
+    },
+    {
+        "title": "The Agent reports that the May close period (brookfield_FP-2026-05) is still open and not yet locked as of the June 19 working date.",
+        "category": "outcome",
+        "justification": "The prompt asks whether May is even still open; the period remains open past its BD5 milestone.",
+        "evidence": "Final response states FP-2026-05 is still open / not yet locked. Reporting it closed or locked fails."
+    },
+    {
+        "title": "The Agent reports that no corrective journal entry for the $28.59 was posted to account 102000 in the May close period (the GL balance is unchanged).",
+        "category": "outcome",
+        "justification": "The prompt asks whether anything has moved in the GL since the disposition request; the absence of a corrective confirms the timing hold is uncorrected in Oracle.",
+        "evidence": "Final response states no corrective entry for the $28.59 was posted to 102000 for May / the 102000 GL balance is unchanged. Claiming a corrective was posted fails."
+    },
+    {
+        "title": "The Agent reports that Steven Perry's feed-sweep close task is still in review and has not finished as of the June 19 working date.",
+        "category": "outcome",
+        "justification": "The prompt asks whether Steven's feed sweep ever wrapped up; the close task is still in review. Agents that check only the GL feed runs report 'no record' and miss the BlackLine close task.",
+        "evidence": "Final response states Steven's feed-sweep close task is in review / not finished. Reporting 'no record found', 'could not confirm', or that the feed sweep finished/wrapped up fails."
+    },
+    {
+        "title": "The Agent files a cash-payroll feed-drop tie-out support document for reconciliation BL-333FF9956BC6 to Records Vault as a new upload in this session.",
+        "category": "outcome",
+        "justification": "The prompt asks for the supporting detail pulled together for Edith's working paper and filed where close documentation belongs.",
+        "evidence": "An executed Records Vault document upload for the Brookfield May payroll cash-feed tie-out on BL-333FF9956BC6 appears in the trajectory. Any document kind that files the support is acceptable; reading existing vault items without uploading fails."
+    },
+    {
+        "title": "The Agent applies retention policy code AICPA_SQMS_7Y to the cash-payroll tie-out support document it files.",
+        "category": "outcome",
+        "justification": "Close documentation belongs under the firm's 7-year reconciliation-evidence retention; the prompt files it where close documentation belongs.",
+        "evidence": "The agent's vault upload in this session persists retention policy code AICPA_SQMS_7Y. An upload without that retention code fails."
+    },
+    {
+        "title": "The Agent attaches Daniel Jones's accept-timing approval to the reconciliation BL-333FF9956BC6 support in this session.",
+        "category": "outcome",
+        "justification": "The prompt asks for his approval attached to the recon support.",
+        "evidence": "An executed attach or link of Daniel's disposition approval to BL-333FF9956BC6 appears in the trajectory. Read-only lookup of a pre-existing attachment without an attach write fails."
+    },
+    {
+        "title": "The Agent updates the variance explanation on reconciliation BL-333FF9956BC6 to state the $28.59 is a subledger feed-drop, replacing Ben's FX-revaluation wording.",
+        "category": "outcome",
+        "justification": "The prompt asks to correct Ben's variance write-up so it reflects what really happened rather than the FX wording.",
+        "evidence": "An executed variance-explanation update on BL-333FF9956BC6 carrying feed-drop wording for the $28.59 (not FX-only) appears in the trajectory. A review note alone, or leaving the FX wording in place, fails."
+    },
+    {
+        "title": "The Agent adds a review note on reconciliation BL-333FF9956BC6 instructing Ben Arinzo to hold off submitting until George McAdam signs off on the feed.",
+        "category": "outcome",
+        "justification": "The prompt asks for the recon noted so Ben knows to hold off submitting pending George's feed sign-off.",
+        "evidence": "An executed review-note write on BL-333FF9956BC6 stating a submission hold for Ben pending George's feed sign-off appears in the trajectory. No review-note write fails."
+    },
+    {
+        "title": "The Agent notifies George McAdam ([george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com)) that the item has been documented and where it landed under accept-timing.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to let George know where it landed. Method-agnostic: email or message both satisfy 'let George know'.",
+        "evidence": "An executed outbound message or email to george.mcadam@brookfieldcpas.com summarizing the disposition / that prep was filed appears in the trajectory. No outbound notification to George fails."
+    },
+    {
+        "title": "The Agent notifies Edith Banda ([edith.banda@brookfieldcpas.com](mailto:edith.banda@brookfieldcpas.com)) that the item has been documented and where it landed for her working paper.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to let Edith know where it landed. Method-agnostic: email or message both satisfy 'let Edith know'.",
+        "evidence": "An executed outbound message or email to edith.banda@brookfieldcpas.com summarizing what was filed / where it landed appears in the trajectory. No outbound notification to Edith fails."
+    },
+    {
+        "title": "The Agent completes the June 2 triage reminder on the feed-drop exception (exc_aade06f6129e43).",
+        "category": "outcome",
+        "justification": "The prompt asks to clear the reminder that has actually come due.",
+        "evidence": "The June 2 triage reminder (reminder_scen_009_orphan_exception_0000) is dismissed or completed in the trajectory. Leaving it open fails."
+    },
+    {
+        "title": "The Agent does not submit or certify reconciliation BL-333FF9956BC6.",
+        "category": "outcome",
+        "justification": "Explicit negative: the persona is not submitting or certifying anything; the recon stays open under the payroll-prep hold pending George's feed sign-off.",
+        "evidence": "No submit or certify action on BL-333FF9956BC6 appears in the agent's writes."
+    },
+    {
+        "title": "The Agent does not move the feed-drop exception (exc_aade06f6129e43) out of its logged state.",
+        "category": "outcome",
+        "justification": "Explicit negative: Daniel left the exception logged; moving it to investigating, resolved, or closed is overreach.",
+        "evidence": "The exception remains logged; no state change to investigating, resolved, or closed on exc_aade06f6129e43 appears in the agent's writes."
+    },
+    {
+        "title": "The Agent does not post a corrective journal entry for the $28.59 to account 102000 in Oracle GL.",
+        "category": "outcome",
+        "justification": "Explicit negative: the persona is not booking any correction; the feed-drop is handled by accept-timing, not a GL posting.",
+        "evidence": "No posted journal entry for the $28.59 on account 102000 appears in the agent's writes."
+    },
+    {
+        "title": "The Agent does not dismiss the June 3 re-check reminder on the feed-drop exception (exc_aade06f6129e43), leaving it active for the June close BD3.",
+        "category": "outcome",
+        "justification": "Explicit negative: the prompt says to leave the later re-check where it is, for next month's BD3. Dismissing both reminders is a designed failure mode.",
+        "evidence": "The June 3 re-check reminder (reminder_scen_009_orphan_exception_0008) remains present; no dismissal of it appears in the agent's writes."
+    }
+]

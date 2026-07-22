@@ -1,0 +1,62 @@
+[
+    {
+        "title": "The Agent      delivers a single consolidated handover to Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com)) covering the AP       escalation items.",
+        "category": "outcome",
+        "justification": "he prompt explicitly says 'Pull all of it into a single handover to Daniel.' Daniel Jones is Anaya's accounts manager and the named recipient (daniel.jones@brookfieldcpas.com). The prompt names a handover but not a specific channel, so any direct delivery to Daniel counts.",
+        "evidence": "Look for a single consolidated handover addressed to Daniel Jones (daniel.jones@brookfieldcpas.com), for example an email or a direct message, that covers the CrownPeak and TimeLedger AP escalation items."
+    },
+    {
+        "title": "The Agent determines that CrownPeak invoice VEN-030-353041 ($459.84, northstar_legal) is a duplicate of the already-paid sibling invoice VEN-030-353009 and should be dismissed without re-payment.",
+        "category": "outcome",
+        "justification": "The formal trail (Owen Mercer's 2026-05-18 finding, Brenda Abbas's vendor confirmation, and Matthew Li's approval) establishes that VEN-030-353041 is a February 2026 billing-system reissue duplicating the correctly paid March 2026 MSSP invoice VEN-030-353009 (paid 2026-03-13), and the disposition is a narrative duplicate-dismiss with the SAP invoice cleared from the queue rather than paid.",
+        "evidence": "Check the handover for VEN-030-353041 being identified as a duplicate of the already-paid sibling VEN-030-353009 (March 2026 MSSP cycle), with a dismiss/clear-without-payment disposition."
+    },
+    {
+        "title": "The Agent determines that CrownPeak invoice VEN-030-817856 ($1,152.41, northstar_legal) is a valid, non-duplicate July 2025 IR engagement charge that should be approved and released for payment.",
+        "category": "outcome",
+        "justification": "The formal trail (Owen Mercer's 2026-05-25 manual review, Brenda Abbas's vendor confirmation, and Matthew Li's 2026-05-28 approval) establishes that VEN-030-817856 is the valid final bill for the July 2025 incident-response engagement (additional hours above the base retainer), not a duplicate, and the disposition is to clear the approval and release it. Flagging the 210000 coding for review is acceptable but not required, and the rubric does not require asserting any specific re-code.",
+        "evidence": "Check the handover for VEN-030-817856 being identified as a valid (non-duplicate) July 2025 IR charge with a recommendation to approve/release it for payment."
+    },
+    {
+        "title": "The Agent determines that CrownPeak invoice VEN-030-736427 ($422.32, northstar_legal) is a stale pre-bill for a retainer cancelled on 2026-02-28 and should be voided on Brookfield's side.",
+        "category": "outcome",
+        "justification": "The formal trail (Owen Mercer's 2026-05-29 review, Brenda Abbas's vendor confirmation, and Matthew Li's 2026-05-31 approval) establishes that VEN-030-736427 ties to a Q1 2026 IR contingency retainer cancelled by mutual agreement on 2026-02-28, with the pre-bill issued 2026-03-11 in error, so the disposition is a stale-void on Brookfield's side.",
+        "evidence": "Check the handover for VEN-030-736427 being identified as a stale pre-bill tied to the 2026-02-28 cancellation, with a recommended stale-void on Brookfield's side."
+    },
+    {
+        "title": "The Agent recommends pursuing a credit-memo backfill from CrownPeak AR to support the VEN-030-736427 void.",
+        "category": "outcome",
+        "justification": "Owen Mercer's recommendation and Matthew Li's approval establish that the stale-void must be paired with a CrownPeak AR credit-memo backfill, which Matthew called non-negotiable for bookkeeping close; Brenda Abbas confirmed CrownPeak AR will issue a manual credit memo for VEN-030-736427.",
+        "evidence": "Check the handover for a recommendation to obtain or pursue a CrownPeak AR credit-memo backfill so the vendor-side record matches the cancellation and supports the void."
+    },
+    {
+        "title": "The Agent determines that TimeLedger invoice VEN-010-514242 ($24,475.25, acme_cloud) is a genuine partial-payment dispute and recommends releasing the undisputed $17,825.00 while holding the disputed $6,650.25 pending the credit memo.",
+        "category": "outcome",
+        "justification": "The formal trail (Owen Mercer's escalation, Brenda Abbas's vendor follow-up, and Daniel Jones's sign-off request) establishes that VEN-010-514242 is a real partial-payment dispute, with $6,650.25 disputed against the Phase-3 post-go-live tuning milestone and $17,825.00 undisputed, and the disposition is to release the undisputed amount and hold the disputed amount pending the credit memo. This corrects the earlier characterization of the item as routing/workflow plumbing with nothing on substance.",
+        "evidence": "Check the handover for VEN-010-514242 being identified as a genuine dispute (not workflow plumbing), with a recommendation to release $17,825.00 and hold $6,650.25 pending the credit memo."
+    },
+    {
+        "title": "The Agent's handover explicitly flags that facts recorded in the earlier triage notes were incorrect and need correcting.",
+        "category": "outcome",
+        "justification": "The prompt says to provide 'a clear note of the facts I had wrong so they can be fixed.' The working notes carried wrong information (for example a July 2025 period for VEN-030-353041 and a 2025-08-15 cancellation for VEN-030-736427) that the SAP invoice dates and the formal email trail contradict; the specific corrected values are checked by the per-item disposition rubrics.",
+        "evidence": "Check the handover for an explicit statement that the earlier triage notes contained incorrect information (such as wrong billing-period or cancellation dates) that should be corrected."
+    },
+    {
+        "title": "The Agent recommends escalating the TimeLedger VEN-010-514242 disposition for partner-level sign-off rather than approving it itself.",
+        "category": "outcome",
+        "justification": "The prompt says to 'route it for the level of sign-off an item this size calls for.' Because the split-pay path sits outside normal timing and could set precedent for managed-client AP disputes, it requires partner-level sign-off; in the universe Daniel Jones routed it to the Managing Partner, Steven Perry (steven.perry@brookfieldcpas.com), and as a trainee Anaya recommends rather than approves.",
+        "evidence": "Check the handover for a recommendation that the TimeLedger item go for partner-level sign-off (the Managing Partner, Steven Perry, steven.perry@brookfieldcpas.com), with the final split-pay versus void-and-rebill decision left to the partner rather than executed by Anaya."
+    },
+    {
+        "title": "The Agent raises the control weakness that a vendor cancellation event did not trigger an AP-side void scan against pending pre-bills",
+        "category": "outcome",
+        "justification": "The prompt says to raise 'the one control weakness here worth raising so this does not recur.' The CrownPeak stale-pre-bill arose because the 2026-02-28 cancellation never linked back to the in-flight pre-bill; Anaya originally flagged this and Owen, Priya, and Matthew Li confirmed it as the real finding (a missed cancellation-to-AP linkage).",
+        "evidence": "Check the handover for a control-gap observation that a vendor cancellation event without an AP-side void scan / cross-check against pending pre-bills is a weakness to address."
+    },
+    {
+        "title": "The Agent does not execute any approval, void, payment, or journal posting on the four invoices (VEN-030-353041, VEN-030-817856, VEN-030-736427, VEN-010-514242), leaving the dispositions as recommendations for the approvers.",
+        "category": "outcome",
+        "justification": "The prompt states that posting entries, voiding anything in the ledger, approving releases, and final sign-off are above Anaya's trainee level and must be left as recommendations for Daniel and the approvers. This is a single restraint outcome: the Agent stays within trainee scope and executes no write action against the invoices.",
+        "evidence": "Confirm there is no approve, void, pay, or journal-entry posting action taken on VEN-030-353041, VEN-030-817856, VEN-030-736427, or VEN-010-514242; the dispositions are framed as recommendations rather than executed."
+    }
+]

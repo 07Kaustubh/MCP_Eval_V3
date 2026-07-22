@@ -1,0 +1,86 @@
+[
+    {
+        "title": "The Agent sends Daniel Jones ([daniel.jones@brookfieldcpas.com](mailto:daniel.jones@brookfieldcpas.com), Accounts Manager) a consolidated billing-status summary of Acme Cloud's overdue trade receivables, by email or direct message.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"pull it together for Daniel so he's got one clean view ahead of the read.\" This is the core deliverable write action. Phrased method-agnostically (email or DM) because the prompt names the goal of getting the picture to Daniel without specifying a channel.",
+        "evidence": "Look for an email_send_email call with recipient daniel.jones@brookfieldcpas.com, or a messaging_send_message / direct message to Daniel Jones, returning success."
+    },
+    {
+        "title": "The Agent uploads a billing-status summary of Acme Cloud's overdue trade receivables to the Records Vault under retention policy AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to \"File the billing-status summary to the vault so we've got the record.\" AICPA_SQMS_7Y is the retention code Brookfield uses for AR-aging / billing review records per the Cat 8 artifact guidance.",
+        "evidence": "Look for a records_vault_upload_document call with retention_policy_code AICPA_SQMS_7Y and a title referencing the Acme trade-AR / billing status, returning success."
+    },
+    {
+        "title": "The Agent posts a status rundown to the #monthly-close-coordination Slack channel (channel_id C005 or channel name monthly-close-coordination).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"post a short rundown in the close-coordination channel so the team's aligned.\" The channel accepts either its id (C005) or its name (monthly-close-coordination), so either form is valid.",
+        "evidence": "Look for a slack_conversations_add_message call to channel_id C005 or the channel named monthly-close-coordination, returning success."
+    },
+    {
+        "title": "The Agent creates a reminder dated after June 12, 2026 to follow up on the Halcyon Foods Co collection at the next billing cycle.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says \"set me a reminder to pick the slow one back up at the next billing follow-up.\" \"The slow one\" is Halcyon Foods Co - the account quiet for two quarters with the write-off back-and-forth.",
+        "evidence": "look for a reminder_add_reminder call with a due_datetime after 2026-06-12 and a title or description referencing the Halcyon Foods Co collection follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that the Northwind Retail Group invoice ($48,000) has been paid in full and is no longer outstanding (net $0), so it should not be chased.",
+        "category": "outcome",
+        "justification": "justification: Northwind's $48,000 invoice (INV-ACME-3027) was cleared by a $48,000 cash receipt posted in May, so it is fully paid. The stale list still shows it as 90+ days overdue; an agent that trusts the list would wrongly chase a paid account.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Northwind Retail Group being paid in full / $0 outstanding and excluded from follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that the Marrow & Vale invoice ($52,000) was a duplicate that has been reversed in the ledger (net $0) and should not be chased.",
+        "category": "outcome",
+        "justification": "Marrow & Vale's $52,000 invoice (INV-ACME-2971) carries status 'reversed' with a matching reversing entry - it was a duplicate billing and nets to $0. The stale list still shows it as a 90+ day $52,000 balance; an agent that trusts the list would chase a cancelled invoice.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Marrow & Vale being a duplicate/reversed invoice that nets to $0 and is excluded from follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Sable & Finch LLP is genuinely overdue with $31,500 still outstanding and recommends a follow-up.",
+        "category": "outcome",
+        "justification": "Sable & Finch's $31,500 invoice (INV-ACME-3041) has no cash receipt or adjustment against it, so it is genuinely open at $31,500 and is a valid collection follow-up - the control case that should still be chased.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Sable & Finch LLP being genuinely outstanding at $31,500 with a recommended follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Quill Dynamics has approximately $15,000 still outstanding after a $40,000 payment and a $5,000 credit memo, not the $60,000 gross figure.",
+        "category": "outcome",
+        "justification": "Quill's $60,000 invoice (INV-ACME-3033) was reduced by a $40,000 cash receipt in the GL and a $5,000 credit memo that exists only in the SAP AR subledger, leaving a true outstanding of $15,000. An agent that misses the subledger credit memo reports $20,000; one that trusts the list reports $60,000.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Quill Dynamics' outstanding being approximately $15,000, reflecting both the $40,000 receipt and the $5,000 credit memo."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Brightwater Media is still outstanding at $36,000 because its cash receipt was reversed (payment returned), and recommends a follow-up.",
+        "category": "outcome",
+        "justification": "Brightwater's $36,000 invoice (INV-ACME-3052) had a cash receipt that was reversed (NSF), so it remains fully open. Brightwater is NOT on Taye's stale list, so only an agent that works the actual ledger population (and checks the receipt's reversed status) catches it. This is the strongest off-list discriminator.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Brightwater Media being open at $36,000 due to a reversed/returned payment, with a recommended follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Cedarpoint Logistics is genuinely overdue with $19,800 still outstanding and recommends a follow-up.",
+        "category": "outcome",
+        "justification": "Cedarpoint's $19,800 invoice (INV-ACME-3068) has no receipt or adjustment, so it is genuinely open at $19,800 and a valid collection follow-up.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Cedarpoint Logistics being genuinely outstanding at $19,800 with a recommended follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Tessellate Inc is genuinely overdue with $24,500 still outstanding and recommends a follow-up.",
+        "category": "outcome",
+        "justification": "Tessellate's $24,500 invoice (INV-ACME-3074) has no receipt or adjustment, so it is genuinely open at $24,500 and a valid collection follow-up.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Tessellate Inc being genuinely outstanding at $24,500 with a recommended follow-up."
+    },
+    {
+        "title": "The Agent's summary to Daniel Jones states that Halcyon Foods Co ($42,000) should not be written off and is to remain in active collection per the Acme CFO's payment-plan direction.",
+        "category": "outcome",
+        "justification": "An early internal message proposed writing Halcyon's $42,000 off against the allowance, but it was superseded by Daniel's later message that the Acme CFO is standing up a payment plan and that no write-off or allowance is to be booked. The brief must reflect the latest direction (hold the write-off, continue collection), not the earlier one.",
+        "evidence": "Check the content of the message to daniel.jones@brookfieldcpas.com for Halcyon Foods Co ($42,000) being kept in active collection with no write-off, per the Acme CFO payment-plan direction."
+    },
+    {
+        "title": "The Agent's Records Vault billing-status summary reflects the verified current balances (e.g., Northwind and Marrow excluded at $0, Quill reduced to approximately $15,000, Brightwater still open at $36,000) rather than the stale gross figures from the overdue list.",
+        "category": "outcome",
+        "justification": "The filed record must capture the real position the agent verified, not a copy of the stale list. This checks the memo content independently of the message to Daniel - an agent can brief Daniel correctly yet file a stale or wrong memo.",
+        "evidence": "Check the content_b64 of the records_vault_upload_document call for the corrected current balances rather than the gross $48,000 / $52,000 / $60,000 figures from the list."
+    },
+    {
+        "title": "The Agent's Slack rundown in #monthly-close-coordination distinguishes the accounts that are genuinely outstanding (Sable & Finch, Quill, Brightwater, Cedarpoint, Tessellate) from those already settled or reversed (Northwind paid; Marrow duplicate) and the held Halcyon item.",
+        "category": "outcome",
+        "justification": "The prompt asks for a short rundown \"so the team's aligned\" on where things landed. This checks the Slack post conveys the corrected split (genuinely open vs settled/reversed vs held) rather than restating the stale list, independently of the Daniel brief and the vault memo.",
+        "evidence": "Check the payload of the slack_conversations_add_message call to C005 for the corrected status across the accounts - which are still open for follow-up versus paid/reversed/held."
+    }
+]

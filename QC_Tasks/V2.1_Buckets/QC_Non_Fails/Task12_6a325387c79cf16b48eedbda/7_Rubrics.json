@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent files a disposition memo (kind 'memo') in the Records Vault for the Acme Cloud wire-transfer AML threshold review on journal entry JE-acme_cloud-FP-2026-04-0052, classified 'restricted' and retained under the firm's standard AICPA_SQMS_7Y retention policy.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to file the missing disposition memo as the restricted compliance record it should be and kept on our standard retention. No standalone disposition memo exists in the vault for the wire matter (only a journal_entry_support doc), so the Agent must create one.",
+        "evidence": "OE16: records_vault_upload_document with kind=memo, classification=restricted, retention_policy_code=AICPA_SQMS_7Y, related_resource_type=journal_entry, related_resource_id=je_b2c2b939a1244823 (or title/body referencing JE-acme_cloud-FP-2026-04-0052). Check the trajectory for a successful upload; only journal_entry_support exists before the Agent acts (OE5)."
+    },
+    {
+        "title": "The Agent's filed wire-transfer disposition memo records the disposition as cleared with no SAR (Suspicious Activity Report) filed (a CLEAR / CLEARED, no-SAR disposition, or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires the filed memo to match 'the call we made.' The universe clearance chain (Anita Knowles supervisory sign-off 2026-04-29; Steven Perry partner clearance 2026-04-30) concluded CLEAR with no SAR; the universe uses both 'CLEAR' and 'CLEARED' wording.",
+        "evidence": "OE16 memo body: must record CLEAR / CLEARED with no SAR filed (or equivalent all-clear wording). OE3 confirms Anita and Steven partner clearance with no SAR. Check the uploaded memo content or decoded body in the trajectory."
+    },
+    {
+        "title": "The Agent's filed wire-transfer disposition memo stands on its own support, documenting the basis for the decision - the underlying customer settlement / journal entry, the analyst review, and the supervisory and partner sign-offs behind the clearance (or similar)",
+        "category": "outcome",
+        "justification": "The prompt requires the Agent to 'reconstruct the underlying transaction, who ran the analysis, who gave supervisory and partner sign-off' and that 'whatever you do file should stand on its own support, the ledger entry the analyst review.' The filed memo must document that basis, not just the disposition label.",
+        "evidence": "OE2 + OE3 + OE4 + OE16: memo body must reference JE-acme_cloud-FP-2026-04-0052 ($57,077.69 customer settlement), Farah Dlamini analyst review, Anita Knowles supervisory sign-off, and Steven Perry partner clearance (or equivalent substantiating content)."
+    },
+    {
+        "title": "The Agent files a disposition memo (kind 'memo') in the Records Vault for the Northstar Legal adverse-media AML soft-flag review (monitoring row AML-REG-northstar-2025-001), classified 'restricted' and retained under the firm's standard AICPA_SQMS_7Y retention policy.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to file the missing disposition memo for the Northstar adverse-media matter. OE8 confirms the soft-watch decision exists only in email/Slack/messaging and was never filed to the vault.",
+        "evidence": "OE17: records_vault_upload_document with kind=memo, classification=restricted, retention_policy_code=AICPA_SQMS_7Y, title or body referencing AML-REG-northstar-2025-001 or Northstar adverse-media soft-flag. Check the trajectory for a successful upload. OE8: no prior Northstar soft-flag disposition memo on file."
+    },
+    {
+        "title": "The Agent's filed Northstar adverse-media disposition memo records the disposition as soft-watch with a Medium risk rating (or similar soft-watch / Medium-risk conclusion).",
+        "category": "outcome",
+        "justification": "The prompt requires the filed memo to match the call. OE6 fixes Daniel Jones countersignature 2026-05-21 as soft-watch at Medium risk rating.",
+        "evidence": "OE17 memo body: must record soft-watch with Medium risk rating (or equivalent wording). OE6: email_scen_062_aml_review_general_0008 confirms soft-watch, Medium, re-screen after FP-2026-08 close. Check uploaded memo content in the trajectory."
+    },
+    {
+        "title": "The Agent's filed Northstar adverse-media disposition memo stands on its own support, documenting the basis for the decision  the adverse-media trigger, the analyst review (including the cash-activity check), and the supervisory/partner sign-off behind the disposition (or similar).",
+        "category": "outcome",
+        "justification": "The prompt requires reconstructing the underlying concern, analyst work, and sign-off, and that the filed memo stands on its own support not just the disposition label.",
+        "evidence": "OE6 + OE7 + OE17: memo body must reference the adverse-media partial-name match on the Northstar beneficial owner (>25% LLP), Ben Arinzo cash review on accounts 101000 and 105000 for FP-2026-03/04, and Daniel Jones countersignature (or equivalent substantiating content)."
+    },
+    {
+        "title": "The Agent files a disposition memo (kind 'memo') in the Records Vault for the FY26 Q1 preparer-versus-certifier independence control test, classified 'restricted' and retained under the firm's standard AICPA_SQMS_7Y retention policy.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to file the missing disposition memo for the quarterly independence control test. OE13 confirms the independence summary lives only in email and was never filed to the vault",
+        "evidence": "OE18: records_vault_upload_document with kind=memo, classification=restricted, retention_policy_code=AICPA_SQMS_7Y, title or body referencing FY26 Q1 preparer-versus-certifier independence control test. Check the trajectory for a successful upload. OE13: no prior FY26 Q1 independence disposition memo on file."
+    },
+    {
+        "title": "The Agent's filed FY26 Q1 independence control-test disposition memo records the result as CLEAR / independence held (or similar all-clear conclusion).",
+        "category": "outcome",
+        "justification": "The prompt requires the filed memo to match the call. OE11 fixes Steven Perry partner clearance on the FY26 Q1 monitoring file as CLEAR 2026-05-12 with independence held across the sample.",
+        "evidence": "OE18 memo body: must record CLEAR / independence held / PASS (or equivalent all-clear wording). OE11: email_scen_042_audit_compliance_0006 confirms partner clearance CLEAR. Check uploaded memo content in the trajectory."
+    },
+    {
+        "title": "The Agent's filed FY26 Q1 independence control-test disposition memo documents all five sampled reconciliations (BL-A81316258BCB, BL-EA01CF363E1E, BL-DDF779E39FEE, BL-88818F6E40F3, BL-2E691B2E18FA) and for each names a preparer and certifier who are different people (per OE12 preparer/certifier email pairs)",
+        "category": "outcome",
+        "justification": "The prompt requires whatever is filed to stand on its own support including the reconciliations underneath. OE12 pins each recon with distinct preparer and certifier emails; listing BL IDs alone is not enough the memo must show preparer \u2260 certifier per sample item using the OE12 pairs or equivalent named roles.",
+        "evidence": "OE12 + OE18: memo body must cover all five recon IDs and show preparer \u2260 certifier for each, using OE12 GT pairs BL-A81316258BCB (mateo.kovac@brookfieldcpas.com / rakesh.ambani@brookfieldcpas.com), BL-EA01CF363E1E (ben.arinzo@brookfieldcpas.com / julia.vance@brookfieldcpas.com), BL-DDF779E39FEE (william.white@brookfieldcpas.com / julia.vance@brookfieldcpas.com), BL-88818F6E40F3 (green.spatz@brookfieldcpas.com / margaret.sullivan@brookfieldcpas.com), BL-2E691B2E18FA (tom.chang@brookfieldcpas.com / steven.perry@brookfieldcpas.com). Equivalent named preparer/certifier per recon satisfies if emails match OE12."
+    },
+    {
+        "title": "The Agent sends an email to steven.perry@brookfieldcpas.com (Steven Perry, Managing Partner).",
+        "category": "outcome",
+        "justification": "The prompt explicitly says send Steven that same summary by email so he has it straight from us. OE14 pins Steven Perry as recipient.",
+        "evidence": "OE19: email_send_email with sender peter.sanchez@brookfieldcpas.com, recipients including steven.perry@brookfieldcpas.com. Check the trajectory for a successful send to Steven Perry (OE14 contact lookup)."
+    },
+    {
+        "title": "The Agent's email to steven.perry@brookfieldcpas.com includes a matter-by-matter summary of the four compliance matters (the Acme wire-transfer threshold review, the Northstar adverse-media soft-flag, the Acme FY2026 beneficial-owner refresh, and the FY26 Q1 preparer-versus-certifier independence test), stating for each whether a disposition memo was already on file or the Agent newly filed one (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to send Steven that same summary the matter-by-matter rundown of what was already on file versus what the Agent had to create.",
+        "evidence": "OE19 email body: must cover all four matters (Acme wire-transfer, Northstar adverse-media, Acme FY2026 BO refresh, FY26 Q1 independence test) and for each state already on file vs newly filed. OE19 lists expected disposition per matter (three filed, BO refresh covered only)."
+    },
+    {
+        "title": "The Agent opens an issue on the Compliance team's controls workstream (the 'Compliance' team, id team_comp), optionally placed within its 'AML and Onboarding Control Improvements' controls project (id proj_aml_onboarding).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to open an issue on the compliance team's controls workstream so the partners can see this filing gap as a pattern.",
+        "evidence": "OE20: linear_create_issue with team=team_comp (Compliance) and optionally project=proj_aml_onboarding. OE15 confirms team_comp and proj_aml_onboarding exist. Check the trajectory for a successful issue create."
+    },
+    {
+        "title": "The Agent's issue frames the filing gap as a recurring, systemic problem to fix going forward  not just this round's items  namely that compliance dispositions get cleared in email and the compliance channel but are not filed as standalone disposition memos in the vault (or similar).",
+        "category": "outcome",
+        "justification": "The prompt wants the issue to capture the filing gap as a pattern so we fix the habit, not just this round a recurring/systemic problem, not merely this quarter's three items.",
+        "evidence": "OE20 issue title/description: must frame recurring/systemic habit (decisions cleared in email/Slack/compliance channel but standalone disposition memos not filed to Records Vault), not only this round's four matters. Check Linear issue body in the trajectory."
+    },
+    {
+        "title": "The Agent does not create or file a new disposition memo in the Records Vault for the Acme Cloud FY2026 annual beneficial-owner refresh, because proper disposition memos are already on file for it.",
+        "category": "outcome",
+        "justification": "The prompt instructs where a proper disposition memo is already on file, leave it as is. OE10 confirms doc_fb028c9124e146c5 and doc_38a8236a0c4546e2 are restricted kind=memo records with AICPA_SQMS_7Y; recognizing them by metadata satisfies the decoy even if vault body content is minimal.",
+        "evidence": "OE10: NO records_vault_upload_document for Acme FY2026 beneficial-owner refresh. Passing agents identify existing restricted memos doc_fb028c9124e146c5 (Acme Cloud FY2026 Beneficial Owner Refresh) and/or doc_38a8236a0c4546e2 (Acme Cloud FY2026 AML Risk Assessment Memo) by kind, classification, retention, and title. Check trajectory for absence of a fourth BO-refresh memo upload."
+    },
+    {
+        "title": "The Agent reports in its final response that the Acme Cloud FY2026 annual beneficial-owner refresh is already covered by a proper standalone disposition memo on file in the Records Vault - identifying at least one of the existing restricted memos, the 'Acme Cloud FY2026 Beneficial Owner Refresh' memo (doc_fb028c9124e146c5) or the 'Acme Cloud FY2026 AML Risk Assessment Memo' (doc_38a8236a0c4546e2), by title or document ID - and states that no new memo was created for it (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a matter-by-matter rundown of whether a proper standalone disposition memo was already on file or the Agent had to create one, and 'where a proper disposition memo is already on file, leave it as is and just tell me it is covered.' OE10 confirms the BO refresh is already covered by restricted, AICPA_SQMS_7Y memo(s) in the vault. The Agent must recognize the matter is already covered and report that no new memo was filed; identifying an on-file memo by title or document ID demonstrates this. The prompt does not require quoting every internal document ID verbatim, so naming one of the two existing memos (by title or ID) is sufficient.",
+        "evidence": "Final response to user: states the Acme FY2026 beneficial-owner refresh is already covered by a standalone disposition memo on file in the Records Vault and that no new BO-refresh memo was created. OE10: existing restricted memos doc_fb028c9124e146c5 ('Acme Cloud FY2026 Beneficial Owner Refresh') and doc_38a8236a0c4546e2 ('Acme Cloud FY2026 AML Risk Assessment Memo'), both restricted / AICPA_SQMS_7Y; identifying at least one by title or document ID satisfies this. Cross-check the trajectory for the absence of a new BO-refresh memo upload (paired with the criterion that no new memo is filed)."
+    },
+    {
+        "title": "The Agent reports in its final response that it created and filed a new disposition memo for the Acme Cloud wire-transfer AML threshold review (or similar).",
+        "category": "outcome",
+        "justification": "The prompt's matter-by-matter rundown asks exactly what you filed. OE5/OE16: the wire-transfer review lacked a vault disposition memo, so the Agent must report having created one.",
+        "evidence": "Final response to user: must report a new disposition memo was created and filed for the Acme wire-transfer AML threshold review on JE-acme_cloud-FP-2026-04-0052 (may include uploaded doc ID). Cross-check trajectory for OE16 upload success."
+    },
+    {
+        "title": "The Agent reports in its final response that it created and filed a new disposition memo for the Northstar Legal adverse-media AML soft-flag review (or similar).",
+        "category": "outcome",
+        "justification": "The prompt's matter-by-matter rundown asks exactly what you filed. OE8/OE17: the Northstar soft-flag lacked a vault disposition memo, so the Agent must report having created one.",
+        "evidence": "Final response to user: must report a new disposition memo was created and filed for the Northstar adverse-media soft-flag (AML-REG-northstar-2025-001). Cross-check trajectory for OE17 upload success."
+    },
+    {
+        "title": "The Agent reports in its final response that it created and filed a new disposition memo for the FY26 Q1 preparer-versus-certifier independence control test (or similar).",
+        "category": "outcome",
+        "justification": "The prompt's matter-by-matter rundown asks exactly what you filed. OE13/OE18: the independence control test lacked a vault disposition memo, so the Agent must report having created one.",
+        "evidence": "Final response to user: must report a new disposition memo was created and filed for the FY26 Q1 preparer-versus-certifier independence control test. Cross-check trajectory for OE18 upload success."
+    },
+    {
+        "title": "The Agent's filed wire-transfer disposition memo states the underlying settlement amount as 57,077.69 (or $57,077.69).",
+        "category": "outcome",
+        "justification": "OE2 pins the wire-flag journal entry at total_debit 57,077.69 for the Acme customer settlement. The disposition memo must carry that exact amount, not a rounded or omitted figure.",
+        "evidence": "OE2 + OE16: decoded wire-transfer memo body must state 57,077.69 (with or without $/comma formatting). OE2: JE-acme_cloud-FP-2026-04-0052, je_b2c2b939a1244823, total_debit 57077.69. Check uploaded memo content in the trajectory."
+    },
+    {
+        "title": "The Agent sends the summary email from peter.sanchez@brookfieldcpas.com (Peter Sanchez, Head of Compliance).",
+        "category": "outcome",
+        "justification": "OE19 pins the consolidated summary email as sent from Peter Sanchez. The send must originate from Peter's address, not a generic system sender or wrong persona. This criterion checks only the sender; the recipient is verified separately, so there is no overlap.",
+        "evidence": "OE19: email_send_email with sender peter.sanchez@brookfieldcpas.com. Check the trajectory for the sender/from field on the successful email_send_email call (recipient is covered by the separate 'sends an email to steven.perry@brookfieldcpas.com' criterion)."
+    }
+]

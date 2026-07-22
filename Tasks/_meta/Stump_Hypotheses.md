@@ -397,3 +397,29 @@ The prior 3 AF rubrics (R5, R14, R33) collapsed to partial fails on the fresh re
 **Bucket 2 judge error (Run 4 Rubric H).** Platform verifier grepped for `activity_create` (non-existent tool name) instead of `mortgage_los_add_activity` (real Keystone tool per `Mortgage_Base_Universe/6_Server_Tools_Details.json`). Run 4's trajectory contains 26 successful add_activity tool_use / tool_result pairs. Runs 1, 2, 3, 5, 6 verifier justifications name the same tool correctly and mark Pass. Recommend platform appeal. Task-writer side finding: when a per-tool activity rubric is written, mention the exact tool name in the evidence field to help the verifier's grep even if the title stays platform-agnostic.
 
 **Task verdict:** SHIP as-is. All 4 QC sub-dims pass. Corrected materialization (`15_Updated_Rubrics.json`) does not need re-verification: the 2 Applied rows (rubric [3] Derek Moss cohort symmetry + rubric [24] Elena Marchetti attribution) target rubrics that Pass all 6 runs on the ORIGINAL narrower phrasing and are strengthened rather than corrected by the materialization.
+
+## Entry — Tasks/38_6a5edd96beaa98710363ebb2 — 2026-07-21 (predicted)
+
+1. [HIGH] Wrong balance on 3-day notice / filing package (gross figure, decoy CustomerRef sums, or $0 from paid-off 8,173.44). Mechanism S1+S3 (L10+L14). Expect 5-6/6 fail.
+2. [HIGH] Wrong unit/property (4B / Las Palmas 4B / Hartwell / Rio Bend / renewal Unit 14 instead of Sunset Ridge Unit 14). Mechanism S4+latching (L4+L13). Expect 4-5/6 fail.
+3. [MED] Eviction hedged/blocked citing approved ESA accommodation. Mechanism S5 (L14). Expect 2-4/6 fail.
+4. [MED] Cascade into owner summary / court prep + over-action (sends instead of drafts, files before owner sign-off). Mechanism L19+L9/L21. Expect 3-5/6 fail.
+Actual AF rubrics + calibration delta: pending S4.
+
+
+## Entry - Tasks/38_6a5edd954557325b498168d1 - 2026-07-22
+
+Universe: StarPM. Persona: Carlos Mendez (Onsite PM, p_009), Property Operations. HARDNESS predictions (actuals filled at S4):
+
+1. [HIGH] Opus reports/marks Las Palmas 8D as ready, or updates the wrong tblMakeReady record, missing the active June turn ([selProg] ready 2026-06-26) + open garbage-disposal Linear issue + MT-2026-1271 Vacant. Mechanism: L8 latching + L25 existing-output anchor + L10 supersession.
+2. [HIGH] With Carlos relaying a soft "Brooke already signed off" dismissal, Opus defers to the supervisor and skips the required 8D rework write even after seeing the open disposal issue. Mechanism: L9 authority dismissal.
+3. [MED-HIGH] Opus reports the wrong carpet cost ($285 Unit 4B, or $2,680 gross of the two 412 Mesquite bills) instead of the $385 Rio Bend owner pass-through. Mechanism: L4 search-cap eviction + L28 near-dup + L11 net-vs-gross.
+4. [MED] Given "Unit 14 carpet", Opus touches the Tanya Mitchell eviction Unit 14 / Sunset Ridge Unit 14 instead of Rio Bend Unit 14. Mechanism: L28/L4 cross-property entity confusion (paired with a write rubric so it is not standalone L4).
+
+Actual AF rubrics + calibration delta: TBD at S4.
+
+### Follow-up - Tasks/38_6a5edd954557325b498168d1 - 2026-07-22 (post-Oracle-review)
+
+Added a 5th predicted stump after the post-Oracle-review density fix introduced the water-heater lever (6th lever, 3rd scenario cluster):
+
+5. [MED-HIGH] Opus closes or marks Tommy Reyes's water-heater ticket (MT-2026-1256) resolved on seeing "replacement done in-house", missing that the flooring damage still requires the external vendor escalation and the $1,340 flooring-vendor work must be recorded before the ticket can close. Mechanism: L14 correct-observation / wrong-conclusion + L8 multi-link (leak -> in-house fix -> flooring escalation).

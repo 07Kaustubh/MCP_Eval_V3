@@ -1,0 +1,68 @@
+[
+    {
+        "title": "The Agent uploads a one-page risk summary as a memo document to the firm's quality-management records under retention policy code AICPA_SQMS_7Y.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to build the risk summary and file it where the firm's quality-management records live.",
+        "evidence": "Look in the trajectory for a memo-type document upload with retention_policy_code AICPA_SQMS_7Y in the quality-management records."
+    },
+    {
+        "title": "The Agent's risk summary identifies the Acme pending_approval AP invoice exposure of approximately $653,393.14 across 10 invoices due in May 2026, including the two largest, TrustLayer ($205,147.59) and AssurePath ($140,906.78).",
+        "category": "outcome",
+        "justification": "The prompt asks for a clear read of the vendor invoices that came due in May and are still stuck waiting for approval, with their amounts.",
+        "evidence": "Check the risk summary for the approximately $653,393.14 total across 10 invoices and the TrustLayer and AssurePath amounts."
+    },
+    {
+        "title": "The Agent's risk summary makes clear that the May exposure is not yet finalized in the books: the May-due Acme AP invoices remain pending approval (not yet approved or paid) and the past-SLA reconciliation exception variances are still unresolved and uncorrected in the ledger, so the exposure should not be treated as already settled or cleared for the May close.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to check whether the exposure has actually hit the GL or is only sitting in the subledger, and to tie the numbers back to the ledger",
+        "evidence": "Check the risk summary for a statement that the May-due Acme AP invoices are still pending approval (not approved/paid) and the flagged exception variances remain unresolved/uncorrected in the GL, rather than treating the exposure as already booked or settled"
+    },
+    {
+        "title": "The Agent's risk summary flags the reconciliation exceptions that are past their BlackLine SLA deadlines on the May close, including the three high-urgency items of $6,328.86 (AP, account 210000), $6,068.91 (Prepaid, account 131000), and $4,390.62 (WIP, account 119000), and at least one long-aged item more than six months past its SLA.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to flag the reconciliation exceptions that have blown past their BlackLine SLA deadlines, especially the high-urgency ones, with amounts.",
+        "evidence": "Check the risk summary for the three high-urgency amounts ($6,328.86, $6,068.91, $4,390.62) with their accounts, plus at least one long-aged (6+ months overdue) exception."
+    },
+    {
+        "title": "The Agent's risk summary reports that the May fiscal period brookfield_FP-2026-05 is still open and not locked (the BD3 lock target of 2026-06-03 has passed without the period being locked), and that of the period's 21 reconciliations, 11 are still open and none have been submitted, approved, or certified",
+        "category": "outcome",
+        "justification": "The prompt asks where the May close actually stands across the books, including how many reconciliations are still open",
+        "evidence": "Check the risk summary for period brookfield_FP-2026-05 being open/not locked, the passed BD3 target of 2026-06-03, 11 of 21 reconciliations still open, and none submitted/approved/certified."
+    },
+    {
+        "title": "The Agent's risk summary attributes each high-urgency reconciliation exception to its current owner - $6,328.86 (AP, account 210000) to Ben Arinzo, $6,068.91 (Prepaid, account 131000) to Emily Adekole, and $4,390.62 (WIP, account 119000) to Anaya Wallace - and notes that the overdue Acme AP invoices have no approver assigned.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to flag the items with the amounts and who's sitting on them",
+        "evidence": "Check the risk summary names Ben Arinzo, Emily Adekole, and Anaya Wallace as the owners of the three high-urgency exceptions ($6,328.86, $6,068.91, and $4,390.62 respectively) and notes the overdue Acme AP invoices are still pending approval with no approver assigned"
+    },
+    {
+        "title": "The Agent's risk summary identifies that the BD3 GL lock is the blocked close task holding up the lock of the May period brookfield_FP-2026-05, and that Julia Vance (julia.vance@brookfieldcpas.com) is the owner sitting on it.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks what is still blocking the BD3 lock and who is sitting on it",
+        "evidence": "Check the risk summary names the BD3 GL lock as the blocking close task for brookfield_FP-2026-05 and identifies Julia Vance (julia.vance@brookfieldcpas.com) as its owner"
+    },
+    {
+        "title": "The Agent circulates the risk summary to the four partners ([steven.perry@brookfieldcpas.com](mailto:steven.perry@brookfieldcpas.com), [julia.vance@brookfieldcpas.com](mailto:julia.vance@brookfieldcpas.com), [matthew.li@brookfieldcpas.com](mailto:matthew.li@brookfieldcpas.com), and [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com)) ahead of Monday's partner meeting.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to send the summary round to the partners ahead of the meeting.",
+        "evidence": "Look in the trajectory for the risk summary being sent to the four partner-group recipients."
+    },
+    {
+        "title": "For the May-due Acme AP invoices that have no approver assigned, the Agent takes an action before the weekend to put them under an owner, either assigning an approver to the invoices or escalating them by name to a specific person to action.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to make sure every flagged item has a named owner on it before the weekend so nothing sits unowned until Monday.",
+        "evidence": "Look in the trajectory for an action that assigns an approver to the unassigned Acme invoices, or an explicit escalation directing a named person to take them on before the weekend."
+    },
+    {
+        "title": "The Agent posts a heads-up message in the #general Slack channel (channel_id C001).",
+        "category": "outcome",
+        "justification": "The prompt asks for a short heads-up in the main channel so everyone knows the summary is coming.",
+        "evidence": "Look in the trajectory for a message posted in the #general channel with channel_id C001."
+    },
+    {
+        "title": "The Agent's #general message states that the partner risk summary has been filed in the quality-management records and circulated to the partner group ahead of Monday's meeting (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks for a short heads-up that the summary has been filed and circulated to the partners.",
+        "evidence": "Check the #general message for a reference to the summary being filed and circulated to the partners ahead of the meeting."
+    }
+]

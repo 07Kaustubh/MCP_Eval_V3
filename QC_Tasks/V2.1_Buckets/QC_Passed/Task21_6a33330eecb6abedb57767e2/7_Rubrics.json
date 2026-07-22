@@ -1,0 +1,164 @@
+[
+    {
+        "title": "The Agent replies to Andrea Phil's email ([andrea.phil@brookfieldcpas.com](mailto:andrea.phil@brookfieldcpas.com)) with a consolidated status update covering all four open items from the May close.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks \"reply to Andrea's email with a proper update on each item.\" This is the primary write action of the task.",
+        "evidence": "Look for an email reply call with recipient andrea.phil@brookfieldcpas.com and in_reply_to referencing email ff6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Acme Cloud 220000 ghost accrual item, stating the $14,250 variance is due to a subledger feed reversal with no replacement re-post.",
+        "category": "outcome",
+        "justification": "Item 1 of 4 in Andrea's email. The agent must report the root cause (reversed accrual without re-post) and the amount ($14,250). This is a fixed value from BlackLine and Oracle GL, not calculated.",
+        "evidence": "Check the email body for references to Acme Cloud, account 220000, $14,250, and the missing re-post or ghost accrual reversal."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Acme Cloud 220000 corrective action status: Sean Williams has been asked to draft the manual re-post JE (or similar), and Daniel Jones needs to approve it.",
+        "category": "outcome",
+        "justification": "The prompt says \"confirm the amounts and the approval chain, who still needs to sign off and whether we're waiting on anyone.\" The approval chain for this item is Sean (drafter) to Daniel (approver).",
+        "evidence": "Check the email body for mention of Sean Williams drafting the JE and Daniel Jones as the required approver."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Brookfield/Northstar 215000 intercompany clearing drift item, stating the $3,817.44 variance is caused by a cross-period posting mismatch between April (Brookfield) and May (Northstar).",
+        "category": "outcome",
+        "justification": "Item 2 of 4 in Andrea's email. The root cause is a cross-period mismatch, and the amount $3,817.44 is a fixed value from both BlackLine reconciliations.",
+        "evidence": "Check the email body for references to account 215000, $3,817.44, intercompany, and the cross-period or timing mismatch."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Northstar 240000 deferred revenue item, stating the $8,500 variance is due to an erroneous revenue recognition by subledger feed and that Ben Arinzo has been instructed to draft the reversal JE.",
+        "category": "outcome",
+        "justification": "Item 3 of 4 in Andrea's email. This is a SOX-flagged item. The root cause is a feed-generated erroneous recognition. Per conv_gc3d4e5f6a7b, Edith instructed Ben to draft the reversal but no confirmation of completion exists, so the correct status is \"instructed to draft.\"",
+        "evidence": "Check the email body for references to Northstar, account 240000, $8,500, erroneous revenue recognition, and that Ben Arinzo has been asked to draft the reversal."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Brookfield 133000 prepaid item, stating the $3,666.66 variance is caused by two phantom amortization entries ($1,833.33 each) from an expired ClearPath Training Solutions contract.",
+        "category": "outcome",
+        "justification": "Item 4 of 4 in Andrea's email. This is a SOX-flagged item. The root cause is the SAP schedule PS-BF-CPE-014 continuing to post past the April 30 contract expiry. Both the total ($3,666.66) and per-entry amount ($1,833.33) are fixed values.",
+        "evidence": "Check the email body for references to Brookfield, account 133000, $3,666.66 or $1,833.33, ClearPath, expired contract, or phantom amortization."
+    },
+    {
+        "title": "The Agent's reply to Andrea flags that items 3 (Northstar 240000) and 4 (Brookfield 133000) require Andrea's personal sign-off due to SOX implications, while items 1 (Acme Cloud 220000) and 2 (intercompany 215000) can be closed by the team independently.",
+        "category": "outcome",
+        "justification": "The prompt says \"flag which items she personally needs to act on versus what the team can close out independently.\" Andrea is the certifier on the two SOX-flagged recons (BL-GC3D4E5F6A7B and BL-HD4E5F6A7B8C).",
+        "evidence": "Check the email body for a clear distinction between items requiring Andrea's action (SOX items) and items the team can resolve without her."
+    },
+    {
+        "title": "The Agent's reply to Andrea mentions the broader prepaid schedule issue, noting that two additional schedule mismatches (beyond ClearPath) were found by Nia Okafor.",
+        "category": "outcome",
+        "justification": "The prompt says \"if there's a broader problem with the amortization end dates, I need that flagged properly.\" Nia found PS-BF-SFT-008 and PS-BF-FAC-003 in addition to PS-BF-CPE-014.",
+        "evidence": "Check the email body for mention of additional prepaid schedule mismatches, Nia Okafor's scan, or the two extra schedules."
+    },
+    {
+        "title": "The Agent creates or updates a BlackLine review note on the Acme Cloud 220000 reconciliation (BL-EA1B2C3D4F5A) reflecting the current investigation findings.",
+        "category": "outcome",
+        "justification": "The prompt says \"make sure my review notes in BlackLine are current on all the affected accounts. If any of the notes are stale or incomplete based on what you find, update them.\" This is a required write action.",
+        "evidence": "Look for a review note creation call with target_id or reconciliation_id referencing BL-EA1B2C3D4F5A."
+    },
+    {
+        "title": "The Agent creates or updates a BlackLine review note on the Brookfield 215000 reconciliation (BL-FB2C3D4E5F6A) reflecting the current investigation findings.",
+        "category": "outcome",
+        "justification": "The intercompany recon on the Brookfield side is one of the affected accounts requiring current review notes.",
+        "evidence": "Look for a review note creation call with target_id or reconciliation_id referencing BL-FB2C3D4E5F6A."
+    },
+    {
+        "title": "The Agent creates or updates a BlackLine review note on the Northstar Legal 215000 reconciliation (BL-FB2C3D4E5F6B) reflecting the current investigation findings.",
+        "category": "outcome",
+        "justification": "The intercompany recon on the Northstar side is one of the affected accounts requiring current review notes.",
+        "evidence": "Look for a review note creation call with target_id or reconciliation_id referencing BL-FB2C3D4E5F6B."
+    },
+    {
+        "title": "The Agent creates or updates a BlackLine review note on the Northstar 240000 reconciliation (BL-GC3D4E5F6A7B) reflecting the current investigation findings.",
+        "category": "outcome",
+        "justification": "The deferred revenue recon is one of the affected accounts requiring current review notes.",
+        "evidence": "Look for a review note creation call with target_id or reconciliation_id referencing BL-GC3D4E5F6A7B."
+    },
+    {
+        "title": "The Agent creates or updates a BlackLine review note on the Brookfield 133000 reconciliation (BL-HD4E5F6A7B8C) reflecting the current investigation findings.",
+        "category": "outcome",
+        "justification": "The prepaid recon is one of the affected accounts requiring current review notes.",
+        "evidence": "Look for a review note creation call with target_id or reconciliation_id referencing BL-HD4E5F6A7B8C."
+    },
+    {
+        "title": "The Agent flags the broader prepaid schedule issue through a write action (email, BlackLine review note, Linear issue, or similar), documenting that three prepaid schedules have end-date mismatches: PS-BF-CPE-014 (ClearPath), PS-BF-SFT-008, and PS-BF-FAC-003.",
+        "category": "outcome",
+        "justification": "The prompt says \"if there's a broader problem with the amortization end dates, I need that flagged properly. Don't just fix the one Andrea's asking about and call it done.\" The agent must take a concrete write action to flag the systemic issue covering all three schedules.",
+        "evidence": "Look for an email, review note, Linear issue, or other write action that references all three affected prepaid schedules or explicitly flags the systemic nature of the end-date mismatch problem."
+    },
+    {
+        "title": "The Agent identifies that the Acme Cloud 220000 variance of $14,250 is caused by subledger feed run SFR-AC-2026-05-002 reversing the original accrual (JE-acme_cloud-FP-2026-05-0008) without generating a replacement re-post.",
+        "category": "outcome",
+        "justification": "The prompt says \"dig into each item she's raised\" and \"pull the underlying data from the ledger, the recons, and the subledger to confirm where each issue actually stands.\" The agent must report the root cause with specific identifiers from the GL.",
+        "evidence": "Check the final response for mention of the subledger feed reversal, the original JE, and the missing re-post as the root cause of the $14,250 variance."
+    },
+    {
+        "title": "The Agent identifies that the intercompany 215000 variance of $3,817.44 is caused by Brookfield posting in April (JE-brookfield-FP-2026-04-0047) while Northstar did not post the corresponding entry until May (JE-northstar_legal-FP-2026-05-0006).",
+        "category": "outcome",
+        "justification": "The agent must trace the cross-period mismatch to the specific journal entries to confirm where the issue stands. Both JE IDs are fixed values from Oracle GL.",
+        "evidence": "Check the final response for mention of the cross-period posting mismatch, the April vs May timing, and the specific JE references."
+    },
+    {
+        "title": "The Agent identifies that the Northstar 240000 deferred revenue issue has SOX implications because it constitutes a revenue misstatement of $8,500, with Andrea Phil required to sign off on the corrective reversal.",
+        "category": "outcome",
+        "justification": "The prompt says \"if there are SOX implications on any of these, I need to know exactly what compliance documentation Peter is expecting and whether we have gaps.\" The deferred revenue double-count is SOX-flagged with Andrea as certifier.",
+        "evidence": "Check the final response for SOX flag identification on the $8,500 item, revenue misstatement language, and Andrea's required sign-off."
+    },
+    {
+        "title": "The Agent identifies that the Brookfield 133000 negative prepaid balance is a SOX flag because a prepaid asset cannot go negative, with the root cause being SAP schedule PS-BF-CPE-014 having an incorrect end date of June 2026 instead of the contractual April 2026.",
+        "category": "outcome",
+        "justification": "The prompt says \"if there are SOX implications on any of these, I need to know exactly what compliance documentation Peter is expecting.\" A negative prepaid is a hard SOX control indicator per the review notes and exception data.",
+        "evidence": "Check the final response for mention of negative prepaid as SOX flag, the incorrect SAP end date (June vs April 2026), and the ClearPath contract expiry."
+    },
+    {
+        "title": "The Agent identifies that Peter Sanchez requires SOX control testing documentation completed before the May close is finalized, including partner sign-off from Andrea on corrective JEs for both SOX-flagged items.",
+        "category": "outcome",
+        "justification": "The prompt says \"I need to know exactly what compliance documentation Peter is expecting and whether we have gaps.\" Peter's requirements are stated in his Slack message and the SOX review calendar event.",
+        "evidence": "Check the final response for mention of Peter Sanchez's compliance documentation requirements, partner sign-off from Andrea, and the SOX control testing log."
+    },
+    {
+        "title": "The Agent reports on the status of the user's reminders, confirming whether any items have slipped through, including the BD3 lock deadline reminder, the Kellner accrual check, the deferred revenue verification, and the SOX documentation reminder.",
+        "category": "outcome",
+        "justification": "The prompt says \"check my reminders, I set a few earlier this week related to these items and I want to make sure nothing's slipped through that I've forgotten about.\" There are four relevant reminders in the system.",
+        "evidence": "Check the final response for mention of the reminders and their status, particularly whether all four items are accounted for."
+    },
+    {
+        "title": "The Agent identifies the broader prepaid schedule issue, reporting that Nia Okafor found two additional SAP schedule end-date mismatches (PS-BF-SFT-008 and PS-BF-FAC-003) beyond the ClearPath schedule PS-BF-CPE-014.",
+        "category": "outcome",
+        "justification": "The prompt says \"I remember someone mentioning that the prepaid schedule issue might not be isolated to just one account. If there's a broader problem with the amortization end dates, I need that flagged properly.\" Nia's email identifies the two additional mismatches.",
+        "evidence": "Check the final response for mention of two additional prepaid schedule mismatches, Nia Okafor, or the specific schedule IDs PS-BF-SFT-008 and PS-BF-FAC-003."
+    },
+    {
+        "title": "The Agent confirms that BlackLine review notes on all five affected reconciliations (BL-EA1B2C3D4F5A, BL-FB2C3D4E5F6A, BL-FB2C3D4E5F6B, BL-GC3D4E5F6A7B, BL-HD4E5F6A7B8C) have been updated in advance of the afternoon recon review meeting.",
+        "category": "outcome",
+        "justification": "The feed rule issue is discovered through Messaging conversations and Slack, and the Linear ticket confirms it is unresolved. This is relevant context for both the accrual item and the overall close status.",
+        "evidence": "Check the final response for mention of a Linear issue or backlog item related to the subledger feed accrual rule."
+    },
+    {
+        "title": "The Agent identifies that the Acme Cloud accrual feed rule change is tracked as a Linear issue still in backlog, confirming the systemic feed problem has not been resolved.",
+        "category": "outcome",
+        "justification": "The prompt says \"confirm the amounts and the approval chain, who still needs to sign off and whether we're waiting on anyone.\" Per conv_fb2c3d4e5f6a, Jones Harrison said \"I will draft it and send to Daniel for approval.\" The entry has not been drafted yet.",
+        "evidence": "Look in the Agent's trajectory or response for identification of the Linear issue tracking the subledger feed accrual reversal fix (title referencing \"subledger feed accrual reversal\" or similar) as still in backlog with no resolution date reached."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the intercompany 215000 corrective action status: Jones Harrison will draft the reclassifying contra entry and send it to Daniel for approval before it can be posted.",
+        "category": "outcome",
+        "justification": "The prompt requires the Agent to include what is still pending and any blockers for each item. This verifies the corrective action chain for item 2 is communicated in the email reply.",
+        "evidence": "In the Agent's email reply, look for mention of Jones Harrison drafting the contra entry for the 215000 intercompany mismatch and Daniel Jones's approval being required before posting."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Northstar 240000 corrective action status: Ben Arinzo has been instructed to draft the reversal JE to unwind the $8,500 erroneous revenue recognition, and Andrea Phil must sign off before it can be posted.",
+        "category": "outcome",
+        "justification": "Item 3 is SOX-flagged and the prompt requires the Agent to confirm the approval chain. This verifies the reversal JE details and the required sign-off are in the email reply.",
+        "evidence": "In the Agent's email reply, look for mention of Ben Arinzo instructed to draft the reversal JE to unwind the $8,500 erroneous revenue recognition, and Andrea Phil's required sign-off before the JE can be posted."
+    },
+    {
+        "title": "The Agent's reply to Andrea includes the Brookfield 133000 corrective action status: Mateo Kovac needs to draft the corrective JEs for the two phantom amortization entries, and Andrea Phil must sign off before they can be posted.",
+        "category": "outcome",
+        "justification": "Item 4 has no corrective JEs drafted yet (corrective_journal_entry_id=null on exc_hd4e5f6a7b8c01). Mateo Kovac is the assigned preparer. The prompt requires reporting what is pending and the approval chain for SOX items.",
+        "evidence": "In the Agent's email reply, look for mention of the assigned preparer (Mateo Kovac) needing to draft corrective JEs for the two phantom amortization entries on Brookfield account 133000, and Andrea Phil's required sign-off once the JEs are drafted."
+    },
+    {
+        "title": "The Agent checks both Messaging conversations and Slack channels when investigating the open items, not relying solely on the formal systems (BlackLine, Oracle GL, SAP).",
+        "category": "process",
+        "justification": "The prompt explicitly states \"some of these have been discussed in team messages and on Slack so make sure you're getting the full picture, not just what's in the formal systems.\" Consulting informal channels is required by every valid solution path and cannot be fully captured by any single Outcome rubric.",
+        "evidence": "Look in the Agent's trajectory for search or retrieval actions on Messaging conversations (related to Kellner accrual, intercompany clearing, deferred revenue, or prepaid scope) AND on Slack channels (particularly monthly-close-coordination / C005 for close items and compliance-and-registrations / C008 for Peter Sanchez's SOX messages)."
+    }
+]

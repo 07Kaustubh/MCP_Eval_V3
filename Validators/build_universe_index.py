@@ -99,6 +99,10 @@ def service_inventory(split_dir: Path, out: Path) -> None:
 
 def entities_personas(split_dir: Path, out: Path) -> None:
     rows = []
+    try:
+        universe = detect_universe(split_dir.parent.parent)
+    except Exception:
+        universe = "brookfield"
     seen = set()
 
     for d in rows_of(split_dir / "contacts.contacts.json"):
@@ -108,7 +112,8 @@ def entities_personas(split_dir: Path, out: Path) -> None:
         is_user = d.get("is_user")
         if email and email not in seen:
             seen.add(email)
-            tag = "persona" if is_user else "npc"
+            internal = bool(is_user) or (universe == "starpm" and str(email).endswith("@starpm.com"))
+            tag = "persona" if internal else "npc"
             rows.append((name or "", email, role or "", tag))
 
     for d in rows_of(split_dir / "slack.slack_users.json"):
@@ -229,7 +234,11 @@ def key_facts(split_dir: Path, out: Path) -> None:
 
     issues = list(rows_of(split_dir / "linear.linear_issues.json"))
     if issues:
-        by_state = Counter(i.get("state", i.get("status", "?")) for i in issues)
+        if universe == "starpm":
+            _ws = {w.get("id"): w.get("name") for w in rows_of(split_dir / "linear.linear_workflow_states.json")}
+            by_state = Counter(_ws.get(i.get("state_id"), str(i.get("state_id", "?"))) for i in issues)
+        else:
+            by_state = Counter(i.get("state", i.get("status", "?")) for i in issues)
         lines += [
             "## Linear Issues",
             f"- Total: **{len(issues)}**",

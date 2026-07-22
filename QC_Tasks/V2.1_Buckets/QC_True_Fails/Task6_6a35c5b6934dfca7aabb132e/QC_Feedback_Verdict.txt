@@ -1,0 +1,28 @@
+Task: Task7_6a35c5b6934dfca7aabb132e
+Business Function: BlackLine Close-Discipline & Variance
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing Issues:
+ * [Fail - 10%+ Major Rubric Errors] - Criterion 1-15 are incorrect: The prompt states that the user is expected to create notes, send an email, and create a post on Slack; however, the user does not explicitly request the model to perform these actions on the user's behalf. By the letter of the prompt, all that is expected of the model is to "sort through everything and figure out what is going on with each one". Thus, outcome criteria explicitly requiring these actions are incorrect. 
+There is also missing criteria to confirm "the full breakdown by exception with the amounts and who is responsible and what is holding things up". A criteria with assignees and status for each exception should exist. 
+
+Non-Failing Issues:
+ * 
+
+Discussion:
+ * Critical errors in the rubric here. The prompt has been misconstrued by taking what is expected of the user and assigning it to the agent, even though this was not requested. Additionally, several of the criteria can be seen as underfitting, or that there is missing criteria to confirm the details of "what is going on".
+
+## Error Categories
+
+["[All] [All] [Fail - 10%+ Major Rubric Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

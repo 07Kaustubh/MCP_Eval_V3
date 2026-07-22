@@ -1,0 +1,39 @@
+Task: Task27_6a34ca4ecb481794fca00da1
+Business Function: Engagement Mgmt & Client Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Incomplete Oracle Events] OE5 missed checking the BL review notes for BL-C3D4E5F6A7B8 and BL-D4E5F6A7B8C9.
+- [Non-Fail - Minor OE Inaccuracies] OE14 only states that items 3 and 4 have SOX implications, but it was established in OE4 that item 2 also has SOX implications.
+- [Non-Fail - Minor OE Inaccuracies] Since the prompt states "the compliance team needs to be notified", OE 15 would be better to post a message in the slack channel "compliance-and-registrations", or email both Peter Sanchez and Marina Soko (the whole compliance team) rather than just one member of the team.
+- [Non-Fail - Incomplete Oracle Events] OE15 is missing any mention of the HarborPoint lease misclassification which also has SOX implications.
+
+Rubric Criteria:
+Major issues:
+1 - [Missing Criteria — Outcome] The CB missed a criteria that checks if the notification to the compliance team contains the HarborPoint lease misclassification which also has SOX implications.
+- [Non-Fail - Up to 10% Major Errors] 1/29=~3% <= 10%
+
+Moderate issues:
+1 - [Overly Broad Criteria] Criteria 28 is overly broad because it does not specify which corrections Daniel Jones can make, and which require a managers authority. It is correct, but should be more specific.
+- [Non-Fail - Up to 15% Moderate Errors] 2/29=~7% <= 15%
+
+Minor issues:
+1 - [Overly Specific Criteria] Criteria 2 is too specific because the prompt states "the compliance team needs to be notified", but this criteria only notifies Peter Sanchez who is part of the team but does not account for Marina Soko another individual on the team, or the ability to notify the compliance team through the slack channel "compliance-and-registrations".
+- [Non-Fail - 5-20% Minor Errors] 3/29=~10% <= 20%
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Up to 10% Major Errors]","[All] [All] [Non-Fail - 5-20% Minor Errors]","[All] [All] [Non-Fail - Up to 15% Moderate Errors]","[All] [All] [Non-Fail - Incomplete Oracle Events]","[All] [All] [Non-Fail - Minor OE Inaccuracies]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

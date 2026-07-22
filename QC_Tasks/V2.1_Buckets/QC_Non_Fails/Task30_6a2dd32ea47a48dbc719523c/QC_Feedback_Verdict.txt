@@ -1,0 +1,28 @@
+Task: Task30_6a2dd32ea47a48dbc719523c
+Business Function: Accounting Operations
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+Non-failing issues:
+- [Non-Fail - Incomplete Oracle Events] None of the OE's name the tool or parameters that should be used to gather the information.
+- [Non-Fail - Incomplete Oracle Events] OE13 missed stating the duplicate ~$74,220 of 0049 and 0043.
+
+Major issues:
+- [Missing Criteria — Outcome] The CB missed criteria outlining the information needed in the Daniel Jones email summary: $2,550 cloud true-up shortfall (actual $21,300 vs $18,750 accrued), ~$194,850 duplicate revenue release (0046 vs 0042), and overstating May commission expense by approximately $74,220 (0049 vs 0043). Since the prompt says "send Daniel a straight blockers-vs-noise summary with the real figures", this information should be provided in the email summary.
+- [Non-Fail - Up to 10% Major Errors] 1/20= 5% <= 10%
+
+No other issues with this task.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Incomplete Oracle Events]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

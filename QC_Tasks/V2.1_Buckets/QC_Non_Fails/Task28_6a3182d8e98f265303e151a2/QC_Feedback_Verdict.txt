@@ -1,0 +1,36 @@
+Task: Task28_6a3182d8e98f265303e151a2
+Business Function: Audit
+QC Score: 3
+Final Score: 3
+
+============================================================
+
+## QC Auditor Feedback
+
+- Non-Failing Issues:
+• [Non-Fail - Missing Process Rubric]
+There are 3 missing process rubrics.
+It is missing TS related to discovering the active items in the Close Blocker Triage Log using airtable_list_recordsrelated to OE#1.
+It is missing TS for checking the underlying reconciliations in BlackLine using blackline_get_reconciliation , related to OE#2.
+It is missing TS for related to looking up each of the 4 affected GL accounts in Oracle GL, related to OE#3.
+
+• [Non-Fail - Up to 10% Major Errors]
+◦ [Criteria Not Atomic]
+C#6 is not atomic. The criterion evaluates if two distinct DMs are sent. These are two distinct tool calls that can independently succeed or fail.
+
+• [Non-Fail - Minor OE Inaccuracies] [OE5]
+Relevant BlackLine Ids (BL-3F60ED1C7107, BL-18FFAE0E20D0, BL-0DEC7D2FD9E6, BL-3E4ED5B5B9BA) appear to be not present in the Email.
+
+- Discussion:
+• [Runs] The average tool call count across all trajectories is > 15. 
+• [Pass Rate] Pass rate is 33%, <40% .
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Missing Process Rubric]","[All] [All] [Non-Fail - Up to 10% Major Errors]","[All] [All] [Non-Fail - Minor OE Inaccuracies]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 3 — NON-FAIL

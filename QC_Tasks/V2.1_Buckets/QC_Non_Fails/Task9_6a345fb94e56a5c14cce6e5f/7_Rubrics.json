@@ -1,0 +1,176 @@
+[
+    {
+        "title": "The Agent uploads a Q1 reconciliation memo to the Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt asks to file a Q1 reconciliation memo in the vault as a tax record. The upload action must occur.",
+        "evidence": "See OE9. Look for a successful Records Vault upload of a Q1 reconciliation memo for Acme Cloud with kind memo (or similar)."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo is filed as a tax record under a 7-year tax retention code (IRS_TAX_7Y or AICPA_SQMS_7Y).",
+        "category": "outcome",
+        "justification": "The prompt requires filing the memo as a tax record but does not name a specific code. IRS_TAX_7Y (tax records) and AICPA_SQMS_7Y (tax workpapers / reconciliation evidence) are both valid 7-year tax-record retention codes, so the rubric accepts either to match the prompt's level of specificity.",
+        "evidence": "See OE9. Check the vault upload's retention_policy_code is a tax-record retention code: IRS_TAX_7Y or AICPA_SQMS_7Y. Either is acceptable; FIRM_INTERNAL or INDEFINITE would not satisfy a tax-record filing."
+    },
+    {
+        "title": "The Agent confirms the SaaS taxability determination memo is on file in Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to confirm the determination memo is on file in the vault. It is the authoritative support for the taxable-state conclusion.",
+        "evidence": "See OE4. Check the Agent's trajectory or memo/final response for confirmation that the SaaS taxability determination memo, titled \\\"Acme Cloud SaaS Multi-State Sales Tax Determination Memo Q1 2026 - SaaS-taxable jurisdictions only\\\" (doc_84905e8e14ad4d96), is on file in Records Vault. Accept identification by title; the internal document ID is not required."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo includes the Q1 filings total of $40,364.55.",
+        "category": "outcome",
+        "justification": "The prompt asks the memo to include the tie-out. The filed Q1 total from Tom's April thread and filing confirmations is $40,364.55.",
+        "evidence": "See OE2, OE3, OE6. Check the decoded memo content for the Q1 filings/thread total of $40,364.55."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo includes the posted March accrual amount of $42,180.55.",
+        "category": "outcome",
+        "justification": "The prompt asks the memo to include the tie-out against the accrual Edith booked for the March period.",
+        "evidence": "See OE5, OE6. Check the memo content for the posted March accrual of $42,180.55 (JE-acme_cloud-acme_cloud_FP-2026-03-0076)."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo includes the variance amount of $1,816.00.",
+        "category": "outcome",
+        "justification": "The prompt asks the memo to include the tie-out. The variance math is the core reconciliation finding.",
+        "evidence": "See OE6. Check the memo content for the variance of $1,816.00 ($42,180.55 minus $40,364.55)."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo includes the four-state Q1 breakdown: TX $24,492.10, NY $8,944.25, AZ $4,810.00, and WA $2,118.20.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for the four-state breakdown in the vault memo.",
+        "evidence": "See OE2. Check the memo content for per-state Q1 amounts: TX $24,492.10, NY $8,944.25, AZ $4,810.00, WA $2,118.20."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo references all four Q1 filing confirmation IDs: TX-CONF-Q1-2026-A8K3FX, NY-CONF-Q1-2026-RT6K2M, WA-CONF-Q1-2026-BD4Q9N, and AZ-CONF-Q1-2026-HM3V8L.",
+        "category": "outcome",
+        "justification": "The prompt asks the memo to include the confirmation references from the Q1 filings.",
+        "evidence": "See OE3. Check the memo content for confirmation references TX-CONF-Q1-2026-A8K3FX, NY-CONF-Q1-2026-RT6K2M, WA-CONF-Q1-2026-BD4Q9N, and AZ-CONF-Q1-2026-HM3V8L."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo lists the authoritative taxable states as Texas, New York, Washington, and Arizona.",
+        "category": "outcome",
+        "justification": "The prompt asks the authoritative taxable-state list to be documented clearly in the vault memo. The correct list is supported by Hannah's April correction, Tom's final filing confirmations, and the posted JE justification.",
+        "evidence": "See OE2, OE3, OE5, and OE6. Check the memo content for the authoritative taxable states TX, NY, WA, and AZ."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo flags that the signed change-order scope and scope memo list Texas, Georgia, and North Carolina, conflicting with the authoritative SaaS-taxable states of Texas, New York, Washington, and Arizona.",
+        "category": "outcome",
+        "justification": "The prompt asks the memo to include the read on the change-order conflict, including the separate vault scope memo that leans toward Texas, Georgia, and North Carolina.",
+        "evidence": "See OE7. Check the memo content for a statement that the signed change-order scope and the vault scope memo (doc_c9f5e3a04d1f6a32) list Texas, Georgia, and North Carolina, flagged as conflicting with the authoritative SaaS-taxable states (Texas, New York, Washington, and Arizona)."
+    },
+    {
+        "title": "The Agent confirms the Q1 filing receipts packet is on file in Records Vault.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks the Agent to confirm the Q1 receipts packet is on file in the vault, alongside the determination memo.",
+        "evidence": "See OE4. Check the Agent's trajectory or memo/final response for confirmation that the Q1 2026 Multi-State Sales Tax Filing Receipts Packet (doc_3e28a0ac0f464b56) is on file in Records Vault. Accept identification by title; the internal document ID is not required."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo concludes the open item is a real ledger-to-filings variance, not a documentation gap from missing filing confirmations.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the issue is a real variance or a documentation gap. Because the final receipts packet exists and all four confirmations were captured, the open item is a real variance, not missing support.",
+        "evidence": "See OE3, OE4, and OE6. Check the memo content for a conclusion that the open item is a real ledger-to-filings variance rather than a documentation gap from missing filing confirmations."
+    },
+    {
+        "title": "The Agent sends an email from [tom.chang@brookfieldcpas.com](mailto:tom.chang@brookfieldcpas.com) to [ming.chang@brookfieldcpas.com](mailto:ming.chang@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt asks to email Ming a summary ahead of pipeline review.",
+        "evidence": "See OE10. Look for an email sent from tom.chang@brookfieldcpas.com to ming.chang@brookfieldcpas.com. Verify the send succeeded."
+    },
+    {
+        "title": "The Agent's email to Ming Chang includes the variance math: Q1 filings total $40,364.55, posted accrual $42,180.55, and difference $1,816.00.",
+        "category": "outcome",
+        "justification": "The prompt asks the Ming email to include the variance math.",
+        "evidence": "See OE10, OE6. Check the email content for the filings total $40,364.55, posted accrual $42,180.55, and variance $1,816.00."
+    },
+    {
+        "title": "The Agent's email to Ming Chang lists the authoritative taxable states as Texas, New York, Washington, and Arizona.",
+        "category": "outcome",
+        "justification": "The prompt asks the Ming email to include the correct state list from the determination memo and Q1 filings.",
+        "evidence": "See OE4, OE6. Check the email content for the correct taxable state list: TX, NY, WA, and AZ."
+    },
+    {
+        "title": "The Agent's email to Ming Chang states the posted accrual is not fully supported by the filed Q1 total.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the posted accrual is fully supported. The correct answer is that it is not.",
+        "evidence": "See OE6. Check the email content for a statement that the posted accrual of $42,180.55 is not fully supported by the filed Q1 total of $40,364.55."
+    },
+    {
+        "title": "The Agent posts a message in the #tax-prep-and-filings Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt asks to drop Hannah a quick update in tax prep.",
+        "evidence": "See OE11. Look for a message posted in the #tax-prep-and-filings Slack channel (channel_id C006). Verify the post succeeded."
+    },
+    {
+        "title": "The Agent's Slack message to tax prep states that Q1 reconciliation is still open or not yet closed out because the $1,816.00 variance remains unresolved.",
+        "category": "outcome",
+        "justification": "The prompt asks Hannah to know whether Q1 reconciliation is closed out or still open and why. The variance remains unresolved, so still open is correct.",
+        "evidence": "See OE6 and OE11. Check the Slack message for a statement that Q1 reconciliation is still open or not yet closed out because the $1,816.00 variance remains unresolved."
+    },
+    {
+        "title": "The Agent's Slack message to tax prep mentions that the Q1 reconciliation memo has been filed in the Records Vault (or similar).",
+        "category": "outcome",
+        "justification": "The prompt asks Hannah to be updated on reconciliation status. She should know the memo was filed.",
+        "evidence": "See OE11. Check the Slack message for a reference that the reconciliation memo has been filed in the Records Vault."
+    },
+    {
+        "title": "The Agent reports in the final response that the Q1 filings total is $40,364.55.",
+        "category": "outcome",
+        "justification": "The prompt asks Tom to be told the reconciliation outcome. The filed Q1 total from thread and confirmations is $40,364.55.",
+        "evidence": "See OE2, OE3, OE6. Check the agent's final response for the Q1 filings/thread total of $40,364.55."
+    },
+    {
+        "title": "The Agent reports in the final response that the posted March accrual is $42,180.55.",
+        "category": "outcome",
+        "justification": "The prompt asks Tom to reconcile against the accrual Edith booked for the March period.",
+        "evidence": "See OE5, OE6. Check the final response for the posted March accrual of $42,180.55."
+    },
+    {
+        "title": "The Agent reports in the final response that the variance between the filed Q1 total and the posted accrual is $1,816.00.",
+        "category": "outcome",
+        "justification": "The prompt asks for reconciliation of the two totals. The variance is $42,180.55 minus $40,364.55.",
+        "evidence": "See OE6. Check the final response for the variance of $1,816.00."
+    },
+    {
+        "title": "The Agent concludes in the final response that the issue is a real variance to fix, not a documentation gap from missing filing confirmations.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks whether there is a real variance or just a documentation gap. Receipts packet doc_3e28a0ac0f464b56 exists, so real variance is correct.",
+        "evidence": "See OE4, OE6. Check the final response for a conclusion that this is a real variance to fix, not a documentation gap from missing filing confirmations."
+    },
+    {
+        "title": "The Agent reports in the final response that the authoritative taxable states for Acme Q1 SaaS sales tax are Texas, New York, Washington, and Arizona.",
+        "category": "outcome",
+        "justification": "The prompt asks for the authoritative taxable-state list to be documented clearly before more Acme sales tax work is signed off. The correct list is supported by Hannah's April correction, final confirmations, and the posted JE justification.",
+        "evidence": "See OE2, OE3, OE5, and OE6. Check the final response for the authoritative taxable states TX, NY, WA, and AZ."
+    },
+    {
+        "title": "The Agent flags in the final response that the signed change-order scope lists Texas, Georgia, and North Carolina, conflicting with the authoritative SaaS-taxable states of Texas, New York, Washington, and Arizona.",
+        "category": "outcome",
+        "justification": "The prompt asks Tom to understand the scope problem in the engagement paperwork versus Hannah's correction and the determination memo.",
+        "evidence": "See OE7. Check the final response for a statement that George's change order lists Texas, Georgia, and North Carolina, flagged as conflicting with the authoritative SaaS-taxable states (Texas, New York, Washington, and Arizona)."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo identifies the draft Q1 sales tax accrual support workpaper (pre-posting, $40,364.55) as non-authoritative because it is a draft not yet posted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly warns the Agent not to treat draft support as the final answer unless it agrees with the posted ledger and final filing evidence. The injected draft workpaper shows $40,364.55 but does not override the posted $42,180.55 accrual.",
+        "evidence": "See OE4 and OE6. Check the decoded memo content for a statement that the draft Q1 sales tax accrual support workpaper (pre-posting, $40,364.55; doc_a7f3c1e82b9d4e10) is not authoritative for the booked March accrual. Accept identification by description; the internal document ID is not required in the memo."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo identifies the draft Q1 sales tax accrual journal entry (JE-acme_cloud-acme_cloud_FP-2026-03-0077, $40,364.55) as non-authoritative because it is in draft status and never posted.",
+        "category": "outcome",
+        "justification": "The prompt explicitly warns the Agent not to treat a draft journal entry as the final answer unless it agrees with the posted ledger. The injected draft JE shows $40,364.55 but was never posted and does not override the posted $42,180.55 accrual.",
+        "evidence": "See OE5 and OE6. Check the decoded memo content for a statement that the draft Q1 sales tax accrual journal entry (JE-acme_cloud-acme_cloud_FP-2026-03-0077, $40,364.55; je_d4e8f2a91c3b4056) is in draft status and never posted, so it is not authoritative for the booked March accrual."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo identifies the draft TX-only Q1 filing receipts packet as incomplete and not the final filing support.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to separate draft support from final filing evidence. The injected TX-only packet is a draft/incomplete packet and should not create a documentation-gap conclusion.",
+        "evidence": "See OE4 and OE6. Check the decoded memo content for a statement that doc_b8e4d2f93c0e5f21 is a draft TX-only receipts packet and does not replace the final four-state receipts packet / filing confirmations."
+    },
+    {
+        "title": "The Agent's vault reconciliation memo addresses Hannah Grant's later June 10, 2026 closed-status note and explains that Q1 remains open because the note conflicts with the posted $42,180.55 March accrual.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to consider a later status note that made Q1 sound closed. The correct reconciliation must reject that closed-status trap because the posted ledger still has a $1,816.00 variance.",
+        "evidence": "See OE8A and OE6. Check the decoded memo content for Hannah Grant's June 10 note / message e58f1cdf805480340987f90d1a0da6bd being treated as non-authoritative or not sufficient to close Q1 because the posted March accrual is $42,180.55."
+    }
+]

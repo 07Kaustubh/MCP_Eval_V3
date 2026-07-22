@@ -1,0 +1,39 @@
+Task: Task20_6a29e6c4aed8073e36e90fcb
+Business Function: AP / Vendor Operations
+QC Score: 4
+Final Score: 4
+
+============================================================
+
+## QC Auditor Feedback
+
+- Note: One run is failing to load (#5), however its results would not have affected the audit in any meaningful way. On both full fail and full success scenarios, no additional dimensions would have been rated.
+
+Non-failing issues:
+- Oracle Events [Non-Fail - Inaccurate Oracle Events]: Two different oracle events have issues.
+- OE4 is instructs the agent to use `contacts_search_contacts("GraniteRack")` to look up the GraniteRack vendor-master record/status. Contacts search is not the right tool for searching for AP vendor-master contract metadata, and searching for "GraniteRock" in contacts produces no results at all. Since OE4 also does include the email search path that will provide the correct information, this is a minor accuracy issue, and nothing is missing for a completeness issue.
+- OE1 assumes an undisclosed SAP vendor id (VEN-012) before the agent has a way to know it. The vendor-id has to be obtained from elsewhere prior to this SAP search, as SAP `sap_subledger_get_ap_invoice` does not support vendor name or text query parameter.
+
+Discussion:
+- The prompt has a unique ground truth answer. The prompt is completely actionable by an LLM agent and contains no conflicting instructions/statements. Prompt does not state the use of any tools. There is little to no room for misinterpretation of the specific request and no assumptions are needed to answer the prompt. Prompt is neither contrived or unnatural, contains no factual errors or misleading statements. Prompt requires investigation across 2+ services to answer correctly. Prompt is one cohesive situation, all asks tie back to the same purpose and the prompt aligns with the selected persona. Prompt clearly reflects a realistic scenario with the assigned business function.
+
+- Prompt does not contradict today's date.
+
+- All core facts required to solve the task exist in the universe and are retrievable via tools. No universe edits made.
+
+- OE's describe the full critical path, no steps are missing.
+
+- No rubric quality issues found. No rubrics failed all runs, one run passed all rubrics. All rubrics are outcome rubrics, no issue with process rubrics.
+
+- Average tool call count for trajectories is 61, well above the required 15 tool call average minimum.
+- 1/6 runs passed all rubrics. Run #5 cannot be confirmed as it is not loading, however even if it did pass all rubrics, 2 runs are allowed to pass all rubrics according to spec. Spec requires more than 2 runs to pass all rubrics as the failing condition: "- More than 2 of 6 runs pass all valid 03/08 rubrics (i.e., pass@1 > 40%)". No runs failed to run.
+
+## Error Categories
+
+["[All] [All] [Non-Fail - Inaccurate Oracle Events]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 4 — NON-FAIL (near-pass)

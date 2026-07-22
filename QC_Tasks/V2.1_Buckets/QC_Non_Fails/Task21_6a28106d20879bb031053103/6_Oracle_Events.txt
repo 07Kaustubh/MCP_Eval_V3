@@ -1,0 +1,21 @@
+OE1: Search email (email_search_emails or email_list_emails) for messages from farah.dlamini@brookfieldcpas.com or about "threshold" / "wire" / "Acme Cloud". Find Farah's email containing the $186,350.00 aggregate with the 6-transaction breakdown. Also find Peter's request email establishing the scope: third-party wire activity, FP-2026-01 through FP-2026-05, recommendation on the firm's $10K internal monitoring trigger.
+
+OE2: Search Slack (slack_conversations_search_messages in channel C008 / #compliance-and-registrations) for Farah's summary post confirming $186,350.00.
+
+OE3: Verify each of the 6 transactions from Farah's email in Oracle GL. Use oracle_gl_list_journal_entries with period_id for each relevant period (acme_cloud_FP-2026-01, acme_cloud_FP-2026-02, acme_cloud_FP-2026-03, acme_cloud_FP-2026-04, acme_cloud_FP-2026-05) and inspect results for account 101000. Alternatively use oracle_gl_get_journal_entry on each entry's internal id after discovering them.
+
+OE4: When inspecting the Meridian Corp entry ($42,500, entry number JE-acme_cloud-FP-2026-02-0078), notice status = "reversed" and reversed_by_entry_id = je_acme_threshold_meridian_rev. Retrieve the reversing entry (JE-acme_cloud-FP-2026-02-0082) via oracle_gl_get_journal_entry. Conclude: this wire was a duplicate booking with net zero cash movement. Exclude $42,500 from the aggregate.
+
+OE5: When inspecting the shared services allocation ($15,000, entry number JE-acme_cloud-FP-2026-03-0075), notice the description mentions "shared services allocation from parent entity." Search email (email_search_emails) for "intercompany" or "JE-acme_cloud-FP-2026-03-0075" to find Jones Harrison's email documenting the reclassification. Search records_vault_list_documents for the reclassification memo. Conclude: intercompany transfer, not third-party wire. Exclude $15,000 from the aggregate.
+
+OE6: When inspecting the CloudNova Infrastructure disbursement ($18,600, entry number JE-acme_cloud-FP-2026-05-0042), use sap_subledger_list_subledger_transactions with gl_account_number=210000, module filter set to AP, and posting date around 2026-05-05. Find SAP document 7000015201 showing an $11,850 vendor credit memo that reduces the net payable. Conclude: the actual net economic outflow was $6,750, not $18,600. Reduce the aggregate by $11,850.
+
+OE7: Search for Farah's dismissal of the reductions via messaging_search_conversations (query "threshold" or "aggregate" or "Farah") to find the DM conversation where Farah insists on using $186,350, and/or locate Farah's threaded Slack reply in C008 via slack_conversations_search_messages (search_query referencing "gross origination volume" or "threshold", filter_in_channel C008). The agent must evaluate Farah's reasoning that monitoring tracks "gross origination volume" against Peter's request for "third-party wire activity" and the firm's net-economic-exposure methodology, and conclude that Farah's framing is wrong for this specific analysis.
+
+OE8: Use records_vault_upload_document to create the threshold analysis memo. Required parameters: kind (e.g., "memo"), retention_policy_code "AICPA_SQMS_7Y". Additional parameters: title referencing the threshold analysis, classification "restricted". The memo content (parameter: content_b64) should include: the correct net aggregate of $117,000.00 (computed as $186,350.00 - $42,500.00 Meridian reversal - $11,850.00 CloudNova credit - $15,000.00 intercompany = $117,000.00), the three adjustments made, and a recommendation on whether the firm's $10K internal monitoring trigger remains appropriate for enterprise SaaS clients.
+
+OE9: Use email_send_email to peter.sanchez@brookfieldcpas.com with CC steven.perry@brookfieldcpas.com. The email content (parameter: content) should include the net aggregate ($117,000), the three adjustments, and the threshold recommendation.
+
+OE10: Use slack_conversations_add_message in channel C008 (#compliance-and-registrations). The message payload (parameter: payload) should summarize the threshold analysis findings and recommendation.
+
+OE11: Use reminder_add_reminder with title referencing the Acme Cloud wire threshold quarterly review, description summarizing the next review cycle, and due_datetime in September 2026 (e.g., 2026-09-08T09:00:00-04:00).

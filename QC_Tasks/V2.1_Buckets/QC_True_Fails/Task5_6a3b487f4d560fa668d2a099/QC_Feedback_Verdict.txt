@@ -1,0 +1,28 @@
+Task: Task6_6a3b487f4d560fa668d2a099
+Business Function: Engagement Mgmt & Client Operations
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing Issues:
+ * [Fail - Multiple Valid Answers]  - “where a line genuinely needs Andrea or Daniel, pass it to them laid out plainly and leave the call to them,” is a vague instruction and is up to the agent to interpret what "stits above" the agent's "level" and what should be passed to Daniel and Andrea. Daniel’s message only says “If anything on the cash-application side needs correcting," (The Treadwell receipt)" route it through Sean to prepare and me to approve”.
+This affects criterion 6.
+
+Non-Failing Issues:
+ * [Non-Fail - 5-20% Minor Errors] - Overly specific criteria - C4 overly specific. Since the catch-up of $1300 for Calderwood is not specifically attributed to June, it is reasonable for the Agent to not directly include it in the run while leaving it in a separate note. 
+
+Discussion:
+ * The prompt has an instruction that could lead to multiple valid answers, depending on how the agent interprets it. What sits above the user's "level" is not defined in the prompt or universe.
+
+## Error Categories
+
+["[All] [All] [Fail - Multiple Valid Answers]","[All] [All] [Non-Fail - 5-20% Minor Errors]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

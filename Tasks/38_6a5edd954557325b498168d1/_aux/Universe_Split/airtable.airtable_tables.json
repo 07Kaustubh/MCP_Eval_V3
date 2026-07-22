@@ -1,0 +1,10 @@
+[
+  {
+    "row_data": "{\"id\": \"tblMaintenanceTickets\", \"name\": \"Maintenance Tickets\", \"base_id\": \"appPropertyOps\", \"order_idx\": 0, \"description\": \"Ongoing maintenance requests and issue tracking. System of record for maintenance work orders; Linear is secondary.\", \"primary_field_id\": \"fldTicketNumber\"}",
+    "source": "airtable.airtable_tables"
+  },
+  {
+    "row_data": "{\"id\": \"tblMakeReady\", \"name\": \"Make-Ready Turns\", \"base_id\": \"appPropertyOps\", \"order_idx\": 0, \"description\": \"Vacancy turnover / make-ready progress across units\", \"primary_field_id\": \"fldUnit\"}",
+    "source": "airtable.airtable_tables"
+  }
+]

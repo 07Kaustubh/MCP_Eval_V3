@@ -1,0 +1,152 @@
+[
+    {
+        "title": "The Agent uploads a working-paper document to Records Vault from green.spatz@brookfieldcpas.com and the tool returns success.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'please file the draft to the vault'. This rubric confirms the write action was executed by Green and succeeded.",
+        "evidence": "Look for a records_vault_upload_document tool call with uploaded_by=green.spatz@brookfieldcpas.com. Confirm the tool response indicates success and returns a new document_id."
+    },
+    {
+        "title": "The Agent updates the existing Airtable close-blocker record airtable_va26cb01ab12 in the Close Blocker Triage Log and the tool returns success.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'update the close blocker entry'. The Verdant Analytics close blocker (airtable_va26cb01ab12) is the only entry in the Close Blocker Triage Log tracking this specific reconciliation cleanup (linked to recon_id=BL-VA260531C001, exception_id=exc_va26053101cf, owner=Green Spatz), so an update to an existing record (not a create) is required.",
+        "evidence": "Look for an airtable_update_records tool call with base_id=airtable_e86eaf439d1d, table_id=airtable_1a80ff5c1ed3, and a records array containing id='airtable_va26cb01ab12'. Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent posts a status message in the #monthly-close-coordination Slack channel and the tool returns success.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'post a status in the close coordination channel'. #monthly-close-coordination (channel_id=C005) is the coordination channel for close work in the Brookfield universe.",
+        "evidence": "Look for a slack_conversations_add_message tool call posting to #monthly-close-coordination (the channel_id parameter set to either 'C005' or the channel name 'monthly-close-coordination'; the tool accepts either form). Confirm the tool response indicates success."
+    },
+    {
+        "title": "The Agent sends an email from [green.spatz@brookfieldcpas.com](mailto:green.spatz@brookfieldcpas.com) to [george.mcadam@brookfieldcpas.com](mailto:george.mcadam@brookfieldcpas.com) and the tool returns success.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'email George the package'. This rubric confirms the write action was executed by Green to the correct recipient. Trainee-scope routing discipline (e.g., no chain-skip cc to partners) is left flexible at the 1.1 level and is naturally enforced by the email-content rubrics R9-R16, which require George-specific framing.",
+        "evidence": "Look for an email_send_email tool call with sender=green.spatz@brookfieldcpas.com and recipients containing george.mcadam@brookfieldcpas.com. Confirm tool response indicates success."
+    },
+    {
+        "title": "The Agent files the working paper to Records Vault under the AICPA_SQMS_7Y retention code.",
+        "category": "outcome",
+        "justification": "Per the Cat 1.5 working-paper convention documented in 3_Task_Categories_Business_Functions.md, close-cycle working papers (including prepaid amortization roll-forwards) are retained under AICPA_SQMS_7Y. Choosing the wrong retention code (e.g., FIRM_INTERNAL or IRS_TAX_7Y) misclassifies the document.",
+        "evidence": "Look at the records_vault_upload_document tool call parameters and confirm the retention_policy_code value is 'AICPA_SQMS_7Y'."
+    },
+    {
+        "title": "The Agent's Records Vault upload uses a title relating to the May FP-2026-05 prepaid amortization roll-forward or close working paper (e.g., 'FP-2026-05 Prepaid Amortization Roll Forward', 'May 2026 Prepaid Amortization Schedule', or similar).",
+        "category": "outcome",
+        "justification": "The prompt establishes the deliverable as a May prepaid amortization roll-forward schedule. The title needs to identify the artifact clearly enough that George (and Andrea on review) can find it. Title is agent-generated freetext, so flexibility is allowed.",
+        "evidence": "Look for the records_vault_upload_document tool call parameter 'title' and confirm it references the May / FP-2026-05 / prepaid / amortization / roll-forward theme (or close working paper)."
+    },
+    {
+        "title": "The Agent's Airtable close-blocker update references the corrected Verdant credit memo amount of $1,800 (per the June 8 vendor correction, NOT the May 27 $2,400 figure) in the updated fields.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Watch the credit memo, Maria at Verdant sent a follow up at some point so I want the latest figure on the schedule.' The corrected credit memo figure ($1,800 per Maria's June 8 email superseding the May 27 $2,400 quote) is the critical fact that must propagate through the deliverables. The Airtable blocker is one of those deliverables.",
+        "evidence": "Look for the airtable_update_records call's records array fields and confirm the notes/status text references the $1,800 corrected amount (or 'June 8 vendor correction' / 'corrected credit memo'), not $2,400 alone."
+    },
+    {
+        "title": "The Agent's Slack message in #monthly-close-coordination references the Verdant Analytics 131000 reconciliation (BL-VA260531C001) and the awaiting-review state with George (or similar handoff language).",
+        "category": "outcome",
+        "justification": "The prompt says 'post a status in the close coordination channel'. A meaningful status note needs to identify which item is being worked (the Verdant 131000 recon) and where it stands (drafted, awaiting George's review). This lets Anaya (on her return), Hannah, and Andrea see the close-cycle status when they scan the channel.",
+        "evidence": "Look for the slack_conversations_add_message payload text and confirm it mentions BL-VA260531C001 (or the Verdant Analytics 131000 prepaid recon) and indicates the schedule is drafted / awaiting George's review (or similar)."
+    },
+    {
+        "title": "The Agent's email subject line relates to the FP-2026-05 prepaid amortization roll-forward or the Verdant Analytics 131000 cleanup (e.g., 'FP-2026-05 Prepaid Roll Forward - draft for review', 'Verdant Analytics 131000 cleanup', or similar).",
+        "category": "outcome",
+        "justification": "The deliverable email to George needs a subject that lets him triage it correctly against the open close. Subject is agent-generated freetext, so flexibility is allowed.",
+        "evidence": "Look for the email_send_email tool call's 'subject' parameter and confirm it references the May / FP-2026-05 prepaid roll-forward or Verdant 131000 theme."
+    },
+    {
+        "title": "The Agent's email body to George identifies JE-brookfield-FP-2026-03-0094 (or the shorthand 'JE-0094') as the March duplicate prepaid-setup journal entry (a second DR 131000 / CR 210000 posting of $14,400) that was never properly reversed.",
+        "category": "outcome",
+        "justification": "The March duplicate JE is the root cause of the 131000 variance. George needs the specific JE reference to post the corrective reversal. Split from the reclass JE (R23) because the two come from distinct oracle_gl_get_journal_entry calls and can fail independently.",
+        "evidence": "Look in the email body for JE-brookfield-FP-2026-03-0094, or the shorthand 'JE-0094', cited as the March duplicate prepaid-setup entry. Accept the shorthand as a match since it is unambiguous in context."
+    },
+    {
+        "title": "The Agent's email body to George recognises the Verdant Analytics credit memo at $1,800 per Maria Thorpe's June 8 vendor correction.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'Watch the credit memo, Maria at Verdant sent a follow up at some point so I want the latest figure on the schedule.' This is the canonical reply-changes-the-answer hook. The agent must surface the corrected $1,800 figure (per Maria's June 8 email) on the schedule for George. An agent stopping at the May 27 $2,400 figure will fail this rubric because $1,800 is the correct value.",
+        "evidence": "Look for the email_send_email content/body and confirm it states the credit memo amount as $1,800 (the corrected figure per Maria Thorpe's June 8 vendor email)."
+    },
+    {
+        "title": "The Agent's email body to George flags the Verdant Analytics tier-downgrade letter (Pro $1,200/month to Standard $1,000/month, effective 2026-03-01).",
+        "category": "outcome",
+        "justification": "The tier-downgrade letter in Records Vault (doc_va26tier001cd34ef) drives the corrected amortization tier from March onwards. Without flagging this, the corrective JE plan cannot land at the correct $1,000/month going forward.",
+        "evidence": "Look for the email_send_email content/body and confirm it references the tier-downgrade letter and the Pro $1,200 to Standard $1,000 change effective 2026-03-01."
+    },
+    {
+        "title": "The Agent's email body to George quantifies the prior-period over-amortization for March and April 2026 (approximately $400 total, or $200 per month at the $1,200 Pro tier vs the corrected $1,000 Standard tier).",
+        "category": "outcome",
+        "justification": "Per Hannah Grant's June 2 Slack tax-timing constraint, the prior-period over-amortization for March and April must be adjusted in FP-2026-05 (not deferred). Quantifying the over-amortization is the calculation George needs to post the corrective entries. 'Approximately' is appropriate for the calculated derived value.",
+        "evidence": "Look for the email_send_email content/body and confirm it quantifies the prior-period over-amortization as approximately $400 total (or $200 per month for March and April)."
+    },
+    {
+        "title": "The Agent's email body to George identifies the missing May 2026 amortization journal entry on FP-2026-05 against account 131000 and notes it needs to land in the open May period at the corrected Standard tier ($1,000).",
+        "category": "outcome",
+        "justification": "The Verdant chain shows February through April amortizations posted (at the Pro tier $1,200) but no May entry. This is one of the corrective entries George needs to post. The corrected Standard-tier figure of $1,000 (per the tier-downgrade letter) is the right rate from March onwards.",
+        "evidence": "Look for the email_send_email content/body and confirm it identifies the missing May amortization JE and proposes the entry at the corrected Standard tier of $1,000."
+    },
+    {
+        "title": "The Agent's email body to George proposes that the corrective journal entries land in the open FP-2026-05 period (not in the closed March or April periods).",
+        "category": "outcome",
+        "justification": "FP-2026-05 is still status=open (locked_at=null), so corrective entries can post in the May period without late-post authorization. Pointing the corrective work to the open May period (not to the closed March/April periods) is the correct accounting treatment and matches Hannah Grant's tax-timing constraint.",
+        "evidence": "Look at the email_send_email content/body and confirm it proposes the corrective entries for the May / FP-2026-05 period (or frames them as landing in the current open period), rather than directing George to reopen and post into closed March or April periods. Any phrasing that conveys the entries belong in May e.g., 'post in May', 'land in FP-2026-05', 'open period', 'current period' satisfies this criterion."
+    },
+    {
+        "title": "The Agent's email body to George flags Hannah Grant's tax-timing constraint (the credit memo recognition and the prior-period over-amortization adjustment must land in FP-2026-05 and not be deferred to FP-2026-06).",
+        "category": "outcome",
+        "justification": "Hannah Grant posted a June 2 thread reply in #monthly-close-coordination imposing the FP-2026-05 tax-timing constraint to avoid a Q2/Q3 quarter-end timing mismatch. Green's email needs to surface this so George can either confirm with Hannah or route the corrective JE plan accordingly.",
+        "evidence": "Look for the email_send_email content/body and confirm it references Hannah Grant's tax-timing flag and that the corrective entries should land in FP-2026-05 (not be deferred to June)."
+    },
+    {
+        "title": "The Agent reports in the final response that JE-brookfield-FP-2026-03-0094 (or the shorthand 'JE-0094') is the March duplicate prepaid-setup journal entry that was never properly reversed.",
+        "category": "outcome",
+        "justification": "The prompt says 'walk me through what you found'. Identifying the specific duplicate JE in the final response is the core root-cause disclosure. Split from the reclass JE (R24) because the two come from distinct oracle_gl_get_journal_entry calls and can fail independently.",
+        "evidence": "Look in the agent's final response for JE-brookfield-FP-2026-03-0094, or the shorthand 'JE-0094', identified as the March duplicate prepaid-setup entry. Accept the shorthand as a match since it is unambiguous in context."
+    },
+    {
+        "title": "The Agent reports in the final response that the corrected Verdant Analytics credit memo amount is $1,800 per Maria Thorpe's June 8 vendor correction.",
+        "category": "outcome",
+        "justification": "The prompt's reply-changes-the-answer hook ('Watch the credit memo, Maria at Verdant sent a follow up at some point so I want the latest figure on the schedule') requires the agent to discover and surface the corrected $1,800 figure. Green explicitly wants to know the right figure before anything goes further. The supersession context (May 27 $2,400 quote) is dropped here because the canonical Outcome 2.1 claim is the corrected $1,800 value itself; an agent stating only $1,800 with June 8 attribution has met the bar.",
+        "evidence": "Look in the agent's final response text for a clear statement that the credit memo amount is $1,800 (the corrected figure per Maria Thorpe's June 8 vendor email)."
+    },
+    {
+        "title": "The Agent reports in the final response that no May 2026 amortization journal entry has been posted for the Verdant Analytics software subscription on FP-2026-05 against account 131000 (the Verdant prepaid chain contains posted JEs only through April 2026; no May amortization exists in the Verdant chain).",
+        "category": "outcome",
+        "justification": "Green needs the agent to surface the gap in the JE chain so she can include it in the corrective entries package for George. The missing May amortization is a discrete finding from the Oracle GL JE list (an absence-of-record observation) and stands as its own check.",
+        "evidence": "Look in the agent's final response text for an identification of the missing May amortization specifically for the Verdant Analytics subscription on FP-2026-05 against account 131000. Account 131000 carries multiple active prepaid schedules an agent noting that other vendors' May amortizations were posted on 131000 without identifying the Verdant-specific gap does NOT satisfy this criterion."
+    },
+    {
+        "title": "The Agent reports in the final response that the Verdant Analytics tier-downgrade letter (effective 2026-03-01, Pro $1,200/month to Standard $1,000/month) has not yet been reflected in the SAP prepaid amortization schedule.",
+        "category": "outcome",
+        "justification": "Green needs to understand the un-refreshed SAP schedule that still shows the old Pro tier. This is a discrete finding from cross-referencing the Records Vault tier letter against the SAP prepaid amortization schedule. It is separable from the missing-May-amortization finding (R19) because the two facts come from different data sources and can fail independently.",
+        "evidence": "Look in the agent's final response text for an identification of the tier-downgrade letter (Pro to Standard, effective 2026-03-01) and confirmation that the SAP prepaid amortization schedule has not been refreshed to reflect the corrected $1,000/month rate."
+    },
+    {
+        "title": "The Agent's email body to George notes that the SAP prepaid amortization schedule has not yet been refreshed to reflect the Verdant tier downgrade.",
+        "category": "outcome",
+        "justification": "The SAP-side gap (sap_subledger_list_prepaid_amortization_schedules still reflects the Pro tier despite the March 1 downgrade) is the operational gap the corrective entries need to close. This is a separate finding from the tier-letter content (R12) because it comes from a different data source and can fail independently per V3 atomicity.",
+        "evidence": "Look for the email_send_email content/body and confirm it states that the SAP prepaid amortization schedule has not been refreshed to reflect the corrected Standard tier."
+    },
+    {
+        "title": "The Agent's email body to George identifies JE-brookfield-FP-2026-03-0182 (or the shorthand 'JE-0182') as the manual reclass to account 220000 that did not properly reverse the March duplicate, leaving the variance on account 131000.",
+        "category": "outcome",
+        "justification": "The bad reclass JE is the second element of the root-cause chain. It explains why the duplicate was not cleaned up and points George to the specific entry to unwind. Split from the duplicate JE (R10) because the two come from distinct oracle_gl_get_journal_entry calls and can fail independently.",
+        "evidence": "Look in the email body for JE-brookfield-FP-2026-03-0182, or the shorthand 'JE-0182', cited as the reclass to account 220000 that did not properly reverse the duplicate. Accept the shorthand as a match since it is unambiguous in context."
+    },
+    {
+        "title": "The Agent reports in the final response that JE-brookfield-FP-2026-03-0182 (or the shorthand 'JE-0182') is the manual reclass to account 220000 that did not properly reverse the March duplicate, leaving the variance on account 131000.",
+        "category": "outcome",
+        "justification": "The prompt says 'walk me through what you found'. The bad reclass JE is the second element of the root-cause chain Green must surface. Split from the duplicate JE (R17) because the two come from distinct oracle_gl_get_journal_entry calls and can fail independently.",
+        "evidence": "Look in the agent's final response for JE-brookfield-FP-2026-03-0182, or the shorthand 'JE-0182', identified as the reclass to account 220000 that did not properly reverse the duplicate. Accept the shorthand as a match since it is unambiguous in context."
+    },
+    {
+        "title": "The Agent confirms that fiscal period brookfield_FP-2026-05 is open (not yet locked) before determining that corrective journal entries can post in the current May period.",
+        "category": "process",
+        "justification": "Satisfies all three Process conditions: (1) Required by every valid path any valid agent recommending corrective entries in FP-2026-05 must verify the period is open to establish that entries can post without late-post authorization; an agent that skips this check has not legitimately grounded its recommendation. (2) Outcome can't cover it R15 checks whether the email proposes corrective entries in FP-2026-05 but cannot prove the agent actually confirmed the period's open status; a model could propose FP-2026-05 entries by assumption without ever querying the fiscal period. (3) Describes a behavioral verification, not an execution trace the rubric tests whether the agent verified the period state, not which specific tool or parameter was used.",
+        "evidence": "Look for a fiscal-period lookup in the trajectory (e.g., a call to oracle_gl_get_fiscal_period or oracle_gl_list_fiscal_periods targeting brookfield_FP-2026-05) that returns status=open and locked_at=null. Confirm this step occurs before the agent makes any recommendation about posting corrective entries in the May period."
+    },
+    {
+        "title": "The Agent's prepaid roll-forward schedule covers all six Brookfield prepaid accounts (130000, 131000, 132000, 133000, 134000, 135000), each with an opening balance, period amortization, and closing balance tied to the SAP prepaid amortization schedules.",
+        "category": "outcome",
+        "justification": "The prompt asks for a standard sweep across the six prepaid accounts, opening to closing balance with a tie out to the SAP schedule. No other rubric checks this, so a Verdant-only schedule that skips the other five accounts would pass everything else. Account 135000 Prepaid Marketing has no active SAP schedule, so it is shown as a zero line.",
+        "evidence": "Look in the filed roll-forward document and the emailed package for a per-account roll-forward covering 130000, 131000, 132000, 133000, 134000, and 135000. Each account should show an opening balance, period amortization, and closing balance that ties to the SAP prepaid schedules. Account 135000 may be shown with zero activity."
+    }
+]

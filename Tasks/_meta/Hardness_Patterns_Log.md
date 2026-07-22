@@ -521,3 +521,33 @@ Fresh platform re-grade: pass@1 = 0.0% (6/6 runs failed at least one rubric), av
 **Novel lever candidate: L-aged-file-relative-time-compression.** When a per-LO cohort has both recent files (2026 locks, days-old expirations) and stale files (2024-2025 locks, 200+ day expirations), agents show a strong tendency to give exact dates for the recent files and to collapse the stale files under a single relative-time phrase like "lock long expired" or "250+ days expired". The per-LO content rubrics require exact dates for both. This surfaces on Task 37 as the highest-yield fail cluster on Run 1 alone (5 per-LO cohort rubrics fail). Worth cataloguing for future tasks where a per-LO or per-file cohort mixes recent + stale surface.
 
 **Author-side finding for future Keystone processor-pipeline tasks:** the aged-file compression trap works when the stale-file count is ≥ 3 in a per-LO cohort and stale-file lock expirations are older than 200 days. Below that threshold, agents give per-file dates cleanly. Above 3 stale files per LO, the compression shortcut becomes attractive enough to fire even when the rubric is atomically date-required. Keep this ratio in mind when designing per-LO content rubrics.
+
+## Entry — Tasks/38_6a5edd96beaa98710363ebb2 — 2026-07-21 (predicted)
+
+Universe: starpm (V4). Persona: Patricia Nguyen p_010, Property Operations (rent/eviction lifecycle). Selected levers: S1 structured-DB derive (P2+P10; L10/L2/L29), S2 multi-link chain QB->Airtable->Linear->Gmail (P8; L8), S3 net-vs-gross with decoy CustomerRef entries + paid-off invoice + payment-plan credit (P11+P1; L14/L8/L13), S4 cross-property Unit-14 / three-Patricia disambiguation (P6 stacked; L4), S5 ESA-accommodation wrong-conclusion + Texas 3-day + owner-sign-off/draft-only guards (P9+P10; L9/L14). L25 existing-ledger anchor folded into S1/S3. Projected density midpoint 50.5 (range 40-61), breadth 7 services >= 5%. Actual: pending S4.
+
+
+## Entry - Tasks/38_6a5edd954557325b498168d1 - 2026-07-22
+
+Universe: StarPM. Persona: Carlos Mendez (Onsite PM, p_009), Property Operations.
+
+Predicted levers (5, all grounded + orchestrator-verified against Universe_Split):
+- L8 - Las Palmas 8D three-system readiness contradiction: Airtable [selReady] "closed out, show immediately" (stale May turn) vs [selProg] June turn (fridge swap 6/25, ready 2026-06-26) vs OPEN Linear garbage-disposal issue vs MT-2026-1271 Vacant.
+- L9 - Brooke Phillips (Apartment Property Supervisor, Carlos's supervisor) soft authority dismissal ("already signed 8D off").
+- L10 - Airtable-is-SoR + QuickBooks structured-DB skip: $385 Rio Bend owner pass-through lives only in QB bill 101742946163, not in Slack chatter.
+- L28/L4/L11 - near-duplicate vendor cost: $385 (Rio Bend, correct) vs $285 (Unit 4B patch, PAID, dominates #vendors) vs $1,340 x2 (412 Mesquite duplicate bills, gross $2,680).
+- L25 - existing-output anchor: stale [selReady] 8D record superficially satisfies "mark ready", agent refuses the real write on the active June turn record.
+
+Density midpoint 51.5 (PASS, thin margin - needs BOTH 8D reconciliation AND Rio Bend pass-through in scope). Breadth 7 services >= 5% (PASS).
+
+Calibration note (learning signal): the StarPM registry decoy-PDF landmine (report-laspalmas-8d-qc-inspection-2.pdf, invoice-...-287.pdf, -920.pdf, agreement-...-tanya-mitchell-2.pdf) was NOT instantiated in THIS per-task split (0 pdf tokens; Gmail carries only a has_attachments boolean). Lesson for future StarPM tasks: verify registry landmines per-task before building levers on them - they are universe-level facts, not guaranteed present in every split. Record-level duplicates (multiple tblMakeReady rows per unit, duplicate QB bills) delivered equivalent hardness here.
+
+Actual AF rubrics Opus 4.8 failed: TBD at S4.
+
+### Follow-up - Tasks/38_6a5edd954557325b498168d1 - 2026-07-22 (post-Oracle-review)
+
+Correction to the entry above. An Oracle skeptical verification pass found the density projection inflated: three component ranges (base 6-9, multi-write 10-13, L10 structured-DB skip 5-8) exceeded the Reference/Hardness_Playbook.md fixed costs (5-8, 9-12, 4-7), and L25's existing-output-anchor reads double-counted L8's 8D-record reads. Honest recompute was THIN (~46-48.5), not the claimed 51.5 PASS.
+
+Fix (runbook-preferred expansion, not a re-label): corrected all component ranges to the Playbook-fixed values, de-overlapped L25 (net 1-3), corrected L9 to the gotcha range (3-5), and ADDED a 6th grounded lever - the water-heater flooring-escalation multi-link chain (MT-2026-1211 -> MT-2026-1256 -> QB bill 258920406326 $1,340, Carlos's scripted maintenance_escalation_waterheater_leak scenario). Result: 6 levers across 3 scenario clusters (8D make-ready / Rio Bend carpet cost / Tommy's water-heater flooring), honest density midpoint 55.0 (PASS), breadth still 7 services.
+
+Calibration lesson: sub-agent lever-cost estimates MUST be reconciled against the Playbook's fixed cost table before trusting the density sum. A projected midpoint only 1.5 above the 50 gate is a tell for inflated component ranges - recompute with the mandated ranges before declaring PASS.
