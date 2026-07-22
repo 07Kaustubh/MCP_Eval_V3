@@ -162,6 +162,7 @@ LENS 3 — Cross-artifact holism
   step + rubric that triggers it. Any lever with a missing piece = BLOCKER.
 - Entity map: every named persona / entity / account in the prompt is the
   same entity in the OEs and rubrics. Flag drift.
+- Named-entity reverse-groundedness: enumerate every unique person name across all rubric titles and evidence fields. For each, confirm at least one universe atom (email message, Slack message, CRM engagement) where that person's name co-occurs with the workstream keywords the rubric assigns to them. A person named in a rubric with zero universe co-occurrence atoms = Major defect — the attribution was not verified against the universe and is likely wrong. Record each zero-atom name as: [MAJOR] Named-entity attribution unverified — [Person] has no universe communication co-occurring with [workstream keywords] in any rubric citing them.
 - Density: sketch the integrated agent trajectory and count expected tool
   calls. < 40 = BLOCKER. 40-49 = THIN_DENSITY (acceptable only if HARDNESS
   plan documented per-task justification, otherwise BLOCKS). 50+ = PASS.
@@ -260,7 +261,7 @@ Save the report to Tasks/<TASK_DIR>/_aux/Council_Reports/FINAL_council.md.
 This phase ends here after `VERDICT: PASS` (or after the 3-REVISE iteration cap is hit). End your response.
 
 Two next-trigger paths:
-- `VERDICT: PASS` → user uploads the 4 deliverables to the platform and runs 6 trajectories. After results: `PIPELINE S4 — Tasks/<TASK_DIR>` (paste verifier fails) in a fresh chat, or `PIPELINE REDO — Tasks/<TASK_DIR>` if the task came back too easy / too thin.
+- `VERDICT: PASS` → user uploads the 4 deliverables to the platform and runs 6 trajectories. After results: `PIPELINE S4 — Tasks/<TASK_DIR>` in a fresh chat (V3: paste `8_Verifier_Fails.txt`; StarPM V4: paste BOTH `8a_Verifier_Fails_Opus.txt` AND `8b_Verifier_Fails_Gemini.txt` — missing either file causes incomplete classification), or `PIPELINE REDO — Tasks/<TASK_DIR>` if the task came back too easy / too thin.
 - 3 REVISE rounds hit without PASS → end your response with the full issue list. The user decides whether to keep iterating (re-invoke FINAL in a fresh chat) or escalate.
 
 Do NOT proceed to platform-upload guidance or `PIPELINE S4` inside this chat.

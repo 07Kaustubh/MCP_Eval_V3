@@ -59,6 +59,24 @@ Per task, HARDNESS produces `_aux/Hardness_Plan.md` containing:
 
 ---
 
+## Persona-attribution landmine (rubric-authoring and AUDIT failure pattern)
+
+**Pattern:** When a scenario contains multiple departed-employee narratives or multiple persons associated with similar workstreams, rubric authors, AUDIT reviewers, and agents all default-attach the most salient name to a workstream even when a less-salient person is the correct attribution. The salient name typically has a richer backstory (resignation letter, solicitation, conflict); the correct name belongs to a quieter, single-thread narrative.
+
+**Detection signal:** Universe CRM chains or email threads that use generic pronoun-labels ("Former employee post-term access under review", "Former LO account review") without naming the specific person. When the named-person field is absent in the workstream's primary service record, rubric authors fill it from memory, defaulting to the salient name.
+
+**Why this persists through the pipeline:** S3 grounding verifies atom existence (does this CRM engagement body match?) but not attribution (does the named person appear IN the communications for this workstream?). AUDIT reads "correct role" through cognitive salience without grepping the Slack thread that names someone else. FINAL answer-leakage scan checks prompt-vs-rubric leakage, not rubric-vs-universe factual grounding.
+
+**Canonical example — Task 35 (Keystone):** Rubrics R10/R13/R18 attributed the 04-14 post-termination LOS access workstream to Marcus Webb. The universe Slack thread at 04-14 12:22/12:28/12:50/13:22 explicitly names Evan Mercer ("Evan Mercer LOS access disabled") — a single-thread, low-salience departure. Marcus Webb had a high-salience story (resignation + solicitation + spouse-agent conflict) but `mortgage_los.staff` showed `termination_date: None, is_active: True` on 04-14. All 6 platform agent runs replicated the wrong attribution. The defect was caught only at S4 via universe deep-query. See `Tasks/_meta/Pipeline_Improvement_Notes.md` (2026-07-01 entry) for the full root-cause analysis.
+
+**Pipeline countermeasures added 2026-07-01:**
+- **S3 grounding (O1):** Persona-attribution co-occurrence check — person name must co-occur with workstream keywords in at least one universe communication before the grounding sub-agent marks the attribution as verified.
+- **S3 adversarial council (O4):** Entity-swap check — for every person-named rubric, ask whether a different person in the universe could plausibly be attributed to the same workstream. If yes and both persons appear in adjacent universe atoms, the attribution is ambiguous and must be anchored explicitly.
+- **AUDIT KS-9 (O2):** Persona-attribution reverse-groundedness — for every named person in every rubric, confirm at least one universe communication co-occurring their name with the rubric's workstream keywords. Zero co-occurrence = Major.
+- **FINAL named-entity reverse-groundedness (O3):** Enumerate all unique person names across rubric titles/evidences; for each, confirm at least one universe atom grounds the attribution to the assigned workstream.
+
+---
+
 ## StarPM Adaptation (V4 — ML-confirmed July 2026)
 
 The 11-lever catalog above was built on Brookfield tasks. All 11 levers apply to StarPM tasks with the substitutions below. Read this section whenever `_aux/Universe.txt` = `starpm`.

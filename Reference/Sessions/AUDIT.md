@@ -254,6 +254,7 @@ You have audited 200+ MCP Eval tasks across all universes. Apply pattern recogni
   - Single-channel lock-in where the prompt named only a goal?
   - "Approximately" near IDs / dates / account numbers / dollar amounts?
   - "(or similar)" near values that must be exact?
+  - **KS-9 — Persona-attribution reverse-groundedness (all universes):** For every rubric that names a specific person alongside a workstream label, confirm at least one universe communication (email message, Slack message, CRM engagement) where that person's name co-occurs with the rubric's workstream keywords. Zero co-occurrence = Major. This is the exact defect pattern from Task 35 (Keystone) where rubrics R10/R13/R18 named Marcus Webb for the 04-14 post-termination LOS workstream when the universe Slack thread at 04-14 12:22/12:28 explicitly named Evan Mercer. See `Tasks/_meta/Pipeline_Improvement_Notes.md` (2026-07-01 entry) for the full root-cause analysis.
   - For REVIEW flow only — does 13_Feedback.txt contain forbidden
     internal terms? (run check_justification.py mentally; flag hits.)
 
