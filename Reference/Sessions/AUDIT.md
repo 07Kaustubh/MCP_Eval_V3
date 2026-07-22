@@ -59,6 +59,8 @@ Both modes use the SAME prompt template (below) and produce the SAME report form
 | `Evals/1_Prompt_Eval.md` | strictest prompt eval | `--phase prompt` or `--phase all` |
 | `Evals/2_OE_Eval.md` | strictest OE eval | `--phase oe` or `--phase all` |
 | `Evals/3_Rubrics_Eval.md` | strictest rubric eval | `--phase rubrics` or `--phase all` |
+| `Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json` | platform paste-back | **StarPM V4 only** — injection verification (always read; do NOT ask user to confirm) |
+| `Tasks/<TASK_DIR>/9_Universe_inject.sql` | INJECTION phase | **StarPM V4 only** — injection verification (cross-reference against `3_UniverseDataForThisTask.json`) |
 
 ## Strictest QC interpretation — what that means
 
@@ -100,6 +102,8 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
   - brookfield → `Brookfield_Base_Universe/8_Server_Tools_Details.json`
   - keystone → `Mortgage_Base_Universe/6_Server_Tools_Details.json`
   - moveops → `MoveOps_Base_Universe/6_Server_Tools_Details.json`
+  - starpm → `StarPM_Base_Universe/7_Server_Tools_Details.json`
+- 3_UniverseDataForThisTask.json (StarPM V4 only) :: cross-check every INSERT/UPDATE row in `9_Universe_inject.sql` against this file — confirm each injected row_id appears with matching field values. Derive the answer from the two files directly; do NOT ask the user to confirm.
 
 ## Eval spec verified for this phase
 - Evals/<n>_<phase>_Eval.md :: <strictest reading applied>
@@ -159,7 +163,7 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
 Use this prompt for the `oracle` (or `ultrabrain`) sub-agent. Fill in `<TASK_DIR>` and `<PHASE>`. For `--phase all`, include all three deliverables in INPUTS and run all phase-specific lenses.
 
 ```
-You are a VETERAN QC AUDITOR on an MCP Eval task (read `_aux/Universe.txt` to know which universe — brookfield / keystone / moveops). Your job is
+You are a VETERAN QC AUDITOR on an MCP Eval task (read `_aux/Universe.txt` to know which universe — brookfield / keystone / moveops / starpm). Your job is
 re-verification under the STRICTEST possible QC interpretation. Per-phase
 councils already passed this deliverable — your job is to catch what they
 missed.
@@ -184,6 +188,9 @@ INPUTS:
   Tasks/_meta/Learnings.md
   Docs/7_QC_Spec_Doc1.json + Docs/8_QC_Spec_Doc2.md
   Evals/<n>_<PHASE>_Eval.md
+  [StarPM V4 only — always read both; do NOT ask user to confirm]
+  Tasks/<TASK_DIR>/3_UniverseDataForThisTask.json
+  Tasks/<TASK_DIR>/9_Universe_inject.sql
 
 TASK:
 
@@ -203,9 +210,11 @@ REASON -> WHAT THE PRIOR COUNCIL MISSED (if anything). Any sub-dim < 5
 
 Empty evidence column → forced score ≤ 3. This prevents the v17-diagnosed failure mode where 5 LLM gates passed a Major universe-truthfulness defect because every gate's "universe verification" was indirect (they read upstream reports saying "atoms verified" and trusted it). The v18 contract: narrated verification without proof is not verification.
 
+**StarPM V4 injection verification (MANDATORY before any Truthfulness/Accuracy 5/5 score — derives answer from files, never asks user):** Read `9_Universe_inject.sql` and enumerate every INSERT/UPDATE row. For each row, locate its primary-key value (e.g., `row_id`, `id`, or the table's PK field) in `3_UniverseDataForThisTask.json`. Confirm the row is present and field values match. Record the result in the per-atom evidence table. Missing or mismatched row = Major truthfulness defect → forced score ≤ 3. This check replaces any need to ask the user whether injection landed.
+
 **Per-universe landmines** (read `Tasks/<TASK_DIR>/_aux/Universe.txt`): full catalog SSOT is `Validators/universes.py` per-universe `landmines` block; enforced programmatically by `verify_universe_atoms.py`; full per-landmine descriptions in `AGENTS.md` "Universe constants (multi-universe — v20)" section.
 
-Critical landmine summary (for AUDIT context — full descriptions in AGENTS.md): Brookfield → account-number trap (105000/120000 per-entity) + email-chain truthfulness (parent_id walk + sender-filter for "X never responded" claims); KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop client analyst, NOT KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs.
+Critical landmine summary (for AUDIT context — full descriptions in AGENTS.md): Brookfield → account-number trap (105000/120000 per-entity) + email-chain truthfulness (parent_id walk + sender-filter for "X never responded" claims); KeyStone → TRID timing + LOS-vs-CRM source-of-truth + departed-employee Marcus Webb; MoveOps → PHMSA hazmat + Airtable-vs-CRM source-of-truth + Marcus Webb identity (BrightLoop client analyst, NOT KeyStone Marcus) + Heartland Q1 invoice cross-reference + ExpenseBot pilot bugs; StarPM → injection verified (cross-check `9_Universe_inject.sql` vs `3_UniverseDataForThisTask.json` — self-verify, never ask user) + HVAC life-safety escalation + Texas eviction notice ladder + Gmail draft-only (no send tool) + Slack param is `message` not `payload`/`text`.
 
 The programmatic floor (`Validators/verify_universe_atoms.py`) runs first and catches structural atom defects. AUDIT's evidence-table requirement is the second pass that catches semantic mismatches the programmatic check can't reach (e.g., the role-claim language is ambiguous but the universe row is unambiguous).
 
