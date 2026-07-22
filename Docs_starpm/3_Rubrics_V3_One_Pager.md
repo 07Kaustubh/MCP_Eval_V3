@@ -97,7 +97,7 @@ Frame every rubric as a behavior of *the agent*, not a passive description of th
 
 | ❌ Old (tool/artifact-centric) | ✅ New (agent-centric) |
 | ----- | ----- |
-| "An email was sent (via send\_email) to Chloe…" | "The Agent sends the summary to Chloe Vance at chloe.vance@starpm.com." |
+| "An email was sent (via send\_email) to Chloe…" | "The Agent drafts an email to Chloe Vance at chloe.vance@starpm.com." |
 | "The email body includes the city and cost comparison." | "The Agent's email to Chloe includes the alternative city (Boston) and a cost comparison (approximately $12,000 vs $17,000)." |
 | "The Chloe summary mentions Joaquín Reyes is a permit case." | "The Agent reports in the Chloe summary that Joaquín Reyes is a permit or oversize paperwork case." |
 
@@ -184,7 +184,7 @@ Below you can check how Rubrics would look like for a prompt in V2 and V3 format
 | The model must search Slack or email using terms related to "Daniela Voss" or "income" or "discrepancy" (or similar) to find prior internal discussion. | The outcomes check specific internal discussion details. Getting those right proves the agent searched — no Process rubric needed. |
 | The model must identify that the application (1003) shows monthly income of $9,200 while the pay stubs on file show $8,450/month, confirming a discrepancy of $750/month. | The Agent identifies that the application (1003) shows monthly income of $9,200 while the pay stubs on file show $8,450/month, confirming a discrepancy of $750/month.(Outcome) |
 | The model must add an activity note on Daniela Voss's loan (Loan ID: LN-2026-04417) flagging the income inconsistency. | The Agent adds an activity note on Daniela Voss's loan (Loan ID: LN-2026-04417) flagging the income inconsistency.(Outcome) |
-| The model must send an email to \`robert.hayward@starpm.com\`. | The Agent sends an email to [robert.hayward@starpm.com](mailto:robert.hayward@starpm.com). (Outcome) |
+| The model must draft an email to \`robert.hayward@starpm.com\`. | The Agent drafts an email to [robert.hayward@starpm.com](mailto:robert.hayward@starpm.com). (Outcome) |
 | The email to Robert Hayward must include the specific dollar amounts ($9,200 application income vs $8,450 pay stub income) and mention that the loan file has been flagged. | The Agent's email to Robert Hayward includes the specific dollar amounts ($9,200 application income vs $8,450 pay stub income) and mentions that the loan file has been flagged. (Outcome) |
 | The model must report whether any prior internal discussion (email or Slack) about this discrepancy was found, citing specific messages or threads if they exist. | The Agent reports whether any prior internal discussion (email or Slack) about the Daniela Voss income discrepancy was found, citing specific messages or threads if they exist. (Outcome) |
 | V2 only had TS (did the agent use the right tool?) and QC (did it pass the right parameters?). Neither category could check the order in which actions happened. This is a gap that V3's Process category fills. | The Agent flags the loan (LN-2026-04417) and notifies Robert (robert.hayward@starpm.com) before scheduling the underwriting review meeting. (Process) |

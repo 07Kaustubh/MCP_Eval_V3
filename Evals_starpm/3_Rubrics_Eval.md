@@ -171,6 +171,8 @@ Cross-check every literal in a rubric against the raw JSON by searching it direc
 | **Criteria Not Atomic** | Bundles 2+ independent constraints | "The Agent emails the recipient AND creates a note in a separate service" - independent actions in one rubric |
 | **Incorrect Criteria** | Contradicts prompt/OEs/universe data, OR is not an explicit/implied ask and doesn't make the response better, OR would reject a valid alternative solution path | Wrong recipient/entity/amount; a fabricated value found nowhere in the universe; a detail the prompt never asked for (this is where the old "Criteria Beyond Prompt" now lives); a method/channel lock-in severe enough to fail a correct agent |
 
+> **⚠️ Universe Ambiguity Exception (ML-confirmed July 2026):** When a `NOT FOUND` or conflicting-value result arises from genuinely ambiguous universe data (two records plausibly match the same entity, a system-of-record field contradicts later corrective downstream evidence, or duplicate records exist under different IDs), do **NOT** auto-flag as **Incorrect Criteria**. Instead output: `UNIVERSE_AMBIGUOUS: <value> — two defensible readings: (A) <reading A> / (B) <reading B>`. The rubric must be widened to accept both readings with `must be one of:` phrasing, OR the prompt must be tightened to resolve the ambiguity before rubric-writing. An agent choosing either defensible reading must not be penalized.
+
 ### Moderate Issues
 
 | Issue Type | Definition | When to Flag |

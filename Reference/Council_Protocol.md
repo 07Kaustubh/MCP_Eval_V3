@@ -34,12 +34,16 @@ Each council is one sub-agent call but enumerates **multiple perspectives** in i
 ### A1 — Grounding sweep
 For every dollar amount, email, JE id, exception id, recon id, vendor id, AP invoice id, document id, Linear issue id, Airtable record id, account number, retention code, classification, persona / NPC name, period id, and date in the deliverable, confirm the value appears in `_aux/Universe_Split/`. For each: `VALUE → FILE:RECORD_INDEX (or NOT FOUND)`.
 
+**Universe ambiguity exception (ML-confirmed July 2026):** When a `NOT FOUND` or conflicting-value result arises from genuinely ambiguous universe data (two records plausibly match the same entity, a system-of-record field contradicts later corrective downstream evidence, or duplicate records exist under different IDs), do NOT auto-BLOCK. Instead output: `UNIVERSE_AMBIGUOUS: <value> — two defensible readings: (A) <reading A> / (B) <reading B>`. The rubric must be widened to accept both readings with `must be one of:` phrasing, OR the prompt must be tightened to resolve the ambiguity before rubric-writing. An agent choosing either defensible reading must not be penalized.
+
 ### A2 — Convention sweep
 Compare the deliverable's structure (phrasing patterns, field shapes, qualifier usage, opening-phrase patterns, parameter-naming conventions) against:
 - `Reference/<phase>_Format.md`
 - The relevant inventory file (`Strict_Convention_Inventory.json` for rubrics, `OE_Convention_Inventory.json` for OEs)
 - The sample V3 reference files.
 Flag any structural drift.
+
+**Tool capability check (ML-confirmed July 2026):** For every rubric criterion's action verb (sends, drafts, creates, posts, schedules), verify the verb matches the actual capability of the target service in the universe-correct tool catalog (`StarPM_Base_Universe/7_Server_Tools_Details.json` for StarPM; `Brookfield_Base_Universe/8_Server_Tools_Details.json` for Brookfield; etc.). Key example: StarPM Gmail supports only `create_draft` — a rubric saying "The Agent sends an email" must use "The Agent drafts an email" instead. When multiple channels are valid (Slack message OR email draft), the rubric must accept either path. Output per mismatch: `TOOL_CAPABILITY_MISMATCH: rubric[i] uses verb "<verb>" but <service> only supports "<actual capability>". Fix to "<corrected verb>".` BLOCK.
 
 ### A3 — Narrative State Consistency (prompt + OE phase)
 For every STATE-IMPLYING claim in the deliverable (verbs like "is wrapping up", "before X finalizes", "is pending review", "approaching the SLA", "the dispute is unresolved", "the period is open", "the certification is in progress", "still awaiting approval"), identify the underlying universe record AND verify the prompt's claimed state matches the universe's ACTUAL lifecycle state. Use `_aux/Fact_Ledger.json` lifecycle atoms first; fall back to `_aux/Universe_Split/` records.
@@ -109,6 +113,8 @@ Output per gap: `OPEN_ASK_BUNDLED: prompt asks "<open-ended quote>" with <N> gro
 Exception: when the ground truth is genuinely indeterminate (the prompt asks the agent to apply judgment on which items qualify), "at least one" is acceptable. Record as `OPEN_ASK_INDETERMINATE` and move on.
 
 This perspective enforces the QC spec rule: "When the prompt asks for multiple write actions of the same type, write one Outcome rubric per item grounded in ground truth — never bundle into 'at least N' thresholds. 'At least N' is reward-hackable."
+
+**Multi-recipient send sub-rule (ML-confirmed July 2026):** When the prompt names N distinct recipients for a send or draft action, the rubric set must contain N separate 1.1 rubrics (one per send/draft — each is a distinct tool call). Email BODY that is identical across all N recipients may share ONE 1.2 rubric (content bundling OK). A single 1.1 criterion covering multiple recipients (e.g., "Agent emails A, B, and C") fails atomicity even if phrased agent-centrically. Output per violation: `MULTI_RECIPIENT_BUNDLED: criterion covers <N> recipients in a single 1.1 rubric. Split into <N> separate 1.1 rubrics, one per send/draft action.` BLOCK.
 
 ### A12 — Cross-Service Coherence — RETIRED in v18; do not execute
 Merged into A1 grounding. The cross-service consistency checks are now part of `Validators/verify_universe_atoms.py` (entity-row resolution across `Universe_Split/` services). Body removed in v21; see CHANGELOG v18 + v21 entries.
@@ -546,6 +552,8 @@ The QC spec rule "count only the HIGHEST severity issue per criterion" applies a
 | Same rubric flagged Major (Incorrect — over_specified) + Moderate (Incorrectly Labeled Category) | Count once at Major. The Moderate is absorbed for the Overall Quality tally. |
 | Same rubric is an invalid Process AND has a wrong write-action category | Count once at Moderate for Overall Quality tally. **Separately**: it counts as 1 toward the `Process Rubrics` scored sub-dim's "2+ invalid → FAIL" threshold. The double-track is INTENTIONAL (Overall Quality is severity-based; Process Rubrics is count-based on invalid Process rubrics specifically). |
 | Same rubric has both a B6 PROPAGATE flag and an inline Major | Both are recorded but Overall Quality counts only the Major; the PROPAGATE flag is a STOP signal regardless. |
+| Rubric defect: **Overly Specific** (free-text / agent-generated field pinned to exact wording when no single correct value exists) | **Moderate** severity (ML-confirmed July 2026 — promoted from Minor). Use `(or similar)` for agent-generated text fields (email subjects, issue titles, search queries). Structured fields with one correct value (IDs, email addresses, dates, exact amounts) stay exact and are never Overly Specific. |
+| Rubric defect: **Under Specific** (a.k.a. Overly Broad — criterion so vague a wrong answer passes) | **Minor** severity (ML-confirmed July 2026 — demoted from Moderate). Weakens discrimination but does not wrongly penalize correct behavior. Flag but does not block if the prompt direction is recoverable. |
 
 ## Sub-dimension scoring scheme map
 

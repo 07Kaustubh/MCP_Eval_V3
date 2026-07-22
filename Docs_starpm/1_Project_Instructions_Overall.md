@@ -346,12 +346,12 @@ Your Oracle Events might look like:
 ***OE 1:** Look up Fatimah's and Chloe's contact details.*  
 *→ Read/lookup action. The Outcome rubrics for the email already prove this happened — no Process rubric needed.*
 
-***OE 2:** Send email from teresa.ruiz@starpm.com to brooke.whitfield@starpm.com with subject and body about the relocation proposal.*  
+***OE 2:** Draft email from teresa.ruiz@starpm.com to brooke.whitfield@starpm.com with subject and body about the relocation proposal.*  
 *→ Action → goes into Outcome rubrics.*  
-*→ Outcome 1.1: "The Agent sends an email from teresa.ruiz@starpm.com to brooke.whitfield@starpm.com."*  
+*→ Outcome 1.1: "The Agent drafts an email from teresa.ruiz@starpm.com to brooke.whitfield@starpm.com."*  
 *→ Outcome 1.2: "The Agent uses a subject line related to a relocation proposal (e.g., 'Relocation Proposal for GreenStack' or similar)."*
 
-***Process rubrics:** None. The prompt's deliverable is the email. The 1.1 Outcome rubric already verifies it was sent — no ordering constraint exists, and no stricter Outcome is needed.*
+***Process rubrics:** None. The prompt's deliverable is the email draft. The 1.1 Outcome rubric already verifies it was drafted — no ordering constraint exists, and no stricter Outcome is needed.*
 
 **Note**: A single action in your OEs can generate both an Outcome rubric and a Process rubric. For example, if the prompt requires the agent to notify legal before scheduling a contract signing meeting, the scheduling itself gets an Outcome rubric in Step 1 (1.1: "Agent schedules the contract signing meeting..."), and the ordering requirement gets a Process rubric in Step 2 ("Agent notifies legal before scheduling the contract signing meeting") — because the scheduling Outcome alone cannot prove the notification came first.
 

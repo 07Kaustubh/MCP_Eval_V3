@@ -413,7 +413,7 @@ Implicit asks — reasonably expected but not stated:
 
 **Step 2: Write Oracle Events**
 
-Map the key steps a perfect agent would take. OEs still prove solvability and establish ground truth. For each OE, note what action happens, what information is discovered, and what tools and parameters are needed.
+Map the key steps a perfect agent would take. OEs still prove solvability but are NOT ground truth — universe data is the SSOT for all factual values (amounts, dates, IDs, names). For each OE, note what action happens, what information is discovered, and what tools and parameters are needed.
 
 **Step 3: Write All Outcome Rubrics**
 
