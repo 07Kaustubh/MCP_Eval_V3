@@ -6,7 +6,7 @@ Triggered by: `PIPELINE HARDNESS — Tasks/<TASK_DIR>`
 
 Reads the per-task universe and identifies which Opus-4.8 stumping levers are present without any universe edits. Projects expected tool-call density across the 6 final runs. Produces a `Hardness_Plan.md` that the S1 prompt-writing phase consumes verbatim.
 
-**Two hard gates: INSUFFICIENT_LEVERS (< 3 levers) and a tiered density gate.** Density bands: midpoint ≥ 50 = PASS (design target — produces ~40+ tool calls in real platform runs); midpoint 40-49 = THIN_DENSITY (operator may continue with explicit per-task justification, but the task is at risk of underflow on real runs); midpoint < 40 = INSUFFICIENT_DENSITY (STOPs the pipeline — operator must expand levers or write actions). INSUFFICIENT_LEVERS or INSUFFICIENT_DENSITY both force user intervention.
+**Two hard gates: INSUFFICIENT_LEVERS (< 3 levers) and a tiered density gate.** Density bands: midpoint ≥ 50 = PASS (design target — produces ~40+ tool calls in real platform runs); midpoint 40-49 = THIN_DENSITY (operator may continue with explicit per-task justification, but the task is at risk of underflow on real runs); midpoint < 40 = INSUFFICIENT_DENSITY (STOPs the pipeline — operator must expand levers or write actions). INSUFFICIENT_LEVERS or INSUFFICIENT_DENSITY both force user intervention. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task.
 
 ## Required inputs
 
@@ -127,7 +127,7 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    | Cross-service buffer | 5-8 | 6.5 |
    | **TOTAL projected** | <low>-<high> | <midpoint> |
 
-   **Gate (tiered):** midpoint ≥ 50 = PASS (design target); midpoint 40-49 = THIN_DENSITY (continue with per-task justification documented under `## THIN density acceptance` subsection); midpoint < 40 = INSUFFICIENT_DENSITY (STOP).
+   **Gate (tiered):** midpoint ≥ 50 = PASS (design target); midpoint 40-49 = THIN_DENSITY (continue with per-task justification documented under `## THIN density acceptance` subsection); midpoint < 40 = INSUFFICIENT_DENSITY (STOP). (V3-family scheme; StarPM v4 uses 40 design / 15 floor per model - see the framework-scoped note near the top of this file.)
 
    ## Service Breadth (v11 G1)
    List each service the projected trajectory exercises with the projected call count per service. Cross-service breadth is a hardness multiplier — 50 calls across 5 services is structurally harder for Opus 4.8 than 50 calls in one service (single-service traps allow context lock-in; multi-service forces persistent cross-correlation).

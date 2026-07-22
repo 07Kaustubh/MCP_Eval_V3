@@ -1,6 +1,17 @@
 # Validators
 
-Eight Python scripts. All take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block.
+24 Python scripts (see the ground-truth list below). Most take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block. All per-universe behavior routes through the `universes.py` registry keyed by `_aux/Universe.txt` - never hardcode Brookfield constants in a new check.
+
+## Registry + framework core (read first)
+
+- **`universes.py`** - the multi-universe registry (`UNIVERSES`: brookfield, keystone, moveops, starpm), `detect_universe()` (signal-scored, ties default brookfield, cached to `_aux/Universe.txt`), `get_universe_constants()`, and the `FRAMEWORKS` table (`v3`/`v3.1`/`v2.1`/`v4`) with `get_framework_profile()`. Every other validator imports its constants from here.
+- **`v4_gates.py`** - V4 deterministic phases `injection` (Evals_starpm/0) + `submission_gate` (Evals_starpm/5). Injection is presence-gated for ALL universes (runs whenever `9_Universe_inject.sql` carries executable statements; v3-family date ceiling = registry `today`).
+- **`qc_verdict.py`** - deterministic QC verdict engine (`parse`/`classify`/`selftest`/`audit`/`feedback`); `selftest` is bucket-correct 128/128 across `QC_Tasks/{V3_Buckets,V3.1_Buckets,V2.1_Buckets,V4_Tasks}`.
+- **`check_regression.py`** + **`test_regression_anchors.py`** - the zero-regression gate (frozen report hashes for 7 snapshot tasks) and 62 behavior anchors. Run `check_regression.py` after ANY validator edit; PASS = anchors 62/62, reports 21/21 identical, verdicts 7/7 unchanged.
+- **`check_source_sync.py`** + `source_sync_deviations.json` - diffs repo spec surfaces against an extracted upstream drop (hash pins only catch repo-side edits, never a new upstream release).
+- **`check_eval_hashes.py`** / **`check_tool_catalog.py`** - repo-side drift pins for eval MDs and tool catalogs.
+- **`new_task.py`** / **`close_task.py`** - scaffolder (per-universe templates, V4 dual-model shape) and CLOSE audit (V4-aware artifact sets).
+- **`build_feasible_surface.py`** / **`verify_universe_atoms.py`** / **`calc_similarity.py`** / **`aggregate_verdicts.py`** / **`check_justification.py`** / **`check_verification.py`** - grounding surface, per-universe atom verification, similarity gate, verdict rollup, justification hygiene, per-phase verification gate.
 
 ## Scripts
 
@@ -95,7 +106,7 @@ Used by `PIPELINE REVIEW` step 3 (hardness pre-assessment) and `PIPELINE S4` pha
 Refuses to start a phase if upstream artifacts are missing. Architectural enforcement layer on top of the STOP-gate convention — catches the case where an agent silently skipped a previous phase.
 
 ```
-python Validators/phase_ready.py --phase {hardness|s1|s1.5|s2|s3|final|s4|review|redo|compare} --task Tasks/<TASK_DIR>
+python Validators/phase_ready.py --phase {hardness|s1|s1.5|s2|s3|final|s4|review|materialize|redo|compare} --task Tasks/<TASK_DIR>
 ```
 
 Every runbook except S0 invokes this as step 1. If it STOPs with a missing-artifact list, the agent must run the named upstream phase before continuing. Exits 0 when all required artifacts exist + are non-empty, non-zero otherwise.
@@ -105,10 +116,10 @@ Every runbook except S0 invokes this as step 1. If it STOPs with a missing-artif
 Phase-aware validator. Block on any FAIL.
 
 ```
-python Validators/validate.py --phase {prompt|oe|rubrics|all} --task Tasks/<TASK_DIR>
+python Validators/validate.py --phase {prompt|oe|rubrics|all|injection|submission_gate} --task Tasks/<TASK_DIR>
 ```
 
-Writes `_aux/Validator_Reports/<phase>.md`. Exits 0 clean, non-zero on any FAIL.
+Writes `_aux/Validator_Reports/<phase>.md`. Exits 0 clean, non-zero on any FAIL. `injection` + `submission_gate` are V4 gates handled in `v4_gates.py` (SKIP cleanly when not applicable). All checks read constants from the `universes.py` registry, so the tables below describe behavior for every universe - the Brookfield-flavored examples (Oracle GL / `105000` trap) apply only when `_aux/Universe.txt` == brookfield.
 
 Checks per phase:
 

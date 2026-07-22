@@ -1,6 +1,6 @@
 # MCP Eval V3 — Project Knowledge Base
 
-**Updated:** 2026-06-21
+**Updated:** 2026-07-22
 
 > **Operator?** Read [`QUICK_START.md`](QUICK_START.md) — the 1-page how-to.
 
@@ -90,16 +90,35 @@ MCP_Eval_V3/
 │   ├── Strict_Convention_Inventory.json
 │   ├── OE_Convention_Inventory.json
 │   └── Sessions/
-│       ├── S0.md  HARDNESS.md  S1.md  S1.5.md  S2.md  S3.md  S4.md  REVIEW.md  COMPARE.md
+│       ├── NEW.md  S0.md  HARDNESS.md  S1.md  S1.5.md  S2.md  S3.md  FINAL.md  S4.md
+│       ├── REVIEW.md  MATERIALIZE.md  REDO.md  COMPARE.md  AUDIT.md  FEEDBACK.md  CLOSE.md
 ├── Validators/
-│   ├── split_universe.py           # per-task data.py wrapper
-│   ├── build_universe_index.py     # per-task summaries
-│   ├── build_fact_ledger.py        # per-task atom surface (emails, amounts, dates, ids, accounts, personas)
-│   ├── build_graph_report.py       # per-task compact density map (people, periods, exceptions, AP, docs)
-│   ├── compare_rubrics.py          # local vs platform-paste-back rubric diff
-│   ├── check_source_sync.py        # repo spec surfaces vs extracted upstream drop (catches upstream releases hash pins cannot see)
+│   ├── universes.py                # multi-universe registry + detect_universe() + FRAMEWORKS profiles (constants SSOT)
+│   ├── validate.py                 # phase-aware validator (prompt | oe | rubrics | all | injection | submission_gate)
+│   ├── v4_gates.py                 # V4 deterministic gates (Evals_starpm 0 + 5); injection presence-gated for all universes
 │   ├── qc_verdict.py               # deterministic QC verdict engine (parse/classify/selftest/audit/feedback), 128/128 on the 4 bucket corpora
-│   └── validate.py                 # phase-aware validator (prompt | oe | rubrics | all)
+│   ├── check_regression.py         # zero-regression gate: anchors + frozen report hashes (7 tasks / 3 v3-family universes)
+│   ├── test_regression_anchors.py  # 62 behavior anchors via subprocess fixtures
+│   ├── regression_baseline/        # vendored wave-0 hashes + reports + ROUTING_DECISIONS.md + V4_ENFORCEMENT_AUDIT.md
+│   ├── check_source_sync.py        # repo spec surfaces vs extracted upstream drop (catches upstream releases hash pins cannot see)
+│   ├── source_sync_deviations.json # documented repo-vs-upstream divergences (flavor corrections)
+│   ├── check_eval_hashes.py / eval_file_hashes.json      # eval spec pinning (repo-side drift)
+│   ├── check_tool_catalog.py / tool_catalog_hashes.json  # tool catalog pinning
+│   ├── new_task.py                 # PIPELINE NEW scaffolder (per-universe templates; V4 dual-model shape)
+│   ├── parse_trajectories.py       # pass@1 + density (flat + per-model layouts)
+│   ├── phase_ready.py              # per-phase input gating (V4-aware: 8a/8b, injection artifacts)
+│   ├── close_task.py               # CLOSE audit (V4-aware artifact sets)
+│   ├── split_universe.py           # per-task data.py wrapper
+│   ├── build_universe_index.py     # per-task summaries (registry tz/today)
+│   ├── build_fact_ledger.py        # per-task atom surface (emails, amounts, dates, ids, accounts, personas)
+│   ├── build_graph_report.py       # per-task compact density map
+│   ├── build_feasible_surface.py   # feasible-action surface for grounding
+│   ├── verify_universe_atoms.py    # per-universe claim/atom verification
+│   ├── calc_similarity.py          # cross-task similarity gate
+│   ├── aggregate_verdicts.py       # council verdict rollup
+│   ├── check_justification.py      # linter/AF justification hygiene
+│   ├── check_verification.py       # per-phase verification doc gate
+│   └── compare_rubrics.py          # local vs platform-paste-back rubric diff
 ├── Brookfield_Base_Universe/       # STALE except 8_Server_Tools_Details.json + 2_Persona_Briefs.md
 │   ├── 1_Summary.md ... 7_*.md     # stale reference, do not trust over per-task data
 │   ├── 2_Persona_Briefs.md         # stable per-version (personas don't change per task)
@@ -117,7 +136,11 @@ MCP_Eval_V3/
 │   ├── V2.1_Buckets/               # MoveOps labeled QC verdict ground truth (80 tasks, 4 buckets)
 │   └── V4_Tasks/                   # StarPM labeled QC verdict ground truth (16 tasks, 4 buckets)
 │                                   # all four corpora: qc_verdict.py selftest == bucket-correct 128/128
-├── Tasks_Template/                 # platform-paste-target template
+├── Tasks_Template/                 # Brookfield platform-paste template (upstream-synced: 4_Changelog + 9_Universe_inject)
+├── Tasks_Template_keystone/        # KeyStone per-universe template (upstream-synced)
+├── Tasks_Template_moveops/         # MoveOps per-universe template (upstream-synced)
+├── Tasks_Template_starpm/          # StarPM V4 dual-model template (8a/8b, per-model Agent_Responses, dispute placeholders)
+├── rubric-json-viewer/             # local rubric JSON viewer utility
 ├── Tasks/                          # live tasks
 │   ├── <TASK_DIR>/                 # per-task work
 │   │   ├── 1_Business_Function.txt … 9_Universe_inject.sql  # user-pasted + pipeline-produced (1-9 as before)
@@ -149,7 +172,7 @@ MCP_Eval_V3/
 
 ## Universe constants (multi-universe — v21)
 
-Pipeline supports **four universes**. Detection is automatic via `Validators/detect_universe.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
+Pipeline supports **four universes**. Detection is automatic via `detect_universe()` in `Validators/universes.py` (writes `_aux/Universe.txt` at S0). All validators + council prompts + runbooks read constants via the `Validators/universes.py` registry — no hardcoded per-universe values in code.
 
 ### Brookfield CPAs & Advisors (default — public accounting / business advisory)
 
@@ -220,7 +243,7 @@ Pipeline supports **four universes**. Detection is automatic via `Validators/det
 
 ### Universe detection
 
-- Auto-detected per-task by `Validators/detect_universe.py` (signals: service names + persona names + universe data file contents). Highest signal-score wins; ties default to brookfield.
+- Auto-detected per-task by `detect_universe()` in `Validators/universes.py` (signals: service names + persona names + universe data file contents). Highest signal-score wins; ties default to brookfield.
 - Cached to `_aux/Universe.txt`. Override by manually editing the file (single word: `brookfield`, `keystone`, `moveops`, or `starpm`).
 - Every validator / council / AUDIT / FINAL reads `_aux/Universe.txt` and routes constants/paths accordingly.
 

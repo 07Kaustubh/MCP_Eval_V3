@@ -1,3 +1,23 @@
+## v21.4 (2026-07-22) - Council/AUDIT/runbook prose correctness audit
+
+Ran a deterministic contradiction scan (stated constants vs registry + eval/QC ground truth) across all 28 pipeline-owned runbook/council/format-card docs:
+
+- **One real systemic finding, now fixed:** the density gates in HARDNESS.md, AUDIT.md, Council_Protocol.md, and Hardness_Playbook.md stated only the V3-family 50/40 scheme with no V4 carve-out - a StarPM task run through HARDNESS would STOP at midpoint <40 despite StarPM's actual floor being 15 (design target 40, per model). This is the operational twin of the v21.1 AGENTS.md rule-11 fix, which had corrected the rule but not the runbook gates that enforce it. Added a framework-scoping carve-out to all four gate-definition sites plus the HARDNESS :130 operational restatement.
+- **Verified correct (scanner false-positives):** all per-universe today-dates/timezones, Slack channel ranges, tool-catalog prefixes (StarPM 7 vs Brookfield 8), persona-brief filenames, and parameter traps. The S2 param table is exemplary - it explicitly excludes StarPM from the shared payload/content traps and carries a full StarPM-only v4 section. Residual bare-"50" scanner hits are passing references (trigger tables, AUDIT auto-fire lists, FEEDBACK's explicit "candidate is NOT rated on the internal 50+ bar") that inherit the now-carved definitions.
+
+Gates unaffected (prose only): check_regression PASS 62/62, selftest 128/128.
+
+## v21.3 (2026-07-22) - Pipeline-owned doc consistency sweep
+
+Audited every pipeline-owned .md against a filesystem+code ground-truth ledger (upstream-mirrored specs excluded - they are pin-verified, not freshened):
+
+- **AGENTS.md**: removed 2 references to `Validators/detect_universe.py` (never existed - detection is `detect_universe()` inside `universes.py`); refreshed Updated date; completed the layout tree (16 runbooks not 9, 24 validators not 8, all 4 Tasks_Template dirs + rubric-json-viewer).
+- **Validators/AGENTS.md** (worst offender - predated multi-universe): "Eight Python scripts" -> 24 with a registry+framework-core section; validate.py phase list now includes injection|submission_gate; phase_ready list adds materialize; added the "all checks route through the universes.py registry" note so the Brookfield examples read as one-of-four, not universal.
+- **QC_Tasks/AGENTS.md**: added the labeled bucket-corpora section (V3_Buckets 16 / V3.1_Buckets 16 / V2.1_Buckets 80 / V4_Tasks 16 = 128, qc_verdict selftest ground truth).
+- **Vendored `Validators/regression_baseline/ROUTING_DECISIONS.md`** (referenced by AUDIT/FEEDBACK/FINAL but had existed only in a temp dir - one reboot from a dangling reference).
+
+Non-findings confirmed current and left untouched: QUICK_START.md, Reference/Knowledge_Flow.md (already carries the full V4 routing header). Gates unaffected (docs-only): check_regression PASS 62/62, selftest 128/128.
+
 ## v21.2 (2026-07-22) - Source parity restoration + corpus expansion + upstream-drift tooling
 
 Source-of-truth audit against the four upstream zips (V3 Brookfield, V3.1 KeyStone, V2.1 MoveOps, V4 StarPM re-drop):

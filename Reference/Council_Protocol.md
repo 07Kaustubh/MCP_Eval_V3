@@ -639,7 +639,7 @@ If Council B's B3 returns "exactly 40" or "40-42 midpoint", consider:
 - Adding one more write action to push the floor higher.
 - Adding one more lever to widen the projected range.
 
-A target midpoint of 50+ is the comfortable zone. 40 is the floor.
+A target midpoint of 50+ is the comfortable zone. 40 is the floor. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task.
 
 ## Unified verdict format (v11 F2)
 

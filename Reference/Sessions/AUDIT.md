@@ -69,7 +69,7 @@ The per-phase Council B scores QC sub-dims and allows 3-4 bands when explicitly 
 - Every soft convention in `Reference/<phase>_Format.md` is read as binding.
 - Every per-phase warning in the validator output is treated as a hard issue worth listing.
 - Every Hardness lever from `Hardness_Plan.md` must trace end-to-end through the artifact set with cited evidence; "probably triggered" is REVISE.
-- Density bar is 50+ midpoint (not 40 floor). 40-49 is flagged as `THIN`, not `PASS`.
+- Density bar is 50+ midpoint (not 40 floor). 40-49 is flagged as `THIN`, not `PASS`. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task.
 - Any answer-leakage hit on a derived figure is BLOCKER (per L6 from Learnings.md — agents read full thread depth and an answer stated verbatim is 100% pass).
 
 The point is to catch what the lighter per-phase pass let through. If AUDIT returns PASS under the strictest interpretation, the deliverable is genuinely 5-of-5.

@@ -38,6 +38,19 @@ They are NOT useful for:
 
 **Apply V3 framework rules when learning from V2 tasks. Do not import V2 rubric structures.**
 
+## Labeled QC verdict corpora (bucket ground truth)
+
+Four labeled corpora are the acceptance ground truth for `Validators/qc_verdict.py` (the deterministic QC verdict engine). Each holds tasks split into 4 buckets - `QC_Passed`, `QC_True_Fails`, `QC_Non_Fails`, `QC_False_Fails_PT_Dispute_Accepted` - with a `QC_Feedback_Verdict.txt` per task (plus the `9_QC_Feedback` / `10_PT_Dispute_To_QC_Feedback` / `11_Final_QC_Validation_On_PT_Dispute` trio on disputed tasks).
+
+| Corpus | Universe | Tasks |
+|---|---|---|
+| `V3_Buckets/` | Brookfield (V3) | 16 |
+| `V3.1_Buckets/` | KeyStone (V3.1) | 16 |
+| `V2.1_Buckets/` | MoveOps (V2.1) | 80 |
+| `V4_Tasks/` | StarPM (V4) | 16 |
+
+`python3 Validators/qc_verdict.py selftest QC_Tasks/<corpus>` classifies every task from parsed CONTENT (scores + dispute resolution), never the directory name, and must stay bucket-correct 128/128 across all four. These are the QC-verdict SSOT; the `V3_Tasks/` + `V2_Tasks/` cohorts above are craft references only, not verdict ground truth.
+
 ## When to consult
 
 - **S3 (Rubrics):** read every V3 `Rubrics.json` in full. Study V2 only for variety in prompt-to-OE mapping styles.

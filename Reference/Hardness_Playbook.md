@@ -29,7 +29,7 @@ The single biggest lever for QC pass rates is **hardness without contrivance**. 
 | Write actions (target 3+ writes × ~3 supporting reads each) | 9-12 |
 | Cross-service triangulation buffer | 5-8 |
 
-**Design target: average projected tool-call count must be ≥ 50 to greenlight S1 cleanly.** Three bands: midpoint ≥ 50 = PASS; midpoint 40-49 = `THIN_DENSITY` (operator can continue with per-task justification but task is at risk of underflow on real platform runs); midpoint < 40 = `INSUFFICIENT_DENSITY` (STOP — must add levers, expand write-action mix, or both). The 50+ midpoint design target produces ~40+ tool calls in real platform runs, which is the empirical floor below which tasks come back failing density.
+**Design target: average projected tool-call count must be ≥ 50 to greenlight S1 cleanly.** Three bands: midpoint ≥ 50 = PASS; midpoint 40-49 = `THIN_DENSITY` (operator can continue with per-task justification but task is at risk of underflow on real platform runs); midpoint < 40 = `INSUFFICIENT_DENSITY` (STOP — must add levers, expand write-action mix, or both). The 50+ midpoint design target produces ~40+ tool calls in real platform runs, which is the empirical floor below which tasks come back failing density. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task.
 
 ## Composition rules
 
