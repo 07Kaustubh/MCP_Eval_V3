@@ -1,0 +1,104 @@
+[
+    {
+        "title": "The Agent creates a corrective journal entry for the $4,390.62 variance on account 119000 (Work in Process - Unbilled Services) for the brookfield entity in period brookfield_FP-2026-05.",
+        "category": "outcome",
+        "justification": "The prompt instructs the agent to draft and submit corrective journal entries where needed. Exception exc_1ddfc978ce5a4d flags a $4,390.62 GL-to-supporting-detail gap on account 119000 with a proposed resolution to post a corrective JE. This rubric verifies the agent executed the write action.",
+        "evidence": "Look for a journal entry creation action in the trajectory targeting entity brookfield, period brookfield_FP-2026-05, with lines referencing account 119000 and an amount of $4,390.62. Confirm the creation returned a journal entry ID."
+    },
+    {
+        "title": "The Agent's corrective journal entry for account 119000 references exception exc_1ddfc978ce5a4d in the description or business justification, or clearly describes the $4,390.62 WIP variance and its link to BlackLine exception exc_1ddfc978ce5a4d.",
+        "category": "outcome",
+        "justification": "The exception's proposed_resolution explicitly instructs to reference the exception_id in the business_justification. This links the corrective entry to the source exception for audit trail purposes and ensures the JE can be traced back to the BlackLine finding.",
+        "evidence": "Check the description or business_justification fields of the journal entry creation for account 119000. It should reference exc_1ddfc978ce5a4d or clearly describe the $4,390.62 WIP variance and its link to the BlackLine exception."
+    },
+    {
+        "title": "The Agent submits the corrective journal entry for the $4,390.62 WIP variance for review or approval.",
+        "category": "outcome",
+        "justification": "The prompt says 'go ahead and draft and submit it for approval.' Creating the journal entry alone is insufficient; it must also be submitted to move through the approval workflow. The agent should not approve or post it since the prompt says to submit for approval, not to self-approve.",
+        "evidence": "Look for a journal entry submission action in the trajectory using the entry_id returned from the creation step. The submission should return a success response with the entry moving to pending_approval state."
+    },
+    {
+        "title": "The Agent posts a message in #monthly-close-coordination summarizing the May close backlog status.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'drop a note to George McAdam and Harry Marks in #monthly-close-coordination with a summary of what got cleared and what's still outstanding.' This verifies the Slack write action was executed in the correct channel.",
+        "evidence": "Look for a message posted to #monthly-close-coordination (channel_id C005). The agent may use either the channel name or the channel_id to target the channel. Confirm the action returned success."
+    },
+    {
+        "title": "The Agent submits reconciliation BL-32EDC5791080 (account 235000, Payroll Tax Withholding Payable, brookfield FP-2026-05, $0 variance) for review.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to help clear as much of the backlog as possible. BL-32EDC5791080 is a clean reconciliation with $0 variance and in_progress state for brookfield FP-2026-05 that can be submitted immediately without further investigation.",
+        "evidence": "Look for a reconciliation submission action in the trajectory with recon_id BL-32EDC5791080. Confirm the action returned success.\n"
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination is addressed to or mentions both George McAdam and Harry Marks.",
+        "category": "outcome",
+        "justification": "The prompt specifically names George McAdam and Harry Marks as the intended audience for the summary note so they have the full picture for their reviews. The message must reference both.",
+        "evidence": "Check the message content posted to #monthly-close-coordination (channel_id C005) for mentions of both George McAdam (or george.mcadam) and Harry Marks (or harry.marks). Both names must appear in the message."
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination indicates that reconciliation BL-32EDC5791080 (account 235000, Payroll Tax Withholding Payable, brookfield FP-2026-05) has been submitted for review as part of clearing the May close backlog.",
+        "category": "outcome",
+        "justification": "The prompt asks for a summary of 'what got ceared.' The agent must communicate which items were successfully advanced or submitted so George and Harry know what has been resolved.\n",
+        "evidence": "Check the message content posted to #monthly-close-coordination for references to BL-32EDC5791080, account 235000, or Payroll Tax Withholding Payable, confirming this specific clean reconciliation was submitted as part of clearing the May close backlog."
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination identifies the $6,328.86 variance on account 210000 (Accounts Payable - External Vendors, reconciliation BL-516B536953DA) as blocked on Ben Arinzo's open exception or Ryan Delgado's pending approval.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'what's still outstanding.' The $6,328.86 variance on reconciliation BL-516B536953DA is driven by exception exc_a0f77f2a19104e assigned to Ben Arinzo and awaiting Ryan Delgado's approval. Anaya cannot resolve this on her own, so George and Harry need visibility.",
+        "evidence": "Check the message content posted to #monthly-close-coordination for references to account 210000 or BL-516B536953DA and the $6,328.86 variance, described as blocked, pending, or dependent on another team member such as Ben Arinzo or Ryan Delgado."
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination identifies the Acme Cloud FX revaluation exception from November 2025 ($1,014.33 on account 101000, exception exc_abd8e711f5f347) as a stale item awaiting George McAdam's approval.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'what's still outstanding' and to flag items waiting on another approver or from a much older period. This exception is from November 2025, over six months old, and stuck in awaiting_approval with George McAdam as the approver. George and Harry need to see this.",
+        "evidence": "Check the message content posted to #monthly-close-coordination for references to the Acme Cloud exception, account 101000, November 2025, $1,014.33, or exc_abd8e711f5f347, described as stale, old, or awaiting George McAdam's approval."
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination identifies the overdue September 2025 reconciliation on account 227000 (BL-CBBC1C9D68DD, variance approximately -$595) as still outstanding.",
+        "category": "outcome",
+        "justification": "The prompt asks for 'what's still outstanding.' BL-CBBC1C9D68DD has been sitting in overdue state since October 2025, covering brookfield FP-2025-09 (September 2025), and has never been submitted. This is a significant backlog item that George and Harry need visibility on.",
+        "evidence": "Check the message content posted to #monthly-close-coordination for references to account 227000, BL-CBBC1C9D68DD, September 2025, or the approximately -$595 variance, described as overdue, outstanding, or requiring attention."
+    },
+    {
+        "title": "The Agent identifies the $4,390.62 WIP variance on account 119000 (Work in Process - Unbilled Services, reconciliation BL-75810CD0FEE4) as a material open exception requiring action for the May close.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to investigate and clear open BlackLine items and flag issues. Account 119000 has a $4,390.62 gap between GL and supporting detail (exception exc_1ddfc978ce5a4d, SOX-flagged, SLA breached). The agent must surface this finding directly to the user.",
+        "evidence": "Check the agent's final response for references to the $4,390.62 variance on account 119000, BL-75810CD0FEE4, or exc_1ddfc978ce5a4d, described as material, requiring action, or a priority for the May close."
+    },
+    {
+        "title": "The Agent identifies that reconciliation BL-516B536953DA (account 210000, Accounts Payable - External Vendors, variance $6,328.86) is blocked because the linked exception is awaiting approval from ryan.delgado@brookfieldcpas.com or dependent on ben.arinzo@brookfieldcpas.com's resolution.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to flag items waiting on another approver and explain what is blocking them. BL-516B536953DA cannot be resolved by Anaya because the underlying exception exc_a0f77f2a19104e is assigned to ben.arinzo@brookfieldcpas.com and awaiting ryan.delgado@brookfieldcpas.com's approval.",
+        "evidence": "Check the agent's final response for references to BL-516B536953DA or account 210000, the $6,328.86 variance, and that it is blocked or dependent on Ryan Delgado's approval or Ben Arinzo's exception resolution."
+    },
+    {
+        "title": "The Agent identifies that exception exc_abd8e711f5f347 (Acme Cloud, account 101000, November 2025, $1,014.33) has been in awaiting_approval state with george.mcadam@brookfieldcpas.com as approver for over six months.",
+        "category": "outcome",
+        "justification": "The prompt says to flag items from a much older period and explain what is blocking them and what needs to happen next. This exception is from November 2025 and has been stuck on George McAdam's approval since December 2025, making it over six months stale.",
+        "evidence": "Check the agent's final response for references to exc_abd8e711f5f347, Acme Cloud, account 101000, November 2025, or $1,014.33, described as stale, old, or awaiting George McAdam's approval for an extended period."
+    },
+    {
+        "title": "The Agent identifies that reconciliation BL-CBBC1C9D68DD (account 227000, Accrued Partner Distributions, brookfield FP-2025-09, variance approximately -$595) is an overdue backlog item from September 2025 that has never been submitted.",
+        "category": "outcome",
+        "justification": "The prompt says to flag items from a much older period and explain what is actually going on. BL-CBBC1C9D68DD has been in overdue state since October 2025 with no reviewer ever assigned. The user needs to know this is stale and requires action.",
+        "evidence": "Check the agent's final response for references to BL-CBBC1C9D68DD, account 227000, September 2025, or the approximately -$595 variance, described as overdue, never submitted, or requiring attention and a resolution plan."
+    },
+    {
+        "title": "The Agent identifies that the $172.62 variance on account 240000 (Deferred Revenue - Client Retainers, exception exc_06b89e3937b04a) is linked to reconciliation BL-433E3BEEFD66 which is prepared by owen.mercer@brookfieldcpas.com, not by Anaya Wallace (anaya.wallace@brookfieldcpas.com).",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to dig into items needing investigation. Exception exc_06b89e3937b04a is assigned to Anaya but the related reconciliation BL-433E3BEEFD66 belongs to Owen Mercer. The user needs this context since resolving the item requires coordination with Owen.",
+        "evidence": "Check the agent's final response for references to the $172.62 variance on account 240000, exception exc_06b89e3937b04a, and that the related reconciliation BL-433E3BEEFD66 is prepared by Owen Mercer (owen.mercer@brookfieldcpas.com), not by Anaya Wallace (anaya.wallace@brookfieldcpas.com)."
+    },
+    {
+        "title": "The Agent's message in #monthly-close-coordination mentions that a corrective journal entry was posted or submitted for the $4,390.62 WIP variance on account 119000 (exception exc_1ddfc978ce5a4d).",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for a Slack summary of 'what got cleared.' Submitting the corrective JE for the $4,390.62 WIP variance on account 119000 (exception exc_1ddfc978ce5a4d) is the most significant clearing action taken during the review. George McAdam and Harry Marks must receive this information to have a complete picture of what was done.",
+        "evidence": "Check the message content posted to #monthly-close-coordination (channel_id C005) for references to a corrective journal entry, JE, or corrective posting related to account 119000, the $4,390.62 WIP variance, or exception exc_1ddfc978ce5a4d, confirming the agent communicated this corrective action in the Slack summary."
+    },
+    {
+        "title": "The Agent submits reconciliation BL-D8EDF47DE632 (acme_cloud, account 230000 Income Tax Payable, $0 variance) for review as part of clearing Anaya's backlog.",
+        "category": "outcome",
+        "justification": "The prompt asks the agent to clear as much of the backlog as possible. Beyond BL-32EDC5791080, Anaya's preparer queue contains additional clean reconciliations with $0 variance that can be submitted immediately. BL-D8EDF47DE632 (acme_cloud, account 230000, Income Tax Payable, $0 variance) is one such reconciliation, representing the batch of clearable items that the agent must work through to fulfil the core prompt request.\n",
+        "evidence": "Look for a reconciliation submission action in the trajectory with recon_id BL-D8EDF47DE632. Confirm the action returned a success response."
+    }
+]

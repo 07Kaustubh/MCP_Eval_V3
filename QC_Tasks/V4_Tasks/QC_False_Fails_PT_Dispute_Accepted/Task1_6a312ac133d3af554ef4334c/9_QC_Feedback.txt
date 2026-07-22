@@ -1,0 +1,7 @@
+Auditor Score and Feedback
+bad 2/5
+Feedback: Failing issues: - [Fail - Prompt Impossible Request] The prompt states "Work out what we actually owe across our filing states for May", this request cannot be completed because the records in the GL/Subledger are not tagged by the jurisdictions, so it is impossible to work out what is owed per state. - [Fail - Missing Universe Data] The data needed to answer the prompt "Work out what we actually owe across our filing states for May", does not exist, since the GL/Subledger do not have a per jurisdiction breakdown. Note: The OE's and Rubrics factor the lack of a jurisdiction breakdown, so the CB knew that the prompt was an impossible request. OE5 specifically states "NOTE for rubric writing: the universe does not pre-state fixed May per-state figures, so the May amounts are agent-derived; grade the act of deriving from FP-2026-05 (and the state set / PA treatment), not an exact dollar value", but this is not enough to satisfy the prompts request. No other issues with this task.
+See less
+Selected Error Categories
+[All] [All] [Fail - Missing Universe Data]
+[All] [All] [Fail - Prompt Impossible Request]
