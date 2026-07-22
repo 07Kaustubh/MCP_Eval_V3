@@ -115,6 +115,27 @@ Final verdict:
 | Zero failures across F1-F6 | `SUBMISSION_GATE PASS. Task is cleared for platform upload.` |
 | Any failure in any family | `SUBMISSION_GATE FAIL. Fix blocker(s) and re-run. Route: F1/F4/F5 → fix rubric at S3; F2 → fix prompt at S1 or persona at NEW; F3 → fix rubric at S3; F6 → fix at the phase owning the root cause.` |
 
+**Post-PASS scaffold (runs only on PASS verdict):**
+
+After printing `SUBMISSION_GATE PASS`, create the platform-return scaffold so the operator has a ready-made landing zone for trajectories and verifier fails. Use the idempotent pattern below — check before creating so a REDO re-run leaves existing data untouched:
+
+```
+TASK_DIR = Tasks/<TASK_DIR>
+
+For each path below:
+  - If it already exists: print "Already present: <path> — skipped." and continue.
+  - If it does not exist: create it and print "Created: <path>".
+
+Paths to create:
+  $TASK_DIR/8a_Verifier_Fails_Opus.txt       (empty file)
+  $TASK_DIR/8b_Verifier_Fails_Gemini.txt     (empty file)
+  $TASK_DIR/Agent_Responses/Opus/            (directory)
+  $TASK_DIR/Agent_Responses/Gemini/          (directory)
+```
+
+Print a summary line after the scaffold step:
+  `Scaffold complete. Paste Opus trajectories into Agent_Responses/Opus/, Gemini trajectories into Agent_Responses/Gemini/, verifier fails into 8a_*/8b_* files, then trigger PIPELINE S4.`
+
 **Re-run protocol after fixes:**
 1. Apply fixes at the phase owning the root cause (not inline in SUBMISSION_GATE).
 2. Re-run `PIPELINE FINAL` to confirm cross-artifact consistency holds.
