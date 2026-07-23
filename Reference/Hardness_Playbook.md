@@ -22,6 +22,8 @@ The single biggest lever for QC pass rates is **hardness without contrivance**. 
 
 `PIPELINE HARDNESS` MUST project tool-call density before greenlighting S1. The projection sums:
 
+**Density formula version:** `density_formula_version: 2` (recalibrated 2026-07-23 for StarPM realities — see the StarPM lever-cost recalibration subsection at the end of this file). `[PROJECT POLICY — cites §4.9 spec floor 15; project internal target 40+]` The 50+ midpoint design target and the density formula that produces it sit above the §4.9 (Trajectory → Tool Call Count) spec floor of avg ≥ 15 tool calls; recalibration adjusts coefficients only and does not modify §4.9.
+
 | Component | Tool-call cost |
 |---|---:|
 | Base discovery (contact lookups, channel resolution, period lookup) | 5-8 |
@@ -116,8 +118,21 @@ Standard StarPM write-action menu (use 3-5 from this list per task):
 
 **How to engineer it:** Prompt references a specific document by natural context ("per the lease signed last month", "check the original invoice", "the QC inspection report"). Agent must trace the document reference through the service that holds the attachment (Gmail thread attachment, HubSpot note attachment, or Airtable attachment field) and read the PDF content. The stumping fact is only in the document, not mirrored in the live service record.
 
-**Tool-call cost:** 4-8 (find the email/record that references the doc + read attachment + cross-reference against live data + flag or act on the discrepancy).
+**Tool-call cost:** 2-4 (find the email/record that references the doc + read attachment + cross-reference against live data + flag or act on the discrepancy). `[PROJECT POLICY — cites §4.9 spec floor 15; project internal target 40+]` Recalibrated from 4-8 to 2-4 under `density_formula_version: 2` because the attachment surfaces through a single service-tool call on StarPM (Gmail thread / HubSpot note / Airtable field), one call shorter than the initial estimate; cross-service requirement still holds at ≥ 2 service touches per §4.1 (Prompt → Tool use and Cross-service requirement).
 
 **Composition rule:** Pair L12 with L1 (Latching) — the live service record is the more-findable source and will latch the agent. Pair with L8 (Multi-link chain) — document reference is the second link (A = live record shows X → B = attached PDF shows Y → C = agent must act on the discrepancy).
 
 **Read-only constraint (hard):** Prompts using L12 MUST NOT ask the agent to modify, upload, or replace the PDF. The Files/ directory is read-only. The agent reads the document and acts on what it finds (email the finding, update a Linear ticket, flag the discrepancy to the owner) — it never writes back to the file.
+
+### StarPM lever-cost recalibration (`density_formula_version: 2`)
+
+`[PROJECT POLICY — cites §4.9 spec floor 15; project internal target 40+]` The base 11-lever cost ranges above assume Brookfield tool surfaces (email send with get-thread reply loop, Records Vault upload with metadata retrieval roundtrip); StarPM tool surfaces are leaner, so the coefficient adjustments below preserve the density formula's truthfulness on StarPM realities without changing any QC spec rule, and the §4.9 spec floor of avg ≥ 15 tool calls is unchanged.
+
+| Adjustment | Brookfield baseline | StarPM recalibrated | Spec / policy tag |
+|---|---:|---:|---|
+| Gmail write cost per action | send + reply-loop follow-up ≈ 2 calls | `gmail_create_draft` = 1 call (no send tool exists in StarPM) | `[PROJECT POLICY — cites §4.9]` The draft-only surface reduces write cost by ~1 call per Gmail write, and the write still counts as a service touch under §4.1 (Prompt → Tool use and Cross-service requirement). |
+| Document / attachment retrieval | Records Vault upload + metadata roundtrip ≈ 2 calls | Gmail thread / HubSpot note / Airtable attachment field = 1 call | `[PROJECT POLICY — cites §4.9]` StarPM has no Records Vault; the doc surfaces through a service tool that already returns the attachment, and cross-service coherence between attachment and live data is preserved under §4.7 (Universe → Cross-service Coherence). |
+| Slack write cost per action | `slack_send_message` = 1 call | `slack_send_message` = 1 call (sends) OR `slack_send_message_draft` = 1 call (drafts only, does NOT send) | `[PROJECT POLICY — cites §4.9]` HARDNESS density projection assumes send unless the prompt scope calls for a draft, and a rubric requiring a send fails if the agent uses the draft tool, so tight-identifier truthfulness under §4.5 (Prompt → Truthfulness) requires the tool the prompt implies to match the tool the rubric grades. |
+| L12 Document cross-reference | not applicable (Brookfield lever set stops at L11) | 2-4 calls (down from initial draft of 4-8) | `[PROJECT POLICY — cites §4.9]` Attachment surfaces through 1 service-tool call plus 1 live-record cross-reference call plus 1 flag/act call, and the cross-service requirement still holds at ≥ 2 service touches under §4.1. |
+
+**Composition-rule impact:** the base `Write actions (target 3+ writes × ~3 supporting reads each) | 9-12` row still applies to StarPM as an upper band, and recalibration confirms no supporting-read multiplier needs raising on StarPM to keep the 50+ midpoint design target achievable per §4.9 (Trajectory → Tool Call Count) — 3+ writes forces ≥ 3 service touches under §4.1 (Prompt → Tool use and Cross-service requirement) and the resulting midpoint remains above the §4.9 spec floor.

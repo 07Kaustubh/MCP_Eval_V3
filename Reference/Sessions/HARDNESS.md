@@ -100,6 +100,17 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    - Confidence (high / med / low) with one-line reasoning citing levers and the Learnings entry.
    - The mechanism (latching, structured-DB skip, missing reply, authority dismissal, etc.).
 
+6a. **(StarPM V4 only) Sub-agent task: Base Universe Investigation Scan.** `[PROJECT POLICY — cites no spec; step 6a scoping and structure authorized by plan §7.1]` Skip this step entirely for Brookfield, Keystone, and MoveOps. For StarPM, produce a `## Base Investigation Surface` section in `Hardness_Plan.md` documenting the natural investigation demand of the base StarPM universe for the target scenario before any injection is planned. Every field below cites a QC spec sub-dimension from `Docs_starpm/7_QC_Spec_Doc1.json` and `Docs_starpm/8_QC_Spec_Doc2.md`, and is grep-verified against `_aux/Universe_Split/`.
+
+   The sub-agent produces four fields:
+
+   - **Natural service touches (cites §4.1 — Prompt → Tool use and Cross-service requirement):** list ≥ 3 StarPM services the scenario naturally requires touching without any injection, each with a one-line evidence pointer to a base universe record. §4.1 Pass (5) requires investigation across 2+ services; the ≥ 3 target sits above the spec floor to lift tool-call density organically under §4.9 (Trajectory → Tool Call Count).
+   - **Scattered facts (cites §4.1 — Prompt → Tool use and Cross-service requirement):** list the load-bearing facts the scenario needs and where each one lives in the base universe, showing they are naturally distributed across the ≥ 3 services above. §4.1 Fail band explicitly disqualifies scenarios that "only trivially touches a second service"; the scattered-fact inventory demonstrates non-trivial cross-service reconciliation.
+   - **Natural investigation path (cites §4.2 — Prompt → Investigation):** one paragraph describing the discovery arc a competent agent takes through the base universe to reach the correct answer, with no shortcut. §4.2 Pass (5) requires the prompt to "clearly require investigation, and it logically follows from investigation"; documenting the arc before injection prevents pre-solving under the §4.2 Fail band.
+   - **Cohesive single-situation grounding (cites §4.3 — Prompt → Coherence):** one sentence naming the single business situation that ties every scattered fact and every service touch together, satisfying §4.3 Pass (5) "One cohesive situation; stacked asks all tie back to the same purpose." §4.3 Fail band disqualifies bolt-on requests; the scan proves the situation is unitary before the prompt is written.
+
+   `[PROJECT POLICY — cites §4.1, §4.2 and §4.9; downstream sequencing authorized by plan §7.1]` The Base Investigation Surface exists so the Injection Plan in Step 6.5 augments the natural surface rather than shortcutting it. Every subsequent injection is scored against whether it preserves the scan's ≥ 3-service touch under §4.1 and its natural investigation path under §4.2, which together keep the projected tool-call midpoint above the §4.9 spec floor.
+
 6.5 **(StarPM V4 only) Sub-agent task: Injection Planning.** Skip this step entirely for Brookfield, Keystone, and MoveOps. For StarPM, the INJECTION phase will author `9_Universe_inject.sql` from this plan — it must be precise enough to write correct SQL without further research. For each selected lever, specify:
 
    - **Service + table:** which of the 8 StarPM services (gmail, slack, linear, airtable, quickbooks, hubspot, gcalendar, contacts) and which table
@@ -112,6 +123,10 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    - **Cross-service references:** for each injected record that mentions another service's entity, name both sides (e.g., "Slack message references Linear ticket `MT-2026-0072` — confirm that ticket exists in base OR plan a matching injection")
    - **Decoys / traps:** for each decoy record, describe what makes it misleading (e.g., "nearly-matching invoice amount $4,020 from a different vendor — correct amount is $4,200")
    - **Reachability path:** name the MCP tool + filter that surfaces this record (e.g., `gmail_search_threads(query="HVAC Las Palmas")`)
+   - **Coherence (cites §4.7 — Universe → Cross-service Coherence):** name every base record this injection touches and state one sentence per touch confirming the injected value stays internally consistent with the touched base record on names, dates, amounts, status, and relationships. §4.7 Fail band disqualifies universe edits that "create contradictions that break solvability or realism AND cause an agent failure," and separately disqualifies injections that create misaligned-data traps between two sources; both risk flags must read `zero` before the injection is approved.
+   - **Feasibility contribution (cites §4.8 — Universe → Universe Feasibility (Data Exists)):** name the exact required fact this injected record makes retrievable and the tool that will surface it. §4.8 Pass (5) requires "All core facts required to solve the task exist in the universe and are retrievable via tools"; the field forces one-to-one traceability from the injected record to a load-bearing fact the prompt asks for.
+   - **Investigation extension (cites §4.2 — Prompt → Investigation):** one sentence describing the natural discovery step an agent takes to reach this record from the Base Investigation Surface arc produced in Step 6a, confirming no shortcut compresses the investigation. §4.2 Fail band disqualifies pre-solving; the field forces the injection to extend the natural investigation arc rather than collapse it.
+   - **Cross-service anchor (cites §4.1 — Prompt → Tool use and Cross-service requirement):** name the base service this injected record clusters with and state whether the injection preserves the ≥ 3-service natural touch surface from Step 6a or augments it with an additional service. §4.1 Pass (5) requires investigation across 2+ services; the field prevents an injection from silently collapsing the cross-service surface into a single-service shortcut.
 
    This plan must be complete enough that the INJECTION phase can write correct SQL without returning to you for clarification. Target Phase 8 difficulty minimums: Cross-Service Spread ≥ 4 services, Tool Call Depth midpoint ≥ 3.5, Reasoning Chain midpoint ≥ 3.5.
 
@@ -177,6 +192,25 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    ## Hardness Brief for the Prompt Writer
    <one tight paragraph the S1 sub-agent will use, naming the selected levers and the projected tool-call density target>
 
+   ## Base Investigation Surface (StarPM V4 only — omit entirely for Brookfield / Keystone / MoveOps)
+
+   **Natural service touches (§4.1):**
+   - <service_1> — <one-line evidence pointer to base record>
+   - <service_2> — <one-line evidence pointer>
+   - <service_3> — <one-line evidence pointer>
+   - <additional services if applicable>
+
+   **Scattered facts (§4.1):**
+   - <fact_1> lives in <service:table:record> — <one-line description>
+   - <fact_2> lives in <service:table:record> — <one-line description>
+   - <additional facts>
+
+   **Natural investigation path (§4.2):**
+   <one paragraph describing the discovery arc a competent agent takes through the base universe to reach the correct answer, with no shortcut>
+
+   **Cohesive single-situation grounding (§4.3):**
+   <one sentence naming the single business situation that ties every scattered fact and every service touch together>
+
    ## Injection Plan (StarPM V4 only — omit entirely for Brookfield / Keystone / MoveOps)
 
    ### Lever <n> → Records to inject
@@ -192,6 +226,10 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
    **Cross-service refs:** <e.g., this email body references QB bill INV-0089 — confirm that bill exists in base>
    **Reachability:** `<tool_name>(param="<filter>")` → record surfaces
    **Decoy record (if any):** <service/table> — <description: what makes it misleading and why it is wrong>
+   **Coherence (§4.7):** <base records touched + one-sentence internal-consistency confirmation per touch; misaligned-data risk = zero>
+   **Feasibility contribution (§4.8):** <the specific load-bearing fact this record makes retrievable + surfacing tool>
+   **Investigation extension (§4.2):** <natural discovery step from the Base Investigation Surface arc; no shortcut>
+   **Cross-service anchor (§4.1):** <base service cluster + whether the injection preserves or augments the ≥ 3-service natural touch surface>
 
    ### Lever <n+1> → Records to inject
    <repeat pattern above>
@@ -217,6 +255,7 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_hardness.md` de
 - `_aux/Hardness_Plan.md` exists with all 6 sections.
 - At least 3 levers selected (PASS) OR explicit `INSUFFICIENT_LEVERS`.
 - Projected tool-call midpoint ≥ 50 (PASS) OR explicit `INSUFFICIENT_DENSITY` (< 40, STOP) OR explicit `THIN_DENSITY` (40-49) with per-task justification documented in `Hardness_Plan.md` under `## THIN density acceptance`.
+- **(StarPM V4 only)** `## Base Investigation Surface` section exists in `Hardness_Plan.md` with all four spec-cited fields populated (natural service touches under §4.1, scattered facts under §4.1, natural investigation path under §4.2, cohesive single-situation grounding under §4.3), grep-verified against `_aux/Universe_Split/`. `[PROJECT POLICY — cites §4.1, §4.2, §4.3, §4.7, §4.8; exit-criterion added per plan §7.1]` Every injected record in `## Injection Plan` additionally populates the four downstream spec-cited fields (Coherence §4.7, Feasibility contribution §4.8, Investigation extension §4.2, Cross-service anchor §4.1) added in Step 6.5.
 
 ## STOP gate
 
