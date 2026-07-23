@@ -1,0 +1,21 @@
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Python bytecode caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Agent runtime state
+.sisyphus/
+
+# Editor / IDE local state
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local env
+.env
+.env.local
