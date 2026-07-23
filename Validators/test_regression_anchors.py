@@ -50,7 +50,7 @@ def _minimal_universe(out_dir: Path) -> None:
     (aux / "Fact_Ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
 
 
-def _write_task(task_dir: Path, prompt: str = "", oe: str = "", rubrics: list = None, persona: str = "Brenda Carter") -> None:
+def _write_task(task_dir: Path, prompt: str = "", oe: str = "", rubrics: list = None, persona: str = "Brenda Carter", universe: str = "") -> None:
     task_dir.mkdir(parents=True, exist_ok=True)
     _minimal_universe(task_dir)
     if prompt:
@@ -60,6 +60,8 @@ def _write_task(task_dir: Path, prompt: str = "", oe: str = "", rubrics: list = 
     if rubrics is not None:
         (task_dir / "7_Rubrics.json").write_text(json.dumps(rubrics, indent=2), encoding="utf-8")
     (task_dir / "2_Persona.txt").write_text(persona, encoding="utf-8")
+    if universe:
+        (task_dir / "_aux" / "Universe.txt").write_text(universe, encoding="utf-8")
 
 
 def _run_validate(task_dir: Path, phase: str) -> str:
@@ -139,6 +141,66 @@ ANCHORS = [
             ],
         ),
         "expect": "bundles two independent",
+    },
+    {
+        "name": "StarPM V4 — Enumerated (a)(b)(c) bundle in rubric title",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_task(
+            d,
+            prompt="Handle the ticket.",
+            oe="OE1: Update the ticket.",
+            rubrics=[
+                {"title": "The Agent's Airtable update includes (a) the escalation, (b) the corrected scope, and (c) the Thursday retention date", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+                {"title": "The Agent finds the ticket", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+            ],
+            universe="starpm",
+        ),
+        "expect": "enumerated element bundling",
+    },
+    {
+        "name": "StarPM V4 — Numbered (1)(2)(3) bundle in rubric title",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_task(
+            d,
+            prompt="Handle the ticket.",
+            oe="OE1: Update the ticket.",
+            rubrics=[
+                {"title": "The Agent's comment includes (1) the diagnostic finding, (2) the corrected scope, and (3) the retention date", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+                {"title": "The Agent finds the ticket", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+            ],
+            universe="starpm",
+        ),
+        "expect": "numbered element bundling",
+    },
+    {
+        "name": "StarPM V4 — Multi-recipient send bundle in rubric title",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_task(
+            d,
+            prompt="Send updates to the team.",
+            oe="OE1: Draft emails to the team.",
+            rubrics=[
+                {"title": "The Agent emails Alice Smith, Bob Jones, and Carol Wong about the update", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+                {"title": "The Agent finds the team", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+            ],
+            universe="starpm",
+        ),
+        "expect": "multiple recipients under a single write verb",
+    },
+    {
+        "name": "StarPM V4 gate — (a)(b)(c) does NOT flag on non-StarPM universe (moveops)",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_task(
+            d,
+            prompt="Handle the ticket.",
+            oe="OE1: Update the ticket.",
+            rubrics=[
+                {"title": "The Agent's Airtable update includes (a) the escalation, (b) the corrected scope, and (c) the Thursday retention date", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+                {"title": "The Agent finds the ticket", "category": "outcome", "justification": "x", "evidence": "Per OE1"},
+            ],
+            universe="moveops",
+        ),
+        "expect": "**Status:** PASS",
     },
     {
         "name": "Invalid retention code (SOX_7Y)",

@@ -217,6 +217,20 @@ COMMAND_LIST_NUMBERED = re.compile(r"(?m)^\s*\d+\.\s+[A-Z]\w+\b")
 WRITE_VERB_IN_TITLE = re.compile(r"^The\s+Agent\s+(sends?|creates?|posts?|uploads?|updates?|certifies|approves?|denies?|reverses?|voids?|forwards?|submits?|adds?|writes?|files?)\b", re.IGNORECASE)
 _AGENT_VERB_BASE = r"(?:sends?|creates?|posts?|uploads?|updates?|certifies|approves?|denies?|reverses?|voids?|forwards?|submits?|adds?|writes?|files?|identifies|reports?|lists?|states?|mentions?|notifies|schedules?|includes?|recommends?|concludes?|flags?|confirms?|verifies)"
 AND_BUNDLING = re.compile(rf"^The\s+Agent\s+{_AGENT_VERB_BASE}\b[^.]+?\sAND\s+{_AGENT_VERB_BASE}\b", re.IGNORECASE)
+ENUMERATED_BUNDLE = re.compile(r"\(\s*[a-z]\s*\)\s+[^)]{3,}?\s+\(\s*[a-z]\s*\)", re.IGNORECASE)
+NUMBERED_BUNDLE = re.compile(r"(?:\(\s*\d+\s*\)|(?:^|\s)\d+[\).])\s+\S[^\n]{2,}?\s(?:\(\s*\d+\s*\)|(?:^|\s)\d+[\).])\s+")
+MULTI_RECIPIENT_SEND = re.compile(
+    r"^The\s+Agent(?:'s)?\s+"
+    r"(?:sends?|drafts?|emails?|messages?)\s+"
+    r"(?:(?:an?\s+)?(?:emails?|messages?|drafts?|notes?)\s+)?"
+    r"(?:to\s+)?"
+    r"(?:\S+@\S+|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)"
+    r"\s*,\s+"
+    r"(?:\S+@\S+|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)"
+    r"(?:\s*,?\s+and\s+"
+    r"(?:\S+@\S+|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?))?",
+    re.IGNORECASE,
+)
 
 OPEN_GOAL_VERBS = re.compile(r"\b(?:notify|reach\s+out|let\s+\w+\s+know|update|inform|loop\s+in|brief|alert|flag|sync\s+with)\b", re.IGNORECASE)
 CHANNEL_LOCK_VERBS_EMAIL = re.compile(r"^The\s+Agent\s+(?:sends?\s+an?\s+email|emails|writes\s+an?\s+email)\b", re.IGNORECASE)
@@ -996,6 +1010,22 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             if wm:
                 rep.fail(f"{loc}: title starts with write-action verb `{wm.group(1)}` but category is `process`. Write actions belong in Outcome 1.1 — re-classify as `outcome`.")
                 rubric_severity[i]["moderate"] += 1
+
+        if universe == "starpm":
+            enum_m = ENUMERATED_BUNDLE.search(title)
+            if enum_m:
+                rep.fail(f"{loc}: title uses enumerated element bundling `{enum_m.group(0)[:60]}...` — per StarPM V4 atomicity rule (ML July 2026), independent content elements must be split into per-element atomic rubrics. Exception: same-record attributes on one tool call (e.g., name + company + city on one relocation record). If this rubric bundles same-record attributes, justify via S1.5.")
+                rubric_severity[i]["major"] += 1
+
+            num_m = NUMBERED_BUNDLE.search(title)
+            if num_m:
+                rep.fail(f"{loc}: title uses numbered element bundling `{num_m.group(0)[:60].strip()}...` — per StarPM V4 atomicity rule (ML July 2026), independent items must be split into per-item atomic rubrics. If bundling same-record attributes, justify via S1.5.")
+                rubric_severity[i]["major"] += 1
+
+            mr_m = MULTI_RECIPIENT_SEND.search(title)
+            if mr_m:
+                rep.fail(f"{loc}: title bundles multiple recipients under a single write verb — per StarPM V4 atomicity rule (ML July 2026), each recipient is a distinct tool call and gets its own 1.1 rubric. Identical body content across recipients may share ONE 1.2 rubric. Split this 1.1 into per-recipient rubrics.")
+                rubric_severity[i]["major"] += 1
 
         am = AND_BUNDLING.search(title)
         if am:

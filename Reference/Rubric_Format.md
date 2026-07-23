@@ -27,7 +27,7 @@ The validator still ACCEPTS the legacy nested shape (`{id, title, annotations: {
 | **No tool names in `title`** | Tool names are allowed only in `evidence` and `justification`. The validator greps the title against `8_Server_Tools_Details.json` and blocks matches. |
 | **No "at least N" in title** unless the prompt explicitly mandates a minimum | "At least N" is reward-hackable. For N independent write actions, write N atomic rubrics. |
 | **Self-contained** | Every expected value (email, amount, ID, account number, classification, retention code) embedded in the `title` itself. The judge does not have the universe; the judge has only the trajectory + the rubric set. |
-| **Atomic** | One independent claim per rubric. If the rubric can fail for two unrelated reasons, split it. **Multi-recipient send rule (ML-confirmed July 2026):** email *sent* to A, B, C = three separate 1.1 rubrics (one per send action). Email *content* that is identical to A, B, C = one 1.2 rubric (single content claim). Bundle ONLY when a single write action contains multiple interconnected parts of the exact same request. A catch-all summary criterion is never atomic — split it. |
+| **Atomic** | One independent claim per rubric. If the rubric can fail for two unrelated reasons, split it. **StarPM V4 tighter atomicity (ML-confirmed July 2026, universe = starpm only):** if the criterion fails, there must be EXACTLY ONE clear reason why. Independent content topics or actions — even on the same artifact — must be split. Same-tool-call bundling permitted only when the values are attributes of the SAME record (e.g., name + company + city on one relocation record; recipient + CC in one send call). Enumerated `(a) X (b) Y (c) Z` and numbered `(1) X (2) Y` bundles in a title are forbidden — validator FAILs both under `universe == starpm`. Multi-recipient send: email *sent* to A, B, C = three separate 1.1 rubrics; email *content* identical across A, B, C = one 1.2 rubric. Catch-all summary criterion is never atomic — split it. V3 reference tasks (Task 11/12/14, Brookfield) shipped under Brookfield spec authority and may show narrative bundles — do NOT cite as precedent for StarPM V4 work. **Brookfield / Keystone / MoveOps tasks:** the older "interconnected parts of the same request" bundling exception still applies — the StarPM V4 tightening is not part of their spec authority. |
 | **Grounded** | Every concrete value in the title must appear verbatim in this task's `_aux/Universe_Split/`. The validator does a substring sweep. |
 
 ## Outcome sub-categories
@@ -67,7 +67,7 @@ If any condition fails, drop the Process or tighten the Outcome.
 | Free-text the agent generates | Fuzzy + `(or similar)` | `subject related to a relocation proposal (or similar)` |
 | Calculated / rounded amount | `approximately` | `approximately $117,000` |
 | Multiple valid answers (closed set) | `must be one of: A, B, or C` | |
-| Multiple required elements | `must include: (a) ..., (b) ..., (c) ...` | |
+| Multiple attributes of the same record | Natural comma phrasing on one record, no `(a)(b)(c)` enumeration | `Noah Fitzgerald (GreenStack Solutions) relocating to Seattle` (all three are attributes of one relocation record) |
 | Method-agnostic goal | Name the goal, not the method | `Agent notifies legal` (not `Agent emails legal`) |
 
 ## When NOT to use these qualifiers
@@ -114,6 +114,8 @@ If any condition fails, drop the Process or tighten the Outcome.
 - Title in passive voice: "An email was sent to ..." → rewrite as "The Agent sends an email to ..."
 - Tool name in title: "The Agent calls oracle_gl_post_journal_entry" → drop the tool name; rewrite as the user-visible outcome.
 - Bundling: "The Agent sends an email to X AND creates a Linear issue" → split into two rubrics.
+- **Enumerated bundle (StarPM V4 only, ML-confirmed July 2026):** "The Agent's update includes (a) escalation, (b) $1,850, (c) Thursday" → three independent content claims can each pass/fail separately, so this violates the one-clear-reason-to-fail test. Split into three atomic rubrics (or a natural-phrasing same-record bundle when the elements are attributes of one record). Validator FAILs `(a) ... (b) ...` and `(1) ... (2) ...` shapes on StarPM V4 tasks only. Brookfield / Keystone / MoveOps tasks continue to allow the shape per their respective rulebooks.
+- **Multi-recipient send bundle (StarPM V4 only, ML-confirmed July 2026):** "The Agent emails Alice, Bob, and Carol" → three distinct tool calls on StarPM V4, split into one 1.1 per recipient. Identical body across recipients may share one 1.2. Not gated for other universes.
 - "At least 5 follow-up issues" without prompt mandate → one rubric per issue grounded in ground truth.
 - "(or similar)" near an exact email or ID → drop the qualifier; emails / IDs are strict.
 - A Process rubric that names a specific tool path → delete it. If the work is provable from an Outcome value, tighten the Outcome.
