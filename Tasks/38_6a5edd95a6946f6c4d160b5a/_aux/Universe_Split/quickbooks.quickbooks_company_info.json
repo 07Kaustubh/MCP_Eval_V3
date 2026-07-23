@@ -1,0 +1,6 @@
+[
+  {
+    "row_data": "{\"id\": \"1\", \"properties\": {\"Email\": {\"Address\": \"billing@starpm.com\"}, \"Country\": \"US\", \"WebAddr\": {\"URI\": \"https://www.starpm.example.com\"}, \"LegalName\": \"Star Property Management, LLC\", \"CompanyAddr\": {\"City\": \"San Antonio\", \"Line1\": \"500 N St. Mary's Street, Suite 900\", \"Country\": \"US\", \"PostalCode\": \"78205\", \"CountrySubDivisionCode\": \"TX\"}, \"CompanyName\": \"Star Property Management\", \"DefaultTimeZone\": \"America/Chicago\", \"SupportedLanguages\": \"en\", \"FiscalYearStartMonth\": \"January\"}, \"sync_token\": \"0\", \"created_time\": \"2026-07-01T14:00:00.000000Z\", \"last_updated_time\": \"2026-07-01T14:00:00.000000Z\"}",
+    "source": "quickbooks.quickbooks_company_info"
+  }
+]

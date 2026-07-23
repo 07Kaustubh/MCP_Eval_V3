@@ -1,0 +1,146 @@
+[
+  {
+    "title": "The Agent updates the Airtable maintenance record rec7f6e5d4c3b2a1e (ticket MT-2026-063) in tblMaintenanceTickets to reflect the Alamo HVAC inspection finding.",
+    "category": "outcome",
+    "justification": "The prompt says 'update the maintenance record with it' after checking the actual inspection result. Record rec7f6e5d4c3b2a1e is the Sunset Ridge 208B maintenance ticket that currently holds Tony Reyes's informal dirty-filter note. This is the 1.1 write-action rubric for OE8.",
+    "evidence": "Look for an Airtable record update call targeting record rec7f6e5d4c3b2a1e in tblMaintenanceTickets. Confirm the call returned a success response."
+  },
+  {
+    "title": "The Agent's update to maintenance record rec7f6e5d4c3b2a1e reflects compressor failure as the diagnosis, superseding the prior dirty-filter assessment by Tony Reyes.",
+    "category": "outcome",
+    "justification": "The Alamo HVAC inspection email confirms compressor failure; the unit cannot be restored by filter replacement. This is the L9 lever: the agent must use the formal inspection result rather than Tony Reyes's pre-inspection Slack assessment. An agent that trusts Tony's authority would write 'dirty filter' here.",
+    "evidence": "Check the fields parameter of the Airtable update call targeting rec7f6e5d4c3b2a1e. The updated notes or status field must reference compressor failure (or equivalent language indicating the compressor has failed) and must not describe the issue solely as a dirty or clogged filter."
+  },
+  {
+    "title": "The Agent posts a message to Slack channel C001 (#maintenance) about the Sunset Ridge unit 208B AC finding.",
+    "category": "outcome",
+    "justification": "The prompt says 'drop a note in #maintenance so the team is working from the right information.' C001 is the #maintenance channel. This is the 1.1 write-action rubric for OE9.",
+    "evidence": "Look for a Slack message send call targeting channel C001 (or channel name #maintenance). Confirm the call returned a success response."
+  },
+  {
+    "title": "The Agent's Slack message to C001 (#maintenance) states that Alamo HVAC confirmed a compressor failure on Sunset Ridge unit 208B, not a dirty or clogged filter.",
+    "category": "outcome",
+    "justification": "The team is working from Tony Reyes's pre-inspection dirty-filter assessment. The Slack correction must state the accurate post-inspection diagnosis so the team stops acting on the wrong information. This is the L9 lever in the Slack output.",
+    "evidence": "Check the message parameter of the Slack send call to C001. It must reference compressor failure on unit 208B and must not describe the AC issue solely as a dirty or clogged filter."
+  },
+  {
+    "title": "The Agent's Slack message to C001 (#maintenance) confirms that maintenance record MT-2026-063 has been updated to reflect the actual status.",
+    "category": "outcome",
+    "justification": "The team needs to know the record has been updated so they act from the corrected ticket rather than the stale dirty-filter entry. An agent that reports the diagnosis without confirming the ticket update leaves the team uncertain whether the record is current.",
+    "evidence": "Check the message parameter of the Slack send call to C001. It must confirm that maintenance record MT-2026-063 has been updated (or reference the ticket update in equivalent terms)."
+  },
+  {
+    "title": "The Agent creates a Linear issue tracking the Ridgeview roof repair owner billing status.",
+    "category": "outcome",
+    "justification": "The prompt says 'update the Linear issue with the current status once you have it.' No existing Linear issue covers the Ridgeview roof billing status; the agent must create one. This is the 1.1 write-action rubric for OE25.",
+    "evidence": "Look for a Linear issue creation call whose title or description relates to the Ridgeview roof repair billing status (or similar). Confirm the call returned a success response."
+  },
+  {
+    "title": "The Agent's Linear issue states that the Ridgeview roof vendor cost is $8,400 for a single Big Bend Restoration job, not the sum of two separate charges.",
+    "category": "outcome",
+    "justification": "This is the L11 (net-vs-gross) and L2 (structured-DB skip) discriminating criterion. Both QB bill records superficially suggest $16,800 in vendor exposure, but PrivateNote fields on both confirm one is an owner-billable pass-through restatement of the same job. The Linear issue must document the correct single-job interpretation so the billing status is accurately tracked.",
+    "evidence": "Check the description of the Linear issue creation call. It must state the vendor cost as $8,400 for a single Big Bend Restoration job. The description may reference QB bill records 2026-481 and PD-2026-084 as covering the same scope, but the criterion tests only the correct net amount and single-job framing."
+  },
+  {
+    "title": "The Agent's Linear issue documents that Robert Finley's owner receivable for the Ridgeview roof repair is $8,400 and remains outstanding.",
+    "category": "outcome",
+    "justification": "The QB AR record for Robert Finley shows an $8,400 outstanding owner receivable tied to the Ridgeview roof repair cost. The Linear issue must record this figure so the owner receivable status is correctly tracked. The test is whether the agent surfaces the correct outstanding amount, not whether it cites a specific document number.",
+    "evidence": "Check the description of the Linear issue creation call. It must state that Robert Finley's owner receivable for the Ridgeview roof repair is $8,400 and outstanding."
+  },
+  {
+    "title": "The Agent's Linear issue states that the $640 Robert Finley payment (transaction 972286822645) does not reduce the $8,400 Ridgeview roof AR balance.",
+    "category": "outcome",
+    "justification": "QB payment 972286822645 ($640, dated 2026-05-29) was applied to a separate vacancy-related work invoice (DocNumber 5848), not to the roof repair. The Linear issue must clarify that the payment is not applied to the $8,400 roof balance. This is the L2 lever: the agent must trace the payment record to recognize it went elsewhere.",
+    "evidence": "Check the description of the Linear issue creation call for a statement that the $640 Robert Finley payment (transaction 972286822645) was not applied to the Ridgeview roof repair -- it was applied to a separate invoice. The Linear issue should make clear this payment does not affect the $8,400 roof AR balance."
+  },
+  {
+    "title": "The Agent creates a Gmail draft addressed to aurora.winona@starpm.com covering the property operations update.",
+    "category": "outcome",
+    "justification": "The prompt says 'draft a Gmail to Aurora with the full update.' Aurora Winona is the President at aurora.winona@starpm.com. This is the 1.1 write-action rubric for OE31.",
+    "evidence": "Look for a Gmail draft creation call with the to field containing aurora.winona@starpm.com. Confirm the call returned a success response."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com states that Alamo HVAC confirmed a compressor failure on Sunset Ridge unit 208B, not the dirty-filter issue Tony Reyes initially assessed.",
+    "category": "outcome",
+    "justification": "The prompt says 'She'll want the actual situation.' The actual situation on 208B is compressor failure per the Alamo HVAC inspection, which contradicts Tony Reyes's pre-inspection Slack assessment. Aurora's brief must contain the correct diagnosis.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must state compressor failure as the 208B diagnosis and must not describe the AC issue solely as a dirty or clogged filter."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com states that the real Ridgeview roof owner exposure is $8,400 for a single Big Bend Restoration job.",
+    "category": "outcome",
+    "justification": "The prompt says Aurora will want 'real numbers.' The correct net owner exposure is $8,400 (one job, two mirrored QB records). Reporting $16,800 or any other figure would be inaccurate and mislead Aurora.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must state the Ridgeview roof owner exposure as $8,400 for a single Big Bend Restoration job."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com names Unit 14 as Tanya Mitchell's unit reference from her current-state make-ready records.",
+    "category": "outcome",
+    "justification": "The current-state make-ready records (rec91517a5acab558 dated 2026-06-28, recc83c05d889b354 dated 2026-07-01) both identify Tanya Mitchell's unit as Unit 14. The older Las Palmas 4B record rec769c9f03f0b85f is dated 2026-06-12, before the June 23 payment-plan breach, the June 26 3-day notice, and the July 1 JP eviction-filing coordination. An agent that reports Las Palmas 4B is reading a pre-breach record that no longer reflects Tanya's current status. This is the L6 near-miss entity discriminator: the most recent eviction-track records are authoritative on the unit reference.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must state Unit 14 as Tanya Mitchell's unit reference. A draft that names Las Palmas 4B (the superseded pre-breach record) or names no unit at all fails this rubric."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com mentions Tanya Mitchell's emotional support animal reasonable accommodation request.",
+    "category": "outcome",
+    "justification": "An ESA reasonable accommodation request is an active Fair Housing obligation that Aurora needs to know about. The ESA request is on file in Slack C002 (OE30) and is part of Tanya's current status. An agent that latches only on the delinquency track will omit this.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must reference Tanya Mitchell's ESA request or reasonable accommodation for an emotional support animal (or similar phrasing)."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com states that Tanya Mitchell's payment plan was breached on the June 23 installment.",
+    "category": "outcome",
+    "justification": "Slack C003 messages dated 2026-06-28 and the Airtable delinquency-escalation record rec8005502043b755 dated 2026-06-21 both confirm the payment plan was breached when the June 23 installment went unmet. Aurora's brief must reflect the current breached state, not the earlier (superseded) payment-plan-active characterization in the older Las Palmas 4B record.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must reference the payment plan being breached (or the missed June 23 installment or equivalent phrasing indicating the payment plan is no longer active)."
+  },
+  {
+    "title": "The Agent's Gmail draft to aurora.winona@starpm.com states that Tanya Mitchell's eviction filing package is being coordinated with the Justice of the Peace.",
+    "category": "outcome",
+    "justification": "Airtable make-ready record recc83c05d889b354 dated 2026-07-01 (universe today) states the eviction petition is currently being coordinated with the Justice of the Peace. Slack C003 messages dated 2026-06-28 and 2026-07-01 confirm the filing package is compiled and owner-approved with JP coordination underway. Aurora's brief must reflect this escalation step.",
+    "evidence": "Check the body of the Gmail draft creation call addressed to aurora.winona@starpm.com. It must reference the eviction filing package being coordinated with the Justice of the Peace (or JP coordination or filed with the JP or similar phrasing indicating the eviction step is with the Justice of the Peace)."
+  },
+  {
+    "title": "The Agent reports that Sunset Ridge unit 208B has a compressor failure confirmed by Alamo HVAC, not the clogged filter assessed by Tony Reyes.",
+    "category": "outcome",
+    "justification": "The prompt says 'I want to know what actually came back from the inspection.' The agent must relay the post-inspection finding and distinguish it from Tony Reyes's informal pre-inspection assessment. This is the primary L9 discriminating rubric for the final response.",
+    "evidence": "Check the agent's final response for a statement that the unit 208B AC issue is a compressor failure (not a dirty or clogged filter) based on the Alamo HVAC inspection. A response that only repeats Tony Reyes's dirty-filter assessment fails this rubric."
+  },
+  {
+    "title": "The Agent reports that the Ridgeview roof vendor cost is $8,400 for a single Big Bend Restoration job, not $16,800 across two separate charges.",
+    "category": "outcome",
+    "justification": "The prompt asks to 'figure out what the real owner exposure is.' The L11 stump prediction is reporting $16,800 (naive sum of two QB bills). The correct answer requires reading the PrivateNote fields confirming one bill is an itemized restatement of the other for the same job.",
+    "evidence": "Check the agent's final response for identification of the Ridgeview roof vendor cost as $8,400 for a single job. A response reporting $16,800 fails this criterion. The agent may clarify that QB records 2026-481 and PD-2026-084 cover the same scope, but the criterion tests only the correct net amount."
+  },
+  {
+    "title": "The Agent reports that Robert Finley's Ridgeview roof owner receivable is outstanding at $8,400.",
+    "category": "outcome",
+    "justification": "The prompt asks for 'real owner exposure.' The QB AR record shows an $8,400 outstanding balance for the Ridgeview roof repair. The agent must state the correct outstanding balance in the final response.",
+    "evidence": "Check the agent's final response for a statement that Robert Finley's Ridgeview roof owner receivable (or owner AR balance) is outstanding at $8,400."
+  },
+  {
+    "title": "The Agent reports that the $640 Robert Finley payment (transaction 972286822645) does not reduce the $8,400 Ridgeview roof AR balance.",
+    "category": "outcome",
+    "justification": "The only Finley payment on record ($640, transaction 972286822645) was applied to a separate vacancy-report invoice (DocNumber 5848), not the roof AR. An agent that subtracts this payment from the roof balance would report $7,760 outstanding, which is wrong. The final response must clarify the payment went elsewhere and does not apply to the $8,400 roof balance.",
+    "evidence": "Check the agent's final response for a statement that the $640 Robert Finley payment (transaction 972286822645) was not applied to the Ridgeview roof AR -- it went to a separate invoice. A response implying the payment reduces the $8,400 roof balance (e.g., reporting $7,760 outstanding) fails this criterion."
+  },
+  {
+    "title": "The Agent's final response names Unit 14 as Tanya Mitchell's unit reference from her current-state make-ready records.",
+    "category": "outcome",
+    "justification": "The current-state make-ready records (rec91517a5acab558 dated 2026-06-28, recc83c05d889b354 dated 2026-07-01) both identify Tanya Mitchell's unit as Unit 14. The older Las Palmas 4B record rec769c9f03f0b85f is dated 2026-06-12, before the June 23 payment-plan breach, the June 26 3-day notice, and the July 1 JP eviction-filing coordination. This is the L6 near-miss entity discriminator: the most recent eviction-track records are authoritative on the unit reference.",
+    "evidence": "Check the agent's final response for Unit 14 as Tanya Mitchell's unit reference. A response that names Las Palmas 4B (the superseded pre-breach record) or names no unit at all fails this rubric."
+  },
+  {
+    "title": "The Agent's final response states that Tanya Mitchell's payment plan was breached on the June 23 installment.",
+    "category": "outcome",
+    "justification": "Slack C003 messages dated 2026-06-28 and the Airtable delinquency-escalation record rec8005502043b755 dated 2026-06-21 both confirm the payment plan was breached when the June 23 installment went unmet. The final response must reflect the current breached state, not the earlier (superseded) payment-plan-active characterization in the older Las Palmas 4B record.",
+    "evidence": "Check the agent's final response for a reference to the payment plan being breached (or the missed June 23 installment or equivalent phrasing indicating the payment plan is no longer active)."
+  },
+  {
+    "title": "The Agent's final response states that Tanya Mitchell's eviction filing package is being coordinated with the Justice of the Peace.",
+    "category": "outcome",
+    "justification": "Airtable make-ready record recc83c05d889b354 dated 2026-07-01 (universe today) states the eviction petition is currently being coordinated with the Justice of the Peace. Slack C003 messages dated 2026-06-28 and 2026-07-01 confirm the filing package is compiled and owner-approved with JP coordination underway. The final response must reflect this escalation step.",
+    "evidence": "Check the agent's final response for a reference to the eviction filing package being coordinated with the Justice of the Peace (or JP coordination or filed with the JP or similar phrasing indicating the eviction step is with the Justice of the Peace)."
+  },
+  {
+    "title": "The Agent reports that Tanya Mitchell has an emotional support animal reasonable accommodation request on file.",
+    "category": "outcome",
+    "justification": "An ESA request triggers Fair Housing obligations distinct from the delinquency track. The ESA request is in Slack C002 and is part of her current status. An agent that only reports the eviction or delinquency track misses this, consistent with stump prediction #4 from the Hardness Plan.",
+    "evidence": "Check the agent's final response for a mention of Tanya Mitchell's ESA request or reasonable accommodation for an emotional support animal."
+  }
+]

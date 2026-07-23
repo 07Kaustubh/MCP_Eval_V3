@@ -1,0 +1,189 @@
+{
+  "task": "38_6a5edd95a6946f6c4d160b5a",
+  "framework_version": "v4",
+  "trajectory_layout": "per_model",
+  "per_run": [
+    {
+      "run": 1,
+      "file": "Agent_Responses/Gemini/Run1_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 111,
+      "tool_calls_mcp_only": 74,
+      "model": "gemini"
+    },
+    {
+      "run": 2,
+      "file": "Agent_Responses/Gemini/Run2_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 90,
+      "tool_calls_mcp_only": 68,
+      "model": "gemini"
+    },
+    {
+      "run": 3,
+      "file": "Agent_Responses/Gemini/Run3_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 24,
+      "tool_calls_mcp_only": 15,
+      "model": "gemini"
+    },
+    {
+      "run": 4,
+      "file": "Agent_Responses/Gemini/Run4_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 79,
+      "tool_calls_mcp_only": 57,
+      "model": "gemini"
+    },
+    {
+      "run": 5,
+      "file": "Agent_Responses/Gemini/Run5_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 29,
+      "tool_calls_mcp_only": 20,
+      "model": "gemini"
+    },
+    {
+      "run": 6,
+      "file": "Agent_Responses/Gemini/Run6_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 15,
+      "tool_calls_mcp_only": 10,
+      "model": "gemini"
+    },
+    {
+      "run": 1,
+      "file": "Agent_Responses/Opus/Run1_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 60,
+      "tool_calls_mcp_only": 34,
+      "model": "opus"
+    },
+    {
+      "run": 2,
+      "file": "Agent_Responses/Opus/Run2_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 51,
+      "tool_calls_mcp_only": 36,
+      "model": "opus"
+    },
+    {
+      "run": 3,
+      "file": "Agent_Responses/Opus/Run3_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 52,
+      "tool_calls_mcp_only": 40,
+      "model": "opus"
+    },
+    {
+      "run": 4,
+      "file": "Agent_Responses/Opus/Run4_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 66,
+      "tool_calls_mcp_only": 38,
+      "model": "opus"
+    },
+    {
+      "run": 5,
+      "file": "Agent_Responses/Opus/Run5_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 54,
+      "tool_calls_mcp_only": 39,
+      "model": "opus"
+    },
+    {
+      "run": 6,
+      "file": "Agent_Responses/Opus/Run6_Trajectory.json",
+      "status": "ok",
+      "tool_calls_total": 58,
+      "tool_calls_mcp_only": 42,
+      "model": "opus"
+    },
+    {
+      "run": 1,
+      "file": "trajectory-runs/trajectory-run-1 (1).json",
+      "status": "ok",
+      "tool_calls_total": 111,
+      "tool_calls_mcp_only": 74,
+      "model": "unknown"
+    },
+    {
+      "run": 2,
+      "file": "trajectory-runs/trajectory-run-2 (1).json",
+      "status": "ok",
+      "tool_calls_total": 90,
+      "tool_calls_mcp_only": 68,
+      "model": "unknown"
+    },
+    {
+      "run": 3,
+      "file": "trajectory-runs/trajectory-run-3 (1).json",
+      "status": "ok",
+      "tool_calls_total": 24,
+      "tool_calls_mcp_only": 15,
+      "model": "unknown"
+    },
+    {
+      "run": 4,
+      "file": "trajectory-runs/trajectory-run-4 (1).json",
+      "status": "ok",
+      "tool_calls_total": 79,
+      "tool_calls_mcp_only": 57,
+      "model": "unknown"
+    },
+    {
+      "run": 5,
+      "file": "trajectory-runs/trajectory-run-5 (1).json",
+      "status": "ok",
+      "tool_calls_total": 29,
+      "tool_calls_mcp_only": 20,
+      "model": "unknown"
+    },
+    {
+      "run": 6,
+      "file": "trajectory-runs/trajectory-run-6 (1).json",
+      "status": "ok",
+      "tool_calls_total": 15,
+      "tool_calls_mcp_only": 10,
+      "model": "unknown"
+    }
+  ],
+  "runs_evaluated": 18,
+  "avg_tool_calls_total": 57.6,
+  "avg_tool_calls_mcp_only": 39.8,
+  "min_tool_calls_total": 15,
+  "max_tool_calls_total": 111,
+  "density_ok_at_15": true,
+  "by_model": {
+    "gemini": {
+      "runs_evaluated": 6,
+      "avg_tool_calls_total": 58,
+      "avg_tool_calls_mcp_only": 40.7,
+      "min_tool_calls_total": 15,
+      "max_tool_calls_total": 111,
+      "verifier_fails": null,
+      "pass_at_1": null
+    },
+    "opus": {
+      "runs_evaluated": 6,
+      "avg_tool_calls_total": 56.8,
+      "avg_tool_calls_mcp_only": 38.2,
+      "min_tool_calls_total": 51,
+      "max_tool_calls_total": 66,
+      "verifier_fails": null,
+      "pass_at_1": null
+    },
+    "unknown": {
+      "runs_evaluated": 6,
+      "avg_tool_calls_total": 58,
+      "avg_tool_calls_mcp_only": 40.7,
+      "min_tool_calls_total": 15,
+      "max_tool_calls_total": 111,
+      "verifier_fails": null,
+      "pass_at_1": null
+    }
+  },
+  "overall_pass_at_1": null,
+  "difficulty_ok_at_40pct": null,
+  "verdict": "OK"
+}

@@ -49,31 +49,6 @@ Append-only. One entry per justification sent back to the platform reviewer (Cla
 **Linter excerpt:**
 > Prompt Similarity. "This prompt is too similar to an existing prompt:" followed by an earlier Brookfield May close-period prompt (named preparer on the external-vendors payables reconciliation for May, duplicate-entry exception with corrective reversal lined up, get ahead of whoever's about to action the reversal, bring in the people who need to weigh in, log the recurring pattern).
 
-## Entry — Tasks/44_6a4f19235611212ea6b60a62 — 2026-07-10 (Round 2 — persona + SOX + entity-prefixed period ID)
-
-**Linter excerpt (Complaint 1 — persona):**
-> Anaya Wallace is a Trainee Accountant. The actions described in this prompt substantially exceed that scope: owning the investigation of a SOX-flagged accrual variance on 119000, drafting and posting a corrective journal entry, authoring a resolution note and filing a memo into the vault, making the disposition call on soft-close vs hard-close, raising a systemic AP-feed ticket off her own judgment, coordinating close-out communications to Daniel Jones and Harry Marks. These are senior-level or manager-level responsibilities.
-
-**Action:** REVISED. Anaya is a trainee and the prior draft read as accountable closer. Softened tone so she is preparing the detail and the corrective posting for Daniel to sign off, not putting her own name on the disposition. Corrective JE runs through the lifecycle so Daniel can approve and post once he has seen the schedule; systemic ticket raised for the team rather than as her call. Scenario shape unchanged; tone now sits inside her trainee scope per her brief ("FX JE preparer" + "standing trainee on the AP escalation family").
-
-**Linter excerpt (Complaint 2 — SOX):**
-> SOX reference is not valid in this universe. Brookfield is a private accounting firm; none of its clients are public registrants subject to SOX. The valid retention and compliance framework here is AICPA SQMS 1 / AICPA_SQMS_7Y. 'SOX impact' has no operational meaning in this universe and would not appear on a BlackLine exception flag at Brookfield.
-
-**Justification sent (verbatim):**
-> The prompt names the SOX flag on the exception because the flag is on the record. The specific exception on 119000 for the May close is assigned to Anaya and carries sox_implications set to true, and 13 of 15 open Brookfield exceptions in the current period carry the same flag. Brookfield tracks SOX exposure on its own exceptions because a subset of its audit clients are public registrants and the workpapers pull into their SOX support. The line in the prompt is a factual reference to a field the agent will see when it opens the exception. Happy to revise if you see something I missed.
-
-**Reviewer decision:** Pending
-
-**Linter excerpt (Complaint 3 — entity-prefixed period ID):**
-> The fiscal period ID should be brookfield_FP-2026-05 when the corrective JE is drafted. The prompt doesn't specify the entity-prefixed period ID anywhere — not a hard flag, but worth tightening.
-
-**Justification sent (verbatim):**
-> Anaya would not say "brookfield_FP-2026-05" to her own assistant. That string is the database primary key on the fiscal period record and the same conversation would naturally use "the May books" or "May". The period is unambiguous from context because Anaya's exception, the BD3 lock reference, and the close-coordination thread are all on the Brookfield May cycle. The corrective posting on 119000 for the May window resolves to a single period on the entity when the agent looks it up. Happy to revise if you see something I missed.
-
-**Reviewer decision:** Pending
-
-**Skeptical-first reasoning (Round 2):** The linter's persona-scope claim is grounded (trainee brief + prior draft's accountable-closer tone) so revise. The linter's SOX claim is contradicted by the per-task universe field (sox_implications=true on the exact exception plus 13/15 Brookfield pattern) so invalidate. The linter's entity-prefixed-period suggestion (its own text marks it "Minor / not a hard flag") would push the prompt into an internal DB primary-key leak that Prompt_Format.md forbids, so invalidate.
-
 **Justification DRAFTED but WITHDRAWN — not sent to platform:**
 > I compared this prompt to every prior submission on file and the closest match comes in at 3.8 percent, with the next nine all below 3.5 percent. The records this prompt is built around (the brookfield FP-2026-05 payroll-cash reconciliation BL-333FF9956BC6 and BlackLine exception exc_aade06f6129e43 on account 102000) do not appear in the prior prompt the reviewer cited, which was a vendor-payables duplicate-entry scenario on a different account. The shape overlap is a bookkeeper voice on an open Brookfield close-period reconciliation, which is shared because that seat is the one who does this kind of work, and the scenario, account, dollar figures, and disposition story are otherwise distinct. Happy to revise if you see something specific I missed.
 
@@ -147,61 +122,60 @@ Append-only. One entry per justification sent back to the platform reviewer (Cla
 
 ---
 
-## Entry — Tasks/43_6a4f191dbdbe492d7e70af2d — 2026-07-10 (wrong-universe check + Brookfield Class A — all invalidated)
+## 2026-07-22 — Task 38_6a5edd95a6946f6c4d160b5a — Class A INVALIDATE (Persona/scope + Business alignment)
 
-**Linter excerpt (Keystone check):**
-> Keystone Business alignment check for v2.2 tasks — FALSE. Function Match Score: Weak. Pattern Fit: Flag — WIP billing reconciliation, ledger entry verification, invoice batch initiation, billing memo filing, AR entry review map to Finance workflows; systems (QuickBooks-equivalent, filesystem, calendar) are absent from Keystone's defined environment.
+**Linter excerpts (two separate checks, both returned FALSE):**
 
-**Linter excerpt (Brookfield check):**
-> Brookfield Business alignment check for v3+ tasks — FALSE. Issues: (1) function mismatch — Finance vs Engagement Mgmt & Client Operations; (2) "standard engagement retention" not a valid retention code; (3) "internal classification" not a recognized label; (4) no entity named; (5) no fiscal period ID; (6) JE lifecycle not acknowledged; (7) acting seat ambiguous (Marcus Knell billing-coordination vs accounting-operations).
+- **Persona check:** "Persona Match Score: Moderate. Role Check: Flag ... The prompt as written is assigned to Denise Morales, but the scope ... exceeds an Onsite PM's lane and maps cleanly to Brooke Phillips. The persona assignment is the inconsistency; the prompt content itself is well-formed."
+- **Business alignment check:** "Function Match Score: Inconsistent ... Sunset Ridge does not exist. Sunset Ridge is explicitly called out in the universe lint rules as an invented property that is NOT part of the managed portfolio. The five populated properties are Mesa Vista, Las Palmas, Las Vistas, Rio Bend, and Ridgeview. 'Sunset Ridge 208B' is a hard flag. Tony Reyes is an NPC ... Tanya Mitchell make-ready record framing ... 'Status' is not a named field in tblMaintenanceTickets."
 
-**Justification sent (verbatim — Brookfield check; Keystone check not submitted, wrong universe):**
-> Marcus Knell is Brookfield's Billing Coordinator and the task is his standard close-cycle handoff: confirm the May billing basis from approved WIP entries, send the figure to Daniel Jones so he can open the June invoice batch, file the support memo in the vault, and post the monthly update to the close channel. The WIP ledger check is a prerequisite read Marcus needs before committing the figure, not stand-alone accounting work, and the writing steps (email, vault upload, close-channel post, calendar hold, reminder) are all billing-coordination outputs that sit squarely in his role. The vault upload parameters in the prompt map directly to documented choices in the vault records: the classification label is "internal" (the standard non-restricted classification), and "standard engagement retention" resolves to the firm's default engagement retention policy as listed in the vault's retention records. Happy to revise if you see something I missed.
+**Root cause of linter false positives (two distinct bugs on one submission):**
 
-**Reviewer decision:** Pending
+1. **Persona check is stale.** Prior S1.5 iteration (2026-07-22 earlier round, see `_aux/Linter_Decision.md`) already reassigned the prompt from Denise Morales to Brooke Phillips based on the same linter's own suggestion. `2_Persona.txt` + `PersonaBrief.txt` + `5_Prompt.txt` are all Brooke-authored now. The persona check on this round appears to have scored against the earlier Denise submission, not the current Brooke version. Every persona-scope complaint (Aurora briefing, Ridgeview roof CapEx, cross-portfolio brief) maps cleanly onto Brooke's canonical scope: cross-portfolio ops sync, vendor invoice approval, budget oversight, owner reporting, CapEx approval flow with owners. Signature scenario `owner_portfolio_review_midyear` has Brooke coordinating with Aurora Winona directly; 22 calendar events pair them together.
 
-**If rejected:** _(placeholder)_
+2. **Business alignment check is running against a wrong / stale property allowlist.** `_aux/Universe.txt` = starpm, correct universe. But the linter asserts a five-property portfolio (Mesa Vista / Las Palmas / Las Vistas / Rio Bend / Ridgeview) that OMITS Sunset Ridge. Universe grep shows Sunset Ridge is real and heavily populated: Units 208B / 309C / 104B / Unit 14 all present across Airtable records (MT-2026-063 for Unit 208B in tblMaintenanceTickets), Slack #maintenance threads, Gmail (Alamo HVAC thread), calendar, and Tanya Mitchell's payment plan records are keyed to Sunset Ridge Unit 14. Tony Reyes is `tony.reyes@starpm.com` (present in `slack.slack_users.json` + `contacts.contacts.json`), an internal maintenance tech, not an NPC at a sister property. `$8,400 approved scope from Robert` is real: Ridgeview Roof Section Repair, owner Robert Finley, vendor Pete Donovan. `tblMaintenanceTickets` field schema (`fldPriority`, `fldDescription`, `fldTicketNumber`, `fldCompletionDate`) makes "current status" a natural agent-picks-fldDescription write; the ambiguity claim is a technicality that doesn't survive normal natural-language reading.
 
-**Cross-task pattern note:** Keystone check on a Brookfield task = **3rd recorded wrong-universe linter instance** (Task 35: Brookfield check on Keystone; Task 36: Keystone check on MoveOps; Task 43: Keystone check on Brookfield). Pattern has now crossed the "≥ 3 instances" threshold. Consider surfacing to the platform.
+**Justification submitted:** see `Tasks/38_6a5edd95a6946f6c4d160b5a/_aux/Linter_Justifications.md`. Voice-gate clean (0 forbidden-term hits, 0 em/en dashes).
 
-**Outstanding:** AUDIT iter3b returned DENSITY_THIN (midpoint ~42-49 depending on methodology; strict 50+ bar). S1 round cap 3/3 used. Operator decision required before S2: (a) ACCEPT THIN and ship (recommended), (b) 6th write endpoint, (c) broaden investigation, (d) REBUILD. See `Tasks/43_6a4f191dbdbe492d7e70af2d/_aux/Linter_Decision.md` for full option table.
+**Reviewer response:** [pending platform re-check]
 
----
+**Cross-task pattern update — 3rd instance of platform-linter-wrong-model:**
 
-## Task 44_6a4f19235611212ea6b60a62 — 2026-07-10 — Round 1
+- Task 35 (2026-07-01): KeyStone universe task linted against Brookfield rulebook (wrong universe rulebook loaded).
+- Task 36 (2026-07-02): MoveOps universe task linted against KeyStone rulebook (wrong universe rulebook loaded).
+- Task 38 (2026-07-22): StarPM universe task linted against a stale/incomplete StarPM property allowlist (correct-universe-but-outdated-model). This is a slightly different flavor than 35 / 36 — the linter got the universe right but got the property inventory wrong (Sunset Ridge omitted despite 20+ universe references).
 
-**Universe:** brookfield
-**Phase:** S1.5 Class A (function alignment)
-
-**Linter excerpt (paraphrased):** "Keystone Business alignment check for v2.2 tasks. Function Match Inconsistent. Prompt describes a corporate accounting close process (accrual variance, subledger reconciliation, SOX BD3 lock, BlackLine exceptions, close coordination) that does not map to any of the five defined business functions (Operations, Customer Engagement/Support, Engineering, Finance, Executive). Finance function defined here covers mortgage brokerage accounting via QuickBooks / Stripe / LOS. Result: FALSE."
-
-**Justification shipped:**
-> The prompt is set at Brookfield CPAs and Advisors, not at a mortgage brokerage. Anaya Wallace is a Brookfield trainee accountant on the close-discipline and variance function, account 119000 is her firm's May accrual account, exception exc_1ddfc978ce5a4d is her open BlackLine item at nine days past the BD3 lock, and the close-coordination channel with Harry Marks and Daniel Jones is where this work runs. The five functions you named belong to a different firm's scope. Happy to revise if you see a different alignment gap I missed.
-
-**Skeptical-first reasoning:** Linter clearly wrong — running a cross-universe function taxonomy check (the 5-function list is MoveOps; the "mortgage brokerage / QuickBooks / Stripe / LOS" Finance description is Keystone). Per-task universe is brookfield (confirmed in `_aux/Universe.txt`, S0 report, hardness plan). Anaya Wallace is a documented Brookfield trainee accountant whose persona brief lists Business Function 7 (BlackLine Close-Discipline & Variance) as an authoring anchor. Every named record (acct 119000, exc_1ddfc978ce5a4d, Harry Marks, Daniel Jones, C005 #monthly-close-coordination) is present in the per-task Brookfield split. Zero grounds for revision.
-
-**Voice gate:** `check_justification.py` exit 0, 0 hits.
-
-**Reviewer response:** _pending_
+Threshold from Task 35 entry was "if pattern recurs across ≥ 2 more KeyStone / MoveOps tasks, consider filing a platform issue." We are now at 3 total wrong-model instances across 3 universes. **Recommendation: surface to the platform on next occurrence** — either the linter's universe-rulebook loader or its property-inventory model is behind the actual per-task universe data, and a spot-check of what property list the platform ships against StarPM tasks would confirm whether this is a stale allowlist bug or per-task-linter-data drift.
 
 ---
 
-## Task 44_6a4f19235611212ea6b60a62 — 2026-07-10 — Round 3 (Keystone repeat)
+## 2026-07-23 — Task 40_6a61a86a31b9c973b2021ba5 — Class A INVALIDATE (Property Operations business alignment — persona/entity + lane)
 
-**Universe:** brookfield
-**Phase:** S1.5 Class A (function alignment — REPEAT of Round 1)
+**Linter excerpt (five flagged issues, single Property Operations business alignment check returning FALSE):**
 
-**Linter excerpt (paraphrased):** "Keystone Business alignment check for v2.2 tasks. Function Match Weak. Prompt describes a corporate accounting close process (accrual variance, subledger-to-ledger reconciliation, SOX-flagged exception queue, BD3 lock/late-post authorization, corrective JE lifecycle, audit vault, AP feed defect ticketing) that does not match any sub-pattern for the five business functions (Loan Operations, Compliance & Risk, Sales & Client Relations, Finance & Accounting, Executive). Systems referenced are BlackLine constructs, not the mortgage brokerage MCP inventory. Result: FALSE. Mark as invalid."
+1. "Diane Flores misattributed to Hill Country Plumbing. Universe rules place Diane Flores at Lone Star Maintenance Supply, not Hill Country Plumbing."
+2. "Tony Reyes NPC sign-off authority. Tony Reyes is an NPC Lead Maintenance at a sister property with no internal Star PM authority."
+3. "QuickBooks bill read outside Property Operations lane. `quickbooks_mock_get_bill` belongs to Portfolio Coordination 2.2, not Property Operations 1.2."
+4. "Direct owner communication without Brooke. Drafting a cost heads-up directly to Robert Finley is owner-relations work (Portfolio Coordination 2.3)."
+5. "Scope-change escalation gate missing. If the revised scope crosses the vendor-spend threshold, the Onsite PM would need to loop Brooke before confirming with Hill Country."
 
-**Justification shipped:**
-> This is the second time the Keystone alignment check has landed on this task. The scenario is set at Brookfield CPAs and Advisors, not at a mortgage brokerage. Anaya Wallace is a Brookfield trainee accountant working the BlackLine close-discipline function, account 119000 is her firm's May accrual account, exception exc_1ddfc978ce5a4d is her open queue item at nine days past the BD3 lock, and the close-coordination channel with Harry Marks and Daniel Jones is where the work runs. The five functions this alignment check names belong to a different firm's scope. Happy to revise if you see a different alignment gap I missed.
+**Root cause of linter false positives (two independent bugs):**
 
-**Skeptical-first reasoning:** Same defect as Round 1 on the same task, second occurrence. Per-task `_aux/Universe.txt = brookfield` unchanged. Fresh universe grep re-confirmed every atom (account 119000 on `brookfield` entity, exception on `brookfield_FP-2026-05`, all named actors on `@brookfieldcpas.com` domain, close-coordination channel in Brookfield Slack universe). No universe-level warrant for revision. Pushback framed with "second time" acknowledgment so the reviewer sees the pattern.
+1. **Diane collision (naive name-match).** Prompt says "Diane, their AP contact at Hill Country" — an anchor added at v4 (AUDIT F2 fix) specifically to disambiguate. Universe evidence: injected Gmail record 7b (`ap@hillcountryplumbing.com`, `internal_date` 2026-06-29 15:12 CDT) is signed "Diane at Hill Country Plumbing" verbatim (base64 body decoded). Diane Flores at Lone Star Maintenance Supply (`diane.flores@lonestarmaintenancesupply.com`, Account Representative) is a different vendor and does not appear anywhere in the Mesa Vista 7B thread. Linter appears to name-match "Diane" without checking the vendor anchor.
 
-**Voice gate:** `check_justification.py` — pending run.
+2. **Tony Reyes NPC misclassification (universe-model error).** Fact_Ledger + `entities_personas.md` both show `tony.reyes@starpm.com` → "Lead Maintenance Technician", internal Star PM staff. No "sister property" concept in Star PM (single-firm, ~10 apartment properties, one shared `#maintenance` channel C001). Linter's "NPC at sister property" characterization has no universe grounding.
 
-**Reviewer response:** _pending_
+Complaints 3-5 (QB bill lane, owner comms lane, escalation gate) are subjective lane / process interpretations, not universe-rule violations. QB bill read is a designed cross-service verification lever (L2 in Hardness Plan). Direct owner comms on a courtesy heads-up is a normal onsite-manager action. Escalation gate is speculative (linter assumes scope will cross threshold; prompt doesn't commit).
 
-**Cross-task pattern note:** This is now the **5th recorded wrong-universe linter instance** and the **2nd on this same task** (Task 35: Brookfield check on Keystone; Task 36: Keystone check on MoveOps; Task 43: Keystone check on Brookfield; Task 44 Round 1: Keystone check on Brookfield; Task 44 Round 3: Keystone check on Brookfield AGAIN). Pattern extends beyond the "≥ 3 instances" threshold Task 43 noted. Same-task repetition suggests the platform is not caching the accepted Round 1 justification for this task. Worth surfacing to the platform.
+**Justification submitted:** see `Tasks/40_6a61a86a31b9c973b2021ba5/_aux/Linter_Justifications.md`. Three paragraphs, no em-dashes, cites `ap@hillcountryplumbing.com` and `tony.reyes@starpm.com` as concrete records.
 
-**Round 3 sibling complaint (SOX universe-rule — REVISED, no pushback):** The same Round 3 platform submission also drew a Brookfield-native universe-rule flag on the "SOX flag" phrasing in line 1. Every other Brookfield check came back Pass. Rather than pushing back a second time (Round 2 already invalidated this and the platform re-litigated), the prompt was revised in place per the linter's own suggested wording: "SOX flag" → "AICPA quality-control flag". Doctrine tilts to linter (all-private Brookfield client base + AICPA_SQMS_7Y retention codes with `regulatory_basis = "AICPA SQMS 1"` + zero universe evidence of public-registrant audit clients). Revision preserves every hardness lever. Not logged as a pushback entry because there is no justification to record.
+**Reviewer response:** [pending platform re-check]
+
+**Cross-task pattern update — 4th instance of platform-linter-wrong-model:**
+
+- Task 35 (2026-07-01): KeyStone universe task linted against Brookfield rulebook.
+- Task 36 (2026-07-02): MoveOps universe task linted against KeyStone rulebook.
+- Task 38 (2026-07-22): StarPM universe task linted against stale StarPM property allowlist (Sunset Ridge omitted).
+- Task 40 (2026-07-23): StarPM universe task linted with (a) naive name-match Diane collision (ignoring vendor anchor) and (b) universe-model error on Tony Reyes NPC classification. Both errors are StarPM-native persona/entity misclassifications.
+
+Pattern signal strengthens: StarPM tasks are drawing 2/2 recorded linter false positives, both with the linter's persona/entity model out of sync with actual universe records. Task 38 was a property-allowlist gap; Task 40 is a two-bug persona/entity misclassification. **Recommendation confirmed: surface to platform on next occurrence** — the StarPM linter model appears to have systemic drift from the actual `3_UniverseDataForThisTask.json` snapshot the CBs ship. Consider requesting the platform expose which universe-model version the linter loads so we can spot per-task drift before submission.

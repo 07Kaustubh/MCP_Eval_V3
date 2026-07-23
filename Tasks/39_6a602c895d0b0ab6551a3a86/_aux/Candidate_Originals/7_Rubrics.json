@@ -1,0 +1,146 @@
+[
+    {
+        "title": "The Agent adds a comment to Linear issue OPS-224 (the living room baseboard rework ticket for Las Vistas 3C).",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item' and 'Bennett dropped a completion note on each of the three 3C punch items around the time I re-inspected. Pull those up so my closeout comments track the right item.' OPS-224 is the baseboard ticket; a per-ticket sign-off comment must land before the state flip.",
+        "evidence": "Look for a save_comment call with issueId OPS-224. Confirm the tool returned success and that a comment body was supplied."
+    },
+    {
+        "title": "The Agent's comment on OPS-224 confirms the baseboard passes second-pass QC with the touch-ups now even and no shadow lines (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the closeout comment must reference the specific punch item (baseboard) with the pass called out per item, not a blanket close. The re-check observation from the prompt is 'Baseboard in the living room came out even, no shadow lines under the touch-ups.'",
+        "evidence": "Check the body parameter of the save_comment call on OPS-224 for a per-item baseboard confirmation (touch-ups even, no shadow lines, finish uniform, or similar). A blanket '3C all items passed' phrasing without the baseboard-specific observation fails."
+    },
+    {
+        "title": "The Agent moves Linear issue OPS-224 from In Review to Done.",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' OPS-224 sits in state In Review (state_OPS_3) and must transition to Done (state_OPS_4) so it clears Jaime's queue.",
+        "evidence": "Look for a save_issue call with id OPS-224 and state state_OPS_4 (Done). Confirm the tool returned success."
+    },
+    {
+        "title": "The Agent adds a comment to Linear issue OPS-225 (the refrigerator and oven interior reclean rework ticket for Las Vistas 3C).",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item.' OPS-225 is the appliance interior ticket; a per-ticket sign-off comment must land before the state flip.",
+        "evidence": "Look for a save_comment call with issueId OPS-225. Confirm the tool returned success and that a comment body was supplied."
+    },
+    {
+        "title": "The Agent's comment on OPS-225 confirms the refrigerator and oven interiors pass second-pass QC with no residue on the shelves or door seals (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the closeout comment must reference the specific punch item (appliance interiors) with the pass called out per item, not a blanket close. The re-check observation from the prompt is 'Refrigerator and oven interiors were clean, no residue on the shelves or the door seals.'",
+        "evidence": "Check the body parameter of the save_comment call on OPS-225 for a per-item appliance-interior confirmation (fridge and oven interiors clean, no residue on shelves or door seals, or similar). A blanket '3C all items passed' phrasing fails."
+    },
+    {
+        "title": "The Agent moves Linear issue OPS-225 from In Review to Done.",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' OPS-225 sits in state In Review (state_OPS_3) and must transition to Done (state_OPS_4).",
+        "evidence": "Look for a save_issue call with id OPS-225 and state state_OPS_4 (Done). Confirm the tool returned success."
+    },
+    {
+        "title": "The Agent adds a comment to Linear issue OPS-226 (the bathroom towel ring reinstall rework ticket for Las Vistas 3C).",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item.' OPS-226 is the towel ring ticket; a per-ticket sign-off comment must land before the state flip.",
+        "evidence": "Look for a save_comment call with issueId OPS-226. Confirm the tool returned success and that a comment body was supplied."
+    },
+    {
+        "title": "The Agent's comment on OPS-226 confirms the bathroom towel ring passes second-pass QC with the fixture reinstalled the right way and secure (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the closeout comment must reference the specific punch item (towel ring) with the pass called out per item, not a blanket close. The re-check observation from the prompt is 'Towel ring in the bathroom was on the right way and secure.'",
+        "evidence": "Check the body parameter of the save_comment call on OPS-226 for a per-item towel ring confirmation (reinstalled correctly, oriented right, fixture secure, or similar). A blanket '3C all items passed' phrasing fails."
+    },
+    {
+        "title": "The Agent moves Linear issue OPS-226 from In Review to Done.",
+        "category": "outcome",
+        "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' OPS-226 sits in state In Review (state_OPS_3) and must transition to Done (state_OPS_4).",
+        "evidence": "Look for a save_issue call with id OPS-226 and state state_OPS_4 (Done). Confirm the tool returned success."
+    },
+    {
+        "title": "The Agent updates the Las Vistas 3C Make-Ready Airtable record (rec291f423370e2a2db).",
+        "category": "outcome",
+        "justification": "The prompt says 'Pull the make-ready record on 3C and get my second-pass sign-off written into it.' The record is rec291f423370e2a2db on table Make-Ready Turns in base Property Operations. The write must land on the record itself, not on a separate comment or a different record.",
+        "evidence": "Look for an update_records_for_table call with baseId appPropertyOps, tableId tblMakeReady, and a record referencing recordId rec291f423370e2a2db. Confirm the tool returned success. The update must target this record; using a different record or a create call fails."
+    },
+    {
+        "title": "The Agent's update to the Las Vistas 3C Make-Ready record names Jaime Salinas as the second-pass sign-off author.",
+        "category": "outcome",
+        "justification": "The prompt says the sign-off must include 'My name, the re-inspection date, and one line per punch item.' Jaime's name is required so anyone pulling 3C up after this reads Jaime's active QC signoff rather than only Brooke's earlier supervisory note.",
+        "evidence": "Check the fldNotes2 field content in the update_records_for_table call for record rec291f423370e2a2db. The appended text must name Jaime Salinas (or Jaime) as the sign-off author."
+    },
+    {
+        "title": "The Agent's update to the Las Vistas 3C Make-Ready record includes 2026-06-18 as the second-pass re-inspection date.",
+        "category": "outcome",
+        "justification": "The prompt says the sign-off must include 'My name, the re-inspection date, and one line per punch item.' The re-inspection date is 2026-06-18 (a couple of weeks before today's closeout on 2026-07-01).",
+        "evidence": "Check the fldNotes2 field content in the update_records_for_table call for record rec291f423370e2a2db. The appended text must include the date 2026-06-18 (or 6/18, June 18, or an equivalent unambiguous form)."
+    },
+    {
+        "title": "The Agent's update to the Las Vistas 3C Make-Ready record includes one confirmation line per punch item covering the baseboard, the appliance interiors, and the towel ring (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says the sign-off must include 'one line per punch item.' The three punch items are the living room baseboard, the refrigerator and oven interiors, and the bathroom towel ring. All three must appear as per-item confirmations, not a bundled 'all passed' summary.",
+        "evidence": "Check the fldNotes2 field content in the update_records_for_table call for record rec291f423370e2a2db. The appended text must contain a per-item line for each of the three punch items (baseboard finish uniform, appliance interiors clean, towel ring reinstalled correctly, or similar). A single blanket statement covering all three at once fails."
+    },
+    {
+        "title": "The Agent's update to the Las Vistas 3C Make-Ready record appends to the existing narrative in the notes field rather than overwriting it.",
+        "category": "outcome",
+        "justification": "The prompt implicitly asks that anyone pulling 3C should read the second-pass sign-off in addition to Brooke's supervisory note, meaning the existing narrative must be preserved. Overwriting fldNotes2 would erase Brooke's earlier retrospective sign-off and the prior history.",
+        "evidence": "Check the fldNotes2 field content in the update_records_for_table call. The value written must include the existing narrative text (Brooke Phillips supervisory sign-off phrasing) plus the new Jaime second-pass sign-off, not the new sign-off in isolation."
+    },
+    {
+        "title": "The Agent drafts an email to carlos.mendez@starpm.com with brooke.phillips@starpm.com in CC.",
+        "category": "outcome",
+        "justification": "The prompt says 'Carlos needs an email from us that 3C is clear so leasing can start today. Copy Brooke so she knows the loop closed on 3C.' Carlos Mendez is the Onsite Property Manager who owns leasing activation; Brooke Phillips is the Apartment Property Supervisor who asked for the closeout.",
+        "evidence": "Look for a create_draft call with to containing carlos.mendez@starpm.com and cc containing brooke.phillips@starpm.com. Confirm the tool returned success. The Gmail catalog has no send tool, so the draft itself is the deliverable."
+    },
+    {
+        "title": "The Agent's draft to Carlos threads under Brooke's 2026-06-18 canonical Las Vistas 3C closeout Gmail thread, not the older 2026-06-16 QC Inspection Failed thread.",
+        "category": "outcome",
+        "justification": "There are two Gmail threads on Las Vistas 3C: the canonical closeout thread from Brooke on 2026-06-18 (subject 'Las Vistas 3C - closeout package'), and an older 2026-06-16 fail-notification thread (subject 'QC Inspection Failed - Las Vistas 3C'). The pass confirmation belongs on the closeout thread. Replying under the fail thread attaches the pass update to the wrong context.",
+        "evidence": "Check the create_draft call for either a replyToMessageId of d0e6f2c5b4a70b19 (Brooke's canonical 2026-06-18 closeout message) or a subject of 'Las Vistas 3C - closeout package' or a Re: form of that subject. A subject or replyToMessageId aligned with the older 'QC Inspection Failed' thread (a7f3c92e1b4d8e56) fails."
+    },
+    {
+        "title": "The Agent's draft to Carlos states that Las Vistas 3C is QC-passed (or clear, or cleared for showings, or similar).",
+        "category": "outcome",
+        "justification": "The prompt says 'Carlos needs an email from us that 3C is clear so leasing can start today.' The clearance status is the primary load-bearing fact that unlocks leasing activation; it must appear in the draft body.",
+        "evidence": "Check the body parameter of the create_draft call for a statement that Las Vistas 3C is QC-passed, clear, or cleared for showings (or similar). A draft that omits the clearance status fails."
+    },
+    {
+        "title": "The Agent's draft to Carlos states that leasing can activate showings today (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says 'so leasing can start today' and 'this is a hand-off, not a report.' The explicit go-ahead to activate showings today is a distinct required signal; stating QC status alone without the activation go-ahead does not complete the hand-off.",
+        "evidence": "Check the body parameter of the create_draft call for an explicit signal that leasing can activate or start showings today (or similar). A draft that notes QC status but omits the showings activation go-ahead fails."
+    },
+    {
+        "title": "The Agent posts a Slack message to channel C004 (#make-ready).",
+        "category": "outcome",
+        "justification": "The prompt says 'Same pass update on 3C in Slack so the crew sees it without having to chase me.' The crew visibility channel for make-ready work is #make-ready (channel_id C004).",
+        "evidence": "Look for a slack_send_message call with channel_id C004. Confirm the tool returned success. Posting to any other channel or using slack_send_message_draft (which does not actually send) fails."
+    },
+    {
+        "title": "The Agent's Slack message in #make-ready is threaded under Brooke's 2026-06-18 closeout parent, not the older 2026-06-16 Jaime QC-FAIL parent.",
+        "category": "outcome",
+        "justification": "There are two candidate parent threads in #make-ready for Las Vistas 3C: Brooke's 2026-06-18 closeout ping (the canonical target) and Jaime's 2026-06-16 QC-FAIL parent (the older fail branch). Replying under the fail parent attaches the pass update to the wrong thread and the crew reading Brooke's closeout ask does not see the answer.",
+        "evidence": "Check the slack_send_message call for a thread_ts of 1781788320.000202 (Brooke's 2026-06-18 closeout parent). A thread_ts of 1781645520.000200 (Jaime's 2026-06-16 QC-FAIL parent) fails. A top-level post with no thread_ts also fails, because the prompt asks for the same pass update under Brooke's ask, not a fresh unrelated post."
+    },
+    {
+        "title": "The Agent's Slack message in #make-ready confirms Las Vistas 3C second-pass QC-pass with the three punch items called out (baseboard finish uniform, appliance interiors clean, towel ring correct, or similar).",
+        "category": "outcome",
+        "justification": "The prompt says 'Same pass update on 3C in Slack.' The 'same pass update' refers back to the per-item pass structure used across Linear and Airtable. The crew needs the three per-item confirmations so the pass is traceable to each resolved punch item, not just a blanket clearance.",
+        "evidence": "Check the message parameter of the slack_send_message call for per-item confirmations covering the baseboard, appliance interiors, and towel ring (or similar). A blanket '3C is clear' summary without the per-item breakdown fails."
+    },
+    {
+        "title": "The Agent's Slack message in #make-ready states that leasing can activate showings (or similar).",
+        "category": "outcome",
+        "justification": "The prompt says 'Same pass update on 3C in Slack so the crew sees it without having to chase me.' The crew also needs the explicit leasing-activation signal, not just the per-item QC confirmation, so the make-ready crew knows the unit is open for tours without a separate follow-up.",
+        "evidence": "Check the message parameter of the slack_send_message call for a statement that leasing can activate or start showings (or similar). A message with per-item confirmations but no leasing activation signal fails."
+    },
+    {
+        "title": "The Agent creates a calendar event on jaime.salinas@starpm.com's calendar for Friday morning 2026-07-03 in America/Chicago.",
+        "category": "outcome",
+        "justification": "The prompt says 'set me a reminder for Friday morning to spot-check 3C's fridge and oven interiors again before whichever tour hits earliest.' Today is Wednesday 2026-07-01, so the upcoming Friday is 2026-07-03; the reminder must land on Jaime's calendar in the local timezone (America/Chicago).",
+            "evidence": "Look for a create_event call with a startTime dated 2026-07-03 in a morning window (approximately 07:00-11:00 America/Chicago). Confirm the event landed on jaime.salinas@starpm.com's calendar -- verified by calendarId jaime.salinas@starpm.com in the call input, or by creator.email jaime.salinas@starpm.com in the tool result. Confirm the tool returned success. A cron or system reminder tool used in place of create_event fails. An event on any other day, in the afternoon, or on a calendar other than jaime.salinas@starpm.com fails."
+    },
+    {
+        "title": "The Agent's calendar event summary references Las Vistas 3C and the refrigerator and oven interior spot-check (or similar).",
+        "category": "outcome",
+        "justification": "The prompt names the reminder's purpose specifically: 'spot-check 3C's fridge and oven interiors again before whichever tour hits earliest.' The summary must identify both the unit (Las Vistas 3C) and the spot-check scope (fridge and oven interiors) so future-Jaime opening the reminder understands the ask without cross-reference.",
+        "evidence": "Check the summary parameter of the create_event call for a reference to Las Vistas 3C (or 3C) and the fridge and oven interior spot-check (or similar phrasing covering both the appliance interiors and the QC spot-check purpose). A generic 'spot-check' summary without the unit and appliance scope fails."
+    }
+]

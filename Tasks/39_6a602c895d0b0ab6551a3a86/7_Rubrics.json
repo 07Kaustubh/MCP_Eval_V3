@@ -1,0 +1,194 @@
+[
+  {
+    "title": "The Agent posts a closeout comment on Linear issue OPS-224 (living room baseboard touch-up correction).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item.' OPS-224 is the living room baseboard rework ticket that Jaime's per-item pass must land on before the state flip.",
+    "evidence": "Look for a Linear comment-write call targeting issueId OPS-224 authored in this session with a body written in Jaime's voice confirming the 6/18 re-check. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Linear closeout comment on OPS-224 references the living room baseboard specifically rather than a blanket 3C pass (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'with the pass called out for each item, not a blanket close.' OPS-224 is the baseboard ticket; the closeout comment must track the ticket scope, not summarize all three items.",
+    "evidence": "Check the body parameter of the Linear comment-write call on OPS-224 for a reference to the living room baseboard, the touch-up finish, or the blended paint result. A blanket phrasing like 'all three items passed' without naming the baseboard fails this rubric."
+  },
+  {
+    "title": "The Agent moves the OPS-224 living room baseboard rework ticket to the Done workflow state (state_OPS_4).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' The OPS team's Done state id is state_OPS_4; moving OPS-224 out of In Review to Done is the queue exit.",
+    "evidence": "Look for a Linear issue-update call with id OPS-224 setting state to state_OPS_4. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent posts a closeout comment on Linear issue OPS-225 (refrigerator and oven interiors reclean).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item.' OPS-225 is the appliance interiors rework ticket that Jaime's per-item pass must land on before the state flip.",
+    "evidence": "Look for a Linear comment-write call targeting issueId OPS-225 authored in this session with a body written in Jaime's voice confirming the 6/18 re-check. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Linear closeout comment on OPS-225 references the refrigerator and oven interiors specifically rather than a blanket 3C pass (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'the pass called out for each item, not a blanket close.' OPS-225 is the appliance interiors ticket; the closeout comment must name the fridge and oven interior result, not summarize the whole punch list.",
+    "evidence": "Check the body parameter of the Linear comment-write call on OPS-225 for a reference to the refrigerator or oven interior surfaces, shelves, drawers, or seals. A blanket phrasing without naming the appliance interiors fails this rubric."
+  },
+  {
+    "title": "The Agent moves the OPS-225 refrigerator and oven interiors rework ticket to the Done workflow state (state_OPS_4).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' The OPS team's Done state id is state_OPS_4; moving OPS-225 out of In Review to Done is the queue exit.",
+    "evidence": "Look for a Linear issue-update call with id OPS-225 setting state to state_OPS_4. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent posts a closeout comment on Linear issue OPS-226 (bathroom towel ring reinstall).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue with the pass called out for each item.' OPS-226 is the towel ring rework ticket that Jaime's per-item pass must land on before the state flip.",
+    "evidence": "Look for a Linear comment-write call targeting issueId OPS-226 authored in this session with a body written in Jaime's voice confirming the 6/18 re-check. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Linear closeout comment on OPS-226 references the bathroom towel ring specifically rather than a blanket 3C pass (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'the pass called out for each item, not a blanket close.' OPS-226 is the towel ring ticket; the closeout comment must name the towel ring orientation or fixture result, not summarize the whole punch list.",
+    "evidence": "Check the body parameter of the Linear comment-write call on OPS-226 for a reference to the towel ring, its orientation, or the fixture being secure. A blanket phrasing without naming the towel ring fails this rubric."
+  },
+  {
+    "title": "The Agent moves the OPS-226 bathroom towel ring rework ticket to the Done workflow state (state_OPS_4).",
+    "category": "outcome",
+    "justification": "The prompt says 'get each ticket moved through my sign and out of my queue.' The OPS team's Done state id is state_OPS_4; moving OPS-226 out of In Review to Done is the queue exit.",
+    "evidence": "Look for a Linear issue-update call with id OPS-226 setting state to state_OPS_4. Confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent updates the Las Vistas 3C Make-Ready Airtable record (recordId rec291f423370e2a2db) with a second-pass signoff appended to the narrative notes field.",
+    "category": "outcome",
+    "justification": "The prompt says 'Pull the make-ready record on 3C and get my second-pass sign-off written into it.' The record's current turn status already reads Ready, but Jaime's active QC signoff line still has to land in the narrative notes field.",
+    "evidence": "Look for an Airtable records-update call targeting baseId appPropertyOps, tableId tblMakeReady, and record id rec291f423370e2a2db. Confirm the update touches the narrative notes field (fldNotes2) and the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db attributes the entry to Jaime Salinas by name (or a similar first-name attribution).",
+    "category": "outcome",
+    "justification": "The prompt says 'My name, the re-inspection date, and one line per punch item.' Jaime's name in the appended text is the attribution anchor so anyone reading the record after this session can distinguish Jaime's second-pass signoff from Brooke's supervisory line. Voice profile is terse (verbosity 0.30), so a first-name-only signature is a plausible in-persona attribution.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db. The updated narrative text must include Jaime Salinas by name, or a clear first-name attribution to Jaime, in the newly appended signoff line."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db includes the 2026-06-18 re-inspection date.",
+    "category": "outcome",
+    "justification": "The prompt says 'My name, the re-inspection date, and one line per punch item.' The re-inspection ran on 6/18 (Thursday 2026-06-18), which is the timestamp the signoff must carry.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db. The updated narrative text must include 6/18 or 2026-06-18 as the re-inspection date on the appended signoff line."
+  },
+  {
+    "title": "The Agent's Airtable update to rec291f423370e2a2db preserves the existing narrative in the notes field rather than replacing it (append, not overwrite).",
+    "category": "outcome",
+    "justification": "The prompt says 'Read what's already sitting in the notes so my sign-off reads as a continuation of the supervisory line, not a replacement.' The Airtable record's notes field already carries Brooke's retrospective supervisory sign-off; that text must remain intact after Jaime's append.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db. The written value for the narrative notes field must contain both the pre-existing supervisory narrative (ending with the Brooke Phillips sign-off) and Jaime's newly appended signoff line, not the new line alone."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db includes a line about the living room baseboard resolution (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'one line per punch item.' The baseboard is the first of the three 6/16 fail items; its resolution line must appear in the append so the record reflects the full per-item scope.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db for a reference to the living room baseboard, the touch-up finish, or the blended paint result inside the newly appended signoff text."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db includes a line covering the refrigerator interior resolution (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'one line per punch item.' The refrigerator interior is one of the two surfaces named in the 6/16 appliance interiors fail; its resolution must appear in the append so the record reflects the actual per-surface scope.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db for a reference to the refrigerator interior, fridge shelves, fridge drawers, or fridge seals inside the newly appended signoff text."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db includes a line covering the oven interior resolution (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'one line per punch item.' The oven interior is the other surface named in the 6/16 appliance interiors fail; its resolution must appear in the append so the record reflects the actual per-surface scope.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db for a reference to the oven interior, oven cavity, oven racks, oven door seal, or oven glass inside the newly appended signoff text."
+  },
+  {
+    "title": "The Agent's Airtable second-pass signoff on rec291f423370e2a2db includes a line about the bathroom towel ring resolution (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'one line per punch item.' The towel ring is the third of the three 6/16 fail items; its resolution line must appear in the append so the record reflects the full per-item scope.",
+    "evidence": "Check the fields payload of the Airtable records-update call on rec291f423370e2a2db for a reference to the bathroom towel ring, its orientation, or the fixture being secure inside the newly appended signoff text."
+  },
+  {
+    "title": "The Agent drafts a hand-off email addressed to carlos.mendez@starpm.com as primary recipient.",
+    "category": "outcome",
+    "justification": "The prompt says 'Carlos needs an email from us that 3C is clear so leasing can start today.' Carlos is the primary recipient of the leasing hand-off. Gmail in StarPM is draft-only; there is no send action.",
+    "evidence": "Look for a Gmail draft-create call with the to parameter containing carlos.mendez@starpm.com. Confirm the tool returned a success response with a draft id."
+  },
+  {
+    "title": "The Agent's hand-off email draft cc's brooke.phillips@starpm.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'Copy Brooke so she knows the loop closed on 3C.' Brooke needs to be cc'd on the hand-off so she sees the loop closure without being the primary recipient.",
+    "evidence": "Check the cc parameter of the Gmail draft-create call for brooke.phillips@starpm.com. A draft that omits Brooke from cc, or that places her in to instead of cc, fails this rubric."
+  },
+  {
+    "title": "The Agent's Gmail draft to Carlos threads under Brooke's 6/18 closeout package thread (Gmail thread b8e4d0a3f2c5b9e7 via replyToMessageId d0e6f2c5b4a70b19).",
+    "category": "outcome",
+    "justification": "Brooke's 6/18 message to Jaime with subject 'Las Vistas 3C - closeout package' is the canonical closeout ask; Jaime's hand-off must reply under that thread rather than starting a new one or replying under the older 6/16 QC-fail threads (a7f3c92e1b4d8e56 or 9f0bd31ccf588236) which would thread a pass update to a fail conversation.",
+    "evidence": "Check the Gmail draft-create call parameters for replyToMessageId set to d0e6f2c5b4a70b19 or an explicit thread linkage to Gmail thread b8e4d0a3f2c5b9e7. A draft with no reply target, a new subject line, or a reply target pointing to thread a7f3c92e1b4d8e56 or 9f0bd31ccf588236 fails this rubric."
+  },
+  {
+    "title": "The Agent's Gmail draft body states that Las Vistas 3C is QC-cleared (or similar hand-off phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'Carlos needs an email from us that 3C is clear.' The draft body must carry the QC-cleared signal so Carlos gets the actionable status on the unit.",
+    "evidence": "Check the body parameter of the Gmail draft-create call for a statement that Las Vistas 3C has cleared second-pass QC as of 6/18, or equivalent wording confirming the unit is clear. Silence on the QC-cleared status, or wording that keeps 3C on hold, fails this rubric."
+  },
+  {
+    "title": "The Agent's Gmail draft body states that leasing can activate showings on Las Vistas 3C today (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'so leasing can start today ... Keep it short, this is a hand-off, not a report.' The draft body must carry the leasing-can-activate signal so Carlos knows showings can begin immediately.",
+    "evidence": "Check the body parameter of the Gmail draft-create call for a statement that leasing can activate showings on 3C today, or that showings can start immediately on the unit. Silence on the leasing-activation signal fails this rubric."
+  },
+  {
+    "title": "The Agent posts a formal-close-done message in the #make-ready Slack channel (channel_id C004).",
+    "category": "outcome",
+    "justification": "The prompt says 'Post in the #make-ready channel that the formal close is done and 3C is live for showings.' #make-ready is channel_id C004; the post is the operational-cascade-completion signal to the maintenance and leasing crew.",
+    "evidence": "Look for a Slack send-message call with channel_id C004 authored in this session. Confirm the message is a real send (not a draft-only call) and that the tool returned a success response with a ts value."
+  },
+  {
+    "title": "The Agent's Slack post in #make-ready is threaded under Brooke's 6/18 closeout-request parent (thread_ts 1781788320.000202).",
+    "category": "outcome",
+    "justification": "Brooke's 6/18 morning message opened the closeout thread and asked Jaime to drop the closeout note under it. Jaime's post must thread under that parent (ts 1781788320.000202) rather than under either 6/16 Jaime QC-fail parent (ts 1781645520.000200 or ts 1781620200.000000) which would attach the pass update to a fail branch, or landing as a top-level post which detaches it from Brooke's ask.",
+    "evidence": "Check the thread_ts parameter of the Slack send-message call on channel_id C004. It must equal 1781788320.000202. A post with thread_ts 1781645520.000200, 1781620200.000000, or no thread_ts at all fails this rubric."
+  },
+  {
+    "title": "The Agent's Slack post in #make-ready tags Sandra Allen using her Slack user id in the mention format <@UADB2B4E045>.",
+    "category": "outcome",
+    "justification": "The prompt says 'tag Sandra so leasing sees it and can pick it up on their end.' A literal name mention does not route a notification to Sandra; the <@UADB2B4E045> user-id mention is what triggers the Slack tag so leasing actually gets pinged.",
+    "evidence": "Check the message text of the Slack send-message call on channel_id C004 for the exact substring <@UADB2B4E045>. Plain-text 'Sandra' or '@Sandra' without the user id wrapper fails this rubric."
+  },
+  {
+    "title": "The Agent's Slack post in #make-ready states that the formal close is done on Las Vistas 3C (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says 'Post in the #make-ready channel that the formal close is done.' The post body must carry the formal-close-done signal so the crew reads the operational-cascade-completion status on 3C.",
+    "evidence": "Check the message text of the Slack send-message call on channel_id C004 for a statement that the formal close is done on Las Vistas 3C, or equivalent wording confirming the closeout is complete. Silence on the formal-close-done signal fails this rubric."
+  },
+  {
+    "title": "The Agent's Slack post in #make-ready states that Las Vistas 3C is live for showings (or similar phrasing).",
+    "category": "outcome",
+    "justification": "The prompt says '3C is live for showings.' The post body must carry the live-for-showings signal so the crew and leasing read the unit as leasing-ready, not just closed on the ops side.",
+    "evidence": "Check the message text of the Slack send-message call on channel_id C004 for a statement that Las Vistas 3C is live or ready for showings. Silence on the live-for-showings signal fails this rubric."
+  },
+  {
+    "title": "The Agent creates a calendar event on Jaime Salinas's primary calendar (jaime.salinas@starpm.com) for a Friday morning 3C spot-check reminder.",
+    "category": "outcome",
+    "justification": "The prompt says 'set me a reminder for Friday morning to spot-check 3C's fridge and oven interiors again.' The reminder is on Jaime's own calendar so it fires for Jaime, not for another team member.",
+    "evidence": "Look for a calendar event-create call for a Friday morning 3C spot-check reminder. The event must land on Jaime Salinas's primary calendar, satisfied either by an explicit calendarId parameter equal to jaime.salinas@starpm.com OR by the tool result confirming creator.email is jaime.salinas@starpm.com with self:true (which indicates the event was created on the operating user's primary calendar). Confirm the tool returned a success response with an event id. A cron-scheduler call such as CronCreate instead of create_event fails this rubric because no calendar event is created."
+  },
+  {
+    "title": "The Agent's calendar reminder lands on Friday 2026-07-03 in the morning window (between 07:00 and 11:00 America/Chicago).",
+    "category": "outcome",
+    "justification": "The prompt says 'set me a reminder for Friday morning ... before whichever tour hits earliest.' Today is Wednesday 2026-07-01; the next Friday is 2026-07-03. The reminder must fire before whichever tour hits earliest, so a morning-window landing on that specific Friday is required. The window ends at 11:00 CT to sit before typical showing hours starting at noon or later.",
+    "evidence": "Check the startTime and endTime parameters of the calendar event-create call. The startTime must fall on 2026-07-03 between 07:00 and 11:00 in America/Chicago (or the equivalent -05:00 offset). A reminder on any other date, or later in the day than 11:00 CT, fails this rubric."
+  },
+  {
+    "title": "The Agent's calendar reminder summary field references Las Vistas 3C (or similar unit identifier).",
+    "category": "outcome",
+    "justification": "The prompt says 'spot-check 3C.' The reminder summary is the title Jaime sees in the notification popup Friday morning, so it must name the unit for the reminder to read as self-explanatory at a glance.",
+    "evidence": "Check the summary parameter of the calendar event-create call for a reference to Las Vistas 3C. A generic 'reminder' or 'follow-up' summary that omits the unit fails this rubric, even if the unit is buried in the description."
+  },
+  {
+    "title": "The Agent's calendar reminder summary field references the refrigerator interior spot-check (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Jaime's Friday morning reminder needs to spot-check the refrigerator interior on Las Vistas 3C. The reminder summary is the title Jaime sees in the notification popup, so naming the refrigerator surface in that title makes the reminder self-explanatory at a glance without opening the description.",
+    "evidence": "Check the summary parameter of the calendar event-create call for a reference to the refrigerator interior, fridge shelves, fridge drawers, or fridge seals. A summary that does not reference the refrigerator surface fails this rubric, even if the refrigerator is buried in the description."
+  },
+  {
+    "title": "The Agent's calendar reminder summary field references the oven interior spot-check (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Jaime's Friday morning reminder needs to spot-check the oven interior on Las Vistas 3C. The reminder summary is the title Jaime sees in the notification popup, so naming the oven surface in that title makes the reminder self-explanatory at a glance without opening the description.",
+    "evidence": "Check the summary parameter of the calendar event-create call for a reference to the oven interior, oven cavity, oven racks, oven door seal, or oven glass. A summary that does not reference the oven surface fails this rubric, even if the oven is buried in the description."
+  }
+]

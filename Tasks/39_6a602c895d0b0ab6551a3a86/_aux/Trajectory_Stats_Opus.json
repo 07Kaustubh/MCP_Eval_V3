@@ -1,0 +1,46 @@
+{
+  "model": "Opus",
+  "per_run": [
+    {
+      "file": "Run1_Trajectory.json",
+      "total": 30,
+      "mcp": 29,
+      "status": "ok"
+    },
+    {
+      "file": "Run2_Trajectory.json",
+      "total": 44,
+      "mcp": 30,
+      "status": "ok"
+    },
+    {
+      "file": "Run3_Trajectory.json",
+      "total": 50,
+      "mcp": 34,
+      "status": "ok"
+    },
+    {
+      "file": "Run4_Trajectory.json",
+      "total": 35,
+      "mcp": 34,
+      "status": "ok"
+    },
+    {
+      "file": "Run5_Trajectory.json",
+      "total": 42,
+      "mcp": 26,
+      "status": "ok"
+    },
+    {
+      "file": "Run6_Trajectory.json",
+      "total": 37,
+      "mcp": 33,
+      "status": "ok"
+    }
+  ],
+  "avg_total": 39.7,
+  "avg_mcp": 31,
+  "min": 30,
+  "max": 50,
+  "density_ok_at_40": false
+}

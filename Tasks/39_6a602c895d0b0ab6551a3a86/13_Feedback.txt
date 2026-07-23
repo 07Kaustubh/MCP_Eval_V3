@@ -1,0 +1,21 @@
+Overall: FAIL on density (worst dimension: avg_tool_calls=35.5 Gemini / 37.5 Opus).
+
+What this means
+The task ran 6 trajectories per model on the platform. Average tool calls were 35.5
+(Gemini) and 37.5 (Opus), both below the 40-call floor required for a passing density
+score. The scenario did not exercise enough services and lookup chains to hit the
+call-count target reliably. The task has been rebuilt from scratch.
+
+Difficulty is intact. Both models scored pass@1 = 0% (0/6 runs passed all rubrics).
+The Gmail thread-reply and Slack thread-reply stumping levers held across all 12 runs.
+The density shortfall is structural: the scenario scope covers Linear (6 calls),
+Airtable (1 update), Gmail (search + draft), Slack (search + send), and Calendar
+(1 create event), producing a realistic base of 12-15 write calls. Read and
+verification scaffolding brought totals to the 27-46 range, with high variance across
+runs. Reliable density above 40 requires broadening the interaction surface.
+
+What was retained
+- The per-task universe (3_UniverseDataForThisTask.json) is unchanged.
+- The persona and business function assignment are unchanged.
+- The originals (5_Prompt.txt, 6_Oracle_Events.txt, 7_Rubrics.json) are archived under
+  _aux/Candidate_Originals/ for the rating record.

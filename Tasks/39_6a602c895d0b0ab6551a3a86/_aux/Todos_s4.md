@@ -1,0 +1,22 @@
+# Todos — S4
+
+- [x] Phase-readiness gate (StarPM V4): confirmed universe = starpm, verifier fails files present (8a Opus + 8b Gemini), 6+6 trajectory files present. Documented pipeline gap: phase_ready.py does not accept `--universe starpm`, parse_trajectories.py does not accept `--model`; worked around with inline count script writing `_aux/Trajectory_Stats_{Opus,Gemini}.json`.
+- [x] Read S4 runbook + StarPM V4 Verifier Fails Eval + Hardness Plan + Prompt + Rubrics + OEs + verifier fails (both models).
+- [x] Build `Trajectory_Validation.md` — Rubric x Run x Model matrix (StarPM V4 mandatory step).
+- [x] Build `Trajectory_Run1_Table.md` — Independent Run-1 read (both models) with divergence cross-check vs verifier.
+- [x] T3 error-rate gate (both models 0 errored runs).
+- [x] T2 pass@1 gate (Opus 0/6 = 0.0% — PASS ≤ 40% ; Gemini 0/6 informational).
+- [x] T1 density gate (Opus avg 39.7 — FAIL; Gemini avg 38.0 — FAIL; INSUFFICIENT_DENSITY per AGENTS.md tiered scheme).
+- [x] Walk trajectories per failing rubric before bucket classification.
+- [x] Classify AF rubrics (rubric 20 — Bucket 3 for Opus; rubric 24 — Bucket 1 both models; rubric 28 — Bucket 1 for Opus).
+- [x] Classify partial-fail rubrics (rubrics 29-32 Opus R2/R3/R5/R6 CronCreate — Bucket 3).
+- [x] Compute Bucket 1 ratio (2/3 AF = 66.7% → 1/5 FAIL on All-Failing Rubrics sub-dim).
+- [x] 5-point pre-write checklist on every AF justification before authoring.
+- [x] Write `_aux/Council_Reports/S4_fixes.md` (Bucket 1 rubric fixes).
+- [x] Write `_aux/Council_Reports/S4_AF_justifications.md` (Bucket 3 AF justifications).
+- [x] Run `check_justification.py` on AF batch → exit 0.
+- [x] Write `_aux/Council_Reports/S4_verdict.md`.
+- [x] Update `Tasks/_meta/Stump_Hypotheses.md` (L25 & L26 calibration).
+- [x] Update `Tasks/_meta/Hardness_Patterns_Log.md` (repeat REDO density fail + Slack-thread-lever prompt-grounding gap).
+- [x] Write `_aux/Verification_s4.md` (Step 0.5 cross-source verification).
+- [x] STOP. Print REDO trigger for next chat.

@@ -1,0 +1,296 @@
+[
+  {
+    "title": "The Agent updates the Airtable maintenance ticket rec92f4a1c8e17bd3 (MT-2026-1327).",
+    "category": "outcome",
+    "justification": "The prompt says 'Bring the maintenance ticket current with the priority from last night's call and the scope we're actually going with.' Per OE 12 the target record is rec92f4a1c8e17bd3 / MT-2026-1327 in the Mesa Vista 7B row of tblMaintenanceTickets.",
+    "evidence": "Look for an update_records_for_table call with baseId appPropertyOps, tableId tblMaintenanceTickets, records[0].id set to rec92f4a1c8e17bd3, and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 sets fldPriority to selHigh.",
+    "category": "outcome",
+    "justification": "Per OE 12 and per the evening thread reply on ts 1782863220.000303 (no hot water since 4 PM, active leak, occupants home), priority must move off the pre-existing selMedium value up to selHigh. This is the single hardest discriminator on the ticket write because agents that miss the thread reply leave priority at selMedium.",
+    "evidence": "Check the fields.fldPriority parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3. It must be the exact string selHigh."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the overnight escalation (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 12 and the evening Slack reply on ts 1782863220.000303 the description must record that the situation escalated overnight so the field team sees why priority moved.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for the overnight escalation."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the tenant is without hot water (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 12 and the evening Slack reply on ts 1782863220.000303 (no hot water since 4 PM) the description must record that the tenant has no hot water so the field team sees the tenant impact behind the priority move.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for no hot water."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the active leak with occupants at home (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 12 and the evening Slack reply on ts 1782863220.000303 (active leak, occupants home) the description must record the active leak and that occupants are home so the field team sees the safety context behind the priority move.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for the active leak with occupants at home."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect a full water heater unit replacement scope (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 12 the description must carry the corrected scope so the field team sees the right call on the ticket itself. The pre-existing description references the exchanger-only path; the full-unit-replacement scope needs to land.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for a full water heater unit replacement scope."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "justification": "Per OE 12 the description must carry the corrected cost so the field team sees the actual dollar figure of the fuller scope rather than the pre-existing exchanger-only quote.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for the approximately $1,850 figure (or the exact $1,850)."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect that the Thursday install slot is being retained (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 12 the description must confirm that despite the scope broadening from exchanger swap to full unit replacement, the Thursday install slot is being kept so the field team does not re-book.",
+    "evidence": "Check the fields.fldDescription parameter of the update_records_for_table call targeting id rec92f4a1c8e17bd3 for confirmation that the Thursday install slot is retained."
+  },
+  {
+    "title": "The Agent updates Linear issue OPS-231.",
+    "category": "outcome",
+    "justification": "The prompt says 'Update the operations tracking issue so the team sees where it landed.' Per OE 8 and OE 13 the operations tracking issue is OPS-231 (title 'Mesa Vista 7B water heater diagnostic and scope decision', team OPS, assignee Carlos).",
+    "evidence": "Look for a save_issue call with id OPS-231 (or team OPS + the same title) and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect a full water heater unit replacement scope rather than the exchanger-only quote (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 13 the description must land the corrected scope, superseding the pre-existing exchanger-only deferral so the operations team sees the right call on the issue itself.",
+    "evidence": "Check the description parameter of the save_issue call targeting OPS-231 for a full water heater unit replacement scope rather than the exchanger-only quote."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "justification": "Per OE 13 the description must record the corrected dollar figure so the operations team sees the actual cost of the fuller scope.",
+    "evidence": "Check the description parameter of the save_issue call targeting OPS-231 for approximately $1,850 (or the exact $1,850)."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect that the Thursday install slot is retained (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 13 the description must confirm that despite the scope broadening, the Thursday install slot is being kept so the operations team does not re-book.",
+    "evidence": "Check the description parameter of the save_issue call targeting OPS-231 for confirmation that the Thursday install slot is retained."
+  },
+  {
+    "title": "The Agent adds a comment to Linear issue OPS-231.",
+    "category": "outcome",
+    "justification": "The prompt says 'drop a note walking through the rationale.' Per OE 14 the rationale note is a save_comment on OPS-231.",
+    "evidence": "Look for a save_comment call with issueId OPS-231 and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 cites the diagnostic write-up on the Hill Country bill as the source of the recommendation (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must cite the diagnostic write-up on the Hill Country bill so the operations team knows the source that superseded the earlier vendor summary email and Tony's Slack endorsement.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for the diagnostic write-up on the Hill Country bill."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the recommendation is full unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must land the diagnostic recommendation of full unit replacement so the operations team sees where the scope call went.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for a full unit replacement recommendation."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must reference the 12 year age of the unit as a driver of the full-replacement recommendation so the operations team sees the diagnostic basis.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for the 12 year age."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must identify the specific unit model (Ruud RS75) so the operations team can trace the recommendation back to the diagnostic write-up.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for the Ruud RS75 model."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the recommendation supersedes the narrow exchanger swap (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must contrast the full-replacement recommendation against the narrow exchanger swap so the operations team understands why the scope broadened.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for the contrast against the narrow exchanger swap."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes the overnight tenant escalation (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must record that the tenant situation escalated overnight per the Slack reply on ts 1782863220.000303, since that is one of the reasons priority moved and the scope decision could not wait.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for the overnight tenant escalation."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the tenant is without hot water (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 and the Slack reply on ts 1782863220.000303 (no hot water since 4 PM) the rationale must record that the tenant has no hot water so the operations team sees the tenant impact behind the priority move.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for no hot water."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes active water pooling with occupants at home (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 and the Slack reply on ts 1782863220.000303 (active leak, occupants home) the rationale must record the active water pooling and that occupants are home so the operations team sees the safety context behind the priority move.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for active water pooling with occupants at home."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the Thursday install slot is being retained for the fuller scope (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 14 the rationale must confirm that despite the scope change, the Thursday install slot is being kept so the operations team does not re-book.",
+    "evidence": "Check the body parameter of the save_comment call targeting OPS-231 for confirmation that the Thursday install slot is retained for the fuller scope."
+  },
+  {
+    "title": "The Agent posts a message in the #maintenance Slack channel (C001) as a reply in the thread anchored at thread_ts 1782824160.000302, using the send-message action rather than the draft action.",
+    "category": "outcome",
+    "justification": "The prompt says 'Drop back into the tenant thread with the same rationale so anyone following sees the call before Hill Country goes ahead.' Per OE 15 the tenant thread is the Carlos-relayed parent at ts 1782824160.000302 in #maintenance (C001), and the message must be posted (not drafted) so anyone following the thread sees it before Hill Country goes ahead.",
+    "evidence": "Look for a slack_send_message call targeting #maintenance (channel_id C001 or channel name maintenance) with thread_ts 1782824160.000302. Confirm the tool returned a success response. A slack_send_message_draft call in place of slack_send_message does not satisfy this rubric."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers the corrected scope of a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 15 the message must note that the diagnostic bill points to full unit replacement rather than the exchanger-only path so the thread reflects the landed scope decision.",
+    "evidence": "Check the message parameter of the slack_send_message call targeting #maintenance (channel_id C001 or channel name maintenance), thread_ts 1782824160.000302, for the corrected scope of a full water heater unit replacement."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers the escalation to High priority (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 15 the message must note that priority is moving to High off the back of the overnight tenant escalation, so the thread stays aligned with the Airtable ticket priority change.",
+    "evidence": "Check the message parameter of the slack_send_message call targeting #maintenance (channel_id C001 or channel name maintenance), thread_ts 1782824160.000302, for the escalation to High priority."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers that the Thursday install slot is being kept for the fuller scope (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 15 the message must confirm that the Thursday install slot is being kept so anyone following the thread sees it before Hill Country goes ahead.",
+    "evidence": "Check the message parameter of the slack_send_message call targeting #maintenance (channel_id C001 or channel name maintenance), thread_ts 1782824160.000302, for confirmation that the Thursday install slot is kept for the fuller scope."
+  },
+  {
+    "title": "The Agent drafts an email to ap@hillcountryplumbing.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'Draft Diane the revised confirmation so she can pull the right parts.' Per OE 5 and OE 16 Diane's address is ap@hillcountryplumbing.com. Gmail is draft-only in this environment; no send tool exists.",
+    "evidence": "Look for a create_draft call with to containing ap@hillcountryplumbing.com and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com requests a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 16 the confirmation must supersede the earlier exchanger-plus-thermocouple quote and ask Diane to pull parts for a full unit replacement scope so she stocks the right parts for Thursday.",
+    "evidence": "Check the body parameter of the create_draft call targeting ap@hillcountryplumbing.com for a full water heater unit replacement scope."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 16 the confirmation must reference the 12 year age of the unit so Diane sees why full replacement over repair is the right scope for this specific unit.",
+    "evidence": "Check the body parameter of the create_draft call targeting ap@hillcountryplumbing.com for the 12 year age."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 16 the confirmation must identify the specific unit model (Ruud RS75) so Diane can pull the right parts and Hill Country dispatches the correct SKU for Thursday.",
+    "evidence": "Check the body parameter of the create_draft call targeting ap@hillcountryplumbing.com for the Ruud RS75 model."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com references the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "justification": "Per OE 16 the confirmation must state the approximately $1,850 cost so Diane sees the corrected total that supersedes the earlier approximately $310 exchanger-only quote.",
+    "evidence": "Check the body parameter of the create_draft call targeting ap@hillcountryplumbing.com for the approximately $1,850 figure (or the exact $1,850)."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com confirms the Thursday morning install slot (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 16 the confirmation must keep the Thursday morning install slot Diane offered so she can plan parts pickup and dispatch accordingly.",
+    "evidence": "Check the body parameter of the create_draft call targeting ap@hillcountryplumbing.com for confirmation of the Thursday morning install slot."
+  },
+  {
+    "title": "The Agent drafts an email to tanya.mitchell@gmail.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'Tanya an update on the timing for the week.' Per OE 1 and OE 17 Tanya's address is tanya.mitchell@gmail.com. Gmail is draft-only in this environment; no send tool exists.",
+    "evidence": "Look for a create_draft call with to containing tanya.mitchell@gmail.com and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com covers that Hill Country is doing a full water heater replacement rather than a partial repair (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 17 the tenant-facing draft must reflect the corrected scope so Tanya knows why the fix is bigger than the original visit implied.",
+    "evidence": "Check the body parameter of the create_draft call targeting tanya.mitchell@gmail.com for the full water heater replacement scope rather than a partial repair."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com covers the Thursday morning install timing (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 17 the tenant-facing draft must tell Tanya when Hill Country is coming so she can plan the household around it.",
+    "evidence": "Check the body parameter of the create_draft call targeting tanya.mitchell@gmail.com for the Thursday morning install timing."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com gives a realistic expectation of when hot water will be back (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 17 the tenant-facing draft must set realistic hot-water expectations, since the tenant is currently without hot water and needs to know when service resumes.",
+    "evidence": "Check the body parameter of the create_draft call targeting tanya.mitchell@gmail.com for a realistic expectation of when hot water will be back."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com does not surface internal dollar figures (or similar tenant-appropriate framing).",
+    "category": "outcome",
+    "justification": "Per OE 17 the tenant-facing draft should stay tenant-appropriate rather than surfacing internal cost figures like the approximately $310 or approximately $1,850 quotes, which belong in the owner-facing message and not the tenant-facing one.",
+    "evidence": "Check the body parameter of the create_draft call targeting tanya.mitchell@gmail.com and confirm no internal dollar figures (such as $310 or $1,850) are surfaced."
+  },
+  {
+    "title": "The Agent drafts an email to robert.finley@gmail.com.",
+    "category": "outcome",
+    "justification": "The prompt says 'Robert a heads-up on the cost.' Per OE 2 and OE 18 the owner Robert Finley's address is robert.finley@gmail.com. Gmail is draft-only in this environment; no send tool exists.",
+    "evidence": "Look for a create_draft call with to containing robert.finley@gmail.com and confirm the tool returned a success response."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com references the initial approximately $310 quote (or the exact $310).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must reference the initial approximately $310 quote so Robert sees the starting baseline before the cost change.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the initial approximately $310 figure (or the exact $310)."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com references that the initial scope was an exchanger swap (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must reference the initial exchanger-swap scope so Robert understands what the earlier quote covered.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the exchanger-swap initial scope."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers that the new scope is a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must land the corrected scope so Robert can approve the fuller replacement rather than the exchanger-only path.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for a full water heater unit replacement scope."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers the new approximately $1,850 cost (or the exact $1,850).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must state the new approximately $1,850 cost so Robert sees where the budget went and can approve the fuller scope.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the approximately $1,850 figure (or the exact $1,850)."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers corrosion at the burner (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must cite corrosion at the burner as one of the diagnostic findings driving the scope change so Robert understands the evidence.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for corrosion at the burner."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers corrosion at the tank base (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must cite corrosion at the tank base as one of the diagnostic findings driving the scope change so Robert understands the evidence.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for corrosion at the tank base."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers the cracked heat exchanger (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must cite the cracked heat exchanger as one of the diagnostic findings driving the scope change so Robert understands the evidence.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the cracked heat exchanger."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must reference the 12 year age of the unit as context for the diagnostic reason so Robert sees why replacement over repair is the right call.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the 12 year age."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must identify the specific unit model (Ruud RS75) so Robert can trace the diagnostic reason back to a specific asset on the property.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the Ruud RS75 model."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers that the install is set for Thursday morning (or similar phrasing).",
+    "category": "outcome",
+    "justification": "Per OE 18 the owner heads-up must state the Thursday morning install slot so Robert knows the timeline for the corrected scope.",
+    "evidence": "Check the body parameter of the create_draft call targeting robert.finley@gmail.com for the Thursday morning install slot."
+  },
+  {
+    "title": "The Agent creates a calendar event on Thursday 2026-07-02 morning at Mesa Vista Unit 7B on Carlos Mendez's calendar for the Hill Country water heater install.",
+    "category": "outcome",
+    "justification": "The prompt says 'put the install on my calendar for Thursday morning so I'm blocked out to be onsite when the crew shows up.' Per OE 19 the Thursday date is 2026-07-02 (America/Chicago) and the calendar owner is Carlos.",
+    "evidence": "Look for a create_event call on Carlos Mendez's calendar with a startTime on 2026-07-02 in the morning America/Chicago window (e.g., 08:00 to 12:00 -05:00 or a similar Thursday morning window), summary or description referencing Mesa Vista 7B and the water heater install, and confirm the tool returned a success response."
+  }
+]

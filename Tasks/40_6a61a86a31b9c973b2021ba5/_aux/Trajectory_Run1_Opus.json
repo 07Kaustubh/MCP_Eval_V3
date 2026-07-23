@@ -1,0 +1,296 @@
+[
+  {
+    "title": "The Agent updates the Airtable maintenance ticket rec92f4a1c8e17bd3 (MT-2026-1327).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows an update_records_for_table call at item 79 targeting baseId appPropertyOps, tableId tblMaintenanceTickets, and records[0].id set to rec92f4a1c8e17bd3. The tool returned a success response at item 80, confirming the Airtable maintenance ticket for Mesa Vista 7B was updated."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 sets fldPriority to selHigh.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The fields.Priority parameter on the update_records_for_table call targeting rec92f4a1c8e17bd3 is set to 'High'. The Airtable select-field convention maps 'High' to selHigh, and the tool result confirms the record now has Priority id 'selHigh', name 'High'."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the overnight escalation (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The fldDescription contains 'follow-up call the evening of 06-30 reported the problem worsening' and 'Priority raised Medium to High on the 06-30 call', which explicitly capture the overnight escalation from the evening tenant call."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the tenant is without hot water (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "The fldDescription references 'a small drip and intermittent hot water on 06-29' but never explicitly states the tenant is without hot water or has no hot water. The evening thread reply on ts 1782863220.000303 makes 'no hot water since 4 PM' explicit, but the agent's description does not carry that atom."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to note the active leak with occupants at home (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "The fldDescription only states 'follow-up call the evening of 06-30 reported the problem worsening' without those specifics. The description does not mention an active leak or that occupants are at home, even though the injected Slack thread reply names both atoms."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect a full water heater unit replacement scope (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The fldDescription contains 'The written diagnostic recommends FULL UNIT REPLACEMENT (approx $1,850, equal-model swap)' and 'Scope corrected from the $310 exchanger-swap-plus-thermocouple summary to full replacement', reflecting the corrected full unit replacement scope."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The fldDescription contains 'approx $1,850, equal-model swap', matching the approximate $1,850 cost figure from the QuickBooks diagnostic bill line description."
+  },
+  {
+    "title": "The Agent's update to Airtable ticket rec92f4a1c8e17bd3 revises fldDescription to reflect that the Thursday install slot is being retained (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The fldDescription states 'Install scheduled Thursday 07-02 AM with Hill Country; parts being pulled 07-01', confirming the Thursday install slot is being kept despite the scope broadening."
+  },
+  {
+    "title": "The Agent updates Linear issue OPS-231.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a save_issue call at item 81 targeting id 'OPS-231'. The tool result at item 82 confirms the Linear issue was updated successfully."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect a full water heater unit replacement scope rather than the exchanger-only quote (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The save_issue description contains 'SCOPE LANDED (2026-07-01): Full water heater replacement, comparable/equal-model Ruud RS75 swap, approx $1,850, NOT the $310 exchanger-swap-plus-thermocouple', which explicitly supersedes the exchanger-only quote."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The save_issue description states 'approx $1,850' for the replacement scope, matching the corrected cost figure from the QuickBooks diagnostic bill."
+  },
+  {
+    "title": "The Agent's Linear OPS-231 update revises the description to reflect that the Thursday install slot is retained (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The save_issue description states 'Install Thursday 07-02 AM (Hill Country)', confirming the Thursday install slot is retained for the fuller scope."
+  },
+  {
+    "title": "The Agent adds a comment to Linear issue OPS-231.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a save_comment call at item 83 targeting issueId 'a5b3c9d2-4e8f-4a7b-9c1e-2f6d8b3a5c7e', which is the OPS-231 UUID. The tool result at item 85 confirms the comment was created successfully."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 cites the diagnostic write-up on the Hill Country bill as the source of the recommendation (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body states 'Went back through Diane\\'s detailed diagnostic write-up on the Hill Country bill (B2026-211) rather than signing off on the quick-call summary', citing the diagnostic write-up on the vendor bill as the source of the recommendation."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the recommendation is full unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body states 'recommends full unit replacement (~$1,850 equal-model swap)' and 'Landing on the full replacement', which explicitly lands the diagnostic recommendation for full unit replacement."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body references 'On the 12-yr Ruud RS75', which captures the 12-year age of the unit as a driver of the full-replacement recommendation."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body explicitly names 'the 12-yr Ruud RS75', identifying the specific unit model per the QuickBooks diagnostic bill line description."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the recommendation supersedes the narrow exchanger swap (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body states 'That does not line up with the emailed/Slack summary (exchanger swap + new thermocouple, ~$310)', explicitly contrasting the full-replacement recommendation against the narrow exchanger swap."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes the overnight tenant escalation (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body states 'Tanya\\'s follow-up call the evening of 06-30 confirmed the problem worsened', which records the overnight tenant escalation as the reason priority moved."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the tenant is without hot water (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "The comment body says 'Tanya\\'s follow-up call the evening of 06-30 confirmed the problem worsened' but does not explicitly state that the tenant is without hot water or has no hot water. The safety-context atom about hot-water loss is missing from the comment body."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes active water pooling with occupants at home (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "The comment body does not mention active water pooling or that occupants are at home. It only references the call indicating the problem worsened, missing both the pooling atom and the occupants-at-home atom."
+  },
+  {
+    "title": "The Agent's comment on Linear issue OPS-231 notes that the Thursday install slot is being retained for the fuller scope (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The comment body states 'Hill Country confirmed for Thursday AM (07-02); parts being pulled today', confirming the Thursday slot is retained for the fuller scope."
+  },
+  {
+    "title": "The Agent posts a message in the #maintenance Slack channel (C001) as a reply in the thread anchored at thread_ts 1782824160.000302, using the send-message action rather than the draft action.",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "There is no slack_send_message call to #maintenance in this run. The only Slack call is a slack_search_public at item 7 for research. The agent explicitly stated in its final response 'One thing I did not do: post in #maintenance to Tony.', so the tenant-relay thread anchored at 1782824160.000302 was never posted to."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers the corrected scope of a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "No slack_send_message call targeting channel_id C001 with thread_ts 1782824160.000302 was made in this run. Without a valid post in the tenant-relay thread there is no message body to check for the corrected scope of a full water heater unit replacement."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers the escalation to High priority (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "No slack_send_message call targeting channel_id C001 with thread_ts 1782824160.000302 was made in this run. Without a valid post in the tenant-relay thread there is no message body to check for the escalation to High priority."
+  },
+  {
+    "title": "The Agent's Slack message in the #maintenance thread anchored at 1782824160.000302 covers that the Thursday install slot is being kept for the fuller scope (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "No slack_send_message call targeting channel_id C001 with thread_ts 1782824160.000302 was made in this run. Without a valid post in the tenant-relay thread there is no message body to check for the Thursday install slot retention."
+  },
+  {
+    "title": "The Agent drafts an email to ap@hillcountryplumbing.com.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a create_draft call at item 89 with to ['ap@hillcountryplumbing.com']. The tool result at item 90 confirms the draft was created successfully with id r06e0442c8a09c6e."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com requests a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'Scope: full water heater replacement, equal-model Ruud RS75 (or your closest current equivalent), not the partial exchanger/thermocouple repair', which requests the full unit replacement scope."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body references 'The write-up on the 12-year-old Ruud RS75', explicitly noting the 12-year age of the unit."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body identifies 'the 12-year-old Ruud RS75' and 'Scope: full water heater replacement, equal-model Ruud RS75', naming the specific unit model."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com references the approximately $1,850 cost figure (or the exact $1,850).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'full unit replacement (about $1,850 for an equal-model swap)', referencing the approximate $1,850 cost that supersedes the earlier $310 exchanger-only quote."
+  },
+  {
+    "title": "The Agent's draft to ap@hillcountryplumbing.com confirms the Thursday morning install slot (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'Please keep the Thursday morning (July 2) slot if the larger job still fits that window, and confirm the arrival time', confirming the Thursday morning install slot."
+  },
+  {
+    "title": "The Agent drafts an email to tanya.mitchell@gmail.com.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a create_draft call at item 91 with to ['tanya.mitchell@gmail.com']. The tool result at item 92 confirms the draft was created successfully."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com covers that Hill Country is doing a full water heater replacement rather than a partial repair (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'we\\'re going to replace the whole water heater with a comparable new unit' rather than a partial repair, reflecting the corrected full replacement scope."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com covers the Thursday morning install timing (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'the crew is scheduled for Thursday morning (July 2), and I\\'ll be on site when they arrive', telling the tenant when Hill Country is coming."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com gives a realistic expectation of when hot water will be back (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'it should be back to normal and more reliable by Thursday afternoon', which sets a realistic expectation of when hot water service resumes."
+  },
+  {
+    "title": "The Agent's draft to tanya.mitchell@gmail.com does not surface internal dollar figures (or similar tenant-appropriate framing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body contains no dollar figures such as $310 or $1,850. The text focuses on timing, scope, and rationale without revealing internal cost figures, keeping the tenant-facing framing appropriate."
+  },
+  {
+    "title": "The Agent drafts an email to robert.finley@gmail.com.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a create_draft call at item 93 with to ['robert.finley@gmail.com']. The tool result at item 94 confirms the draft was created successfully."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com references the initial approximately $310 quote (or the exact $310).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'versus roughly $310 for the partial repair that was first floated before we had the full diagnostic in hand', referencing the initial approximately $310 quote as the starting baseline."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com references that the initial scope was an exchanger swap (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body refers to 'roughly $310 for the partial repair that was first floated' as the initial scope, which is analogous phrasing to the exchanger-swap initial scope."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers that the new scope is a full water heater unit replacement (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'Hill Country recommends replacing the unit rather than repairing individual parts' and 'a full replacement with a comparable unit', which land the corrected full water heater unit replacement scope."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers the new approximately $1,850 cost (or the exact $1,850).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'a full replacement with a comparable unit runs about $1,850', referencing the new approximately $1,850 cost so the owner sees the corrected budget impact."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers corrosion at the burner (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'the diagnostic documented corrosion on the burner assembly and tank base', covering corrosion at the burner as one of the diagnostic findings."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers corrosion at the tank base (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'corrosion on the burner assembly and tank base', covering corrosion at the tank base as one of the diagnostic findings."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers the cracked heat exchanger (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'the diagnostic documented corrosion on the burner assembly and tank base, a failed thermocouple, and a cracked heat exchanger', covering the cracked heat exchanger."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com notes the 12 year age of the unit (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'It\\'s a 12-year-old Ruud heater', noting the 12-year age of the unit as context for why replacement over repair is the right call."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com identifies the unit as a Ruud RS75 (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Fail",
+    "justification": "The draft body identifies the unit as 'a 12-year-old Ruud heater' but does not specify the model as 'RS75' or 'Ruud RS75'. The specific model identifier is absent even though the same run's Diane draft and Linear comment include Ruud RS75."
+  },
+  {
+    "title": "The Agent's draft to robert.finley@gmail.com covers that the install is set for Thursday morning (or similar phrasing).",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The draft body states 'I have Hill Country scheduled for Thursday morning (July 2)', confirming the Thursday morning install slot for the owner."
+  },
+  {
+    "title": "The Agent creates a calendar event on Thursday 2026-07-02 morning at Mesa Vista Unit 7B on Carlos Mendez's calendar for the Hill Country water heater install.",
+    "category": "outcome",
+    "decision": "Pass",
+    "justification": "The trajectory shows a create_event call at item 84 with startTime '2026-07-02T08:00:00', timeZone 'America/Chicago', and summary referencing 'Mesa Vista 7B Water Heater Replacement Install (Hill Country) On-site'. The tool result at item 86 confirms the event was created on Carlos's calendar for Thursday morning at Mesa Vista Unit 7B."
+  }
+]

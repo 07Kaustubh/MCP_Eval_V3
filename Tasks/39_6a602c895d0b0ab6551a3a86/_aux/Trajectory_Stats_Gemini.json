@@ -1,0 +1,46 @@
+{
+  "model": "Gemini",
+  "per_run": [
+    {
+      "file": "Run1_Trajectory.json",
+      "total": 30,
+      "mcp": 30,
+      "status": "ok"
+    },
+    {
+      "file": "Run2_Trajectory.json",
+      "total": 40,
+      "mcp": 40,
+      "status": "ok"
+    },
+    {
+      "file": "Run3_Trajectory.json",
+      "total": 28,
+      "mcp": 28,
+      "status": "ok"
+    },
+    {
+      "file": "Run4_Trajectory.json",
+      "total": 36,
+      "mcp": 36,
+      "status": "ok"
+    },
+    {
+      "file": "Run5_Trajectory.json",
+      "total": 59,
+      "mcp": 59,
+      "status": "ok"
+    },
+    {
+      "file": "Run6_Trajectory.json",
+      "total": 35,
+      "mcp": 35,
+      "status": "ok"
+    }
+  ],
+  "avg_total": 38,
+  "avg_mcp": 38,
+  "min": 28,
+  "max": 59,
+  "density_ok_at_40": false
+}
