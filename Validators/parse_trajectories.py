@@ -12,6 +12,19 @@ Looks for trajectories in (first match wins):
     <task_dir>/trajectory-runs/Run*.json
     <task_dir>/Agent_Responses/Run*.json
 
+For StarPM V4 dual-model tasks, pass --model {opus,gemini}. Trajectories then
+resolve to <task_dir>/Agent_Responses/<Model>/Run*.json and verifier-fails to
+<task_dir>/8a_Verifier_Fails_Opus.txt or <task_dir>/8b_Verifier_Fails_Gemini.txt.
+
+Density and difficulty gates:
+    - Opus (or single-model V3 tasks): density < 40 -> REBUILD_CANDIDATE_DENSITY;
+      pass@1 > 40% -> REBUILD_CANDIDATE_DIFFICULTY. Both trigger REDO.
+    - Gemini (StarPM V4): density and pass@1 are INFORMATIONAL only. Recorded in
+      the output but never trigger a REBUILD_CANDIDATE verdict. Rationale: Gemini
+      batches tool calls differently from Opus (naturally lower avg total), and
+      gating on Gemini metrics would REDO tasks that discriminate correctly. See
+      commit a342b8c (Gemini pass@1 informational) extended to density.
+
 Trajectory shape (Claude Code SDK export): top-level is a list of events.
 Tool calls are 'tool_use' blocks in message.content[] on assistant events.
 Names starting with 'mcp__' are platform MCP tools; the rest are Claude
@@ -34,8 +47,13 @@ from pathlib import Path
 from statistics import mean
 
 
-def find_trajectory_files(task_dir):
-    for d in (task_dir / "trajectory-runs", task_dir / "Agent_Responses"):
+def find_trajectory_files(task_dir, model=None):
+    if model:
+        model_subdir = task_dir / "Agent_Responses" / model.capitalize()
+        search_dirs = (model_subdir,)
+    else:
+        search_dirs = (task_dir / "trajectory-runs", task_dir / "Agent_Responses")
+    for d in search_dirs:
         if not d.is_dir():
             continue
         files = sorted(d.glob("trajectory-run-*.json")) + sorted(d.glob("Run*.json"))
@@ -72,6 +90,14 @@ def count_tool_calls(events):
     for ev in events:
         if not isinstance(ev, dict):
             continue
+        # Gemini flat format: top-level tool_use events with tool_name key
+        if ev.get("type") == "tool_use":
+            total += 1
+            tool_name = ev.get("tool_name", ev.get("name", ""))
+            if tool_name.startswith("mcp_") or tool_name.startswith("mcp__"):
+                mcp += 1
+            continue
+        # Opus / Claude Code SDK format: tool_use blocks inside message.content
         msg = ev.get("message")
         if not isinstance(msg, dict):
             continue
@@ -121,15 +147,19 @@ def parse_verifier_fails(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task_dir")
+    ap.add_argument("--model", choices=["opus", "gemini"], default=None,
+                    help="StarPM V4 dual-model tasks: 'opus' gates density/difficulty; "
+                         "'gemini' records both as informational (never triggers REBUILD).")
     args = ap.parse_args()
     task_dir = Path(args.task_dir).resolve()
     if not task_dir.is_dir():
         print(f"ERROR: {task_dir} not a directory", file=sys.stderr)
         sys.exit(2)
 
-    files = find_trajectory_files(task_dir)
+    files = find_trajectory_files(task_dir, model=args.model)
     if not files:
-        print(f"ERROR: no trajectory files found in {task_dir}/trajectory-runs/ or /Agent_Responses/", file=sys.stderr)
+        loc = f"{task_dir}/Agent_Responses/{args.model.capitalize()}/" if args.model else f"{task_dir}/trajectory-runs/ or /Agent_Responses/"
+        print(f"ERROR: no trajectory files found in {loc}", file=sys.stderr)
         sys.exit(2)
 
     per_run = []
@@ -153,18 +183,30 @@ def main():
     avg_total = round(mean(totals), 1) if totals else 0.0
     avg_mcp = round(mean(mcps), 1) if mcps else 0.0
 
-    vf = parse_verifier_fails(task_dir / "8_Verifier_Fails.txt")
+    if args.model == "opus":
+        vf_path = task_dir / "8a_Verifier_Fails_Opus.txt"
+    elif args.model == "gemini":
+        vf_path = task_dir / "8b_Verifier_Fails_Gemini.txt"
+    else:
+        vf_path = task_dir / "8_Verifier_Fails.txt"
+    vf = parse_verifier_fails(vf_path)
 
     density_ok = avg_total >= 40
     difficulty_ok = (vf["pass_at_1"] <= 0.40) if vf is not None else None
+    # Gemini metrics (StarPM V4) are informational only, parallel to commit a342b8c.
+    # Never trigger REBUILD_CANDIDATE on Gemini even when the raw check fails.
+    density_gated = (args.model != "gemini")
+    difficulty_gated = (args.model != "gemini")
     verdict = "OK"
-    if not density_ok:
+    if not density_ok and density_gated:
         verdict = "REBUILD_CANDIDATE_DENSITY"
-    elif difficulty_ok is False:
+    elif difficulty_ok is False and difficulty_gated:
         verdict = "REBUILD_CANDIDATE_DIFFICULTY"
 
     out = {
         "task": task_dir.name,
+        "model": args.model,
+        "gated": {"density": density_gated, "difficulty": difficulty_gated},
         "per_run": per_run,
         "runs_evaluated": len(valid),
         "avg_tool_calls_total": avg_total,
@@ -177,7 +219,8 @@ def main():
         "verdict": verdict,
     }
 
-    out_path = task_dir / "_aux" / "Trajectory_Stats.json"
+    stats_filename = f"Trajectory_Stats_{args.model.capitalize()}.json" if args.model else "Trajectory_Stats.json"
+    out_path = task_dir / "_aux" / stats_filename
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
 
@@ -189,14 +232,18 @@ def main():
             print(f"  {r['run']:>3}  {r['tool_calls_total']:>6}  {r['tool_calls_mcp_only']:>6}  ok")
         else:
             print(f"  {r['run']:>3}  {'--':>6}  {'--':>6}  {r['status']}")
-    print(f"Avg total tool calls: {avg_total}  (density {'OK' if density_ok else 'FAIL'} at 40+)")
+    density_label = 'OK' if density_ok else ('FAIL' if density_gated else 'INFORMATIONAL')
+    print(f"Avg total tool calls: {avg_total}  (density {density_label} at 40+)")
     print(f"Avg MCP tool calls:   {avg_mcp}")
     if vf is not None:
-        print(f"Verifier-fails:       pass@1 = {vf['pass_at_1']}  ({vf['runs_passing_all_rubrics']}/{vf['runs_total']} runs passed all rubrics)  ({'OK' if difficulty_ok else 'FAIL'} at <= 40%)")
+        difficulty_label = 'OK' if difficulty_ok else ('FAIL' if difficulty_gated else 'INFORMATIONAL')
+        print(f"Verifier-fails:       pass@1 = {vf['pass_at_1']}  ({vf['runs_passing_all_rubrics']}/{vf['runs_total']} runs passed all rubrics)  ({difficulty_label} at <= 40%)")
         for r in vf["runs"]:
             print(f"  Run #{r['run']:<2}  {r['passed']:>3}/{r['total']:<3} criteria passed  {'PASS' if r['passes_all'] else 'FAIL'}")
     else:
-        print(f"Verifier-fails:       no 8_Verifier_Fails.txt - difficulty unknown")
+        print(f"Verifier-fails:       no verifier-fails file found ({vf_path.name}) - difficulty unknown")
+    if args.model == "gemini":
+        print(f"Note:                 Gemini density and pass@1 are informational only (per commit a342b8c extended to density).")
     print(f"Verdict:              {verdict}")
     print(f"Written:              {out_path}")
 

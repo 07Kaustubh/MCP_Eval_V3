@@ -2,7 +2,7 @@
 
 **Trigger:** `PIPELINE REDO — Tasks/<TASK_DIR>`
 
-**When to run:** REVIEW already ran, fixes were applied to `14_Updated_Oracle_Events.txt` and/or `15_Updated_Rubrics.json`, the corrected version was uploaded to the platform, 6 trajectories ran — and the task failed on **difficulty** (Opus pass@1 > 40% — Gemini pass rate is not gated and does not trigger REDO) or **density** (average tool calls < 40). The candidate's structural design is unsalvageable. The reviewer has to rebuild from scratch like a CB.
+**When to run:** REVIEW already ran, fixes were applied to `14_Updated_Oracle_Events.txt` and/or `15_Updated_Rubrics.json`, the corrected version was uploaded to the platform, 6 trajectories ran — and the task failed on **difficulty** (Opus pass@1 > 40% — Gemini pass rate is not gated and does not trigger REDO) or **density** (Opus average tool calls < 40 — on StarPM V4, Gemini density is not gated and does not trigger REDO, parallel to Gemini pass@1). The candidate's structural design is unsalvageable. The reviewer has to rebuild from scratch like a CB.
 
 This is also the trigger when a CB's own task came back failing density / difficulty and needs to be rewritten end-to-end.
 
@@ -42,7 +42,7 @@ Before any other action, create `Tasks/<TASK_DIR>/_aux/Todos_redo.md` listing ev
 
 1. **Confirm the failure reason** from the trajectories:
    - Compute `Opus pass@1 = (Opus runs that passed all rubrics) / 6`. If > 0.4 → difficulty fail. (Gemini pass@1 is informational only — does not trigger difficulty fail.)
-   - Compute average tool calls across the 6 runs. If < 40 → density fail.
+   - Compute average tool calls across the 6 runs per model. If Opus < 40 → density fail. On StarPM V4, Gemini density is informational only and does not trigger a density fail.
    - If neither failed but FINAL had a BLOCKER that couldn't be patched in 3 REVISE rounds → also redo territory.
    - Document which one(s) in `_aux/REDO_reason.md`: file paths, computed numbers, one-paragraph explanation.
 

@@ -88,6 +88,8 @@ Parses `8_Verifier_Fails.txt` block headers (`Run #N` + `X/Y criteria passed`) t
 
 Writes `_aux/Trajectory_Stats.json` with per-run table + verdict (`OK` / `REBUILD_CANDIDATE_DENSITY` / `REBUILD_CANDIDATE_DIFFICULTY`). Exits 0 on OK, non-zero otherwise.
 
+For StarPM V4 dual-model tasks, pass `--model {opus,gemini}`. The script then resolves trajectories to `Agent_Responses/<Model>/Run*.json`, verifier-fails to `8a_Verifier_Fails_Opus.txt` or `8b_Verifier_Fails_Gemini.txt`, and writes `_aux/Trajectory_Stats_<Model>.json`. When `--model gemini`, density and pass@1 are recorded but INFORMATIONAL only — never trigger `REBUILD_CANDIDATE_*` (parallel to commit `a342b8c` extended to density; Gemini batches tool calls differently and its metrics should not gate REDO).
+
 Used by `PIPELINE REVIEW` step 3 (hardness pre-assessment) and `PIPELINE S4` phase-readiness gate.
 
 ### `phase_ready.py`

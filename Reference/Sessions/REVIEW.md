@@ -193,7 +193,7 @@ Next-trigger paths (per triage verdict + platform outcome):
 | **Shipped corrected version → platform linter blocks** | `PIPELINE S1.5 — Tasks/<TASK_DIR>` + paste linter output. |
 | **Shipped corrected version → trajectories ran → verifier-fails** | `PIPELINE S4 — Tasks/<TASK_DIR>` + paste verifier fails. |
 | **Shipped corrected version → platform paste-back may have mutated `7_Rubrics.json`** | `PIPELINE COMPARE — Tasks/<TASK_DIR>` after dropping `10_Rubrics_Platform.json` into the task folder. |
-| **Shipped corrected version → trajectory failed difficulty (Opus pass@1 > 40%) or density (avg < 40 tool calls)** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. |
+| **Shipped corrected version → trajectory failed difficulty (Opus pass@1 > 40%) or density (Opus avg < 40 tool calls — Gemini density is not gated on StarPM V4)** | `PIPELINE REDO — Tasks/<TASK_DIR>` in a fresh chat. |
 | **Review closed, candidate rated, task shipped clean** | EXIT. Append any novel finding to `Tasks/_meta/Learnings.md` if the review surfaced a new Opus 4.8 failure pattern. |
 
 For maximum rigor on the review (review of a critical candidate's task): append `COUNCIL_MODE=multi` to the trigger — `PIPELINE REVIEW — Tasks/<TASK_DIR> COUNCIL_MODE=multi`. Spawns 5 separate reviewer sub-agents + consensus instead of single 5-lens call.
