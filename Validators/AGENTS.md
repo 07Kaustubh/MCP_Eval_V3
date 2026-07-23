@@ -90,6 +90,22 @@ Writes `_aux/Trajectory_Stats.json` with per-run table + verdict (`OK` / `REBUIL
 
 For StarPM V4 dual-model tasks, pass `--model {opus,gemini}`. The script then resolves trajectories to `Agent_Responses/<Model>/Run*.json`, verifier-fails to `8a_Verifier_Fails_Opus.txt` or `8b_Verifier_Fails_Gemini.txt`, and writes `_aux/Trajectory_Stats_<Model>.json`. When `--model gemini`, density and pass@1 are recorded but INFORMATIONAL only — never trigger `REBUILD_CANDIDATE_*` (parallel to commit `a342b8c` extended to density; Gemini batches tool calls differently and its metrics should not gate REDO).
 
+### `build_trajectory_table.py`
+
+Scaffold + validate the per-model Run-N pass/fail JSON table (`_aux/Trajectory_Run<N>_<Model>.json`) used at S4 Run-1 independence-check.
+
+```
+python Validators/build_trajectory_table.py <task_dir> --run 1 --model opus       # scaffold
+python Validators/build_trajectory_table.py <task_dir> --run 1 --model gemini     # scaffold
+python Validators/build_trajectory_table.py <task_dir> --validate _aux/Trajectory_Run1_Opus.json
+```
+
+**Scaffold mode:** emits an intermediate stub `_aux/Trajectory_Run<N>_<Model>_scaffold.json` with `title` + `category` (from `7_Rubrics.json`), `decision` (parsed from `8[a/b]_Verifier_Fails_*.txt` for the target run), `justification: null`, and a `_trajectory_hint` block. The hint parses the rubric's `evidence` field to extract `tool_name`/`field`/`target_id`/`atom`, walks the trajectory to find the matching tool call, and includes a content excerpt with an atom-hit guess. The S4 agent reads the hint, writes an own-analysis justification, removes `_trajectory_hint`, saves to the final filename.
+
+**Validate mode:** enforces the style contract on the final file — no em-dashes / en-dashes, no cross-references (`Rn`, `cascade from`, `same as`, `see rubric`, `per rubric`), no null / empty justifications, no residual `_trajectory_hint` blocks, decision must be `Pass` or `Fail`. Exit 0 clean, non-zero on any violation.
+
+Justifications stay agent-authored (preserves "our own analysis" property). The scaffold only removes the tedious lookup work.
+
 Used by `PIPELINE REVIEW` step 3 (hardness pre-assessment) and `PIPELINE S4` phase-readiness gate.
 
 ### `phase_ready.py`
