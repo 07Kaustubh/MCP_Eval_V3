@@ -194,13 +194,17 @@ def content_excerpt(call, field, atom, max_len=300):
         return None
     text = str(val)
     if atom:
-        atom_low = atom.lower()
         low = text.lower()
-        pos = low.find(atom_low[:30])
-        if pos >= 0:
-            start = max(0, pos - 40)
-            end = min(len(text), pos + len(atom_low) + 80)
-            return {"contains_atom_guess": True, "excerpt": text[start:end].strip()}
+        keywords = [w for w in re.findall(r"[a-z0-9$]{4,}", atom.lower()) if w not in {"similar", "phrasing", "exact", "approximately"}]
+        if keywords:
+            hits = sum(1 for kw in keywords if kw in low)
+            if hits >= max(1, len(keywords) // 2):
+                first = next((kw for kw in keywords if kw in low), None)
+                if first:
+                    pos = low.find(first)
+                    start = max(0, pos - 60)
+                    end = min(len(text), pos + 200)
+                    return {"contains_atom_guess": True, "excerpt": text[start:end].strip(), "keywords_hit": f"{hits}/{len(keywords)}"}
     return {"contains_atom_guess": False, "excerpt": text[:max_len].strip()}
 
 
