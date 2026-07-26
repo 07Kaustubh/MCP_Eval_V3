@@ -1,0 +1,682 @@
+[
+  {
+    "row_data": "{\"id\": \"recb4aeaed326f156\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Top-floor unit at Finley portfolio property showing missing shingles and interior ceiling water staining - roof damage appears to exceed routine patching and requires professional evaluation. Flagged by Lisa Smith for priority assessment and licensed roofing contractor inspection.\", \"fldTicketNumber\": \"MT-2026-047\", \"fldCompletionDate\": \"\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-01 08:43:34.722571\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 08:43:34.722571\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8b679d92f30753\", \"fields\": {\"fldUnit\": \"Ridgeview - Roof Section (Common/Structural)\", \"fldNotes2\": \"Owner authorization received from Robert Finley for structural roof repair. Pete Donovan assigned as approved vendor following owner sign-off on the $8,400 estimate. Ticket updated to reflect approved status and vendor assignment; work to be scheduled and coordinated through maintenance lead.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-28 14:27:44\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-28 14:27:44\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec00b62d48bb0e58\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Parking lot light fixture out on north end of Elmwood property. Safety concern flagged by two tenants. Vendor contacted for parts.\", \"fldTicketNumber\": \"MT-2026-042\", \"fldCompletionDate\": \"2026-05-11\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 10:14:39.386578\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 10:14:53.057179\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec014e107f3c265c\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Baseboard rework completed by John Smith on May 20. Jaime Salinas re-inspected the same afternoon and confirmed the touch-up meets standard - QC passed. Unit is clear for lease-up.\", \"fldMoveOut\": \"2026-05-04\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-04\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-25 13:15:34.575379\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-25 13:15:34.575379\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec03212c1a55ef56\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Make-Ready Turn - Las Vistas Unit 9D. Priority elevated to High on May 6 as part of the Summer Make-Ready Program. John Smith assigned as lead technician. Pre-turn walk-through set for May 8 to assess scope before work begins.\", \"fldTicketNumber\": \"MT-2026-0508\", \"fldCompletionDate\": \"2026-05-03\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-03 15:02:21.728727\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-03 15:02:21.728727\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec06e5ecfb550a58\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Unit cleared final walk-through July 18. Dishwasher latch installed and tested. All punch items closed. Marked ready for leasing as of end of day July 18.\", \"fldMoveOut\": \"2026-06-30\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-06-30\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-30 17:08:07.928105\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-30 17:08:32.271948\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec07294677f27c5c\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Following up from last month's budget review - HVAC unit in Building C is still pulling higher energy costs than expected. Need full inspection before next billing cycle.\", \"fldTicketNumber\": \"MT-2026-041\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 07:46:58.659310\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 07:46:58.659310\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec08d925e6b44852\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Confirmed the electrician quote for Elmwood parking lot is within the approved discretionary spend limit for Q3. No additional budget amendment needed per today's review.\", \"fldTicketNumber\": \"MT-2026-044\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 09:19:00.499592\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 09:19:51.687754\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec090176a77d5450\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Carpet cleaning completed by Victor Rios on May 15 - task marked done. Deep clean is the next step in the sequence; Isela Juarez is being looped in to get that scheduled and locked in before the unit moves to final punch.\", \"fldMoveOut\": \"2026-05-04\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-04\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-11 16:43:52.438341\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 16:43:52.438341\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec091d81a6c91c53\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"Follow-up on MT-2026-037: plumber visit completed for Unit 4B slow drain. Drain cleared, no further issues reported by tenant.\", \"fldTicketNumber\": \"MT-2026-039\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 12:56:54.405773\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 12:56:54.405773\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec0993b4332a1353\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"Third-floor common area hallway light flickering. Ballast and bulb replacement needed. No immediate safety risk identified.\", \"fldTicketNumber\": \"MT-2026-1208\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 07:31:46.811618\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 07:31:46.811618\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec0d424ed0dcdb50\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Checking with Wesley on whether carpet replacement is also needed before we finalize the scope with the vendor.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 18:09:12.768050\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 18:09:15.459393\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec0e4f8f3a300854\", \"fields\": {\"fldUnit\": \"Las Vistas 211A\", \"fldNotes2\": \"Discussed at Monday afternoon standup. Action: Wesley to schedule inspection for 211A no later than July 15. Vendor assignment to follow inspection findings. Tony tracking both 204B and 211A through July 22.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-06-29\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-29 17:48:25.174733\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-29 17:48:38.037902\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec12969a3fdb0852\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Make-ready turn opened for unit 4C at Mesa Vista following previous tenant's vacate. Full unit turnover scope initiated: interior inspection, cleaning, paint touch-ups, and any punch-list repairs to be coordinated with Brooke Phillips. Tony Reyes, Carmen Delgado, Pete Donovan, Jaime Salinas, and Linda Castillo flagged for task assignment as work progresses.\", \"fldTicketNumber\": \"MT-2026-084\", \"fldCompletionDate\": \"2026-05-01\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-01 08:43:07.575125\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 08:43:40.414394\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec1347fb87038a54\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Deep clean completed May 16 by Isela Juarez and Rosa Cantu. Record advanced to Pending QC Inspection; Jaime Salinas walk-through set for May 19.\", \"fldMoveOut\": \"2026-05-04\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-04\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-11 16:51:21.702394\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 16:51:58.768127\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec1380f41ec09a51\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Tenant vacated May 5. Preliminary walk-through flagged paint touch-up needed in main living areas, carpet staining in the bedroom, and appliances that are aging and may need evaluation for replacement. Brooke Phillips and John Smith tagged for assessment scheduling. Scope to be confirmed once on-site review is complete.\", \"fldMoveOut\": \"2026-05-03\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-03\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-03 13:57:38.546019\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-03 13:57:38.546019\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec144cd254d1b05b\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"All work completed by July 17. Final walkthrough done, unit cleared. Marked ready one day ahead of target. Leasing notified.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 17:24:20.597851\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 17:24:53.804010\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec1459211822965b\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Drywall patch done as of this morning - looked good on a quick check. Cleaning crew still on for 7/24. Still on track for 7/28 target.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 12:06:08.112347\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 12:06:21.404562\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec155faed9972d5d\", \"fields\": {\"fldUnit\": \"Rio Bend 117A\", \"fldNotes2\": \"Appliance inspection completed this morning. Refrigerator needs a new ice maker unit - part ordered, expected arrival July 21. On track for target ready date.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 15:52:47.761522\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 15:52:47.761522\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec157c947a8a9359\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"Parking lot light outage at Building A, spots 12-15. Bulbs need replacement. Low urgency, scheduled for next available crew slot.\", \"fldTicketNumber\": \"MT-2026-048\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 17:07:36.996375\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 17:07:36.996375\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec16122185546656\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Unit cleared and marked ready ahead of target date. Final inspection passed. Listing can go live.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 08:52:32.092280\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 08:52:51.441224\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec174d83c7000b56\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Decided to move forward with full repaint after inspection flagged scuff damage throughout. Vendor confirmed availability for the week of the 21st.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 18:09:26.406392\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 18:09:26.406392\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec184857bff3f55a\", \"fields\": {\"fldUnit\": \"2BR Mid-June\", \"fldNotes2\": \"Make-ready work finished and unit confirmed complete. Lisa Smith conducted the walk-through inspection and the unit passed. Cleared for lease-up; Sandra Allen is coordinating next steps for Priya Nambiar's application.\", \"fldMoveOut\": \"2026-05-02\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-02\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-21 11:58:42.908114\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 11:58:42.908114\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec184a5c5216e559\", \"fields\": {\"fldUnit\": \"Las Palmas 212D\", \"fldNotes2\": \"Cleaning and paint done. Electrician visit needed - two outlets in the kitchen not passing inspection. John to advise on preferred licensed vendor or whether to use building's current contractor.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 17:27:45.396604\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 17:27:59.697185\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec18899b6ec2a65f\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Urgent assessment needed at Tommy Reyes's unit - tenant reported an active water heater leak causing flooring damage. John Smith assigned for initial inspection to evaluate extent of water intrusion and determine next steps for repair and remediation.\", \"fldTicketNumber\": \"MT-2026-1211\", \"fldCompletionDate\": \"\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-12 09:47:36\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-12 09:47:53.241010\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec1e3c7cdd8a0859\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"HVAC unit on the third floor of Palomar Building is cycling on and off every few minutes. Tenant in unit 312 reported it this morning. Needs inspection before tomorrow's standup so we have a status to share with the team.\", \"fldTicketNumber\": \"MT-2026-057\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 08:16:34.870005\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 08:16:52.572614\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec22bc5f69fd1853\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Unit 204 HVAC follow-up: Ramos HVAC confirmed 9 a.m. on-site visit. Tenant in 204 notified. Awaiting diagnosis before any parts are ordered.\", \"fldTicketNumber\": \"MT-2026-043\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 14:38:43.824652\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 14:38:43.824652\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec23600780ef4053\", \"fields\": {\"fldUnit\": \"Mesa Vista 107A\", \"fldNotes2\": \"Paint and cleaning underway. Isela to confirm appliance inspection status. Raised at morning team meeting.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 13:16:14.700824\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 13:16:14.700824\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec2471fac3f9ae51\", \"fields\": {\"fldUnit\": \"Sunset Ridge 309C\", \"fldNotes2\": \"Confirmed: July 21 and July 22 vendor schedule locked in. No changes to target ready date. Will flag immediately if flooring inspection reveals anything unexpected.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 07:24:18.685958\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 07:24:37.967806\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec269bbed07dba5d\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated early. Carpet replacement and full repaint scheduled. Morning team meeting item flagged for vendor coordination this week.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 12:47:42.980563\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 12:47:46.369179\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec2b7b06c6b6e955\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"QC inspection completed for Las Vistas Unit 9D on May 19. All items reviewed and passed except one defect noted on the hallway baseboard trim - a paint drip requiring touch-up. Make-Ready Turn status updated to QC - Rework Needed. Paint crew to be directed back to address the baseboard before unit can advance to final clearance.\", \"fldTicketNumber\": \"MT-2026-0519\", \"fldCompletionDate\": null}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-25 13:12:20.499268\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-25 13:12:53.383598\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec2be1b0449dda57\", \"fields\": {\"fldUnit\": \"Rio Bend 117A\", \"fldNotes2\": \"Paint completed. Flooring crew started yesterday. Appliance check pending - refrigerator seal flagged during walk. Ordered replacement part, ETA 3 days.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 16:55:36.279974\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 16:55:36.279974\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec2d4d35ac57bd53\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Confirmed carpet vendor is available Thursday. Paint crew needs access confirmation by Wednesday morning.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 11:55:27.753079\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 11:55:45.344534\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec319e820d7b8959\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Parking lot lighting at the Elmwood property has three fixtures out. Electrician quoted $1,240 for full replacement. Adding to budget review discussion for approval.\", \"fldTicketNumber\": \"MT-2026-1217\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 08:08:33.894999\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 08:08:33.894999\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec32c630c943c155\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Appliance check confirmed in scope. Technician found the dishwasher door latch needs replacement - part ordered, ETA July 17. All other appliances passed. Still on track for July 18 ready date.\", \"fldMoveOut\": \"2026-06-30\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-06-30\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-30 13:49:00.736903\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-30 13:49:49.083333\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec332c073bf25357\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"All work completed and unit passed walkthrough. Keys handed to leasing. Came in one day ahead of the July 25 target.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 11:10:51.579945\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 11:10:51.579945\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec33a9a66cb74150\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Added 311A to the turn queue during this morning's status meeting. Maintenance has the key. Awaiting appliance delivery ETA from vendor.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 17:09:28.815061\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 17:09:44.891501\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec34590c3fc5a258\", \"fields\": {\"fldUnit\": \"Las Vistas 118C\", \"fldNotes2\": \"HVAC filter replaced. Maintenance confirmed complete. Cleaning crew booked for Thursday morning.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 07:05:52.150284\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 07:05:52.150284\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec351bfbb9d76b57\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet replacement ordered; painting crew scheduled for July 3. Raised in morning team meeting - team confirmed flooring vendor is on track. Still waiting on final inspection slot from maintenance lead.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 08:30:22.556033\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 08:30:54.798014\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3554d86e01d850\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Checked vendor availability for HVAC inspection in Building C. Earliest confirmed slot is August 13. Scheduling with Summit HVAC Services - cost estimate $875, consistent with budget line discussed in review.\", \"fldTicketNumber\": \"MT-2026-045\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 11:17:58.794277\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 11:17:58.794277\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3586caed586352\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Unit cleared final inspection this morning. All punch items resolved. Marked ready one day ahead of target. Leasing team notified to proceed with showing.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 16:53:44.588464\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 16:53:44.588464\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec35a6c4f2e50657\", \"fields\": {\"fldUnit\": \"Mesa Vista 107A\", \"fldNotes2\": \"Appliance inspection confirmed complete. Only touch-up paint remains. On track for July 17 ready date per morning team meeting discussion.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 17:25:12.406084\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 17:25:12.406084\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec35efa77f522f5c\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Vendor is confirmed for tomorrow 8 AM at Palomar. Dave - are you available to meet them on-site? I want someone there from our side since it's flagged high priority. Let me know before end of day so Alicia can loop in Tony.\", \"fldTicketNumber\": \"MT-2026-059\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 19:38:54.493288\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 19:38:54.493288\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3782834f35df50\", \"fields\": {\"fldUnit\": \"Tanya Mitchell - Eviction Track\", \"fldNotes2\": \"Tenant did not cure the outstanding balance before the June 29 three-day notice deadline and made no contact with the office. Delinquency confirmed; eviction tracking record updated to reflect non-compliance. Team has been alerted and is assembling the filing package per company policy. Make-ready turn queued in anticipation of unit recovery following legal proceedings; target ready date subject to adjustment based on court schedule and possession timeline. Patricia Nguyen, Brooke Phillips, Linda Castillo, and Teresa Wood coordinating next steps; Patricia Lowe to receive owner-side updates throughout.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-01 08:43:02.103677\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 08:43:37.564274\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec385c34cb600c58\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"From: carlos.mendez@starpm.com | Subject: Following up on the flooring timeline we flagged last meeting\\n\\nTony - just checked on this. The cleaning crew is confirmed for July 8, which gives us a two-day buffer before the target ready date. The flooring vendor finished the carpet portion yesterday; paint touch-ups are the last open item and are scheduled for July 7. The one thing still outstanding is the appliance inspection - I reached out to Elias in maintenance and he is slotting it in for July 7 as well. We should be on track to hit July 10 barring anything unexpected.\\n\\n- Carlos\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 13:25:23.685035\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 13:25:43.194758\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec38683ce027005a\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet crew finished this morning. Painters started on the living room and hallway. Minor drywall patch needed in bedroom - added to scope.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 09:56:33.925022\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 09:56:56.155365\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec390d3c3b1a3b55\", \"fields\": {\"fldUnit\": \"Rio Bend 214\", \"fldNotes2\": \"Carpet damage reported by current occupant Teresa Wood - staining and a torn seam noted in the main living area. Carlos Mendez logged a maintenance ticket and has tagged Elias Navarro to assess the scope before make-ready work is scoped. Repair or full carpet replacement to be determined pending Elias's walkthrough. Brooke Phillips, Victor Rios, and Tommy Reyes flagged for follow-up coordination once assessment is complete.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 15:50:43\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 15:50:49.334915\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3e037a1e48d950\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"End-of-day standup summary: HVAC repair authorized and scheduled, Pinecrest 12 install confirmed for Monday, Elmwood light parts en route. All three tickets on track for closure by end of next week.\", \"fldTicketNumber\": \"MT-2026-1219\", \"fldCompletionDate\": \"2026-05-12\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-12 12:32:18.110161\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-12 12:32:23.111731\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3ec48b4e099b5a\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Confirmed carpet replacement is also needed - noted worn seams in bedroom and hallway. Added to the scope alongside repaint.\", \"fldMoveOut\": \"2026-05-07\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-07\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-07 17:39:06.060644\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-07 17:39:10.113379\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec3fa2d84a4a955f\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Authorization issued for HVAC refrigerant repair at Building C Unit 304. Approved cost up to $420 including labor. Work scheduled for next business day.\", \"fldTicketNumber\": \"MT-2026-046\", \"fldCompletionDate\": \"2026-05-12\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-12 12:07:27.085252\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-12 12:07:27.085252\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec4081fd2ccde95a\", \"fields\": {\"fldUnit\": \"Mesa Vista 207A\", \"fldNotes2\": \"HVAC parts arrived July 11. Technician confirmed for July 14 install. Flooring crew scheduled to follow same day.\", \"fldMoveOut\": \"2026-05-22\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-22\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 09:54:30.178935\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 09:54:36.298141\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec41947ddc66c65d\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"HVAC compressor belt replacement completed in Building C lobby. Unit returned to full operation. Ticket closed following successful post-repair test.\", \"fldTicketNumber\": \"MT-2026-083\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 17:33:57.675922\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 17:33:57.675922\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec41be9c5fdeab5d\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Following up on appliance delivery confirmation. Flooring crew scheduled for Thursday. Final cleaning vendor booked for July 21. No blockers at this time.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 16:39:02.311312\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 16:39:34.732567\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec43d0feffb4ca5b\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated early. Walk-through scheduled for this week. Vendor lineup pending confirmation from Isela.\", \"fldMoveOut\": \"2026-05-16\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-16\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-16 12:58:10.681588\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 12:58:29.221641\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec443b8309a0595a\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Removed old dishwasher and garbage disposal from Las Vistas Unit 9D on May 12; confirmed retrieval in #make-ready channel. Replacement dishwasher and new garbage disposal installed same day. Both appliance items marked complete in the make-ready turn record by John Smith.\", \"fldTicketNumber\": \"MT-2026-0512\", \"fldCompletionDate\": \"2026-05-03\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 16:09:34.229415\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 16:09:34.229415\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec44cc54c8893c56\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Carlos - the gate latch at the Riverside lot has been sticking again. A resident flagged it twice this week. Before we bring it up at tomorrow's standup, can you take a look tonight and tell me whether it's a quick fix or if we need to order a part?\", \"fldTicketNumber\": \"MT-2026-061\", \"fldCompletionDate\": \"2026-05-16\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-16 08:36:00.114974\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 08:36:15.842264\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec4525beedf89a5c\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Walk-through completed this morning. Cleaning crew starts today. Paint and appliance check queued for tomorrow.\", \"fldMoveOut\": \"2026-05-16\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-16\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-16 15:17:24.755037\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 15:17:46.356966\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec46234590708b5c\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Account flagged for second-month delinquency - Tanya Mitchell, unit on file, carries an outstanding balance consisting of May late fees brought forward, full June rent, and the June late fee assessed at month-end. Status: Past Due - Second Month. Tenant contacted the office proactively to request a short-term payment arrangement; Patricia Nguyen is reviewing the request and will present a proposed plan to the team before any further escalation steps are taken.\", \"fldTicketNumber\": \"MT-2026-0184\", \"fldCompletionDate\": null}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-06-05 14:55:42.188895\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-05 14:55:42.188895\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec49debd088dac58\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated on time. Walk-through scheduled for Monday morning. Vendor access confirmed for painting and carpet.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 14:03:06.415401\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 14:03:37.623331\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec4a0a0e7c845756\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"From: tony.reyes@starpm.com\\nTo: isela.juarez@starpm.com\\nSubject: Which vendors are confirmed for the 204B turn?\\n\\nBefore the morning team meeting wraps - does anyone have a confirmed vendor for the carpet work on 204B? Move-out is the 18th and I want the scope locked before end of week. Paint touch-up is unresolved too. Let me know what you have.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 18:26:42.218584\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 18:26:43.950215\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec4a7f4369c0fb58\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Following up from this morning's team meeting discussion on 204B: Isela, can you confirm whether the inspection slot has been locked in with the maintenance lead? I want to make sure we do not slip past the July 10 target. Let me know what you are seeing on your end and I will update the turn log accordingly.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 10:02:50.493007\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 10:02:50.493007\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec4ca8d7181be15c\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet quote came in at $640 from Rivera Flooring - within budget. Paint and cleaning crews confirmed for July 12. Appliance check scheduled July 14.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 15:02:20.090885\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 15:02:20.090885\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec527de274daba58\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated on time. Scheduled walk-through and turn work to begin next week. Carpet replacement and full repaint needed based on pre-move-out inspection notes.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 15:19:12.587059\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 15:19:43.923647\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec54e2aa3abd4758\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Repaint crew checked in this morning. They expect to wrap the living areas by end of day. Carpet crew scheduled to follow on 7/23.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 08:21:58.194639\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 08:21:58.194639\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec553120a588c457\", \"fields\": {\"fldUnit\": \"Rio Bend - 1BR (Tommy Reyes)\", \"fldNotes2\": \"Carpet scope confirmed by Elias Navarro: deep staining throughout and a torn seam requiring re-stretch. Brooke Phillips approved vendor dispatch. Reached out to Victor Rios at A Plus Carpet Cleaning & Repairs for availability and pricing on the deep-clean and seam re-stretch; awaiting his estimate before scheduling the work.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 15:55:20\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 15:55:43.510155\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec591a0f70432651\", \"fields\": {\"fldUnit\": \"Mesa Vista 207A\", \"fldNotes2\": \"All work completed July 17. Final walk-through passed. Unit cleared for leasing as of July 17.\", \"fldMoveOut\": \"2026-05-22\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-22\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 14:02:59.743773\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 14:02:59.743773\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec60592cb551995a\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Unit 4B reported a slow drain in the bathroom sink. Tenant has been waiting since Monday. Scheduled plumber for Thursday morning.\", \"fldTicketNumber\": \"MT-2026-037\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 18:12:08.895016\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 18:12:08.895016\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec60c14606661f59\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated on schedule. Walk-through set for this week. Vendor list confirmed for paint and carpet.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 11:31:41.293497\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 11:31:41.293497\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec61c8fdeefecb54\", \"fields\": {\"fldUnit\": \"Rio Bend 117A\", \"fldNotes2\": \"Painting complete. Carpet replacement underway. Isela to confirm appliance inspection status before next team status meeting.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 14:25:40.887836\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 14:25:40.887836\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec65470a8d0cec57\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"From: tony.reyes@starpm.com | Subject: Following up on the flooring timeline we flagged last meeting\\n\\nAt this morning's status meeting I wanted to circle back on the flooring vendor timeline for 204B - we flagged a potential delay two weeks ago and I want to confirm it's resolved before we lock in the July 10 target ready date. Carpet replacement is underway but I haven't seen confirmation on the cleaning crew slot. Can someone verify that's booked?\\n\\n- Tony\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 09:20:25.855544\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 09:20:26.163540\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec675868936c4658\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Appliance delivery not yet confirmed. Following up with Wesley on fridge and range ETA for this unit.\", \"fldMoveOut\": \"2026-05-19\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-19\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-19 08:55:31.766628\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-19 08:55:31.766628\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec685f5354a7c75e\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Vendor confirmed Wednesday morning walk. Carpet replacement scheduled for Thursday; paint crew booked for Friday. Status advanced to In Progress. July 18 target still achievable barring any surprises.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-06-29\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-29 12:01:07.050641\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-29 12:01:55.759743\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec697bf52cc11f55\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"All punch list items closed out, deep clean and carpet work confirmed done, baseboard touch-up passed re-inspection on May 20. Unit reached Rent Ready status May 21 - cleared for leasing to schedule showings.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-26 03:21:11.822577\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-26 03:21:38.699829\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec6c700af81c8157\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Walk completed May 8 by John Smith. Punch list established: patch drywall in bedroom, repaint living room and hallway, replace garbage disposal, swap out dishwasher, full carpet clean, and deep clean throughout. All items logged and work coordination is underway.\", \"fldMoveOut\": \"2026-05-03\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-03\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 15:39:25\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 15:39:27.180899\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec70812e7cb9c058\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Paint crew started. Carpet vendor confirmed for Thursday. Awaiting Tony's confirmation on whether $340 bathroom fixture falls under turn budget or maintenance budget before submitting to accounting.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 12:41:24.122454\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 12:41:24.122454\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec72156c3559255c\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"HVAC unit in Building C, Unit 304 stopped cooling. Tenant reported warm air since yesterday afternoon. Assigned to maintenance for inspection.\", \"fldTicketNumber\": \"MT-2026-1245\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 14:32:50.856654\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 14:32:50.856654\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec75e31ba4af695a\", \"fields\": {\"fldUnit\": \"Las Vistas 118C\", \"fldNotes2\": \"Isela flagged HVAC filter replacement needed before ready status. Coordinating with maintenance.\", \"fldMoveOut\": \"2026-05-16\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-16\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-16 17:48:00.131364\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 17:48:33.390696\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec769c9f03f0b85f\", \"fields\": {\"fldUnit\": \"Las Palmas 4B\", \"fldNotes2\": \"Tanya Mitchell has entered a payment plan agreement for her outstanding balance and is currently on an active repayment schedule. If all installments are met, tenancy continues through the agreed term. If any payment is missed, the delinquency record will escalate and a make-ready turn may be needed sooner than the target date. Holding this turn as Scheduled pending payment plan compliance through end of July.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-12 14:15:02\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-12 14:15:20.806082\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec7d202aed68c95c\", \"fields\": {\"fldUnit\": \"Sunset Ridge 104B\", \"fldNotes2\": \"Vendor walk-through completed July 14. Repaint started July 15. Carpet install scheduled July 18. On track for July 21 target.\", \"fldMoveOut\": \"2026-05-22\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-22\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 16:10:54.266232\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 16:10:54.266232\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec7d58d218938552\", \"fields\": {\"fldUnit\": \"Las Vistas 211A\", \"fldNotes2\": \"Move-out confirmed for July 14. Make-ready scope not yet assessed - inspection not scheduled. Flagging for discussion at Monday standup. No vendors assigned as of this message.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-06-29\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-29 14:33:46.315279\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-29 14:33:46.315279\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec7e5f633127705f\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant confirmed move-out. Scheduling make-ready crew for the week of July 21. Waiting on carpet vendor availability.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 12:26:05.654975\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 12:26:55.745343\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec7e9acbda7b0553\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Water pressure drop reported in Building B, Units 201 and 203. Tenants noticed slow flow in showers. Plumber consult may be needed. Awaiting Carlos's assessment.\", \"fldTicketNumber\": \"MT-2026-049\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 17:48:04.763546\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 17:48:33.065007\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8005502043b755\", \"fields\": {\"fldUnit\": \"Tanya Mitchell - Delinquency Escalation\", \"fldNotes2\": \"Payment plan status updated to Payment Plan Breached - No Response after the June 23 installment went unmet and follow-up outreach received no reply. Total outstanding balance remains unresolved. Team alerted in #general; escalation to a formal 3-day notice recommended per company policy. Brooke Phillips, Teresa Wood, and Linda Castillo looped in for next steps.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-21 14:57:28.470043\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-21 14:57:28.470043\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec81c43549217354\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Walk-through completed morning of 7/18. Scope confirmed: carpet replacement in bedroom, paint touch-ups throughout, and deep clean. Flooring vendor scheduled for 7/21, cleaning crew follows 7/23. Target ready date of 7/25 is still achievable. Discussed at morning team meeting - team aligned on keeping this prioritized ahead of unit 311A given the incoming lease.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 13:59:53.366217\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 13:59:53.366217\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec852e0d389b325e\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"Wrapping up today's thread. To summarize for the standup: HVAC vendor is confirmed for 8 AM at Palomar, Dave is covering the stairwell lights, and Carlos is assessing the Riverside gate latch. I'll open tomorrow's standup with these three items at the top of the queue. Anything not resolved by then, flag me before 9.\", \"fldTicketNumber\": \"MT-2026-062\", \"fldCompletionDate\": \"2026-05-16\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-16 10:35:39.045312\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 10:35:39.045312\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec85aa13581d375e\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet replacement ordered, waiting on vendor confirmation. Paint touch-ups done. Following up on appliance delivery status this afternoon.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 17:15:28.792891\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 17:15:28.792891\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8625844483b05f\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Rosa - can you check whether the appliance vendor replied to the delivery request for this unit? I haven't seen anything come through on my end and we're tracking toward the 10th.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 19:12:06.567590\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 19:12:06.567590\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec866c69f9f12253\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Water pressure drop in Building B, Units 201 and 203. Plumber consulted - likely sediment buildup in shared line. Scheduled plumber visit for July 21. Medium priority confirmed.\", \"fldTicketNumber\": \"MT-2026-1252\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 07:44:56.754070\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 07:44:56.754070\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec86edd5a590b854\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet replacement added to vendor scope. Total turn cost updated to reflect Allied Flooring quote. Target ready date of July 25 still holds.\", \"fldMoveOut\": \"2026-05-07\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-07\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-07 10:01:37.203011\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-07 10:01:37.203011\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec88734a4fdfde57\", \"fields\": {\"fldUnit\": \"Mesa Vista 310C\", \"fldNotes2\": \"Move-out inspection booked for July 16. Maintenance flagged possible subfloor issue under bathroom tile - needs assessment before scope is finalized.\", \"fldMoveOut\": \"2026-05-22\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-22\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 09:57:55.860338\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 09:57:55.860338\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8a2e43fd717f52\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet install underway as of Thursday 8:15am. Paint touch-ups in bedroom and hallway still pending - scheduled for Friday. Target ready date still holds.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 08:59:43.620769\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 08:59:43.620769\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8c69237d76b259\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Unit inspected following Tommy Reyes's report of an active water heater leak and associated flooring damage. Water heater replacement completed in-house by John Smith; unit is back to operational for that system. However, inspection revealed the flooring damage is more extensive than can be addressed internally - recommend bringing in a professional flooring vendor to assess scope and perform repairs. Escalation to a qualified contractor is the next required step before this ticket can be closed.\", \"fldTicketNumber\": \"MT-2026-1256\", \"fldCompletionDate\": null}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-12 09:56:55.628819\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-12 09:56:55.628819\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8d9b81d39dca50\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Following up on the HVAC report from unit 312 - Wesley, can you confirm whether the vendor contacted earlier this week has been scheduled for the Palomar third floor? I want to make sure we have a firm appointment to reference at tomorrow morning's standup.\", \"fldTicketNumber\": \"MT-2026-058\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 14:37:50.245648\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 14:37:50.245648\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8e3ce4825e9152\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Paint and cleaning completed. HVAC filter replaced. Waiting on countertop repair - vendor coming July 17.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 13:53:29.512662\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 13:53:35.347633\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8e650892e2da5f\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"From: isela.juarez@starpm.com\\nTo: tony.reyes@starpm.com\\nSubject: Which vendors are confirmed for the 204B turn?\\n\\nCarpet is confirmed - full replacement, $610 from Valley Floor Co., scheduled for the 21st. Still chasing Martinez Painting on the touch-up; I should have a number from them by end of day.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 19:59:32.348533\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 19:59:38.945199\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec8e82bac1c3e054\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Unit 204 HVAC not cooling. Tenant reported warm air from all vents. Assigned to Ramos HVAC for inspection.\", \"fldTicketNumber\": \"MT-2026-1257\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 07:25:04.238077\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 07:25:05.785347\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec900522ea4b425f\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Walk-through completed. Minor drywall repair added to scope - patching two walls in the living area. Vendor scheduled for Wednesday. Target ready date holds.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 17:11:12.697837\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 17:11:13.641307\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec91517a5acab558\", \"fields\": {\"fldUnit\": \"Unit 14\", \"fldNotes2\": \"3-Day Notice to Pay or Quit served June 26; compliance deadline June 29. If Tanya Mitchell vacates or is removed by end of notice period, make-ready crew to mobilize immediately. Brooke Phillips has approved escalation. Patricia Nguyen monitoring compliance status - turn scheduling contingent on outcome by June 29.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-28 14:14:25.738865\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-28 14:14:25.738865\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec922b9a2d1b9451\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Owner authorization received from Linda Castillo to proceed with eviction filing for Unit 14. Airtable eviction tracking status advanced to Owner Approved - Ready to File. Filing package is staged and cleared for submission.\", \"fldTicketNumber\": \"EVF-2026-014\", \"fldCompletionDate\": \"2026-06-30\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-06-30 12:59:44\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-30 13:00:17.079592\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec94e86a3007dd5e\", \"fields\": {\"fldUnit\": \"Rio Bend - Unit 14\", \"fldNotes2\": \"Full carpet replacement completed by Victor Rios on May 20. Deep staining and torn seam at the living room transition have been addressed; flooring is clean and serviceable throughout. Unit inspected post-work and confirmed back to rent-ready condition. Ticket closed out as of today.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-24 00:08:52.115609\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-24 00:08:52.115609\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec9689e4350c3750\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Alicia - need your input on whether the appliance order for this unit was confirmed. Discussed at this morning's status meeting but no one had a clear answer. Please advise so we can keep the turn on track.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 11:03:32.755043\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 11:03:32.755043\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec9772028494a858\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Alicia to confirm paint scope before work order is issued. Wesley following up on carpet bid.\", \"fldMoveOut\": \"2026-05-16\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-16\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-16 14:44:35.606855\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 14:44:35.606855\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec987aae7d522057\", \"fields\": {\"fldUnit\": \"Sunset Ridge 309C\", \"fldNotes2\": \"Alicia to confirm whether deep-clean crew is available July 21 or if we need to push to July 23. Awaiting her input from this morning's team status meeting discussion.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 16:11:49.872925\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 16:11:50.409820\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec98bdfeec73545e\", \"fields\": {\"fldUnit\": \"Sunset Ridge 104B\", \"fldNotes2\": \"Tenant vacated early. Vendor walk-through set for July 14. Carpet replacement and full repaint on the scope.\", \"fldMoveOut\": \"2026-05-21\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-21\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-21 18:17:33.620140\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 18:17:43.717932\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec98e6f38712fb55\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Paint crew started July 14. Carpet replacement pushed to July 16 due to material delay. Alicia to confirm whether appliance check is included in this turn scope.\", \"fldMoveOut\": \"2026-06-30\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-06-30\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-30 07:46:48.578357\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-30 07:46:48.578357\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec9ae5115c76a756\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Broken door hinge on Building D, Unit 112 entry door. Tenant cannot fully close the door. Safety concern flagged. Awaiting Dave Thomas's availability for same-day repair.\", \"fldTicketNumber\": \"MT-2026-050\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 19:44:29.279757\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 19:44:29.279757\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec9b8d6303ebe650\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Confirmed with carpet crew - Thursday 8am is locked in. Also flagged the delay in the status meeting this morning so everyone's aware.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 08:04:15.506206\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 08:04:37.887236\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca06d89f1a4ac5b\", \"fields\": {\"fldUnit\": \"Sunset Ridge 309C\", \"fldNotes2\": \"Waiting on final utility transfer confirmation before scheduling vendor access. John to confirm whether HVAC filter replacement is included in base scope or billed separately.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 17:17:06.406086\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 17:17:06.406086\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca0947abbf3955d\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Approved the carpet quote. Paint crew finished July 12 as planned. Appliance check still on for July 14 - will flag if anything needs ordering.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 16:42:12.707170\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 16:42:53.829967\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca1682a9165405c\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Full repaint confirmed for all four rooms. Paint scope added to work order. Carpet approval still pending Tony.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 08:35:42.743622\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 08:35:42.743622\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca424761ae15355\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"All make-ready work at Mesa Vista 4C is complete. Deep clean, interior repaint, faucet cartridge replacement, GFCI outlet swap, and drywall patch all finished and confirmed. QC walkthrough by Jaime addressed the bedroom closet trim; touch-up passed re-inspection. Unit status updated to market-ready in the make-ready record, and Brooke Phillips has been notified to move forward with listing for the incoming resident.\", \"fldTicketNumber\": \"MR-4C-2026-08\", \"fldCompletionDate\": \"2026-05-01\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-06-02 17:51:14.333652\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-02 17:51:14.333652\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca4aa17f0755b55\", \"fields\": {\"fldUnit\": \"Mesa Vista 207A\", \"fldNotes2\": \"Paint and cleaning underway. HVAC filter swap needed - parts ordered July 10. Flooring inspection pending sign-off.\", \"fldMoveOut\": \"2026-05-22\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-22\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 08:37:57.285450\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 08:37:57.285450\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca8230a8fd9ff51\", \"fields\": {\"fldUnit\": \"Sunset Ridge Unit 14\", \"fldNotes2\": \"Tanya Mitchell has acknowledged the June late-rent notice and committed to a payment timeline per her email reply. Delinquency status updated accordingly. Make-ready turn is tentatively scheduled should the balance remain unresolved by the 10-business-day deadline and the unit become vacant. Brooke Phillips and Teresa Wood are looped in on the account status.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-07 13:03:56.668244\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-07 13:03:56.668244\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca8f3d6139b8a56\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated on time. Inspection scheduled for Wednesday. Painting and carpet replacement anticipated - waiting on vendor confirmation before updating status.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-06-29\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-29 07:48:00.643442\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-29 07:48:42.467805\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reca951043459575a\", \"fields\": {\"fldUnit\": \"Rio Bend 117A\", \"fldNotes2\": \"Refrigerator seal replaced and confirmed functional. Final walk completed this morning - unit cleared. Leasing can proceed with showings. Closed out ahead of target date.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 19:30:00.160826\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 19:30:18.332464\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recaa8be51e367258\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"All work completed and unit passed final inspection July 25. Ready for lease-up. 311A remains on track for July 28 target.\", \"fldMoveOut\": \"2026-05-19\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-19\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-19 17:14:46.340965\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-19 17:14:46.340965\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recab792a69699056\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"HVAC unit in Building C lobby making intermittent grinding noise. Reported by front desk staff. Needs inspection before end of week.\", \"fldTicketNumber\": \"MT-2026-081\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 14:40:57.760042\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 14:40:57.760042\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recac236210094352\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Move-out walk completed for Las Palmas Unit 8D following tenant vacancy. Unit requires full turn: carpet has visible staining throughout, kitchen faucet is dripping and needs repair or replacement, and walls show scuff marks requiring touch-up or repaint. Make-Ready Turn record created in Property Operations base with status set to Vacant. Coordinating with team to schedule vendors and get unit rent-ready.\", \"fldTicketNumber\": \"MT-2026-1271\", \"fldCompletionDate\": \"\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-01 11:05:51.210923\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 11:05:51.210923\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recac7bee0922a255\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Building C Unit 304 HVAC refrigerant leak identified during inspection. Refrigerant recharge and seal repair needed. Parts sourced locally.\", \"fldTicketNumber\": \"MT-2026-1273\", \"fldCompletionDate\": \"2026-05-12\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-12 08:37:50.422646\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-12 08:37:50.422646\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recaf016c311fb758\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet vendor confirmed July 21. Crew scheduled for cleaning and paint touch-up the same day. Target ready date holds at July 25.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 16:59:55.153040\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 16:59:55.153040\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb0b7a55185e753\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet in the main bedroom is worn past the pad - replacement needed. Already pulled the quote from Allied Flooring, came in at $610. Safe to add to the scope.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 19:15:15.326404\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 19:15:50.168661\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb23fd4a03c8858\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Las Vistas Unit 9D appliance swap completed May 12. Randy Jones pulled the old dishwasher and garbage disposal from the unit; replacement dishwasher and new disposal were installed the same day. Both appliance removal and installation are confirmed complete.\", \"fldTicketNumber\": \"MT-2026-1277\", \"fldCompletionDate\": \"2026-05-03\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 16:29:20.702394\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 16:29:22.306518\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb5119334a90255\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Water heater at Pinecrest 12 not maintaining temperature. Tenant reported lukewarm water for three days. Replacement unit ordered and awaiting delivery.\", \"fldTicketNumber\": \"MT-2026-1280\", \"fldCompletionDate\": \"2026-05-11\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 11:20:31.683296\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 11:20:31.683296\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb7be291b1a725b\", \"fields\": {\"fldUnit\": \"Las Palmas 312C\", \"fldNotes2\": \"HVAC filter swap and bathroom caulking needed. Wesley asked to confirm contractor availability by end of week. Noted in morning team meeting.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 15:22:48.518124\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 15:22:48.518124\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb7e4e4c8e10653\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant confirmed move-out for July 10. Vendor walkthrough lined up for July 11 morning. Waiting on carpet quote before finalizing scope.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 14:32:36.195640\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 14:32:36.195640\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb95cbc56c8a553\", \"fields\": {\"fldUnit\": \"Las Palmas 312C\", \"fldNotes2\": \"Contractor confirmed for July 15. HVAC and caulking both scoped. Wesley to follow up on supply delivery. Morning meeting follow-up item.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 18:15:56.574219\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 18:15:56.574219\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recbb8616dd33f45f\", \"fields\": {\"fldUnit\": \"Unit 4B\", \"fldNotes2\": \"Carpet damage in living area is too extensive for in-house patching - Carlos Mendez assessed the affected area and has logged a maintenance ticket recommending professional vendor repair. Make-ready turn is on hold pending vendor scheduling; Victor Rios and Brooke Phillips have been notified. Teresa Wood to confirm owner authorization before work order is issued to outside contractor.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-01 12:18:24.049888\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 12:18:43.883358\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recbc1540be721952\", \"fields\": {\"fldUnit\": \"Las Palmas 108C\", \"fldNotes2\": \"Need Carlos to confirm whether full repaint is required or touch-up only. Inspection photos sent to him this morning.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 14:01:13.827854\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 14:01:57.547734\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recbd087a4abd605b\", \"fields\": {\"fldUnit\": \"Mesa Vista 4C\", \"fldNotes2\": \"Internal punch list work underway. Tony has completed the kitchen faucet cartridge replacement, swapped the bathroom GFCI outlet, and patched the drywall. All three items marked done in this record; progress is being coordinated in #maintenance as each task wraps up. Deep clean and interior repaint still tracking on their respective schedules. Will update status to Ready once all vendor and in-house scopes are signed off.\", \"fldMoveOut\": \"2026-06-15\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-06-30\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-22 21:14:07\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-22 21:14:34.331831\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc08364554ef85d\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Got an email from maintenance - 311A move-out is confirmed for 7/20. Walk-through set for 7/21 morning.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 10:47:12.711651\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 10:47:12.711651\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc0ecc885e9645e\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Delinquency logged for Tanya Mitchell - rent due June 1 remains unpaid past the five-day grace period. Monthly rent amount and $75 late fee applied per lease terms have been noted. Status: Past Due - Grace Period Expired. Flagged for follow-up by Patricia Nguyen; Teresa Wood and Brooke Phillips copied for awareness.\", \"fldTicketNumber\": \"DLQ-2026-0601\", \"fldCompletionDate\": null}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-01 08:43:48.381599\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 08:43:50.733400\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc6c819b8eb5157\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Drywall patching and full repaint completed in Las Vistas Unit 9D over May 13-14. Both the drywall repair and paint tasks have been marked complete in the make-ready turn record. Unit is on track for carpet cleaning scheduled May 15.\", \"fldTicketNumber\": \"MT-2026-0514\", \"fldCompletionDate\": \"2026-05-04\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 16:34:18.702394\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 16:34:41.455376\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc76d093b519950\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Turn work underway. Painting complete as of this morning. Vendor confirmed appliance delivery for tomorrow. On track to meet target ready date.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 15:49:25.514236\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 15:49:58.071041\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc83c05d889b354\", \"fields\": {\"fldUnit\": \"Unit 14\", \"fldNotes2\": \"Eviction petition for Tanya Mitchell is currently being coordinated with the Justice of the Peace - make-ready work on this unit cannot begin until the legal process concludes and possession is formally returned. Turn scheduling is tentative and contingent on the court outcome. Per Brooke Phillips: if Mitchell reaches out or attempts to submit payment before the petition is filed, Patricia Nguyen should flag it immediately so the team can assess how to proceed before any turnover activity is initiated.\", \"fldMoveOut\": \"2026-05-02\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-02\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-07-01 09:16:22.441411\", \"created_by_id\": null, \"last_modified_time\": \"2026-07-01 11:18:57.208806\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc8534b3fd13954\", \"fields\": {\"fldUnit\": \"Mesa Vista 4C\", \"fldNotes2\": \"QC walkthrough completed by Jaime Salinas - bedroom closet trim flagged for paint touch-up. Touch-up routed to Tony Reyes and resolved same day. Unit confirmed ready for leasing.\", \"fldMoveOut\": \"2026-06-01\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-06-14\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-29 14:26:59.557207\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-29 14:26:59.557207\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc955f96a091456\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Carpet and repaint completed ahead of schedule. Unit cleared and ready as of July 17. Closed out at morning team meeting.\", \"fldMoveOut\": \"2026-05-09\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-09\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-09 19:57:36.966754\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-09 19:57:36.966754\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc9a0fc2dcd9a5c\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Walk-through completed 7/21. Minor drywall patch needed in bathroom plus standard cleaning. Cleaning crew confirmed for 7/24, drywall contractor for 7/22.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 11:42:15.544509\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 11:42:50.529676\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recc9d9e1236d2959\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Carpet bid came in at $740. Shared with team during status meeting. Awaiting approval to proceed.\", \"fldMoveOut\": \"2026-05-16\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-16\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-16 19:36:57.163286\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-16 19:36:57.163286\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recca0da8f7416f51\", \"fields\": {\"fldUnit\": \"412 Mesquite Kitchen\", \"fldNotes2\": \"Water heater replacement and kitchen flooring damage addressed following tenant report. Victor Rios of A Plus Carpet Cleaning & Flooring completed the flooring installation on July 17. John Smith walked the finished work and confirmed the repair meets standards - unit is clean, flooring is secure, and the area is fully restored. Ticket closed out as Completed.\", \"fldMoveOut\": \"2026-05-03\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-03\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-21 07:15:13\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 07:15:29.182344\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf4c937ca6bc857\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"HVAC unit in Building C, Unit 304 stopped producing cold air. Tenant reported issue this morning. Assigned to maintenance for inspection.\", \"fldTicketNumber\": \"MT-2026-1318\", \"fldCompletionDate\": \"2026-05-11\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 07:54:12.474496\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 07:54:12.474496\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recca5593dd657154\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Dave, separate from the HVAC - the exterior stairwell lighting at Palomar has two burned-out fixtures on the second landing. I logged it this afternoon. Can you grab replacement bulbs from the supply room and handle it tonight or first thing tomorrow? Should be a quick fix.\", \"fldTicketNumber\": \"MT-2026-060\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 19:58:59.133911\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 19:58:59.133911\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reccafc148eb2865a\", \"fields\": {\"fldUnit\": \"Rio Bend 117A\", \"fldNotes2\": \"Ice maker installed July 21. Final inspection passed this morning. Unit marked ready - leasing team notified. Closed out as of today's team status meeting.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 08:05:29.203241\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 08:05:42.214548\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recce483e4c564a55\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant confirmed move-out. Vendor walk-through to be scheduled this week. Carpet and paint likely needed based on last inspection notes.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 15:14:02.493095\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 15:14:45.217843\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"reccf212b3bd6f454\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tony confirmed bathroom fixture cost goes under turn budget. Invoice submitted to accounting. Still on track for July 25 ready date.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 17:14:40.834439\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 17:14:40.834439\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recd33c20aea48355\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Countertop vendor confirmed for July 17 at 9am. Appliance check done - dishwasher seal needs replacement, part ordered. On track for July 22 ready date.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-05 14:50:02.299973\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-05 14:50:21.929585\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recd4dafe27674355\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"HVAC unit in Building C, Unit 304 stopped cooling. High priority escalation confirmed. Technician dispatched for July 16 morning. Follow-up inspection scheduled post-repair.\", \"fldTicketNumber\": \"MT-2026-1305\", \"fldCompletionDate\": \"2026-05-15\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-15 08:15:28.542322\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-15 08:15:29.035633\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recd7675ccb69c757\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated on schedule. Carpet replacement and full repaint on the turn list. Vendor booked for July 21.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 09:35:10.877385\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 09:35:50.447854\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recd9305a73643051\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Decided to proceed with full repaint based on move-out inspection. Vendor confirmed availability for week of 7/21.\", \"fldMoveOut\": \"2026-05-07\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-07\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-07 13:52:02.051982\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-07 13:52:46.124787\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recdaded10ac48a5a\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Roof drainage blockage reported at Riverfront units 4 and 5. Needs cleared before rainy season. Requesting Alicia Vega to confirm if this falls under the reserve fund or operating budget.\", \"fldTicketNumber\": \"MT-2026-1307\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 08:39:33.725183\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 08:39:33.725183\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recdfba6a5717b054\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Lobby exterior light on the north entrance has been flickering. Reported by night security on Tuesday. Electrician availability being checked for this week.\", \"fldTicketNumber\": \"MT-2026-038\", \"fldCompletionDate\": \"2026-05-14\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-14 07:38:06.657550\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 07:38:49.688918\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rece2bfac2dfb975e\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Access confirmed for paint crew. Walk-through completed this morning - minor drywall repair added to scope.\", \"fldMoveOut\": \"2026-05-18\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-18 15:14:34.572046\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-18 15:14:36.439589\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rece354375400a756\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Team agreed in Monday standup to prioritize 204B for the July turn cycle. Vendor access confirmed for carpet and paint. Inspection scheduled before work begins.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-06-29\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-29 19:11:00.995275\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-29 19:11:50.343364\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rece7490a55e2675d\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Follow-up inspection confirmed HVAC compressor belt is worn. Parts ordered from Rivera HVAC Supply. Unit operating at reduced capacity in the interim.\", \"fldTicketNumber\": \"MT-2026-082\", \"fldCompletionDate\": \"2026-05-13\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-13 16:03:44.340162\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-13 16:03:44.340162\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rece9699d501c9357\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Vendor no-show yesterday pushed the carpet install back. Rescheduled for Thursday morning. Will flag at today's status meeting.\", \"fldMoveOut\": \"2026-05-19\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-19\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-19 20:31:48.633912\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-19 20:31:48.633912\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"receb057b02f20052\", \"fields\": {\"fldUnit\": \"Las Palmas 8D\", \"fldNotes2\": \"Turn closed out as of today. All in-house repairs finished, carpet cleaned and sealed, deep clean complete, and QC punch-list items resolved by maintenance. Unit has passed final walk clearance and is cleared for leasing - available to show immediately.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-01 11:27:55.563427\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 11:27:55.563427\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"receeb2b3334dd754\", \"fields\": {\"fldUnit\": \"Las Vistas 9D\", \"fldNotes2\": \"Baseboard touch-up completed by John on May 20. Jaime re-inspected the same afternoon and confirmed the work meets standard - QC now passed and unit cleared for move-in.\", \"fldMoveOut\": \"2026-05-05\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-05\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-26 03:18:03.822577\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-26 03:18:23.371260\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"receee45491536859\", \"fields\": {\"fldUnit\": \"Unit 14 - Tanya Mitchell Eviction\", \"fldNotes2\": \"Eviction filing package compiled and awaiting owner sign-off before submission. Outstanding balance and all supporting documentation logged. Make-ready turn to be scheduled once legal process concludes and unit is vacated. Brooke Phillips and Teresa Wood tagged for review.\", \"fldMoveOut\": \"2026-06-29\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-01 11:44:06.636326\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-01 11:44:11.229156\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf040e18d826352\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Follow-up on Pinecrest 12 water heater: tenant notified of Monday installation window 8 to 11 AM. Tenant confirmed availability.\", \"fldTicketNumber\": \"MT-2026-1317\", \"fldCompletionDate\": \"2026-05-11\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-11 11:21:17.464728\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-11 11:21:17.464728\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf464d254aa705f\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant confirmed move-out. Vendor walk-through scheduled. Paint and carpet replacement needed per inspection. Bathroom fixture estimate ($340) pending budget classification before invoice can be submitted.\", \"fldMoveOut\": \"2026-05-06\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-06\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-06 11:24:29.986018\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-06 11:24:39.076038\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf50eb955a10651\", \"fields\": {\"fldUnit\": \"Sunset Ridge 309C\", \"fldNotes2\": \"Alicia confirmed deep-clean crew available July 21. Coordinating vendor access for that morning. Flooring inspection also booked for July 22. All on track per team status meeting update.\", \"fldMoveOut\": \"2026-05-17\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-17\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-17 20:22:03.763934\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-17 20:22:42.053887\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf67181e1d0d756\", \"fields\": {\"fldPriority\": \"selLow\", \"fldDescription\": \"All open items from the monthly budget review are logged and assigned. HVAC and roof drainage are priority; electrician work is cleared for scheduling. Closing this review cycle's action items.\", \"fldTicketNumber\": \"MT-2026-1320\", \"fldCompletionDate\": \"2026-05-21\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-05-21 13:14:47.559432\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-21 13:14:51.942592\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf7aecc318b2252\", \"fields\": {\"fldUnit\": \"Las Palmas 8D\", \"fldNotes2\": \"John Smith and James Bennett are three days into the in-house make-ready work - hallway drywall patches, kitchen faucet replacement, and bedroom/living room paint touch-ups are all underway. John has been posting daily progress updates in #make-ready as the crew works through the punch list.\", \"fldMoveOut\": \"2026-05-01\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-01\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-14 17:09:42\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-14 17:09:46.577244\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recf9e20823a3445f\", \"fields\": {\"fldUnit\": \"Las Vistas 311A\", \"fldNotes2\": \"Supplier confirmed fridge and range delivering Friday July 25. Cleaning crew started today - unit now in progress.\", \"fldMoveOut\": \"2026-05-19\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-05-19\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-19 11:07:05.979730\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-19 11:07:55.840116\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recfd97330c538d50\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"204B cleared final inspection 7/25. Repaint and carpet both signed off. Unit is ready for leasing to proceed.\", \"fldMoveOut\": \"2026-05-08\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-08\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-08 12:10:26.188089\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-08 12:10:29.120799\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recfdbf3bbb416659\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"All work completed and unit passed inspection this morning. Closed out on schedule. Ready for new resident move-in.\", \"fldMoveOut\": \"2026-05-20\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-05-20\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-20 13:10:43.116620\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-20 13:10:54.715454\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recff610bf2748453\", \"fields\": {\"fldUnit\": \"Las Palmas 204B\", \"fldNotes2\": \"Tenant vacated early - keys returned 7/17. Scope not yet confirmed; waiting on walk-through results before assigning vendors. Brought up at morning team meeting to get input on priority level relative to current turn queue.\", \"fldMoveOut\": \"2026-05-10\", \"fldTurnStatus\": \"selSched\", \"fldTargetReady\": \"2026-05-10\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-05-10 13:56:35.351833\", \"created_by_id\": null, \"last_modified_time\": \"2026-05-10 13:56:42.874919\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec291f423370e2a2db\", \"fields\": {\"fldUnit\": \"Las Vistas 3C\", \"fldNotes2\": \"QC kickback and rework cycle. First-pass QC (Jaime Salinas, 6/16) failed: uneven paint touch-ups along the living room baseboard, refrigerator and oven interiors left dirty, and the bathroom towel ring installed reversed. Unit returned to rework; punch list tracked in OPS-224/225/226. James Bennett completed corrections over the next two days. Second-pass QC (6/18) passed all items; unit set to Ready and cleared for marketing with supervisory sign-off from Brooke Phillips.\", \"fldMoveOut\": \"2026-06-09\", \"fldTurnStatus\": \"selReady\", \"fldTargetReady\": \"2026-06-18\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-16 09:00:00\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-18 14:00:00\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec651427ec0d84dd5a\", \"fields\": {\"fldUnit\": \"Las Palmas 8D\", \"fldNotes2\": \"Refrigerator swap scheduled Thu 6/25 as part of the make-ready turn. Randy Jones logged pull-and-deliver timing after de-conflicting two same-day appliance swaps across properties; Las Palmas 8D confirmed as the critical path (lease signing pending). Old refrigerator hauled, replacement delivered and installed in the morning window.\", \"fldMoveOut\": \"2026-06-18\", \"fldTurnStatus\": \"selProg\", \"fldTargetReady\": \"2026-06-26\"}, \"table_id\": \"tblMakeReady\", \"created_time\": \"2026-06-25 08:00:00\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-25 16:30:00\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"recb403fe04c2f97683\", \"fields\": {\"fldPriority\": \"selMedium\", \"fldDescription\": \"Dishwasher pull-and-replace at Rio Bend 214. Old unit removed, replacement installed. Scheduled the same Thursday (6/25) as the Las Palmas 8D refrigerator swap; Randy Jones logged the de-conflicted timing — the Rio Bend pickup moved to the afternoon window after Las Palmas 8D was confirmed as the critical path.\", \"fldTicketNumber\": \"MT-2026-1325\", \"fldCompletionDate\": \"2026-06-25\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-06-25 08:45:00\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-25 15:30:00\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  },
+  {
+    "row_data": "{\"id\": \"rec860db6b493af1e5b\", \"fields\": {\"fldPriority\": \"selHigh\", \"fldDescription\": \"Mesa Vista community pool closed — weekend storm damaged the pool pump (motor + pressure switch). Pool taken offline Mon 6/15; Hill Country Plumbing engaged to assess and repair (tracked in OPS-230). Expected reopening Wed 6/17. Outage window: 6/15-6/17. Residents notified; leasing flagged for tour questions.\", \"fldTicketNumber\": \"MT-2026-1326\", \"fldCompletionDate\": \"2026-06-17\"}, \"table_id\": \"tblMaintenanceTickets\", \"created_time\": \"2026-06-15 08:00:00\", \"created_by_id\": null, \"last_modified_time\": \"2026-06-17 14:00:00\", \"last_modified_by_id\": null}",
+    "source": "airtable.airtable_records"
+  }
+]

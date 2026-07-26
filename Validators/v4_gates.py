@@ -14,6 +14,7 @@ import json
 import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from decimal import Decimal, InvalidOperation
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -71,7 +72,42 @@ UPDATE_RE = re.compile(
     r"UPDATE\s+([A-Za-z0-9_.\"]+)\s+SET\s+(.+?)(?:WHERE\s+(.+?))?;",
     re.IGNORECASE | re.DOTALL,
 )
+DELETE_RE = re.compile(
+    r"DELETE\s+FROM\s+([A-Za-z0-9_.\"]+)(?:\s+WHERE\s+(.+?))?;",
+    re.IGNORECASE | re.DOTALL)
 STMT_SPLIT_RE = re.compile(r";\s*(?:\n|$)")
+
+
+# --- money + calendar-create helpers (F4 normalization + F2 write-target exemption) ---
+def _canonical_amount(raw: str):
+    # normalize a money token to a 2dp Decimal string, or None if unparseable
+    s = raw.replace("$", "").replace(",", "").strip()
+    try:
+        return str(Decimal(s).quantize(Decimal("0.01"))) if s else None
+    except (InvalidOperation, ValueError):
+        return None
+
+
+# money-shaped tokens only: carry a $, a thousands-comma group, or a decimal point;
+# deliberately excludes bare integers so record ids / counts cannot create phantom matches.
+_SEARCH_MONEY_RE = re.compile(r"\$\s?[\d,]+(?:\.\d+)?|\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d+\.\d+\b")
+
+
+def _searchable_amounts(text: str) -> set:
+    # canonical 2dp amount set from money-shaped tokens in the SSOT text
+    out = set()
+    for m in _SEARCH_MONEY_RE.finditer(text):
+        c = _canonical_amount(m.group(0))
+        if c:
+            out.add(c)
+    return out
+
+
+# F2 write-target exemption: prompt asked for a calendar/reminder create, the rubric is
+# calendar-create-shaped, and the date is near-term (WINDOW_END + 31d).
+_PROMPT_SCHED_RE = re.compile(r"\b(remind(?:er)?|calendar|schedule|follow[\s-]?up|come back|revisit|next week|next month)\b", re.IGNORECASE)
+_CAL_RUBRIC_RE = re.compile(r"\b(calendar|reminder|gcalendar|create[_\s]?event|save[_\s]?event|schedule|follow[\s-]?up|revisit|come back)\b", re.IGNORECASE)
+_NEAR_FUTURE_HI = WINDOW_END + timedelta(days=31)
 
 
 def _read(p: Path) -> str:
@@ -167,12 +203,19 @@ def parse_inject_sql(sql_text: str):
         inserts.append({"table": table, "cols": cols, "rows": rows, "raw": m.group(0)})
     for m in UPDATE_RE.finditer(body):
         updates.append({"table": m.group(1).strip().strip('"'), "set": m.group(2), "where": m.group(3) or "", "raw": m.group(0)})
-    stripped = re.sub(INSERT_RE, "", re.sub(UPDATE_RE, "", body))
+    # v22: DELETE was previously excluded from the skip-list check, which meant a
+    # DELETE against a base-universe row was parsed by nothing and reported by nothing,
+    # while AGENTS.md rule 4 states base universe rows are "never modified or deleted".
+    # Capture them so validate_injection can fail on them.
+    deletes = []
+    for m in DELETE_RE.finditer(body):
+        deletes.append({"table": m.group(1).strip().strip('"'), "where": m.group(2) or "", "raw": m.group(0)})
+    stripped = re.sub(INSERT_RE, "", re.sub(UPDATE_RE, "", re.sub(DELETE_RE, "", body)))
     for stmt in STMT_SPLIT_RE.split(stripped):
         s = stmt.strip()
-        if s and not s.upper().startswith(("BEGIN", "COMMIT", "SET ", "DELETE")) and ("INSERT" in s.upper() or "UPDATE" in s.upper() or "VALUES" in s.upper()):
+        if s and not s.upper().startswith(("BEGIN", "COMMIT", "SET ")) and ("INSERT" in s.upper() or "UPDATE" in s.upper() or "DELETE" in s.upper() or "VALUES" in s.upper()):
             errors.append(f"unparseable statement fragment: {s[:100]}")
-    return inserts, updates, errors
+    return inserts, updates, deletes, errors
 
 
 def _dates_in(text: str):
@@ -254,7 +297,7 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
 
     # P1 Schema & Structural (HARD GATE)  [Eval0 P1 SCHEMA_VIOLATION]
     sql_text = _read(sql_path)
-    inserts, updates, errors = parse_inject_sql(sql_text) if sql_text.strip() else ([], [], [])
+    inserts, updates, deletes, errors = parse_inject_sql(sql_text) if sql_text.strip() else ([], [], [], [])
     for e in errors:
         rep.fail(f"[Eval0 P1 SCHEMA_VIOLATION] {e}")
     changelog = None
@@ -320,6 +363,37 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
         for d, raw in _dates_in(upd["set"]):
             if d is not None and not (win_lo <= d <= win_hi):
                 rep.fail(f"[Eval0 P3 TEMPORAL_VIOLATION] UPDATE {upd['table']}: date {raw} outside window {win_lo}..{win_hi}")
+
+    # P4a base-universe immutability  [Eval0 P4 / AGENTS.md rule 4]
+    # Rule 4: "base universe rows are never modified or deleted, and every injection must
+    # clear validate.py --phase injection". Injection ADDS scenario data. Upstream Eval0
+    # contemplates update/delete operations (P0.7, P4.1), so this repo is deliberately
+    # STRICTER than the eval; recorded as such in AGENTS.md. Until v22 the rule existed
+    # only in prose: DELETE statements were excluded from the parser's own skip-list and
+    # so were reported by nothing at all, and UPDATE statements were only date-checked.
+    for dele in deletes:
+        rep.fail(f"[Eval0 P4 / AGENTS r4] DELETE against {dele['table']} is forbidden. "
+                 f"Injection adds scenario data; base universe rows are never deleted. "
+                 f"Re-express the scenario as INSERTs, or state the contradiction in a new "
+                 f"row and let the agent reconcile it.")
+    inserted_ids_by_table = {}
+    for ins in inserts:
+        bucket = inserted_ids_by_table.setdefault(ins["table"], set())
+        for row in ins["rows"]:
+            for col, val in row.items():
+                if col.lower() in ("id", "ts", "uuid", "identifier", "ticket_number", "record_id"):
+                    bucket.add(str(val).strip().strip("'\""))
+    for upd in updates:
+        where = upd.get("where") or ""
+        touched = set(re.findall(r"'([^']+)'", where)) | set(re.findall(r'"([^"]+)"', where))
+        own = inserted_ids_by_table.get(upd["table"], set())
+        # An UPDATE that only touches rows this same injection inserted is benign
+        # bookkeeping. An UPDATE that reaches anything else mutates the base universe.
+        if not touched or not touched <= own:
+            rep.fail(f"[Eval0 P4 / AGENTS r4] UPDATE against {upd['table']} modifies rows this "
+                     f"injection did not insert (WHERE: {where.strip()[:80] or 'no WHERE clause'}). "
+                     f"Base universe rows are never modified. Express the new state as an "
+                     f"additional row so the stale one remains discoverable as a contradiction.")
 
     # P4 integrity & cross-service  [Eval0 P4]
     for table, row in all_rows:
@@ -410,7 +484,14 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
         except json.JSONDecodeError:
             rep.warn("[Eval5 P1] tool catalog unparseable - F1 tool cross-ref degraded")
     services = set(consts.get("services", []))
-    searchable = base_text + "\n" + inject_text + "\n" + oe_text
+    # QC Spec Doc2, 07/16: "OEs are CB interpretations, not ground truth ... universe data is
+    # sole SOT". Including oe_text here let a rubric cite a value that exists ONLY in an
+    # Oracle Event and still clear the phantom check, which is a false-negative generator in
+    # the deliverable the pipeline exists to protect. Universe data plus the injection are the
+    # source of truth; the OE is not.
+    searchable = base_text + "\n" + inject_text
+    searchable_amounts = _searchable_amounts(searchable)
+    prompt_wants_future_write = bool(_PROMPT_SCHED_RE.search(prompt_text))
     domain = consts.get("persona_email_domain", "starpm.com")
     personas = {e.lower() for e in (consts.get("personas") or {})} if isinstance(consts.get("personas"), dict) else set()
 
@@ -437,15 +518,21 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
             if svc not in services:
                 rep.fail(f"[Eval5 P1 IMPOSSIBLE] rubric #{idx} references service '{svc}' which is not in the {universe} service set")
 
-        # F2 persona/date  [Eval5 P2]
-        for d, raw in _dates_in(title + " " + evid):
-            if d is not None and not (WINDOW_START - timedelta(days=365) <= d <= WINDOW_END):
-                rep.fail(f"[Eval5 P2 MISMATCH] rubric #{idx} references date {raw} after universe today ({WINDOW_END}) - future-dated expectation")
+        # F2 persona/date  [Eval5 P2] - future dates are defects UNLESS they are a
+        # prompt-sanctioned near-term calendar/reminder write target (not future-as-past).
+        rubric_is_cal_create = bool(_CAL_RUBRIC_RE.search(title + " " + evid))
+        for d, raw in set(_dates_in(title + " " + evid)):
+            if d is None or WINDOW_START - timedelta(days=365) <= d <= WINDOW_END:
+                continue
+            if prompt_wants_future_write and rubric_is_cal_create and WINDOW_END < d <= _NEAR_FUTURE_HI:
+                rep.note(f"[Eval5 P2] rubric #{idx} future date {raw} is a prompt-sanctioned calendar/reminder write target (<= {_NEAR_FUTURE_HI}) - COUNCIL confirm resolved day")
+                continue
+            rep.fail(f"[Eval5 P2 MISMATCH] rubric #{idx} references date {raw} after universe today ({WINDOW_END}) - future-dated expectation")
 
         # F2 phantom refs  [Eval5 P2 PHANTOM]
         for ref in set(ID_TOKEN_RE.findall(blob)):
             if ref not in searchable:
-                rep.fail(f"[Eval5 P2 PHANTOM] rubric #{idx} cites '{ref}' which appears nowhere in universe data, injection, or OEs")
+                rep.fail(f"[Eval5 P2 PHANTOM] rubric #{idx} cites '{ref}' which appears nowhere in universe data or the injection (QC spec 07/16: universe data is the sole source of truth, an OE mention does not qualify)")
         for em in set(e.lower() for e in EMAIL_RE.findall(blob)):
             if em.endswith("@" + domain) and personas and em not in personas and em not in searchable.lower():
                 rep.fail(f"[Eval5 P2 PHANTOM] rubric #{idx} cites persona address '{em}' matching no {universe} persona or universe mailbox")
@@ -455,9 +542,12 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
             rep.fail(f"[Eval5 P3 TOOL_GATE] process rubric #{idx} credits tool-calling motions ('{title[:80]}') instead of a verification outcome")
 
         # F4 broken rubric: expected value absent from SSOT  [Eval5 P4 BROKEN]
+        # normalize money on both sides (universe stores bare floats e.g. 2132.0; rubric writes $2,132.00)
         for amt in set(MONEY_RE.findall(title)):
-            if amt not in searchable:
-                rep.fail(f"[Eval5 P4 BROKEN] rubric #{idx} expects amount {amt} which does not exist in universe data, injection, or OEs")
+            c = _canonical_amount(amt)
+            present = (c in searchable_amounts) if c else (amt in searchable)
+            if not present:
+                rep.fail(f"[Eval5 P4 BROKEN] rubric #{idx} expects amount {amt} which does not exist in universe data or the injection (QC spec 07/16: universe data is the sole source of truth)")
 
         # F5 illegal tool-output dependency  [Eval5 P5 NEEDS_TOOL_OUTPUT]
         m = TOOL_OUTPUT_DEP_RE.search(blob)
@@ -489,4 +579,137 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
         rep.fail(f"[Eval5 P3] Process rubrics ({process_count}) outnumber Outcome rubrics ({outcome_count}) - violates outcome-first mandate")
     rep.note(f"[Eval5 P7] rubric census: {outcome_count} outcome / {process_count} process / {len(rubrics)} total")
     rep.note("[Eval5 P6] COUNCIL: under-strictness (6.3), exclusion coverage (6.6), UGT convergence (6.8), OE authority (6.9), strict feasibility (6.10), date-alignment ambiguity (6.11) require semantic judgment - flagged for council review")
+    _false_fail_backstops(task_dir, rep, universe, rubrics, prompt_text, oe_text)
     return True
+
+
+# ---------------------------------------------------------------------------
+# v21.3 false-fail backstops. Post-mortem: Task 39 (Las Palmas 8D) shipped a
+# QC-fail-capable fault because the human-judgment gates (Council/AUDIT/FINAL/S4)
+# SAW three defect classes and mis-scored them as "Minor / ship-as-is". These are
+# deterministic nets so the mis-score cannot ship:
+#   F7 AMBIGUOUS_TARGET     rubric pins ONE record id but >=2 universe rows share
+#                           its entity and the prompt names none (R2/R3/R4).
+#   F8 NON_ATOMIC_ENUM      one criterion enumerates >=3 conjunctive items under a
+#                           completeness/step predicate (R11 had 3, R15 had 5).
+#   F9 UNRECONCILED_FUTURE_EVT confirmed calendar event dated >= universe today
+#                           references the task entity, its date is uncited in the
+#                           OEs, and the deliverables assert completeness (the
+#                           2026-07-07 carpet walk that broke "disposal is the only
+#                           open item").
+# ---------------------------------------------------------------------------
+_CANON_SET_RE = re.compile(r"must be one of|including but not limited to|at least one of|\bor similar\b|\bor equivalent\b", re.I)
+_WRITE_TGT_RE = re.compile(r"\bthe agent(?:'s)?\s+(?:update|updates|change|changes|set|sets|mark|marks|log|logs|edit|edits|correct|corrects|revise|revises|square|squares)\b", re.I)
+_ENUM_PREDICATE_RE = re.compile(r"\b(?:are|is|were|was)\s+(?:complete|completed|done|finished|resolved|taken care of|in place)\b|what it(?:'?ll| will)? takes?\b|\bsteps?\b|\bit(?:'?ll| will)? take to\b", re.I)
+_REC_ID_RE = re.compile(r"\brec[0-9a-f]{13,20}\b")
+_COMPLETE_CLAIM_RE = re.compile(
+    r"\beverything else\b|\bthe rest\b|\brest of\b|\ball (?:other )?(?:work|items?) (?:is|are) (?:done|complete)\b|"
+    r"\b(?:only|sole|lone|one)\b[^.]{0,45}\b(?:item|thing|blocker|piece)\b[^.]{0,45}\b(?:open|outstanding|left|remaining|blocking|keeping|to close)\b",
+    re.I)
+
+
+def _split_rows_file(task_dir, fname):
+    p = task_dir / "_aux" / "Universe_Split" / fname
+    if not p.is_file():
+        return None
+    try:
+        d = json.loads(_read(p))
+    except json.JSONDecodeError:
+        return None
+    rows = d if isinstance(d, list) else next((v for v in d.values() if isinstance(v, list)), [])
+    out = []
+    for r in rows:
+        if isinstance(r, dict) and isinstance(r.get("row_data"), str):
+            try:
+                out.append(json.loads(r["row_data"]))
+            except json.JSONDecodeError:
+                out.append(r)
+        else:
+            out.append(r)
+    return out
+
+
+def _false_fail_backstops(task_dir, rep, universe, rubrics, prompt_text, oe_text):
+    """v21.3 deterministic backstops (F7/F8/F9). StarPM-only for now (the fault class
+    was proven on a StarPM V4 task); the shapes generalize but the universe readers
+    below are keyed to the StarPM split layout. F8 (enumeration) is universe-agnostic
+    and runs everywhere; F7/F9 need the StarPM split readers and are gated below."""
+    prompt_lc = prompt_text.lower()
+    oe_lc = oe_text.lower()
+    rubric_blob = " ".join(" ".join(str(r.get(k, "")) for k in ("title", "criterion", "justification", "evidence")) for r in rubrics)
+
+    # ---- F8: non-atomic conjunctive enumeration (>=3 items under a completeness/step predicate) ----
+    for idx, r in enumerate(rubrics, 1):
+        title = str(r.get("title", r.get("criterion", "")))
+        if _CANON_SET_RE.search(title) or "@" in title:
+            continue
+        if title.count(",") >= 2 and re.search(r",\s*(?:and|or)\s+\w", title) and _ENUM_PREDICATE_RE.search(title):
+            n = title.count(",") + 1
+            rep.fail(f"[Eval5 P6 6.1b NON_ATOMIC_ENUM] rubric #{idx} enumerates ~{n} items in one criterion under a completeness/step predicate - split into one rubric per item (the Airtable write was correctly split into 3; apply the same rule to the rest)")
+
+    if universe != "starpm":
+        return  # F7/F9 use the StarPM split readers; F8 above already ran for every universe
+
+    # ---- universe record index (F7 / F9) ----
+    recs = _split_rows_file(task_dir, "airtable.airtable_records.json")
+    rec_by_id = {}
+    if recs:
+        for e in recs:
+            if not isinstance(e, dict):
+                continue
+            rid = e.get("id")
+            fields = e.get("fields") if isinstance(e.get("fields"), dict) else {}
+            tbl = e.get("table_id") or e.get("tableId") or ""
+            if rid:
+                rec_by_id[rid] = (tbl, fields)
+
+    # ---- F7: ambiguous target record ----
+    entity_vals = set()
+    for idx, r in enumerate(rubrics, 1):
+        title = str(r.get("title", r.get("criterion", "")))
+        if not _WRITE_TGT_RE.search(title):
+            continue
+        for rid in set(_REC_ID_RE.findall(title)):
+            if rid not in rec_by_id:
+                continue
+            tbl, fields = rec_by_id[rid]
+            ent = None
+            for fv in fields.values():
+                if isinstance(fv, str) and len(fv) >= 4 and fv.lower() in title.lower():
+                    if ent is None or len(fv) > len(ent):
+                        ent = fv
+            if not ent:
+                continue
+            entity_vals.add(ent)
+            siblings = [oid for oid, (otbl, of) in rec_by_id.items()
+                        if otbl == tbl and any(isinstance(v, str) and ent.lower() in v.lower() for v in of.values())]
+            if len(siblings) >= 2 and rid.lower() not in prompt_lc:
+                rep.fail(f"[Eval5 P7 AMBIGUOUS_TARGET] rubric #{idx} pins record {rid} but {len(siblings)} records in {tbl} share entity '{ent}' and the prompt names none of them - a reasonable agent may write a sibling row and wrongly fail. Name the record in the prompt, or accept any matching record.")
+
+    # ---- F9: unreconciled future confirmed calendar event on the task entity ----
+    if entity_vals and (_COMPLETE_CLAIM_RE.search(oe_text) or _COMPLETE_CLAIM_RE.search(rubric_blob)):
+        events = _split_rows_file(task_dir, "gcalendar.gcalendar_events.json") or []
+        fired = set()
+        for e in events:
+            if not isinstance(e, dict):
+                continue
+            status = str(e.get("status", "")).lower()
+            if status and status != "confirmed":
+                continue
+            start_raw = str(e.get("start_dt") or e.get("start_time") or "")
+            try:
+                sd = date(int(start_raw[0:4]), int(start_raw[5:7]), int(start_raw[8:10])) if len(start_raw) >= 10 else None
+            except ValueError:
+                sd = None
+            if sd is None or sd < WINDOW_END:
+                continue
+            iso = start_raw[0:10]
+            props = e.get("properties") if isinstance(e.get("properties"), dict) else {}
+            blob = " ".join(str(x) for x in (e.get("summary", ""), e.get("title", ""), e.get("description", ""),
+                                             props.get("summary", ""), props.get("title", ""), props.get("description", ""), props.get("location", "")))
+            blob_lc = blob.lower()
+            for ent in entity_vals:
+                if ent.lower() in blob_lc and iso not in oe_text and iso not in rubric_blob and (ent, iso) not in fired:
+                    fired.add((ent, iso))
+                    summ = (props.get("summary") or e.get("summary") or props.get("title") or "calendar event").strip()
+                    rep.fail(f"[Eval5 P7 UNRECONCILED_FUTURE_EVT] confirmed calendar event '{summ[:70]}' dated {sd} references task entity '{ent}' but no Oracle Event cites that date - a future confirmed event is open work. Sweep every service (incl. Calendar) before asserting completeness / 'only open item'.")

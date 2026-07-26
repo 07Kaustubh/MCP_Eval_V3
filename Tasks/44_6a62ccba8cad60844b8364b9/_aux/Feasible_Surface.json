@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "universe": "starpm",
+    "tables_scanned": 33
+  },
+  "tables": {
+    "airtable.airtable_fields": {
+      "type": [
+        "date",
+        "multilineText",
+        "singleLineText",
+        "singleSelect"
+      ]
+    },
+    "airtable.airtable_pages": {
+      "page_type": [
+        "list"
+      ]
+    },
+    "airtable.airtable_views": {
+      "type": [
+        "grid"
+      ]
+    },
+    "contacts.contacts": {
+      "status": [
+        "Unknown"
+      ]
+    },
+    "gcalendar.gcalendar_events": {
+      "status": [
+        "confirmed"
+      ]
+    },
+    "hubspot.hubspot_associations": {
+      "to_type": [
+        "companies",
+        "contacts",
+        "deals",
+        "tickets"
+      ],
+      "from_type": [
+        "companies",
+        "contacts",
+        "deals",
+        "tickets"
+      ]
+    },
+    "hubspot.hubspot_objects": {
+      "object_type": [
+        "companies",
+        "contacts",
+        "deals",
+        "notes",
+        "tickets"
+      ]
+    },
+    "hubspot.hubspot_owners": {
+      "type": [
+        "PERSON"
+      ]
+    },
+    "hubspot.hubspot_properties": {
+      "type": [
+        "bool",
+        "datetime",
+        "enumeration",
+        "number",
+        "string"
+      ],
+      "field_type": [
+        "checkbox",
+        "date",
+        "number",
+        "select",
+        "text"
+      ],
+      "object_type": [
+        "calls",
+        "campaigns",
+        "companies",
+        "contacts",
+        "deals",
+        "emails",
+        "engagements",
+        "leads",
+        "meetings",
+        "notes",
+        "tasks",
+        "tickets"
+      ]
+    },
+    "linear.linear_issues": {
+      "state_id": [
+        "state_OPS_0",
+        "state_OPS_1",
+        "state_OPS_2",
+        "state_OPS_3",
+        "state_OPS_4"
+      ]
+    },
+    "linear.linear_projects": {
+      "state": [
+        "backlog"
+      ]
+    },
+    "linear.linear_workflow_states": {
+      "type": [
+        "backlog",
+        "completed",
+        "started",
+        "unstarted"
+      ]
+    },
+    "quickbooks.quickbooks_entities": {
+      "entity_type": [
+        "account",
+        "bill",
+        "credit_memo",
+        "customer",
+        "estimate",
+        "invoice",
+        "item",
+        "payment",
+        "term",
+        "vendor"
+      ]
+    },
+    "slack.slack_messages": {
+      "type": [
+        "message"
+      ]
+    },
+    "slack.slack_users": {
+      "status_text": [
+        ""
+      ],
+      "status_emoji": [
+        ""
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+## James Bennett · Assistant Maintenance Technician
+
+| | |
+|---|---|
+| Business Function | 4 · Maintenance & Repairs |
+| Persona id | `p_006` · email `james.bennett@starpm.com` |
+| Seniority | Junior · Department: Maintenance |
+| Communication | Formality 0.35 · verbosity 0.30 · response time fast · active hours 6 AM–3 PM |
+| Personality | Diligent · punctual · eager to learn |
+| Scripted footprint | **0 scripted actions** (participant in `makeready_laspalmas8d_turn`) — **design-surface** |
+
+**What he owns.** James is the Assistant Maintenance Technician. He executes tickets under John's or Elias's direction — routine repairs (garbage disposals, minor plumbing, small drywall), tenant-facing appointments, and second-hand support during turns. He has zero scripted actions in the current universe but participates as cast in `makeready_laspalmas8d_turn`.
+
+**Systems he touches most.** Linear (ticket execution), Slack `#maintenance`, Google Calendar (dispatch appointments), occasional Gmail.
+
+**Voice.** Diligent, punctual, junior-tier. Least formal (0.35). Short confirmations, quick status updates. Tone is closer to a technician on the ground than a Lead.
+
+**Authoring guidance.** Because James is completely design-surface, tasks written for him are author-from-spec — model his prompts after the shape of Assistant Maintenance Tech work (executes assigned tickets, follows Lead's routing, reports back on completion) rather than any specific scripted arc.
+
+---
+

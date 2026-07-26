@@ -1,0 +1,24 @@
+# Todos — S1
+
+- [x] Run phase-readiness gate (`phase_ready.py --phase s1`) — OK, 1/1 upstream artifact present
+- [x] Create `_aux/Todos_s1.md` (this file)
+- [x] Create `_aux/Reads_s1.md` and log every spec / reference doc read
+- [x] Read inputs: 1_Business_Function, 2_Persona, PersonaBrief, Hardness_Plan
+- [x] Read Reference/Prompt_Format.md + Prompt_Guidelines.md + Reference/Council_Protocol.md
+- [x] Read Docs_starpm/4_Prompt_Hard_Tips.md + Docs_starpm/6_Prompt_Relative_Time_Updates.md (date SSOT, today = 2026-07-01)
+- [x] Read Evals_starpm/1_Prompt_Eval.md (12 sub-dims + hard gates)
+- [x] Read V4 reference corpus QC_Tasks/V4_Tasks/QC_Passed/Task1..Task4/5_Prompt.txt for voice/structure
+- [x] Ground-check the universe facts the prompt asserts against `_aux/Universe_Split/` (Linear issues + states + comments, Slack C001, contacts, all 565 calendar rows, Airtable tables)
+- [x] Draft `5_Prompt.txt` — 313 words, 0 dashes, 0 tool names, 0 internal IDs, no pre-solving
+- [x] Run `validate.py --phase prompt` — PASS, 0 fails / 1 WARN / 6 notes. WARN adjudicated a false positive; no fix applied
+- [x] Run `verify_universe_atoms.py` — PASS 0/0 (0 atoms checked; vacuous by design, recorded as such)
+- [x] Run `test_regression_anchors.py` for AUDIT Lens 8 — 62/62 PASS
+- [x] Spawn Council A — Grounding → GO (`_aux/Council_Reports/S1_A_grounding.md`)
+- [x] Spawn Council B — Adversarial QC → GO (`_aux/Council_Reports/S1_B_adversarial.md`)
+- [x] Loop on council blocks — not needed, both GO on the first pass with zero MAJOR
+- [x] Run similarity gate `calc_similarity.py` — max composite 27.2, band PASS (< 40, and < 35 so it did not itself fire AUDIT)
+- [x] Run strict veteran AUDIT (mandatory: Track F condition b, validator WARN) → `PASS (STRICT)` (`_aux/Council_Reports/AUDIT_prompt.md`)
+- [x] Write `_aux/Verification_s1.md` — `check_verification.py --phase s1` OK
+- [x] Write final report to `_aux/Reasoning/prompt_design.md`
+- [x] Append entry to `Tasks/_meta/Audit_Log.md`
+- [x] STOP gate — response ended, S2 not started in this chat

@@ -1,0 +1,12 @@
+# Reads — S1
+
+- Reference/Sessions/S1.md :: phase runbook — procedure, exit criteria, STOP gate.
+- AGENTS.md :: 12 hard rules; StarPM per-model density (40 design / 15 floor), never 50/40; no tool names/IDs in prompt; 500-word cap, no em-dash.
+- _aux/Hardness_Plan.md :: spine = owner_capex_approval_roof (Brooke → Finley, Ridgeview roof CapEx); 5 levers (L2 structured-DB skip FLAGSHIP, L10 duplicate Opus-selective, L31 negative-directive Gemini-selective, L1 latching, L6 near-miss); $8,400 leaked verbatim so build on DERIVED facts; mandate 4 writes for Gemini density; per-model density Opus 48.5 / Gemini ~40.5.
+- Reference/Prompt_Format.md :: hard rules, 3-movement structure (trigger/context/asks), voice principles, anti-patterns.
+- Prompt_Guidelines.md :: anti-patterns (QC-clone tonality, command lists, over-signaling investigation, generic urgency, formulaic closings).
+- Docs_starpm/4_Prompt_Hard_Tips.md :: agents skip structured DBs (QB/Airtable); latch onto first framing; miss replies; go broad not specific; hint without giving away; diversify writes to push >40 calls.
+- Docs_starpm/6_Prompt_Relative_Time_Updates.md :: DATE SSOT — today = July 1 2026 (Wed, Q3/H2 start); relative-time allowed; anything before 7/1 is past.
+- Reference/Council_Protocol.md :: Council A (9 persp: A1 grounding, A3 narrative-state, A4 action-vs-prescription, A7 clarity, A10 BF match, A11 solvability), Council B (B1 QC 12 sub-dims, B2 second-reading, B3 density, B4 lever preservation); StarPM density bar 40/15 per-model; unified JSON verdict schema.
+- QC_Tasks/V4_Tasks/QC_Passed/Task1..4/5_Prompt.txt :: V4 voice — mid-thought entry, senior first-person, asymmetric knowledge, "do not take X at face value," woven asks ending in writes, research-then-act with conditioned action (Task3/Task4 = investigate-then-hold shape).
+- Universe_Split (contacts/slack/gmail) :: VERIFIED — Robert Finley = Property Owner (robert.finley@gmail.com); Pete Donovan = Exterior Painter contact (pete.donovan@gmail.com, NOT vendor of record); Slack C001 2026-05-28 14:15/14:16 "roof at Ridgeview approved, Pete Donovan confirmed, we're good to go" + "water coming in" reply 14:16:02; Gmail owner thread "Ridgeview Roof Repair: Owner Approval Requested for $8,400" + Finley "you have my approval to proceed"; Teresa Wood = real user handling QB bill entry / reserve (NOT named in prompt to avoid leaking the hold-answer).

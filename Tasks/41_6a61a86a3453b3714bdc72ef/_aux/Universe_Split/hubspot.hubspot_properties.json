@@ -1,0 +1,294 @@
+[
+  {
+    "row_data": "{\"name\": \"company_id\", \"type\": \"string\", \"label\": \"Company Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 0, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'company_id' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 1, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"email\", \"type\": \"string\", \"label\": \"Email\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 2, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'email' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"full_name\", \"type\": \"string\", \"label\": \"Full Name\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 3, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'full_name' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"is_internal\", \"type\": \"bool\", \"label\": \"Is Internal\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 4, \"calculated\": false, \"field_type\": \"checkbox\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'is_internal' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"jobtitle\", \"type\": \"string\", \"label\": \"Jobtitle\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 5, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'jobtitle' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"phone\", \"type\": \"string\", \"label\": \"Phone\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 6, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'phone' on contacts\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"city\", \"type\": \"string\", \"label\": \"City\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 7, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'city' on companies\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 8, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"domain\", \"type\": \"string\", \"label\": \"Domain\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 9, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'domain' on companies\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"industry\", \"type\": \"string\", \"label\": \"Industry\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 10, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'industry' on companies\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"name\", \"type\": \"string\", \"label\": \"Name\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 11, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'name' on companies\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"amount\", \"type\": \"number\", \"label\": \"Amount\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 12, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'amount' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"closedate\", \"type\": \"datetime\", \"label\": \"Closedate\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 13, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'closedate' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"company_id\", \"type\": \"string\", \"label\": \"Company Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 14, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'company_id' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"contact_id\", \"type\": \"string\", \"label\": \"Contact Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 15, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'contact_id' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 16, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"dealname\", \"type\": \"string\", \"label\": \"Dealname\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 17, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'dealname' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"dealstage\", \"type\": \"enumeration\", \"label\": \"Deal Stage\", \"hidden\": false, \"options\": [{\"label\": \"Appointmentscheduled\", \"value\": \"appointmentscheduled\", \"displayOrder\": 0}, {\"label\": \"Closedlost\", \"value\": \"closedlost\", \"displayOrder\": 1}, {\"label\": \"Closedwon\", \"value\": \"closedwon\", \"displayOrder\": 2}, {\"label\": \"Contractsent\", \"value\": \"contractsent\", \"displayOrder\": 3}, {\"label\": \"Decisionmakerboughtin\", \"value\": \"decisionmakerboughtin\", \"displayOrder\": 4}, {\"label\": \"Presentationscheduled\", \"value\": \"presentationscheduled\", \"displayOrder\": 5}, {\"label\": \"Qualifiedtobuy\", \"value\": \"qualifiedtobuy\", \"displayOrder\": 6}], \"archived\": false, \"sort_idx\": 18, \"calculated\": false, \"field_type\": \"select\", \"group_name\": \"dealinformation\", \"description\": \"Deal stage in the pipeline\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"description\", \"type\": \"string\", \"label\": \"Description\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 19, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'description' on deals\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"body\", \"type\": \"string\", \"label\": \"Body\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 20, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'body' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"contact_id\", \"type\": \"string\", \"label\": \"Contact Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 21, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'contact_id' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"created_at\", \"type\": \"datetime\", \"label\": \"Created At\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 22, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'created_at' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"reply_to_id\", \"type\": \"string\", \"label\": \"Reply To Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 23, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'reply_to_id' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"subject\", \"type\": \"string\", \"label\": \"Subject\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 24, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'subject' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"type\", \"type\": \"string\", \"label\": \"Type\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 25, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'type' on engagements\", \"object_type\": \"engagements\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"contact_id\", \"type\": \"string\", \"label\": \"Contact Id\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 26, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'contact_id' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"content\", \"type\": \"string\", \"label\": \"Content\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 27, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'content' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"created_at\", \"type\": \"datetime\", \"label\": \"Created At\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 28, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'created_at' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"priority\", \"type\": \"string\", \"label\": \"Priority\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 29, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'priority' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"status\", \"type\": \"string\", \"label\": \"Status\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 30, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'status' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"subject\", \"type\": \"string\", \"label\": \"Subject\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 31, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"default\", \"description\": \"Auto-derived property 'subject' on tickets\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 32, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 33, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 34, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"contacts\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 35, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 36, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 37, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"companies\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 38, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 39, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 40, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"deals\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 41, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"leads\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 42, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"leads\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 43, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"leads\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 44, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"leads\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 45, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 46, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 47, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 48, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"tickets\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 49, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"calls\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 50, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"calls\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 51, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"calls\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 52, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"calls\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 53, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"emails\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 54, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"emails\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 55, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"emails\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 56, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"emails\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 57, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"meetings\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 58, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"meetings\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 59, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"meetings\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 60, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"meetings\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 61, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"notes\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 62, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"notes\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 63, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"notes\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 64, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"notes\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 65, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"tasks\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 66, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"tasks\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 67, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"tasks\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 68, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"tasks\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_object_id\", \"type\": \"number\", \"label\": \"Object ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 69, \"calculated\": false, \"field_type\": \"number\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Object ID\", \"object_type\": \"campaigns\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hs_lastmodifieddate\", \"type\": \"datetime\", \"label\": \"Last Modified Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 70, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Last Modified Date\", \"object_type\": \"campaigns\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"createdate\", \"type\": \"datetime\", \"label\": \"Create Date\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 71, \"calculated\": false, \"field_type\": \"date\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot Create Date\", \"object_type\": \"campaigns\"}",
+    "source": "hubspot.hubspot_properties"
+  },
+  {
+    "row_data": "{\"name\": \"hubspot_owner_id\", \"type\": \"string\", \"label\": \"HubSpot Owner ID\", \"hidden\": false, \"options\": [], \"archived\": false, \"sort_idx\": 72, \"calculated\": false, \"field_type\": \"text\", \"group_name\": \"hubspot\", \"description\": \"Canonical HubSpot HubSpot Owner ID\", \"object_type\": \"campaigns\"}",
+    "source": "hubspot.hubspot_properties"
+  }
+]

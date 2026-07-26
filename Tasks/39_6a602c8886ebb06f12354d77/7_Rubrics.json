@@ -1,0 +1,92 @@
+[
+  {
+    "title": "The Agent follows up on the outstanding Las Palmas 8D garbage disposal (tracked as issue OPS-227) by requesting approval of the parts for the full replacement, so the seized unit can be swapped and the turn can close.",
+    "category": "outcome",
+    "justification": "The prompt says 'if something's still open, run down whatever it's waiting on and get it moving so it can genuinely close.' The disposal (OPS-227) was routed for parts approval on 2026-06-22 with no reply, so advancing it means requesting that approval (John Smith, the Lead Maintenance Technician, is the approver). Phrased around the goal, not a channel, because the prompt names a goal not a method.",
+    "evidence": "Look for a comment on issue OPS-227, or a Slack message or email to John Smith, whose content requests approval of the parts for the full disposal replacement. Confirm the tool call succeeded."
+  },
+  {
+    "title": "The Agent updates the Las Palmas 8D make-ready record receb057b02f20052 so the logged turn no longer shows the unit as ready.",
+    "category": "outcome",
+    "justification": "The prompt asks to 'square up what we've got logged so it matches where the unit really is right now.' Record receb057b02f20052 is the 2026-05-01 row marked closed out and cleared for leasing, which is now stale.",
+    "evidence": "Look for an update call on the make-ready table targeting record receb057b02f20052 (fldUnit 'Las Palmas 8D'). Confirm the update succeeded."
+  },
+  {
+    "title": "The Agent's update to the Las Palmas 8D make-ready record receb057b02f20052 changes the turn status from ready to in progress.",
+    "category": "outcome",
+    "justification": "The stale row shows a ready status, but two later 8D rows are in progress and the turn is still live, so the correct current status is in progress.",
+    "evidence": "Check the update parameters for record receb057b02f20052 setting fldTurnStatus from 'selReady' (ready) to 'selProg' (in progress)."
+  },
+  {
+    "title": "The Agent's update to the Las Palmas 8D make-ready record receb057b02f20052 notes that the garbage disposal is seized and awaiting a full replacement.",
+    "category": "outcome",
+    "justification": "The stale note says the unit is 'cleared for leasing - available to show immediately.' The corrected note must reflect the open disposal blocker so the record matches reality.",
+    "evidence": "Check the updated fldNotes2 on record receb057b02f20052 for language stating the garbage disposal is seized or awaiting a full replacement."
+  },
+  {
+    "title": "The Agent posts an update in the #make-ready channel (C004) about the current status of the Las Palmas 8D turn.",
+    "category": "outcome",
+    "justification": "The prompt says 'Post an update in the make-ready channel so the crew isn't working off old info.'",
+    "evidence": "Look for a message posted to channel C004 (#make-ready) referencing Las Palmas 8D. Confirm the send succeeded."
+  },
+  {
+    "title": "The Agent's #make-ready channel update states that Las Palmas 8D is not yet ready and should not be marketed or shown.",
+    "category": "outcome",
+    "justification": "Earlier channel messages said 8D was cleared and ready; the update must correct that so the crew stops treating the unit as ready to lease.",
+    "evidence": "Check the C004 message content for a statement that 8D is not ready and should not be shown or marketed."
+  },
+  {
+    "title": "The Agent's #make-ready channel update identifies the seized garbage disposal, which needs a full replacement, as the item keeping Las Palmas 8D open.",
+    "category": "outcome",
+    "justification": "The crew needs the reason the unit is not ready; the sole outstanding item is the seized disposal awaiting a replacement.",
+    "evidence": "Check the C004 message content for the seized garbage disposal or pending replacement named as the outstanding item."
+  },
+  {
+    "title": "The Agent drafts an email to john.smith@starpm.com about where the Las Palmas 8D turn stands.",
+    "category": "outcome",
+    "justification": "The prompt says 'draft John an email laying out where 8D stands.' John Smith is the Lead Maintenance Technician at john.smith@starpm.com, and email here is draft-only.",
+    "evidence": "Look for a draft-email call with recipient john.smith@starpm.com whose subject or body concerns Las Palmas 8D. Confirm the draft was created."
+  },
+  {
+    "title": "The Agent's email to John Smith states that Las Palmas 8D is not yet ready to close.",
+    "category": "outcome",
+    "justification": "The prompt asks for 'the straight story' on where 8D stands; the straight story is that the unit is not ready.",
+    "evidence": "Check the draft body to john.smith@starpm.com for a statement that 8D is not ready to close."
+  },
+  {
+    "title": "The Agent's email to John Smith identifies the seized garbage disposal, which needs a full replacement unit and is awaiting parts approval, as the outstanding item on Las Palmas 8D.",
+    "category": "outcome",
+    "justification": "The prompt asks for 'what's still outstanding if anything.' The lone blocker is the seized disposal (OPS-227), which needs a full replacement and has been pending parts approval since 2026-06-22.",
+    "evidence": "Check the draft body for the seized garbage disposal named as the outstanding item, needing a full replacement and pending parts approval."
+  },
+  {
+    "title": "The Agent's email to John Smith states what it will take to finish Las Palmas 8D: approving and ordering the replacement disposal, installing it, and completing a final walk or closeout step to close the turn.",
+    "category": "outcome",
+    "justification": "The prompt asks for 'what it'll take to finish.' Closing 8D requires approving and ordering the replacement disposal, installing it, then a final walk or a closeout step.",
+    "evidence": "Check the draft body for the path to finish: approve and order the replacement disposal, install it, and complete a final walk or a closeout step to close."
+  },
+  {
+    "title": "The Agent identifies that Las Palmas 8D is not ready to close, despite the logged make-ready status and earlier channel messages indicating it was cleared.",
+    "category": "outcome",
+    "justification": "The prompt asks the agent to 'figure out where 8D really stands ... instead of going off what someone said in passing.' The ready record and the 'punch-list done / carpet done' chatter are contradicted by the live June work.",
+    "evidence": "Check the final response for a conclusion that 8D is not ready to close, correcting the earlier cleared or ready signals."
+  },
+  {
+    "title": "The Agent identifies the seized garbage disposal on Las Palmas 8D as the item blocking closeout, requiring a full replacement and pending parts approval.",
+    "category": "outcome",
+    "justification": "The prompt asks the agent to 'run down whatever it's waiting on.' The OPS-227 comment (2026-06-22) shows the disposal seized, needing a full replacement, routed for parts approval with no reply.",
+    "evidence": "Check the final response for identification of the seized garbage disposal as the blocker that needs a full replacement and is awaiting parts approval."
+  },
+  {
+    "title": "The Agent identifies that the Las Palmas 8D turn is not complete in Airtable, the system of record, where the make-ready ticket MT-2026-1271 remains open with no completion date.",
+    "category": "outcome",
+    "justification": "The prompt asks the agent to 'confirm where each piece actually landed instead of going off what someone said.' MT-2026-1271 has a blank completion date in Airtable, which the Operations charter names the system of record, so the turn is not complete regardless of Slack or Linear done impressions.",
+    "evidence": "Check the final response or trajectory for the agent recognizing, from Airtable (the system of record) rather than the Slack or Linear done chatter, that the 8D turn is not complete - the make-ready ticket MT-2026-1271 has no completion date, or equivalently the make-ready record still shows the turn in progress (selProg)."
+  },
+  {
+    "title": "The Agent reports that the rest of the Las Palmas 8D turn work (in-house repairs, carpet, deep clean, punch-list items, and the refrigerator swap) is complete.",
+    "category": "outcome",
+    "justification": "The prompt asks the agent to 'confirm where each piece actually landed.' Everything except the disposal is finished: the in-house repairs, carpet, deep clean, punch-list, and the 6/25 refrigerator swap.",
+    "evidence": "Check the final response or the email to John for confirmation that the non-disposal turn work (in-house repairs, carpet, deep clean, punch-list, and refrigerator swap) is complete."
+  }
+]

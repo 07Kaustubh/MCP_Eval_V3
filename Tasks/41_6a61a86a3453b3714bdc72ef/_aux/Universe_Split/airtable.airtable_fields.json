@@ -1,0 +1,38 @@
+[
+  {
+    "row_data": "{\"id\": \"fldTicketNumber\", \"name\": \"Ticket Number\", \"type\": \"singleLineText\", \"options\": {}, \"table_id\": \"tblMaintenanceTickets\", \"order_idx\": 0, \"is_primary\": true, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldDescription\", \"name\": \"Description\", \"type\": \"multilineText\", \"options\": {}, \"table_id\": \"tblMaintenanceTickets\", \"order_idx\": 1, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldPriority\", \"name\": \"Priority\", \"type\": \"singleSelect\", \"options\": {\"choices\": [{\"id\": \"selLow\", \"name\": \"Low\", \"color\": \"blue\"}, {\"id\": \"selMedium\", \"name\": \"Medium\", \"color\": \"yellow\"}, {\"id\": \"selHigh\", \"name\": \"High\", \"color\": \"red\"}]}, \"table_id\": \"tblMaintenanceTickets\", \"order_idx\": 2, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldCompletionDate\", \"name\": \"Completion Date\", \"type\": \"date\", \"options\": {}, \"table_id\": \"tblMaintenanceTickets\", \"order_idx\": 3, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldUnit\", \"name\": \"Unit\", \"type\": \"singleLineText\", \"options\": {}, \"table_id\": \"tblMakeReady\", \"order_idx\": 0, \"is_primary\": true, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldTurnStatus\", \"name\": \"Status\", \"type\": \"singleSelect\", \"options\": {\"choices\": [{\"id\": \"selSched\", \"name\": \"Scheduled\", \"color\": \"blue\"}, {\"id\": \"selProg\", \"name\": \"In Progress\", \"color\": \"yellow\"}, {\"id\": \"selReady\", \"name\": \"Ready\", \"color\": \"green\"}]}, \"table_id\": \"tblMakeReady\", \"order_idx\": 1, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldMoveOut\", \"name\": \"Move-Out Date\", \"type\": \"date\", \"options\": {}, \"table_id\": \"tblMakeReady\", \"order_idx\": 2, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldTargetReady\", \"name\": \"Target Ready\", \"type\": \"date\", \"options\": {}, \"table_id\": \"tblMakeReady\", \"order_idx\": 3, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  },
+  {
+    "row_data": "{\"id\": \"fldNotes2\", \"name\": \"Notes\", \"type\": \"multilineText\", \"options\": {}, \"table_id\": \"tblMakeReady\", \"order_idx\": 4, \"is_primary\": false, \"description\": \"\"}",
+    "source": "airtable.airtable_fields"
+  }
+]

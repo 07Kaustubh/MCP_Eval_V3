@@ -1,0 +1,362 @@
+[
+  {
+    "title": "The Agent creates a new maintenance ticket in the Maintenance Tickets log for the field work that still needs a technician back onsite.",
+    "category": "outcome",
+    "justification": "The prompt says anything flagged in the field that still needs a tech back onsite belongs in the maintenance ticket log rather than sitting as a tracking item. The Maintenance Tickets table in the Property Operations base is the system of record for maintenance work orders and none of its 50 existing rows references the push, so a new ticket is required rather than an update.",
+    "evidence": "Look for a record-creation call against the Maintenance Tickets table in the Property Operations base that returns success. Confirm a new row was written rather than an existing row updated. Do not grade the ticket number format, do not grade the priority value, which is stored as an option id, and do not require an owner or a status, which the table has no fields for."
+  },
+  {
+    "title": "The Agent's new maintenance ticket describes the two North cluster units Jaime Salinas flagged on May 23, 2026 as needing HVAC attention right away.",
+    "category": "outcome",
+    "justification": "These two units are the unambiguous technician-onsite item: Jaime recorded them in the maintenance channel as needing HVAC attention right away with coil, plumbing and panel notes, and no record anywhere disposes of them. The prompt routes exactly this class of item to the maintenance ticket log.",
+    "evidence": "Check the description field of the created maintenance ticket for the two North cluster units flagged as needing immediate HVAC attention. Other residual items may also appear in this ticket or elsewhere without penalty."
+  },
+  {
+    "title": "The Agent raises a tracking item on the Operations board for the West cluster preventive maintenance QC coverage gap.",
+    "category": "outcome",
+    "justification": "The prompt says anything still open gets its own tracking item raised. The West cluster is the one cluster no QC spot-check record of Jaime's covers, which leaves the QC position on it open.",
+    "evidence": "Look for an issue-creation call on the Operations team that returns success, whose title or description concerns West cluster preventive maintenance QC coverage."
+  },
+  {
+    "title": "The Agent's West cluster tracking item states that the West cluster's preventive maintenance work was never covered by a QC spot-check record.",
+    "category": "outcome",
+    "justification": "Jaime's three spot-check records cover the South and North clusters and the portfolio filter run; East was covered on separate records assigned to someone else. Nothing covers the West cluster's preventive maintenance service, and that coverage gap is the defensible claim the tracking item exists to carry.",
+    "evidence": "Check the description of the West cluster tracking item for a statement that no QC spot-check record covers the West cluster's preventive maintenance work. FAIL if the item instead asserts that no West cluster maintenance work finished, which the data does not support."
+  },
+  {
+    "title": "The Agent's West cluster tracking item states that the most recent dated status statement on the West cluster records that work as still underway.",
+    "category": "outcome",
+    "justification": "OPS-186 is the latest dated status statement on the West cluster and its description says two clusters are substantially complete with the West Cluster work still underway. It is the dated evidence that the West position was still open well after the crew's completion claim, so the tracking item has to carry that status rather than the coverage gap alone.",
+    "evidence": "Check the description of the West cluster tracking item for the most recent dated status on the West cluster reporting that work as still underway. That statement is the record titled Electrical panel inspections complete - South Cluster wrap-up, whose description reads that the West Cluster work is still underway. Naming the record identifier or its date is not required, and a paraphrase reporting the latest status on the West cluster as work still underway satisfies this criterion."
+  },
+  {
+    "title": "The Agent's West cluster QC coverage tracking item names the owner of that work, which must be one of: Lisa Smith, John Smith, or Brooke Phillips.",
+    "category": "outcome",
+    "justification": "The prompt requires the person who owns the work to be named on the tracking item that is raised for it. OPS-35 names Lisa as the West cluster onsite lead and John Smith as maintenance execution lead, and Brooke Phillips is the assignee on both OPS-35 and OPS-186, so any of the three is defensible. The owner has to be named on the item raised for the coverage gap, because a name added to a pre-existing West cluster record leaves the gap itself untracked.",
+    "evidence": "Check the description text of the newly created West cluster tracking item whose title or description concerns West cluster preventive maintenance QC coverage for one of Lisa Smith, John Smith, or Brooke Phillips named as the owner. The assignee parameter cannot carry a value on this server, so the name must appear in the description text. FAIL if no such item was created, because an owner named only on a comment written on a pre-existing West cluster record does not satisfy this criterion."
+  },
+  {
+    "title": "The Agent raises tracking work on the Operations board for the portfolio HVAC filter replacement run that was never finished.",
+    "category": "outcome",
+    "justification": "The prompt says anything still open gets its own tracking item raised. The portfolio filter run John Smith was executing was blocked on a restock and no record shows it finishing, which makes it open work. Three portfolio filter records already sit in non-completed states, OPS-51 and OPS-71 carrying an identical title and OPS-79 titled HVAC filter replacements across portfolio - Preventive Maintenance Push, so carrying the unfinished run forward on one of them is as defensible as raising a new item.",
+    "evidence": "Look for an issue-creation call on the Operations team that returns success, or a comment written on one of the existing open portfolio filter records, meaning any non-completed record whose title names portfolio-wide or across-portfolio HVAC filter replacements, whose title or body concerns the outstanding filter restock or the unfinished portfolio filter replacement run. Either route satisfies this criterion, and annotating an existing open filter record must not be penalised."
+  },
+  {
+    "title": "The Agent's filter run tracking work states that John Smith reported on May 23, 2026 that a 20x25 filter shortage was blocking him from finishing the run.",
+    "category": "outcome",
+    "justification": "This is the block that stopped the portfolio filter run, and it also falsifies the all-units basis of the QC filter spot-check logged a week later. It lives only in the maintenance channel, so carrying it into the tracking work is what makes the item actionable. Because three portfolio filter records already exist in non-completed states, OPS-51, OPS-71 and OPS-79, an annotation on one of those is an equally valid destination.",
+    "evidence": "Check the description of the filter run tracking item, or the body of the note written on an existing portfolio filter record, for John Smith's May 23, 2026 report that a 20x25 filter shortage was blocking completion of the run. Either location satisfies this criterion. A statement that the run stalled pending a filter restock satisfies it."
+  },
+  {
+    "title": "The Agent's filter run tracking work records Brooke Phillips's outstanding request to Elias Navarro for a filter stock count ahead of a bulk order.",
+    "category": "outcome",
+    "justification": "Brooke's reply to John's restock post asks Elias for a stock count before placing a bulk order. That request is the live next step on the filter run and it sits in a thread reply, which is where the Agent has to look to find it.",
+    "evidence": "Check the description of the filter run tracking item, or the body of the note written on an existing portfolio filter record, for Brooke Phillips's request to Elias Navarro for a filter stock count ahead of a bulk order, carried as still outstanding. Either location satisfies this criterion."
+  },
+  {
+    "title": "The Agent's filter run tracking work names the owner of that work, which must be one of: John Smith, Elias Navarro, or Brooke Phillips.",
+    "category": "outcome",
+    "justification": "The prompt requires the person who owns the work to be named on the tracking item. John Smith was running the filter work, Elias Navarro was asked for the stock count, and Brooke Phillips owns the bulk order decision, so any of the three is defensible.",
+    "evidence": "Check the description of the filter run tracking item, or the body of the note written on an existing portfolio filter record, for one of John Smith, Elias Navarro, or Brooke Phillips named as the owner. Either location satisfies this criterion."
+  },
+  {
+    "title": "The Agent raises tracking work or a maintenance ticket covering the push units still waiting on tenant access.",
+    "category": "outcome",
+    "justification": "The prompt says anything still open gets its own tracking item raised, and it separately routes field work that needs a technician back onsite to the maintenance ticket log. The unserviced units awaiting tenant access are open work that no existing record closes out, and they fit either route.",
+    "evidence": "Look for an issue-creation call on the Operations team that returns success, or a new row in the Maintenance Tickets table, whose title or description concerns units still awaiting tenant access. This criterion grades only that such work was raised. One combined item, or two separate items one per cluster, satisfies it equally, and either destination satisfies it, because the South cluster unit that was never serviced is a field item that may be routed to either place. An item that identifies the outstanding tenant-access work without naming the specific units still satisfies this criterion, because which units are named is graded separately."
+  },
+  {
+    "title": "The Agent's tracking work or maintenance ticket for outstanding tenant access covers the single South cluster unit that was never serviced because the tenant was not home during the scheduled access window.",
+    "category": "outcome",
+    "justification": "OPS-43 records a South cluster unit where the tenant was not home during the access window and a reschedule was still needed with Carlos, and two thread replies in the maintenance channel ask Carlos to re-coordinate that access. Nothing closes the ask, so the unit remains unserviced. This unit is a boundary item that may be routed either to a tracking item or to the maintenance ticket log, so the criterion accepts either destination.",
+    "evidence": "Check the description of the tracking item or items raised for outstanding tenant access, or the description of a maintenance ticket, for the single South cluster unit missed during its access window. Either destination satisfies this criterion, and one combined tracking item or two separate per-cluster items both satisfy it."
+  },
+  {
+    "title": "The Agent's tracking work for outstanding tenant access covers the two North cluster units that OPS-56 records as still held up by tenant scheduling conflicts.",
+    "category": "outcome",
+    "justification": "OPS-56 records that two North cluster units are still pending because of tenant scheduling conflicts, and it sits In Progress with no closing comment on that follow-up. This is a separate open item from the single South cluster unit and from the two North units Jaime flagged as deficient. OPS-81 and OPS-66 later state the remaining North units were finished and OPS-40 is in a completed state, but OPS-81 and OPS-66 are themselves In Progress and In Review, and OPS-40 completed on 2026-05-18T11:54 before OPS-56 was created at 22:48 the same day, so none of the three closes this follow-up.",
+    "evidence": "Check the description of the tracking item or items raised for outstanding tenant access for the two North cluster units held up by tenant scheduling conflicts. This criterion passes whether the content sits in one tracking item or in a separate North cluster item, and a maintenance ticket covering these two units also satisfies it. Do not require the Agent to assert that access notices were never sent; a later channel post reports notice letters going out. Later records stating the remaining North cluster units were finished do not close this item, because the records carrying those statements are themselves in non-completed states; nor does the completed North cluster scope record, which was closed earlier the same day the access flag was raised. A response that carries the two units as unconfirmed rather than as definitively open satisfies this criterion."
+  },
+  {
+    "title": "The Agent's tracking work for outstanding tenant access names the owner, which must be one of: Carlos Mendez, Elias Navarro, or Tony Reyes.",
+    "category": "outcome",
+    "justification": "The prompt requires the person who owns the work to be named on the tracking item. Both access asks were directed to Carlos Mendez, Elias Navarro raised them, and Tony Reyes leads the North cluster, so any of the three is defensible.",
+    "evidence": "Check the description text of the tracking item or items raised for outstanding tenant access for one of Carlos Mendez, Elias Navarro, or Tony Reyes named as the owner."
+  },
+  {
+    "title": "The Agent raises tracking work or a maintenance ticket for the open plumbing findings from the push.",
+    "category": "outcome",
+    "justification": "The prompt says anything still open gets its own tracking item raised, and it separately routes field work that needs a technician back onsite to the maintenance ticket log. The push covered plumbing as well as HVAC and electrical, and Carlos Mendez's plumbing findings are still open work that fits either route.",
+    "evidence": "Look for an issue-creation call on the Operations team that returns success, or a new row in the Maintenance Tickets table, whose title or description concerns the open plumbing findings from the push. Either destination satisfies this criterion, because the water heater replacements and the hose bib repairs are field items that may be routed to either the tracking board or the ticket log."
+  },
+  {
+    "title": "The Agent records the two water heaters that are past serviceable life and need replacement, either in a tracking item or in the maintenance ticket log.",
+    "category": "outcome",
+    "justification": "Carlos Mendez reported two water heaters past serviceable life on the plumbing record and in the maintenance channel, and they remain unresolved. Routing them to the maintenance ticket log as technician-onsite work is equally defensible, so the criterion accepts either destination.",
+    "evidence": "Check the description of the plumbing tracking item, or the description of a maintenance ticket, for the two water heaters past serviceable life that need replacement. Either destination satisfies this criterion."
+  },
+  {
+    "title": "The Agent records the hose bibs at several units that need repair, either in a tracking item or in the maintenance ticket log.",
+    "category": "outcome",
+    "justification": "The hose bib repairs are the second half of Carlos Mendez's plumbing findings, reported on OPS-97 and in the maintenance channel, and nothing records them being done. They are the same class of field item as the two water heaters covered by the preceding criterion, so routing them to the maintenance ticket log as technician-onsite work is equally defensible and the criterion accepts either destination.",
+    "evidence": "Check the description of the plumbing tracking item, or the description of a maintenance ticket, for the hose bibs at several units needing repair. Either destination satisfies this criterion."
+  },
+  {
+    "title": "The Agent's plumbing tracking work states that the water heater replacements were escalated to a budget priority.",
+    "category": "outcome",
+    "justification": "The prompt asks what has to happen before the push can close, and the water heater replacements are gated on a budget decision rather than on field work. Brooke Phillips posted in the maintenance channel that she flagged them as a budget priority, and the mid-initiative check-in agenda names their budget implications, so the fact is reachable from either surface.",
+    "evidence": "Check the description of the plumbing tracking item, or the description of the maintenance ticket raised for the plumbing findings, for the water heater replacements being carried as an escalated budget priority. Either destination satisfies this criterion. Either the supervisor's channel post or the check-in agenda is an acceptable basis; do not require a specific source or date."
+  },
+  {
+    "title": "The Agent's plumbing tracking work names the owner of that work, which must be one of: Carlos Mendez or Brooke Phillips.",
+    "category": "outcome",
+    "justification": "The prompt requires the person who owns the work to be named on the tracking item. Carlos Mendez logged the findings and owns OPS-97, and Brooke Phillips escalated them to a budget priority, so either is defensible.",
+    "evidence": "Check the description text of the plumbing tracking item, or the description of the maintenance ticket raised for the plumbing findings, for Carlos Mendez or Brooke Phillips named as the owner. Either destination satisfies this criterion, because the water heater replacements and hose bib repairs may be routed to either place. The Maintenance Tickets table carries no owner field, so on that route the name must appear in the description text."
+  },
+  {
+    "title": "The Agent records that OPS-99 and OPS-108 carry the same East cluster HVAC QC title while sitting in two different workflow states.",
+    "category": "outcome",
+    "justification": "The two East cluster records are titled identically and claim the same completed QC pass, yet one sits In Progress and the other in Backlog. That contradiction is why the East QC position cannot be taken at face value.",
+    "evidence": "Check the Agent's deliverables for a statement that OPS-99 and OPS-108 carry the same title in two different workflow states. Any of these locations satisfies this criterion: the tracking item raised for the East cluster, a note left on one of Jaime Salinas's spot-check records, the channel status update, the draft to Brooke Phillips, or the final response."
+  },
+  {
+    "title": "The Agent records that neither East cluster QC record, OPS-99 nor OPS-108, is in a completed workflow state.",
+    "category": "outcome",
+    "justification": "OPS-99 is In Progress and OPS-108 is in Backlog. Both describe a completed East cluster QC pass, so the determination that neither is actually in a completed state is what keeps the East cluster from being treated as closed.",
+    "evidence": "Check the Agent's deliverables for a statement that neither OPS-99 nor OPS-108 is in a completed workflow state. Any of these locations satisfies this criterion: the tracking item raised for the East cluster, a note left on one of Jaime Salinas's spot-check records, the channel status update, the draft to Brooke Phillips, or the final response."
+  },
+  {
+    "title": "The Agent leaves a note on OPS-87 stating that the record does not stand as a close-out of the South and North cluster QC.",
+    "category": "outcome",
+    "justification": "The prompt says Jaime's own spot-check records each get a short note saying where it landed and why. OPS-87 claims both cluster QC issues were moved from In Review to Done while the record itself sits in Todo, so the note has to say the record does not close anything out.",
+    "evidence": "Look for a comment written on OPS-87 that returns success, whose body states the record does not stand as a close-out of the South and North cluster QC. FAIL if the note simply restates the passing spot-check without recording that the record does not close the QC out. The comment target may be identified either by the issue identifier or by the record's internal id; both forms are accepted."
+  },
+  {
+    "title": "The Agent leaves a note on OPS-96 stating that the portfolio filter spot-check does not stand because the filter run was still blocked on a 20x25 filter restock when it was logged.",
+    "category": "outcome",
+    "justification": "The prompt says each of Jaime's spot-check records gets a short note saying where it landed and why. OPS-96 claims a spot-check across all units, but the filter run those units depended on was blocked on a restock a week before the spot-check was logged, so its factual basis does not hold.",
+    "evidence": "Look for a comment written on OPS-96 that returns success, whose body states the portfolio filter spot-check does not stand because the filter run was still blocked on the 20x25 filter restock when the spot-check was logged. The comment target may be identified either by the issue identifier or by the record's internal id; both forms are accepted."
+  },
+  {
+    "title": "The Agent leaves a note on OPS-98 recording that the South and North cluster QC did not land where the record claims, with the reason.",
+    "category": "outcome",
+    "justification": "The prompt says each of Jaime's spot-check records gets a short note saying where it landed and why. OPS-98 sits In Progress while its description and both comments assert both cluster issues were moved to Done, so the note has to record that this record does not close the South and North QC out. The state-versus-prose determination itself is graded once at portfolio scope in the final response, so this criterion grades the note's disposition rather than requiring that specific wording.",
+    "evidence": "Look for a comment written on OPS-98 that returns success, whose body states the South and North cluster QC does not stand as closed on this record. Any correct reason satisfies the \"why\": that the record was never moved to a completed workflow state, that the sample did not cover the units flagged on May 23 or the unserviced South unit, or that open field work remains. FAIL if the note simply restates the passing spot-check without recording that the record does not close the QC out. The comment target may be identified either by the issue identifier or by the record's internal id; both forms are accepted."
+  },
+  {
+    "title": "The Agent schedules a re-inspection slot on Jaime Salinas's calendar (jaime.salinas@starpm.com) dated on or after July 1, 2026.",
+    "category": "outcome",
+    "justification": "The prompt asks for a slot on Jaime's calendar to go back out and re-inspect whatever ends up in the follow-up. Jaime has no events on or after July 1, 2026, so this is a new event rather than an update to an existing one, and a slot booked later on the current date is as valid as one booked on a later date.",
+    "evidence": "Look for an event-creation call on the jaime.salinas@starpm.com calendar that returns success with a start date on or after July 1, 2026. No specific date, duration, or attendee list is expected."
+  },
+  {
+    "title": "The Agent's re-inspection slot describes going back out to re-inspect the outstanding preventive maintenance follow-up work (or similar).",
+    "category": "outcome",
+    "justification": "The prompt ties the calendar slot to re-inspecting whatever ends up in the follow-up, so the event has to identify that purpose rather than being an unlabelled hold.",
+    "evidence": "Check the summary or description of the created calendar event for a re-inspection or QC re-walk of the outstanding Preventive Maintenance Push work (or similar wording). Paraphrase is acceptable."
+  },
+  {
+    "title": "The Agent posts a status update for the crew in the #maintenance channel (C001), the channel the Preventive Maintenance Push has been running in.",
+    "category": "outcome",
+    "justification": "The prompt says to post where this stands in the channel the push has been running in so the crew is working off the same picture. The push runs in #maintenance (C001); Jaime's own habitual channel is #make-ready (C004), which carries no push traffic.",
+    "evidence": "Look for a message-send call that returns success targeting #maintenance, identified either by the channel name or by the id C001. Both forms are acceptable. FAIL if the update is posted only to a channel that carries no push traffic."
+  },
+  {
+    "title": "The Agent's channel status update states that the end-of-June close-out target for the Preventive Maintenance Push has passed with work still open.",
+    "category": "outcome",
+    "justification": "The prompt opens on the lapsed close-out target and asks where every piece stands as of today. Brooke Phillips set the end-of-June goal in the channel and on OPS-186, and today is July 1, 2026, so the crew's shared picture starts from the target having been missed.",
+    "evidence": "Check the posted channel message for a statement that the end-of-June close-out target has passed while work on the push remains open."
+  },
+  {
+    "title": "The Agent's channel status update states that one South cluster unit was never serviced because the tenant was not home during the scheduled access window.",
+    "category": "outcome",
+    "justification": "The prompt asks for where every piece stands cluster by cluster. The South cluster's outstanding item is the single no-access unit recorded on OPS-43 and in the thread replies asking Carlos to re-coordinate access.",
+    "evidence": "Check the posted channel message for the South cluster unit missed during its access window and still unserviced."
+  },
+  {
+    "title": "The Agent's channel status update states that the two units Jaime Salinas flagged in the North cluster on May 23, 2026 still need the HVAC work she called out.",
+    "category": "outcome",
+    "justification": "Jaime herself recorded two North cluster units needing HVAC attention right away one day before logging her first cluster QC pass, and nothing on the board resolves them. The graded fact is the positive one, that the work she flagged is still needed, rather than the absence of a follow-up record.",
+    "evidence": "Check the posted channel message for the two North cluster units Jaime Salinas flagged on May 23, 2026 still needing the HVAC work she called out. A statement that no follow-up record was ever opened is acceptable corroboration but is not required."
+  },
+  {
+    "title": "The Agent's channel status update states that the access follow-up on two North cluster units held up by tenant scheduling conflicts is still open.",
+    "category": "outcome",
+    "justification": "OPS-56 records two North cluster units held up by tenant scheduling conflicts, and it sits In Progress with no closing comment on the follow-up. These units are distinct from the two Jaime walked and found deficient. OPS-81 and OPS-66 later state the remaining North units were finished and OPS-40 is in a completed state, but OPS-81 and OPS-66 are themselves In Progress and In Review, and OPS-40 completed on 2026-05-18T11:54 before OPS-56 was created at 22:48 the same day, so none of the three closes this follow-up.",
+    "evidence": "Check the posted channel message for the two North cluster units held up by tenant scheduling conflicts with the access follow-up still open, kept distinct from the units flagged as needing HVAC attention. Do not require the Agent to assert that access notices were never sent; a later channel post reports notice letters going out. Later records stating the remaining North cluster units were finished do not close this item, because the records carrying those statements are themselves in non-completed states; nor does the completed North cluster scope record, which was closed earlier the same day the access flag was raised. A response that carries the two units as unconfirmed rather than as definitively open satisfies this criterion."
+  },
+  {
+    "title": "The Agent's channel status update states that the East cluster QC record is not in a completed workflow state.",
+    "category": "outcome",
+    "justification": "The prompt asks for the position cluster by cluster. The East cluster QC is asserted as passed on two records that sit In Progress and in Backlog, so the crew's shared picture has to record it as unconfirmed rather than closed.",
+    "evidence": "Check the posted channel message for a statement that the East cluster QC record is not in a completed workflow state."
+  },
+  {
+    "title": "The Agent's channel status update tells the crew that the West cluster went through the push without any QC spot-check coverage.",
+    "category": "outcome",
+    "justification": "The prompt asks for the position cluster by cluster and the crew's own scope issues name only South, East and North. The West cluster exists as its own scope and no QC spot-check record covers its preventive maintenance service, which is the coverage gap the crew needs to see.",
+    "evidence": "Check the posted channel message for a statement that no QC spot-check record covers the West cluster's preventive maintenance work. The portfolio-wide filter spot-check does not count as coverage of the West cluster's preventive maintenance service, so a message that names it and still reports the West cluster as uncovered satisfies this criterion. FAIL if the message instead asserts that no West cluster work finished."
+  },
+  {
+    "title": "The Agent's channel status update states that the latest dated status statement on the West cluster records that work as still underway.",
+    "category": "outcome",
+    "justification": "OPS-186, dated June 17, 2026, is the most recent dated statement on the West cluster and it records that work as still underway. Without it the coverage gap reads as a paperwork nit rather than as live unfinished work.",
+    "evidence": "Check the posted channel message for the most recent dated status statement on the West cluster recording that work as still underway. That statement is the record titled Electrical panel inspections complete - South Cluster wrap-up, whose description reads that the West Cluster work is still underway. Naming the record or its date is not required, and a paraphrase reporting the latest status on the West cluster as work still underway satisfies this criterion."
+  },
+  {
+    "title": "The Agent's channel status update states that the portfolio HVAC filter replacement run was left unfinished after the 20x25 filter restock block.",
+    "category": "outcome",
+    "justification": "John Smith's run stopped on a 20x25 filter shortage and no later message records the restock arriving or the run finishing. The prompt asks the Agent to work out what is actually finished, and the filter run is not.",
+    "evidence": "Check the posted channel message for the portfolio filter replacement run being left unfinished after the 20x25 filter restock block. FAIL if the message asserts that no filter work at all was completed."
+  },
+  {
+    "title": "The Agent's channel status update states that the plumbing findings, including the two water heater replacements, are still open.",
+    "category": "outcome",
+    "justification": "The push covered plumbing as well as HVAC, and Carlos Mendez's water heater and hose bib findings are unresolved on a record that sits in Todo. The crew's shared picture is incomplete without them.",
+    "evidence": "Check the posted channel message for the plumbing findings, including the two water heater replacements, being reported as still open."
+  },
+  {
+    "title": "The Agent drafts an email to brooke.phillips@starpm.com on the Preventive Maintenance Push close-out position.",
+    "category": "outcome",
+    "justification": "The prompt asks the Agent to draft an email to Brooke, the Apartment Property Supervisor who started the push. The mail server in this universe is draft-only and has no send tool, so the deliverable is a draft.",
+    "evidence": "Look for a draft-creation call that returns success with brooke.phillips@starpm.com as the recipient and a subject relating to the Preventive Maintenance Push close-out status or the QC position on the push (or similar)."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the South cluster's open item is the unit that was never serviced because the tenant was not home during the scheduled access window.",
+    "category": "outcome",
+    "justification": "The prompt asks for the email to run cluster by cluster with what is open on each. The South cluster's open item is the single no-access unit recorded on OPS-43 and in the maintenance channel thread replies.",
+    "evidence": "Check the draft body for the South cluster carrying the unserviced no-access unit as its open item."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the missed South cluster unit still has to be re-scheduled for service before the push can close.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say what has to happen before this can close, cluster by cluster. For the South cluster that action is getting the missed unit back on the schedule so it can be serviced.",
+    "evidence": "Check the draft body for re-scheduling the missed South cluster unit for service (or similar) named as what has to happen before the push can close."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the two North cluster units flagged on May 23, 2026 still need a technician back onsite.",
+    "category": "outcome",
+    "justification": "The prompt asks for the email to run cluster by cluster with what has to happen before this can close. The two units Jaime flagged still carry the HVAC work she called out, and getting a technician back to them is the required action.",
+    "evidence": "Check the draft body for the two North cluster units flagged on May 23, 2026 still needing a technician back onsite."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips separately identifies two North cluster units held up by tenant scheduling conflicts whose access follow-up is still open.",
+    "category": "outcome",
+    "justification": "The prompt asks for what is open cluster by cluster. The North cluster carries a second, separate open item recorded on OPS-56, and collapsing it into the flagged-units item would leave the North position understated. OPS-81 and OPS-66 later state the remaining North units were finished and OPS-40 is in a completed state, but OPS-81 and OPS-66 are themselves In Progress and In Review, and OPS-40 completed on 2026-05-18T11:54 before OPS-56 was created at 22:48 the same day, so none of the three closes this follow-up.",
+    "evidence": "Check the draft body for two North cluster units held up on tenant scheduling with the access follow-up still open, carried separately from the units flagged as needing HVAC attention. Do not require the Agent to assert that access notices were never sent; a later channel post reports notice letters going out. Later records stating the remaining North cluster units were finished do not close this item, because the records carrying those statements are themselves in non-completed states; nor does the completed North cluster scope record, which was closed earlier the same day the access flag was raised. A response that carries the two units as unconfirmed rather than as definitively open satisfies this criterion."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the East cluster QC is unconfirmed because the East cluster QC record is not in a completed workflow state.",
+    "category": "outcome",
+    "justification": "The prompt asks for what is open cluster by cluster. The East cluster's QC is asserted as passed on records that are not in a completed state, so what is open on East is the QC confirmation itself.",
+    "evidence": "Check the draft body for the East cluster QC being reported as unconfirmed on the basis that the East QC record is not in a completed workflow state."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the East cluster QC has to be confirmed before the push can close.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say what has to happen before this can close, cluster by cluster. For the East cluster that action is getting the QC confirmed on a record that actually reflects it.",
+    "evidence": "Check the draft body for confirming the East cluster QC named as what has to happen before the push can close."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that no spot-check record of Jaime Salinas's covers the preventive maintenance service on the West cluster.",
+    "category": "outcome",
+    "justification": "The prompt asks for what is open cluster by cluster. The West cluster's open item is the missing QC coverage, which is the one gap Brooke cannot see from the crew's own three-cluster scope issues.",
+    "evidence": "Check the draft body for a statement that no QC spot-check record covers the West cluster's preventive maintenance work. FAIL if the draft instead claims no West cluster work was completed."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the West cluster still has to be QC walked before the push can close.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say what has to happen before this can close, cluster by cluster. For the West cluster that action is walking the QC inspection that was never done there.",
+    "evidence": "Check the draft body for a QC walk or spot-check of the West cluster named as what has to happen before the push can close."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips names the person holding the outstanding tenant access work, which must be one of: Carlos Mendez, Elias Navarro, or Tony Reyes.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say who is holding each open piece. Both access asks were directed to Carlos Mendez, Elias Navarro raised them, and Tony Reyes leads the North cluster, so any of the three is defensible.",
+    "evidence": "Check the draft body for one of Carlos Mendez, Elias Navarro, or Tony Reyes named as holding the outstanding tenant access work."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips names the person holding the West cluster work, which must be one of: Lisa Smith, John Smith, or Brooke Phillips.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say who is holding each open piece. OPS-35 names Lisa as West cluster onsite lead and John Smith as maintenance execution lead, and Brooke Phillips is the assignee on OPS-35 and OPS-186.",
+    "evidence": "Check the draft body for one of Lisa Smith, John Smith, or Brooke Phillips named as holding the West cluster work."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips names the person holding the East cluster QC confirmation, which must be one of: Elias Navarro, Jaime Salinas, or Brooke Phillips.",
+    "category": "outcome",
+    "justification": "The prompt asks the email to say who is holding each open piece, cluster by cluster, so the draft has to carry the East holder in its own right. A criterion satisfied by naming the owner on a tracking item does not cover the draft, which is the artifact the prompt placed this ask in.",
+    "evidence": "Check the draft body for one of Elias Navarro, Jaime Salinas, or Brooke Phillips named as holding the outstanding East cluster QC confirmation. Because the draft is written and signed by Jaime Salinas, a first-person self-reference that assigns the outstanding East cluster QC to the sender, for example wording that says the item is owned by me or that I will run it, satisfies this criterion as naming Jaime Salinas."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states plainly that Jaime Salinas's earlier QC sign-off does not hold.",
+    "category": "outcome",
+    "justification": "The prompt is explicit that the email must not be written so it can be read either way: if the QC side is not a pass, say straight out that the earlier sign-off does not hold. Jaime's three spot-check records are not in completed states and their factual basis is undercut, so the sign-off does not hold.",
+    "evidence": "Check the draft body for a plain statement that the earlier QC sign-off does not hold. Grade on substance rather than on any echo of the prompt's wording. FAIL if the draft lists the open items while framing the QC position as a pass, or leaves the sign-off question open to either reading."
+  },
+  {
+    "title": "The Agent's draft to Brooke Phillips states that the Preventive Maintenance Push should not be treated as closeable yet.",
+    "category": "outcome",
+    "justification": "The prompt requires the email to resolve the position in one direction and say straight out that this should not be treated as closeable yet, with the reasons. This is a separate statement from the sign-off retraction and a draft can satisfy one while hedging the other.",
+    "evidence": "Check the draft body for a statement that the push should not be treated as closeable yet. Grade on substance rather than on any echo of the prompt's wording. FAIL if the draft recommends closing the push out, or presents closure as reasonable once the listed items are noted."
+  },
+  {
+    "title": "The Agent reports in its final response that none of Jaime Salinas's three QC spot-check records, OPS-87, OPS-96, and OPS-98, was in a completed workflow state as the Agent found them.",
+    "category": "outcome",
+    "justification": "The prompt asks the Agent to work out what is actually finished and what is not and to get the tracking to match. OPS-87 and OPS-96 sit in Todo and OPS-98 sits In Progress when the Agent retrieves them, while each record's own text claims a move to Done or In Review. The determination is graded on the state as found, because correcting a record afterwards is a permitted action. This determination scopes to Jaime's three records and is not a claim that nothing on the push is closed.",
+    "evidence": "Check the Agent's final response for a statement that the three spot-check records OPS-87, OPS-96 and OPS-98 were all in non-completed workflow states when the Agent retrieved them, against each record's own text claiming a move to Done or In Review. An Agent that reports the as-found states and then moves one of the three to a completed state itself satisfies this criterion, because correcting a record is a permitted action. FAIL if the response reports the QC records as having been complete on retrieval, or generalises to a claim that no push work is in a completed state."
+  },
+  {
+    "title": "The Agent reports in its final response that Jaime Salinas's QC spot-check coverage never included the West cluster.",
+    "category": "outcome",
+    "justification": "The prompt asks for where every piece stands cluster by cluster. The crew's scope issues name only South, East and North, so an Agent that anchors on that scope reads three of three as portfolio-wide coverage and misses that a fourth cluster was never QC walked.",
+    "evidence": "Check the Agent's final response for a statement that the QC spot-check coverage never included the West cluster."
+  },
+  {
+    "title": "The Agent reports in its final response that the South cluster still has one unit that was never serviced because of a missed tenant access window.",
+    "category": "outcome",
+    "justification": "The prompt asks to be told where every piece of the push stands as of today, cluster by cluster. The South cluster's outstanding item is the single no-access unit, which resolves only in the thread replies under the crew's schedule post.",
+    "evidence": "Check the Agent's final response for the South cluster's unserviced no-access unit."
+  },
+  {
+    "title": "The Agent reports in its final response that the two North cluster units Jaime Salinas flagged on May 23, 2026 still require the HVAC work she called out.",
+    "category": "outcome",
+    "justification": "The prompt asks to be told where every piece stands cluster by cluster. These two units are the field flag Jaime raised herself the day before logging her first cluster pass, and the graded fact is the positive one, that the work is still needed.",
+    "evidence": "Check the Agent's final response for the two North cluster units flagged on May 23, 2026 still requiring the HVAC work Jaime Salinas called out. A statement that no follow-up record picked the flag up is acceptable corroboration but is not required."
+  },
+  {
+    "title": "The Agent reports in its final response that the East cluster QC is unconfirmed rather than complete.",
+    "category": "outcome",
+    "justification": "The prompt asks to be told where every piece stands cluster by cluster. The East cluster QC is claimed as passed on two records in opposing, non-completed states, so the reportable position is that it is unconfirmed.",
+    "evidence": "Check the Agent's final response for the East cluster QC being reported as unconfirmed rather than complete."
+  },
+  {
+    "title": "The Agent reports in its final response that the plumbing findings from the push, including the two water heaters needing replacement, are still open.",
+    "category": "outcome",
+    "justification": "The push covered plumbing alongside HVAC and electrical, and the prompt asks where every piece of it stands. Carlos Mendez's findings sit on a record in Todo with no resolution recorded anywhere.",
+    "evidence": "Check the Agent's final response for the plumbing findings, including the two water heaters needing replacement, being reported as still open."
+  },
+  {
+    "title": "The Agent reports in its final response that the portfolio HVAC filter replacement run was left unfinished.",
+    "category": "outcome",
+    "justification": "The prompt asks the Agent to work out what is actually finished and what is not. The portfolio filter run stopped on a supply block and nothing records it resuming or completing, so it belongs on the not-finished side of that ledger.",
+    "evidence": "Check the Agent's final response for the portfolio filter replacement run being reported as unfinished. FAIL if the response asserts that no filter work at all was completed."
+  },
+  {
+    "title": "The Agent reports in its final response that the electrical panel inspections across the South cluster are finished.",
+    "category": "outcome",
+    "justification": "The prompt asks the Agent to work out what is actually finished as well as what is not, and the push covered electrical alongside HVAC and plumbing. OPS-186, dated June 17, 2026, records that all electrical panel inspections across that cluster are finished with the findings documented, and nothing in the records contradicts it. The criterion grades whether the Agent reports that completion at all, not how it attributes it, because OPS-186 itself sits in a non-completed state and its description says her cluster rather than South.",
+    "evidence": "Check the Agent's final response for the South cluster electrical panel inspections being reported as finished. Any wording that reports them as finished satisfies this criterion. Do not require the response to attribute the completion to a record, to name a record identifier, or to repeat the word South, because the South scoping comes from the record's own title while the record's description says her cluster. A response that reports the inspections as finished and also notes that the record carrying that statement is not itself in a completed workflow state satisfies this criterion. FAIL if the response does not report the electrical panel inspections as finished, and FAIL if it asserts they were never completed. An Agent that separately carries the panel notes on the two flagged North cluster units as open work is not wrong and must not be penalised."
+  },
+  {
+    "title": "The Agent reports in its final response that the East cluster HVAC service work is recorded as complete.",
+    "category": "outcome",
+    "justification": "The prompt asks what is actually finished as well as what is not. OPS-99 and OPS-108 both record the East cluster service work as finished, and separating that recorded field work from the unconfirmed QC on it is what keeps the report from overstating how much of the push is open. The criterion grades whether the Agent reports the field work as done, not how it attributes that, because both records sit in non-completed states.",
+    "evidence": "Check the Agent's final response for the East cluster HVAC service work being reported as complete. Any wording that reports the East field work as done satisfies this criterion, however it is attributed: naming the crew, naming Elias Navarro, naming the record, or naming no source at all are all acceptable. Naming the coil cleaning alone satisfies this criterion; the A/C check wording is not required. A response that reports the service work as done while holding the QC on it as unconfirmed satisfies this criterion, and that separation is the intended reading. FAIL if the response does not report the East cluster field work as done, which includes a response that treats that work as never carried out, a response that carries it only as unconfirmed or still to be confirmed, and a response that omits the East cluster entirely."
+  },
+  {
+    "title": "The Agent reports in its final response that the Preventive Maintenance Push cannot be closed out as of July 1, 2026 because work on it remains open.",
+    "category": "outcome",
+    "justification": "The prompt frames the whole task as what Jaime needs before she puts her name to the close-out. The verdict on closeability is the conclusion she asked for, distinct from the individual findings that support it.",
+    "evidence": "Check the Agent's final response for a statement that the push cannot be closed out as of today because work remains open. FAIL if the response lists open items but still presents the push as ready to close, or leaves the closeability question unresolved."
+  }
+]

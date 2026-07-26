@@ -119,3 +119,80 @@ Append-only. One entry per justification sent back to the platform reviewer (Cla
 **Reviewer response:** [pending platform re-check]
 
 **Cross-task pattern update**: this is the 2nd recorded instance of the platform linter running the wrong universe's rulebook (Task 35 KeyStone was flagged against Brookfield; Task 36 MoveOps flagged against KeyStone). Both were categorical wrong-universe classification errors at the linter level, invalidated with clean voice-gate justifications. Threshold noted in Task 35 entry was "≥ 2 more" for platform-issue filing; we are now at 2 total. One more instance (KeyStone or MoveOps universe hit with a non-matching rulebook) crosses the threshold — consider surfacing to the platform on the next occurrence.
+
+---
+
+## 2026-07-22 — Task 39_6a602c8886ebb06f12354d77 — Class A INVALIDATE (StarPM Persona + Business alignment, within-universe seat misjudgment)
+
+**Linter excerpt (two findings, both returned FALSE):**
+> [Persona check] James Bennett is a junior assistant maintenance technician who executes assigned tickets under John's or Elias's direction; "close out" authority, cross-workstream coordination, record reconciliation, crew-facing channel posts, and a status email to John read like a PM or Lead Tech. Suggested reauthoring from Carlos Mendez (Onsite PM).
+> [Business alignment] Authoring seat, write actions, and accountability belong to Property Operations (Cat 1.1 Unit Turnover Coordination), not Maintenance & Repairs. "John Smith is a Lead Tech; he doesn't draft status emails to himself."
+
+**Decision: INVALIDATE both, prompt unchanged.** Correct universe (StarPM rulebook on a StarPM task, NOT a wrong-universe error like Tasks 35/36). The linter made a within-universe persona-seat misjudgment:
+> (1) Persona is a fixed input, so "reauthor from Carlos Mendez" swaps a given, not a fixable prompt defect. The StarPM persona-anchor rule authors tasks from the persona's HOME function (James = Cat 4 Maintenance & Repairs), not participant appearances; the PersonaBrief authoring line instantiates it ("executes assigned tickets, follows Lead's routing, reports back on completion").
+> (2) The load-bearing open item is James's OWN maintenance ticket (OPS-227 / MT-2026-1271, seized 8D disposal he flagged: "routing back to you for parts approval before I swap it"), canonical Cat 4 work.
+> (3) Every decision routes to his direct lead John Smith (Lead Maintenance Technician); James never declares ready, approves spend, or directs anyone.
+> (4) The business-alignment finding has a factual error: James authors the email, John receives it; different people.
+Council A (A4 authority + A10 business function), Council B (Persona 5/5, Business Function 5/5), and AUDIT all passed the prompt; an independent oracle re-adjudication confirmed INVALIDATE on both. Two justifications submitted, one per finding.
+
+**Residual pushback-risk (watch-item, not a defect):** the #make-ready crew-post, since the universe shows John posting the daily progress updates on this turn (recf7aecc318b2252). Rated yellow (pushback-risk), not red. If the platform rejects the pushback, the cheapest surgical concession is folding that crew status into the email to John (triggers full re-gate; do NOT do preemptively; do NOT concede the two flagged voice phrases, they are the strongest ground).
+
+**Justifications submitted:** see `Tasks/39_6a602c8886ebb06f12354d77/_aux/Linter_Justifications.md` (Persona check + Business alignment check).
+
+**Reviewer response:** [pending platform re-check]
+
+**Cross-task pattern:** distinct from the Tasks 35/36 wrong-universe pattern; the linter used the CORRECT StarPM rulebook here and made a within-universe persona-seat misjudgment. First recorded StarPM persona/BF within-universe false-positive. Pattern to watch: the linter under-weighting the persona-anchor rule (home-function authoring) when a maintenance persona participates in a turn that also has a coordinator (Onsite PM) seat.
+
+---
+
+## 2026-07-22 — Task 39_6a602c8886ebb06f12354d77 — Class A INVALIDATE (StarPM Persona + Business alignment, within-universe seat misjudgment)
+
+**Linter excerpt (two findings, both returned FALSE):**
+> [Persona check] James Bennett is a junior assistant maintenance technician who executes assigned tickets under John's or Elias's direction. Calling it done to John, squaring up logged records, and posting crew-facing channel updates are above his station... reads like a PM or Lead Tech. Suggested reauthoring from Carlos Mendez (Onsite PM).
+> [Business alignment check] The authoring seat, write actions, and accountability posture all belong to Property Operations (Cat 1.1 Unit Turnover Coordination), not Maintenance & Repairs. "John Smith is a Lead Tech; he doesn't draft status emails to himself."
+
+**Root cause of linter false positive:** Correct universe this time (StarPM rulebook on a StarPM task — NOT a wrong-universe error like Tasks 35/36). The linter misjudged the persona seat on the merits: (1) the persona is a fixed platform input, so "reauthor from Carlos Mendez" swaps a given, not a fixable prompt defect; the StarPM persona-anchor rule authors tasks from the persona's HOME function (James = Cat 4 Maintenance & Repairs), not from participant appearances in a turn. (2) The load-bearing open item is James's OWN maintenance ticket (OPS-227 / MT-2026-1271, seized 8D disposal he flagged himself: "routing back to you for parts approval before I swap it. — James"), which is canonical Cat 4.1 work, not turnover coordination. (3) Every decision routes to his direct lead John Smith (Lead Maintenance Technician); James never declares the unit ready, approves spend, or directs anyone. (4) The business-alignment finding contains a factual error — James authors the email, John receives it; they are different people, so nobody emails themselves. Council A (A4 authority + A10 business function), Council B (Persona 5/5, Business Function 5/5), and the S1 AUDIT all passed the prompt; an independent oracle re-adjudication (15m) confirmed INVALIDATE on both findings and advised leading the pushback with the structural argument (authority routes to John + it is his own ticket) rather than the "plausible junior readings" of the two flagged phrases.
+
+**Residual pushback-risk (watch-item, NOT a defect, prompt left unchanged):** the #make-ready crew-post clause — the universe shows John posting the daily progress updates on this exact turn (airtable recf7aecc318b2252). Rated yellow (pushback-risk), not red. IF the platform rejects the pushback, the single cheapest surgical concession is folding that crew status into the email to John (that edit triggers the full re-gate, so do NOT apply preemptively; and do NOT concede the two flagged phrases — they are the strongest ground).
+
+**Justification submitted:** see `Tasks/39_6a602c8886ebb06f12354d77/_aux/Linter_Justifications.md` (voice gate clean, 0 hits).
+
+**Reviewer response:** [pending platform re-check]
+
+**Cross-task pattern:** distinct from the Tasks 35/36 wrong-universe pattern — the linter used the CORRECT StarPM rulebook and made a within-universe persona-seat misjudgment. First recorded StarPM persona/BF within-universe false-positive; the pattern to watch is the linter under-weighting the persona-anchor rule (home-function authoring) when a maintenance persona legitimately participates in a make-ready turn that ALSO has a coordinator seat (Onsite PM). The wrong-universe counter (Tasks 35/36) stays at 2; this task does NOT increment it.
+
+---
+
+## Entry — Tasks/42_6a62ccac9492f2a60e456c1c — 2026-07-25
+
+**Linter excerpt:**
+> [Business alignment check] Invented vendor — "Pete Donovan's crew." The Star PM universe has exactly eight approved vendors ... "Pete Donovan's crew" does not correspond to any of them ... Prompts inventing vendors outside the approved list are a universe-rule flag. Return: FALSE.
+
+**Justification sent (verbatim):**
+> The prompt names Pete Donovan as the crew on the Ridgeview roof, and he is in the data as a contact listed as an exterior painter at pete.donovan@gmail.com and as a QuickBooks customer record. The Ridgeview roof bill carries a note that Pete Donovan's quote was accepted at 8,400 dollars, and the owner pass-through invoice to Robert Finley describes the job as Pete Donovan Roofing, so the name is taken straight from the records rather than invented. The bill of record for that roof is actually entered under a different vendor, and sorting out which name the payable really sits against before any money moves is exactly what Brooke is asking for here. Naming Pete Donovan the way the existing emails and Slack posts already do is faithful to what she believes going in. Happy to revise if you see something I missed.
+
+**Reviewer decision:** Pending
+
+**Root cause of linter false positive:** Correct universe (StarPM rulebook on a StarPM task). The linter's premise is factually wrong: Pete Donovan is present 40+ times as a contact (Exterior Painter, pete.donovan@gmail.com) and a QuickBooks customer (`proj-f6f9edfeae5c`), and the roof records name him directly (bill 2026-481 note "Pete Donovan quote accepted at $8,400"; owner invoice 2026-494 "Pete Donovan Roofing"). The linter's "approved vendor" rule conflates a conversationally-named crew with the AP vendor of record. The conflict between the named crew ("Pete Donovan / Donovan Roofing") and the booked vendor (Big Bend Restoration, VendorRef 203) is the intended central trap; the suggested revision (name Big Bend in the prompt) would leak the vendor-of-record answer and gut the task. Prompt left unchanged; no additional defects on re-check.
+
+**If rejected:** minimal surgical option is to soften "Pete Donovan's crew is confirmed" to a first-name-only reference ("Pete's crew") without naming a vendor, preserving the trap; do NOT name Big Bend. Any such edit triggers a full re-gate, so do not apply preemptively.
+
+**Cross-task pattern:** Second recorded StarPM within-universe false positive (after Task 39's persona/BF misjudgment). Pattern to watch: the linter applying the eight-vendor "approved list" rule to a conversationally-named crew without checking whether the name is a real contact/customer in the data. Does not increment the wrong-universe counter (stays at 2, Tasks 35/36).
+
+---
+
+## Entry — Tasks/43_6a62ccaf5853030245ac9d53 — 2026-07-25
+
+**Linter excerpt (Business alignment check, Return: FALSE on four grounds):**
+> Owner misattribution (Linda Castillo assigned to Mesa Vista, a Robert Finley property), QuickBooks reconciliation and invoice-correction actions outside the Property Operations authority and tool matrix, and an invented Airtable cost field not present in the defined schema. Suggested revision reassigns the owner to Robert Finley and recommends re-labelling the prompt as Portfolio Coordination.
+
+**Justification sent (verbatim):**
+> Mesa Vista 4C is Carlos's own turn, and Linda Castillo is the owner on it: the owner invoice for that unit, 2026-534, is made out to her for $1,622 covering the deep clean, the repaint, and the closet trim, and Carlos's email to her titled Mesa Vista 4C Make-Ready Complete is sitting in his sent mail. No 4C invoice exists under any other owner name, so pointing this at a different owner would leave the agent nothing to check the charges against. Carlos also entered and logged the 4C vendor bills in QuickBooks himself, one of them noted as entered by him and another as routed and logged by him, so going back to those same bills to confirm what Linda was actually charged is part of the work he already does on this unit. The make-ready record for 4C already carries its cost and scope detail in a notes field, so the confirmed owner figure has a place to land alongside the status change. Happy to revise if you see something I missed.
+
+**Reviewer decision:** Pending
+
+**Root cause of linter false positive:** Correct universe (StarPM rulebook on a StarPM task). All four findings are contradicted by the records. (1) Owner: AR invoice `445653930748` / Doc 2026-534 carries CustomerRef Linda Castillo against "Mesa Vista Unit 4C" at $1,622; belief email `5101c5a41dffa90a` opens "Hi Linda"; ticket `rec12969a3fdb0852` flags Linda on the 4C turn; the `makeready_turn_carlos` storyline states "an owner invoice gets issued to Linda Castillo." The linter's source is the summary owner table, whose column is headed "Owns / touches" and which states each owner holds one or more properties; Robert Finley's "Mesa Vista (monthly reports)" entry traces to `owner_monthly_report_review`, a Brooke and Lisa reporting scenario, not unit-level 4C billing. (2) QuickBooks: Cat 1 lists QuickBooks among Onsite PM primary systems and 1.4 lists `quickbooks_mock_update_invoice` as a Cat 1 write; the Cat 2.2 write the linter describes is `quickbooks_mock_update_bill`, which the prompt never asks for. Bill notes on `195089456477` ("entered into QB by Carlos") and `546359391323` ("Routed and logged by Carlos Mendez") put the persona in this ledger already. (3) Airtable: the prompt names no field; `tblMakeReady.fldNotes2` is multilineText and both live 4C rows already hold cost and scope narrative there. The linter's own revision resolves to the same field, conceding the mechanism. (4) Authority: pass-through owner invoicing is a defined universe motion and the 4C owner invoice originates in Carlos's own scenario. Prompt left unchanged; re-check surfaced no new defects.
+
+**If rejected:** lead the re-submission with the documentary F1 evidence (invoice 2026-534 plus the sent email). Do NOT concede the owner swap, which is factually wrong and would leave the correction ask with no target. The only cheap surgical concession available is softening the self-attribution of the original bill ("I billed her" to "the bill went out on my turn"), which costs nothing in the levers; never concede the QuickBooks reconciliation, which is the entire spine.
+
+**Cross-task pattern:** Third recorded StarPM within-universe false positive (after Task 39 persona seat, Task 42 vendor list). Same shape all three: the linter treats a summary-doc roster or category shorthand as an exclusive rule and does not cross-check the live records that the authoring guidance names as the anchor of record. Does not increment the wrong-universe counter (stays at 2, Tasks 35 and 36).

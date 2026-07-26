@@ -135,6 +135,19 @@ def count_tool_calls(events):
     for ev in events:
         if not isinstance(ev, dict):
             continue
+        # Gemini flat format (v4 / starpm dual-model exports): a tool call is a
+        # top-level event with type == "tool_use" (keys: tool_name, parameters,
+        # tool_id, type). Such events carry no nested `message`, so this branch
+        # is mutually exclusive with the Claude-Code branch below and cannot
+        # double-count. v3-family / Opus trajectories never emit a top-level
+        # `tool_use` event (their event types are system/assistant/user/result),
+        # so their counts are unchanged by this branch.
+        if ev.get("type") == "tool_use":
+            total += 1
+            if ev.get("tool_name", "").startswith("mcp_"):
+                mcp += 1
+            continue
+        # Claude-Code / Opus format: tool_use blocks nested in message.content[].
         msg = ev.get("message")
         if not isinstance(msg, dict):
             continue

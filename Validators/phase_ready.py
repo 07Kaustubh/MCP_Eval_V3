@@ -130,6 +130,30 @@ def main():
     for path in required:
         print(f"  - {path}")
 
+    # v22: S4 reads inputs the operator can re-paste from the platform at any moment.
+    # Report the pin state up front so a pass is never written against bytes that have
+    # already been replaced. Advisory on purpose: a first S4 pass has no pin yet, and
+    # a legitimate re-paste is the normal trigger for a new pass. What must not happen
+    # is drifting WITHOUT noticing. Origin: Task 44, where passes 3 and 4 were each
+    # silently superseded by a re-paste mid-session.
+    if args.phase == "s4":
+        import subprocess
+        fresh = Path(__file__).resolve().parent / "check_export_freshness.py"
+        r = subprocess.run(["python3", str(fresh), str(task_dir)],
+                           capture_output=True, text=True)
+        head = (r.stdout.splitlines() or [""])[0]
+        if r.returncode == 0:
+            print(f"[OK] S4 input pin verified — {head.split(': ', 1)[-1]}")
+        elif "no _aux/S4_input_pin.json" in r.stdout:
+            print("[NOTE] S4 inputs are not pinned yet. Pin them now, before classifying:")
+            print(f"       python Validators/check_export_freshness.py {task_dir} --pin")
+        else:
+            print("[WARN] S4 inputs have DRIFTED from the pin. Any existing S4 report in")
+            print("       this task describes different bytes. Re-derive, then re-pin.")
+            for line in r.stdout.splitlines()[1:]:
+                if line.strip():
+                    print(f"       {line}")
+
     if args.phase == "materialize":
         import subprocess
         verifier = Path(__file__).resolve().parent / "verify_universe_atoms.py"

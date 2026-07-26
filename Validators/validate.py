@@ -434,12 +434,20 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
     for m in INJECTION_PATTERN.finditer(text):
         rep.fail(f"prompt-injection pattern detected: `{m.group(0)}` — candidate prompt contains scoring-manipulation phrase. Real persona prompts never instruct the agent/judge to ignore rubrics or override scoring.")
 
+    # Em-dash ban on the prompt is an operator constraint learned in practice: an em-dash
+    # reads machine-written in a first-person work request and has drawn platform flags.
+    # Hard FAIL, restored after a v23 change wrongly relaxed it to a warning.
     for m in EM_DASH_PATTERN.finditer(text):
         rep.fail(f"em-dash / en-dash at offset {m.start()}: `{text[max(0,m.start()-20):m.start()+20]}`")
 
     words = text.split()
     wc = len(words)
     rep.note(f"word count: {wc}")
+    # The 500-word cap is an operator constraint learned from platform rejections, not a
+    # transcription of spec prose. It is deliberately stricter than the guidelines and stays
+    # a hard FAIL. (A v23 change briefly downgraded it on the reasoning that it was absent
+    # from the source text; that reasoning was wrong. Absence from spec prose does not make
+    # a practice-learned constraint optional.)
     if wc > 500:
         rep.fail(f"word count {wc} exceeds 500 cap")
     elif wc > 400:
@@ -1283,6 +1291,16 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
         rep.fail(f"process count ({process_n}) > outcome count ({outcome_n}) — process must be the minority")
     if process_n > 0 and (process_n / max(1, outcome_n + process_n)) > 0.5:
         rep.fail(f">50% of rubrics are process — outcome must outnumber process")
+
+    # v21.3 producing-phase backstops (F7 ambiguous target / F8 non-atomic enum /
+    # F9 unreconciled future calendar event): catch at S3, not only pre-upload.
+    try:
+        from Validators import v4_gates as _v4bs
+    except ImportError:
+        import v4_gates as _v4bs
+    _oe_p = task_dir / "6_Oracle_Events.txt"
+    _oe_txt = _oe_p.read_text(encoding="utf-8") if _oe_p.is_file() else ""
+    _v4bs._false_fail_backstops(task_dir, rep, universe, rubrics, prompt_text, _oe_txt)
 
     total_rubrics = len(rubrics)
     if total_rubrics > 0:

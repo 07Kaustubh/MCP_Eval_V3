@@ -1,0 +1,216 @@
+{
+  "task": "40_6a614767cd5b60ad96902fb4",
+  "framework_version": "v4",
+  "trajectory_layout": "per_model",
+  "per_run": [
+    {
+      "run": 1,
+      "file": "Agent_Responses/Gemini/trajectory-run-1 (1).json",
+      "status": "ok",
+      "tool_calls_total": 47,
+      "tool_calls_mcp_only": 35,
+      "model": "gemini"
+    },
+    {
+      "run": 2,
+      "file": "Agent_Responses/Gemini/trajectory-run-2 (1).json",
+      "status": "ok",
+      "tool_calls_total": 45,
+      "tool_calls_mcp_only": 36,
+      "model": "gemini"
+    },
+    {
+      "run": 3,
+      "file": "Agent_Responses/Gemini/trajectory-run-3 (1).json",
+      "status": "ok",
+      "tool_calls_total": 37,
+      "tool_calls_mcp_only": 26,
+      "model": "gemini"
+    },
+    {
+      "run": 4,
+      "file": "Agent_Responses/Gemini/trajectory-run-4 (1).json",
+      "status": "ok",
+      "tool_calls_total": 38,
+      "tool_calls_mcp_only": 32,
+      "model": "gemini"
+    },
+    {
+      "run": 5,
+      "file": "Agent_Responses/Gemini/trajectory-run-5 (1).json",
+      "status": "ok",
+      "tool_calls_total": 33,
+      "tool_calls_mcp_only": 25,
+      "model": "gemini"
+    },
+    {
+      "run": 6,
+      "file": "Agent_Responses/Gemini/trajectory-run-6 (1).json",
+      "status": "ok",
+      "tool_calls_total": 40,
+      "tool_calls_mcp_only": 30,
+      "model": "gemini"
+    },
+    {
+      "run": 1,
+      "file": "Agent_Responses/Opus/trajectory-run-1.json",
+      "status": "ok",
+      "tool_calls_total": 31,
+      "tool_calls_mcp_only": 25,
+      "model": "opus"
+    },
+    {
+      "run": 2,
+      "file": "Agent_Responses/Opus/trajectory-run-2.json",
+      "status": "ok",
+      "tool_calls_total": 40,
+      "tool_calls_mcp_only": 21,
+      "model": "opus"
+    },
+    {
+      "run": 3,
+      "file": "Agent_Responses/Opus/trajectory-run-3.json",
+      "status": "ok",
+      "tool_calls_total": 47,
+      "tool_calls_mcp_only": 23,
+      "model": "opus"
+    },
+    {
+      "run": 4,
+      "file": "Agent_Responses/Opus/trajectory-run-4.json",
+      "status": "ok",
+      "tool_calls_total": 39,
+      "tool_calls_mcp_only": 22,
+      "model": "opus"
+    },
+    {
+      "run": 5,
+      "file": "Agent_Responses/Opus/trajectory-run-5.json",
+      "status": "ok",
+      "tool_calls_total": 47,
+      "tool_calls_mcp_only": 21,
+      "model": "opus"
+    },
+    {
+      "run": 6,
+      "file": "Agent_Responses/Opus/trajectory-run-6.json",
+      "status": "ok",
+      "tool_calls_total": 45,
+      "tool_calls_mcp_only": 22,
+      "model": "opus"
+    }
+  ],
+  "runs_evaluated": 12,
+  "avg_tool_calls_total": 40.8,
+  "avg_tool_calls_mcp_only": 26.5,
+  "min_tool_calls_total": 31,
+  "max_tool_calls_total": 47,
+  "density_ok_at_15": true,
+  "by_model": {
+    "gemini": {
+      "runs_evaluated": 6,
+      "avg_tool_calls_total": 40,
+      "avg_tool_calls_mcp_only": 30.7,
+      "min_tool_calls_total": 33,
+      "max_tool_calls_total": 47,
+      "verifier_fails": {
+        "runs": [
+          {
+            "run": 1,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 2,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 3,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 4,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 5,
+            "passed": 14,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 6,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          }
+        ],
+        "runs_total": 6,
+        "runs_passing_all_rubrics": 0,
+        "pass_at_1": 0.0
+      },
+      "pass_at_1": 0.0
+    },
+    "opus": {
+      "runs_evaluated": 6,
+      "avg_tool_calls_total": 41.5,
+      "avg_tool_calls_mcp_only": 22.3,
+      "min_tool_calls_total": 31,
+      "max_tool_calls_total": 47,
+      "verifier_fails": {
+        "runs": [
+          {
+            "run": 1,
+            "passed": 13,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 2,
+            "passed": 14,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 3,
+            "passed": 15,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 4,
+            "passed": 13,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 5,
+            "passed": 12,
+            "total": 17,
+            "passes_all": false
+          },
+          {
+            "run": 6,
+            "passed": 12,
+            "total": 17,
+            "passes_all": false
+          }
+        ],
+        "runs_total": 6,
+        "runs_passing_all_rubrics": 0,
+        "pass_at_1": 0.0
+      },
+      "pass_at_1": 0.0
+    }
+  },
+  "overall_pass_at_1": 0.0,
+  "difficulty_ok_at_40pct": true,
+  "verdict": "OK"
+}

@@ -28,6 +28,8 @@ The validator still ACCEPTS the legacy nested shape (`{id, title, annotations: {
 | **No "at least N" in title** unless the prompt explicitly mandates a minimum | "At least N" is reward-hackable. For N independent write actions, write N atomic rubrics. |
 | **Self-contained** | Every expected value (email, amount, ID, account number, classification, retention code) embedded in the `title` itself. The judge does not have the universe; the judge has only the trajectory + the rubric set. |
 | **Atomic** | One independent claim per rubric. If the rubric can fail for two unrelated reasons, split it. |
+| **Single-target uniqueness** | Before a write-action rubric pins a record id, confirm exactly one universe record matches the prompt's described target. If two or more match, disambiguate in the prompt or inject a disambiguator; do not hard-code one id the prompt never names. |
+| **No multi-item enumeration in one criterion** | A criterion listing three or more items under a completeness/step predicate ('repairs, carpet, deep clean, punch-list, and the fridge are complete') is not atomic. Split one rubric per item, as the Airtable write is split. Value-sets ('must be one of: A, B, or C') are exempt. |
 | **Grounded** | Every concrete value in the title must appear verbatim in this task's `_aux/Universe_Split/`. The validator does a substring sweep. |
 
 ## Outcome sub-categories

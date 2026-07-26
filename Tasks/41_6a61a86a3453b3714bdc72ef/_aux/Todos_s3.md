@@ -1,0 +1,24 @@
+# Todos — PIPELINE S3 (Rubrics) — Tasks/41_6a61a86a3453b3714bdc72ef
+
+- [x] Step 0: Create this TODO list
+- [x] Step 0b: Create Reads_s3.md, log every spec/reference doc read
+- [x] Read every V4 QC_Passed reference rubric file in full (Task1..Task4/7_Rubrics.json)
+- [x] Read Reference/Rubric_Format.md (flat schema + handling flexibility)
+- [x] Read Docs_starpm/2_Rubrics_V3_Guidelines.md (framework rules)
+- [x] Read Docs_starpm/12_Always_Failing_Rubrics.md (AF patterns)
+- [x] Read Evals_starpm/3_Rubrics_Eval.md (eval sub-dims)
+- [x] Read Docs_starpm/7_QC_Spec_Doc1.json Rubric dimension (5 sub-dims)
+- [x] Verify load-bearing GT (arrears math, emails, IDs, Airtable/Linear/Slack) + tool signatures
+- [x] Step 2: Outcome-first — walk OE write actions (OE14-17) -> Outcome 1.1/1.2; walk prompt tell-me cues -> Outcome 2.1
+- [x] Step 3: Three-condition test on any Process candidate -> ZERO process (outcome derived-values prove the work)
+- [x] Step 4: Use FLAT schema (title, category, justification, evidence)
+- [x] Draft 7_Rubrics.json — 18 rubrics (all outcome; grew 16->18 at REVISE), every value grounded
+- [x] Step 5: validate.py --phase rubrics PASS 0 fails (18 adjudicated warns); anchoring warns fixed
+- [x] Step 6: Council A — Grounding GO (all values grounded/derived-verified)
+- [x] Step 7: Council B — Adversarial QC GO (5/5 sub-dims; density Opus~50/Gemini~43; all 5 levers)
+- [x] Step 8: Loop — 1 REVISE round (atomicity split); re-ran validator+A+B+AUDIT all clean
+- [x] Step 9: Strict veteran AUDIT --phase rubrics = PASS (STRICT) (round 1 of 3 cap)
+- [x] Step 10: Wrote _aux/Reasoning/Rubric_Coverage_Matrix.md (prompt -> OE -> rubric, decoy + lever maps)
+- [x] Step 0.5: Wrote _aux/Verification_s3.md cross-source check
+- [x] Audit_Log.md entry appended; regression 62/62
+- [x] Exit criteria confirmed; STOP gate reached

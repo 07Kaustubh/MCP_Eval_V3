@@ -60,6 +60,39 @@ Both modes use the SAME prompt template (below) and produce the SAME report form
 | `Evals/2_OE_Eval.md` | strictest OE eval | `--phase oe` or `--phase all` |
 | `Evals/3_Rubrics_Eval.md` | strictest rubric eval | `--phase rubrics` or `--phase all` |
 
+## Scope contract: deterministic first, judgement only where judgement is required
+
+**Run the deterministic gates BEFORE writing a word of prose, and cite their exit codes rather than re-deriving their standards.**
+
+```
+python Validators/check_qc_binary.py Tasks/<TASK_DIR>            # the 10 binary sub-dims
+python Validators/check_rubric_antipatterns.py Tasks/<TASK_DIR>  # construction anti-patterns
+python Validators/check_ordering_coverage.py Tasks/<TASK_DIR>    # uncovered ordering requirement
+python Validators/check_oe_rubric_sync.py Tasks/<TASK_DIR>       # OE / rubric drift
+python Validators/check_criterion_dependencies.py Tasks/<TASK_DIR>  # passing-cell audit
+```
+
+Everything those gates cover is **settled**. Do not re-argue it, do not restate their thresholds, and do not
+produce a lens whose conclusion is "the deterministic gate passed".
+
+**What is left for judgement, and it is a short list:**
+
+1. **Unique Ground Truth.** Two reasonable readings leading to different end-states. No script can enumerate readings.
+2. **Universe / Cross-service Coherence.** The spec conditions it on a contradiction *causing an agent failure*, so it needs the trajectories.
+3. **Nested accept-sets.** Whether two criteria grade the same fact. A token-overlap proxy was built and discarded at 14 false positives and zero true positives; subject identity needs semantics.
+4. **Answer leakage.** Whether a prompt or OE hands over a fact the agent should discover.
+5. **Lever preservation.** Whether the shipped artifacts still carry the hardness the plan designed.
+6. **Prompt persona voice and naturalness.** Reads-like-a-colleague is not measurable.
+
+**Report budget: one page per lens, and a lens that finds nothing says so in one line.** Per AGENTS.md rule 20,
+prose volume is not evidence of rigour; a 90 KB audit that records zero findings is a defect in the phase. Measure
+your own output with `python Validators/check_council_yield.py Tasks/<TASK_DIR>` before declaring a verdict.
+
+**Finding discipline.** Tag every finding with an ID and a severity from the current taxonomy (AGENTS.md rule 27:
+Overly Specific = MODERATE, Overly Broad = MINOR as of 07/16). Untagged findings make yield unmeasurable, which is
+the reason `check_council_yield.py` cannot yet trust its own count. A finding you validate as real may not be
+declined on internal-precedent grounds (rule 19): fix it, or escalate it to the operator.
+
 ## Strictest QC interpretation — what that means
 
 The per-phase Council B scores QC sub-dims and allows 3-4 bands when explicitly justified against per-task universe state. AUDIT does NOT. It applies the **strictest reading** of every sub-dim in `Docs/7_QC_Spec_Doc1.json`:
@@ -78,9 +111,15 @@ The point is to catch what the lighter per-phase pass let through. If AUDIT retu
 
 ```
 python Validators/phase_ready.py --phase final --task Tasks/<TASK_DIR>
+python Validators/check_rubric_antipatterns.py Tasks/<TASK_DIR>
+python Validators/check_oe_rubric_sync.py Tasks/<TASK_DIR>
 ```
 
 Re-uses the FINAL gate (same upstream artifact requirements). If it STOPs, run the upstream phase first. AUDIT cannot run on incomplete tasks.
+
+**`check_rubric_antipatterns.py` must exit 0 before AUDIT reports a verdict, and must be re-run after every fix AUDIT applies.** It carries the construction anti-patterns AUDIT itself discovered by hand in earlier passes. Per AGENTS.md rule 18, a finding closed by a hand-run grep and recorded in prose is reintroducible: `AUDIT_rubrics.md` F1 closed `FAIL only if` as MODERATE, and a later edit to that same criterion put it straight back with `validate.py --phase rubrics` still clean.
+
+**Do not treat this phase's own severity census as a measurement.** The Major / Moderate / Minor counts an AUDIT or council report prints are a self-report by the agent that authored or last edited the artifact, and cannot catch that agent's blind spot. On Task 44 four reports asserted "0 Major / 0 Moderate / 0 Minor across 64" while an independent review of the same artifact found two Moderate Overly Specific defects and one Overly Broad. Where a defect shape is mechanically detectable, cite the checker's exit code rather than a hand count.
 
 ## Step 0.5: Cross-Source Verification (v16 — MANDATORY before exit)
 
@@ -312,7 +351,7 @@ python3 Validators/test_regression_anchors.py
 The suite runs validate.py against 10 synthetic mini-task fixtures each
 exhibiting a documented platform-rejection anti-pattern (R7 NPC persona,
 action-decision ambiguity, command-list, em-dash ban, R9 channel lock-in,
-subjective term, AND-bundling, invalid retention code, invalid Slack
+subjective term, AND-bundling, within-criterion multi-item enumeration under a completeness/step predicate (not just two-action bundles - the definition that scored Task 39 R11/R15 a false 5/5), ambiguous single-target record (two or more rows share the entity), unreconciled future calendar event on the task entity, invalid retention code, invalid Slack
 channel, mislabeled Process write-action). All 10 MUST flag with the
 expected pattern. Any anchor that fails to fire = a SILENT REGRESSION in
 the validator. The audit cannot pass until the regression is fixed (either

@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent reports that the clean outstanding amount Tanya Mitchell owes is approximately $1,832, which nets the $150 payment-plan credit against the charges rather than adding it.",
+        "category": "outcome",
+        "justification": "The prompt asks 'what Tanya genuinely owes us right now' and to give 'the clean number' that is 'not double-counting any credit or adjustment.' The authoritative consolidated rent ledger is the vendor-linked bill QR-2026-0441; its true net is $1,982 in charges less the $150 payment-plan credit = $1,832. The stored Balance of $2,132 double-counts the credit by adding it as a positive.",
+        "evidence": "In the Agent's final response, a statement that the net outstanding is approximately $1,832 (a value at or near $1,832 satisfies 'approximately'). FAIL if the Agent reports $2,132 (the stored bill Balance, which wrongly adds the $150 credit), $2,287.50 (the sum of invoice 7214's three charge lines $1,125 + $975 + $187.50, the most common wrong figure), $0 or 'current/paid' (the settled invoice DocNumber 7214 / customer-balance decoy), $8,173.44 (invoice 7214 TotalAmt), the ~$13,208.75 catch-all customer total, or a figure that includes the separate $185 internal filing-prep bill (DocNumber 2026-EV-047)."
+    },
+    {
+        "title": "The Agent identifies that Tanya Mitchell's outstanding charges total approximately $1,982 on the consolidated rent ledger, comprising carried-forward May rent arrears ($847), June 2026 rent ($925), and accumulated late fees ($210).",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'walk it back to the underlying charges so I know it is the clean number.' The gross charges on bill QR-2026-0441 are $847 (carried-forward May arrears) + $925 (June rent) + $210 (late fees through June 29, 2026) = $1,982, before the $150 payment-plan credit is applied.",
+        "evidence": "In the Agent's final response, identification of the underlying charge composition totaling approximately $1,982 (the three charge lines). Accept any reference that walks the figure back to the May arrears, June rent, and late-fee components. FAIL if the Agent instead cites the invoice 7214 charge lines ($1,125 May, $975 June, $187.50 late), which come from a different, non-authoritative statement and cannot be reconciled with the bill's lines."
+    },
+    {
+        "title": "The Agent reports that the eviction petition has NOT yet been filed and the matter is in Justice of the Peace coordination, short of filing.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether we have truly filed the petition yet or are still short of that' and says the persona's read is 'at the hearing stage.' The Airtable system of record shows the filing is owner-approved and the petition is being coordinated with the Justice of the Peace but not yet filed, superseding the older Linear/Slack 'hearing' framing.",
+        "evidence": "In the Agent's final response, a statement that the petition has not yet been filed / is still in Justice of the Peace coordination. FAIL if the Agent reports the eviction is 'at the hearing stage,' a hearing date is set, the case is 'at court,' the petition has been filed, or a ruling has been obtained (the superseded, progress-overstating Linear OPS-32 'Eviction Hearing' framing)."
+    },
+    {
+        "title": "The Agent confirms that the owner's written authorization to file the eviction is on file from Linda Castillo (linda.castillo@gmail.com), the Property Owner.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to 'confirm we have the owner's authorization on file the way we should.' The owner-approved eviction record EVF-2026-014 documents that Linda Castillo granted authorization to proceed; Linda Castillo is the unit owner, distinct from the decoys John Castillo (a Water Delivery Representative) and the Linear 'Harris Property' mis-attribution.",
+        "evidence": "In the Agent's final response, confirmation that the owner authorization is on file and attributed to Linda Castillo (the Property Owner), traceable to the owner-approved eviction record EVF-2026-014. FAIL if the Agent names the owner as Harry Harris ('Harris Property'), John Castillo, or any other party, or reports the authorization as missing."
+    },
+    {
+        "title": "The Agent reports that Tanya Mitchell's Sunset Ridge Unit 14 must be held and cannot be released for make-ready, because possession has not been returned.",
+        "category": "outcome",
+        "justification": "The prompt asks 'whether we are clear to release her unit back for make-ready, or whether it has to hold.' Because the eviction is not concluded and possession has not been returned, the correct disposition is hold, not release. (The persona's distinct marketing concern is graded on the deliverables it belongs to: the make-ready channel post and the owner draft.)",
+        "evidence": "In the Agent's final response, a statement that the unit must be held (make-ready cannot begin) until possession is formally returned. FAIL if the Agent says the unit is clear to release for make-ready or is rent-ready, or if it bases 'ready' on the already rent-ready Rio Bend Unit 14 record (rec94e86a3007dd5e), a different property that must not be conflated with Tanya's Sunset Ridge Unit 14."
+    },
+    {
+        "title": "The Agent updates Tanya Mitchell's Sunset Ridge Unit 14 make-ready record to reflect the current state.",
+        "category": "outcome",
+        "justification": "The prompt says 'get our make-ready record for the unit updated to the real current state, not the stale note in there.' The target is Tanya Mitchell's Sunset Ridge Unit 14 make-ready turn. Several near-duplicate make-ready records exist for this tenancy in tblMakeReady (for example recc83c05d889b354 and reca8230a8fd9ff51, alongside earlier delinquency and eviction-track records for the same Unit 14), so the record is graded on the correct tenant and property rather than one exact record id. The Rio Bend Unit 14 record is a different property and is the near-miss to exclude.",
+        "evidence": "In the Agent's trajectory, a make-ready record update in table tblMakeReady targeting Tanya Mitchell's Sunset Ridge Unit 14 turn, identified by the tenant (Tanya Mitchell) and the unit (Sunset Ridge Unit 14 / Unit 14) rather than one exact id (for example recc83c05d889b354, reca8230a8fd9ff51, or another of Tanya's Unit 14 make-ready records), returning success. Grade on the correct tenant and property, not the exact record id. FAIL if the update targets the Rio Bend Unit 14 record (rec94e86a3007dd5e), a different property already back to rent-ready, or a record for a different tenant or property."
+    },
+    {
+        "title": "The Agent's make-ready record update does not advance the turn to a rent-ready or in-progress make-ready state, keeping it held.",
+        "category": "outcome",
+        "justification": "The prompt does not want the crew mobilizing on a unit they cannot touch. Because possession has not been returned, the turn status must not be advanced; the correct action leaves it at Scheduled (held), not In Progress or Ready.",
+        "evidence": "In the Agent's trajectory, the make-ready record update leaves the turn status held (e.g., remains Scheduled / selSched) and does not set it to an in-progress (selProg) or rent-ready (selReady) state. FAIL if the update advances the turn status to In Progress or Ready, implying make-ready can begin."
+    },
+    {
+        "title": "The Agent's make-ready record update records that make-ready cannot begin until possession is formally returned.",
+        "category": "outcome",
+        "justification": "The prompt asks that the record reflect 'the real current state, not the stale note in there,' and does not want the crew mobilizing on a unit they cannot touch. The current state is that the turn is held: make-ready is blocked until possession is formally returned.",
+        "evidence": "Check the note/field content of the Agent's make-ready record update for a statement that the turn is held and make-ready cannot begin because possession has not been returned. FAIL if the update content leaves the stale 'ready to turn' or unqualified framing, or omits the possession-hold reason."
+    },
+    {
+        "title": "The Agent adds a note to the Mitchell eviction ticket (OPS-32) so the trail is current.",
+        "category": "outcome",
+        "justification": "The prompt says 'Leave a short note on the eviction ticket so the trail is current.' OPS-32 is the open Linear ticket mirroring the Unit 14 eviction; the Airtable eviction record EVF-2026-014 is an acceptable alternative surface for the note.",
+        "evidence": "In the Agent's trajectory, a comment/note added to the Mitchell eviction ticket OPS-32 (or to the Airtable eviction record EVF-2026-014) returning success. FAIL if no note is added, or if it is added to an unrelated ticket."
+    },
+    {
+        "title": "The Agent's note on the eviction ticket states that the eviction petition has not yet been filed and is still in Justice of the Peace coordination.",
+        "category": "outcome",
+        "justification": "For the trail to be 'current,' the note must correct the overstated 'hearing' framing carried in the OPS-32 title and record the true status: the petition is not yet filed, still in Justice of the Peace coordination (OE 15).",
+        "evidence": "Check the Agent's note content on the eviction ticket for a statement that the petition has not yet been filed / remains in Justice of the Peace coordination. FAIL if the note repeats the 'hearing set / at court / ruling obtained' framing or states the petition has been filed."
+    },
+    {
+        "title": "The Agent's note on the eviction ticket states that the eviction filing is owner-approved and the owner's authorization is on file.",
+        "category": "outcome",
+        "justification": "The current position the note records includes that the filing is owner-approved by the owner Linda Castillo, per the owner-approved eviction record EVF-2026-014 (OE 15). This is a distinct fact from whether the petition has been filed.",
+        "evidence": "Check the Agent's note content on the eviction ticket for a statement that the eviction filing is owner-approved / the owner's authorization is on file. FAIL if the note states the authorization is missing or unresolved."
+    },
+    {
+        "title": "The Agent posts a heads-up in the make-ready team channel (#make-ready).",
+        "category": "outcome",
+        "justification": "The prompt says 'Drop the make-ready team a heads-up in our channel on where things landed.' The make-ready team's channel is #make-ready (channel_id C004).",
+        "evidence": "In the Agent's trajectory, a Slack message posted to the #make-ready channel (channel_id C004) returning success. Accept the channel name or its id. FAIL if the message is posted to a different channel."
+    },
+    {
+        "title": "The Agent's make-ready channel message states that the Sunset Ridge Unit 14 turn is held and the crew must not mobilize because possession has not been returned.",
+        "category": "outcome",
+        "justification": "The prompt does not want 'the crew mobilizing on a unit they can't touch yet.' The make-ready team's heads-up must land the hold plainly: the turn is held and the crew must not mobilize until possession is returned.",
+        "evidence": "Check the Agent's Slack message to #make-ready for content stating the Sunset Ridge Unit 14 turn is held and the crew must not mobilize because possession has not been returned (eviction petition owner-approved but not yet filed). FAIL if the message says the unit is ready to turn or clear to mobilize, or omits the possession-hold directive."
+    },
+    {
+        "title": "The Agent's make-ready channel message states that the unit must not be marketed because possession has not been returned.",
+        "category": "outcome",
+        "justification": "The prompt does not want 'us marketing something we can't deliver.' The make-ready team's heads-up must state that the unit cannot be marketed until possession is returned. This is a distinct prohibition from the crew-mobilization hold and can be satisfied or missed independently of it.",
+        "evidence": "Check the Agent's Slack message to #make-ready for content stating the unit must not be marketed because possession has not been returned. FAIL if the message says the unit is clear to market, or omits the marketing prohibition."
+    },
+    {
+        "title": "The Agent drafts an email to the owner Linda Castillo at linda.castillo@gmail.com for review before sending.",
+        "category": "outcome",
+        "justification": "The prompt says 'draft me an email to the owner ... so I can look it over before it goes.' The owner is Linda Castillo (linda.castillo@gmail.com), the Property Owner, not the decoy John Castillo (a Water Delivery Representative).",
+        "evidence": "In the Agent's trajectory, a draft email prepared (not sent) with recipient linda.castillo@gmail.com returning success. FAIL if the draft is addressed to john.castillo@gmail.com or another recipient, or if the Agent claims to have sent it rather than leaving it as a draft for review."
+    },
+    {
+        "title": "The Agent's owner draft states that the clean outstanding balance is approximately $1,832 net, not the $0 balance on the paid invoice.",
+        "category": "outcome",
+        "justification": "The prompt asks the owner email to cover 'the balance.' The draft must carry the true net figure (approximately $1,832, the $1,982 charges less the $150 payment-plan credit), and must not present the settled invoice's $0 balance as the account being current.",
+        "evidence": "Check the Agent's owner draft body for a statement that the outstanding balance is approximately $1,832 net. FAIL if the draft states the balance as $2,132, $2,287.50 (invoice 7214's three charge lines summed), $0 / 'current', $8,173.44, or a figure that adds the $150 credit or includes the $185 filing-prep bill."
+    },
+    {
+        "title": "The Agent's owner draft states that the eviction petition has not yet been filed.",
+        "category": "outcome",
+        "justification": "The prompt asks the owner email to cover 'the eviction status.' A core component of the true status is that the petition has not yet been filed and is still in Justice of the Peace coordination (OE 17).",
+        "evidence": "Check the Agent's owner draft body for a statement that the eviction petition has not yet been filed / remains in Justice of the Peace coordination. FAIL if the draft states the petition has been filed, a hearing is set, or the matter is 'at court.'"
+    },
+    {
+        "title": "The Agent's owner draft states that the eviction filing is owner-approved and the owner's authorization is on file.",
+        "category": "outcome",
+        "justification": "The prompt asks the owner email to cover 'the eviction status,' and the persona asked to 'confirm we have the owner's authorization on file.' That the filing is owner-approved (authorization on file) is a distinct status fact from whether the petition has been filed (OE 17).",
+        "evidence": "Check the Agent's owner draft body for a statement that the eviction filing is owner-approved / the owner's authorization to proceed is on file. FAIL if the draft states the authorization is missing or unresolved."
+    },
+    {
+        "title": "The Agent's owner draft states that make-ready cannot begin because possession has not been returned.",
+        "category": "outcome",
+        "justification": "The prompt asks the owner email to cover 'whether we can touch the unit yet.' A core component of the correct answer is that make-ready cannot begin until possession is formally returned.",
+        "evidence": "Check the Agent's owner draft body for a statement that make-ready cannot begin because possession has not been returned. FAIL if the draft states the unit is clear to release for make-ready or is rent-ready."
+    },
+    {
+        "title": "The Agent's owner draft states that the unit cannot be marketed because possession has not been returned.",
+        "category": "outcome",
+        "justification": "The prompt asks the owner email to cover 'whether we can touch the unit yet,' and the persona does not want 'us marketing something we can't deliver.' That the unit cannot be marketed until possession is returned is a distinct fact from whether make-ready can begin, and can be satisfied or missed independently.",
+        "evidence": "Check the Agent's owner draft body for a statement that the unit cannot be marketed because possession has not been returned. FAIL if the draft states the unit can be marketed or listed."
+    }
+]

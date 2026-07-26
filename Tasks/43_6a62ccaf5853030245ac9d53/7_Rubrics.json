@@ -1,0 +1,152 @@
+[
+    {
+        "title": "The Agent reports $1,812 as the corrected owner pass-through on Linda Castillo's Mesa Vista 4C make-ready.",
+        "category": "outcome",
+        "justification": "The prompt says every dollar on her bill has to line up with what we actually paid out on that unit, to the dollar, no more and no less. Per OE 21 the correct owner figure is the sum of the three owner-billable vendor bills, and it is stated on no readable surface in the universe, so the Agent can only produce it by opening the bills and adding them.",
+        "evidence": "Check the Agent's final response for $1,812 as the corrected Mesa Vista 4C owner pass-through. Per OE 21. Accept the figure written with or without trailing cents. The wrong figures to reject are the 1,622 on the existing invoice, 1,897 which adds the internal condition walk, 1,727 which drops the closet trim, and 1,810 which substitutes the Rio Bend deep clean. Do not accept a rounded or approximate figure in place of the exact total: every input is a whole-dollar bill amount, so there is no rounding for the Agent to do, and the 1,810 decoy sits within 0.2 percent of the correct answer."
+    },
+    {
+        "title": "The Agent reports that the $1,622 Linda Castillo was charged on the Mesa Vista 4C owner invoice does not line up with what StarPM paid out on the unit.",
+        "category": "outcome",
+        "justification": "The prompt asks the Agent to be sure what she was actually charged holds up before 4C is logged closed, which is a verdict and not just a set of figures. Per OE 11 and OE 21 the charged total is understated, so the verdict is that her charges do not come out clean.",
+        "evidence": "Check the Agent's final response for a statement that the $1,622 already charged is wrong or understated against the vendor bills. Per OE 21. Fail a response that concludes her charges hold up, or that reports the pass-through as $1,622 and logs 4C closed on that basis."
+    },
+    {
+        "title": "The Agent identifies the Mesa Vista 4C interior repaint on the vendor bill as $1,340.",
+        "category": "outcome",
+        "justification": "The prompt says to go back to what each vendor charged us for the 4C work and set it against the line items sent to the owner. Per OE 15 the repaint bill carries 1,340, and that single value is the load-bearing discovery of the whole task: it exists only on bill PD-2026-09 and on no surface the Agent reaches earlier. The criterion is scoped to that one value read from that one bill, because the QC spec permits grouping only for components that come from a single call, and the invoice line it contradicts is read from a different one. Nothing is lost by the narrowing: the variance against the owner invoice is graded on the net understatement criterion, and the corrected line is graded on the invoice-write criterion.",
+        "evidence": "Check the Agent's final response for the Mesa Vista 4C interior repaint at $1,340 as the amount the vendor billed StarPM. Per OE 15. An Agent that states the figure inside a line-item reconciliation satisfies this criterion; no particular phrasing is required. The following is grounding for the judge and not an additional required token: the owner invoice charged 1,140 for this same scope, and the 1,340 exists only on the vendor bill, so a response that reports the 4C repaint as 1,140 fails."
+    },
+    {
+        "title": "The Agent identifies the Mesa Vista 4C bedroom closet trim touch-up on the vendor bill as $85.",
+        "category": "outcome",
+        "justification": "The prompt asks for each vendor charge to be set against the line items sent to the owner. Per OE 17 the closet trim bill carries 85. The criterion is scoped to that one value read from bill 2026-519 for the same reason as the repaint criterion: the QC spec permits grouping only for components that come from a single call, and the 95 charged on the owner invoice is read from a separate one. The overcharge direction is still graded, on the net understatement criterion and on the invoice line that has to come down.",
+        "evidence": "Check the Agent's final response for the Mesa Vista 4C bedroom closet trim touch-up at $85 as the amount Permian Make-Ready Crew billed StarPM. Per OE 17. The following is grounding for the judge and not an additional required token: the owner invoice charged 95 for this same scope, so this line runs the opposite way to the repaint. Do not confuse this charge with the separate 85 condition-walk bill from Alamo HVAC Services, which is graded elsewhere as an exclusion."
+    },
+    {
+        "title": "The Agent identifies the Mesa Vista 4C post-move-out deep clean as the one line where the $387 charged to Linda Castillo matches what Sunshine Cleaning billed StarPM.",
+        "category": "outcome",
+        "justification": "The prompt asks for each vendor charge to be set against the line items sent to the owner, which includes reporting the line that is already right. Per OE 14 the Sunshine Cleaning bill ties to invoice line one exactly, and per OE 10 a separate 385 deep-clean pass-through to the same owner at a Rio Bend unit is the closest near-miss in the ledger.",
+        "evidence": "Check the Agent's final response for the deep clean at $387 as tying to the vendor bill with no difference. Per OE 14. A line-item reconciliation that carries the deep clean at $387 unchanged against the vendor bill satisfies this criterion; the Agent does not have to use the word matches. Fail a response that reports the 4C deep clean as 385, which is the Rio Bend pass-through on a different unit."
+    },
+    {
+        "title": "The Agent reports the net understatement on Linda Castillo's Mesa Vista 4C bill as $190.",
+        "category": "outcome",
+        "justification": "The prompt asks where the reconciliation landed so the owner is not sitting on a summary that no longer matches. Per OE 21 the net movement is 200 understated on the repaint less 10 overstated on the closet trim, which is the single number that describes the gap she would otherwise find in her own paperwork.",
+        "evidence": "Check the Agent's final response for $190 as the net amount by which the owner was underbilled on Mesa Vista 4C. Per OE 21. A response that states the corrected and original totals but never nets them does not satisfy this criterion. Do not accept an approximate figure here: both inputs are whole-dollar amounts and the 200 repaint delta is itself a decoy that a loosened figure would admit."
+    },
+    {
+        "title": "The Agent identifies the $85 unit condition inspection and punch list charge on bill 2026-481-566 from Alamo HVAC Services as StarPM in-house time that stays off Linda Castillo's owner pass-through.",
+        "category": "outcome",
+        "justification": "The prompt says anything that was our own time on the unit, an internal walk or a condition check we handled in house, stays off her bill entirely. Per OE 18 this bill is the condition walk the prompt describes almost word for word, it is coded to an operating expense account, and it is absent from the invoice she holds, so including it would put a charge on her bill that was never there.",
+        "evidence": "Check the Agent's final response for the $85 condition inspection and punch list charge being excluded from the owner pass-through as in-house work. Per OE 18 and OE 19. Fail a response that passes this charge through to the owner, which is the path that produces a 1,897 total."
+    },
+    {
+        "title": "The Agent keeps the $85 bedroom closet trim touch-up billed by Permian Make-Ready Crew on Linda Castillo's Mesa Vista 4C owner pass-through as outside vendor work.",
+        "category": "outcome",
+        "justification": "The prompt says only outside vendor work belongs on her side, and the closet trim touch-up is one of the three scopes Carlos already billed her for. Per OE 17 and OE 19 it is a real third-party payout with a balance still owed, coded to the owner trust account, and its note instructs a pass-through to the owner; the opening phrase naming a StarPM technician appears on both of the 85 bills and therefore separates nothing.",
+        "evidence": "Check the Agent's final response for the closet trim touch-up remaining on the owner side rather than being dropped as internal labor. Per OE 19. The summary email Carlos already sent Linda places this touch-up inside Pete Donovan's vendor repaint scope and separately states that Tony's team handled the internal repairs in house, which corroborates the same split. Fail a response that removes this scope from the owner pass-through, which is the path that produces a 1,727 total."
+    },
+    {
+        "title": "The Agent updates the existing Mesa Vista 4C owner invoice 2026-534 billed to Linda Castillo.",
+        "category": "outcome",
+        "justification": "The prompt says to correct the invoice she is holding so it carries the right figure. Per OE 10 and OE 12 the invoice she holds is DocNumber 2026-534 (id 445653930748) and nothing has been collected against it, so amending it in place is the available remedy.",
+        "evidence": "Look for an invoice-update call in the trajectory whose arguments target the invoice with DocNumber 2026-534, id 445653930748, billed to customer Linda Castillo. Per OE 24. The summary email quotes a non-existent 2026-537, so an Agent that binds to that number instead will have no write to show."
+    },
+    {
+        "title": "The Agent corrects Mesa Vista 4C owner invoice 2026-534 so that it totals $1,812.",
+        "category": "outcome",
+        "justification": "The prompt says the corrected invoice must carry the right figure. Per OE 24 the amended receivable is the sum of the three owner-billable vendor bills, so the total the invoice ends up carrying is the test of whether the reconciliation reached the right answer. The criterion is phrased on the end state rather than on writing a total field, because the invoice total is derived from the line amounts and an Agent that submits only an amended line array still produces the correct receivable. This criterion is not redundant with the three line criteria and is not implied by them passing together. An Agent that adds a fourth line for the 85 internal condition walk carries all three graded lines at their correct amounts, so every line criterion passes, while the receivable totals 1,897 and this criterion fails. That 1,897 path is one of the two designed wrong answers for this task, and the aggregate end state is the only place it is caught on the write. The implication does not run the other way either: lines of 1,350, 75 and 387 also total 1,812, so this criterion can pass while two line criteria fail.",
+        "evidence": "Check the invoice-update call on DocNumber 2026-534 and confirm the resulting receivable totals $1,812. Per OE 24. An envelope that carries only the amended line array satisfies this criterion where those lines sum to 1,812; the Agent does not have to set a total field explicitly. Fail an amended invoice that carries a fourth line for the unit condition inspection or punch list documentation, which would push the total to 1,897; the corrected invoice carries three lines, not four."
+    },
+    {
+        "title": "The Agent raises the interior repaint line on Mesa Vista 4C owner invoice 2026-534 from $1,140 to $1,340.",
+        "category": "outcome",
+        "justification": "The prompt asks for the invoice to line up with what each vendor charged us on that unit. Per OE 15 and OE 24 the repaint line is the one that has to move up to match the vendor bill, and a correct total built from wrong lines would leave the owner record still contradicting the payables.",
+        "evidence": "Check the amended line array in the invoice-update call for the interior repaint line at $1,340 in place of $1,140. Per OE 24."
+    },
+    {
+        "title": "The Agent lowers the bedroom closet trim line on Mesa Vista 4C owner invoice 2026-534 from $95 to $85.",
+        "category": "outcome",
+        "justification": "The prompt says the bill must line up to the dollar, no more and no less, which cuts both ways. Per OE 17 and OE 24 the closet trim line has to come down to the 85 the firm actually paid rather than staying at the 95 the owner was charged.",
+        "evidence": "Check the amended line array in the invoice-update call for the bedroom closet trim line at $85 in place of $95. Per OE 24."
+    },
+    {
+        "title": "The Agent keeps the post-move-out deep clean line on Mesa Vista 4C owner invoice 2026-534 at $387.",
+        "category": "outcome",
+        "justification": "The prompt says every dollar has to line up with what we paid out. Per OE 14 and OE 24 the deep clean line already ties to the Sunshine Cleaning bill and must be left at that figure; per OE 10 a 385 deep-clean pass-through to the same owner at a Rio Bend unit is the near-miss an Agent can substitute here.",
+        "evidence": "Check the amended line array in the invoice-update call for the post-move-out deep clean line at $387 on DocNumber 2026-534. Per OE 24."
+    },
+    {
+        "title": "The Agent does not create a second owner invoice for the Mesa Vista 4C make-ready alongside the existing 2026-534.",
+        "category": "outcome",
+        "justification": "The prompt says plainly that a second bill must not be created next to the one she already has. Per OE 24 raising a new receivable beside 2026-534 would double-bill the owner for the same turn, which is the failure mode the prompt forecloses, and a credit memo is the wrong instrument in the other direction because the correction raises the receivable rather than reducing it.",
+        "evidence": "Scan the trajectory for invoice-creation calls. This criterion applies only where an invoice-update call on DocNumber 2026-534 is present in the trajectory; a trajectory with no owner-invoice write at all does not satisfy it. Given that, it fails only if a second owner receivable for Mesa Vista 4C was raised for Linda Castillo alongside 2026-534, or if a credit memo was issued in place of amending it. Whether the amended figures themselves are right is graded elsewhere and is not re-tested here. Per OE 24."
+    },
+    {
+        "title": "The Agent updates the Mesa Vista 4C make-ready record that carries the Ready turn status.",
+        "category": "outcome",
+        "justification": "The prompt says to get our 4C make-ready record in Airtable updated. Per OE 3 the unit carries two rows that disagree and the date fields invert against the modification order, so sorting on them picks the stale row; per OE 25 the live row recc8534b3fd13954 is the one that must carry the outcome. The criterion identifies that row by its turn status rather than by its record id, which keeps the grading on content as OE 25 directs while still failing an Agent that writes only to the stale snapshot.",
+        "evidence": "Look for a make-ready record-update call in the trajectory whose arguments target the Mesa Vista 4C row in the Make-Ready Turns table of the Property Operations base. Per OE 25. The qualifying row is the one whose turn status reads Ready (stored as selReady) and whose notes record the completed QC walkthrough by Jaime Salinas; the stale row reads In Progress (selProg) and says the deep clean and repaint are still tracking. The turn status identifies which row to target and is not itself a value the Agent has to change. An Agent that also brings the stale In Progress row into line still satisfies this criterion; an Agent that updates only the stale In Progress row does not."
+    },
+    {
+        "title": "The Agent states in the Mesa Vista 4C make-ready record carrying the Ready turn status that the final owner pass-through is $1,812.",
+        "category": "outcome",
+        "justification": "The prompt says the make-ready record must show the final owner cost. Per OE 5 the table has no cost field and no Closed status option, so the figure has to be written into the notes field rather than into a dedicated column.",
+        "evidence": "Check the fields written by the make-ready record-update call for $1,812 as the final owner cost on Mesa Vista 4C. Per OE 25."
+    },
+    {
+        "title": "The Agent states in the Mesa Vista 4C make-ready record carrying the Ready turn status that the 4C turn is closed on the owner side.",
+        "category": "outcome",
+        "justification": "The prompt says the record must show the unit fully closed, and the whole task is framed as logging 4C as truly closed. Per OE 5 the closed state has to be recorded in the notes field because the turn status field offers only Scheduled, In Progress and Ready.",
+        "evidence": "Check the fields written by the make-ready record-update call for a statement that the Mesa Vista 4C turn is closed on the owner side. Per OE 25. An Agent that invents a Closed status value instead of recording closure in the notes will not have a successful write to show."
+    },
+    {
+        "title": "The Agent drafts an email to linda.castillo@gmail.com about where the Mesa Vista 4C make-ready cost landed.",
+        "category": "outcome",
+        "justification": "The prompt says to email Linda a short note letting her know where it landed, so she is not sitting on a summary that no longer matches. Per OE 1 her address is linda.castillo@gmail.com, and per OE 26 Gmail in this universe is draft-only, so the deliverable is a draft rather than a sent message.",
+        "evidence": "Look for a draft-creation call in the trajectory whose arguments carry linda.castillo@gmail.com in the recipient list and a subject relating to the corrected Mesa Vista 4C make-ready cost (or similar). Per OE 26. Threading the draft onto the original summary message is an acceptable variation. Addressing the note to Pete Donovan instead fails, because he is the painter rather than the owner."
+    },
+    {
+        "title": "The Agent states in the email draft to Linda Castillo that her Mesa Vista 4C owner invoice has been corrected to $1,812.",
+        "category": "outcome",
+        "justification": "The prompt asks the note to tell the owner where it landed. Per OE 26 the corrected figure is the substance of the note, and without it she is left holding the earlier summary the prompt says must no longer stand.",
+        "evidence": "Check the body of the draft to linda.castillo@gmail.com for $1,812 as the corrected Mesa Vista 4C owner cost. Per OE 26."
+    },
+    {
+        "title": "The Agent states in the email draft to Linda Castillo that the interior repaint was $1,340.",
+        "category": "outcome",
+        "justification": "The prompt says the point of the note is that she is not sitting on a summary that no longer matches, and per OE 7 the summary she keeps recites the repaint scope while stating no dollar figures. Per OE 26 the repaint is the line that moved most, so naming its corrected amount is what lets her reconcile the corrected bill against the record she holds. The criterion carries that one figure only. The QC spec treats multiple content requirements in one message as separate rubrics unless they come from a single call, and the superseded 1,140 is read from the invoice rather than from the source that carries the vendor figure. The other things the note has to carry, the corrected total, the net movement and the closure, are each graded on their own criterion.",
+        "evidence": "Check the body of the draft to linda.castillo@gmail.com for the interior repaint at $1,340. Per OE 26. Any phrasing that attributes that amount to the repaint satisfies this criterion, whether or not the Agent also restates the figure she was originally billed. The following is grounding for the judge and not an additional required token: the line she was originally billed was 1,140, so the corrected figure runs 200 above it."
+    },
+    {
+        "title": "The Agent states in the email draft to Linda Castillo that the corrected figure is $190 more than she was originally billed.",
+        "category": "outcome",
+        "justification": "The prompt says Carlos would sooner square this himself than have Linda find the gap in her own paperwork. Per OE 26 the note has to state the direction and size of the movement, not only the new total, so she knows the corrected bill is higher rather than merely different.",
+        "evidence": "Check the body of the draft to linda.castillo@gmail.com for a statement that the corrected cost is $190 more than the figure she was originally billed. Per OE 26."
+    },
+    {
+        "title": "The Agent states in the email draft to Linda Castillo that Mesa Vista 4C is now closed on her side.",
+        "category": "outcome",
+        "justification": "The prompt frames the whole task as wanting 4C fully closed on the owner side and asks the note to tell her where it landed. Per OE 26 the closure is the disposition she needs, since the summary she holds already told her the turn was done.",
+        "evidence": "Check the body of the draft to linda.castillo@gmail.com for a statement that Mesa Vista 4C is now closed or finalized on the owner side, or that no further owner charges are outstanding for this turn. Per OE 26."
+    },
+    {
+        "title": "The Agent posts a message about the corrected Mesa Vista 4C owner cost in a StarPM team channel.",
+        "category": "outcome",
+        "justification": "The prompt says to drop a line in our channel for the crew and front office so whoever else touches her account is working off the corrected number, and it identifies the channel only by who it reaches. Per OE 27 the step is graded on the corrected figure and the supersession of the old one, not on the channel id, so the criterion does not pin a channel. Every StarPM channel carries both crew and front-office members, and several channels beyond the make-ready channel of record are cued in the data, so any team channel is a valid surface and the substance is graded by the two content criteria that follow.",
+        "evidence": "Look for a channel-message call in the trajectory whose arguments post to any StarPM team channel. Per OE 27. Either the channel name or its id is acceptable. The make-ready channel is where this turn was coordinated and reaches both the crew and Brooke Phillips on the front office side; the maintenance channel is cued by the 4C make-ready record itself, which says progress on this unit is coordinated there; the vendors and owner-relations channels are named in OE 27 as acceptable alternative surfaces; and the budget-review and general channels are also defensible readings of the prompt phrase. None of these choices is penalised. The text parameter for this tool is message."
+    },
+    {
+        "title": "The Agent states in the channel message that the Mesa Vista 4C owner pass-through has been corrected to $1,812.",
+        "category": "outcome",
+        "justification": "The prompt says the reason for the post is so whoever else touches her account is working off the corrected number. Per OE 23 no message anywhere in the channel history carries an owner cost, so the corrected figure is what the post has to add.",
+        "evidence": "Check the message text of the channel post for $1,812 as the corrected Mesa Vista 4C owner pass-through. Per OE 27."
+    },
+    {
+        "title": "The Agent states in the channel message that the corrected Mesa Vista 4C figure supersedes the figure Linda Castillo was originally billed.",
+        "category": "outcome",
+        "justification": "The prompt says colleagues should be working off the corrected number rather than the one I originally sent, which requires the post to retire the old figure and not merely announce a new one. Per OE 23 nobody downstream has been told the original figure is wrong. The criterion is scoped to the supersession alone. Naming the superseded amount is left to the evidence as grounding, because the corrected figure and the amount it replaces are read from different records and the QC spec permits grouping only for components that come from a single call.",
+        "evidence": "Check the message text of the channel post for a statement that the corrected figure replaces the one Linda Castillo was originally billed. Per OE 27. The single thing graded here is the supersession: a post that flags the corrected figure as replacing the earlier one satisfies this criterion whether or not it restates the earlier amount, so referring to it as the figure in the original owner summary is enough. The following is grounding for the judge and not an additional required token: the superseded figure is the 1,622 on invoice 2026-534. A post that states the new figure without flagging that it supersedes the earlier one does not satisfy this criterion."
+    }
+]

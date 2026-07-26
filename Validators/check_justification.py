@@ -26,14 +26,52 @@ FORBIDDEN = [
     ("V3 framework refs",   re.compile(r"\b(?:V3\s+framework|V3\s+rubric|Outcome\s+1\.\d|Process\s+rubric\s+three-condition)\b", re.IGNORECASE)),
     ("Brookfield meta refs",re.compile(r"\b(?:Brookfield[_ ]?Base[_ ]?Universe|per[- ]task\s+universe|stale\s+universe)\b", re.IGNORECASE)),
     ("StarPM meta refs",    re.compile(r"\bStarPM[_ ]?Base[_ ]?Universe\b", re.IGNORECASE)),
+    # v22: the grading loop itself. These leaked into platform-facing justification
+    # fields on Task 44 and cleared every pattern above. Origin: operator review
+    # 2026-07-26, "filed as a dispute" / "diverges from the current export" /
+    # "this cell is the reason the criterion was rewritten".
+    ("grading-process meta", re.compile(
+        r"\b(?:the\s+(?:current\s+|new\s+|prior\s+|previous\s+)?export|re-?export(?:ed)?|re-?grad(?:e|ed|ing)"
+        r"|verifier\s+export|grading\s+of\s+record"
+        r"|filed?\s+as\s+a\s+dispute|per-?cell\s+(?:appeal|dispute)|contested\s+cell"
+        r"|diverges?\s+from|divergence\s+from"
+        r"|corrected\s+wording|as\s+(?:re)?written\s+now|criterion\s+was\s+(?:rewritten|revised|edited|corrected)"
+        r"|rubric\s+was\s+(?:rewritten|revised|edited|corrected)"
+        r"|bucket\s*[123]\b"
+        r"|pass\s*[234]\b|pre-?fix|post-?fix)\b", re.IGNORECASE)),
+    # NOTE: "all-failing" / "all-fail" is deliberately NOT forbidden. The platform's
+    # own step is titled "Justify All-Fail Rubrics", so it is the reviewer's own
+    # vocabulary rather than internal pipeline language.
+    # v22: a bare cross-criterion pointer ("Follows from 38") leaves the platform
+    # reviewer hunting. The rubric-number pattern above misses the bare-integer form.
+    ("cross-criterion ref",  re.compile(
+        r"\b(?:follows?\s+from|per|see|same\s+as|as\s+(?:in|with))\s+#?\d{1,2}\b(?!\s*(?:%|units?|water|hose|of|and|or|new|rows?|calls?|runs?|cells?|criteria))",
+        re.IGNORECASE)),
+    # v22: the no-em-dash rule was only ever enforced on the prompt. Justification
+    # text typed straight into a platform form never passed a sweep.
+    # v23: applied OUTSIDE quoted spans only. The em-dash ban is a pipeline style rule
+    # with no basis in the source specs (which themselves contain 610 em-dashes), and on
+    # Task 44 it caused a verbatim agent artifact to be altered inside the very document
+    # written to prove what that artifact said. Evidence fidelity outranks house style.
+    ("em-dash outside a quote", re.compile(r"—")),
 ]
+
+
+QUOTED = re.compile(r"`[^`\n]*`|```.*?```|\u201c[^\u201d]*\u201d|\"[^\"\n]{0,400}\"|\*\"[^\"]*\"\*", re.DOTALL)
+
+
+def _blank_quotes(text):
+    """Replace quoted spans with spaces so style rules skip them but offsets survive."""
+    return QUOTED.sub(lambda m: " " * len(m.group(0)), text)
 
 
 def scan(path):
     text = path.read_text(encoding="utf-8")
+    unquoted = _blank_quotes(text)
     hits = []
     for label, pat in FORBIDDEN:
-        for m in pat.finditer(text):
+        target = unquoted if label == "em-dash outside a quote" else text
+        for m in pat.finditer(target):
             line_no = text.count("\n", 0, m.start()) + 1
             snippet = text[max(0, m.start() - 30):min(len(text), m.end() + 30)].replace("\n", " ")
             hits.append({

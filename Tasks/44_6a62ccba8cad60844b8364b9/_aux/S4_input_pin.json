@@ -1,0 +1,33 @@
+{
+ "task": "44_6a62ccba8cad60844b8364b9",
+ "inputs": {
+  "8a_Verifier_Fails_Opus.txt": {
+   "sha256": "b39087fff6c650fcc28c8051f734c0a6b5fb8b38cfbba4f2e2ad6252d2980bcf",
+   "bytes": 121110,
+   "per_run_passed": [
+    32,
+    32,
+    44,
+    32,
+    36,
+    46
+   ]
+  },
+  "8b_Verifier_Fails_Gemini.txt": {
+   "sha256": "cc1caa89a3e3a4c851b405ebc805e842b7a9c14ef019fbe3adcb8e48c679ecfa",
+   "bytes": 132274,
+   "per_run_passed": [
+    18,
+    14,
+    25,
+    14,
+    22,
+    21
+   ]
+  },
+  "7_Rubrics.json": {
+   "sha256": "f08ad147e45692332124b134801bfaae3946d8e0e9c40a6ec55cebe0dc054462",
+   "bytes": 50542
+  }
+ }
+}

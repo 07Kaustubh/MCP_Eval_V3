@@ -551,3 +551,304 @@ Correction to the entry above. An Oracle skeptical verification pass found the d
 Fix (runbook-preferred expansion, not a re-label): corrected all component ranges to the Playbook-fixed values, de-overlapped L25 (net 1-3), corrected L9 to the gotcha range (3-5), and ADDED a 6th grounded lever - the water-heater flooring-escalation multi-link chain (MT-2026-1211 -> MT-2026-1256 -> QB bill 258920406326 $1,340, Carlos's scripted maintenance_escalation_waterheater_leak scenario). Result: 6 levers across 3 scenario clusters (8D make-ready / Rio Bend carpet cost / Tommy's water-heater flooring), honest density midpoint 55.0 (PASS), breadth still 7 services.
 
 Calibration lesson: sub-agent lever-cost estimates MUST be reconciled against the Playbook's fixed cost table before trusting the density sum. A projected midpoint only 1.5 above the 50 gate is a tell for inflated component ranges - recompute with the mandated ranges before declaring PASS.
+
+## Entry — Tasks/39_6a602c8886ebb06f12354d77 — 2026-07-22 (predicted)
+
+**Universe:** StarPM V4. **Persona:** James Bennett (p_006), Assistant Maintenance Technician — design-surface (0 scripted actions), participant in `makeready_laspalmas8d_turn`. **Business function:** Maintenance & Repairs. **Injection:** none (inject.sql comment-only stub, changelog []); scenario baked into base export.
+
+**Scenario anchor:** Las Palmas 8D make-ready turn.
+
+**Selected levers (5):** L10 reversal/supersession (stale 5/1 "ready/closed out" 8D row superseded by in-progress rows through 6/25 + OPS-227 disposal-seized comment 6/22) · L2 structured-DB skip (Airtable is SoR per linear team_001; MT-2026-1271 OPEN only in Airtable — Airtable is the StarPM analog of the SAP-subledger skip) · L1 latching (Slack "8D punch-list/carpet done" first-framing) · L4 search-cap eviction (61 "204B" decoy occurrences bury 6 "8D") · L3 missing reply (vendor-confirm + parts-approval sit in replies).
+
+**Learnings cited:** L25, L10, L13, L26, L12. Reserved L9 (authority dismissal) for optional injection.
+
+**Density (StarPM V4, per model):** projected midpoint 48.5 → PASS (>= 40). Breadth: 6 services >= 5%, 4 write surfaces → PASS.
+
+**Actual (fill at S4):** <pending trajectories — Agent_Responses currently empty scaffolds>.
+- 2026-07-23 · Task 39_6a602c8886ebb06f12354d77 (StarPM V4, Las Palmas 8D make-ready; persona James Bennett p_006) · FINAL PASS · 5 levers confirmed end-to-end: L10 supersession (stale 2026-05-01 selReady receb057 vs live June rows), L2 Airtable-SoR skip (MT-2026-1271 blank/OPEN, team_001 SoR-declaration), L1 latching (Slack C004 "8D officially cleared/ready" May chatter), L4 result-cap eviction (~122 "204B" decoys burying 6 "8D" rows + Rio Bend 214/MT-2026-1325 twin), L3 missing-reply (OPS-227 parts-approval reply chase). Per-model density ~43-48 (>=40 StarPM design). 0 BLOCKER / 0 MAJOR, Lens-6 Bucket-1 0%. 4 MINOR (base-id verified present; r5/r10/r14 phrasing ship-as-is).
+
+### Follow-up — Tasks/39_6a602c8886ebb06f12354d77 — 2026-07-23 (S4 calibration delta)
+
+**S4 dual-model actuals (Opus 6 + Gemini 6, 0 errors, pass@1 0% both):** STRONG PASS. 0 Bucket-1, 0 Bucket-2, all failing rubrics Bucket-3 (legit). All-Failing sub-dim 5/5 (Bucket-1 ratio 0%).
+
+Lever yield (real): all 5 selected mechanisms fired. Highest real yield came from levers manifesting on a DIFFERENT surface than the plan predicted:
+- L10 supersession + L3 comment-override (OPS-227 title "jam" vs 6/22 "seized/replace" comment) → Opus disposal cluster fails runs 1,3 (6 rubrics at once).
+- Intra-unit record disambiguation (3 make-ready rows; only stale selReady receb057 needs the fix) → Gemini R2/R3/R4 fail 5/6. This is the L4/L6 near-miss mechanism, but INTRA-unit (three rows for one unit) rather than the predicted cross-unit 8D-vs-214 swarm. Lesson: intra-unit record duplicates are a stronger, more reliable stump than cross-unit decoys for "correct the stale record" tasks.
+- L2 Airtable-SoR skip (MT-2026-1271 blank completion date) → R14 fails Opus 2/6, Gemini 3/6.
+
+NEW pattern (Gemini-specific, dual-model): a rubric demanding an explicit NEGATIVE directive ("not ready, do not show/market") is a near-100% Gemini stump (R6 6/6 fail) while trivial for Opus (6/6 pass) — see Stump_Hypotheses.md follow-up. Log as a dual-model differentiator lever.
+
+Density calibration: projected 48.5/model; actual Opus 43.5 (good), Gemini 33.0 (over by ~15). Per-model density spread is real; do not assume one midpoint covers both models. NOTE: parse_trajectories.py currently reports Gemini=0 (flat tool_use schema unhandled) — Gemini figures here were hand-counted; flagged for a parser patch (not applied in S4).
+
+
+## Entry — Tasks/40_6a614767cd5b60ad96902fb4 — 2026-07-23 (HARDNESS predicted)
+- **Universe/persona:** StarPM V4 (dual-model Opus+Gemini) · Lisa Smith (p_002, Onsite PM) · Property Operations. Fresh CB build.
+- **Spine:** Tanya Mitchell dual live track as of 2026-07-01 — OPEN+approved Fair Housing ESA accommodation (HubSpot ticket_8faab56c663352cfb8d61c994b2bae88) coexists with an in-progress nonpayment eviction (Unit 14). Lisa assembles the Unit 14 turnover-readiness + account-status package believing the eviction is settled.
+- **Selected levers (5):** S1 negative-directive / possession-not-returned (catalog #9 + L31 — Gemini stump); S2 delinquency-state supersession/latching (#1/#8/#10, L8/L13 — both); S3 structured-DB skip HubSpot ESA (#2, L10 — Opus stump); S4 near-miss Unit 14 cross-property Rio Bend vs Sunset Ridge (catalog #6, Learnings L4 — both); S5 authority-relayed 'owner approved / ready to file' anchor (L9, prompt-side — Opus).
+- **Density:** midpoint 48 (range 38-59) → StarPM PASS (≥40 per model). 8 services touched, airtable dominant ≈26% (<60%). No PDF-decoy lever (0 .pdf in data). Avoid Las Palmas 8D shape (Task 39 similarity).
+- **Actual Opus/Gemini fails:** TBD — fill from S4 after 6+6 trajectories.
+
+## Entry — Tasks/40_6a614767cd5b60ad96902fb4 — 2026-07-23
+
+**Persona / Business function:** Lisa Smith (lisa.smith@starpm.com, StarPM property manager) / Property Operations — Tanya Mitchell Sunset Ridge Unit 14 make-ready turn + account/eviction reconciliation.
+
+**Selected levers (from Hardness_Plan.md):**
+- S1 — Possession-not-returned negative-directive (L31): prompt "ready to re-rent" push vs make-ready hold note (recc83c05d889b354 fldNotes2); turn must stay selSched.
+- S2 — Delinquency supersession / latching: prompt "nonpayment side is cleared" vs breached plan + active eviction; books-vs-notes decoy (invoice 7214 Balance 0 but PrivateNote "delinquent, no cure"; QR-2026-0441 $2,132 arrears).
+- S3 — HubSpot ESA structured-DB skip (L10): approved reasonable-accommodation reachable only via HubSpot ticket_8faab... + gmail thread 9f2b3cd..., no conversational cue.
+- S4 — Near-miss cross-property Unit 14 (L4): Rio Bend Unit 14 (rec94e86a3007dd5e, rent-ready decoy) vs Tanya's Sunset Ridge Unit 14.
+- S5 — Authority-relayed "owner signed off / filing squared away" (L9): EVF-2026-014 owner-approved but still in JP coordination, possession not returned.
+
+**FINAL-phase confirmation (pre-trajectory):** All 5 levers confirmed firing end-to-end by the cross-artifact Final Council (prompt sentence + OE step + rubric named for each). Integrated density ~44 per model (>= StarPM 40+ target). Injection difficulty 4.3/5 (>= 3.5; injection is comment-only, scenario native to base universe). Lens-6 Bucket-1 risk 0/16. Answer-leakage clean ($2,132 + full conclusion distributed across airtable + slack + quickbooks + hubspot + gmail, never pre-stated). VERDICT PASS, no REVISE round. Dual-model (Opus 4.8 + Gemini) verification expected downstream.
+
+**Pipeline note:** submission_gate surfaced 5 deterministic FALSE-positives (F4 money-format, F2 calendar future-date) on a CORRECT rubric set; root-caused + fixed at Validators/v4_gates.py (Decimal money-normalization both sides; triple-gated calendar-create date exemption emitting a COUNCIL note), Oracle-blessed, regression-clean (anchors 62/62, reports 21/21, verdicts 7/7, qc_verdict 128/128). Future StarPM tasks with >= $1,000 comma amounts or calendar-reminder rubrics no longer false-fail.
+
+**Lesson for next task:** StarPM calendar-reminder rubrics legitimately carry near-term future ISO dates, and >= $1,000 rubric amounts written "$X,XXX.XX" are grounded against bare-float universe storage. Both are now handled by the gate — never vague-ify a correct rubric to dodge a deterministic check; fix the check.
+## Task 40 (StarPM V4) calibration delta - 2026-07-23
+Predicted 5 levers: 3 produced genuine stumps (arrears-source, HubSpot-ESA-skip, near-miss-record), 2 acted as guardrails that behaved as designed rather than stumping (possession-hold negative-directive, authority-relayed false owner sign-off - agents correctly held true state, R2/R3/R6/R11/R9 pass).
+Over-predicted: near-miss cross-record for Gemini (disambiguated 6/6; only Opus fell for it).
+Under-predicted: R15/R16 OPS-32 comment omission in Opus low-call runs 5,6 (agent listed issues then skipped the comment entirely). Density-tail effect - the runs with fewest tool calls drop the last write action. Not a designed lever.
+Robustness ranking observed: mis-filed-authoritative-figure (symmetric) > structured-store-skip (Gemini-selective) > near-miss-record (Opus-selective) > content-clause-omission (JP coordination, ESA phrasing; partial, high variance).
+
+
+## Entry — Tasks/40_6a614767cd5b60ad96902fb4 — 2026-07-23 (S4 Gemini re-verify closure)
+The R12 split was re-verified on Gemini (post-split 8b, 17 criteria) and matches Opus: R12a 6/6 pass, R12b 6/6 pass. The rubric-atomicity fix is now dual-model-validated. Difficulty levers unchanged and confirmed model-symmetric where predicted: R10 arrears-in-an-AP-bill 0/12 (both models never query the bills ledger); R13 ESA carry-through 6/6 Gemini + 4/6 Opus (retrieved then omitted). R1 near-miss cross-record Unit 14 stays Opus-only (5/6 Opus, 0/6 Gemini). No new levers; the atomicity fix does not move pass@1 (still 0% both models).
+
+## Entry — Tasks/41_6a61a86a3453b3714bdc72ef — 2026-07-24 (FINAL pre-upload, lever end-to-end confirmation)
+
+**Persona / Business function:** Patricia Nguyen (Onsite Property Manager, reassigned from Lisa Smith at S1.5) / Property Operations (BF1). StarPM V4 dual-model (Opus 4.8 + Gemini).
+
+**Selected levers (from Hardness_Plan.md):**
+- Lever 2 — Structured-DB skip (flagship): authoritative arrears in vendor-linked AP bill QR-2026-0441 (no CustomerRef), invisible to customer/invoice queries; AR invoice 7214 Balance $0 is the paid decoy.
+- Lever 10 — Reversal / supersession: JP-coordination current state supersedes active-plan / awaiting-sign-off frames (Airtable SoR chain rec769→…→recc83).
+- Lever 1 — Latching: older Linear "Eviction Hearing – Mitchell, Harris Property" (OPS-32) overstates progress + mis-names owner (real owner Linda Castillo, EVF-2026-014).
+- Lever 11 — Net-vs-gross / sign: $150 "credit applied" stored as a positive → $2,132 stored vs $1,832 net (derived-only).
+- Lever 31 — Negative-directive omission (Gemini differentiator): explicit prohibition "make-ready must NOT begin / do not market — possession not returned" (+ "not current despite paid invoice").
+
+**End-to-end confirmation (FINAL Council, _aux/Council_Reports/FINAL_council.md):**
+- All 5 levers (+ stacked L6 near-miss) trace prompt → OE → rubric → Fact_Ledger atom; zero lever regression.
+- L2 → R1/R2 (walk-back to $1,832 net / $1,982 gross); L10 → R3/R10/R16; L1 → R4/R11/R17; L11 → R1; L31 → R5/R7/R8/R13/R18 (the explicit-hold / do-not-market rubrics).
+- Answer-leakage clean (net $1,832 never stored in prompt or agent-readable universe content; independently re-greped).
+- Density projection: Opus ~47 / Gemini ~42 — both clear StarPM v4 ≥40 (Gemini margin tight, watch first run).
+
+**Actual failures (from S4 verifier-fails analysis):** DEFERRED — trajectories not yet run (0-byte pre-upload). To be recorded at PIPELINE S4.
+
+**Calibration:** Pending S4. FINAL predicts: L2 arrears-in-AP-bill symmetric Bucket-3 (0/12 both models on sibling Task 40); L31 explicit-prohibition rubrics Gemini-asymmetric Bucket-3 (legitimate model gap, not invalid AF); rubric #2 ($1,982 walk-back composition) is the single atomicity watch-item.
+
+**Lesson for next task:** StarPM FINAL phase-readiness will STOP on an upstream `Verification_s3.md` that follows the S3.md runbook template literally — the runbook Step-0.5 templates (`Data sources consulted` / no Verdict) are out of sync with `check_verification.py` (`Sources consulted` + `Verdict` + Per-task/Eval/QC categories). Also: never write the literal string `## Verdict` in the prose of a Verification file — the linter's first-match regex captures the inline mention and false-fails the real header.
+
+## Entry — Tasks/41_6a61a86a3453b3714bdc72ef — 2026-07-24 (S4 calibration delta vs FINAL prediction)
+
+Actuals now filled (FINAL entry above left "DEFERRED"). pass@1 0/6 both models, 0 errored, density Opus 48.0 / Gemini 38.8 (projection Opus ~47 / Gemini ~42 — Opus dead-on, Gemini ~4 under).
+
+Lever calibration (predicted → actual):
+- **L2 structured-DB skip (flagship) → HIT, symmetric, strong.** Arrears rubrics 0/12; both models stopped at paid invoice 7214, never opened vendor-linked bill QR-2026-0441. Confirmed for the 2nd StarPM task running. KEEP verbatim.
+- **L31 negative-directive omission → HIT, Gemini-asymmetric, exact.** Channel "do not market" failed Gemini 3/6, Opus 0/6. 3rd confirmation (Tasks 39/40/41).
+- **L1 latching (owner) → HIT but Opus-asymmetric (predicted symmetric).** Owner-mis-attribution fired Opus-only (3/6), Gemini 0/6. Correct the model-symmetry assumption: latching onto a mis-named owner is Opus-selective when the disambiguating record is a single auth record and both candidates share the owner role.
+- **L10 reversal/supersession → HIT, Opus-asymmetric, manifested as make-ready record-pick (not the eviction-state report).** Opus 3/6 wrote to superseded records; Gemini 0/6. The eviction-STATE report (petition not filed) did NOT fail — supersession bit at the write target, not the read/report.
+- **L11 net-vs-gross → DISPLACED (masked by L2).** Never observed: no agent reached the bill, so the $150-credit disposition step never ran. Pair L11 with an easier discovery path next time or it stays invisible behind L2.
+- **L6 near-miss (Rio Bend / catch-all) → over-predicted, no fire.**
+
+Over-predicted: eviction-state progress-overstatement (H2 half) — 12/12 pass; near-miss unit (H5) — 0 fires.
+Under-predicted: none material. The owner-latch cascaded into 4 rubrics (broader blast radius than the single-rubric FINAL mapping implied).
+Robustness ranking observed (StarPM dual-model, 2 tasks): vendor-linked-AP-bill arrears (symmetric, 0/12 twice) > negative-directive omission (Gemini-selective) ~ owner-latching / reversal-record-pick (Opus-selective) > net-vs-gross (only visible once discovery is easy) > near-miss unit (weak).
+
+## Entry — Tasks/41_6a61a86a3453b3714bdc72ef — 2026-07-24 (S4 post-fix re-grade delta)
+
+Re-grade after the R6/OE-14 reconciliation + $2,287.50 fail-list additions. Append-only; prior "S4 calibration delta" entry left intact.
+
+- **R6 fix CONFIRMED EFFECTIVE, difficulty unchanged.** R6 now passes 6/6 Opus (was 3/6 fail pre-fix); identical Tanya-Unit-14 writes that flip-flopped now grade consistently. pass@1 stayed 0/6 both models — the fix removed a rubric-invalidity false-fail, not a lever. **Correction to the prior delta:** L10 did NOT manifest as a legitimate make-ready-record stump; the pre-fix R6 fails were over-strict-rubric artifacts. L10's genuine contribution is the eviction-state supersession chain (reads), which the deliverables handled correctly (petition-not-filed rubrics 3/10/17 passed 12/12).
+- **Surviving lever ranking (StarPM dual-model, unchanged by the fix):** vendor-linked-AP-bill arrears (SYMMETRIC, 0/12 — flagship) > negative-directive omission (Gemini-selective, R14 3/6) ~ owner-latching (Opus-selective, R4/R11/R15/R18 3/6) > net-vs-gross L11 (masked by L2, never observed) > near-miss unit (no fire).
+- **Zero Bucket 1 / zero Bucket 2 this run** — task is ship-clean; no rubric fix outstanding. AF justifications (R1/R2/R16) voice-gate clean.
+
+**Lesson for next task:** when an S4 fix broadens an over-strict rubric, re-run and confirm pass@1 is unchanged before crediting the removed fails as a difficulty lever in the calibration ledger. A false-fail eliminated is not a lever lost.
+
+## Entry — Tasks/43_6a62ccaf5853030245ac9d53 — 2026-07-25 (FINAL council PASS, pre-upload)
+
+StarPM V4 dual-model, Carlos Mendez / Property Operations. Spine: **Mesa Vista 4C make-ready owner cost pass-through reconciliation** ($1,622 believed vs $1,812 derived; decoys $1,897 / $1,727 / $1,810).
+
+- **Levers selected and confirmed end-to-end at FINAL (4):** **L2 structured-DB skip** (the $1,340 repaint exists ONLY on AP bill `696089964235`; absent from invoice 2026-534, the summary email body, and Slack) · **L10 supersession** (the stale AR draft is the mirror; AP bills supersede) · **L6 near-miss** (10-bill $1,340 cluster + $1,140/$1,340 + twin $85 + Linda/Pete owner decoy + the 385/387 Rio Bend deep-clean trap) · **L11 net-vs-gross** (exclude the internal $85 condition walk, keep the $85 closet trim). Each maps to a prompt sentence + OE step + rubric; no lever orphaned.
+- **New pattern that graded well — "twin-amount discrimination".** Two $85 third-party bills on the same unit, both opening with the identical `"Internal labor charge for <StarPM person>"` template, one owner-billable and one not. The template phrase appears on exactly 2 records universe-wide, so the obvious textual discriminator separates nothing and the agent must fall back on work-kind + account coding + the note's operative instruction. Cheap to build, forces real reading, and produces two clean decoy totals in opposite directions.
+- **MAJOR carried into S4 (yield caveat, not a defect):** the prompt must state the reconciliation ask ("go back to what each vendor charged us"), which is the `Learnings.md` **L29 escape-valve** shape and will blunt L2's predicted ~0/12 sweep. Removing it would cost Feasibility/Clarity, so it stays. **Expected sweep re-attributed to L6/L11**; if runs reach the AP bills but land on $1,897 or $1,727, score that as L6/L11 firing, not L2 failing.
+- **Density:** Opus ~45 PASS; Gemini ~36 THIN (accepted with the Hardness_Plan justification; 4 writes / 4 services delivered as the promised mitigation). Watch the first Gemini run's call count at S4.
+- **Gate history:** `submission_gate` caught 4 real F5 NEEDS_TOOL_OUTPUT defects that S3's own gates did not surface ("confirm the tool returned a success response" in write-rubric evidence). **Lesson: any write rubric whose evidence asks the judge to confirm a call succeeded is an automatic Evals_starpm/5 F5 FAIL — write write-rubric evidence against call ARGUMENTS from the start.**
+
+## Entry — Tasks/43_6a62ccaf5853030245ac9d53 — 2026-07-25 (S4 calibration delta, dual-model actuals)
+
+Measured against the pre-registered Hardness_Plan + the FINAL-council carry-forward. pass@1 0/6 both models, 0 errored runs, 0 Bucket 1.
+
+**Hit rate: 1 of 4 predictions confirmed as written; 1 more confirmed by the FINAL re-attribution; 2 over-predicted.**
+
+| Lever | Predicted | Measured | Delta |
+|---|---|---|---|
+| L2 structured-DB skip | HIGH, symmetric, ~0/12 | **0/12 fired** (all runs reached the AP bills) | over-predicted; the L29 escape-valve sentence neutralised it, exactly as FINAL MAJOR-1 warned |
+| L6 near-miss entity | MED-HIGH, Opus-selective | **0/12 fired** | over-predicted; cluster/owner/385-387 decoys all missed |
+| L11 net-vs-gross | MED, Gemini-leaning, "margin item not the engine" | **12/12, SYMMETRIC, 9 of 15 failing rubrics** | under-predicted in magnitude AND mis-attributed by model |
+| L9 duplicate write | LOW-MED | **0/12 fired** | over-predicted; keep as a cheap guard |
+| Dual-row record pick (unbudgeted) | not a named lever | **3/12, both models** | new observation |
+
+**Density:** projected Opus ~45 / Gemini ~36 → measured **41.7 / 36.8**. Gemini projection accurate to 1 call; Opus 3 calls optimistic. The FINAL watch-item (abort if the first Gemini run < 30) was **not triggered** (min 34). The THIN-density acceptance held: the 4-write / 4-service OE executed on all 12 runs and carried Gemini to 36.8, comfortably clear of the 15 fail floor.
+
+**New pattern, promoted from the FINAL-phase "twin-amount discrimination" note to a first-class lever: PROSE-VS-STRUCTURED-FIELD CONTRADICTION ON ONE RECORD.**
+
+Recipe, in the order that made it work:
+1. Put the **misleading** claim first in a free-text field on the authoritative record ("Internal labor charge for Tony Reyes...").
+2. Name a person the agent can verify is internal (`tony.reyes@starpm.com`, Lead Maintenance Technician) so the wrong reading survives a contacts lookup.
+3. **Corroborate the wrong reading from a second service** (Slack C004: "Tony got it done today"). This is what lifts it from a coin-flip to a 0/12 sweep.
+4. Put the resolving evidence in a **structured field on the same record** (`VendorRef.name` = the outside vendor) plus an operative clause later in the same note ("Pass-through to owner").
+5. Give it a symmetric twin that goes the other way (the Alamo HVAC $85 condition walk, genuinely internal) so the discriminator cannot be a keyword.
+
+Blast radius: 9 atomic rubrics from one classification call. Highest of any StarPM lever measured so far.
+
+**Robustness ranking updated (StarPM dual-model, 3 tasks):** prose-vs-structured-field contradiction (symmetric, 0/12, 9-rubric radius) > vendor-linked-AP-bill arrears (symmetric, 0/12 twice, 3-rubric radius) > negative-directive omission (Gemini-selective) ~ owner-latching (Opus-selective) > dual-row record pick (weak, both models, 3/12) > near-miss entity cluster (no fire this task) > duplicate-write guard (no fire, keep anyway).
+
+**Cost note for the next plan:** the two levers that fired cost ~5 projected calls each and delivered the entire sweep. The two that did not fire (L6 near-miss at cost 4, L2 skip at cost 6) still bought real density, because forcing disambiguation reads produces calls whether or not the agent falls for the decoy. Do not delete a non-firing near-miss lever from the density budget on the strength of one task.
+
+## Entry — Tasks/44_6a62ccba8cad60844b8364b9 — 2026-07-26 (HARDNESS, pre-registered)
+
+StarPM V4 dual-model. Persona **Jaime Salinas** (Quality Control Inspector, `p_007`, BF3 Quality Control & Field Services). Scenario: **close out the QC side of the portfolio-wide Preventive Maintenance Push** (Brooke Phillips's HVAC / plumbing / electrical audit, kicked off 2026-05-07, target close "before end of June"; universe today is 2026-07-01, so the deadline has passed).
+
+**Hardness 5/5 PASS.** Levers 1 (latching), 2 (structured-DB skip), 5 (thread-reply blindness), 8 (multi-link chain), 9 (authority dismissal, persona-self variant). Lever 7 multi-write engineered in and scored in the Write-actions row. Levers 3, 4, 6, 10 carried as corroboration/noise with no rubric dependency; Lever 11 dropped for lack of backing data.
+
+**Density:** projected midpoint **55.5** (range 44-67) against the StarPM 40 design target, per model. Breadth 6 services at >= 5%, dominant service linear at 34%.
+
+**The load-bearing lever is a structural variant of Task 43's flagship — prose-vs-structured-field contradiction — moved from a QuickBooks money field to the Linear workflow-state column.** It hits all five steps of the Task 43 recipe without any injection:
+1. Misleading claim first in free text: OPS-87 description "moved both from In Review to Done", OPS-96 "Moving this to In Review", OPS-98 "I'm moving both cluster issues to Done", plus Jaime's own two OPS-98 comments and her OPS-96 comment restating it.
+2. Named person verifiable as internal: the claim is authored by **the persona herself**, a real `@starpm.com` Quality Control Inspector, so the wrong reading survives any contacts lookup and additionally recruits Lever 9.
+3. Corroborated from a second service: Slack C001 `1779308446.000005` / `1779308447.000006`, Elias Navarro "all three clusters are done. Every unit serviced" / "Summer HVAC push is a wrap... 34 units total serviced".
+4. Resolving evidence in a structured field on the same record: `state_id` = `state_OPS_1` (Todo) on OPS-87 and OPS-96, `state_OPS_2` (In Progress) on OPS-98 and OPS-97, `state_OPS_0` (Backlog) on OPS-108 and OPS-44. **Not one push QC issue sits in Done.** Decoding requires a second call to `list_issue_statuses`, since the raw values are opaque ids.
+5. Symmetric twin going the other way so the discriminator cannot be a keyword: **OPS-91** carries `state_OPS_4` (Done) while its own description says "Moving this issue to In Progress". Near-duplicate titles in opposing states give two more: OPS-99 (In Progress) vs OPS-108 (Backlog), OPS-51 (In Review) vs OPS-71 (Backlog).
+
+**Second novel pattern this task banks: the persona's own field note contradicts the persona's own sign-off, one day apart.** Slack C001 `1779562423.000092`, 2026-05-23, Jaime: "north Cluster walk-throughs done. Two units need HVAC looked at right away, flagged on the Linear issue with coil, plumbing, and panel notes." Her OPS-87 (5/24) and OPS-98 (5/25) then say "everything came back clean across the board" and "No issues to flag on either side". No follow-up issue for those two units exists anywhere in the 230-issue corpus. This is L9 authority dismissal with the authority collapsed onto the persona, which removes the usual seam an agent can use to distrust the framing — there is no third party to be sceptical of.
+
+**Coverage-gap sub-lever (new shape).** Jaime's three QC issues cover South, North and portfolio filters; East is covered via OPS-99 / OPS-108. The push also has a **West cluster** (OPS-35, Lisa Smith onsite lead) that she never walked, and OPS-186 dated 2026-06-17 states "the West Cluster work still underway". The cluster set is genuinely inconsistent across services — Elias's scope issues OPS-16 / OPS-17 / OPS-18 name only three clusters — so an agent anchored on the HVAC scope reads three-of-three as portfolio-wide coverage. Note the discipline this forced: no rubric may assert a cluster count, only that **her own three issues never cover West**.
+
+**Prompt-side constraints pre-registered, carried from prior-task scars.** No escape-valve clause (L29 / Task 43 MAJOR-1 — an invitation to surface contradictions would neutralise Lever 2 on the exact column the task turns on). Soft verbs on the authority anchor (L24). F7 is the live gate risk: Jaime owns **three** interchangeable QC issues, so prefer writes unique by construction (new Linear issue, new Airtable ticket, new Calendar event, Gmail draft to a named recipient, Slack post) over any rubric that pins an issue id. F9 swept clean — 9 unique future confirmed events, none touching the push, the clusters or Jaime — with two adjacent watch items (2026-07-15 Mesa Vista 4C QC inspection, 2026-07-23 Q3 make-ready budget review) that forbid any "her QC queue is otherwise clear" or "budget question settled" claim.
+
+**QuickBooks deliberately excluded from the lever set, which is also the similarity pivot.** Three reasons: `VendorRef.name` is unreliable noise in this universe (bills attributed to "Alamo HVAC Services" carry landscaping, legal-review and Tanya Mitchell arrears lines — the Task 43 item-19 failure mode); the only push-relevant QuickBooks fact would be an **absence** (no bill or PO for the 20x25 filter restock or the Lone Star bulk order), which L7 forbids as a load-bearing answer; and Tasks 41, 42 and 43 all resolved to a QuickBooks dollar figure, so keeping this answer non-monetary is the main defence of the 40% similarity ceiling. Near-miss vendor pair noted for future use: **Lone Star Maintenance Supply** vs **Lone Star Electric**.
+
+**Density-shape note for future StarPM plans.** This is the first StarPM task whose primary store is Linear rather than QuickBooks. Roughly 20 push-adjacent issues each needing a state read plus a comment walk is structurally more call-hungry than the 41/42/43 money-figure shape, which is why the projection sits at 55.5 against measured 41.7 / 36.8 on Task 43. Stated risk: a strong agent can pull state for many issues in one `list_issues` page instead of iterating `get_issue`, which would compress the Lever 2 row toward its low end. The row was budgeted at 5.5 rather than the Playbook maximum for that reason, and the total clears 40 even if it collapses to 1.
+
+**Wording constraint that nearly slipped, recorded because it is the Task 39 overclaim shape.** Two push issues ARE in Done: OPS-40 "Preventive Maintenance Push - North Cluster Properties" and OPS-91 "HVAC condenser cleaning and filter replacements - West Cluster". So "nothing on the push is closed" is falsifiable and must never be written. The verified claim is scoped: **none of Jaime's three QC issues is in a completed state** (OPS-87 Todo, OPS-96 Todo, OPS-98 In Progress), with OPS-97, OPS-108 and OPS-44 showing the same prose-versus-state pattern. Caught by asserting the claim against the data with an explicit issue list rather than trusting the prose summary of the scan — worth doing on every prose-vs-structured-field lever, since the lever's whole premise is that prose summaries are unreliable.
+
+**FINAL (2026-07-26) — all 5 levers confirmed end-to-end; PASS.** Task 44 cleared the cross-artifact council with 0 BLOCKER. Levers confirmed firing prompt -> OE -> rubric: **Lever 2** structured-DB skip on Linear `state_id` (idx 54, the symmetric stump), **Lever 9** authority dismissal in its persona-self variant (idx 52/53 plus the three notes at idx 24/25/26), **Lever 1** latching on the crew's wrap (idx 55/56), **Lever 8** multi-link chain off Jaime's own field note (idx 1), **Lever 5** thread-reply blindness (idx 8/11). Density PASS per model on the StarPM V4 band: Opus midpoint 54, Gemini midpoint 49. Bucket_1_Risk 3.1% post-fix.
+
+**New pattern worth banking: the "either-destination" asymmetry defect.** When a prompt carries an explicit routing rule ("X belongs in A rather than B"), every criterion covering an item of class X must grant the same destination latitude. Task 44 shipped past S3 and AUDIT with idx 16 accepting either destination for the water heaters while idx 17 pinned the hose bibs to a tracking item, and idx 11 accepting either for the South access unit while idx 12 pinned the North pair. Both items in each pair come from the same source comment and are the same class of work. An agent that applies the prompt's own routing rule *consistently* passes one and fails the other, which is a pure Bucket-1 false-fail invisible to per-phase review because each criterion reads fine alone. **Check: for every prompt routing rule, list the items of that class and diff their accept-sets across the rubric set.** Fixed by widening the narrower criterion and extending the matching OE's accommodation clause so the artifacts agree.
+
+**Second pattern: a graded fact whose OE quotation was truncated one sentence short.** idx 61 graded OPS-186's electrical-completion statement, but OE 20 quoted that description starting at the *second* sentence, so the graded fact had no oracle designation anywhere in 38 OE steps. `grep -c` on the criterion's own subject term across the OE file is a cheap detector (it returned 2 here, both unrelated). Compounded by the justification asserting the completion as settled fact while the record sits in Todo, in a rubric set that otherwise trains distrust of exactly that pattern. **Check: for each rubric, grep its distinguishing noun in the OE file; and any criterion that asks the agent to credit prose in a non-completed record must carry the grades-what-the-record-states hedge.**
+
+**S4 (2026-07-26) — Opus actuals; calibration deltas. Gemini half blocked on an unsaved verifier file.**
+
+Opus pass@1 **0/6**, density **62.5** (projection 55.5, so the projection under-counted), 0 errored runs. Gemini density **79.8**. 44 of 60 criteria failed at least once; Bucket 1 = 3, Bucket 2 = 1, Bucket 3 = 40; All-Failing sub-dim **5/5**. No REDO.
+
+**Correction that invalidates a lever on this universe: Lever 5 (thread-reply blindness) is INERT on StarPM.** Zero of 12 runs across both models ever called `slack_read_thread`, and it did not matter: `slack_read_channel(channel_id="C001", limit=100)` returns thread replies inline as flat top-level messages. Brooke's stock-count ask at ts `1779569323.000012`, John's parent post at `1779567943.000011` and the South-cluster reschedule replies at `1779308444.000003` all appear in the **first channel-read result of all 12 runs**. Verified by grepping every trajectory for the reply timestamps and for "Lone Star" / "bulk order": present in 12/12. Consequences for future StarPM plans: (a) do not select Lever 5 as an independent lever here, (b) do not budget the 2-4 `slack_read_thread` calls the density row assigns it, (c) any StarPM hardness claim of the form "this fact lives only in a thread reply" must be falsified against an actual channel-read result before it is banked. Whether the same flattening holds on Brookfield / KeyStone / MoveOps is **unverified** and should be checked the same way before reusing L12 there.
+
+The lever the plan credited did not exist; the difficulty it produced was real but came from a different mechanism. The filter run still swept 0/6 because the agents **read** "restock before I can finish the run" and then closed the filter spot-check as a clean pass anyway. That is a reasoning failure, not a retrieval failure, and it is the more durable of the two.
+
+**Promote Lever 6 out of "flavor".** The plan carried near-miss entity confusion as noise with no rubric dependency, citing L4. Two of the three strongest discriminators in the shipped set were exactly that shape: the two North pairs (deficient-flagged vs access-pending, 6/6 on the criterion that separates them) and OPS-99 vs OPS-108 (identical title, opposing states, 6/6). The working recipe is **same cluster, same count, same noun, different reason for being open** — three runs even retrieved both East records and called them duplicates without ever comparing their states. Retrieval is not the gate; the comparison is.
+
+**A structured-DB-skip lever discriminates on records but does not gate the verdict when a conversational path to the same verdict survives.** Criteria 49, 50, 54 and 60 (the headline: sign-off does not hold, not closeable, flagged units still open, cannot close out) all passed **6/6** while the state-column criteria failed 3/6 to 6/6. Jaime's own 5/23 field note (Lever 8) was sufficient to reach the right top-line answer without ever decoding `state_id`. If a future plan needs the verdict itself gated on the structured field, the conversational path has to be removed or made insufficient on its own; otherwise budget the structured-DB lever as a *criterion-level* discriminator and let the multi-link chain carry the headline.
+
+**Surfacing a gap and acting on it are separately gradeable, and the action is roughly twice as hard.** West coverage gap: 4/6 runs named it in narrative, 2/6 raised the tracking item. Build both criteria, expect the narrative one to be the weak discriminator.
+
+**The "either-destination" asymmetry defect survived the FINAL fix at the container level.** FINAL caught and widened the *item-level* pairs (water heaters vs hose bibs, South access unit vs North pair). It did not catch that the two *container* criteria above them still read "raises a tracking item" and pin Linear. Criterion 15 false-failed four runs that routed the plumbing findings to the ticket log exactly as OE 32 permits; criterion 11 false-failed three runs that had already passed its own content and owner criteria on the strength of the same Airtable ticket. **Extend the check: when a routing rule is widened on the content criteria, widen the container criterion in the same pass, or the accept-sets diverge in the one place a per-criterion read cannot see.**
+
+**A criterion that grades a state can collide with an OE that permits changing that state.** Criterion 51 asks the agent to report that none of OPS-87 / OPS-96 / OPS-98 is in a completed state; OE 15 says an agent that flips one of them "is not wrong". Three runs flipped OPS-96 to Done and were failed on the criterion. **Check: any criterion grading a field the agent is also permitted to write must be anchored to the as-found value, not the present tense.**
+
+**Positive-completion criteria are judge-fragile.** Criterion 58 (report that the South electrical panel inspections are recorded as finished) failed 6/6, and three of those six said it plainly in their final-response cluster table ("Electrical done", "South HVAC + electrical Done, Patricia", "electrical confirmed (Patricia)"). The criterion's own evidence field authorised exactly that, and the judge still required a dedicated sentence. When a criterion asks the agent to report what IS finished inside a deliverable that is otherwise a list of what is NOT, carry `(or similar)` and say explicitly that a table row or list entry satisfies it.
+
+**S4 CORRECTION (2026-07-26) — dual-model actuals. Supersedes the "Opus actuals; Gemini half blocked" block above.**
+
+The Opus block above was computed from a verifier export that did not match the Opus trajectories on disk. Both files were re-exported against the shipped 60-criterion set and the loop was re-run on both models. Corrected: Opus pass@1 **0/6** (31/36/45/27/30/47), Gemini pass@1 **0/6** (17/10/25/16/15/18), density 62.5 / 79.8, 0 errored runs. 52 criteria fail at least once. **Bucket 1 = 1, Bucket 2 = 6, Bucket 3 = 45. All-Failing sub-dim 5/5 (1.9%).** No REDO.
+
+**Retract the "Lever 5 is INERT on StarPM" claim as stated; the corrected version is narrower.** Re-measured against the trajectories on disk: **Opus called `slack_read_thread` 0 times across all 6 runs; Gemini called it 9 times across 4 of 6 runs.** The lever is a retrieval barrier on Opus only. What survives unchanged is the part that actually matters: `slack_read_channel(channel_id="C001", limit=100)` returns thread replies inline as flat messages, so the reply content sat in every run's context on both models regardless of whether the thread tool was called. The practical guidance is unchanged (do not select thread-reply blindness as an independent StarPM lever, do not budget its calls on Opus) but the evidence for it is "the replies are flattened into the channel read", not "no model opens threads". **Method note: the earlier claim was asserted from a trajectory grep whose input set was correct but whose conclusion was never re-checked after the verifier export changed. Re-measure tool-usage claims against the same artifacts the grading was computed from.**
+
+**Correct the "positive-completion criteria are judge-fragile" entry, and strengthen it.** The South-electrical criterion does not fail 6/6; it fails **4/6 on Opus and 4/6 on Gemini**, and **four of those eight cells are judge errors** against responses that state it in the plainest available form ("Electrical panel inspections (Patricia) and HVAC run (Elias) are finished"; "electrical panel inspections (OPS-186) are complete and marked Done"). The criterion's evidence already authorises exactly that. The failure mode is sharper than first recorded: the judge reads **"are recorded as finished"** as demanding a meta-claim about the record rather than a claim about the work, and withholds latitude the evidence grants. **The trap is that the obvious fix is wrong**: dropping the recorded-as hedge would assert as verified fact a completion that lives in a record still sitting in Todo, which is the overclaim the hedge exists to prevent. Bank the shape rather than a fix: **a criterion that must grade what a record claims, in a set that otherwise trains distrust of what records claim, is inherently judge-fragile in both directions and should be expected to draw appeals.**
+
+**New pattern: first-person accept-sets.** A criterion listing named people as the acceptable holder of a piece of work can false-fail a correct answer when the holder is the persona writing the deliverable, because the natural business phrasing is "owned by me" in a signed email rather than the person's own name. One Opus cell failed exactly this way. **Check: for every accept-set that includes the persona, state in the evidence that a first-person self-reference by the sender counts as naming them.** Cheap to add, invisible until a run writes in the voice the prompt asked for.
+
+**Judge-error rate, measured.** 22 of 403 fail cells (5.5%) are contested after a full trajectory walk, 19 of them on Gemini. The dominant shape is **scope drift**: the criterion scopes itself to the draft body or the channel post, and the judge grades the agent's Linear writes instead. One Gemini justification applies a different criterion's accept-set outright. Useful baseline for future tasks: expect roughly 1 in 20 fail cells to be contestable, skewed toward the weaker model, and budget the S4 trajectory walk accordingly rather than trusting the verifier text.
+
+**A conversational path to the verdict makes the structured-DB lever model-selective rather than symmetric.** Refined from the Opus-only reading. On Opus the field-note path carried the headline verdict and the state-column criteria discriminated only at the record level. On Gemini both the records and the verdict fell. So the same lever is a criterion-level discriminator on the stronger model and a verdict-level one on the weaker model. If a plan needs the verdict gated on both, the conversational path has to be removed or made insufficient on its own.
+
+**S4 PASS-3 REGRADE (2026-07-26). Supersedes the correction block above on every number; the mechanism findings in it stand.**
+
+Both verifier files were re-exported a third time after six evidence-field clarifications. Trajectories unchanged. Corrected: Opus pass@1 **0/6** (34/33/44/26/30/46), Gemini pass@1 **0/6** (20/19/22/19/20/21), density 62.5 / 79.8, 0 errored runs. 48 criteria fail at least once. **Bucket 1 = 0, Bucket 2 = 0 at criterion level, Bucket 3 = 48, 10 contested run-cells. All-Failing sub-dim 5/5 (0.0%).** No REDO.
+
+**Measured grader non-determinism: 8.5% of decision cells, on unchanged text.** 67 of 720 cells changed between two gradings of byte-identical trajectories. Only 6 fall on the six criteria whose evidence was edited between the exports; **61 are decision changes on criteria whose text did not move by a character.** Direction is model-asymmetric: Gemini gained 20 criteria-passed across six runs, Opus lost 3. Largest single-run swing was 9 points (Gemini run 2, 10 to 19). This is the single most important number in the entry, because it bounds what any per-cell claim is worth.
+
+**What survives the variance and what does not.**
+- **Gates are unaffected.** pass@1 was 0/6 on both models under both exports, error runs 0 under both, and density is a trajectory property grading cannot touch. A task whose difficulty margin is wide survives regrading; one sitting near a threshold does not. **Design for margin, not for a passing number.**
+- **Per-cell appeals are worth filing only where the artifact text is verbatim decisive.** Pass 2 filed 22 contested cells; the regrade vacated 11 of them unprompted, including every cell on four criteria that are now clean 12/12. Pass 3 files 10, scoped to that standard, and three of those are cases where the judge's sentence is contradicted word-for-word by the artifact.
+- **Revised judge-error baseline: ~2.6% of fail cells after a strict walk** (down from the 5.5% recorded under the pass-2 export), but the *cell-level instability* is 8.5%. Those are different quantities and the second is the one to plan around.
+
+**Criterion shape predicts grading stability. This is the actionable finding.**
+- Criteria grading **a created artifact and its contents** (ticket created, item raised, calendar slot booked, message posted, draft addressed) moved **0 of 96 cells** across both gradings.
+- Criteria grading **the agent's characterisation of a pre-existing record's claim** ("X is recorded as finished", "the crew recorded Y as complete", "the latest dated status says Z") absorbed most of the movement and account for **6 of the 10 contested cells** in this pass.
+- **Rule: when a lever can be carried on either shape, carry it on the artifact.** Reserve record-characterisation criteria for levers that genuinely require them, and expect them to draw appeals in both directions.
+
+**Correction to the "positive-completion criteria are judge-fragile" entry.** The South-electrical criterion is not 6/6 and not 4/6-and-4/6. Under the current grading it is **4/6 Opus and 3/6 Gemini, with 3 of those 7 cells contested.** The failure mode recorded earlier is confirmed and unchanged: the judge reads "are recorded as finished" as demanding a meta-claim about the record rather than a claim about the work, and withholds latitude the evidence field explicitly grants. The trap also stands: dropping the recorded-as hedge would assert as verified fact a completion living in a record still sitting in Todo. **Method note: this criterion's numbers have now been restated three times off three exports. Never restate a per-cell count without re-deriving it from the export in hand.**
+
+**The first-person accept-set fix is verified, not just proposed.** The evidence-field amendment stating that a first-person self-reference by the sender counts as naming the persona flipped exactly the cell it targeted (`Opus run 2`) from Fail to Pass, and a second contested cell with it. **Confirmed cheap and effective. Apply it at S3 to every accept-set that includes the persona, rather than waiting for S4 to find it.**
+
+**New: a judge can fail a cell with a claim the artifact refutes verbatim.** Three cells in this pass carry judge text contradicted word-for-word by the write payload, the clearest being an item description containing the literal string "Owner: Lisa Smith (cluster lead)" failed with "the description text does not confirm Lisa Smith". All three passed under the previous grading. **Consequence for S4 method: the trajectory walk is not optional verification of the verifier text, it is the only thing standing between a false fail and an AF justification that blames the model for the judge's error.**
+
+---
+
+## Task 44 — pass-4 regrade block (2026-07-26, third grading of identical trajectories)
+
+Basis: `8a` (16:18) + `8b` (16:19), rubric text as edited at 14:42 (13 criteria widened). Trajectories
+unchanged. 74 of 720 cells moved from the pass-3 grading; 62 of those on text that did not change.
+
+### Two new judge failure classes, both distinct from the ones already logged
+
+**Class 3: the judge cannot resolve an internal record id, and then accuses the run of misreporting itself.**
+`Opus run 4` addressed six Linear comments by internal record uuid rather than by issue identifier. The judge
+resolved five and mis-resolved the sixth as a different issue, concluded that no comment was written on the
+required record, and wrote that the run's final response "claims a note was left on OPS-87, but this is
+contradicted by the actual trajectory." The comment exists, the uuid resolves to OPS-87 from the identifier and
+uuid pair returned in that same run's tool results, and the criterion's evidence field explicitly accepts the
+internal id form. **Method consequence: build a uuid-to-identifier map from the tool results across all runs
+before classifying any comment-target criterion.** On this task 257 uuids resolved from the trajectories alone.
+Without that map, this cell would have been written up as a legitimate model failure and the AF batch would have
+blamed the model for the judge's resolution error.
+
+**Class 4: the judge reasons from the run's own summary rather than from the sent payload.** Three cells carry
+judge text of the form "the response summary does not show this framing in the posted Slack message" where the
+posted payload carries the required statement verbatim, in one case as the message's opening sentence. This is
+distinct from over-strict reading: the judge is grading the wrong artifact. **Method consequence: for every
+channel or draft criterion, read the write payload, never the run's description of it.** Worth flagging to the
+platform separately from ordinary appeals, because it is a harness-level problem rather than a judgment call.
+
+### Confirmation: the "recorded-as" criterion shape is judge-fragile, third data point
+
+The two as-found criteria (South electrical recorded finished, crew recorded East service complete) produced
+**7 of the 21 contested cells this pass**, on both models. Both carry evidence text stating that naming the
+record identifier is not required, and the East criterion states a single FAIL condition that none of the
+contested cells meets. The grader required record attribution anyway, on four cells for one criterion and three
+for the other. The trap itself remains sound and must not be dropped: removing the "recorded as" hedge would
+assert as verified fact a completion that lives in a record still sitting in a non-completed state. **The fix,
+if the misreading recurs, is to lift the "identifier not required" clause out of the evidence field and into the
+title, which changes no accept-set and costs no criterion slot.** Not applied this pass, to keep the grading
+comparable.
+
+### Confirmation: accept-set widening is cheap, effective, and measurable inside one regrade
+
+The 14:42 edits widened thirteen criteria. Measured effect on Opus: the note-on-a-QC-record criterion moved
+**0 of 6 to 4 of 6** once any correct reason was accepted; three filter-run criteria each moved **0 of 6 to 1 of
+6** once a comment on an existing open record was accepted beside a new tracking item; the plumbing escalation
+criterion moved 4 of 6 to 5 of 6 once the maintenance ticket was accepted as a destination. Two widened criteria
+drifted one cell against the agent, inside the documented variance and not attributable to edits that only added
+locations. **Apply this at S3: enumerate every reasonable destination in the evidence field at authoring time.**
+
+### Confirmation: criterion shape predicts grading stability, now across three gradings
+
+Criteria grading a created artifact and its contents moved **0 of 120 cells** between the last two gradings,
+having moved 0 of 96 between the previous pair. The persona's-own-field-note carriers moved **0 of 48**. All the
+movement continues to concentrate on criteria grading the agent's characterisation of a pre-existing record's
+claim. This is now a rule rather than an observation, and it should drive lever carrier selection at S3.
+
+### Method note on counts
+
+Per-run and per-cell counts on this task have now been restated across three exports (best Opus run: 47, then
+46, then 43). **Never carry a per-cell count forward between passes. Re-derive it from the export in hand.**
