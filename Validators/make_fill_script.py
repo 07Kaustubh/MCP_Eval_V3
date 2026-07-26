@@ -12,9 +12,23 @@ import json
 import sys
 from pathlib import Path
 
-src = Path(sys.argv[1] if len(sys.argv) > 1 else "7_Rubrics.json")
-rubrics = json.loads(src.read_text(encoding="utf-8"))
-payload = json.dumps(rubrics, ensure_ascii=False, indent=2)
+
+def _load(argv):
+    """Read the rubric file named on the command line. Module-level I/O was moved in here:
+    it made the module unimportable and, with no argument, silently read ./7_Rubrics.json
+    from whatever directory the caller happened to be in."""
+    if len(argv) < 2:
+        sys.exit("usage: python3 Validators/make_fill_script.py "
+                 "Tasks/<TASK_DIR>/7_Rubrics.json > fill.js")
+    src = Path(argv[1])
+    if not src.is_file():
+        sys.exit(f"error: {src} does not exist")
+    try:
+        rubrics = json.loads(src.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        sys.exit(f"error: {src} is not valid JSON: {e}")
+    return src, rubrics, json.dumps(rubrics, ensure_ascii=False, indent=2)
+
 
 TEMPLATE = r"""
 // ==============================================================
@@ -225,7 +239,12 @@ console.log('%cRubric filler loaded (' + RUBRICS.length + ' criteria).', 'font-w
 console.log('Run:  PROBE()   ->  FILL({dryRun:true})  ->  FILL()  ->  VERIFY()');
 """
 
-out = (TEMPLATE.replace("@@PAYLOAD@@", payload)
-               .replace("@@N@@", str(len(rubrics)))
-               .replace("@@SRC@@", str(src)))
-print(out)
+def main():
+    src, rubrics, payload = _load(sys.argv)
+    print(TEMPLATE.replace("@@PAYLOAD@@", payload)
+                  .replace("@@N@@", str(len(rubrics)))
+                  .replace("@@SRC@@", str(src)))
+
+
+if __name__ == "__main__":
+    main()

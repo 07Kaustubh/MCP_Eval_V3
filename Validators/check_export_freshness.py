@@ -97,6 +97,17 @@ def main():
     pin_path = task / PIN
     if do_pin:
         pin_path.parent.mkdir(parents=True, exist_ok=True)
+        # v23: archive a copy of each export keyed by content hash. Without this, a re-paste
+        # destroys the prior grading and the stability of a criterion across gradings becomes
+        # unmeasurable. Task 44 lost two gradings this way before the pin existed.
+        arch = task / "_aux" / "Verifier_Exports"
+        arch.mkdir(parents=True, exist_ok=True)
+        for name, meta in cur.items():
+            if not name.endswith(".txt"):
+                continue
+            dest = arch / f"{Path(name).stem}.{meta['sha256'][:12]}.txt"
+            if not dest.exists():
+                dest.write_bytes((task / name).read_bytes())
         pin_path.write_text(json.dumps({"task": task.name, "inputs": cur}, indent=1) + "\n",
                             encoding="utf-8")
         print(f"[PINNED] {task.name}: {len(cur)} input(s) recorded to {PIN}")

@@ -51,6 +51,12 @@ An evaluation pipeline for MCP-task deliverables (prompts, oracle events, rubric
 
 27. **Severity taxonomy, current as of QC Spec Doc2 07/16: Overly Specific is MODERATE, Overly Broad is MINOR.** They were swapped on that date (Overly Specific promoted from Minor, Overly Broad demoted from Moderate). This matters because Overall Rubric Quality Pass(5) requires **zero major and zero moderate** issues, so a single Overly Specific criterion costs the 5 while a single Overly Broad one does not (Pass(5) tolerates <5% minor). Percentage bands, denominator = the CB's own criterion count, do not double-count a criterion with multiple issues: Fail at >10% major, >15% moderate-or-major, >20% minor-or-worse.
 
+28. **A criterion that passes on every run is a weak assertion, not a safe one.** Mutation-testing practice treats an assertion holding on every mutant as verifying nothing; the canonical case is asserting non-null instead of asserting the value. The rubric analogue is a criterion passing every cell of every model. `Validators/check_rubric_signal.py` classifies every criterion as DISCRIMINATES / ZERO-SIGNAL / ALL-FAIL and names the cut candidates: existence-only criteria on an artifact whose content a sibling already grades. On Task 44, **11 of 60 criteria (18%) produced zero discrimination and 5 were clean cut candidates** (the ticket-created, plumbing-work-raised, calendar-scheduled, channel-posted and draft-created criteria), on a set that was simultaneously at the 60-criterion ceiling and unable to fit the Process rubric for its ordering requirement. The budget for that coverage already existed. Run this before trimming to the cap, and never cut a lever carrier (rule 14).
+
+29. **Report grader instability as Cohen's kappa, not as percentage of cells moved.** Raw agreement is inflated by chance on an imbalanced Pass/Fail grid: 90% raw agreement on a mostly-Fail grid is kappa 0.23, which is "fair" and far below the 0.60 conventionally treated as acceptable. The pipeline had been reporting Task 44's instability as "8.5% and 8.6% of cells moved", which reads as ~91% reliable and is not. `Validators/check_criterion_stability.py` computes kappa per model across archived gradings and lists the criteria that flip on identical trajectories, which is the actionable output: published rubric-grading work finds agreement high for objective criteria and poor for subjective ones, so a criterion that flips is a **wording** defect. Reword it rather than appealing cells on it. `check_export_freshness.py --pin` now archives every export to `_aux/Verifier_Exports/` so the series exists; before that, each re-paste destroyed the prior grading and made this unmeasurable.
+
+30. **The pipeline's own internal citations are checked, not trusted.** `Validators/check_pipeline_wiring.py` verifies that every path, script, CLI flag and `--phase` value cited in AGENTS.md and `Reference/**` resolves, that every validator imports cleanly, that cross-validator `from X import Y` references exist, and that the validator registry above matches disk. Added 2026-07-27 after an audit of all 35 validators and 26 docs found: `Knowledge_Flow.md` declaring COMPARE's output as `_aux/Compare_Report.md` when `compare_rubrics.py` only printed to stdout, and `make_fill_script.py` performing `sys.argv` indexing and a file read at module level, so it could not be imported and with no argument silently read `./7_Rubrics.json` from the caller's working directory. Both fixed. Run it after editing any runbook or validator; it is cheap and it is the only thing standing between a renamed file and an operator hitting a dead reference mid-phase.
+
 ## Pipeline Deviations from Eval Specs
 
 Where the 4 evaluator specs (`Evals/1_Prompt_Eval.md` ... `Evals/4_Verifier_Fails_Eval.md`) contain internal contradictions, conditional scoring, or under-specified rules, the pipeline picks one interpretation and documents the choice here. All deviations are conservative — when the spec is ambiguous, the pipeline picks the STRICTER reading.
@@ -151,9 +157,13 @@ MCP_Eval_V3/
 │   ├── check_rubric_antipatterns.py # criterion-construction anti-patterns, ex-hand-run greps (rule 18)
 │   ├── check_ordering_coverage.py   # prompt orders actions but no Process rubric grades it (rule 23)
 │   ├── check_qc_binary.py           # the 10 binary QC sub-dimensions in one gate (rule 26)
+│   ├── check_rubric_signal.py       # per-criterion discrimination; weak-assertion cut list (rule 28)
+│   ├── check_criterion_stability.py # Cohen's kappa across gradings; flips = wording defects (rule 29)
 │   ├── check_council_yield.py       # findings per KB of council prose (rule 20)
 │   ├── check_verification.py       # per-phase verification doc gate
-│   └── compare_rubrics.py          # local vs platform-paste-back rubric diff
+│   ├── compare_rubrics.py          # local vs platform-paste-back rubric diff -> _aux/Compare_Report.md
+│   ├── make_fill_script.py         # generates a browser-console rubric form filler from 7_Rubrics.json
+│   └── check_pipeline_wiring.py    # audits the pipeline's own citations: paths, scripts, flags, phases, imports
 ├── Brookfield_Base_Universe/       # STALE except 8_Server_Tools_Details.json + 2_Persona_Briefs.md
 │   ├── 1_Summary.md ... 7_*.md     # stale reference, do not trust over per-task data
 │   ├── 2_Persona_Briefs.md         # stable per-version (personas don't change per task)

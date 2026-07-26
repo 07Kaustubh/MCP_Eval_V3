@@ -11,6 +11,7 @@ mutations (reformatting, field stripping, reordering).
 """
 
 import argparse
+import builtins
 import json
 import sys
 from pathlib import Path
@@ -51,6 +52,29 @@ def main():
     a = load(args.local)
     b = load(args.platform)
 
+    # Knowledge_Flow.md declares COMPARE's output as `_aux/Compare_Report.md`. Until v23 the
+    # script only printed to stdout, so that contract was false and nothing downstream could
+    # read the diff. Tee every line to the report alongside stdout.
+    _lines = []
+    _stdout_print = builtins.print
+
+    def print(*a, **k):  # noqa: A001 - deliberate shadow, scoped to main()
+        _stdout_print(*a, **k)
+        _lines.append(" ".join(str(x) for x in a))
+
+    def _write_report(verdict):
+        out = Path(args.local).resolve().parent / "_aux" / "Compare_Report.md"
+        try:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(
+                "# COMPARE: local rubrics vs platform paste-back\n\n"
+                f"- local: `{args.local}`\n- platform: `{args.platform}`\n"
+                f"- verdict: **{verdict}**\n\n```\n" + "\n".join(_lines) + "\n```\n",
+                encoding="utf-8")
+            _stdout_print(f"\nWrote {out}")
+        except OSError as e:
+            _stdout_print(f"\n[warn] could not write Compare_Report.md: {e}")
+
     diffs = 0
     if len(a) != len(b):
         print(f"COUNT MISMATCH: local={len(a)} platform={len(b)}")
@@ -77,8 +101,10 @@ def main():
 
     if diffs == 0:
         print("Rubrics match.")
+        _write_report("MATCH")
         sys.exit(0)
     print(f"\n{diffs} difference(s) found.")
+    _write_report(f"{diffs} DIFFERENCE(S)")
     sys.exit(1)
 
 

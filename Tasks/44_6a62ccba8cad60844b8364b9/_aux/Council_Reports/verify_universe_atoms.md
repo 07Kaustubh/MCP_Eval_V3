@@ -37,11 +37,11 @@
 | linear issue OPS-98 | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | linear issue OPS-99 | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | date 2026-07-15 | `StarPM active window 2026-05-01..2026-07-01` | 2026-07-15 | date 2026-07-15 is outside the StarPM active workflow window (2026-05-01 to 2026-07-01); verify it is intentional | WARN |
-| email teresa.wood@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
-| email lisa.smith@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
-| email carlos.mendez@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email jaime.salinas@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
-| email tony.reyes@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
-| email john.smith@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email brooke.phillips@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email john.smith@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email tony.reyes@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email lisa.smith@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email teresa.wood@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email carlos.mendez@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email elias.navarro@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
