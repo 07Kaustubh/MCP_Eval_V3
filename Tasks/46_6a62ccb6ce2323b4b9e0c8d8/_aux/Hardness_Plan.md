@@ -1,0 +1,302 @@
+# Hardness Plan
+
+**Task:** `Tasks/46_6a62ccb6ce2323b4b9e0c8d8`
+**Universe:** `starpm` (Star Property Management) · Framework **V4** (dual-model: Opus 4.8 + Gemini)
+**Universe today:** 2026-07-01, America/Chicago
+**Density scheme:** V4 — design target **40+ average tool calls PER MODEL**, absolute floor 15. The V3-family 50/40 scheme does not apply.
+**Flow:** fresh CB build (no `_aux/REDO_reason.md`, no `_aux/Candidate_Originals/`).
+
+## Persona and Business Function
+
+- **Lisa Smith** — Onsite Property Manager (`lisa.smith@starpm.com`, Slack `U6480117503`, Linear `user_91c92c52bae555f0ac4ac15c377cfe35`). The authoring id `p_002` appears nowhere in the split; ground only on the email, display name, or service ids.
+- **Business function 1 · Property Operations.** Matches her persona brief's home function, so there is no cross-function mismatch to resolve at S1.
+
+## Scenario anchor
+
+**OPS-10 "Mid-Year Owner Portfolio Reviews - June 2026"** — state `state_OPS_0` (**Backlog**), project `proj_002`, assignee Brooke Phillips. Lisa owns two of the four owners.
+
+Verified scope anchor, `linear.linear_comments` on OPS-10:
+
+> "Splitting the prep between Lisa and Patricia to keep things manageable - Lisa, you've got **Harry Harris and Robert Finley**; Patricia, you've got David Shea and Linda Castillo. I need **occupancy rates, outstanding maintenance backlog, and make-ready status** for each."
+
+The stated deadline was end of June; universe today is 2026-07-01, so the work is one day overdue. That gives a natural, non-pre-solving trigger.
+
+**Why this anchor and not the alternatives.** Four scenario shapes are spent on this universe: make-ready single-unit closeout (Tasks 39, 40, 45 — two of the three failed), owner pass-through billing reconciliation (42, 43), tenant delinquency and eviction (40, 41), and preventive-maintenance-push closeout (44). Task 40 used **this exact persona and business function**, so the pivot has to be real: that task was one tenant's unit turn plus account status, driven from Airtable and email. This is two owners' portfolio reporting, driven from QuickBooks receivables and Calendar. Different objects, different verbs, different systems.
+
+The May monthly owner report (OPS-100) was considered and rejected as the centre: it is downstream, single-owner, and already closed on the Slack record. OPS-10 is the live two-owner parent, and the two-owner enumeration is what lifts projected density out of the single-entity band.
+
+## Levers Available
+
+| # | Lever | Status | Evidence (split file : row id) | Cost range |
+|---|---|---|---|---|
+| 1 | **Latching** | **yes** | `slack.slack_messages:a6779a055eaf5fb1893d0ed6d92e3b39` (Lisa: "94% occupancy, one unit still in make-ready… Collections at 97%… Closed out three tickets this month including a water heater leak") → propagated in `linear.linear_comments:comment_5a6d779a715f587392dd00b9c8dbbd4a` → refuted by `airtable.airtable_records:rec23600780ef4053`, `rec88734a4fdfde57` and `quickbooks.quickbooks_entities:109367557444`,`129552155569`,`793996025934` | 5-8 |
+| 2 | **Structured-DB skip** | **yes** | Owner AR exists only in `quickbooks.quickbooks_entities`; **all 9 post-today Calendar event titles are absent from Gmail and Slack** (Calendar is 100% unmirrored in this universe) | 4-7 |
+| 3 | Missing reply | partial | OPS-10 comments answer the split-assignment, but no dispute-then-reply flip exists. Too weak to carry a criterion | 3-5 |
+| 4 | Search-result-cap eviction | partial | C006 carries 31 thread replies; a "Mass Email Campaign" series floods the June calendar. Real but incidental | 3-5 |
+| 5 | **Thread-reply blindness** | **yes** | Lisa's entire claim is a reply (`thread_parent_id = 831d2b6760205432a20487e2664a607e`), invisible to a channel-level read; **346 of 580** Slack messages are thread replies | 2-4 |
+| 6 | **Near-miss entity** | **yes** | Credit memos wearing other prefixes: Finley `BILL-2026-0335`, `INV-2026-0718`; Harris `BILL-2026-0336`, `INV-2026-0841-572`. Also 45 DocNumber families with suffixed children, 8 sharing an identical `TotalAmt` with their base | 3-5 |
+| 7 | **Multi-write diversification** | **yes** | 8 writable services; 6 writes across 5 designed below | 9-12 |
+| 8 | **Multi-link chain** | **yes** | Slack thread reply → OPS-100 narrative → invoice `445653930748` (billed **Linda Castillo**, not Finley) → `airtable:rec88734a4fdfde57` ("possible subfloor issue under bathroom tile") | 6-9 |
+| 9 | **Universe-grounded gotcha** | **yes** | **117 of 117 credit memos carry `RemainingCredit: 0` — which reads as "already applied" — while `Balance == TotalAmt` on all 117 and `LinkedTxn` is absent on all 117.** Nothing is offset by anything | 3-5 |
+| 10 | **Reversal / supersession** | **yes** | Harris review double-booked: `1pon50ds1aevem63td6f7emdn3` (06-02, Lisa **accepted**, all four accepted) and `qqbwq3s2h7wh5udoek2940mffk` "(Rescheduled)" (06-03, **Lisa not invited**, Aurora and Patricia **declined**) — both `confirmed`, neither cancelled. Plus OPS-10 in Backlog against two comments announcing transitions, and OPS-93 "Approved and Closed" sitting in Todo while OPS-39 (same reconciliation) sits in In Review | 4-6 |
+| 11 | **Net-vs-gross** | **yes** | Finley gross AR **$10,980** (`2026-494` $8,400 due 05-31; `2026-303` $2,190 due 06-05; `4421` $390 due 06-12) against **$3,655** of unapplied credit memos. Harris **$0** open AR against **$1,975** of credits | 4-7 |
+
+**Absent:** none disqualifying. Levers 3 and 4 are present but too weak to carry a criterion and are not selected.
+
+## Selected Levers
+
+Five selected. Per the twice-logged meta-lesson, retrieval and reasoning are scored separately — prior plans scored levers by how hard a fact is to *retrieve* and the runs failed on how hard it is to *reason about once retrieved*.
+
+| # | Lever | Retrieval | **Reasoning** | Learnings entry cited | Cost midpoint |
+|---|---|---|---|---|---|
+| **L2** | Structured-DB skip (QuickBooks AR + the unmirrored Calendar) | MED | **HIGH** | Structured-store skip is symmetric and strongest when the fact lives in the object type the agent is least likely to query (Task 40 item 3; Task 41 item 11) | 5.5 |
+| **L10** | Reversal / supersession (Harris double-booked review; OPS-10 state vs its own narrative; OPS-39 vs OPS-93) | MED | **HIGH** | Duplicate records with near-identical titles in different workflow states: 0 of 12 under all three Task 44 gradings | 5.0 |
+| **L11** | Net-vs-gross (117 unapplied credit memos) | MED | **VERY HIGH** | "Score the reasoning step separately from the retrieval step" — `RemainingCredit: 0` actively misleads *after* successful retrieval | 5.5 |
+| **L1** | Latching on the persona's own undispositioned claim | LOW | **HIGH** | The persona's own field observation never dispositioned anywhere: 6/6 Opus pass, 6/6 Gemini fail, 0 of 48 cells moved across three gradings — the highest-yield cross-model differentiator measured | 6.5 |
+| **L7** | Multi-write diversification | LOW | MED | Playbook composition rule; required to clear the V4 40+ per-model gate | 10.5 |
+
+**Carried as sub-levers, not independently graded:** L5 thread-reply blindness rides L1 (it supplies the attribution); L6 near-miss entity rides L11 (credit memos wearing `BILL-` and `INV-` prefixes). Per the Learnings block, near-miss entity confusion alone fails ~0% of runs, so it is deliberately not counted as a standalone lever.
+
+**The contrast pair (the shape promoted to first-class after Task 44).** Harris and Finley are same-noun, same-count, same-deliverable, and differ *only in why each is open*: Finley is **cash-blocked** ($10,980 overdue across three invoices, his review held without Lisa present), Harris is **operationally blocked** (Sunset Ridge carries 7 make-ready rows across 3 units with **zero** in a Ready state, and his review is double-booked with the reschedule effectively uncommitted). An agent that reports "both owners are behind" without separating the two causes has retrieved everything and reasoned about none of it.
+
+**Deliberately NOT selected: the L31 negative-directive / retraction beat.** It passed 12/12 across three Task 44 gradings. The revised rule is that it fires only when the negative is implied by the situation, never when the prompt names it as a required output. The prompt must therefore not name any verdict.
+
+### L36 test — what the prompt must WITHHOLD
+
+This is the governing constraint. Task 45 shipped a genuinely well-trapped universe on this same universe and returned **Opus pass@1 = 100%** because its prompt named every rubric discriminator. Difficulty is withheld inference, not universe trap density.
+
+| Lever | Inference the prompt must withhold | Sentence that would KILL it |
+|---|---|---|
+| **L1** | That anything Lisa reported in May was wrong | "verify the 94% figure" / "my numbers may have been off" / "the water heater wasn't at Mesa Vista" |
+| **L2** | That money and meetings must be checked in the books and the calendar rather than the chatter | any naming of a service (also an Explicit Tool Mention FAIL) / "check what's overdue" |
+| **L10** | That a review may have been superseded or never actually advanced | "the Harris meeting was rescheduled" / "check for duplicate meetings" / "OPS-10 was never updated" |
+| **L11** | That credits exist and are unapplied | "net of credits" / "check for unapplied credit memos" / "what is the net balance" |
+
+**Safe prompt shape:** ask Lisa to close out her half of the mid-year owner package now that the end-of-June deadline has passed. Name **the two owners and the missed deadline**. Name no figure, no property, no discrepancy, no record state, and no service. Every discriminator survives as an inference.
+
+### Lever-displacement check
+
+| Pair | Displaced? | Reasoning |
+|---|---|---|
+| L1 ← L5 | **No — mitigated** | The 94% figure also appears top-level in `comment_5a6d779a715f587392dd00b9c8dbbd4a`. The Slack thread supplies attribution, Linear supplies the figure. Two independent paths, per the pairing rule |
+| L11 ← L2 | **No** | Credit memos surface on the same customer-balance and invoice sweep as the invoices. Same gate, both independently observable |
+| L10 ← L2 | **No** | The Harris double-booking is on Calendar; the OPS-10 state contradiction is in Linear. Two different stores |
+| L1 ← L11 | **No** | The occupancy and make-ready refutation (Airtable) is fully independent of the AR refutation (QuickBooks) |
+| L10 ← L1 | **Partial** | If the agent never opens OPS-10 it loses both the two-owner scope and the state contradiction. **Mitigation: the prompt names both owners**, so OPS-10 is not the only route to scope |
+
+No lever sits wholly behind another's discovery gate. This matters because a net-vs-gross lever stacked behind a gate that already sweeps 0/12 is never independently measurable, and the two levers collapse into one measured stump.
+
+## Tool-Call Density Projection
+
+Projected **per model separately**, as the V4 gate requires.
+
+| Component | Opus range | Gemini range |
+|---|---:|---:|
+| Base discovery (channel resolution, contacts, Linear project and issue search) | 6-9 | 6-10 |
+| Owner enumeration ×2 (make-ready rows + maintenance tickets, per owner) | 10-14 | 12-18 |
+| QuickBooks sweep (invoices, credit memos, customer balance, aged receivables, bills) | 7-11 | 6-10 |
+| Calendar sweep (calendar list, event list, per-event detail across 9 distinct meetings) | 5-8 | 5-9 |
+| Slack thread reads (thread read is a separate tool from channel read) | 3-6 | 2-5 |
+| Linear comment traversal (OPS-10, OPS-100, the duplicate set) | 4-7 | 4-7 |
+| Write actions (6 writes plus supporting reads) | 10-14 | 10-15 |
+| Cross-service triangulation buffer | 5-8 | 5-8 |
+| **TOTAL projected** | **50-77** | **50-82** |
+| **MIDPOINT** | **63.5** | **66.0** |
+
+**Gate: PASS on both models.** V4 band is midpoint ≥ 40 PASS, 15-39 THIN, < 15 INSUFFICIENT. Margin is **+23.5 Opus** and **+26.0 Gemini**.
+
+**Justification of the Opus/Gemini delta against the empirical anchors.** Measured per-model averages on prior StarPM tasks, via `Validators/parse_trajectories.py`:
+
+| Task | Gemini | Opus | Shape | Outcome |
+|---|---:|---:|---|---|
+| 39 | 33.0 | 43.5 | single unit | QC fail |
+| 40 | 40.0 | 41.5 | single unit + tenant account | — |
+| 41 | 38.8 | 48.0 | single tenant | — |
+| 43 | 36.8 | 41.7 | single unit billing | — |
+| **44** | **79.8** | **62.5** | **portfolio sweep, N clusters × M workstreams** | **PASS** |
+| 45 | 43.3 | 37.0 | single unit QC hold | difficulty FAIL |
+
+The sign of the delta flips with enumeration breadth. On the four single-entity tasks Gemini runs *below* Opus; on the one multi-entity task it runs well above. Gemini's count scales with explicit enumeration, Opus's with reasoning depth. A 2-owner × 4-workstream sweep is genuine multi-entity but narrower than Task 44, so Gemini is projected modestly above Opus and both land between the single-entity band (33-48) and Task 44 (62.5 / 79.8), with a deliberate haircut applied for the narrower breadth.
+
+**Designing for margin, not for a number.** Measured grader non-determinism sits at roughly 8.5% of decision cells on byte-identical trajectories and reverses direction between regrades. A projection that lands just inside a threshold is not actually inside it. Both midpoints clear 40 by more than 20, and density is a trajectory property that grading cannot touch at all.
+
+## Service Breadth
+
+| Service | Calls | % of total | Writes |
+|---|---:|---:|---|
+| airtable | 12-16 | 21% | 1 (make-ready record correction) |
+| quickbooks | 10-14 | 19% | 0 (read-only) |
+| linear | 10-14 | 19% | 2 (comment on the parent review item; new item for what is unresolved) |
+| gcalendar | 8-12 | 16% | 1 (resolve the double-booked review) |
+| slack | 7-10 | 13% | 1 (post to owner relations) |
+| gmail | 5-8 | 9% | 1 (draft hand-off to the portfolio manager) |
+| contacts | 2-3 | 3% | 0 |
+| hubspot | 0-2 | 1% | 0 |
+| **Distinct services** | **7 of 8** | — | **6 writes across 5 services** |
+
+**Breadth gate: PASS.** Six services carry ≥ 5% of the projected total and no service dominates at more than 21%. This is the cross-correlation shape rather than the false-positive pattern where a high midpoint is reached by stacking calls in one service.
+
+### Single-target uniqueness (hard rule 13 / F7 AMBIGUOUS_TARGET)
+
+Every target proposed for pinning was checked for a unique match, and the ambiguous ones are excluded by name.
+
+**Safe to pin:** OPS-10, OPS-100, OPS-39, OPS-93 (unique issue numbers) - Finley invoices `2026-494`, `2026-303`, `4421` (unique DocNumbers) - `airtable:rec88734a4fdfde57` (the only Mesa Vista 310C row). **[CORRECTED 2026-07-28 by S1 AUDIT] The Harris calendar pair was previously listed here as safe to pin on bare base ids. That certification was FALSE. Do not pin any calendar target without reading `## CORRECTION: Calendar pin list` at the end of this file.**
+
+**Excluded as ambiguous — must NOT be pinned:**
+- **Mesa Vista 207A** — three rows, two `selProg` (`rec4081fd2ccde95a`, `reca4aa17f0755b55`) and one `selReady` (`rec591a0f70432651`).
+- **Mesa Vista 4C** — two rows, `recbd087a4abd605b` `selProg` and `recc8534b3fd13954` `selReady`. Also burnt as a scenario centre by Tasks 43 and 45.
+- **Las Palmas 204B** (53 rows) and **Las Vistas 311A** (15 rows) — unresolvable.
+- **Any bare "Unit 14"** — a 7-row, 6-label collision spanning at least two properties, including `Sunset Ridge Unit 14` inside Harris's own cluster.
+
+Safe make-ready carriers for the occupancy refutation are **Mesa Vista 107A** (two rows, both `selProg`, no Ready row) and **Mesa Vista 310C** (`selSched`, no Ready row), plus the whole of **Sunset Ridge** for Harris (7 rows across 3 units, zero Ready).
+
+### Every-service sweep including Calendar (hard rule 13 / F9)
+
+Nine distinct confirmed events sit on or after universe today, and **Lisa is an attendee on none of them** — so an agent that scopes the calendar to the persona misses all nine. All nine titles are absent from Gmail and Slack. The two that bear on any completeness claim in this task's deliverables are `232wqgjdsa2cyz9mv4qtx5mncy` (07-23, Q3 Make-Ready Planning and Budget Review, covering Las Vistas, Las Palmas and Mesa Vista, four attendees all accepted) and `j3ulusavtqgvwge31s21ep5c8w` (07-08, Mesa Vista HOA Management Review). Any "this is complete" or "this is the only open item" framing in the OEs or rubrics must reconcile against these.
+
+## Stump Hypothesis
+
+**H1 — Unapplied credit memos are silently netted, or ignored. `SYMMETRIC`. Confidence HIGH.**
+Mechanism: L11 plus L9. `RemainingCredit: 0` reads as "already applied", so the agent reports Finley's gross $10,980 or silently nets to $7,325 without stating that no credit memo carries a `LinkedTxn` and therefore nothing is offset. Retrieval is easy; the field is a false friend after retrieval.
+Pre-registered alternative attribution: if this fails on Gemini only, the cause is QuickBooks query breadth (credit memos never retrieved at all), not the netting inference — check whether the invoice search was the only call made.
+
+**H2 — Lisa's own May claim is repeated rather than reconciled. `OPUS-SELECTIVE` (Opus passes, Gemini fails). Confidence HIGH.**
+Mechanism: L1 plus L5. This is the confirmed highest-yield shape — the persona's own observation, never dispositioned in any record. The "water heater leak" at Mesa Vista has zero supporting rows; every water-heater record in the universe resolves to 412 Mesquite, Pinecrest 12, Dunmore Unit 3, or 2214 Oleander. Gemini's thread-reply blindness compounds it because the claim lives only in a reply.
+Pre-registered alternative attribution: if Opus also fails, the cause is thread-reply retrieval (L5), not the disposition inference — check whether the thread read was called on `831d2b6760205432a20487e2664a607e` at all.
+
+**H3 — The double-booked Harris review is reported as a clean reschedule. `SYMMETRIC`. Confidence MED-HIGH.**
+Mechanism: L10, the 0/12 duplicate-title-different-state shape transposed onto Calendar. Both events are `confirmed` and neither is cancelled. The agent must notice that the "(Rescheduled)" instance excludes Lisa entirely and carries two declines, so the reschedule never actually took.
+Pre-registered alternative attribution: if it fails because the agent never listed events at all, that is L2 (structured skip), not L10 — confirm an event-list call is present before crediting the supersession inference.
+
+**H4 — The "all four owner reviews are confirmed" claim is accepted at face value. `GEMINI-SELECTIVE`. Confidence MED.**
+Mechanism: L2 plus L10. The OPS-10 comment asserts "all four owner meetings are confirmed on the calendar"; **David Shea has zero calendar presence anywhere in 565 events**. This requires enumerating four named owners against a store the prompt never names and finding the missing one — a negative-existence check.
+Pre-registered alternative attribution: if both models fail, treat it as an L2 breadth failure rather than a cross-model differentiator.
+
+**Note on the falsified L31.** None of these four verdicts may be named in the prompt. Each is an implied negative discovered from the situation, which is precisely the condition under which the negative-directive omission still fires.
+
+## Hardness Score
+
+**5/5 — PASS.**
+
+- Levers gate: 5 selected (≥ 3 required). PASS.
+- Density gate: Opus midpoint **63.5**, Gemini midpoint **66.0**, both against a 40 design target and a 15 floor. **PASS on both models**, margin > 20 each.
+- Breadth gate: **7 of 8** distinct services, six of them ≥ 5%, dominant service 21%. PASS.
+- No injection required. All four content levers are already present in the per-task universe and were verified row by row.
+
+## Hardness Brief for the Prompt Writer
+
+Lisa Smith is the onsite property manager and, under the mid-year owner-review split, she owns the packages for **Harry Harris** and **Robert Finley**. The stated deadline was the end of June and today is July 1, so she is a day late. Write a prompt that asks her to finish and hand off her half of the mid-year owner package for those two owners and to post where it stands, and nothing more. **Name the two owners and the missed deadline; name no figure, no property, no discrepancy, no record state, and no service.** The prompt must not hint that anything reported earlier was wrong, must not mention occupancy percentages, collections, credits, meetings, rescheduling or completeness, and must not ask her to verify or reconcile anything specific, because every discriminator has to survive as an inference the agent draws from the records rather than from the prompt. Frame it in her own voice as someone who believes her earlier numbers were sound. Aim the deliverables at breadth: a written hand-off to the portfolio manager, an update on the parent review item, a new item for whatever she finds unresolved, a post in the owner relations channel, a calendar correction, and a corrected operational record — six writes across five services. Keep it under 500 words, with no em-dashes and no tool names.
+
+## Carry-forward risks for S1
+
+1. **Similarity to Task 40** — same persona, same business function. The pivot is genuine (owner-portfolio reporting against receivables and calendar, versus a single tenant's unit turn against Airtable and email), but `Validators/calc_similarity.py` must be run before the prompt is submitted, and the platform similarity gate is 40%.
+2. **Do not centre the task on Mesa Vista.** It is burnt twice over (Tasks 43 and 45) and its two most prominent units carry simultaneous `selProg` and `selReady` rows. Mesa Vista belongs in this task only as a supporting cross-reference reached through Finley.
+3. **Gmail bodies are base64** and `get_thread` is the only path to them; 9 of 12 prior runs made that call and 0 of 12 decoded the payload. No discriminator may rest solely on an email body.
+4. **There are no file attachments in this universe** — zero `.pdf` strings, zero Gmail attachments, all Slack `files_json` empty, and no filesystem service. The documented near-duplicate filename decoys do not exist here; they materialise as QuickBooks `DocNumber` values. Any lever written against a filename would find nothing.
+5. **`fldMoveOut` and `fldTargetReady` are frequently degenerate** in `tblMakeReady` (often equal to each other and to the row's creation date) while the prose in `fldNotes2` cites July dates. This is frequent but not universal, so any date-dependent criterion must name which field it sources from.
+
+---
+
+## CORRECTION: Calendar pin list
+
+**Added 2026-07-28 by S1 AUDIT (`_aux/Council_Reports/AUDIT_prompt.md`, finding F2). Verified
+independently against `_aux/Universe_Split/gcalendar.gcalendar_events.json` before recording.**
+
+The "Single-target uniqueness" section above certified the Harris calendar pair
+`1pon50ds1aevem63td6f7emdn3` and `qqbwq3s2h7wh5udoek2940mffk` as **"safe to pin (distinct base
+ids)"**. They are distinct from each other, but that is not what hard rule 13 asks. Neither is a
+single target.
+
+**Measured fan-out.** Calendar events are stored one row per invitee calendar, so a bare base id
+matches every attendee's copy. Complete verified set of every calendar event naming either owner
+(swept across all 565 event rows, 2026-07-28, S1):
+
+| # | Event title | base id | rows | when | Lisa has a row? | attendee responses |
+|---|---|---|---:|---|---|---|
+| 1 | Harry Harris Mid-Year Portfolio Review | `1pon50ds1aevem63td6f7emdn3` | **5** | 06-02 12:15-12:45 (30 min) | **yes**, accepted | all four accepted |
+| 2 | Harry Harris Mid-Year Portfolio Review **(Rescheduled)** | `qqbwq3s2h7wh5udoek2940mffk` | **4** | 06-03 15:00-16:30 (90 min) | **NO** | aurora declined, patricia declined, teresa accepted |
+| 3 | Robert Finley Mid-Year Portfolio Review | `8mwlxrq5w5oodwdpmvo83e00f2` | **4** | 05-19 11:45-13:15 (90 min) | **yes**, declined | aurora declined, lisa declined, brooke + teresa accepted |
+| 4 | May Owner Report Review - Finley Properties | (see split) | **3** | 05-28 11:45-12:15 | **yes**, declined | lisa declined, teresa declined, brooke + robert.finley accepted |
+
+Rows 1 and 2 are the Harris pair the plan already modelled. **Rows 3 and 4 are new at S1** and were
+not in the original plan, which modelled the calendar defect as Harris-only.
+
+**Two consequences, both binding on S2 and S3.**
+
+1. **F7 AMBIGUOUS_TARGET.** A criterion pinning a bare base id matches 5 rows (or 4). Pin the
+   per-calendar row, or describe the target by content plus the calendar it sits on. Never pin the
+   bare base id.
+2. **`lisa.smith@starpm.com` has NO row on the Rescheduled event.** The persona is not an attendee,
+   so `respond_to_event` is not an available path for her on that event. Her actual options are
+   `update_event` or `delete_event`. Any OE step or rubric assuming she can accept, decline or
+   otherwise respond to the reschedule is unsatisfiable on every run. Record the accepted end-state
+   set explicitly at S2 rather than leaving it open.
+
+**Why the original certification passed review.** The check that produced the "Safe to pin" list was
+applied to Airtable rows, where one record is one row, and then carried across to Calendar without
+re-deriving it against Calendar's storage shape. Both Council A and Council B repeated the claim at
+S1 without re-checking it. It was caught only by AUDIT, which is the reason the strict pass exists.
+
+**Note on lever L10.** The substance of L10 is unaffected and still verified: two `confirmed` events,
+neither cancelled, the "(Rescheduled)" instance excluding Lisa and carrying two declines. Only the
+*pinning* guidance was wrong, not the lever.
+
+## CORRECTION: prompt clause that carries the Calendar write
+
+**Added 2026-07-28 by S1 AUDIT, finding F1.**
+
+The Hardness Brief asked for "a calendar correction" as one of the six writes. The S1 draft carried
+it with "anything on the **scheduling side** for these two that is not properly settled". AUDIT
+found that phrase resolves to **Airtable, not Calendar**: `tblMakeReady.fldTurnStatus` has an option
+literally named Scheduled (`selSched`, **43 of 120 rows**), a date field literally named
+`fldTargetReady`, **99 of 120** rows past target and not Ready, and 45 rows whose fields mention
+`schedul*`. Both owners have a qualifying row (`rec987aae7d522057` Sunset Ridge 309C, Harris,
+`selSched`, notes about confirming a July 21 vs July 23 crew slot; `rec8b679d92f30753` Ridgeview
+roof, Finley, `selSched`). Because "do the same" inherits the correction verb from the preceding
+Airtable clause, an agent could discharge the entire clause inside Airtable and never open Calendar,
+making the calendar criterion beyond-prompt.
+
+Clause reworded at S1 to "Do the same for **their review meetings** if either of those did not end
+up properly settled." No Airtable field name carries a meeting concept, so the noun phrase now
+denotes calendar events only. S2/S3 should treat the calendar write as carried by that clause.
+
+## CORRECTION: the calendar defect is NOT Harris-only
+
+**Added 2026-07-28 by S1 (Council B iteration 3, verified independently before recording).**
+
+The plan's L10 entry describes only the Harris double-booking. Three further carriers exist, all
+verified against `gcalendar.gcalendar_events.json`:
+
+1. **Finley's mid-year review contradicts the record that scheduled it.**
+   `comment_79dc83838bd65d678c48b5911f942412` on OPS-10 states Teresa has Finley's review "locked in
+   for the first week of June, 60 minutes in the afternoon". The actual event is **05-19, 11:45 to
+   13:15**: wrong month, wrong duration (90 not 60), wrong time of day (late morning, not afternoon).
+   **An exhaustive sweep of 2026-06-01..09 returns ZERO Finley events**, so the comment describes a
+   meeting that does not exist.
+2. **Lisa declined her own owner's mid-year review.** On event 3 above, `lisa.smith@starpm.com` has
+   `responseStatus: declined`, as does `aurora.winona@starpm.com`. Robert Finley is not an attendee
+   at all.
+3. **The Harris original also contradicts its own announcement.** Slack says "Harry Harris is set for
+   a casual **45-minute morning** call **late June**". The event is **06-02, 12:15 to 12:45**: 30
+   minutes, midday, early June. Three mismatches, on the instance everyone accepted.
+
+**Consequence.** The prompt's "if **either of those** did not end up properly settled" fires on BOTH
+owners, not just Harris. S2/S3 must not build the calendar workstream as a single-owner beat.
+
+## CARRY-FORWARD: F7/F8 constraints on the calendar workstream
+
+1. **Never pin a bare base id.** Pin the per-calendar row, or describe the target by content plus the
+   calendar it sits on.
+2. **Accept-set must span `update_event` and `delete_event`.** Do NOT require `respond_to_event` on
+   the Harris Rescheduled event: Lisa has no row on it, so that path is unsatisfiable on every run.
+   She DOES have a row on events 1, 3 and 4, so `respond_to_event` is available there.
+   Note (Council A, from the tool catalog): `update_event` and `delete_event` are `eventId`-addressed
+   with `calendarId` OPTIONAL, so Lisa is not gated by calendar ownership on any of the four.
+3. **Row 4 is an F7 near-miss.** "May Owner Report Review - Finley Properties" is also a Finley review
+   meeting and also looks unsettled. Pin by FULL title so a criterion aimed at the mid-year review
+   cannot be satisfied by the May report review, or vice versa.
+4. **Pre-registered failure mode for S4 (rule 21).** Lisa has rows on 3 of the 4 events but NOT on the
+   Rescheduled duplicate. An agent that scopes Calendar to the persona sees Harris's review accepted
+   by all four and concludes it is settled, never finding the duplicate. This is intended difficulty,
+   not a defect, but it raises the all-fail risk on any criterion requiring the duplicate to be found.
+   Record it now so S4 does not discover it late.

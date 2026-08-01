@@ -21,7 +21,7 @@
 | linear issue OPS-32 | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | linear issue OPS-38 | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | linear issue OPS-54 | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
-| email john.castillo@gmail.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email patricia.nguyen@starpm.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email linda.castillo@gmail.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
 | email tanya.mitchell@gmail.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |
+| email john.castillo@gmail.com | `presence search in 3_UniverseDataForThisTask.json` | found | present in universe | PASS |

@@ -103,11 +103,92 @@ def _searchable_amounts(text: str) -> set:
     return out
 
 
+def _derived_from_amounts(target: str, pool: set, context: str) -> str:
+    """Return a shown derivation of `target`, or "" if the rubric does not show one.
+
+    A rubric amount may legitimately be arithmetic OVER universe values rather than a
+    literal universe string, and the framework treats that as the model case rather than a
+    defect. `Docs*/2_Rubrics_V3_Guidelines.md` gives as its worked example of a GOOD
+    outcome rubric "The Agent identifies a $264 overcharge on the Flores file, the
+    difference between the $792 Stripe charge and the $528 closing disclosure amount", and
+    says plainly: "$264 is derived math." $264 appears nowhere in that universe, so a flat
+    membership test marks the guidelines' own exemplar BROKEN.
+
+    The components must come from the RUBRIC'S OWN justification and evidence, not from
+    the whole universe. Searching the universe pool was measured at 43 percent acceptance
+    on randomly fabricated amounts (1513 amounts admit a two-term sum for almost anything),
+    which is not a gate. Requiring the rubric to SHOW its arithmetic, with every component
+    independently present in the universe, is both tighter and the thing a reviewer wants:
+    an aggregate that cannot name its parts is indistinguishable from a fabricated one.
+    """
+    try:
+        t_val = Decimal(target)
+    except (InvalidOperation, ValueError):
+        return ""
+    comps = []
+    for m in _SEARCH_MONEY_RE.finditer(context or ""):
+        c = _canonical_amount(m.group(0))
+        if not c or c not in pool:
+            continue
+        try:
+            d = Decimal(c)
+        except (InvalidOperation, ValueError):
+            continue
+        if d > 0 and d != t_val:
+            comps.append(d)
+    comps = sorted(set(comps))
+
+    # Difference of two shown components. This is the case the docstring's exemplar needs: the
+    # guidelines' $264 overcharge is $792 minus $528, and BOTH components exceed the target, so any
+    # upper filter on component size rejects the very example this function exists to accept.
+    n = len(comps)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(comps[i] - comps[j]) == t_val:
+                hi, lo = max(comps[i], comps[j]), min(comps[i], comps[j])
+                return f"{hi} - {lo}"
+
+    # Sums of two to four shown components. Only components smaller than the target can be addends.
+    addends = [d for d in comps if d < t_val]
+    n = len(addends)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if addends[i] + addends[j] == t_val:
+                return f"{addends[i]} + {addends[j]}"
+            for k in range(j + 1, n):
+                s3 = addends[i] + addends[j] + addends[k]
+                if s3 == t_val:
+                    return f"{addends[i]} + {addends[j]} + {addends[k]}"
+                if s3 > t_val:
+                    break
+                for l in range(k + 1, n):
+                    if s3 + addends[l] == t_val:
+                        return f"{addends[i]} + {addends[j]} + {addends[k]} + {addends[l]}"
+                    if s3 + addends[l] > t_val:
+                        break
+    return ""
+
+
 # F2 write-target exemption: prompt asked for a calendar/reminder create, the rubric is
 # calendar-create-shaped, and the date is near-term (WINDOW_END + 31d).
 _PROMPT_SCHED_RE = re.compile(r"\b(remind(?:er)?|calendar|schedule|follow[\s-]?up|come back|revisit|next week|next month)\b", re.IGNORECASE)
 _CAL_RUBRIC_RE = re.compile(r"\b(calendar|reminder|gcalendar|create[_\s]?event|save[_\s]?event|schedule|follow[\s-]?up|revisit|come back)\b", re.IGNORECASE)
 _NEAR_FUTURE_HI = WINDOW_END + timedelta(days=31)
+
+# F2 future-as-future exemption. Evals_starpm/5 Phase 2 (~L146) defines the F2 date defect
+# as future-AS-PAST: a rubric that treats a not-yet-happened event as already analyzed
+# (announces its outcome). A rubric that EXPLICITLY states a grounded future event has NOT
+# yet happened is the spec-correct opposite (and is exactly what the F9 net rewards when an
+# OE cites the date). Downgrade those from FAIL to a COUNCIL NOTE so a confirmed pending
+# event can be flagged as pending without a false MISMATCH.
+_FUTURE_ACK_RE = re.compile(
+    r"\bnot yet (?:occurred|happened|taken place|performed|done|completed|conducted)\b|"
+    r"\bstill (?:pending|upcoming|outstanding|open)\b|"
+    r"\byet to (?:occur|happen|take place|be (?:done|performed|completed))\b|"
+    r"\bremains? (?:pending|upcoming|outstanding|open)\b|"
+    r"\b(?:is|are) (?:still )?upcoming\b",
+    re.IGNORECASE,
+)
 
 
 def _read(p: Path) -> str:
@@ -521,11 +602,15 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
         # F2 persona/date  [Eval5 P2] - future dates are defects UNLESS they are a
         # prompt-sanctioned near-term calendar/reminder write target (not future-as-past).
         rubric_is_cal_create = bool(_CAL_RUBRIC_RE.search(title + " " + evid))
+        future_ack = bool(_FUTURE_ACK_RE.search(title + " " + evid))
         for d, raw in set(_dates_in(title + " " + evid)):
             if d is None or WINDOW_START - timedelta(days=365) <= d <= WINDOW_END:
                 continue
             if prompt_wants_future_write and rubric_is_cal_create and WINDOW_END < d <= _NEAR_FUTURE_HI:
                 rep.note(f"[Eval5 P2] rubric #{idx} future date {raw} is a prompt-sanctioned calendar/reminder write target (<= {_NEAR_FUTURE_HI}) - COUNCIL confirm resolved day")
+                continue
+            if future_ack:
+                rep.note(f"[Eval5 P2] rubric #{idx} future date {raw} is explicitly stated as not-yet-occurred (future-as-future, spec-compliant per Evals_starpm/5 P2; the F2 defect is future-AS-PAST) - COUNCIL confirm the date is a grounded universe atom")
                 continue
             rep.fail(f"[Eval5 P2 MISMATCH] rubric #{idx} references date {raw} after universe today ({WINDOW_END}) - future-dated expectation")
 
@@ -546,8 +631,13 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
         for amt in set(MONEY_RE.findall(title)):
             c = _canonical_amount(amt)
             present = (c in searchable_amounts) if c else (amt in searchable)
+            if not present and c:
+                derivation = _derived_from_amounts(c, searchable_amounts, str(r.get("justification", "")) + " " + evid)
+                if derivation:
+                    rep.note(f"[Eval5 P4] rubric #{idx} amount {amt} is not a literal universe string but derives from universe amounts as {derivation} - aggregate/derived math, permitted per the rubric guidelines' own worked example. COUNCIL: confirm the arithmetic is the intended one.")
+                    present = True
             if not present:
-                rep.fail(f"[Eval5 P4 BROKEN] rubric #{idx} expects amount {amt} which does not exist in universe data or the injection (QC spec 07/16: universe data is the sole source of truth)")
+                rep.fail(f"[Eval5 P4 BROKEN] rubric #{idx} expects amount {amt} which does not exist in universe data or the injection, and is not a sum or difference of universe amounts (QC spec 07/16: universe data is the sole source of truth)")
 
         # F5 illegal tool-output dependency  [Eval5 P5 NEEDS_TOOL_OUTPUT]
         m = TOOL_OUTPUT_DEP_RE.search(blob)

@@ -852,3 +852,53 @@ claim. This is now a rule rather than an observation, and it should drive lever 
 
 Per-run and per-cell counts on this task have now been restated across three exports (best Opus run: 47, then
 46, then 43). **Never carry a per-cell count forward between passes. Re-derive it from the export in hand.**
+
+
+## 2026-07-27 - Task 45 (StarPM V4) FINAL PASS: Mesa Vista 4C QC hold
+
+Levers selected and confirmed end-to-end by the Final Council (prompt + OE + rubric each named):
+**L2 structured-DB skip (SYMMETRIC)** the not-ready truth lives only in the tblMakeReady selProg row recbd087a4abd605b; maintenance tickets + prior selReady turn + Slack chatter all say done -> R1/R2/R3.
+**L1 latching + L10 supersession (OPUS-SELECTIVE)** the decoy selReady row recc8534 was created LATER (5/29 vs 5/22), baiting a latest-row heuristic; two done-flavored maintenance tickets reinforce -> R1 evidence + R2.
+**L31 explicit negative directive (GEMINI-SELECTIVE)** correct output is a kick-back: do NOT mark Ready, do NOT release for listing -> R2/R15. This is the banked StarPM dual-model 0/6 triad (Learnings item 11): one symmetric + two complementary asymmetric stumps.
+Supporting: **L7 multi-write** (6 distinct writes across Airtable / Slack C004 / Linear issue+comment / Gmail draft to Carlos / Brooke notification) and **L9 universe-grounded future-event gotcha** (confirmed 2026-07-15 QC re-inspection + past-due 6/30 target) -> R8/R19.
+
+**Density is THIN (accepted):** per-model competent projection Opus ~40-43 / Gemini ~38-41; empirical StarPM anchor 33-38. Clears the 15 fail-floor but leans on the 40 design target. Mandatory S4 gate: real-run per-model avg < 40 -> PIPELINE REDO.
+
+### Standing gate added this pass: F2 negation-awareness (rule 18)
+
+The submission_gate F2 date net false-failed rubrics #8/#19 for citing the real confirmed future event 2026-07-15 with future-acknowledging language ("has not yet occurred"). Evals_starpm/5 P2 (~L146) defines the F2 defect as future-AS-PAST (treating a not-yet-happened event as already analyzed); asserting an event is still pending is the spec-correct opposite, and is exactly what the F9 net rewards. Fixed the gate (not the rubrics) per rules 18-20: added _FUTURE_ACK_RE to v4_gates.py so a post-window future date co-occurring with "not yet occurred / still pending / yet to occur / upcoming" routes to a COUNCIL NOTE, not a FAIL. Regression clean (anchors 62/62, reports 21/21, verdicts 7/7; 0/21 hashes moved). The future-date-plus-negation construction is this task's novel pattern; no snapshot carried it. Reject the Path-A workaround (adding "calendar" to trip the calendar-create exemption) as gate-gaming.
+
+### S4 ACTUAL (2026-07-27) — the FINAL-pass prediction was REFUTED empirically
+
+The FINAL council named all three levers end-to-end and predicted the banked StarPM 0/6 triad. The 12-run dual-model verifier says otherwise: **Opus pass@1 = 100% (6/6 x 20/20), Gemini 50% (3/6), overall 75%.** Machine verdict `REBUILD_CANDIDATE_DIFFICULTY`. Zero all-failing rubrics. The only fails are Gemini-only and inconsistent (crit 1+3 Airtable write skipped Runs 1-2; crit 5-7/17-19 dollar-figure or In-Progress/past-due dropped Runs 2,4). Density corroborates: Opus 37.0 avg (sub-40, tripping the plan's own mitigation #2).
+
+**Every predicted lever missed 0/4**, and the mechanism is identical for all four: `5_Prompt.txt` names the discriminator each lever was built to withhold. L2 is handed away by "finished with the bill still sitting unpaid does not count as closed to me"; L1/L10 by pinning the turn as "moved out in the middle of June with a target-ready date at the end of the month" (recbd087's exact distinguishing content); L31 by pre-scaffolding "if it is not, say so plainly and hold it"; L9 by naming "a re-inspection on the calendar for the middle of this month, and it factors into whether I can call this one done." The universe traps (recc8534 later-created selReady decoy, two done-flavored maintenance tickets, unpaid QB bills, 7/15 event) are all real and well-built — the prompt simply spent every one of them by naming it.
+
+**Council blind spot (rules 18-20).** S1/S2/S3 grounding + adversarial + AUDIT_prompt (all 12 sub-dims 5/5, zero blocker) + FINAL all cleared this prompt and endorsed the 0/6 triad; none modeled that a competent Opus run reads the prompt's own reconciliation clauses as the solution. The strict minimizing-agent sketch in AUDIT_prompt projected ~21 tool calls but did NOT project ~20/20 rubric pass. Lesson: a stump hypothesis is a claim about withheld inference; validate it by tracing each rubric discriminator back to the prompt and asking whether the sentence that motivates the write also states the answer. If it does, the lever is dead regardless of how well the universe is trapped. Routed to PIPELINE REDO.
+
+## 2026-07-27 - Task 45 (StarPM V4) S4 CALIBRATION DELTA: too easy, routed to REDO
+
+The FINAL-pass lever design above (L2 symmetric + L1/L10 Opus-selective + L31 Gemini-selective) fired **0/4** on the real dual-model run. Opus passed 20/20 on all six runs (pass@1 **100%**); Gemini 3/6 (pass@1 50%); overall 75%. Machine verdict REBUILD_CANDIDATE_DIFFICULTY. T3 PASS (0/12 errored). Density: Opus 37.0 THIN (<40 design, >15 floor), Gemini 43.3 PASS.
+
+**Root cause: 5_Prompt.txt named every rubric discriminator, so every engineered lever was pre-solved.** It defined the billed-but-unpaid trap in the prompt body ("finished with the bill still sitting unpaid, does not count as closed to me" -> L2 handed over verbatim), pinned the live turn by its mid-June move-out / 6-30 target content (-> L10 supersession disambiguation removed), pre-scaffolded the hold/negative path ("say so plainly and hold it" -> L31 given away), and named the 2026-07-15 re-inspection as a gating factor (-> L9 given away). The universe traps (recbd087 selProg vs decoy selReady recc8534 created LATER; two done-flavored maintenance tickets; unpaid QB bills $387 + $1,340; future QC event; past-due target) were all real and well-built. The prompt spent them.
+
+**Calibration lesson:** for this lever triad the load-bearing variable is the prompt's information content, not universe trap density. The banked StarPM dual-model 0/6 triad (Learnings item 11) is only as strong as the inference the prompt WITHHOLDS. A QC-hold prompt must ask for the determination WITHOUT defining billed-but-unpaid, WITHOUT enumerating the scopes, WITHOUT pinning the turn by its dates, WITHOUT naming the re-inspection. Rubric set graded clean (0 Bucket-1 / 0 Bucket-2) -> REDO rebuilds the PROMPT, not the rubrics.
+## Entry — Tasks/46_6a62ccb6ce2323b4b9e0c8d8 — 2026-07-28 (StarPM V4, PREDICTED)
+
+**Anchor:** OPS-10 "Mid-Year Owner Portfolio Reviews - June 2026" (state Backlog), Lisa Smith owning two of four owners (Harry Harris, Robert Finley), deadline end-of-June against a universe today of 2026-07-01.
+
+**Levers selected (5):** L1 latching on the persona's own undispositioned claim · L2 structured-DB skip (QuickBooks receivables + a 100%-unmirrored Calendar) · L10 reversal/supersession (double-booked Harris review; OPS-10 state against its own narrative; OPS-93 "Approved and Closed" sitting in Todo) · L11 net-vs-gross (117 unapplied credit memos) · L7 multi-write. L5 and L6 carried as sub-levers, not independently graded.
+
+**Two methodological choices worth banking, both departures from the playbook default.**
+
+First, **the banked StarPM dual-model triad was NOT used.** Its Gemini-selective leg (L31 negative directive) is falsified — 12/12 pass across three Task 44 gradings — and its Opus-selective leg was one of the four levers that missed 0/4 on Task 45. Substituted the two shapes that survived three gradings instead: the persona's own undispositioned observation (6/6 Opus pass, 6/6 Gemini fail, 0 of 48 cells moved) and duplicate records in differing workflow states (0 of 12). Whether a plan built on the *confirmed* shapes outperforms one built on the *catalogued* triad is the open question this task tests.
+
+**Second, scenario shape was selected for density before content.** Per-model averages across six prior StarPM tasks show single-entity scenarios landing 33-48 per model (39: 33.0/43.5 · 40: 40.0/41.5 · 41: 38.8/48.0 · 43: 36.8/41.7 · 45: 43.3/37.0) and straddling the 40 gate, while the one multi-entity portfolio sweep (44) reached 79.8/62.5 and was the only task to clear 40 on both models. Density on this universe is a property of enumeration breadth, not of effort — so a two-owner enumeration was chosen over any single-unit framing before the levers were picked. Projected Opus 63.5 / Gemini 66.0.
+
+**Also banked: the Gemini-minus-Opus delta flips sign with enumeration breadth.** Gemini runs below Opus on all four single-entity tasks and well above on the one multi-entity task. Gemini's call count scales with explicit enumeration, Opus's with reasoning depth. Useful for projecting per-model density on any future V4 task.
+
+**Ambiguity exclusions recorded (F7):** Mesa Vista 207A and 4C each carry simultaneous selProg and selReady rows; Las Palmas 204B has 53 rows and Las Vistas 311A has 15; bare "Unit 14" is a 7-row, 6-label collision spanning at least two properties. Safe carriers are Mesa Vista 107A and 310C, and the whole Sunset Ridge cluster (7 rows, 3 units, zero Ready).
+
+**Universe note for future StarPM tasks:** the documented near-duplicate *filename* decoys do not exist in this universe at all — zero `.pdf` strings, zero Gmail attachments, all Slack `files_json` empty, no filesystem service. They materialise as QuickBooks `DocNumber` values (45 families with suffixed children, 8 sharing an identical `TotalAmt` with their base). A lever written against a filename finds nothing.
+
+**Actuals: pending S4.**

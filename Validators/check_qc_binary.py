@@ -132,8 +132,19 @@ def main():
             shared = len(mine & rest) / len(mine)
             if shared >= 0.25:
                 continue
-            # proper nouns / service names introduced only here
-            mine_caps = {w for w in re.findall(r"\b[A-Z][a-z]{2,}\b", s)} - {"If", "The", "This", "That"}
+            # proper nouns / service names introduced only here.
+            # A word capitalised only because it OPENS its sentence is not a proper noun, and
+            # neither is a month name. Both defeated this guard on Task 46, where 'Where',
+            # 'Bring', 'Post' and 'July' were reported as newly introduced subjects on four
+            # load-bearing sentences (two of them the imperative verbs of the deliverables).
+            # Count a token as an introduced subject only when it is capitalised at a
+            # NON-initial position; suppress on any capital seen anywhere else in the prompt.
+            _MONTHS = {"January", "February", "March", "April", "May", "June", "July",
+                       "August", "September", "October", "November", "December"}
+            _fm = re.match(r"\s*([A-Za-z']+)", s)
+            _first = _fm.group(1) if _fm else ""
+            mine_caps = ({w for w in re.findall(r"\b[A-Z][a-z]{2,}\b", s)}
+                         - {"If", "The", "This", "That"} - _MONTHS - {_first})
             rest_caps = {w for x in others for w in re.findall(r"\b[A-Z][a-z]{2,}\b", x)}
             novel = mine_caps - rest_caps
             if novel:

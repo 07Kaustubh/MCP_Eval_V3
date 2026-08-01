@@ -1,0 +1,49 @@
+# Verification — PIPELINE HARDNESS (Task 46, StarPM V4)
+
+v16 cross-source verification gate for `Tasks/46_6a62ccb6ce2323b4b9e0c8d8`.
+
+## Sources consulted
+
+- Per-task data :: `_aux/Universe_Split/` — sampled by parsed reads rather than raw grep, because `row_data` is a JSON string in every row. Tables read for lever scanning: `linear.linear_issues` (230) and `linear.linear_comments` (48) for OPS-10 and the duplicate review-package set; `gcalendar.gcalendar_events` (565) for the Harris double-booking and the nine post-today confirmed meetings; `quickbooks.quickbooks_entities` (625) for owner receivables and all 117 credit memos; `airtable.airtable_records` (170) for the Mesa Vista and Sunset Ridge make-ready clusters; `slack.slack_messages` (580) for the persona's own claim and its thread parentage; `gmail.gmail_messages` (484) and `gmail.gmail_threads` (156) as mirror-negative controls.
+- Per-task data :: `_aux/Fact_Ledger.json` — atom counts checked for lever feasibility (emails 206, amounts 403, dates 192, personas 61, plus 7 id classes). Worked around: the ledger carries no Calendar, Gmail or QuickBooks id atoms, so every Calendar and QuickBooks citation in the plan is grounded directly against the split files, as `_aux/S0_Setup_Report.md` note 5 requires.
+- Per-task data :: `_aux/Universe_Index/graph_report.md` — density signals. Lisa ranks 11th by ambient mention volume (73) against Tony Reyes 862 and Brooke Phillips 740, which is why levers anchor on her signature scenarios rather than an assumed dense ambient surface.
+- Per-task data :: `_aux/Universe_Index/key_facts.md` — make-ready enum values (selProg 56 / selSched 43 / selReady 21) cross-checked against the split, since `_aux/Feasible_Surface.json` omits `airtable.airtable_records`.
+- Per-task data :: `_aux/Universe_Index/today_horizon.json` — universe_today 2026-07-01 America/Chicago, 59 records dated after today. That is the surface the every-service Calendar sweep addresses.
+- Per-task data :: `_aux/S0_Setup_Report.md` — all seven carried-forward notes read and applied, notably that `p_002` appears nowhere in the split.
+- Per-task data :: `StarPM_Base_Universe/7_Server_Tools_Details.json` — 268 tools across 8 servers, used to confirm every projected call and every proposed write has a real tool behind it.
+- Reference :: `Reference/Sessions/HARDNESS.md` — phase contract, required output sections, both hard gates.
+- Reference :: `Reference/Hardness_Playbook.md` — all 11 levers scanned. Selected: 1 latching, 2 structured-DB skip, 7 multi-write, 10 reversal/supersession, 11 net-vs-gross. Carried as sub-levers but not independently graded: 5 thread-reply blindness, 6 near-miss entity. Present but too weak to carry a criterion: 3 missing reply, 4 search-result-cap eviction. Used as supporting structure: 8 multi-link chain, 9 universe-grounded gotcha.
+- Reference :: `Tasks/_meta/Learnings.md` — read end to end. L36 as the governing constraint; L33 and L35 for the grader noise floor and the design-for-margin rule; L31 as a negative citation, since the negative-directive beat is deliberately not selected; Task 40 item 3 and Task 41 item 11 for structured-store skip; Task 43 item 17 for the base64 Gmail constraint; Task 41 item 9 and Task 43 item 20 for lever displacement; Task 39 items 13 to 16 for the F7/F8/F9 defect families.
+- Reference :: `Tasks/_meta/Hardness_Patterns_Log.md` and `Tasks/_meta/Stump_Hypotheses.md` — criterion-shape stability, and the two confirmed Task 44 shapes (the persona's undispositioned field note at 6/6 Opus pass and 6/6 Gemini fail with 0 of 48 cells moved; the duplicate-title-different-state pair at 0 of 12).
+- Reference :: `AGENTS.md` — hard rules 4, 11, 13 and 19 applied. Rule 11 is framework-scoped, fixing the density bar at 40 per model rather than the V3-family 50/40.
+- Eval spec :: `Docs_starpm/1_Project_Instructions_Overall.md` and `Evals_starpm/4_Verifier_Fails_Eval.md` — Trajectory Tool Call Count, "AVERAGE TOOL CALL COUNT OF ALL AGENT RUNS MUST BE 40+". Projected Opus midpoint 63.5, Gemini midpoint 66.0; both clear the 40 design target and the 15 absolute floor. Agent Failure Rate must land at or below 40% pass@1, forecast by four registered stump predictions.
+- Eval spec :: `Evals_starpm/0_Injection_Quality_Eval.md` — applicable because this is V4, but no injection is proposed. `9_Universe_inject.sql` stays comment-only and `4_Changelog.json` stays empty, so the gate continues to SKIP and the recorded S0 PASS remains vacuous. Every selected lever is backed by base-universe rows verified individually.
+- QC spec :: `Docs_starpm/7_QC_Spec_Doc1.json` — Trajectory T1 Tool Call Count is binary with no 3/4 band, so margin rather than a bare threshold pass is the design objective; both per-model midpoints clear 40 by more than 20. Universe Feasibility is satisfied by row-level verification of each lever. Universe Cross-service Coherence is binary but conditional on a contradiction causing an agent failure, so it can only be judged against trajectories and is named here as pending human work rather than assumed covered.
+
+## Verification statements (each must be confirmed)
+
+- [x] At least 3 levers selected, each citing a Learnings entry. Five selected (L1, L2, L7, L10, L11), each with retrieval and reasoning scored separately per the twice-logged meta-lesson.
+- [x] Density midpoint projected per model as V4 requires, and banded. Opus 63.5 PASS, Gemini 66.0 PASS against 40 design / 15 floor.
+- [x] Service breadth table populated (v11 G1). Seven of eight services, six at or above 5%, dominant service 21%, six writes across five services.
+- [x] Single-target uniqueness checked for every record proposed for pinning; ambiguous targets excluded by name (hard rule 13 / F7).
+- [x] Every-service sweep including Calendar performed; nine post-today confirmed events enumerated (hard rule 13 / F9).
+- [x] L36 withholding test applied to all four content levers, with the killing sentence named for each.
+- [x] Lever-displacement check performed across all five selected-lever pairs.
+- [x] Load-bearing atoms re-verified directly against the split rather than accepted from the surface-mapping stage.
+
+## Discrepancies surfaced (if any)
+
+Six. The first three are corrections to claims that reached me from the surface-mapping stage and that I re-read rather than accepted; all were resolved before the plan was written.
+
+1. Mesa Vista non-Ready rows were reported to me as "at least 4 of 8". Re-read: 8 rows across 4 units, 6 non-Ready, and one row (`rec591a0f70432651`, 207A, selReady) had been missed entirely. More consequentially, 207A and 4C each carry simultaneous selProg and selReady rows, making both F7 AMBIGUOUS_TARGET traps. Resolution: both excluded from pinning; 107A (two rows, both selProg) and 310C (selSched) named as the safe carriers.
+2. The duplicate review-package set was reported as OPS-11/13/20/23, four near-identical titles, all naming Lisa. Re-read: OPS-20 carries a different title, so the near-identical set is OPS-11 (Todo) / OPS-13 (Done) / OPS-23 (In Progress) across three projects, and all four are assigned to Teresa Wood, not Lisa. The plan uses the corrected three-issue set.
+3. `fldMoveOut == fldTargetReady == created_time` was reported as portfolio-wide. Falsified by counter-example: `recbd087a4abd605b` carries move-out 2026-06-15 and target 2026-06-30 against creation 2026-05-22. Recorded as frequently degenerate, not universal, so any date-dependent criterion must name its source field.
+4. The documented near-duplicate filename decoys do not exist in this universe. Zero `.pdf` strings across all 33 split files, zero of 484 Gmail messages with attachments, all 580 Slack `files_json` empty, and no filesystem service in the catalog. They materialise instead as QuickBooks DocNumber values. Carried into the plan as an S1 risk so no lever is written against a filename.
+5. `_aux/Feasible_Surface.json` omits `airtable.airtable_records`, the 170-row source-of-record surface, because the builder does not descend into `fields`. Make-ready enum values were therefore checked against `key_facts.md` and the split directly. Pre-existing S0 finding, re-confirmed, not introduced by this phase.
+6. Pipeline-wiring defect, outside this task. The verification-doc template printed in `Reference/Sessions/HARDNESS.md` does not satisfy `Validators/check_verification.py`: the runbook prescribes "Data sources consulted", "Reference docs consulted", "Eval spec sub-dims relevant to this phase" and "QC spec sub-dims relevant to this phase" and carries no Verdict section, while the validator requires a single "Sources consulted" block containing the tokens Per-task data / Eval spec / QC spec, plus a Verdict section carrying PASS, REVISE or BLOCK. A doc written to the runbook template fails the gate. This file follows the validator, matching the convention `Verification_s0.md` already uses. Reported for a runbook fix rather than patched here.
+
+Additionally confirmed rather than surfaced as a problem: the persona's own claim (`slack.slack_messages:a6779a055eaf5fb1893d0ed6d92e3b39`) is itself a thread reply under parent `831d2b6760205432a20487e2664a607e`, which strengthens the L1 lever beyond how it was first described to me, since it is invisible to a channel-level read.
+
+## Verdict
+
+**PASS.** Five levers selected against a floor of three. Per-model density projects to 63.5 Opus and 66.0 Gemini against a 40 design target and a 15 floor, clearing both by more than 20 and satisfying the design-for-margin rule that the measured grader noise floor implies. Service breadth reaches seven of eight services with no service above 21%. No injection is required; every lever is backed by base-universe rows verified individually against the split. Proceed to S1, carrying the five risks recorded in the plan, of which the similarity check against Task 40 is the one that gates submission.

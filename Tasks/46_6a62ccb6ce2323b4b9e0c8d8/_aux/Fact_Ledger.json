@@ -1,0 +1,3584 @@
+{
+  "meta": {
+    "task_dir": "Tasks/46_6a62ccb6ce2323b4b9e0c8d8",
+    "source_hash": "06f7535a3357ae4900c884fbc76d5e3566f27bf1aef02e47ab6c7ccac8a749a3",
+    "record_count_by_source": {
+      "contacts.contacts": 61,
+      "linear.linear_projects": 3,
+      "airtable.airtable_bases": 1,
+      "hubspot.hubspot_associations": 388,
+      "airtable.airtable_interfaces": 1,
+      "gmail.gmail_threads": 156,
+      "linear.linear_issues": 230,
+      "linear.linear_workflow_states": 5,
+      "quickbooks.quickbooks_company_info": 1,
+      "gcalendar.gcalendar_calendars": 20,
+      "airtable.airtable_pages": 2,
+      "linear.linear_team_memberships": 61,
+      "slack.slack_channels": 8,
+      "slack.slack_messages": 580,
+      "hubspot.hubspot_teams": 1,
+      "airtable.airtable_workspaces": 1,
+      "linear.linear_comments": 48,
+      "quickbooks.quickbooks_entities": 625,
+      "airtable.airtable_views": 2,
+      "airtable.airtable_records": 170,
+      "hubspot.hubspot_properties": 73,
+      "airtable.airtable_fields": 9,
+      "linear.linear_teams": 1,
+      "airtable.airtable_tables": 2,
+      "linear.linear_users": 61,
+      "gmail.gmail_messages": 484,
+      "gcalendar.gcalendar_events": 565,
+      "hubspot.hubspot_owners": 21,
+      "hubspot.hubspot_objects": 187,
+      "slack.slack_users": 61,
+      "hubspot.hubspot_job_titles": 1,
+      "hubspot.hubspot_seats": 2,
+      "airtable.airtable_users": 61
+    },
+    "atom_counts": {
+      "emails": 206,
+      "amounts": 403,
+      "dates": 192,
+      "id_airtable_record": 170,
+      "id_linear_issue": 230,
+      "id_linear_comment": 48,
+      "id_hubspot_object": 183,
+      "id_slack_channel": 8,
+      "id_slack_user": 61,
+      "id_invoice": 504,
+      "entities": 0,
+      "personas": 61,
+      "fiscal_periods": 0
+    }
+  },
+  "emails": [
+    "03ruo4huvhrm4l7un2ahwdl85b@google.com",
+    "0d1gfmauluavxpvpdhb3s8iv2u@google.com",
+    "0hjw400xgjb3j7ay7ynuaqbnpi@google.com",
+    "0tj6k56acb2t9848k9o1dncrfw@google.com",
+    "104zc0rkykcte9uapeez0n8obk@google.com",
+    "11rftx0m08h4m656nymto5gtsk@google.com",
+    "1g8xpk9ggrojud5khy60v1stwi@google.com",
+    "1jv1o8snhc3exsjrlzbgyly04l@google.com",
+    "1ng44wpxp9sdb6cfr9q6hbth9y@google.com",
+    "1pon50ds1aevem63td6f7emdn3@google.com",
+    "1uiovzj4psgbqokei1hj6j2hdw@google.com",
+    "1xlv30th4zv3l0vqn9kzdj3apv@google.com",
+    "1zw3533cqjrtg0kwmbvifytko8@google.com",
+    "21o88xkor7211st0ofjsnrj7yi@google.com",
+    "232wqgjdsa2cyz9mv4qtx5mncy@google.com",
+    "29pmrndzqpx6my1r3r51fxk57g@google.com",
+    "2dq02v5zk6jr8hqz5zaic68yn5@google.com",
+    "2rrxwvhswfzzp7bl284c60kwe3@google.com",
+    "335otcqz7q7u505mcpdudpicz0@google.com",
+    "3az6ngihslkvglhq7cij0ovle8@google.com",
+    "3mmk9ar52hyhboxpw58gltymcj@google.com",
+    "3rqqg1r84ec7c8js0sqnu7lid3@google.com",
+    "42b119cbt7xd0vnhw6dwvdqizo@google.com",
+    "48ut0f7it2nkqgn7jltognz973@google.com",
+    "4c7kivyxtjopigj4oqrf5eqsmz@google.com",
+    "4oeex5srjtr8aidahuu9n81kxh@google.com",
+    "4qktli2n3qhm0cc782gmqbxma4@google.com",
+    "51isv2k30qemj3c5is39xndgmt@google.com",
+    "57ufzvvyfd7owzeqp5vff7z3ga@google.com",
+    "5ay3k4pcdvf0k03nd64r1e2tsx@google.com",
+    "5ccn3fzm1bdgllnl2jlsltti0a@google.com",
+    "5nfzih7jafhq17vyab7kexehbs@google.com",
+    "5t0ndva0dand4pb3oqddtoe1w2@google.com",
+    "6kn558by03ny7736e6j1pllnnv@google.com",
+    "6s878sb6u67f3knnbfuahscg5a@google.com",
+    "72013lsv8qmgwuj9blxiq20dy2@google.com",
+    "7578oog160j9kmuyitg0uzyj1i@google.com",
+    "7dsh1tobvlc4v6vhjks7a4pmke@google.com",
+    "7i8pdgefyl3btm0zr42dg6757l@google.com",
+    "7noqcp8gofi7derqplop6lswpt@google.com",
+    "7zs34l6s84f23bg7bvwfsc9qie@google.com",
+    "84q7343c8qjgfp9fax41kodfo9@google.com",
+    "8cpbfwpdrrq0qugcphlstvf60n@google.com",
+    "8mwlxrq5w5oodwdpmvo83e00f2@google.com",
+    "8q5h9az3bjolpbbja7tl89fj8x@google.com",
+    "accounts@lonestarelectric.com",
+    "aiden.kowalski@gmail.com",
+    "ajzhx3awwk3oord66kt76pco1u@google.com",
+    "alicia.vega@starpm.com",
+    "alt0cthuqyt64lt18mvmszrv2c@google.com",
+    "angela.carter@gmail.com",
+    "ap@apluscarpetcleaningandrepairs.com",
+    "ap@hillcountryplumbing.com",
+    "ap@lonestarmaintenancesupply.com",
+    "ap@mesaverdeinv.com",
+    "ap@sunshinecleaning.com",
+    "apfelhv1pv6twi9dguncc7tiy5@google.com",
+    "ar@lonestarcapital.com",
+    "aurora.winona@starpm.com",
+    "avoewaxw5jpzdwbqkov0ysfgwq@google.com",
+    "barry.sanderson@gmail.com",
+    "bdx7eqm183yvmfb5b9kdsfp0c8@google.com",
+    "billing@bigbendrestoration.com",
+    "billing@permianmakeready.com",
+    "billing@starpm.com",
+    "brooke.phillips@starpm.com",
+    "bt4ede6pca6dt2jesbgx07ey6k@google.com",
+    "bvu5y7exzx3y5ks9yxw827bd5a@google.com",
+    "campaigns@starpm.com",
+    "carlos.mendez@starpm.com",
+    "carmen.delgado@sunshinecleaning.com",
+    "catalina.reyes@gmail.com",
+    "connor.beaumont@gmail.com",
+    "cov5hf854h5uqykn106regl7m4@google.com",
+    "craig.pemberton@gmail.com",
+    "cyqol5t6ir170dw49bq54qd27c@google.com",
+    "d.walsh@starlightcommons.com",
+    "darnell.hutchins@gmail.com",
+    "darnell.whitfield@gmail.com",
+    "dave.thomas@starpm.com",
+    "david.shea@gmail.com",
+    "delgado.family@gmail.com",
+    "denise.morales@starpm.com",
+    "derek.hutchinson@gmail.com",
+    "diane.flores@lonestarmaintenancesupply.com",
+    "dispatch@hillcountryplumbing.com",
+    "dueh7gz1s3yojzao3zvarusx5p@google.com",
+    "dy6n7uno9zj4wzsaewsjzoetnm@google.com",
+    "e4amtutk5e70zdwq6isk58yxdk@google.com",
+    "elias.navarro@starpm.com",
+    "epax0kiwoq0ygmqxezm2pax18l@google.com",
+    "f5xlxrkqaqccjt6vlgfa1kzds9@google.com",
+    "fatima.al.rashid@gmail.com",
+    "fgccwurftgnfqpe8972ieu5mig@google.com",
+    "fgrzw8suri1jh5sgaf8caisjtk@google.com",
+    "fxzyxahidkkdoaw2df4h6d3zi7@google.com",
+    "gary.hoffman@gmail.com",
+    "geateqfy1816xteg2zcrcff5x6@google.com",
+    "gijd8macqrrfm260julkha0pa1@google.com",
+    "gz12dgpfjbfug7x1b11f8uk4jd@google.com",
+    "h0ayo27lqprel4anrr8csm8szx@google.com",
+    "h2e6zi4pb6a16vzn3481dautrr@google.com",
+    "harry.harris@gmail.com",
+    "hp3tmdxk86iw4fmcucyibdncbs@google.com",
+    "hvvesd1wl8efti9u90x5ns3rk5@google.com",
+    "ibgzezwp9gfwl7clzrmtn975ep@google.com",
+    "ingrid.solberg@gmail.com",
+    "invoices@alamohvac.com",
+    "isela.juarez@starpm.com",
+    "iu1o1l32ie6m58w4jejiczkmco@google.com",
+    "ivgse2vf0mnrvcft2gm798cgq5@google.com",
+    "ixs7z2eyl4gmxjl29iv1rtt46l@google.com",
+    "j3ulusavtqgvwge31s21ep5c8w@google.com",
+    "jaime.salinas@starpm.com",
+    "james.bennett@starpm.com",
+    "jerome.okafor@gmail.com",
+    "jjhgep8n9khlwigisn6m8vb627@google.com",
+    "john.castillo@gmail.com",
+    "john.smith@starpm.com",
+    "jp0aouvxjvscdjdes72dr3cen9@google.com",
+    "k531abtubrswqi385xiqzkkgpe@google.com",
+    "kc0gd5ndlphe9p4yig33h6r9gv@google.com",
+    "kevin.okafor@starpm.com",
+    "klbe73abev8cyd8btybryy8c5z@google.com",
+    "l.okafor@starpm.com",
+    "l0pf9xa99y0xque8pfqaqxy7vm@google.com",
+    "lexh6i4cwxx68b179a6g94ie5o@google.com",
+    "linda.castillo@gmail.com",
+    "lindsey.carmichael@gmail.com",
+    "lisa.smith@starpm.com",
+    "lxq7pqm2kn8duwb79xbstq5c58@google.com",
+    "m1jghdk7xk97xx6m1fa1q6uqwl@google.com",
+    "marcus.delgado@gmail.com",
+    "marcus.williams@gmail.com",
+    "maria.lopez@starpm.com",
+    "mesavista-residents@starpm.com",
+    "monique.thibodeau@gmail.com",
+    "mrkf5nyijk18ydxbkxty1dtyie@google.com",
+    "muy3d1gfowoi1xxsfopu5hku26@google.com",
+    "mwszkmtuja4c8gibkosq3t4alc@google.com",
+    "n4vbq67t3vw2qhq6ldjchpoqqr@google.com",
+    "n698cuowfws0u5vbjmkwhl4hgj@google.com",
+    "necia.perales@apartmentlocatorcentral.com",
+    "nmk4unw9cz0vujmgb7h0v0guli@google.com",
+    "nuh928ma4rwhwf1bnap30rmfli@google.com",
+    "o85lwy9cxovpgi9sp1wmdasxel@google.com",
+    "ocnzwlzp6f08bh3wi8det9ks0c@google.com",
+    "outreach-team@starpm.com",
+    "ov36mvzdxeaq4v6x9bnlrek627@google.com",
+    "owen.fitzpatrick@gmail.com",
+    "owners@riograndeholdings.com",
+    "p1yciady8h1lm9y5iaebtf1qez@google.com",
+    "p32p9s085fhddyowc69mb32prw@google.com",
+    "patricia.lowe@gmail.com",
+    "patricia.nguyen@starpm.com",
+    "pete.donovan@gmail.com",
+    "pikzs05vl8x62w88150c6t8yom@google.com",
+    "priya.nambiar@gmail.com",
+    "qp7e2nnxerdrzku3upqvpahf80@google.com",
+    "qqbwq3s2h7wh5udoek2940mffk@google.com",
+    "qtehl6xcmxjf62nfd0q3um927x@google.com",
+    "qxlptchurg4qtgugb3fdlo40pu@google.com",
+    "qyxpimb4cpppzmp7kylta1zv7t@google.com",
+    "r4dy3jbstfxamhsfjvbec6rxyx@google.com",
+    "rafael.espinoza@gmail.com",
+    "randy.jones@starpm.com",
+    "robert.finley@gmail.com",
+    "rosa.cantu@starpm.com",
+    "ruben.barr@gmail.com",
+    "s64bhgdgaeuvocxea64tgsrj6a@google.com",
+    "sandra.allen@starpm.com",
+    "simone.okafor@gmail.com",
+    "svetlana.borisova@gmail.com",
+    "tanya.mitchell@gmail.com",
+    "tasha.wentworth@gmail.com",
+    "team-standup@starpm.com",
+    "teresa.wood@starpm.com",
+    "thvwv7fp3uer9vd7695l2nkz75@google.com",
+    "ti5zt1xubdggbehtp79um9mim6@google.com",
+    "tobias.wren@gmail.com",
+    "tommy.reyes@gmail.com",
+    "tony.reyes@starpm.com",
+    "u34lkdut8ny3hxkb22tjsovdhp@google.com",
+    "ufplc6vlq8hevays2rpmr0bqni@google.com",
+    "uqdoeuf8p6t424wiux2mwo2wu8@google.com",
+    "victor.rios@apluscarpetcleaningandrepairs.com",
+    "vlb4wbdcht5o4jzdltcbpn90eu@google.com",
+    "vmj5ntrq2b12ahzo4pd2nydax4@google.com",
+    "vr12tvoxhtkpzjmte08vtivsz1@google.com",
+    "vwdtvhm1y7ukp2v2vm5ytr9dpi@google.com",
+    "w97jah1rnum5jpibt0wdi78ea9@google.com",
+    "wesley.tran@starpm.com",
+    "whd6zys0hw7zbsh11m9vqv4m4i@google.com",
+    "x9pyyrj9kptilw7a9elreix1zm@google.com",
+    "y3t7xsng1a7u4wp9i1bl3l7s6c@google.com",
+    "ybu53x5jbuidu9bwarp4oeq3ye@google.com",
+    "yk93e0u56nclo08hnvrtecbr15@google.com",
+    "yolanda.ferreira@gmail.com",
+    "ysn1o1r37oqxk4mm0za0znfe4m@google.com",
+    "ytvevqvh0d70dc8yh5xurzskhy@google.com",
+    "yuki.tanaka@gmail.com",
+    "yxvydv5st3kiv8v0g9fnyqpghe@google.com",
+    "z5xuskuvmd1qgabj0t3wgc9xdt@google.com",
+    "zbywi7sm6cj7qygs0enrg2wwtg@google.com",
+    "zfo16r5wjvacjn80ajycap3apz@google.com",
+    "zuizutjiod63upax6ngjuki9p0@google.com"
+  ],
+  "amounts": [
+    "0.00",
+    "15.00",
+    "30.00",
+    "35.00",
+    "45.00",
+    "48.50",
+    "50.00",
+    "52.00",
+    "55.00",
+    "60.00",
+    "62.00",
+    "62.50",
+    "63.75",
+    "65.00",
+    "75.00",
+    "78.50",
+    "85.00",
+    "87.50",
+    "88.00",
+    "88.50",
+    "89.00",
+    "95.00",
+    "97.00",
+    "97.50",
+    "115.00",
+    "118.00",
+    "118.50",
+    "120.00",
+    "123.00",
+    "125.00",
+    "130.00",
+    "135.00",
+    "139.50",
+    "140.00",
+    "143.75",
+    "145.00",
+    "150.00",
+    "154.50",
+    "155.00",
+    "157.00",
+    "160.00",
+    "162.00",
+    "165.00",
+    "174.00",
+    "175.00",
+    "180.00",
+    "185.00",
+    "187.00",
+    "187.50",
+    "188.00",
+    "188.50",
+    "189.00",
+    "190.00",
+    "192.00",
+    "193.50",
+    "195.00",
+    "197.75",
+    "198.00",
+    "198.50",
+    "200.00",
+    "204.00",
+    "210.00",
+    "210.50",
+    "214.00",
+    "214.50",
+    "215.00",
+    "220.00",
+    "225.00",
+    "230.00",
+    "240.00",
+    "250.00",
+    "255.00",
+    "258.50",
+    "260.00",
+    "262.50",
+    "265.00",
+    "270.00",
+    "272.00",
+    "274.50",
+    "275.00",
+    "280.00",
+    "282.50",
+    "285.00",
+    "287.50",
+    "290.00",
+    "295.00",
+    "298.00",
+    "310.00",
+    "312.00",
+    "312.50",
+    "312.75",
+    "315.00",
+    "318.00",
+    "318.50",
+    "318.75",
+    "319.00",
+    "320.00",
+    "325.00",
+    "330.00",
+    "335.00",
+    "340.00",
+    "342.75",
+    "345.00",
+    "350.00",
+    "355.00",
+    "360.00",
+    "364.00",
+    "365.00",
+    "370.00",
+    "372.00",
+    "375.00",
+    "380.00",
+    "385.00",
+    "387.00",
+    "387.50",
+    "390.00",
+    "393.00",
+    "395.00",
+    "397.00",
+    "403.50",
+    "405.00",
+    "410.00",
+    "412.00",
+    "413.00",
+    "415.00",
+    "417.50",
+    "418.00",
+    "418.50",
+    "420.00",
+    "425.00",
+    "427.00",
+    "427.50",
+    "428.00",
+    "430.00",
+    "445.00",
+    "450.00",
+    "460.00",
+    "462.00",
+    "465.00",
+    "470.00",
+    "472.50",
+    "475.00",
+    "480.00",
+    "485.00",
+    "487.00",
+    "487.50",
+    "490.00",
+    "495.00",
+    "505.00",
+    "507.25",
+    "510.00",
+    "520.00",
+    "525.00",
+    "530.00",
+    "535.25",
+    "540.00",
+    "545.00",
+    "560.00",
+    "580.00",
+    "593.25",
+    "595.00",
+    "605.00",
+    "610.00",
+    "615.00",
+    "617.00",
+    "618.00",
+    "620.00",
+    "634.00",
+    "634.75",
+    "635.00",
+    "640.00",
+    "647.00",
+    "655.00",
+    "660.00",
+    "665.00",
+    "670.00",
+    "674.50",
+    "675.00",
+    "680.00",
+    "695.00",
+    "705.00",
+    "715.00",
+    "725.00",
+    "730.00",
+    "738.00",
+    "760.00",
+    "763.00",
+    "772.50",
+    "775.00",
+    "782.00",
+    "785.00",
+    "805.00",
+    "808.00",
+    "825.00",
+    "830.00",
+    "840.00",
+    "847.00",
+    "855.00",
+    "870.00",
+    "875.00",
+    "890.00",
+    "892.00",
+    "900.00",
+    "905.00",
+    "910.00",
+    "915.00",
+    "925.00",
+    "940.00",
+    "950.00",
+    "975.00",
+    "980.00",
+    "995.00",
+    "1003.00",
+    "1005.00",
+    "1010.00",
+    "1015.00",
+    "1021.50",
+    "1030.00",
+    "1050.00",
+    "1055.00",
+    "1070.00",
+    "1075.00",
+    "1085.00",
+    "1095.00",
+    "1115.00",
+    "1120.00",
+    "1125.00",
+    "1135.00",
+    "1140.00",
+    "1142.00",
+    "1145.00",
+    "1150.00",
+    "1170.00",
+    "1175.00",
+    "1185.00",
+    "1190.00",
+    "1195.00",
+    "1198.00",
+    "1233.00",
+    "1240.00",
+    "1245.00",
+    "1247.00",
+    "1250.00",
+    "1270.00",
+    "1275.00",
+    "1280.00",
+    "1290.00",
+    "1320.00",
+    "1340.00",
+    "1345.00",
+    "1350.00",
+    "1360.00",
+    "1375.00",
+    "1390.00",
+    "1395.00",
+    "1400.00",
+    "1410.00",
+    "1415.00",
+    "1420.00",
+    "1425.00",
+    "1432.00",
+    "1435.00",
+    "1450.00",
+    "1475.00",
+    "1485.00",
+    "1490.00",
+    "1510.75",
+    "1515.00",
+    "1525.00",
+    "1530.00",
+    "1550.00",
+    "1555.00",
+    "1590.00",
+    "1600.00",
+    "1605.00",
+    "1612.00",
+    "1615.00",
+    "1620.00",
+    "1622.00",
+    "1640.00",
+    "1685.00",
+    "1700.00",
+    "1730.00",
+    "1740.00",
+    "1760.00",
+    "1790.00",
+    "1795.00",
+    "1840.00",
+    "1850.00",
+    "1875.00",
+    "1920.00",
+    "1955.00",
+    "1980.00",
+    "2025.00",
+    "2050.00",
+    "2075.00",
+    "2080.00",
+    "2095.00",
+    "2100.00",
+    "2115.00",
+    "2132.00",
+    "2140.00",
+    "2150.00",
+    "2175.00",
+    "2185.00",
+    "2190.00",
+    "2195.00",
+    "2210.00",
+    "2235.00",
+    "2245.00",
+    "2260.00",
+    "2310.00",
+    "2325.00",
+    "2340.00",
+    "2390.00",
+    "2420.00",
+    "2460.00",
+    "2515.00",
+    "2555.00",
+    "2590.00",
+    "2640.00",
+    "2650.00",
+    "2750.00",
+    "2755.00",
+    "2760.00",
+    "2785.00",
+    "2805.00",
+    "2825.00",
+    "2850.00",
+    "2875.00",
+    "2900.00",
+    "3105.00",
+    "3125.00",
+    "3150.00",
+    "3200.00",
+    "3240.00",
+    "3275.00",
+    "3290.00",
+    "3400.00",
+    "3470.00",
+    "3640.00",
+    "3729.00",
+    "3735.00",
+    "3740.00",
+    "3770.00",
+    "3780.00",
+    "3800.00",
+    "3840.00",
+    "3850.00",
+    "3875.00",
+    "4010.00",
+    "4100.00",
+    "4120.00",
+    "4200.00",
+    "4260.00",
+    "4270.00",
+    "4395.00",
+    "4440.00",
+    "4800.00",
+    "4875.00",
+    "5215.00",
+    "5885.94",
+    "6840.00",
+    "6856.00",
+    "7641.00",
+    "7970.00",
+    "8173.44",
+    "8400.00",
+    "8684.00",
+    "9220.00",
+    "9450.00",
+    "12055.00",
+    "13717.00",
+    "13837.00",
+    "14023.00",
+    "14499.00",
+    "14800.00",
+    "15226.00",
+    "15851.00",
+    "16677.00",
+    "18400.00",
+    "18500.00",
+    "19358.00",
+    "20591.00",
+    "28800.00",
+    "29386.00",
+    "30545.00",
+    "38400.00",
+    "38765.00",
+    "41132.00",
+    "43002.00",
+    "43200.00",
+    "44619.00",
+    "46561.00",
+    "47500.00",
+    "48000.00",
+    "48600.00",
+    "54000.00",
+    "70624.57",
+    "84000.00",
+    "87600.00",
+    "117708.75",
+    "234060.78"
+  ],
+  "dates": [
+    {
+      "date": "2026-01-05",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-12",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-01-14",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-01-18",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-23",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-25",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-01-30",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-01-31",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-02",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-05",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-12",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-02-14",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-02-15",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-16",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-02-17",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-02-20",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-02-22",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-02-25",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-02-26",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-01",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-05",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-15",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-19",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-03-22",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-03-23",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-03-24",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-04-06",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-08",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-09",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-04-15",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-04-20",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-04-26",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-01",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-02",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-03",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-04",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-05-05",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-05-06",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-05-07",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-08",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-09",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-10",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-11",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-05-12",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-05-13",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-05-14",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-15",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-16",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-17",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-18",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-05-19",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-05-20",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-05-21",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-22",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-23",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-24",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-05-25",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-05-26",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-05-27",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-05-28",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-05-29",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-05-30",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-05-31",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-01",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-02",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-06-03",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-06-04",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-06-05",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-06-06",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-06-07",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-08",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-09",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-06-10",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-06-11",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-06-12",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-06-13",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-06-14",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-15",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-16",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-06-17",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-06-18",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-06-19",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-06-20",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-06-21",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-22",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-23",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-06-24",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-06-25",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-06-26",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-06-27",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-06-28",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-06-29",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-06-30",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-01",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-07-02",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-07-04",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-07-06",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-07-07",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-08",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-07-09",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-07-10",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-07-12",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-07-13",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-07-14",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-15",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-07-17",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-07-18",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-07-19",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-07-20",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-07-21",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-22",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-07-23",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-07-24",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-07-25",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-07-26",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-07-27",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-07-28",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-07-29",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-07-30",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-07-31",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-08-01",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-02",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-08-03",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-08-04",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-08-05",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-08-06",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-08-07",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-08-08",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-10",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-08-11",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-08-12",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-08-14",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-08-16",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-08-17",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-08-20",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-08-21",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-08-22",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-24",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-08-25",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-08-27",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-08-28",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-08-29",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-08-30",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-08-31",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-09-01",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-09-02",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-09-03",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-09-04",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-09-06",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-09-08",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-09-09",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-09-10",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-09-11",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-09-12",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-09-13",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-09-14",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-09-15",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-09-16",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-09-18",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-09-19",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-09-20",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-09-21",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-09-22",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-09-23",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-09-25",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-09-26",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-09-27",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-09-29",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-09-30",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-10-01",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-10-02",
+      "day_of_week": "Friday"
+    },
+    {
+      "date": "2026-10-03",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-10-06",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-10-07",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-10-10",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-10-17",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-10-18",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-10-20",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-10-21",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-10-27",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-11-08",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-11-11",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-11-25",
+      "day_of_week": "Wednesday"
+    },
+    {
+      "date": "2026-11-28",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-12-01",
+      "day_of_week": "Tuesday"
+    },
+    {
+      "date": "2026-12-03",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-12-12",
+      "day_of_week": "Saturday"
+    },
+    {
+      "date": "2026-12-13",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-12-17",
+      "day_of_week": "Thursday"
+    },
+    {
+      "date": "2026-12-20",
+      "day_of_week": "Sunday"
+    },
+    {
+      "date": "2026-12-28",
+      "day_of_week": "Monday"
+    },
+    {
+      "date": "2026-12-30",
+      "day_of_week": "Wednesday"
+    }
+  ],
+  "ids": {
+    "airtable_record": [
+      "rec00b62d48bb0e58",
+      "rec014e107f3c265c",
+      "rec03212c1a55ef56",
+      "rec06e5ecfb550a58",
+      "rec07294677f27c5c",
+      "rec08d925e6b44852",
+      "rec090176a77d5450",
+      "rec091d81a6c91c53",
+      "rec0993b4332a1353",
+      "rec0d424ed0dcdb50",
+      "rec0e4f8f3a300854",
+      "rec12969a3fdb0852",
+      "rec1347fb87038a54",
+      "rec1380f41ec09a51",
+      "rec144cd254d1b05b",
+      "rec1459211822965b",
+      "rec155faed9972d5d",
+      "rec157c947a8a9359",
+      "rec16122185546656",
+      "rec174d83c7000b56",
+      "rec184857bff3f55a",
+      "rec184a5c5216e559",
+      "rec18899b6ec2a65f",
+      "rec1e3c7cdd8a0859",
+      "rec22bc5f69fd1853",
+      "rec23600780ef4053",
+      "rec2471fac3f9ae51",
+      "rec269bbed07dba5d",
+      "rec291f423370e2a2db",
+      "rec2b7b06c6b6e955",
+      "rec2be1b0449dda57",
+      "rec2d4d35ac57bd53",
+      "rec319e820d7b8959",
+      "rec32c630c943c155",
+      "rec332c073bf25357",
+      "rec33a9a66cb74150",
+      "rec34590c3fc5a258",
+      "rec351bfbb9d76b57",
+      "rec3554d86e01d850",
+      "rec3586caed586352",
+      "rec35a6c4f2e50657",
+      "rec35efa77f522f5c",
+      "rec3782834f35df50",
+      "rec385c34cb600c58",
+      "rec38683ce027005a",
+      "rec390d3c3b1a3b55",
+      "rec3e037a1e48d950",
+      "rec3ec48b4e099b5a",
+      "rec3fa2d84a4a955f",
+      "rec4081fd2ccde95a",
+      "rec41947ddc66c65d",
+      "rec41be9c5fdeab5d",
+      "rec43d0feffb4ca5b",
+      "rec443b8309a0595a",
+      "rec44cc54c8893c56",
+      "rec4525beedf89a5c",
+      "rec46234590708b5c",
+      "rec49debd088dac58",
+      "rec4a0a0e7c845756",
+      "rec4a7f4369c0fb58",
+      "rec4ca8d7181be15c",
+      "rec527de274daba58",
+      "rec54e2aa3abd4758",
+      "rec553120a588c457",
+      "rec591a0f70432651",
+      "rec60592cb551995a",
+      "rec60c14606661f59",
+      "rec61c8fdeefecb54",
+      "rec651427ec0d84dd5a",
+      "rec65470a8d0cec57",
+      "rec675868936c4658",
+      "rec685f5354a7c75e",
+      "rec697bf52cc11f55",
+      "rec6c700af81c8157",
+      "rec70812e7cb9c058",
+      "rec72156c3559255c",
+      "rec75e31ba4af695a",
+      "rec769c9f03f0b85f",
+      "rec7d202aed68c95c",
+      "rec7d58d218938552",
+      "rec7e5f633127705f",
+      "rec7e9acbda7b0553",
+      "rec8005502043b755",
+      "rec81c43549217354",
+      "rec852e0d389b325e",
+      "rec85aa13581d375e",
+      "rec860db6b493af1e5b",
+      "rec8625844483b05f",
+      "rec866c69f9f12253",
+      "rec86edd5a590b854",
+      "rec88734a4fdfde57",
+      "rec8a2e43fd717f52",
+      "rec8b679d92f30753",
+      "rec8c69237d76b259",
+      "rec8d9b81d39dca50",
+      "rec8e3ce4825e9152",
+      "rec8e650892e2da5f",
+      "rec8e82bac1c3e054",
+      "rec900522ea4b425f",
+      "rec91517a5acab558",
+      "rec922b9a2d1b9451",
+      "rec94e86a3007dd5e",
+      "rec9689e4350c3750",
+      "rec9772028494a858",
+      "rec987aae7d522057",
+      "rec98bdfeec73545e",
+      "rec98e6f38712fb55",
+      "rec9ae5115c76a756",
+      "rec9b8d6303ebe650",
+      "reca06d89f1a4ac5b",
+      "reca0947abbf3955d",
+      "reca1682a9165405c",
+      "reca424761ae15355",
+      "reca4aa17f0755b55",
+      "reca8230a8fd9ff51",
+      "reca8f3d6139b8a56",
+      "reca951043459575a",
+      "recaa8be51e367258",
+      "recab792a69699056",
+      "recac236210094352",
+      "recac7bee0922a255",
+      "recaf016c311fb758",
+      "recb0b7a55185e753",
+      "recb23fd4a03c8858",
+      "recb403fe04c2f97683",
+      "recb4aeaed326f156",
+      "recb5119334a90255",
+      "recb7be291b1a725b",
+      "recb7e4e4c8e10653",
+      "recb95cbc56c8a553",
+      "recbb8616dd33f45f",
+      "recbc1540be721952",
+      "recbd087a4abd605b",
+      "recc08364554ef85d",
+      "recc0ecc885e9645e",
+      "recc6c819b8eb5157",
+      "recc76d093b519950",
+      "recc83c05d889b354",
+      "recc8534b3fd13954",
+      "recc955f96a091456",
+      "recc9a0fc2dcd9a5c",
+      "recc9d9e1236d2959",
+      "recca0da8f7416f51",
+      "recca5593dd657154",
+      "reccafc148eb2865a",
+      "recce483e4c564a55",
+      "reccf212b3bd6f454",
+      "recd33c20aea48355",
+      "recd4dafe27674355",
+      "recd7675ccb69c757",
+      "recd9305a73643051",
+      "recdaded10ac48a5a",
+      "recdfba6a5717b054",
+      "rece2bfac2dfb975e",
+      "rece354375400a756",
+      "rece7490a55e2675d",
+      "rece9699d501c9357",
+      "receb057b02f20052",
+      "receeb2b3334dd754",
+      "receee45491536859",
+      "recf040e18d826352",
+      "recf464d254aa705f",
+      "recf4c937ca6bc857",
+      "recf50eb955a10651",
+      "recf67181e1d0d756",
+      "recf7aecc318b2252",
+      "recf9e20823a3445f",
+      "recfd97330c538d50",
+      "recfdbf3bbb416659",
+      "recff610bf2748453"
+    ],
+    "linear_issue": [
+      "OPS-1",
+      "OPS-10",
+      "OPS-100",
+      "OPS-101",
+      "OPS-102",
+      "OPS-103",
+      "OPS-104",
+      "OPS-105",
+      "OPS-106",
+      "OPS-107",
+      "OPS-108",
+      "OPS-109",
+      "OPS-11",
+      "OPS-110",
+      "OPS-111",
+      "OPS-112",
+      "OPS-113",
+      "OPS-114",
+      "OPS-115",
+      "OPS-116",
+      "OPS-117",
+      "OPS-118",
+      "OPS-119",
+      "OPS-12",
+      "OPS-120",
+      "OPS-121",
+      "OPS-122",
+      "OPS-123",
+      "OPS-124",
+      "OPS-125",
+      "OPS-126",
+      "OPS-127",
+      "OPS-128",
+      "OPS-129",
+      "OPS-13",
+      "OPS-130",
+      "OPS-131",
+      "OPS-132",
+      "OPS-133",
+      "OPS-134",
+      "OPS-135",
+      "OPS-136",
+      "OPS-137",
+      "OPS-138",
+      "OPS-139",
+      "OPS-14",
+      "OPS-140",
+      "OPS-141",
+      "OPS-142",
+      "OPS-143",
+      "OPS-144",
+      "OPS-145",
+      "OPS-146",
+      "OPS-147",
+      "OPS-148",
+      "OPS-149",
+      "OPS-15",
+      "OPS-150",
+      "OPS-151",
+      "OPS-152",
+      "OPS-153",
+      "OPS-154",
+      "OPS-155",
+      "OPS-156",
+      "OPS-157",
+      "OPS-158",
+      "OPS-159",
+      "OPS-16",
+      "OPS-160",
+      "OPS-161",
+      "OPS-162",
+      "OPS-163",
+      "OPS-164",
+      "OPS-165",
+      "OPS-166",
+      "OPS-167",
+      "OPS-168",
+      "OPS-169",
+      "OPS-17",
+      "OPS-170",
+      "OPS-171",
+      "OPS-172",
+      "OPS-173",
+      "OPS-174",
+      "OPS-175",
+      "OPS-176",
+      "OPS-177",
+      "OPS-178",
+      "OPS-179",
+      "OPS-18",
+      "OPS-180",
+      "OPS-181",
+      "OPS-182",
+      "OPS-183",
+      "OPS-184",
+      "OPS-185",
+      "OPS-186",
+      "OPS-187",
+      "OPS-188",
+      "OPS-189",
+      "OPS-19",
+      "OPS-190",
+      "OPS-191",
+      "OPS-192",
+      "OPS-193",
+      "OPS-194",
+      "OPS-195",
+      "OPS-196",
+      "OPS-197",
+      "OPS-198",
+      "OPS-199",
+      "OPS-2",
+      "OPS-20",
+      "OPS-200",
+      "OPS-201",
+      "OPS-202",
+      "OPS-203",
+      "OPS-204",
+      "OPS-205",
+      "OPS-206",
+      "OPS-207",
+      "OPS-208",
+      "OPS-209",
+      "OPS-21",
+      "OPS-210",
+      "OPS-211",
+      "OPS-212",
+      "OPS-213",
+      "OPS-214",
+      "OPS-215",
+      "OPS-216",
+      "OPS-217",
+      "OPS-218",
+      "OPS-219",
+      "OPS-22",
+      "OPS-220",
+      "OPS-221",
+      "OPS-222",
+      "OPS-223",
+      "OPS-224",
+      "OPS-225",
+      "OPS-226",
+      "OPS-227",
+      "OPS-228",
+      "OPS-229",
+      "OPS-23",
+      "OPS-230",
+      "OPS-24",
+      "OPS-25",
+      "OPS-26",
+      "OPS-27",
+      "OPS-28",
+      "OPS-29",
+      "OPS-3",
+      "OPS-30",
+      "OPS-31",
+      "OPS-32",
+      "OPS-33",
+      "OPS-34",
+      "OPS-35",
+      "OPS-36",
+      "OPS-37",
+      "OPS-38",
+      "OPS-39",
+      "OPS-4",
+      "OPS-40",
+      "OPS-41",
+      "OPS-42",
+      "OPS-43",
+      "OPS-44",
+      "OPS-45",
+      "OPS-46",
+      "OPS-47",
+      "OPS-48",
+      "OPS-49",
+      "OPS-5",
+      "OPS-50",
+      "OPS-51",
+      "OPS-52",
+      "OPS-53",
+      "OPS-54",
+      "OPS-55",
+      "OPS-56",
+      "OPS-57",
+      "OPS-58",
+      "OPS-59",
+      "OPS-6",
+      "OPS-60",
+      "OPS-61",
+      "OPS-62",
+      "OPS-63",
+      "OPS-64",
+      "OPS-65",
+      "OPS-66",
+      "OPS-67",
+      "OPS-68",
+      "OPS-69",
+      "OPS-7",
+      "OPS-70",
+      "OPS-71",
+      "OPS-72",
+      "OPS-73",
+      "OPS-74",
+      "OPS-75",
+      "OPS-76",
+      "OPS-77",
+      "OPS-78",
+      "OPS-79",
+      "OPS-8",
+      "OPS-80",
+      "OPS-81",
+      "OPS-82",
+      "OPS-83",
+      "OPS-84",
+      "OPS-85",
+      "OPS-86",
+      "OPS-87",
+      "OPS-88",
+      "OPS-89",
+      "OPS-9",
+      "OPS-90",
+      "OPS-91",
+      "OPS-92",
+      "OPS-93",
+      "OPS-94",
+      "OPS-95",
+      "OPS-96",
+      "OPS-97",
+      "OPS-98",
+      "OPS-99"
+    ],
+    "linear_comment": [
+      "comment_02e67d450f95547e8a82323e3636b39c",
+      "comment_033ff33cd2c5516090e3848f68f9fcf8",
+      "comment_07bc62aae712483a24a587831099fd8f",
+      "comment_0f56f9a5f44b53d9981fed29549345c0",
+      "comment_0fd552f85fd55cd4bc90a44e0a4bfe06",
+      "comment_16a0a0c53f543a1221f08de6a786cb66",
+      "comment_179d6b0702be5ca1b0a1e967e1e136e0",
+      "comment_1a32b4e27526590280ae2771c38ae451",
+      "comment_21c851d8e2555d37a9e8350c45e311ea",
+      "comment_248a843fe7db59e8afaf8d5b6c71c387",
+      "comment_2bfe2b1cbc2e5265b934d6f2d277ca50",
+      "comment_30cc62fbf99452788d47143605a783c2",
+      "comment_34bfdd8892db5135b9d1f30dd85c30e3",
+      "comment_3dfb3866624e5edeae638450e2a611cf",
+      "comment_42a514c0161254a7992a137d50d3be45",
+      "comment_441c7fb165ba5af4a4e846597050fc35",
+      "comment_4696032f493c57ed97cfeb577edc725c",
+      "comment_4e5a9ffb89ea593897d3fb7bf9201cc2",
+      "comment_4f0446d142786025a934cffe05dfc5d1",
+      "comment_4f3f967af50554ee8a7f1b0db1529bad",
+      "comment_52d3ca2a721653d29bf034b5adf36f63",
+      "comment_552ae52605850e60b050f8ff4f9f04bf",
+      "comment_58f98dcd8d825d80ac22bf84e2a3b095",
+      "comment_5a6d779a715f587392dd00b9c8dbbd4a",
+      "comment_79dc83838bd65d678c48b5911f942412",
+      "comment_79df0c081f505bf2b35906639e0bbff7",
+      "comment_7cde7aa2181c5e249436a17f1cd17056",
+      "comment_7da4727be22358779707701276e7bb75",
+      "comment_7e8ac0e45ab4558ebda2eff8a8e14bdb",
+      "comment_7e987d0166905aa9aadf4b2fa07fdb27",
+      "comment_a3e867f51f905f7ca951ad0ab3a80719",
+      "comment_b125a8e6179e51ec9a81786b7071885d",
+      "comment_b17cb97b95d65da3b39f1f1a63781f2d",
+      "comment_b232808c33c25091b8cf2026fe88b27d",
+      "comment_b575411ba2be5ceaa0ab28094905f844",
+      "comment_c398a58cc29c50f7885b34cf980e99ac",
+      "comment_d18efd7c0cb65e9686f9724ed0ca0a4e",
+      "comment_d4cfb73584215ea7b4f0e7c379ff7e8d",
+      "comment_d68b73e11afe56c695e552d80f9817be",
+      "comment_d68ec0b0ac2d507c8420b71820914c03",
+      "comment_dad3db92a1ea53e39847c4670b7c3339",
+      "comment_e1ed6c7ccf5f59c0ada1ca98e090bd6b",
+      "comment_e524f25565545516ac1598cc4b6e8336",
+      "comment_e66d535fcb0a5784b027ddc8c3e9d49b",
+      "comment_e6a4554673d75a0f81c345a14e5f1b12",
+      "comment_e8c1efd8f32b58e1b7332477903a3df1",
+      "comment_ec0806bfd8585536bd87437c3f7bf38a",
+      "comment_fc1c9a85d2ef593780081b81ca347c61"
+    ],
+    "hubspot_object": [
+      "comp_lonestar",
+      "comp_mesaverde",
+      "comp_riogrande",
+      "contact_015f841f45bd54c080d35688d47d794d",
+      "contact_023ad96bd5d950dcb99b2ecbd53235c5",
+      "contact_03088a990c7e5dd984861d90241173c5",
+      "contact_05298d157e1f57dda9605f60d423ddeb",
+      "contact_05cdebd6980156cfaa3f2d32b5e815a9",
+      "contact_091cfd4158515f1786cdd2d16812eca2",
+      "contact_10421b2bfd1e5c27b414b349d38acfc5",
+      "contact_12bb18e49ff856e39b3ebce6c4752545",
+      "contact_139bc0a3afc659fbbdb4b17e20e567cb",
+      "contact_17972617ad7954a5b0539492c864e21e",
+      "contact_1bb4531927a65cbfb60c262038e91abc",
+      "contact_1dce14caf5065c5a9cc51930c2a643c6",
+      "contact_25b3475250fb5726b54874670b946bbe",
+      "contact_264f38d408c356aa9efc578fd4ffd179",
+      "contact_28766cb8b6e15c19a4f019e03fa607be",
+      "contact_291ec4a3ab5c57a3a41be9e5529e8dc1",
+      "contact_2f6f1ae97cd25bf09d48fa927b197822",
+      "contact_310d5e4e187c5253a9269f0adcb47451",
+      "contact_32e91c1c7b9358f695e1b70731590de2",
+      "contact_3554403315915390a3852599532a6e14",
+      "contact_3de4b06215255087a32a1cc051122b9b",
+      "contact_43a474b71b2f5b708c10fc90c91be83b",
+      "contact_46b9df82ccf65296bbc75aba7c57117d",
+      "contact_4e42a4cac1ef5b71bd03149e5026bc09",
+      "contact_50128329697b585d9c0c1d06bb637495",
+      "contact_5e009fb592225816965b998caa596a0a",
+      "contact_5e77eae71d865fe38318e10facf62de9",
+      "contact_657f54617ce15f26a8bc3ea45a9771a4",
+      "contact_67ed8ace7bec5ebfaf25aeea5de76588",
+      "contact_69fb9b3f61835c148408ce36ebf1f167",
+      "contact_6d04a1c9ca7e54bea416be07e1bb26aa",
+      "contact_77d38a21788f5925ba1bcfa43bab823a",
+      "contact_7aaceac759b05b3f991a8f3bf9d1109e",
+      "contact_7ec0b09376ce512abff1332f6924eb5a",
+      "contact_8494c4ede7ac5373922c8c488f84f6a2",
+      "contact_8c4b35615a195e7885df3ce5dd08dbc4",
+      "contact_8d9e14390aae5c5abe9747c7678b32c5",
+      "contact_90af3fb888f2598baa76b4469fbce05c",
+      "contact_99dfb4e3607c5825acc0e6e2350d3347",
+      "contact_9a9252031d405a24b4d784d734d56699",
+      "contact_9de5bdf543365806b6b336b015f32e50",
+      "contact_9fd9738870695461a28d878b7024fd5e",
+      "contact_a197156a3f6e590596fdce19c6d42db1",
+      "contact_a2b30dddc0775eb887ddfe07a9a3835f",
+      "contact_a3e1f7ef944956e7b221027217a0d430",
+      "contact_b30b8045f674569c9f15298ab9ce95d8",
+      "contact_b4c112f1764259f6a455301370ce6ef0",
+      "contact_be71de844a2e5076be4f31a6a3bda310",
+      "contact_c50024898dd95c06895a5d121aa46300",
+      "contact_d248e80123df591889221cbf5fbd248e",
+      "contact_d4dbc43ded2f5447977651e0eec31b2c",
+      "contact_d8c24d21e77758f58595e4975576b7dc",
+      "contact_d9c462b79d5056d19c0c5ac8bfcc30cd",
+      "contact_df41ebb805d25d769f64f571c23741d9",
+      "contact_e2bc8afec7b85a38ba0d2b138db0cec6",
+      "contact_f27fdb12f3f25840a539ae88e85605b0",
+      "contact_f4255073a0e15271938cdab0b160332e",
+      "contact_f4333dc70667540792ebd62b4e8801f3",
+      "contact_f5a0f85165b75a0e84b405daa389b7a1",
+      "contact_f80705434af45fb38cde71a4021be34b",
+      "contact_f82e08a44ee05391b3cf62f0ce4297de",
+      "deal_0051311c864058ff9a3aeada826dc5a7",
+      "deal_05c19ea2ba0257368c0711390d65316e",
+      "deal_07a1cd05601253c2ad9aac9f81bf3a9f",
+      "deal_0bb5205af8de50af9aa14fa7458a7ef8",
+      "deal_0c8329a569985eb1ab51d233741dbd3d",
+      "deal_0ce65480808858cba2b3263d95d09883",
+      "deal_0e9059651a2c5daaaaaf4bc1cf8b3f32",
+      "deal_13f9c11819e2521fb72459cd6062b4da",
+      "deal_1aeed59c2efa597bbb9c052746c28710",
+      "deal_1cc91e95a0a15b899d0798593892f03a",
+      "deal_1d13ace71b4452bf8ad5b3a2f048450f",
+      "deal_1eb053741c1851e491adeddf14fc100b",
+      "deal_1f3ba50314a2576ca14bd23a1baf5669",
+      "deal_209736f4ea325875b68c5f599b4db265",
+      "deal_2798d8c163285a73b77b17119d03c60f",
+      "deal_31a478d94cd95ea1b9957ebaf5c45e1c",
+      "deal_32fe85fb3d1652239a0447025caa7d1e",
+      "deal_337eaea880c15f098d57c90e8ff69ffd",
+      "deal_38588d7077635e4c8e87ecb645c2b077",
+      "deal_3aab9249eaa05ba0964befc8b7fe0578",
+      "deal_3db00ea592c65a90a7524294ea4226c3",
+      "deal_3e59fee2c28e565d845603dbe304a932",
+      "deal_3feed5c4121558cda25cd566d539ff7f",
+      "deal_410c938f730b55679b3aa1ec27d39bdb",
+      "deal_41aed1a7603858c889785b825d553351",
+      "deal_4446b2d914bb5b589d5b5880a77915c9",
+      "deal_4527f54cfee554d189a2e56096e6e2e2",
+      "deal_46bcec1fc39c50fc94741b497a164ef1",
+      "deal_46d58cc173895cf498dc834660a47424",
+      "deal_4720424c23085f68846ba6d3de4d3ac4",
+      "deal_47678a0b5c1b56668eb4495c804240c0",
+      "deal_477459196cec59fc8d630c49391f92f8",
+      "deal_49b0e3b2fbfb5993be43aa52a71f3944",
+      "deal_4c9885107c6953a0b24028ee431f33cc",
+      "deal_5760cf3788b35052a4d5112db5b1def7",
+      "deal_594d40b0c6985e80b5c4ed2884e5d886",
+      "deal_59647d9a0cc157f48a195d58703f0519",
+      "deal_5c021c0c322450cea54ca3ba4e690c14",
+      "deal_60a1f6f4510c5b8f92732865fab31104",
+      "deal_60c1486a34fe52b9b7660e3a4dc3d908",
+      "deal_60e121075b39548aa205ed33084de54f",
+      "deal_62ffad311e365cdfa19a11f9eb767cda",
+      "deal_631c5cd4ce0f5ddbba0bd87381d9dc5f",
+      "deal_63f404fa90b55b33aab6559b5fe81f13",
+      "deal_6bfca5fd59b554c6808a2dd9d663d192",
+      "deal_727018a56cf359889d8a4323686dacd3",
+      "deal_758b250f7735549b8243d930c89cec87",
+      "deal_77a756c9869950caae070d37f110bd50",
+      "deal_7a67fc76208652468be023d7dad1c224",
+      "deal_7d175549943a5b9bbae98d1cfec8e272",
+      "deal_7e2c95f3975b597e89ca94c0e7491f09",
+      "deal_7fc3d6936bd755768e4a454ed860296c",
+      "deal_804c836e5fe254519bc227e3caabbc55",
+      "deal_83a9d813bce75949b37f3fd6ec65057d",
+      "deal_83d75ea977ac56c7b0b33878ce61b5af",
+      "deal_87bc74738b0250328086d238a7cc6372",
+      "deal_893bd154e3f05dabad3900f59a3b8ab6",
+      "deal_89af54a2b9c058ab8525e869b353363b",
+      "deal_89e9d514de7d5cf8b6a150377c92d8c5",
+      "deal_8ab335e0ae705bf0a06bb4a891601510",
+      "deal_8aca2c19995a5a0cbb01a232cac9ab4e",
+      "deal_8cd04fe1a35d515296c66cdd0cf3f842",
+      "deal_90d6d58f7c305a59bdc9647dbc22ac7a",
+      "deal_927ccaadd70951be82f48cf9888162be",
+      "deal_92d95f992c2b57fe864f5c3e1af9e2ef",
+      "deal_93072884279a54208ddffb13587c5e16",
+      "deal_9664cf85817555d0b1e0dfddfc054c96",
+      "deal_9685961526c85754a049bbdceb005db9",
+      "deal_9f324d401df8568489efb622bae8d08f",
+      "deal_a3342729b0175dab8a24e8be972ab6b0",
+      "deal_a628c244e39f54589f24171bf7364949",
+      "deal_a6dd3d414abd524c8ebaee8fdd2d0219",
+      "deal_ae7da83d50b05e26ac89849823c6cb57",
+      "deal_b05efc4805e65b45afb7b5906df0660c",
+      "deal_b909abda3181576e86a87caea7ed9fd4",
+      "deal_bcb691198f0e5554b46551c7b6f10a00",
+      "deal_c1562a4d179c593097ebef2ca457335f",
+      "deal_c2788a3d50f85087a6048f444f9bd78f",
+      "deal_c4243ec861ca5e879eeeca864ad3db1f",
+      "deal_c8c3688431295d5898e3e553460b04c9",
+      "deal_ca568bd7c0a25af287fa5eb329683d5e",
+      "deal_d282338a39bd5e21abd6549ccac9c6f8",
+      "deal_d2e49f64d32e5eb6be7fe98badb3cf82",
+      "deal_dd34c7bc011f5fcea857cdd667f8bb22",
+      "deal_ddfaaa36427257b4a1dd7c36373b8918",
+      "deal_df6aa4c058f1593c9c04db12a167c05b",
+      "deal_e0c0058a835b5d06b3def78a178197eb",
+      "deal_e445a7fba9c75a519052c17b95dc13b5",
+      "deal_e5503b94a17b57189537f688d33d18c3",
+      "deal_eb9879b96f765101bb10c755f2ff3276",
+      "deal_ee602d3f15aa5922b988e5330d6e1e78",
+      "deal_f170c3055ebe53229289277be13c0033",
+      "deal_f22d88103f4d52519736e18be41c6540",
+      "deal_f4d2834fa2985da8a8ea8da622073f27",
+      "deal_f55bcf2522a95bf197fc48f761148119",
+      "deal_f5e7ff141d505b9eb4a3f04a573e9765",
+      "deal_fd7e1ceb2977558e83ed60ab66482de7",
+      "deal_fe258e4fdd5f59d6ab2664139a3ad652",
+      "deal_fe69f310817b55c383ece48f04c34cb2",
+      "deal_ff3eb0749dd15bf2bc9f6ca3374e6ec2",
+      "deal_laspalmas12b",
+      "deal_mesavista4a",
+      "deal_riobend7c",
+      "engagement_03023bd76561542686cdc4445fb29e05",
+      "engagement_26a6331ea51e5d39a5898085a18d8116",
+      "engagement_49b4cf88364859c095a499cd26ad9980",
+      "engagement_6840acf96f0d5a77997be25a1691a998",
+      "ticket_21992e14ded25456a697ca4fde817101",
+      "ticket_2629868acfc75827aedb3e7b552dc124",
+      "ticket_269cc7ce548f5d93b3e0324b2e80fde9",
+      "ticket_32de56bc976d582f9b1893a12f07ec55",
+      "ticket_34cb6ee660b659029fe68d82bc4e5dd5",
+      "ticket_539f2eb92879516fb4c9ca0019802d3f",
+      "ticket_707d94dc972154488234de57eb999193",
+      "ticket_849dd11c9abf58c0afcc10ef3d47bd84",
+      "ticket_87552e6b23bc5a92bd2641b9054b8c13",
+      "ticket_8faab56c663352cfb8d61c994b2bae88",
+      "ticket_b9ad3068f0ff5ebc87ef6ab9a23c817c",
+      "ticket_e42b7c5bae4f5f508f7142196f32400c"
+    ],
+    "slack_channel": [
+      "C001",
+      "C002",
+      "C003",
+      "C004",
+      "C005",
+      "C006",
+      "C007",
+      "C008"
+    ],
+    "slack_user": [
+      "U02538E80B3",
+      "U03F013C526",
+      "U07E4512181",
+      "U09BF581313",
+      "U259885F774",
+      "U25CC54B28D",
+      "U2B49E865B0",
+      "U2CD1BC03B2",
+      "U3325BD0433",
+      "U334BE34EFB",
+      "U35D026EE8F",
+      "U360DD2BF92",
+      "U38B88041C7",
+      "U38EF9C79B1",
+      "U3CAC3AE5BE",
+      "U3D2C91C822",
+      "U43A0B82CEE",
+      "U4582C61CBC",
+      "U4CCB8A252E",
+      "U4F63BBD855",
+      "U50BE2E2B42",
+      "U53E1EC92B6",
+      "U5AC3029C55",
+      "U5B0FCB233F",
+      "U5C70406BA4",
+      "U5ED70A9437",
+      "U5F592FB333",
+      "U60E890B92C",
+      "U6480117503",
+      "U649CC4D0E3",
+      "U6A8ED79796",
+      "U771EB535E9",
+      "U7AE9B100B3",
+      "U7E3B4B6DFA",
+      "U81930FF86F",
+      "U8BA3156A7B",
+      "U8BDF908F68",
+      "U8D41FFE0A5",
+      "U90F258B761",
+      "U9463BF5994",
+      "U94D5ECD794",
+      "U9741B657FE",
+      "U98942EF210",
+      "U99361BC816",
+      "U9B6B7FCA04",
+      "U9E988EDE33",
+      "UA168C773E4",
+      "UA7D3771F66",
+      "UADB2B4E045",
+      "UAF8C3E7C4E",
+      "UC9840A0236",
+      "UCDF2D103F3",
+      "UCE86E41D91",
+      "UD05BD5AF7A",
+      "UD43B5A7B4F",
+      "UD4432C1F56",
+      "UD92EEA47D7",
+      "UE295BC09D4",
+      "UE452CE0EE6",
+      "UF0DB533EA8",
+      "UFF92A92B61"
+    ],
+    "invoice": [
+      "1053",
+      "1054",
+      "1055",
+      "1056",
+      "1057",
+      "1058",
+      "1081",
+      "1082",
+      "1083",
+      "1084",
+      "1085",
+      "1087",
+      "1087-796",
+      "1088",
+      "1088-852",
+      "1089",
+      "1090",
+      "1091",
+      "1091-061",
+      "1091-997",
+      "1092",
+      "1092-492",
+      "1092-814",
+      "1093",
+      "1187-136",
+      "1187-137",
+      "1187-367",
+      "1187-431",
+      "1187-483",
+      "1188",
+      "1188-007",
+      "1188-254",
+      "1188-442",
+      "1188-572",
+      "1189",
+      "1189-191",
+      "1189-334",
+      "1190",
+      "1190-145",
+      "1190-211",
+      "1191",
+      "1192",
+      "2026-034",
+      "2026-034A",
+      "2026-034B",
+      "2026-034C",
+      "2026-034D",
+      "2026-035",
+      "2026-036",
+      "2026-037",
+      "2026-0441-853",
+      "2026-0442",
+      "2026-0443",
+      "2026-0444",
+      "2026-052",
+      "2026-057",
+      "2026-058",
+      "2026-0841",
+      "2026-0842-279",
+      "2026-0843",
+      "2026-0844-025",
+      "2026-0845",
+      "2026-0846",
+      "2026-0881",
+      "2026-0882",
+      "2026-0883",
+      "2026-0884",
+      "2026-0885",
+      "2026-118-509",
+      "2026-1181",
+      "2026-1182",
+      "2026-1183",
+      "2026-1184",
+      "2026-119",
+      "2026-120",
+      "2026-121",
+      "2026-187",
+      "2026-187-251",
+      "2026-188",
+      "2026-188-082",
+      "2026-188-117",
+      "2026-188-161",
+      "2026-188-988",
+      "2026-189",
+      "2026-189-119",
+      "2026-190",
+      "2026-191",
+      "2026-191-921",
+      "2026-192",
+      "2026-194",
+      "2026-196",
+      "2026-199",
+      "2026-301",
+      "2026-302",
+      "2026-303",
+      "2026-304",
+      "2026-418",
+      "2026-418-615",
+      "2026-418-729",
+      "2026-418-757",
+      "2026-418-920",
+      "2026-418-996",
+      "2026-419",
+      "2026-419-116",
+      "2026-419-161",
+      "2026-419-287",
+      "2026-419-347",
+      "2026-419-396",
+      "2026-420",
+      "2026-420-674",
+      "2026-421",
+      "2026-421-760",
+      "2026-421-990",
+      "2026-422",
+      "2026-422-203",
+      "2026-423",
+      "2026-424",
+      "2026-441-017",
+      "2026-441-077",
+      "2026-442-478",
+      "2026-443-832",
+      "2026-451",
+      "2026-452",
+      "2026-453",
+      "2026-454",
+      "2026-481",
+      "2026-481-566",
+      "2026-494",
+      "2026-519",
+      "2026-534",
+      "2026-AP-0184",
+      "2026-B-317",
+      "2026-B-318",
+      "2026-B114",
+      "2026-B115",
+      "2026-B116",
+      "2026-B117",
+      "2026-BILL-0144",
+      "2026-BILL-047",
+      "2026-BILL-0887",
+      "2026-BR-04",
+      "2026-BR-04A",
+      "2026-CM-0033",
+      "2026-CM-019",
+      "2026-CM-089",
+      "2026-CM041",
+      "2026-EST-0091",
+      "2026-EST-0219",
+      "2026-EST-088",
+      "2026-EV-047",
+      "2026-FU-001",
+      "2026-FU-002",
+      "2026-INV-0188",
+      "2026-INV-0841",
+      "2026-INV-0842",
+      "2026-INV-0843",
+      "2026-INV-087",
+      "2026-INV-3814",
+      "2026-INV-3815",
+      "2026-INV-3816",
+      "2026-INV-3817",
+      "2026-INV-3818",
+      "2026-JE-031",
+      "2026-LM05",
+      "2026-LM05-R",
+      "2026-LN-041",
+      "2026-LOG-061",
+      "2026-RR-014",
+      "2026-SC-4C",
+      "2026-SM-037",
+      "2026-SM59",
+      "2026-SM59R",
+      "2026-STD-04",
+      "2026-STD-042",
+      "2026-STD-04A",
+      "2026-STD-04B",
+      "2026-STD-04C",
+      "2026-WO-114",
+      "2251",
+      "2252",
+      "2253",
+      "2253-235",
+      "2254",
+      "2255",
+      "2256",
+      "2257",
+      "2501",
+      "2502",
+      "2502-761",
+      "2503",
+      "2506-946",
+      "2507",
+      "2508-609",
+      "2547",
+      "2848",
+      "4417",
+      "4417-522",
+      "4418",
+      "4418-381",
+      "4419-451",
+      "4420",
+      "4421",
+      "4422",
+      "4512",
+      "4513",
+      "4514",
+      "4515",
+      "5441",
+      "5442",
+      "5443",
+      "5444",
+      "5445",
+      "5847",
+      "5848",
+      "5849",
+      "7214",
+      "9910",
+      "9911",
+      "9912",
+      "9913",
+      "9914",
+      "9915",
+      "APL-2026-084",
+      "B-0391",
+      "B-0392",
+      "B-0923",
+      "B-1193",
+      "B-1194",
+      "B-2026",
+      "B-2026-0314",
+      "B-2026-0412",
+      "B-2026-0441",
+      "B-2026-0443",
+      "B-2026-0444",
+      "B-2026-0445",
+      "B-2026-074",
+      "B-2026-091",
+      "B-2026-092",
+      "B-2026-1085",
+      "B-2026-1087",
+      "B-2026-1088",
+      "B-2026-1091",
+      "B-2026-1092",
+      "B-2026-1093",
+      "B-2026-187",
+      "B-2026-198",
+      "B-2026-418",
+      "B-2026-418-348",
+      "B-2026-418-610",
+      "B-2026-419",
+      "B-2214",
+      "B-2215",
+      "B-2216",
+      "B-2217",
+      "B-2294",
+      "B-4491",
+      "B-4492",
+      "B-817",
+      "B-818",
+      "B2026-074",
+      "B2026-084",
+      "B2026-085",
+      "B2026-086",
+      "B2026-201",
+      "B2026-202",
+      "B2026-203",
+      "B2026-203-038",
+      "B2026-204",
+      "B2026-204-191",
+      "B2026-205",
+      "B2026-207",
+      "B2026-209",
+      "B2026-209-484",
+      "B2026-210",
+      "B2026-418",
+      "B2026-418-186",
+      "B2026-418-412",
+      "B2026-418-815",
+      "B2026-418-922",
+      "B2026-447",
+      "B2026-448",
+      "B2026-449",
+      "BILL-2026-0089",
+      "BILL-2026-0090",
+      "BILL-2026-0187-444",
+      "BILL-2026-0188",
+      "BILL-2026-0194-602",
+      "BILL-2026-0195",
+      "BILL-2026-0196",
+      "BILL-2026-0198",
+      "BILL-2026-0309",
+      "BILL-2026-0314",
+      "BILL-2026-0317",
+      "BILL-2026-0319",
+      "BILL-2026-0319-198",
+      "BILL-2026-0323",
+      "BILL-2026-0334",
+      "BILL-2026-0335",
+      "BILL-2026-0336",
+      "BILL-2026-036",
+      "BILL-2026-0391",
+      "BILL-2026-0391-768",
+      "BILL-2026-0391-956",
+      "BILL-2026-0392",
+      "BILL-2026-0392-312",
+      "BILL-2026-0392-713",
+      "BILL-2026-0392-920",
+      "BILL-2026-0393",
+      "BILL-2026-0394-657",
+      "BILL-2026-0394-688",
+      "BILL-2026-0401",
+      "BILL-2026-043",
+      "BILL-2026-0493",
+      "BILL-2026-0893-120",
+      "BILL-2026-0894",
+      "BILL-2026-094",
+      "BILL-2026-117",
+      "BILL-2026-119",
+      "BILL-2026-1503",
+      "BILL-2026-188",
+      "BILL-2026-189",
+      "BILL-2026-198",
+      "BILL-2026-291",
+      "BILL-2026-391",
+      "BILL-2026-4412",
+      "BILL-2026-611",
+      "BILL-2026-7712",
+      "BILL-2026-7713",
+      "BILL-2026-7714",
+      "BRF-2026-01",
+      "BRF-2026-02",
+      "BRF-2026-03",
+      "CM-047",
+      "CM-094",
+      "CM-2026-0067",
+      "CM-2026-0089",
+      "CM-2026-0089-413",
+      "CM-2026-0095",
+      "CM-2026-0214",
+      "CM-2026-044",
+      "CM-2026-088",
+      "CM-2026-089",
+      "CM-2026-1183",
+      "CM-2026-291",
+      "CM-214",
+      "CM-418",
+      "CM-519",
+      "CM-519-676",
+      "CM2026-051",
+      "CM2026-089",
+      "E2026-207",
+      "EST-2026-0088",
+      "EST-2026-0217",
+      "EST-2026-0312",
+      "EST-2026-089",
+      "EST-2026-091",
+      "GH-0526",
+      "INC-2026-041",
+      "INC-2026-042",
+      "INV-2026-0214",
+      "INV-2026-0215",
+      "INV-2026-0216",
+      "INV-2026-0217",
+      "INV-2026-034",
+      "INV-2026-035",
+      "INV-2026-036",
+      "INV-2026-036-347",
+      "INV-2026-037-737",
+      "INV-2026-038",
+      "INV-2026-0417",
+      "INV-2026-043",
+      "INV-2026-0441-018",
+      "INV-2026-0441-229",
+      "INV-2026-0442-543",
+      "INV-2026-0442-922",
+      "INV-2026-0443-034",
+      "INV-2026-0444-882",
+      "INV-2026-0445-477",
+      "INV-2026-0641",
+      "INV-2026-0644",
+      "INV-2026-0647",
+      "INV-2026-0651",
+      "INV-2026-0655",
+      "INV-2026-0714",
+      "INV-2026-0715",
+      "INV-2026-0717",
+      "INV-2026-0718",
+      "INV-2026-0719",
+      "INV-2026-0841-006",
+      "INV-2026-0841-279",
+      "INV-2026-0841-572",
+      "INV-2026-0841-678",
+      "INV-2026-0842",
+      "INV-2026-0842-045",
+      "INV-2026-0842-102",
+      "INV-2026-0842-378",
+      "INV-2026-0842-467",
+      "INV-2026-0843",
+      "INV-2026-0843-251",
+      "INV-2026-0843-383",
+      "INV-2026-0843-800",
+      "INV-2026-0843-921",
+      "INV-2026-0844",
+      "INV-2026-0844-026",
+      "INV-2026-0844-836",
+      "INV-2026-0844-976",
+      "INV-2026-0845",
+      "INV-2026-0845-044",
+      "INV-2026-0846",
+      "INV-2026-0847",
+      "INV-2026-0847-197",
+      "INV-2026-0849-971",
+      "INV-2026-0853-293",
+      "INV-2026-1084",
+      "INV-2026-1084-667",
+      "INV-2026-1085",
+      "INV-2026-1086",
+      "INV-2026-1087",
+      "INV-2026-1087-092",
+      "INV-2026-1088",
+      "INV-2026-1088-477",
+      "INV-2026-1089",
+      "INV-2026-1090",
+      "INV-2026-1091",
+      "INV-2026-1091-359",
+      "INV-2026-1092",
+      "INV-2026-1095",
+      "INV-2026-1098",
+      "INV-2026-1178",
+      "INV-2026-1184-896",
+      "INV-2026-1185-998",
+      "INV-2026-1186-802",
+      "INV-2026-1187-282",
+      "INV-2026-1187-311",
+      "INV-2026-1187-658",
+      "INV-2026-1188-824",
+      "INV-2026-1501",
+      "INV-2026-1502",
+      "INV-2026-1504",
+      "INV-2026-1505",
+      "INV-2026-1506",
+      "INV-2026-1507",
+      "INV-2026-291",
+      "INV-2026-318",
+      "INV-2026-391",
+      "INV-2026-391-188",
+      "INV-2026-392",
+      "INV-2026-408",
+      "INV-2026-408-712",
+      "INV-2026-417",
+      "INV-2026-4402",
+      "INV-2026-4403",
+      "INV-2026-441",
+      "INV-2026-442",
+      "INV-2026-491",
+      "INV-2026-492",
+      "INV-2026-493",
+      "INV-2026-514",
+      "INV-2026-515",
+      "INV-2026-516",
+      "INV-2026-517",
+      "INV-2026-518",
+      "INV-2026-519",
+      "INV-2026-520",
+      "INV-2026-611",
+      "INV-2026-611-496",
+      "INV-2590",
+      "INV-RM-0001",
+      "INV-RM-0002",
+      "INV-RM-0003",
+      "INV-RM-0004",
+      "INV-RM-0005",
+      "INV-RM-0006",
+      "INV-RM-0007",
+      "INV-RM-0008",
+      "INV-RM-0009",
+      "INV-RM-0010",
+      "INV-RM-0011",
+      "INV-RM-0012",
+      "INV-RM-0013",
+      "INV-RM-0014",
+      "INV-RM-0015",
+      "INV-RM-0016",
+      "INV-RM-0017",
+      "INV-RM-0018",
+      "INV-RM-0019",
+      "INV-RM-0020",
+      "INV-RM-0021",
+      "INV-RM-0022",
+      "INV-RM-0023",
+      "MC-2026-318",
+      "MTG-2026-05",
+      "NOTE-2026-0101",
+      "NOTE-2026-0102",
+      "NOTE-2026-291",
+      "PD-2026-084",
+      "PD-2026-09",
+      "QR-2026-0441",
+      "R-2026-209",
+      "SM-4001",
+      "VB-2026-188",
+      "VB-2026-319",
+      "VB-2026-320",
+      "VQ-2026-44"
+    ]
+  },
+  "entities": [],
+  "accounts_by_entity": {},
+  "fiscal_periods": {},
+  "personas": {
+    "aiden.kowalski@gmail.com": {
+      "name": "Aiden Kowalski",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "b9372168b6f0582abc653ea16f86746a"
+    },
+    "alicia.vega@starpm.com": {
+      "name": "Alicia Vega",
+      "title": "Leasing Agent",
+      "is_user": false,
+      "contact_id": "3042968363345687ae624543d3b43ee5"
+    },
+    "angela.carter@gmail.com": {
+      "name": "Angela Carter",
+      "title": "Rental Applicant",
+      "is_user": false,
+      "contact_id": "891cdf63d0cf57e686e70b737af8c880"
+    },
+    "aurora.winona@starpm.com": {
+      "name": "Aurora Winona",
+      "title": "President",
+      "is_user": false,
+      "contact_id": "6c058cd4a5155c37aa8709ce867fdc41"
+    },
+    "barry.sanderson@gmail.com": {
+      "name": "Barry Sanderson",
+      "title": "Code Compliance Inspector",
+      "is_user": false,
+      "contact_id": "7fcb89133ace52fd826516bb817ea9f4"
+    },
+    "brooke.phillips@starpm.com": {
+      "name": "Brooke Phillips",
+      "title": "Apartment Property Supervisor",
+      "is_user": true,
+      "contact_id": "c46d47256fd95ca6aca770c8dddda5eb"
+    },
+    "carlos.mendez@starpm.com": {
+      "name": "Carlos Mendez",
+      "title": "Onsite Property Manager",
+      "is_user": false,
+      "contact_id": "8608e0778a655232982787cef4fac0b2"
+    },
+    "carmen.delgado@sunshinecleaning.com": {
+      "name": "Carmen Delgado",
+      "title": "Operations Coordinator",
+      "is_user": false,
+      "contact_id": "ffe7e602c83f5ad6b426c92ed9a18d21"
+    },
+    "catalina.reyes@gmail.com": {
+      "name": "Catalina Reyes",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "76a55362a72c56dbac6786188afe3641"
+    },
+    "connor.beaumont@gmail.com": {
+      "name": "Connor Beaumont",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "d65ccb7f87a25094b4401198e861e3d6"
+    },
+    "craig.pemberton@gmail.com": {
+      "name": "Craig Pemberton",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "6972ce586e5b52e391da8087572fe6a1"
+    },
+    "darnell.hutchins@gmail.com": {
+      "name": "Darnell Hutchins",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "e048ed3dad6852c39eddd4e3581b23b7"
+    },
+    "wesley.tran@starpm.com": {
+      "name": "Wesley Tran",
+      "title": "Assistant Maintenance Technician",
+      "is_user": false,
+      "contact_id": "ebfa25e657a95621aa13e1c1123eb793"
+    },
+    "darnell.whitfield@gmail.com": {
+      "name": "Darnell Whitfield",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "8839cf6ac1df549eab95f62c542cf3c7"
+    },
+    "dave.thomas@starpm.com": {
+      "name": "Dave Thomas",
+      "title": "Owner",
+      "is_user": false,
+      "contact_id": "ebe7af21ae585b618c8e84ece2d074bd"
+    },
+    "david.shea@gmail.com": {
+      "name": "David Shea",
+      "title": "Property Owner",
+      "is_user": false,
+      "contact_id": "e0dd1ee421e45822ad2026ce3c13937a"
+    },
+    "denise.morales@starpm.com": {
+      "name": "Denise Morales",
+      "title": "Onsite Property Manager",
+      "is_user": false,
+      "contact_id": "efdb85a4c42e5c058dfbf9422bb4ecef"
+    },
+    "derek.hutchinson@gmail.com": {
+      "name": "Derek Hutchinson",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "9eee4a3894985852ac98d35ace1c3c7a"
+    },
+    "diane.flores@lonestarmaintenancesupply.com": {
+      "name": "Diane Flores",
+      "title": "Account Representative",
+      "is_user": false,
+      "contact_id": "e26adc3297e85578a78142d2e8f943c0"
+    },
+    "fatima.al.rashid@gmail.com": {
+      "name": "Fatima Al-Rashid",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "acbf83d4b6135d498f31e94b63c31680"
+    },
+    "gary.hoffman@gmail.com": {
+      "name": "Gary Hoffman",
+      "title": "Owner & Lead Landscaper",
+      "is_user": false,
+      "contact_id": "4b339307bf74587dad5f0368f07f09ab"
+    },
+    "harry.harris@gmail.com": {
+      "name": "Harry Harris",
+      "title": "Property Owner",
+      "is_user": false,
+      "contact_id": "aafaa35a94cf5b8f857445862b45ef95"
+    },
+    "ingrid.solberg@gmail.com": {
+      "name": "Ingrid Solberg",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "a1c32a48cb645825a72bd6e260169193"
+    },
+    "isela.juarez@starpm.com": {
+      "name": "Isela Juarez",
+      "title": "Part-Time Housekeeper",
+      "is_user": false,
+      "contact_id": "eeca8210ccb752b5a314952c49dae31f"
+    },
+    "jaime.salinas@starpm.com": {
+      "name": "Jaime Salinas",
+      "title": "Quality Control Inspector",
+      "is_user": false,
+      "contact_id": "3ebf03fa155253deb123bb334fb1bd03"
+    },
+    "james.bennett@starpm.com": {
+      "name": "James Bennett",
+      "title": "Assistant Maintenance Technician",
+      "is_user": false,
+      "contact_id": "9f49e592505f5fac8e91d72c7c745f26"
+    },
+    "jerome.okafor@gmail.com": {
+      "name": "Jerome Okafor",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "88b267d1c36852ac8e268a5c26b9428a"
+    },
+    "john.castillo@gmail.com": {
+      "name": "John Castillo",
+      "title": "Water Delivery Representative",
+      "is_user": false,
+      "contact_id": "6268dbedf36a5967be2d1304e74bab58"
+    },
+    "john.smith@starpm.com": {
+      "name": "John Smith",
+      "title": "Lead Maintenance Technician",
+      "is_user": false,
+      "contact_id": "b233365df4e65069b52eb84badfb49e4"
+    },
+    "kevin.okafor@starpm.com": {
+      "name": "Kevin Okafor",
+      "title": "Leasing Agent",
+      "is_user": false,
+      "contact_id": "2542a560dabf5b638341cc043fe5336f"
+    },
+    "linda.castillo@gmail.com": {
+      "name": "Linda Castillo",
+      "title": "Property Owner",
+      "is_user": false,
+      "contact_id": "b47044b4ec775b318bac813d5fb1bf5d"
+    },
+    "lindsey.carmichael@gmail.com": {
+      "name": "Lindsey Carmichael",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "c5dc0aa0c3f252d789bcdfa2026bf001"
+    },
+    "lisa.smith@starpm.com": {
+      "name": "Lisa Smith",
+      "title": "Onsite Property Manager",
+      "is_user": false,
+      "contact_id": "6184929190395d3db9251413849efaef"
+    },
+    "marcus.delgado@gmail.com": {
+      "name": "Marcus Delgado",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "60bd0437f2cb58358902ed4a36769cd5"
+    },
+    "elias.navarro@starpm.com": {
+      "name": "Elias Navarro",
+      "title": "Lead Maintenance Technician",
+      "is_user": false,
+      "contact_id": "a245b80cabe554b3aa29bce2ece73429"
+    },
+    "marcus.williams@gmail.com": {
+      "name": "Marcus Williams",
+      "title": "Fire Extinguisher Service Technician",
+      "is_user": false,
+      "contact_id": "ea580e425c4f59978602d8c12a7debc3"
+    },
+    "maria.lopez@starpm.com": {
+      "name": "Maria Lopez",
+      "title": "Weekend Leasing Agent",
+      "is_user": false,
+      "contact_id": "58dcb00f2bce58c98eaf49b4376f79a8"
+    },
+    "monique.thibodeau@gmail.com": {
+      "name": "Monique Thibodeau",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "16926113fe2852c69eaaf6c30549307e"
+    },
+    "necia.perales@apartmentlocatorcentral.com": {
+      "name": "Necia Perales",
+      "title": "Apartment Locator",
+      "is_user": false,
+      "contact_id": "3a0775c0728e55d79c7f1e3aa07df113"
+    },
+    "owen.fitzpatrick@gmail.com": {
+      "name": "Owen Fitzpatrick",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "2622a49ab9d054128ecafcad4da1ae97"
+    },
+    "patricia.lowe@gmail.com": {
+      "name": "Patricia Lowe",
+      "title": "Court Clerk",
+      "is_user": false,
+      "contact_id": "db69cf132e3c575bbaa12d37bb41086f"
+    },
+    "patricia.nguyen@starpm.com": {
+      "name": "Patricia Nguyen",
+      "title": "Onsite Property Manager",
+      "is_user": false,
+      "contact_id": "56ff10d03eb650ec855157d66df6438a"
+    },
+    "pete.donovan@gmail.com": {
+      "name": "Pete Donovan",
+      "title": "Exterior Painter",
+      "is_user": false,
+      "contact_id": "8628aa258df55e62a6d89f64897fce77"
+    },
+    "priya.nambiar@gmail.com": {
+      "name": "Priya Nambiar",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "7e8dc00c6f9751e1aac5c0726c304556"
+    },
+    "rafael.espinoza@gmail.com": {
+      "name": "Rafael Espinoza",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "494ad59c68095ba98ce6e4b6539771fe"
+    },
+    "randy.jones@starpm.com": {
+      "name": "Randy Jones",
+      "title": "Appliance & Bulk Item Retrieval Specialist",
+      "is_user": false,
+      "contact_id": "a9a8d5c1022d56c48e01894b309f9791"
+    },
+    "robert.finley@gmail.com": {
+      "name": "Robert Finley",
+      "title": "Property Owner",
+      "is_user": false,
+      "contact_id": "677f79f79e1f5ebcb8d954e2efbda6f3"
+    },
+    "rosa.cantu@starpm.com": {
+      "name": "Rosa Cantu",
+      "title": "Part-Time Housekeeper",
+      "is_user": false,
+      "contact_id": "56adb6cb5b1a5d09b4d8d2bf445703c2"
+    },
+    "ruben.barr@gmail.com": {
+      "name": "Ruben Barr",
+      "title": "Pest Control Technician",
+      "is_user": false,
+      "contact_id": "a5a8417945975c028184bb2deaab3593"
+    },
+    "sandra.allen@starpm.com": {
+      "name": "Sandra Allen",
+      "title": "Leasing Agent",
+      "is_user": false,
+      "contact_id": "ae1dbd31ad1450a3b781c8c96c0ecf43"
+    },
+    "simone.okafor@gmail.com": {
+      "name": "Simone Okafor",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "66f699ee565f579aa9846b72bd0e4fd8"
+    },
+    "svetlana.borisova@gmail.com": {
+      "name": "Svetlana Borisova",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "a2e63f03676a5c989673d3dcc77511b7"
+    },
+    "tanya.mitchell@gmail.com": {
+      "name": "Tanya Mitchell",
+      "title": "Tenant",
+      "is_user": false,
+      "contact_id": "c60130e7272b5c47b1c18936e3b95899"
+    },
+    "tasha.wentworth@gmail.com": {
+      "name": "Tasha Wentworth",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "97ee241fc16a5c4cacd79dfdb62e018b"
+    },
+    "teresa.wood@starpm.com": {
+      "name": "Teresa Wood",
+      "title": "Executive Secretary",
+      "is_user": false,
+      "contact_id": "9d86dd285dee559f9a48bc7418c0139f"
+    },
+    "tobias.wren@gmail.com": {
+      "name": "Tobias Wren",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "bf7e20a1ec2f5e48af60ee1d30ffd491"
+    },
+    "tommy.reyes@gmail.com": {
+      "name": "Tommy Reyes",
+      "title": "Tenant",
+      "is_user": false,
+      "contact_id": "a4c863c4d92d53a59c310bb29abd6d0c"
+    },
+    "tony.reyes@starpm.com": {
+      "name": "Tony Reyes",
+      "title": "Lead Maintenance Technician",
+      "is_user": false,
+      "contact_id": "16e3b95bb729524981cef4a85e2d5e4a"
+    },
+    "victor.rios@apluscarpetcleaningandrepairs.com": {
+      "name": "Victor Rios",
+      "title": "Lead Technician",
+      "is_user": false,
+      "contact_id": "7ca5d99f94f153a7a9bd0b70a4237a99"
+    },
+    "yolanda.ferreira@gmail.com": {
+      "name": "Yolanda Ferreira",
+      "title": "referral partner / apartment locator",
+      "is_user": false,
+      "contact_id": "e4a69ea13bf65210ba1d9f61cfab38f0"
+    },
+    "yuki.tanaka@gmail.com": {
+      "name": "Yuki Tanaka",
+      "title": "prospective tenant / rental applicant",
+      "is_user": false,
+      "contact_id": "1c36795320535ccc9988fcf3d1fe6a48"
+    }
+  },
+  "aliases": {
+    "first_name": {
+      "aiden": [
+        "aiden.kowalski@gmail.com"
+      ],
+      "alicia": [
+        "alicia.vega@starpm.com"
+      ],
+      "angela": [
+        "angela.carter@gmail.com"
+      ],
+      "aurora": [
+        "aurora.winona@starpm.com"
+      ],
+      "barry": [
+        "barry.sanderson@gmail.com"
+      ],
+      "brooke": [
+        "brooke.phillips@starpm.com"
+      ],
+      "carlos": [
+        "carlos.mendez@starpm.com"
+      ],
+      "carmen": [
+        "carmen.delgado@sunshinecleaning.com"
+      ],
+      "catalina": [
+        "catalina.reyes@gmail.com"
+      ],
+      "connor": [
+        "connor.beaumont@gmail.com"
+      ],
+      "craig": [
+        "craig.pemberton@gmail.com"
+      ],
+      "darnell": [
+        "darnell.hutchins@gmail.com",
+        "darnell.whitfield@gmail.com"
+      ],
+      "wesley": [
+        "wesley.tran@starpm.com"
+      ],
+      "dave": [
+        "dave.thomas@starpm.com"
+      ],
+      "david": [
+        "david.shea@gmail.com"
+      ],
+      "denise": [
+        "denise.morales@starpm.com"
+      ],
+      "derek": [
+        "derek.hutchinson@gmail.com"
+      ],
+      "diane": [
+        "diane.flores@lonestarmaintenancesupply.com"
+      ],
+      "fatima": [
+        "fatima.al.rashid@gmail.com"
+      ],
+      "gary": [
+        "gary.hoffman@gmail.com"
+      ],
+      "harry": [
+        "harry.harris@gmail.com"
+      ],
+      "ingrid": [
+        "ingrid.solberg@gmail.com"
+      ],
+      "isela": [
+        "isela.juarez@starpm.com"
+      ],
+      "jaime": [
+        "jaime.salinas@starpm.com"
+      ],
+      "james": [
+        "james.bennett@starpm.com"
+      ],
+      "jerome": [
+        "jerome.okafor@gmail.com"
+      ],
+      "john": [
+        "john.castillo@gmail.com",
+        "john.smith@starpm.com"
+      ],
+      "kevin": [
+        "kevin.okafor@starpm.com"
+      ],
+      "linda": [
+        "linda.castillo@gmail.com"
+      ],
+      "lindsey": [
+        "lindsey.carmichael@gmail.com"
+      ],
+      "lisa": [
+        "lisa.smith@starpm.com"
+      ],
+      "marcus": [
+        "marcus.delgado@gmail.com",
+        "marcus.williams@gmail.com"
+      ],
+      "elias": [
+        "elias.navarro@starpm.com"
+      ],
+      "maria": [
+        "maria.lopez@starpm.com"
+      ],
+      "monique": [
+        "monique.thibodeau@gmail.com"
+      ],
+      "necia": [
+        "necia.perales@apartmentlocatorcentral.com"
+      ],
+      "owen": [
+        "owen.fitzpatrick@gmail.com"
+      ],
+      "patricia": [
+        "patricia.lowe@gmail.com",
+        "patricia.nguyen@starpm.com"
+      ],
+      "pete": [
+        "pete.donovan@gmail.com"
+      ],
+      "priya": [
+        "priya.nambiar@gmail.com"
+      ],
+      "rafael": [
+        "rafael.espinoza@gmail.com"
+      ],
+      "randy": [
+        "randy.jones@starpm.com"
+      ],
+      "robert": [
+        "robert.finley@gmail.com"
+      ],
+      "rosa": [
+        "rosa.cantu@starpm.com"
+      ],
+      "ruben": [
+        "ruben.barr@gmail.com"
+      ],
+      "sandra": [
+        "sandra.allen@starpm.com"
+      ],
+      "simone": [
+        "simone.okafor@gmail.com"
+      ],
+      "svetlana": [
+        "svetlana.borisova@gmail.com"
+      ],
+      "tanya": [
+        "tanya.mitchell@gmail.com"
+      ],
+      "tasha": [
+        "tasha.wentworth@gmail.com"
+      ],
+      "teresa": [
+        "teresa.wood@starpm.com"
+      ],
+      "tobias": [
+        "tobias.wren@gmail.com"
+      ],
+      "tommy": [
+        "tommy.reyes@gmail.com"
+      ],
+      "tony": [
+        "tony.reyes@starpm.com"
+      ],
+      "victor": [
+        "victor.rios@apluscarpetcleaningandrepairs.com"
+      ],
+      "yolanda": [
+        "yolanda.ferreira@gmail.com"
+      ],
+      "yuki": [
+        "yuki.tanaka@gmail.com"
+      ]
+    },
+    "last_name": {
+      "kowalski": [
+        "aiden.kowalski@gmail.com"
+      ],
+      "vega": [
+        "alicia.vega@starpm.com"
+      ],
+      "carter": [
+        "angela.carter@gmail.com"
+      ],
+      "winona": [
+        "aurora.winona@starpm.com"
+      ],
+      "sanderson": [
+        "barry.sanderson@gmail.com"
+      ],
+      "phillips": [
+        "brooke.phillips@starpm.com"
+      ],
+      "mendez": [
+        "carlos.mendez@starpm.com"
+      ],
+      "delgado": [
+        "carmen.delgado@sunshinecleaning.com",
+        "marcus.delgado@gmail.com"
+      ],
+      "reyes": [
+        "catalina.reyes@gmail.com",
+        "tommy.reyes@gmail.com",
+        "tony.reyes@starpm.com"
+      ],
+      "beaumont": [
+        "connor.beaumont@gmail.com"
+      ],
+      "pemberton": [
+        "craig.pemberton@gmail.com"
+      ],
+      "hutchins": [
+        "darnell.hutchins@gmail.com"
+      ],
+      "tran": [
+        "wesley.tran@starpm.com"
+      ],
+      "whitfield": [
+        "darnell.whitfield@gmail.com"
+      ],
+      "thomas": [
+        "dave.thomas@starpm.com"
+      ],
+      "shea": [
+        "david.shea@gmail.com"
+      ],
+      "morales": [
+        "denise.morales@starpm.com"
+      ],
+      "hutchinson": [
+        "derek.hutchinson@gmail.com"
+      ],
+      "flores": [
+        "diane.flores@lonestarmaintenancesupply.com"
+      ],
+      "al-rashid": [
+        "fatima.al.rashid@gmail.com"
+      ],
+      "hoffman": [
+        "gary.hoffman@gmail.com"
+      ],
+      "harris": [
+        "harry.harris@gmail.com"
+      ],
+      "solberg": [
+        "ingrid.solberg@gmail.com"
+      ],
+      "juarez": [
+        "isela.juarez@starpm.com"
+      ],
+      "salinas": [
+        "jaime.salinas@starpm.com"
+      ],
+      "bennett": [
+        "james.bennett@starpm.com"
+      ],
+      "okafor": [
+        "jerome.okafor@gmail.com",
+        "kevin.okafor@starpm.com",
+        "simone.okafor@gmail.com"
+      ],
+      "castillo": [
+        "john.castillo@gmail.com",
+        "linda.castillo@gmail.com"
+      ],
+      "smith": [
+        "john.smith@starpm.com",
+        "lisa.smith@starpm.com"
+      ],
+      "carmichael": [
+        "lindsey.carmichael@gmail.com"
+      ],
+      "navarro": [
+        "elias.navarro@starpm.com"
+      ],
+      "williams": [
+        "marcus.williams@gmail.com"
+      ],
+      "lopez": [
+        "maria.lopez@starpm.com"
+      ],
+      "thibodeau": [
+        "monique.thibodeau@gmail.com"
+      ],
+      "perales": [
+        "necia.perales@apartmentlocatorcentral.com"
+      ],
+      "fitzpatrick": [
+        "owen.fitzpatrick@gmail.com"
+      ],
+      "lowe": [
+        "patricia.lowe@gmail.com"
+      ],
+      "nguyen": [
+        "patricia.nguyen@starpm.com"
+      ],
+      "donovan": [
+        "pete.donovan@gmail.com"
+      ],
+      "nambiar": [
+        "priya.nambiar@gmail.com"
+      ],
+      "espinoza": [
+        "rafael.espinoza@gmail.com"
+      ],
+      "jones": [
+        "randy.jones@starpm.com"
+      ],
+      "finley": [
+        "robert.finley@gmail.com"
+      ],
+      "cantu": [
+        "rosa.cantu@starpm.com"
+      ],
+      "barr": [
+        "ruben.barr@gmail.com"
+      ],
+      "allen": [
+        "sandra.allen@starpm.com"
+      ],
+      "borisova": [
+        "svetlana.borisova@gmail.com"
+      ],
+      "mitchell": [
+        "tanya.mitchell@gmail.com"
+      ],
+      "wentworth": [
+        "tasha.wentworth@gmail.com"
+      ],
+      "wood": [
+        "teresa.wood@starpm.com"
+      ],
+      "wren": [
+        "tobias.wren@gmail.com"
+      ],
+      "rios": [
+        "victor.rios@apluscarpetcleaningandrepairs.com"
+      ],
+      "ferreira": [
+        "yolanda.ferreira@gmail.com"
+      ],
+      "tanaka": [
+        "yuki.tanaka@gmail.com"
+      ]
+    },
+    "full_name": {
+      "aiden kowalski": [
+        "aiden.kowalski@gmail.com"
+      ],
+      "alicia vega": [
+        "alicia.vega@starpm.com"
+      ],
+      "angela carter": [
+        "angela.carter@gmail.com"
+      ],
+      "aurora winona": [
+        "aurora.winona@starpm.com"
+      ],
+      "barry sanderson": [
+        "barry.sanderson@gmail.com"
+      ],
+      "brooke phillips": [
+        "brooke.phillips@starpm.com"
+      ],
+      "carlos mendez": [
+        "carlos.mendez@starpm.com"
+      ],
+      "carmen delgado": [
+        "carmen.delgado@sunshinecleaning.com"
+      ],
+      "catalina reyes": [
+        "catalina.reyes@gmail.com"
+      ],
+      "connor beaumont": [
+        "connor.beaumont@gmail.com"
+      ],
+      "craig pemberton": [
+        "craig.pemberton@gmail.com"
+      ],
+      "darnell hutchins": [
+        "darnell.hutchins@gmail.com"
+      ],
+      "wesley tran": [
+        "wesley.tran@starpm.com"
+      ],
+      "darnell whitfield": [
+        "darnell.whitfield@gmail.com"
+      ],
+      "dave thomas": [
+        "dave.thomas@starpm.com"
+      ],
+      "david shea": [
+        "david.shea@gmail.com"
+      ],
+      "denise morales": [
+        "denise.morales@starpm.com"
+      ],
+      "derek hutchinson": [
+        "derek.hutchinson@gmail.com"
+      ],
+      "diane flores": [
+        "diane.flores@lonestarmaintenancesupply.com"
+      ],
+      "fatima al-rashid": [
+        "fatima.al.rashid@gmail.com"
+      ],
+      "gary hoffman": [
+        "gary.hoffman@gmail.com"
+      ],
+      "harry harris": [
+        "harry.harris@gmail.com"
+      ],
+      "ingrid solberg": [
+        "ingrid.solberg@gmail.com"
+      ],
+      "isela juarez": [
+        "isela.juarez@starpm.com"
+      ],
+      "jaime salinas": [
+        "jaime.salinas@starpm.com"
+      ],
+      "james bennett": [
+        "james.bennett@starpm.com"
+      ],
+      "jerome okafor": [
+        "jerome.okafor@gmail.com"
+      ],
+      "john castillo": [
+        "john.castillo@gmail.com"
+      ],
+      "john smith": [
+        "john.smith@starpm.com"
+      ],
+      "kevin okafor": [
+        "kevin.okafor@starpm.com"
+      ],
+      "linda castillo": [
+        "linda.castillo@gmail.com"
+      ],
+      "lindsey carmichael": [
+        "lindsey.carmichael@gmail.com"
+      ],
+      "lisa smith": [
+        "lisa.smith@starpm.com"
+      ],
+      "marcus delgado": [
+        "marcus.delgado@gmail.com"
+      ],
+      "elias navarro": [
+        "elias.navarro@starpm.com"
+      ],
+      "marcus williams": [
+        "marcus.williams@gmail.com"
+      ],
+      "maria lopez": [
+        "maria.lopez@starpm.com"
+      ],
+      "monique thibodeau": [
+        "monique.thibodeau@gmail.com"
+      ],
+      "necia perales": [
+        "necia.perales@apartmentlocatorcentral.com"
+      ],
+      "owen fitzpatrick": [
+        "owen.fitzpatrick@gmail.com"
+      ],
+      "patricia lowe": [
+        "patricia.lowe@gmail.com"
+      ],
+      "patricia nguyen": [
+        "patricia.nguyen@starpm.com"
+      ],
+      "pete donovan": [
+        "pete.donovan@gmail.com"
+      ],
+      "priya nambiar": [
+        "priya.nambiar@gmail.com"
+      ],
+      "rafael espinoza": [
+        "rafael.espinoza@gmail.com"
+      ],
+      "randy jones": [
+        "randy.jones@starpm.com"
+      ],
+      "robert finley": [
+        "robert.finley@gmail.com"
+      ],
+      "rosa cantu": [
+        "rosa.cantu@starpm.com"
+      ],
+      "ruben barr": [
+        "ruben.barr@gmail.com"
+      ],
+      "sandra allen": [
+        "sandra.allen@starpm.com"
+      ],
+      "simone okafor": [
+        "simone.okafor@gmail.com"
+      ],
+      "svetlana borisova": [
+        "svetlana.borisova@gmail.com"
+      ],
+      "tanya mitchell": [
+        "tanya.mitchell@gmail.com"
+      ],
+      "tasha wentworth": [
+        "tasha.wentworth@gmail.com"
+      ],
+      "teresa wood": [
+        "teresa.wood@starpm.com"
+      ],
+      "tobias wren": [
+        "tobias.wren@gmail.com"
+      ],
+      "tommy reyes": [
+        "tommy.reyes@gmail.com"
+      ],
+      "tony reyes": [
+        "tony.reyes@starpm.com"
+      ],
+      "victor rios": [
+        "victor.rios@apluscarpetcleaningandrepairs.com"
+      ],
+      "yolanda ferreira": [
+        "yolanda.ferreira@gmail.com"
+      ],
+      "yuki tanaka": [
+        "yuki.tanaka@gmail.com"
+      ]
+    }
+  },
+  "empty_in_base_tables_populated_in_task": [
+    "gmail.gmail_threads",
+    "linear.linear_comments",
+    "linear.linear_issues",
+    "linear.linear_projects",
+    "linear.linear_team_memberships",
+    "linear.linear_teams",
+    "linear.linear_users"
+  ],
+  "lifecycle": {
+    "today": null,
+    "closed_periods": [],
+    "open_periods": [],
+    "fiscal_periods_count": {
+      "closed": 0,
+      "open": 0,
+      "total": 0
+    }
+  }
+}

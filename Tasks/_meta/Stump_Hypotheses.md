@@ -632,3 +632,42 @@ as the backbone; both are confirmed across three gradings and both grade on crea
 blindness as a strong Gemini-selective stacker. Do not select the retraction beat when the prompt must name the
 verdict. Do not build a lever whose only carrier is the agent's characterisation of a pre-existing record's
 claim, because that is where all the grading noise lives.
+
+
+## Entry — Tasks/45_6a6525d5201ac850ceb19a36 — 2026-07-27 (StarPM V4 dual-model — TOO EASY, routed to REDO)
+
+**Predictions (from Hardness_Plan.md):**
+1. [HIGH] SYMMETRIC — agent latches on "done" (maint ticket reca424 + prior selReady recc8534) and signs off — Mechanism: L1 latching + L2 structured-DB skip
+2. [HIGH] OPUS-selective — agent picks the wrong make-ready row (later-created selReady recc8534) via a latest-record heuristic — Mechanism: L10 supersession
+3. [HIGH] GEMINI-selective — agent describes 4C's state but omits the explicit NEGATIVE (do-not-market) directive — Mechanism: L31 negative omission
+4. [MED] SYMMETRIC — agent asserts "only remaining item is X" without reconciling the 7/15 future QC event + past-due 6/30 — Mechanism: L9 future-event gotcha
+
+**Actuals (from S4_verdict.md):**
+- Trajectory gates: T3 PASS (0/12 errored). **T2 FAIL** — Opus pass@1 = 100% (6/6 all-pass), Gemini 50% (3/6), overall 75%. Machine verdict REBUILD_CANDIDATE_DIFFICULTY.
+- Density: Opus 37.0 THIN (<40 design, >15 floor); Gemini 43.3 PASS.
+- AF rubrics: **0**. No all-failing criteria. Opus: 0 fails across all 20x6 cells. Gemini: 8 distinct criteria fail, all 1-2/6, none recurring.
+- Only residual signal (Gemini-only): skips the Airtable write on recbd087 (crit 1+3, Runs 1-2); drops a $ figure / In-Progress+past-due framing from issue or final response (crit 5-7,17-19, Runs 2,4).
+
+**Hit rate:** 0/4 — every engineered lever was NEUTRALIZED by prompt over-specification.
+
+**Misses (predicted, did not fail):** all four. The prompt named every discriminator: it defined the billed-but-unpaid trap outright ("finished with the bill still sitting unpaid, does not count as closed to me" -> L2 given away), pinned the live turn by its mid-June/6-30 content (-> L10 disambiguation removed), pre-scaffolded the hold/negative path ("say so plainly and hold it" -> L31 given away), and named the 7/15 re-inspection as a gating factor (-> L9 given away).
+
+**Surprises (failed, did not predict):** none. There was no emergent stump; the task simply had no withheld inference for either model.
+
+**Lesson for the lever catalog:** a well-booby-trapped universe contributes ZERO difficulty if the prompt spends the traps by naming them. Difficulty is a property of the INFERENCE the prompt withholds, not of the universe's trap density. This is the "escape-valve clause neutralizes the lever" pattern (Task 25) at maximum: the entire prompt was one escape valve. For StarPM QC-hold scenarios, the prompt must ask for the QC determination WITHOUT defining billed-but-unpaid, WITHOUT enumerating the scopes, WITHOUT pinning the turn by its dates, and WITHOUT naming the re-inspection. Verified atoms preserved for REDO: live turn recbd087a4abd605b (selProg, move-out 6/15) vs decoy selReady recc8534 (created LATER, 5/29); unpaid QB bills 2026-SC-4C $387 + PD-2026-09 $1,340; future QC event 2026-07-15; past-due target 6/30.
+
+**Task verdict:** REDO (difficulty FAIL on both models, Opus 100%). Rubric set graded clean (0 Bucket-1, 0 Bucket-2) — rebuild the PROMPT, not the rubrics.
+## Entry — Tasks/46_6a62ccb6ce2323b4b9e0c8d8 — 2026-07-28 (StarPM V4 dual-model — PREDICTED)
+
+**Predictions (from Hardness_Plan.md), each with a pre-registered alternative attribution so S4 calibration is honest rather than retrofitted:**
+
+1. **[HIGH] SYMMETRIC** — the agent reports Finley's gross $10,980 receivable, or silently nets it to $7,325, without stating that no credit memo carries a `LinkedTxn` and therefore nothing is offset. Mechanism: L11 net-vs-gross plus L9, where `RemainingCredit: 0` reads as "already applied" and is a false friend *after* successful retrieval. *Alternative attribution:* if this fails on Gemini only, the cause is QuickBooks query breadth (credit memos never retrieved), not the netting inference — check whether the invoice search was the only call.
+2. **[HIGH] OPUS-SELECTIVE (Opus passes, Gemini fails)** — the agent repeats Lisa's own May claim (94% occupancy, one unit in make-ready, three tickets closed including a water heater leak) rather than reconciling it. Mechanism: L1 plus L5. The claim lives only in a Slack thread reply, and the water heater has zero supporting rows at Mesa Vista — every water-heater record resolves to 412 Mesquite, Pinecrest 12, Dunmore Unit 3 or 2214 Oleander. *Alternative attribution:* if Opus also fails, the cause is thread-reply retrieval, not the disposition inference — check whether the thread read was called on `831d2b6760205432a20487e2664a607e` at all.
+3. **[MED-HIGH] SYMMETRIC** — the double-booked Harris review is reported as a clean reschedule. Both events are confirmed and neither is cancelled; the "(Rescheduled)" instance excludes Lisa and carries two declines, so it never took. Mechanism: L10, the 0/12 duplicate-title-different-state shape transposed onto Calendar. *Alternative attribution:* if it fails because no event list was ever pulled, that is L2, not L10.
+4. **[MED] GEMINI-SELECTIVE** — the OPS-10 claim that "all four owner meetings are confirmed on the calendar" is accepted, though David Shea has zero calendar presence across 565 events. Mechanism: L2 plus L10, requiring a negative-existence check against a store the prompt never names. *Alternative attribution:* if both models fail, treat as an L2 breadth failure rather than a differentiator.
+
+**Explicitly not predicted, and why.** The L31 negative-directive omission is deliberately absent from this set. It passed 12/12 across three Task 44 gradings once the prompt named the verdict, and the revised rule is that it fires only when the negative is implied by the situation. All four predictions above are implied negatives that the prompt is forbidden to name.
+
+**The single largest risk to this hypothesis set is L36, not lever choice.** Task 45 selected defensible levers on this same universe and returned Opus pass@1 = 100% because its prompt named every discriminator. The plan therefore carries an explicit withholding table naming, for each lever, the sentence that would kill it. If this task comes back too easy, check the prompt against that table *before* re-examining the levers.
+
+**Actuals: pending S4.**

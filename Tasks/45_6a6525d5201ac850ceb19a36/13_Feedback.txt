@@ -1,0 +1,19 @@
+Overall: FAIL on difficulty (worst dimension: overall pass@1 = 0.75; Opus 4.8 pass@1 = 1.00).
+
+What this means
+The task ran 6 trajectories per model on the platform. Opus 4.8, the model under test, passed
+all 20 rubrics on all 6 runs (pass@1 = 1.00). Gemini passed 3 of 6 (pass@1 = 0.50). Overall
+pass@1 was 0.75, well above the 40% ceiling. The scenario did not stump Opus 4.8. Its
+discriminator was a single structured-database read plus a recency-versus-meaning
+disambiguation, and current Opus reads the field and disambiguates by meaning rather than by the
+latest-record heuristic the design baited, so the intended Opus-selective trap did not fire.
+Density was not the blocker (average 40.2 tool calls, above the floor), though Opus averaged
+37.0, under the 40 per-model design target. The task has been rebuilt from scratch with a lever
+combination aimed at a computed, multi-step discriminator that survives careful reading.
+
+What was retained
+- The per-task universe (3_UniverseDataForThisTask.json) is unchanged.
+- The persona (Jaime Salinas, Quality Control Inspector) and business function (Quality Control
+  and Field Services) assignment are unchanged.
+- The originals (5, 6, 7) and the failing trajectory evidence are archived under
+  _aux/Candidate_Originals/ for the record.

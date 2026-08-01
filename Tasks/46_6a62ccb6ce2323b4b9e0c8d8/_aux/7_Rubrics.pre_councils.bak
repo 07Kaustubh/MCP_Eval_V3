@@ -1,0 +1,188 @@
+[
+    {
+        "title": "The Agent updates the Sunset Ridge 104B make-ready record that still reads Scheduled to the In Progress turn status.",
+        "category": "outcome",
+        "justification": "The prompt says 'Where the unit and turn records do not line up with what you actually find on the ground, put those records right'. rec98bdfeec73545e is recorded selSched with notes saying the vendor walk-through is only set for July 14, while rec7d202aed68c95c on the same unit records that walk-through completed, the repaint started and the carpet install booked. The later row governs, so the Scheduled row is out of step.",
+        "evidence": "Look for an Airtable write on base appPropertyOps, table tblMakeReady, targeting the Sunset Ridge 104B record rec98bdfeec73545e with fldTurnStatus set to selProg (In Progress). Accept the option id selProg or the label In Progress. FAIL if the Scheduled 104B record is left untouched, and FAIL if it is advanced to selReady, because the sibling row shows the carpet install still pending against a later target date."
+    },
+    {
+        "title": "The Agent updates the Sunset Ridge 309C make-ready record whose notes leave the deep-clean crew availability unanswered to the In Progress turn status.",
+        "category": "outcome",
+        "justification": "The prompt asks for records that do not line up with the ground to be put right. rec987aae7d522057 is recorded selSched and its notes pose an open question about whether the deep-clean crew is available, which recf50eb955a10651 and rec2471fac3f9ae51 both answer on the same unit. Two 309C rows read Scheduled, so the open deep-clean question is what separates the graded row from the other one.",
+        "evidence": "Look for an Airtable write on base appPropertyOps, table tblMakeReady, targeting the 309C record rec987aae7d522057 with fldTurnStatus set to selProg (In Progress). Accept the option id selProg or the label In Progress. FAIL if that record is left at selSched, and FAIL if the agent instead advances the other Sunset Ridge 309C Scheduled record, the one still waiting on a utility transfer confirmation that no record in the universe resolves."
+    },
+    {
+        "title": "The Agent updates the Ridgeview roof section make-ready record to the In Progress turn status.",
+        "category": "outcome",
+        "justification": "The prompt asks for turn records that do not match the ground to be corrected. rec8b679d92f30753 still reads selSched with notes saying the work is to be scheduled, while the repair event on 2026-06-08 has already passed and invoice 2026-494 for the same $8,400.00 was issued on 2026-05-01.",
+        "evidence": "Look for an Airtable write on base appPropertyOps, table tblMakeReady, targeting the sole Ridgeview record rec8b679d92f30753 with fldTurnStatus set to selProg (In Progress). Accept the option id selProg or the label In Progress. FAIL if the record is left at selSched, and FAIL if it is set to selReady, because a close-out walk-through for the same roof repair is still booked on a future date."
+    },
+    {
+        "title": "The Agent cancels or retitles the duplicate Harry Harris Mid-Year Portfolio Review held on June 3, 2026 so that it no longer stands as a second live review alongside the June 2, 2026 meeting.",
+        "category": "outcome",
+        "justification": "The prompt says to do the same for their review meetings if either of those did not end up settled. Two Harry Harris Mid-Year Portfolio Review events are both confirmed and neither is cancelled: base event 1pon50ds1aevem63td6f7emdn3 on 2026-06-02 and base event qqbwq3s2h7wh5udoek2940mffk (Rescheduled) on 2026-06-03, where two of the invitees declined.",
+        "evidence": "Look for a calendar write that cancels, deletes or renames the Rescheduled instance, base id qqbwq3s2h7wh5udoek2940mffk, addressed through any per-calendar row that carries it, for example qqbwq3s2h7wh5udoek2940mffk-b6a1e41c on teresa.wood@starpm.com or qqbwq3s2h7wh5udoek2940mffk-0f82233a on brooke.phillips@starpm.com. Lisa Smith holds no row on this event, so an RSVP or response action is not available to her and must not be required. FAIL if both Harris reviews are left standing as confirmed, and FAIL if the agent acts only on the June 2, 2026 original and leaves the duplicate untouched."
+    },
+    {
+        "title": "The Agent reschedules the Robert Finley Mid-Year Portfolio Review away from its May 19, 2026 slot or creates a replacement Finley review event.",
+        "category": "outcome",
+        "justification": "The prompt's condition on review meetings fires on each owner independently. The Robert Finley Mid-Year Portfolio Review, base id 8mwlxrq5w5oodwdpmvo83e00f2, sat on 2026-05-19 with both Lisa Smith and Aurora Winona declined and Robert Finley not an attendee, and a sweep of 2026-06-01 through 2026-06-09 returns no Finley event at all, so the meeting the OPS-10 comment describes never existed.",
+        "evidence": "Look for a calendar write that either moves a per-calendar row on base id 8mwlxrq5w5oodwdpmvo83e00f2 to a future date, or creates a new Finley review event on a future date. Accept either route. FAIL if the agent only responds to or accepts the existing May 19, 2026 event, since a response cannot settle a meeting six weeks in the past, and FAIL if the agent acts on the May Owner Report Review for Finley Properties, which is a different deliverable."
+    },
+    {
+        "title": "The Agent creates an email draft addressed to brooke.phillips@starpm.com covering the mid-year review hand-off for Harry Harris and Robert Finley.",
+        "category": "outcome",
+        "justification": "The prompt says 'Put an email together for Brooke covering both owners with the specifics in it'. Contacts resolves exactly one Brooke Phillips, contact_id c46d47256fd95ca6aca770c8dddda5eb at brooke.phillips@starpm.com, so the recipient is unambiguous. Gmail in this universe is draft only and carries no send tool, so the draft itself is the deliverable.",
+        "evidence": "Look for a draft-creation tool call whose to field contains brooke.phillips@starpm.com and whose subject relates to the mid-year owner review hand-off for the two owners (or similar phrasing from the agent). Confirm the tool response indicates success. FAIL if the draft is addressed to an owner rather than to Brooke Phillips, and FAIL if no draft is created at all."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that none of the make-ready records on Harry Harris's Sunset Ridge units has reached a Ready turn status.",
+        "category": "outcome",
+        "justification": "The prompt asks the email to carry the specifics on where the turns have got to for both owners. Harry Harris's Sunset Ridge cluster holds 7 make-ready rows across 3 unit strings and zero of them are in selReady, which is the operational position that distinguishes him from the other owner.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a statement that the Sunset Ridge turns are all still Scheduled or In Progress, or equivalently that none has reached Ready. FAIL if the draft says any Harris unit is ready for leasing, and FAIL if the draft reports no make-ready position for Harris at all."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that Harry Harris carries $0.00 of open receivable.",
+        "category": "outcome",
+        "justification": "The prompt asks for anything on the money side either owner is likely to raise. All three Harry Harris invoices, 317923399822, 113714702211 and 879979204592, carry a Balance of 0.00 and each is matched by a payment of the same amount, so his open receivable is nil. The two owners are behind for different reasons and reporting them as one position loses that.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a statement that Harry Harris has no open or past-due receivable. Accept $0.00, zero, nil, or an explicit statement that all his invoices are paid. FAIL if the draft attributes a past-due balance to Harry Harris, and FAIL if it reports a single combined balance across both owners without separating his position."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that Harry Harris holds $1,975.00 of credit memos that are not applied against anything.",
+        "category": "outcome",
+        "justification": "The prompt asks for the money position on each owner. Harris carries three credit memos totalling $1,975.00 (390637322875 at $195.00, 120329707702 at $1,250.00, 262820673328 at $530.00), each with Balance equal to TotalAmt and no LinkedTxn, so none of them is applied. The RemainingCredit field reads 0 on all of them and points the opposite way.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for the $1,975.00 credit memo total for Harry Harris together with a statement that the credits are unapplied. Accept approximately $1,975.00 or a breakdown summing to it. FAIL if the draft treats the credits as already consumed on the strength of RemainingCredit being 0, and FAIL if it nets the credits against a Harris balance that does not exist."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that Robert Finley is past due $10,980.00 across invoices 2026-494, 2026-303 and 4421.",
+        "category": "outcome",
+        "justification": "The prompt asks for the money side each owner is likely to raise. Finley carries three open invoices, all past due against universe today 2026-07-01: 2026-494 at $8,400.00, 2026-303 at $2,190.00 and 4421 at $390.00, giving a gross receivable of $10,980.00.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for the $10,980.00 past-due total for Robert Finley. Accept approximately $10,980.00 or the three invoice amounts presented so they sum to it. FAIL if the figure reported is $7,325.00, which is the gross netted against his credit memos, and FAIL if invoice 445653930748 at $1,622.00 is added to his balance, since that record is billed to Linda Castillo."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that Robert Finley's $3,655.00 of credit memos are unapplied and therefore do not reduce what he owes.",
+        "category": "outcome",
+        "justification": "The prompt asks for the money position, and the credit memos are the trap in it. Finley's three memos (920762830750 at $2,755.00, 203129812397 at $490.00, 152560067925 at $410.00) each carry Balance equal to TotalAmt and no LinkedTxn, so nothing is offset. All 117 credit memos in this universe share that shape while showing RemainingCredit 0, which reads as already consumed.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for the $3,655.00 credit memo total together with an explicit statement that the credits are not applied and do not offset the past-due balance. FAIL if the draft subtracts the credits from the receivable, and FAIL if it describes the credits as already used or already consumed."
+    },
+    {
+        "title": "The Agent states in the draft to Brooke Phillips that maintenance ticket MT-2026-047, the roof damage on the Finley portfolio, is still open.",
+        "category": "outcome",
+        "justification": "The prompt asks what maintenance is still outstanding for each owner. recb4aeaed326f156 carries ticket number MT-2026-047 at selHigh priority with an empty completion date, describing missing shingles and interior ceiling water staining that needs a licensed roofing contractor. It is the only open repair ticket in either owner's scope.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for MT-2026-047 or an unambiguous description of the open Finley roof damage ticket. FAIL if the draft reports no outstanding maintenance for Finley, and FAIL if it presents the Tanya Mitchell delinquency records MT-2026-0184 or DLQ-2026-0601 as Harris or Finley maintenance, since the unit behind those is contested and sits outside this task's scope."
+    },
+    {
+        "title": "The Agent reports in the draft to Brooke Phillips that no record supports the 94% occupancy or the 97% collections figure given for these portfolios in the spring.",
+        "category": "outcome",
+        "justification": "The prompt says a rough read was given to Brooke earlier in the spring and that a fair bit of this should just be confirming it and filling in the gaps, and it asks for the real position on occupancy. The 94% figure traces only to Lisa Smith's own Slack reply and to comment_5a6d779a715f587392dd00b9c8dbbd4a repeating it back, and no record anywhere carries a collections percentage for either portfolio.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a statement that the spring occupancy and collections figures cannot be confirmed from any record. FAIL if the draft repeats 94% or 97% as established fact, and FAIL if the draft asserts a different occupancy percentage of its own, since no occupancy figure for either portfolio exists anywhere in the data."
+    },
+    {
+        "title": "The Agent corrects the spring make-ready count in the draft to Brooke Phillips by stating that more than one Mesa Vista unit is in a turn.",
+        "category": "outcome",
+        "justification": "The spring read told Brooke there was one unit still in make-ready on the Mesa Vista portfolio. tblMakeReady holds 8 rows across 4 distinct Mesa Vista unit strings (107A, 207A, 310C and 4C), so the count in the spring read was wrong.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a Mesa Vista make-ready count greater than one. Any count from two to four is correct provided the draft makes clear that more than one unit is involved. FAIL if the draft repeats that a single Mesa Vista unit is in make-ready."
+    },
+    {
+        "title": "The Agent tells Brooke Phillips in the draft that the closed water heater work belongs to a property outside both of these owners' portfolios.",
+        "category": "outcome",
+        "justification": "The spring read claimed three tickets closed including a water heater leak on the Finley portfolio. No maintenance ticket, invoice or make-ready row anywhere places water heater work on a Finley property; the property-named water heater records resolve to 412 Mesquite and Pinecrest 12, and the underlying work is Tommy Reyes's unit.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a statement that the water heater work does not belong to Harris or Finley. FAIL if the draft repeats the water heater leak as closed Finley work, and FAIL if it claims the universe proves no water heater work exists, since the correct finding is that nothing supports the attribution to these portfolios."
+    },
+    {
+        "title": "The Agent flags in the draft to Brooke Phillips that no record supports a late payment being cleared for either owner.",
+        "category": "outcome",
+        "justification": "The spring read told Brooke that one late payment cleared after first notice. The only past-due tenant correspondence anywhere near these owners belongs to Tanya Mitchell, whose balance ran from first notice through a breached payment plan to a cure deadline that expired unpaid, and no record carries a cleared late payment for either portfolio.",
+        "evidence": "Check the body of the draft addressed to brooke.phillips@starpm.com for a statement that the cleared late payment cannot be supported. FAIL if the draft repeats that a late payment was cleared, and FAIL if it asserts that the Tanya Mitchell balance was cleared, since the cure deadline expired with no payment."
+    },
+    {
+        "title": "The Agent adds a comment to the mid-year owner review issue OPS-10.",
+        "category": "outcome",
+        "justification": "The prompt says 'Bring the mid-year review item up to date on the issue tracker with where my half has landed'. OPS-10 is titled Mid-Year Owner Portfolio Reviews - June 2026 and is the only issue in the workspace carrying Mid-Year in its title, which separates it from the near-identical OPS-11, OPS-13, OPS-20 and OPS-23.",
+        "evidence": "Look for a Linear comment write whose issueId is OPS-10. Confirm the tool response indicates success. FAIL if the comment is placed on one of the near-identical owner review package issues or on the May owner report issue instead, and FAIL if no comment is added to OPS-10 at all. Do not require any change to the issue state, which is optional here."
+    },
+    {
+        "title": "The Agent states in the OPS-10 comment that the Harry Harris and Robert Finley half of the mid-year review has been handed to Brooke Phillips.",
+        "category": "outcome",
+        "justification": "The prompt asks for the tracker to be brought up to date with where the persona's half has landed. Lisa Smith's half under the OPS-10 split is Harry Harris and Robert Finley, and the hand-off deliverable is the draft to Brooke Phillips, so the comment has to say the work has moved to her.",
+        "evidence": "Check the body of the comment on OPS-10 for both owner names and a statement that the hand-off has gone to Brooke Phillips. FAIL if the comment covers only one of the two owners, and FAIL if it claims Patricia Nguyen's half (David Shea and Linda Castillo) is also complete, since that work is out of scope here."
+    },
+    {
+        "title": "The Agent opens one new tracking issue on the Operations team for work that remains unresolved and untracked, naming either the Mesa Vista 310C subfloor assessment or the Sunset Ridge 309C utility transfer confirmation.",
+        "category": "outcome",
+        "justification": "The prompt says 'open a separate item for whatever is still genuinely unresolved so it does not quietly disappear once this is handed over'. Exactly two items in the two clusters are carried nowhere else: the subfloor assessment recorded only in the notes of rec88734a4fdfde57, and the utility transfer confirmation recorded only in the notes of reca06d89f1a4ac5b. The roof evaluation already has ticket MT-2026-047 and the Ridgeview follow-up already has a booked walk-through, so neither of those needs a new item.",
+        "evidence": "Look for a Linear issue-creation write on team team_001 whose title and description name either the Mesa Vista 310C subfloor assessment or the Sunset Ridge 309C utility transfer confirmation. Either target is correct. Grade on title and description only, because team_001 has next_issue_number 1000 and the resulting identifier cannot be predicted. Creating a second issue for the other candidate does not fail this criterion. FAIL if the new issue duplicates work already tracked, specifically the MT-2026-047 roof evaluation or the Ridgeview close-out walk-through, and FAIL if no new issue is created."
+    },
+    {
+        "title": "The Agent posts a message to the owner relations channel C006 (#owner-relations).",
+        "category": "outcome",
+        "justification": "The prompt says 'Post a short version in the owner relations channel as well so Patricia and the rest of the team can see where my two sit'. Slack resolves C006 as the owner-relations channel, and Brooke Phillips's own 2026-05-28 posts there establish the precedent for owner review status landing in that channel as a top-level message.",
+        "evidence": "Look for a Slack message write addressed to the owner relations channel, identified either as channel_id C006 or by the name #owner-relations. Confirm the tool response indicates success. FAIL if the message is posted to a different channel, and FAIL if the update is sent only as a direct message."
+    },
+    {
+        "title": "The Agent names both Harry Harris and Robert Finley in the owner relations channel post.",
+        "category": "outcome",
+        "justification": "The prompt asks the team to be able to see where the persona's two owners sit without having to come and ask, which requires both owners to be identifiable in the post itself.",
+        "evidence": "Check the message text posted to C006 for both owner names. FAIL if only one owner is named, and FAIL if the post names David Shea or Linda Castillo as part of this update, since those two are Patricia Nguyen's half."
+    },
+    {
+        "title": "The Agent states Robert Finley's $10,980.00 past-due position in the owner relations channel post.",
+        "category": "outcome",
+        "justification": "The channel post is a condensed version of the hand-off email, and the past-due position is the item most likely to need action from the team. The figure is the sum of the three open Finley invoices, $8,400.00 plus $2,190.00 plus $390.00.",
+        "evidence": "Check the message text posted to the owner relations channel for the $10,980.00 past-due figure for Robert Finley. Accept approximately $10,980.00. FAIL if the post gives $7,325.00, the credit-netted figure, and FAIL if it states a past-due balance for Harry Harris, who carries none."
+    },
+    {
+        "title": "The Agent names the item still open at hand-off in the owner relations channel post.",
+        "category": "outcome",
+        "justification": "The prompt pairs the new tracker item with the channel post so the team can see the state without asking. The open item is the one raised as a new issue, either the Mesa Vista 310C subfloor assessment or the Sunset Ridge 309C utility transfer confirmation.",
+        "evidence": "Check the message text posted to C006 for the unresolved item carried forward, matching whichever target the new tracking issue named. FAIL if the post presents the two portfolios as having nothing outstanding."
+    },
+    {
+        "title": "The Agent reports that no record in either portfolio carries an occupancy figure, so the 94% read cannot be confirmed.",
+        "category": "outcome",
+        "justification": "The prompt says 'I need the real position on occupancy'. No record anywhere in this universe carries an occupancy figure for either portfolio. The 94% traces to Lisa Smith's own Slack message and to Brooke Phillips repeating it back, so the real position is a refutation rather than a number.",
+        "evidence": "Check the final response for a statement that the occupancy claim is unsupported by any record. FAIL if the final response reports 94% as confirmed, and FAIL if it supplies a different occupancy percentage, because no such figure exists in the data to report."
+    },
+    {
+        "title": "The Agent identifies MT-2026-047 as the only open maintenance ticket in either owner's scope.",
+        "category": "outcome",
+        "justification": "The prompt asks for the real position on what maintenance is still outstanding. Seven of the fifty maintenance rows are open, but MT-2026-047 on recb4aeaed326f156 is the only one that falls inside Harris's or Finley's scope; the rest sit on other portfolios or are the contested Tanya Mitchell delinquency records.",
+        "evidence": "Check the final response for MT-2026-047 identified as the outstanding maintenance item for these two owners. Open status has to be read from an empty completion date, which is stored both as an empty string and as null. FAIL if the final response reports no outstanding maintenance, and FAIL if it counts the Tanya Mitchell delinquency records MT-2026-0184 or DLQ-2026-0601 inside Harris's position."
+    },
+    {
+        "title": "The Agent reports that Harry Harris's Sunset Ridge units carry no make-ready record in a Ready turn status.",
+        "category": "outcome",
+        "justification": "The prompt asks for the real position on where the turns have got to. All 7 Sunset Ridge rows sit in Scheduled or In Progress and none is in selReady, so Harris is operationally blocked across the whole cluster.",
+        "evidence": "Check the final response for a statement that none of the Harris units has reached a Ready state. FAIL if the final response reports any Sunset Ridge unit as ready or released to leasing."
+    },
+    {
+        "title": "The Agent reports that four Mesa Vista units carry make-ready records.",
+        "category": "outcome",
+        "justification": "The prompt asks where the turns have got to and says the spring read should mostly need confirming. tblMakeReady holds 8 Mesa Vista rows across exactly 4 distinct unit strings, 107A, 207A, 310C and 4C, against a spring read that reported one unit in make-ready.",
+        "evidence": "Check the final response for the Mesa Vista unit count. Accept four, or a count from two to four provided the response makes clear that more than one unit is involved. FAIL if the final response repeats that a single Mesa Vista unit is in a turn."
+    },
+    {
+        "title": "The Agent reports Robert Finley's open receivable as $10,980.00.",
+        "category": "outcome",
+        "justification": "The prompt asks for anything on the money side either owner is likely to raise. Finley's gross open receivable is $10,980.00 across invoices 2026-494, 2026-303 and 4421, all past due against universe today 2026-07-01.",
+        "evidence": "Check the final response for the $10,980.00 figure. Accept approximately $10,980.00. FAIL if the response reports $7,325.00, and FAIL if it includes the $1,622.00 Mesa Vista invoice, which is billed to Linda Castillo rather than to Robert Finley."
+    },
+    {
+        "title": "The Agent concludes that the credit memos on both owners' accounts are unapplied and do not reduce either balance.",
+        "category": "outcome",
+        "justification": "The money position is the designed trap in this task. Every credit memo in this universe carries Balance equal to TotalAmt and no LinkedTxn, which is what establishes they are unapplied, while RemainingCredit reads 0 and suggests the opposite. Netting Finley's credits against his receivable misstates what he owes.",
+        "evidence": "Check the final response for an explicit statement that the credit memos are not applied against any invoice and therefore do not offset the receivable. FAIL if the response nets credits against the balance, and FAIL if it treats RemainingCredit of 0 as evidence the credits have already been used."
+    },
+    {
+        "title": "The Agent reports that Harry Harris carries no open receivable.",
+        "category": "outcome",
+        "justification": "The prompt asks for the money side on each owner. Harris's three invoices all carry a Balance of 0.00, each matched by a payment of the same amount, so the two owners are behind for different reasons and a single combined position loses that distinction.",
+        "evidence": "Check the final response for a statement that Harry Harris has nothing past due. Accept zero, nil, or an explicit statement that his invoices are settled. FAIL if the response attributes a past-due balance to Harris, and FAIL if it reports one combined receivable across both owners without separating them."
+    },
+    {
+        "title": "The Agent identifies two live Harry Harris mid-year review meetings standing on the calendar, one on June 2 and one on June 3, 2026.",
+        "category": "outcome",
+        "justification": "The prompt asks for the position on each owner and for review meetings that did not end up settled to be dealt with. Both Harris events are status confirmed and neither is cancelled, and the second is reachable only by listing calendars Lisa Smith does not hold a row on, so a persona-scoped calendar read shows one clean review per owner and hides the duplicate.",
+        "evidence": "Check the final response for the finding that two Harry Harris mid-year reviews stand on the calendar one day apart, on June 2 and June 3, 2026. FAIL if the response describes the June 3 event as a completed reschedule that replaced the June 2 meeting, and FAIL if it reports only one Harris review."
+    }
+]

@@ -150,7 +150,7 @@ def main():
         # ---- 1. decompose directives: does each named content element have a carrier?
         for dm in DECOMPOSE.finditer(body):
             inner = dm.group(1)
-            elements = [e.strip() for e in re.split(r",\s*and\s+|,\s+(?=[a-z])|\s+and\s+(?=that\b)", inner)
+            elements = [e.strip() for e in re.split(r",\s*and\s+|,\s+(?=[A-Za-z])|\s+and\s+(?=that\b)", inner)
                         if len(e.strip()) > 12]
             for el in elements:
                 et = toks(el)
