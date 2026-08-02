@@ -578,14 +578,11 @@ def _universe_unresolvable(task_dir_str: str, universe: str) -> bool:
     condition this degrade was always meant to express.
     """
     try:
-        from universe_data_source import load_universe_records, UniverseDataError
+        from universe_data_source import can_resolve
     except Exception:
         return False
     try:
-        load_universe_records(Path(task_dir_str), universe)
-        return False
-    except UniverseDataError:
-        return True
+        return not can_resolve(Path(task_dir_str), universe)
     except Exception:
         return False
 

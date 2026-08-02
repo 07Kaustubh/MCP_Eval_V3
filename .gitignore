@@ -24,3 +24,6 @@
 __pycache__/
 *.pyc
 
+# Distribution build output for the HarmonyGames payload (1.8 GB of release assets).
+# Built by hand, uploaded to a GitHub Release, never committed.
+_dist/

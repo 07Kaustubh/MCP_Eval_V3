@@ -14,12 +14,29 @@ Example:
 """
 
 import json
+import re
 import sys
 import hashlib
 from collections import defaultdict
 from pathlib import Path
 
 COMPLETE_DATA_FILE = "Universe_complete_data.json"
+
+
+_UNSAFE_SOURCE_CHARS = re.compile(r"[^A-Za-z0-9._-]")
+
+
+def _safe_source_name(source: str) -> str:
+    """Turn a record's `source` into a filename that cannot escape the split directory.
+
+    `out_dir / f"{source}.json"` is unsafe: pathlib DISCARDS out_dir when the right-hand
+    side is absolute, so a single upstream row whose source began with "/" wrote outside the
+    task entirely. In the HarmonyGames base export exactly one source is absolute (it carries
+    the fixture author's own Downloads path) and 92 more contain "..". The v3-family sources
+    are plain dotted tokens and are unaffected: sanitising them is a no-op, verified by the
+    byte-identical regression reports.
+    """
+    return _UNSAFE_SOURCE_CHARS.sub("_", str(source).strip("/")) or "unnamed_source"
 
 
 def split_and_write(task_dir: Path) -> int:
@@ -62,7 +79,7 @@ def split_and_write(task_dir: Path) -> int:
         groups[source].append(rec)
 
     for source in sorted(groups):
-        out = out_dir / f"{source}.json"
+        out = out_dir / f"{_safe_source_name(source)}.json"
         with open(out, "w", encoding="utf-8") as f:
             json.dump(groups[source], f, indent=2, ensure_ascii=False)
             f.write("\n")

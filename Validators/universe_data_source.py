@@ -202,6 +202,33 @@ def require_resolvable(task_dir: Path, universe: str = None) -> None:
     load_universe_records(Path(task_dir), universe)
 
 
+def can_resolve(task_dir: Path, universe: str = None) -> bool:
+    """Cheap "would load_universe_records succeed?" without loading anything.
+
+    load_universe_records streams the whole base export - 850k records / 5.6 GB for
+    HarmonyGames. Calling it merely to ask whether the data RESOLVES made every gate that
+    asked that question load the entire universe, which took the anchor suite from about a
+    minute to over ten once the payload was hydrated. The conditions that make it raise are
+    all cheap directory/shape checks, so they are evaluated here on their own.
+    """
+    task_dir = Path(task_dir)
+    universe = universe or detect_universe(task_dir)
+    contract = get_framework_profile(universe).get("universe_data_contract", "per_task_json")
+    if contract == "per_task_json":
+        try:
+            payload = _read_task_json(task_dir)
+        except Exception:
+            return False
+        return (not is_pointer(payload)) and isinstance(payload, list)
+    if contract == "base_export_plus_changelog":
+        d = _services_data_dir(universe)
+        try:
+            return d.is_dir() and any(p.is_dir() for p in d.iterdir())
+        except Exception:
+            return False
+    return False
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print("Usage: python Validators/universe_data_source.py <task_dir>", file=sys.stderr)

@@ -831,7 +831,7 @@ ANCHORS = [
         "expect_not": "email_address",
     },
     {
-        "name": "v22 HG-13 - fabricated address is surfaced as a WARN naming it when the universe is UNRESOLVABLE",
+        "name": "v22 HG-13 - fabricated address is always SURFACED, whether the universe resolves or not",
         "phase": "submission_gate",
         "fixture": lambda d: _write_hg_task(d, pointer=False, rubrics=[
             _hg_r("The Agent emails notarealperson@harmonygames.co about the rollout."),
@@ -839,8 +839,12 @@ ANCHORS = [
         ]),
         # The hard-FAIL branch fires only when the universe RESOLVES, which needs the
         # gitignored 5.6 GB payload, so it is deliberately not asserted here. What IS
-        # testable un-hydrated is the degrade: the address must still be named.
-        "expect": "cannot be disproven",
+        # Hydration-INDEPENDENT on purpose. When the universe resolves this is a hard FAIL;
+        # when it cannot be resolved it degrades to a WARN. Both branches emit the same
+        # message body, so asserting the address itself gives one verdict on every machine.
+        # Asserting the WARN text instead made this anchor pass un-hydrated and fail
+        # hydrated - an anchor must not depend on ambient machine state.
+        "expect": "notarealperson@harmonygames.co",
     },
 ]
 
