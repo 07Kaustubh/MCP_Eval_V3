@@ -100,3 +100,11 @@ Do NOT modify the task contents in this chat beyond what the corrected materiali
 ## Bootstrap
 
 Read root `AGENTS.md` first. MATERIALIZE is invoked AFTER `PIPELINE REVIEW` produces `changes.md` with Applied rows. It runs the materialization + re-verification that REVIEW used to do inline (pre-v17); the split was made to keep the REVIEW chat context clean and the MATERIALIZE chat focused on apply-and-verify only.
+
+## HarmonyGames (`hg`) note
+
+When re-validating a corrected materialization, `validate.py --phase rubrics` accepts BOTH
+the lowercase `outcome`/`process` form and the spec's 4-value enum (`Outcome 1.1`,
+`Outcome 1.2`, `Outcome 2.1`, `Process`), canonicalizing to the parent bucket before
+counting. Do NOT "normalize" a candidate's categories from one form to the other as part of a
+fix: every shipped HarmonyGames task uses the lowercase form, including four that passed QC.

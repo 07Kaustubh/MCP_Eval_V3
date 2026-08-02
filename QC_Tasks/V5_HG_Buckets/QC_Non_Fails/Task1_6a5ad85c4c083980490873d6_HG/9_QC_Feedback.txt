@@ -1,0 +1,42 @@
+Overall: The task has a few minor issues, but meets the requirements.
+
+=====
+Prompt - Explicit Tool Mention: Uses generic English: ""proper ticket,"" ""incident write-up,"" ""incidents channel,"" ""the thing that schedules these events"".
+
+Prompt - Unique Ground Truth (UGT): Key facts (summer outage EVT‑0014/0015, recurrence EVT‑0022, ""broken by design,"" remediation never built) and the 4 write actions are fixed. Path/framing may vary but the required conclusions and actions do not.
+
+Universe - Universe Feasibility (Data Exists): Verified in tool outputs: Snowflake LIVE_EVENT_PERFORMANCE, Confluence ""Live-Ops Event Engine,"" Slack #live-incidents, Linear ENG‑2400/ZOM‑667/ENG‑2238, GitHub match3d-backend.
+
+Rubrics - Overall Rubric Quality: 20 outcome rubrics, all embed expected values (channel IDs, ticket IDs, event IDs, %ranges)
+
+Universe - Cross-service Coherence: Douglas & Arthur appear consistently as owners/assignees; event dates in Snowflake match postmortem/Slack narrative; ticket IDs consistent. No _changelog provided to inspect, but observed data is internally consistent.
+
+Prompt - Feasibility: Investigation + 4 writes are all doable via snowflake/confluence/linear/slack.
+
+Prompt - Prompt Clarity and Specificity: The prompt spells out four concrete actions (file a remediation ticket, comment on the existing lives tickets, update the write-up, post a Slack status) and explicitly says not to change any config or scheduler code. The one phrase that isn't spelled out is ""connect it to the open tickets people have already raised about the lives problem."" It never lists ticket IDs. The concern raised was that this is ambiguous, because Linear also contains other open tickets with ""lives""/""refill"" in the title (ZOM‑483, ZOM‑546) that an agent might attach instead. However, ""the lives problem"" points back to the specific failure the prompt describes at the top, ""players started losing their lives and refills with no way to earn them back"",  i.e. lives no longer regenerating during the outage. Only ENG‑2400 (""Lives are not generating for some real players"") and ZOM‑667 (""Lives regen syncing issues"") describe that failure. ZOM‑483 is a separate new-install reward-timer bug and ZOM‑546 is a match‑3 board bug, attaching them to the outage would be factually wrong, not an equally-valid choice. Because the prompt also requires linking these tickets to the outage's root cause, an agent that actually investigates lands on the same two tickets. This is borne out in practice: all 6 evaluation runs commented on exactly ENG‑2400 and ZOM‑667, and none touched ZOM‑483 or ZOM‑546.
+
+Prompt - Contrived / Unnatural Prompts: ""bad case of déjà vu,"" ""not vibes,"" ""undeniable this time"": organic complaint
+
+Prompt Tool Use and Cross-Service Requirement: Snowflake (impact) + Confluence (postmortem) + Slack (root cause) + Linear (tickets/decoy) + GitHub (corroboration). Cannot be answered from knowledge.
+
+Prompt - Investigation: States a suspicion (""strong feeling none of it was ever built"") but asks the agent to prove it and to decide ""broken by design vs. regressed"", root cause is not handed over.
+
+Prompt - Coherence: Every ask (quantify, diagnose, file ticket, link tickets, update write-up, post status) ties to the same recurring outage.
+
+Prompt and Universe - Alignment with Today’s Date: All referenced data is 2025 (well before cutoff)
+
+Rubrics - All-Failing Rubrics: N/A
+
+Trajectory Agent Failure Rate: Only run 6 passed all 20 rubrics
+
+Rubrics - Rubric Category Balance: 20 Outcome / 0 Process (process now optional)
+
+Trajectory - Error Rate: All 6 runs completed
+
+Rubrics - Agent Centric Phrasing: Tool names appear only in the evidence helper text, not the criteria.
+
+Oracle Events (OEs) - OE Accuracy: Tools/services/params/IDs all correct. OE1 revenue figures ($10.52/$12.78/$17.06) don't match the raw LIVE_EVENT_PERFORMANCE integer revenue (11/13/17), completion %s (6.5/9.4/10.7) and all IDs are exact. Non-fail per spec (OE issues are non-fail only).
+
+Oracle Events (OEs) - OE Completeness: OEs cover every discovery source + all 4 write actions + the decoy-avoidance.
+
+Score 3

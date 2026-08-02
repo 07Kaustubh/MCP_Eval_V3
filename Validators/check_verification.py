@@ -15,10 +15,15 @@ import sys
 from pathlib import Path
 
 REQUIRED_SECTIONS = [
-    "## Sources consulted",
     "## Verification statements",
     "## Discrepancies surfaced",
     "## Verdict",
+]
+
+# S0.md + the template emit `## Sources consulted`; HARDNESS / S1 / S2 / S3 / FINAL / S4 / AUDIT emit `## Data sources consulted`.
+SOURCES_HEADINGS = [
+    "## Sources consulted",
+    "## Data sources consulted",
 ]
 
 REQUIRED_SOURCE_CATEGORIES = [
@@ -36,7 +41,9 @@ def check(file_path: Path) -> list:
     for sect in REQUIRED_SECTIONS:
         if sect not in text:
             issues.append(f"FAIL: missing section `{sect}`")
-    sources_block_match = re.search(r"## Sources consulted.*?(?=^## |\Z)", text, re.DOTALL | re.MULTILINE)
+    if not any(h in text for h in SOURCES_HEADINGS):
+        issues.append(f"FAIL: missing section `{SOURCES_HEADINGS[0]}`")
+    sources_block_match = re.search(r"## (?:Data sources|Sources) consulted.*?(?=^## |\Z)", text, re.DOTALL | re.MULTILINE)
     if sources_block_match:
         sources_block = sources_block_match.group(0)
         for cat in REQUIRED_SOURCE_CATEGORIES:

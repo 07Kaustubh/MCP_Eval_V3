@@ -1,0 +1,214 @@
+[
+  {
+    "row_data": "{\"title\": \"Daily close blocker triage for outsourced accounting queue\", \"description\": \"Review overnight close blockers across managed client books, assign owners, and clear anything preventing same-day cash posting or reconciliations.\", \"reminder_id\": \"reminder_04cb3f4267fc\", \"due_datetime\": \"2026-03-02T08:30:00+00:00\", \"time_notified\": \"2026-03-02T08:00:00+00:00\", \"repetition_unit\": \"day\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Follow up on bank feed exceptions for priority clients\", \"description\": \"Check unresolved bank feed disconnects and duplicated transactions for the priority outsourced accounting portfolio before noon cash posting.\", \"reminder_id\": \"reminder_1cd4bee835f3\", \"due_datetime\": \"2026-03-03T10:15:00+00:00\", \"time_notified\": \"2026-03-03T09:30:00+00:00\", \"repetition_unit\": \"day\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Tax document chase list and filing readiness check\", \"description\": \"Review missing K-1s, 1099 support, organizer gaps, and client-uploaded source documents delaying return completion; escalate anything threatening filing readiness.\", \"reminder_id\": \"reminder_ada006d2fc70\", \"due_datetime\": \"2026-03-04T11:00:00+00:00\", \"time_notified\": \"2026-03-04T10:00:00+00:00\", \"repetition_unit\": \"day\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Entity filing calendar exception review\", \"description\": \"Scan state annual report and compliance calendar exceptions, confirm outreach on overdue entities, and document next follow-up dates for client teams.\", \"reminder_id\": \"reminder_53f6d18d7f58\", \"due_datetime\": \"2026-03-05T14:00:00+00:00\", \"time_notified\": \"2026-03-05T13:00:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Monday client onboarding kickoff and document request review\", \"description\": \"Run weekly onboarding kickoff for new bookkeeping and outsourced accounting engagements; confirm document request lists, access needs, and first-close expectations.\", \"reminder_id\": \"reminder_6f3fb0407f90\", \"due_datetime\": \"2026-03-09T09:00:00+00:00\", \"time_notified\": \"2026-03-09T08:15:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Tuesday monthly close capacity and assignment standup\", \"description\": \"Review staffing coverage, month-close workload, and reassignment needs across client books before the close calendar tightens.\", \"reminder_id\": \"reminder_c47db1f7039a\", \"due_datetime\": \"2026-03-10T08:45:00+00:00\", \"time_notified\": \"2026-03-10T08:00:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Wednesday tax pipeline review with partner escalations\", \"description\": \"Update return status by preparer, identify review bottlenecks, and finalize partner escalation list for returns nearing submission windows.\", \"reminder_id\": \"reminder_7db46490a003\", \"due_datetime\": \"2026-03-11T13:30:00+00:00\", \"time_notified\": \"2026-03-11T12:30:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"William White and Hannah Grant return-review thread check\", \"description\": \"Confirm open review comments are resolved on William White and Hannah Grant return-review threads before IRS submission timing becomes compressed.\", \"reminder_id\": \"reminder_9bd61912d4fb\", \"due_datetime\": \"2026-03-18T15:00:00+00:00\", \"time_notified\": \"2026-03-18T14:00:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Friday compliance deadlines review and next-week risk scan\", \"description\": \"Review next week's entity filings, tax deadlines, and client response risks; flag anything likely to slip without immediate follow-up.\", \"reminder_id\": \"reminder_2a8f1f3bdc78\", \"due_datetime\": \"2026-03-13T16:00:00+00:00\", \"time_notified\": \"2026-03-13T15:00:00+00:00\", \"repetition_unit\": \"week\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Month-end client billing draft review\", \"description\": \"Review March client billing drafts, compare nonrecurring advisory work against engagement notes, and route exceptions for partner approval before invoices release.\", \"reminder_id\": \"reminder_0851a6de8d2c\", \"due_datetime\": \"2026-03-30T11:30:00+00:00\", \"time_notified\": \"2026-03-30T10:30:00+00:00\", \"repetition_unit\": \"month\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Client bookkeeping completion confirmations before management accounts drafting\", \"description\": \"Confirm all bookkeeping completion notices have been posted before management accounts drafting begins for month-end reporting clients.\", \"reminder_id\": \"reminder_2f89b4c4220a\", \"due_datetime\": \"2026-03-31T09:45:00+00:00\", \"time_notified\": \"2026-03-31T09:00:00+00:00\", \"repetition_unit\": \"month\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Quarter-end engagement margin and write-off review\", \"description\": \"Prepare Q1 engagement margin analysis, highlight write-off candidates, and note client/project drivers for partner discussion.\", \"reminder_id\": \"reminder_26c01c45bf26\", \"due_datetime\": \"2026-03-27T14:30:00+00:00\", \"time_notified\": \"2026-03-27T13:30:00+00:00\", \"repetition_unit\": \"month\", \"repetition_value\": 3}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Anaya Wallace aged payables verification and Ben Arinzo handoff\", \"description\": \"Complete quarterly aged payables verification assigned to Anaya Wallace and ensure correction notes are handed off to Ben Arinzo for posting review.\", \"reminder_id\": \"reminder_f659f315afab\", \"due_datetime\": \"2026-03-26T10:30:00+00:00\", \"time_notified\": \"2026-03-26T09:30:00+00:00\", \"repetition_unit\": \"month\", \"repetition_value\": 3}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Multi-state annual report catch-up status check\", \"description\": \"Review overdue annual report filings across multi-state client entities, confirm jurisdiction-specific blockers, and schedule same-week client follow-ups.\", \"reminder_id\": \"reminder_dcc6170c055e\", \"due_datetime\": \"2026-04-07T13:00:00+00:00\", \"time_notified\": \"2026-04-07T12:00:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Audit PBC backlog burn-down for retail client group\", \"description\": \"Assess outstanding PBC items for retail audit support clients, update request aging, and escalate chronic delays to engagement leads.\", \"reminder_id\": \"reminder_4a0e2c0190a8\", \"due_datetime\": \"2026-04-15T15:30:00+00:00\", \"time_notified\": \"2026-04-15T14:30:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Legacy bookkeeping cleanup and opening balance remediation\", \"description\": \"Check progress on historical cleanup work, unresolved opening balance differences, and any documentation still needed from inherited clients.\", \"reminder_id\": \"reminder_fe95e017aacd\", \"due_datetime\": \"2026-04-22T11:15:00+00:00\", \"time_notified\": \"2026-04-22T10:15:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Accounts payable workflow standardization review\", \"description\": \"Review managed-client AP workflow standardization checklist, approval routing consistency, and open exceptions causing delayed payments.\", \"reminder_id\": \"reminder_74dc9d002ac6\", \"due_datetime\": \"2026-05-05T09:30:00+00:00\", \"time_notified\": \"2026-05-05T08:30:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Bank signatory mismatch blocking treasury actions\", \"description\": \"Follow up with client controller and bank contact on unresolved signatory mismatch that is blocking treasury actions and payment release authority.\", \"reminder_id\": \"reminder_d7cc9e725af8\", \"due_datetime\": \"2026-05-08T12:00:00+00:00\", \"time_notified\": \"2026-05-08T11:00:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"New starter onboarding checklist and access scheduling\", \"description\": \"Confirm laptop provisioning, tax and bookkeeping system access, and training calendar for the new starter joining the client services team.\", \"reminder_id\": \"reminder_051794f56386\", \"due_datetime\": \"2026-05-12T16:30:00+00:00\", \"time_notified\": \"2026-05-12T15:30:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"HR-only policy and employee file handling review for Clint Peterson and Rachel Green\", \"description\": \"Remind operations lead to review HR-only policy boundaries and employee file handling process involving Clint Peterson and Rachel Green; keep all materials restricted to HR.\", \"reminder_id\": \"reminder_19fbc3082838\", \"due_datetime\": \"2026-05-20T10:00:00+00:00\", \"time_notified\": \"2026-05-20T09:00:00+00:00\", \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Finish Brookfield April management accounts draft for Andrea review\", \"description\": \"Assemble the April management accounts package for Brookfield after period lock. Include P&L versus forecast, payroll cash analysis tied to the $2.19M balanced cash-payroll reconciliation, WIP rollforward, and updated depreciation summary for partner review with Andrea Phil.\", \"reminder_id\": \"reminder_scen_023_monthly_close_0006\", \"due_datetime\": \"2026-05-06T00:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Start May management accounts package for brookfield_FP-2026-05\", \"description\": \"Begin assembling the May management accounts package after period lock. Include May P&L, cash position, WIP rollforward, depreciation rollup, and package commentary noting the Q2 wrap accrual is fully deductible because the outside-counsel services were rendered in May with timesheets cut off on 5/29 and only invoice timing lagging.\", \"reminder_id\": \"reminder_scen_024_monthly_close_0008\", \"due_datetime\": \"2026-06-03T18:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Start Northstar April management accounts package\", \"description\": \"Period northstar_legal_FP-2026-04 is locked. Start the Northstar management accounts package for Matthew Li sign-off on BD6. Focus the draft on the IOLTA balance narrative with no April movement, the matter-level WIP rollforward tied to Hartmann v. Sterling and the Wexler appellate brief, and the close story that ties back to posted accrual, WIP, and CLE entries now that the books are frozen.\", \"reminder_id\": \"reminder_scen_025_monthly_close_0007\", \"due_datetime\": \"2026-05-05T18:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Finish Acme Cloud MAP draft commentary\", \"description\": \"Draft the Acme Cloud April management accounts package commentary after lock. Carry Brenda Abbas's review note forward and state clearly that the cloud-infrastructure variance reflects onboarding-driven usage in April rather than a structural gross margin issue.\", \"reminder_id\": \"reminder_scen_027_monthly_close_0007\", \"due_datetime\": \"2026-05-06T00:30:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Open Northstar Legal interim fieldwork prep window\", \"description\": \"Open the interim fieldwork prep window for Northstar Legal and use Northstar Legal FY2026 Audit Planning Memo - Initial 2026-05-18 as the planning reference. Next steps: confirm the IOLTA confirmation-request templates 30 days in advance, and send Daniel Jones and Edith Parker the PBC reminder two weeks before the interim window.\", \"reminder_id\": \"reminder_scen_043_audit_compliance_0008\", \"due_datetime\": \"2026-07-15T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": \"month\", \"repetition_value\": 3}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Open April 2026 sales tax filing cycle\", \"description\": \"Start the standard April sales tax run for NY, NJ, CT, and PA. Pull April taxable-services cuts from brookfield_FP-2026-04, prepare the filing packet, and route it through Sofia Halabi for review and Ming Chang for approval. Returns are due May 20 for NY, NJ, and CT, and May 25 for PA.\", \"reminder_id\": \"reminder_scen_045_tax_regulatory_0000\", \"due_datetime\": \"2026-05-01T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": \"month\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Open May 2026 sales tax filing cycle\", \"description\": \"Start the May 2026 Brookfield sales tax cycle for NY, NJ, CT, and PA. Returns for NY, NJ, and CT are due June 22, 2026; PA is due June 25, 2026. Keep tracking PA on the post-economic-nexus rate used beginning with the April cycle.\", \"reminder_id\": \"reminder_scen_045_tax_regulatory_0009\", \"due_datetime\": \"2026-06-01T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": \"month\", \"repetition_value\": 1}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Start acme_cloud Q2 2026 estimated tax projection\", \"description\": \"Begin the acme_cloud Q2 2026 estimated tax projection ahead of the federal 6/15 installment deadline. California Q2 carries a 40% weight, the heaviest installment, so pull ledger data for acme_cloud_FP-2026-04, acme_cloud_FP-2026-05, and acme_cloud_FP-2026-06 and rerun the annualized-income method before drafting the payment recommendation.\", \"reminder_id\": \"reminder_scen_046_tax_regulatory_0008\", \"due_datetime\": \"2026-06-08T20:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Overdue annual report filings for Linda Burns\", \"description\": \"Linda Burns has a consolidated overdue compliance follow-up. NY annual statement is overdue by about five weeks and now carries good-standing risk. NJ annual report is overdue by about three weeks and is expected to incur a late charge. DE annual report and franchise tax are overdue by about six weeks and present the highest penalty exposure of the three items. Keep all three jurisdictions together until status is resolved and filing responsibility is assigned.\", \"reminder_id\": \"reminder_scen_048_audit_compliance_0000\", \"due_datetime\": \"2026-05-27T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Brookfield CPAs annual reports  -  2027 cycle (NY/NJ/DE)\", \"description\": \"Rebuilt annual reminder per the 2026-05-12 controls memo. DE first (due 2027-03-01), NY next (2027-03-31), NJ last (2027-04-15). 30/14/3-day lead pings configured in the firm calendar. Workflow Administrator (Anaya, npc_022) owns the portal submissions; Linda owns nexus tie-out; Peter receives the quarterly attestation.\", \"reminder_id\": \"reminder_scen_048_audit_compliance_0009\", \"due_datetime\": \"2027-01-31T02:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Acme Cloud D&O Insurance  -  monthly amortization release ($19,672.66)\", \"description\": \"Standing monthly tickler to post the April 2026 amortization release JE for the Clearpoint Risk Brokers D&O annual policy ($19,672.66 DR 565000 / CR 130000). Schedule continues monthly through February 2027. Owner George McAdam after this kickoff handoff.\", \"reminder_id\": \"reminder_scen_051_fixed_asset_lifecycle_0007\", \"due_datetime\": \"2026-04-03T22:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Prepare Northstar Legal Q2 quarterly package\", \"description\": \"Begin the Q2 Northstar Legal quarterly package on the usual cadence so review support is ready ahead of Daniel Jones review and Matthew Li sign-off. Continue tracking the audit-fee accrual against Brookfield Audit actuals and true up the Q1 $7,000 estimate once the first installment is invoiced.\", \"reminder_id\": \"reminder_scen_058_quarterly_reporting_0009\", \"due_datetime\": \"2026-07-06T13:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": \"month\", \"repetition_value\": 3}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Acme Cloud FY2027 BO refresh + AML risk re-assessment  -  kickoff\", \"description\": \"Annual recurring control  -  kick off the FY2027 BO refresh and AML risk re-assessment for Acme Cloud. Carry forward the multi-state sales tax complexity flag from the FY2026 memo as a standing watch item. Prior-year artifacts in records_vault: Acme Cloud FY2026 Beneficial Owner Refresh and Acme Cloud FY2026 AML Risk Assessment Memo.\", \"reminder_id\": \"reminder_scen_061_aml_bo_review_acme_0008\", \"due_datetime\": \"2027-04-13T21:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Re-screen AML-REG-northstar-2025-001 after FP-2026-08 close\", \"description\": \"Quarterly re-screen tickler for northstar_legal monitoring row AML-REG-northstar-2025-001 following Daniel's countersigned disposition. Current status remains soft-watch with Medium risk unchanged. Re-screen after FP-2026-08 close and compare against the prior partial-name adverse-media pattern, Ben Arinzo's no-anomaly cash review on accounts 101000 and 105000 for FP-2026-03 and FP-2026-04, and the prior Q4 2025 parallel George McAdam noted. If another independent hit surfaces before the scheduled review window, escalate to Daniel Jones immediately rather than waiting for this reminder.\", \"reminder_id\": \"reminder_scen_062_aml_review_general_0009\", \"due_datetime\": \"2026-09-01T18:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"SLA: BlackLine exception exc_151b0bee7e374e on 110000 ($647.97)\", \"description\": \"BlackLine reminder for reconciliation BL-2E691B2E18FA in period brookfield_FP-2025-07. Exception exc_151b0bee7e374e is showing as overdue even though the underlying unrecorded-invoice exception is closed. Current note indicates the record still carries the old SLA due date of 2025-08-06 and may have re-entered the queue in error.\", \"reminder_id\": \"reminder_scen_001_orphan_exception_0000\", \"due_datetime\": \"2025-08-11T17:05:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"BlackLine exception reminder re-fired: exc_df0e3e636dfd4d\", \"description\": \"BlackLine reminder surfaced for exception exc_df0e3e636dfd4d tied to reconciliation BL-E67C212D63ED for account 219000 Accounts Payable - Employee Reimbursements in period brookfield_FP-2025-10 with variance amount $46.52. Reminder appears stale because the exception was already closed on 2025-11-07. Validate whether this is a legitimate reopen signal or a polling-bug re-fire.\", \"reminder_id\": \"reminder_scen_005_orphan_exception_0000\", \"due_datetime\": \"2025-11-10T19:05:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Recheck status on BlackLine exception exc_80548c7bc0d94b\", \"description\": \"BlackLine SLA reminder refired for closed exception exc_80548c7bc0d94b tied to reconciliation BL-CC6863D12B78 for account 101000 Cash - Operating in brookfield_FP-2025-12. Reminder cites prior timing difference of $-120.11 and asks for status recheck even though the exception was closed on January 4. Review carefully before responding given audit-week sensitivity on the cash account.\", \"reminder_id\": \"reminder_scen_006_orphan_exception_0000\", \"due_datetime\": \"2026-01-12T19:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Triage BlackLine exception exc_aade06f6129e43\", \"description\": \"Review newly logged BlackLine exception exc_aade06f6129e43 on reconciliation BL-333FF9956BC6 for account 102000 Cash - Payroll in brookfield_FP-2026-05. Ryan Delgado identified the item during the polling pass. Current variance is $-28.59 with 29 expected subledger rows dropped from the feed. Use this as the initial triage breadcrumb before any action in BlackLine.\", \"reminder_id\": \"reminder_scen_009_orphan_exception_0000\", \"due_datetime\": \"2026-06-02T17:30:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Re-check exc_aade06f6129e43 after June 2 feed retry\", \"description\": \"Re-verify whether the June 2 BD2 retry cleared BlackLine exception exc_aade06f6129e43 on reconciliation BL-333FF9956BC6 for account 102000 Cash - Payroll in brookfield_FP-2026-05. Daniel Jones approved accept-timing, so leave the exception in logged state until the retry runs. If still open after the retry, confirm next-step follow-up toward FP-2026-06 BD3 and keep the management-accounts commentary breadcrumb aligned with the narrative disposition path.\", \"reminder_id\": \"reminder_scen_009_orphan_exception_0008\", \"due_datetime\": \"2026-06-03T17:30:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Disposition BlackLine exception exc_06b89e3937b04a before BD3 lock\", \"description\": \"BlackLine exception exc_06b89e3937b04a on reconciliation BL-433E3BEEFD66 is approaching its June 1 SLA. Account 240000 Deferred Revenue - Client Retainers, period brookfield_FP-2026-05, variance $-172.62, urgency medium, status investigating. Anaya Wallace is the assignee and needs a disposition before BD3 lock.\", \"reminder_id\": \"reminder_scen_011_orphan_exception_0000\", \"due_datetime\": \"2026-06-01T20:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Follow up on BlackLine exception exc_652c0931bb2546 approval\", \"description\": \"BlackLine exception exc_652c0931bb2546 is awaiting approval ahead of the June 2 SLA. Assignee: Tom Chang. Approver: Daniel Jones. Related reconciliation: BL-1F548113B049 for account 260000 Partner Distributions Payable in brookfield_FP-2026-05. Current variance is a $9.61 timing difference and requires approval follow-up before SLA cutoff.\", \"reminder_id\": \"reminder_scen_012_orphan_exception_0000\", \"due_datetime\": \"2026-06-02T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Recheck stale BlackLine SLA reminder for closed exception exc_1ec70e0d938b4f\", \"description\": \"BlackLine polling re-fired SLA tracking on closed exception exc_1ec70e0d938b4f for Northstar Legal. Exception details: account 225000 Accrued Salaries & Bonuses, period northstar_legal_FP-2025-07, amount $380.50, parent reconciliation BL-5FEFEA879504. Underlying SLA due date reads 2025-08-07, which conflicts with the closed status. Recheck exception status before taking any follow-up action and dismiss if closure remains valid.\", \"reminder_id\": \"reminder_scen_013_orphan_exception_0000\", \"due_datetime\": \"2025-08-08T17:15:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Review stale SLA reminder for closed BlackLine exception exc_344bcd6e4c7a4c\", \"description\": \"Reminder re-fired to William White for closed BlackLine exception exc_344bcd6e4c7a4c on reconciliation BL-00AB2350A498 for Northstar Legal account 103000 Cash - Tax Reserve in period northstar_legal_FP-2025-09. Exception amount was $2,267.83 and relates to a six-month-old FX revaluation drift item that was already closed on October 9 with a corrective journal entry documented, but the stale SLA signal has resurfaced and needs validation.\", \"reminder_id\": \"reminder_scen_014_orphan_exception_0000\", \"due_datetime\": \"2026-04-09T18:05:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Review stale SLA reminder for BlackLine exception exc_5221568d4e4047\", \"description\": \"BlackLine SLA reminder re-fired into Owen Mercer's queue for exception exc_5221568d4e4047 tied to reconciliation BL-42B3BB0DC11A, account 235000, amount $583.94, period northstar_legal_FP-2025-10. Reminder still shows SLA date 2025-11-09 even though the exception was reportedly closed on 2025-11-08. Confirm whether the exception is actually closed, whether this is connected to the Northstar Legal payroll-tax-withholding feed-drop, and whether to treat as a live issue or a polling bug re-fire.\", \"reminder_id\": \"reminder_scen_015_orphan_exception_0000\", \"due_datetime\": \"2025-11-09T19:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Review stale SLA reminder for closed BlackLine exception exc_49d97c6abdc14d\", \"description\": \"BlackLine reminder re-fired for exception exc_49d97c6abdc14d on Acme Cloud account 225000 for acme_cloud_FP-2026-02. Reminder text cites reconciliation BL-FA5198987EB3, the $453.67 variance, and the prior SLA due date even though the FX revaluation drift item was closed on 2026-03-05. Confirm against the closed-case history before taking any dismissal action.\", \"reminder_id\": \"reminder_scen_018_orphan_exception_0000\", \"due_datetime\": \"2026-03-06T19:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Follow up on BlackLine exception exc_cb0a9a94a3084c approval\", \"description\": \"BlackLine exception exc_cb0a9a94a3084c on reconciliation BL-3978BDB68290 for account 132000 Prepaid Facilities Maintenance in period brookfield_FP-2026-05 remains awaiting_approval for $435.41. Named approver is James Randall and the SLA is June 4, so Harry Marks should chase approval before the deadline.\", \"reminder_id\": \"reminder_scen_019_orphan_exception_0000\", \"due_datetime\": \"2026-06-04T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"SLA breach reminder: resolve BlackLine exception exc_a0f77f2a19104e\", \"description\": \"System-generated SLA breach notice for BlackLine exception exc_a0f77f2a19104e tied to reconciliation BL-516B536953DA for account 210000 Accounts Payable - External Vendors, period brookfield_FP-2026-05, amount $6,328.86. Urgency HIGH. Assignee: Ben Arinzo. Approver: Ryan Delgado. This orphan-exception item is already overdue at the start of the work window.\", \"reminder_id\": \"reminder_scen_020_orphan_exception_0000\", \"due_datetime\": \"2026-06-01T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"SLA due today: investigate BlackLine exception exc_af7274fb658844\", \"description\": \"System reminder for Sean Williams: BlackLine exception exc_af7274fb658844 on Northstar Legal account 101000 Cash - Operating remains in investigating status for period northstar_legal_FP-2026-05. Current timing variance is $-572.87 and no approver is named even though the SLA is due today, May 27.\", \"reminder_id\": \"reminder_scen_021_orphan_exception_0000\", \"due_datetime\": \"2026-05-27T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Urgent SLA follow-up: approver missing for BlackLine exception exc_4d5d3582698946\", \"description\": \"BlackLine exception exc_4d5d3582698946 remains open on reconciliation BL-7085321B04EA for account 131000 Prepaid Software Subscriptions in brookfield_FP-2026-05. Variance is $-6,068.91 from a duplicate-entry issue. Urgency is HIGH and the assignee is Emily Adekole. Key gap before the 1-day SLA deadline: no approver is named.\", \"reminder_id\": \"reminder_scen_022_orphan_exception_0000\", \"due_datetime\": \"2026-06-02T01:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Add 220000 rounding convention to next monthly recon huddle agenda\", \"description\": \"Bring BL-AA054D9F0898 and the May-cycle $2.31 case study to the next monthly recon huddle. Discuss whether 220000 should keep standing accept-and-document treatment for sub-$50 rounding tails or move to half-up rounding to force the residual to zero on future EUR revaluation items.\", \"reminder_id\": \"reminder_scen_039_recon_currency_refresh_0010\", \"due_datetime\": \"2026-06-22T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Review AML threshold alert for JE-acme_cloud-FP-2026-04-0052\", \"description\": \"AML monitoring reminder for Marina Soko: JE-acme_cloud-FP-2026-04-0052 is a posted wire-transfer journal in account 101000 Cash - Operating for period acme_cloud_FP-2026-04. The $10,000 threshold rule fired on the 2026-04-22 posting. Complete counterparty, beneficial-owner, and source-of-funds review within seven business days and route the clearance package to Anita Knowles for supervisory gate review.\", \"reminder_id\": \"reminder_scen_041_audit_compliance_0000\", \"due_datetime\": \"2026-05-02T01:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Lead Northstar split-convention discussion\", \"description\": \"Tom to lead the discussion on the standing 260000 Partner Distributions Payable and 519000 Partner Compensation split convention ahead of the Northstar Legal follow-up workshop. Frame it as an investigation breadcrumb only and do not propose any accounting record changes yet.\", \"reminder_id\": \"reminder_scen_047_tax_regulatory_0009\", \"due_datetime\": \"2026-06-24T21:30:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  },
+  {
+    "row_data": "{\"title\": \"Follow up on BlackLine exception exc_1ddfc978ce5a4d\", \"description\": \"Initial SLA reminder for George McAdam to follow up on exception exc_1ddfc978ce5a4d tied to reconciliation BL-75810CD0FEE4 for account 119000 in brookfield_FP-2026-05. Exception remains in investigating status for a $4,390.62 missing-documentation variance and requires follow-up initiation.\", \"reminder_id\": \"reminder_scen_010_orphan_exception_0000\", \"due_datetime\": \"2026-06-02T17:00:00+00:00\", \"time_notified\": null, \"repetition_unit\": null, \"repetition_value\": null}",
+    "source": "reminder.reminders"
+  }
+]

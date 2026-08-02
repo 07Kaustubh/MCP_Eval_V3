@@ -1,0 +1,85 @@
+OE 1: Search Confluence for the Season Pass design spec using confluence_search (text: "Season Pass" or title: "ZM3D Season Pass") or confluence_list_pages (space: "space_PROD", title: "ZM3D Season Pass - Spec"). Expected discovery: page "ZM3D Season Pass - Spec" (page_id: "page_season_pass_spec") in space_PROD, describing the Zombie Match 3D Season Pass - 30 tiers, $6.99/month, free track + premium track, rewards unlocked by progression tokens, premium track leans into cosmetics and coin/gem sinks.
+
+OE 2: Search GitHub for Season Pass pull requests in the match3d repository using github_search_pull_requests or github_list_pull_requests.
+
+Expected discovery:
+- PR #438, exact title "Feature/season pass", implemented the Season Pass system, including tokens, premium purchase, bonus-bank and reward flows, and the "Bones" reward type.
+- PR #459, exact title "[PERSON_NAME_0029]/queue manager", did not define reward values; its body says the queue includes "season_pass_event" and improves Season Pass popup sequencing.
+- PR #473, exact title "Addressables/sp", changed Season Pass popup and screen loading to Addressables.
+- PR #542, exact title "ZOM-668: Make sure event tokens are doubled", added Season Pass score-duplication behavior.
+
+Do not characterize PR #459 as a reward-value PR; its relevance is lifecycle/UI sequencing documented in its body.
+
+OE 3: Get details of the Season Pass implementation PR and check for source references using github_get_pull_request (owner: "harmonygames-Games", repo: "match3d", pullNumber: 438). Expected discovery: body lists features including "Added reward type Bones and Season Pass IAP entry; golden avatar frame for premium" - which introduces reward types and IAP entries not documented in the Confluence spec. The implementation references differ from the Confluence "ZM3D Season Pass - Spec" which specifies cosmetics and coin/gem sinks but not "Bones" rewards. The PR does not cite the Confluence spec as its source.
+
+OE 4: Use github_search_pull_requests with query "Collect Win", owner "harmonygames-Games", and repo "match3d". Expected discovery: PR #468 "Collect And Win", PR #470 "Collect And Win minor bugs fixes", PR #477 "Collect And Win Analytics and title change", and PR #482 "Collect and Win Improvements".
+
+Then use github_get_file_contents with owner "harmonygames-Games", repo "match3d-backend", path "config/runtime.exs", and ref "main". Expected discovery: ZombiesGame.WinAndCollect uses spreadsheet ID "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk", sheets "Collect&Win - Day 2" and "Collect&Win - Day 3", and range "B47:AE78".
+
+Use gdrive_search with query "name = '[Live Ops] Magical Wings Event- Collect & Win.docx' and trashed = false", then use gdrive_read_file with fileId "f_63bf1bd3ac55cbec23967a". Expected discovery: the original Magical Wings Collect & Win design document and its designed token-progression milestone structure. If its numeric milestone table is image-only and cannot be extracted, record that limitation and do not invent a numeric design baseline.
+Finally, use gsheets_values_batch_get with spreadsheetId "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk" and ranges ["'Collect&Win - Day 2'!B47:AE78", "'Collect&Win - Day 3'!B47:AE78"]. Treat the spreadsheet—not the client PRs—as the source of the numeric live milestone values.
+
+OE 5: Verify the live Season Pass spreadsheet and retrieve its reward values.
+
+First, use github_get_file_contents with owner "harmonygames-Games", repo "match3d-backend", path "config/config.exs", and ref "main". Expected discovery: ZombiesGame.SeasonPass is configured with spreadsheet ID "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk", sheets "Season Pass - Free" and "Season Pass - Premium", and range "B47:AE78".
+
+Then use gdrive_search with query "name = 'Zombie Match Economy 1.0.xlsx' and trashed = false". Expected discovery: Drive file "Zombie Match Economy 1.0.xlsx" (file ID f_89aebb6083dc44501666c7), owned by brian@harmonygames.co.
+
+Finally, use gsheets_values_batch_get with spreadsheetId "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk" and ranges ["'Season Pass - Free'!B47:AE78", "'Season Pass - Premium'!B47:AE78"]. Expected discovery: the live free- and premium-track reward tables consumed by match3d-backend. Compare these values and reward types with the ZM3D Season Pass design specification.
+
+OE 6: Search Linear for the live-ops UI optimization initiative using linear_list_issues (query: "Live-Ops UI Optimization" or "UI Optimization", team: "team_ENG") or searching by identifier "ENG-2404". Expected discovery: ENG-2404 "Live-Ops UI Optimization", parent_id "ENG-2401" (UI Changes Master Ticket), team_id "team_ENG", state "Todo", with a checklist in its description covering: Collect&Win (unchecked), Nate's Treasure Hunt (done), Axe arena (unchecked), River Rush (done), Season Pass (unchecked), Remove Ad (done), Offers (done), Rate-us pop-ups (unchecked).
+
+OE 7: List children of ENG-2404 to identify the specific optimization tickets using linear_list_issues (parentId: "ENG-2404"). Expected discovery: multiple child tickets including ENG-2424 "Collect&win - Magical Wings - UI Optimization" (assignee: usr_4e13bd40cc73d0fc, state: "PR", label: "UI Optimization") and ENG-2428 "Season Pass - UI Optimization" (assignee: usr_bdf01b53c6a92c5e), both with Figma references in their descriptions and neither assigned to Martin Walsh (usr_51f5f16d46e8cf55).
+
+OE 8: Read ENG-2424 using linear_get_issue. Expected discovery: the ticket "Collect&win - Magical Wings - UI Optimization" contains Figma reference URL_53019, is assigned to usr_4e13bd40cc73d0fc, and is not assigned to Martin Walsh.
+
+Search Slack and other available records for URL_53019 or explicit statements identifying its creator. Do not infer Figma authorship from the Linear assignee. If no primary evidence identifies the creator, report that the requester says the Figma is not theirs but that its authorship could not be independently verified from available metadata.
+
+OE 9: Search Confluence for the Combo Fighter Game Design Document using confluence_search (text: "Combo Fighter" or title: "Combo Fighter - Game Design Document") or confluence_get_page (page_id: "page_combo_gdd"). Expected discovery: page "Combo Fighter - Game Design Document" describing the merge/auto-battler prototype with core mechanics (build phase + battle phase), and critically stating under monetization/economy: "Rewards are gold only. Gold funds re-rolls and starting-piece upgrades. No gems, no energy, no second currency in the MVP."
+
+OE 10: Search Google Sheets for the Combo Fighter design spreadsheet using gsheets_search_spreadsheets (query: "Combo Fighter"). Expected discovery: spreadsheet "Combo Fighter Design Details" (spreadsheet_id: "f_e782531004d48b81f91e97") containing multiple sheets including "Permanent Upgrades", "XP Table", "Silver Economy", "BuyLevels" - this is the design spreadsheet Martin used to mock his upgrade cost assets from.
+
+OE 11: Read the Combo Fighter design cost tables using gsheets_values_batch_get with spreadsheetId "f_e782531004d48b81f91e97" and ranges ["'Permanent Upgrades'!A:AF", "'BuyLevels'!A:AF"]. Expected discovery: the gold-based permanent-upgrade and level-purchase cost tables used for the design, without Gems or Tickets as additional MVP currencies.
+
+OE 12: List Combo-Fighters GitHub Pull Requests to find changes that diverged from the GDD using github_list_pull_requests (owner: "harmonygames-Games", repo: "Combo-Fighters", state: "closed") or github_search_pull_requests (query: "rarity OR IAP OR currency", owner: "harmonygames-Games", repo: "Combo-Fighters"). Expected discovery: PR #34 "IAP" (branch: "Blake/IAP", merged 2026-01-28 by EMPLOYEE_0003_GITHUB_USERNAME) introducing in-game store with new currencies, and PR #37 (branch: "[PERSON_NAME_0067]/comboDefUpdate", merged 2026-02-13 by EMPLOYEE_0003_GITHUB_USERNAME) introducing rarity tier system.
+
+OE 13: Get PR #34 details to confirm new currencies introduction using github_get_pull_request (owner: "harmonygames-Games", repo: "Combo-Fighters", pullNumber: 34). Expected discovery: body confirms "New currencies: Gems and Tickets; ticket usage now funds rewarded flows", "Purchaseable speed boost and permanent rotation", "No Ads entitlement" - Gems and Tickets are currencies that do NOT appear in the Combo Fighter GDD which explicitly states "No gems, no energy, no second currency in the MVP." Merged by EMPLOYEE_0003_GITHUB_USERNAME (Oliver Brooks).
+
+OE 14: Get PR #37 details to confirm rarity tier system introduction using github_get_pull_request (owner: "harmonygames-Games", repo: "Combo-Fighters", pullNumber: 37). Expected discovery: body confirms "Added combo rarity tiers: Common, Rare, Epic, Legendary, Mythic", "New unlock mechanic with visible unlock cost and in-UI purchase button for special combos", "Combo leveling with configurable progression" - rarity does NOT appear anywhere in the Combo Fighter GDD. Merged by EMPLOYEE_0003_GITHUB_USERNAME (Oliver Brooks).
+
+OE 15: Run separate slack_search_public_and_private searches for "Season Pass reward", "Collect & Win", "Combo Fighter rarity", and "design sign-off". Review matching threads and distinguish implementation discussion from explicit design authorization. Record any thread that documents who requested or approved a parameter change. If none does, report only that no design-authorization thread was found in the searched Slack records.
+
+OE 16: For match3d PRs #438, #468, and #542 and Combo-Fighters PRs #34 and #37, use github_get_pull_request and github_get_pull_request_reviews to record the author, merger, submitted review states, and whether any APPROVED review exists. Treat author, merger, reviewer, and design approver as separate roles.
+
+Expected discovery:
+- match3d #438: authored and merged by Oliver Brooks; no APPROVED submitted review.
+- match3d #468: authored by PERSON_5877_GITHUB_USERNAME and merged by EMPLOYEE_0032_GITHUB_USERNAME; no APPROVED submitted review.
+- match3d #542: authored by PERSON_5877_GITHUB_USERNAME; approved and merged by EMPLOYEE_0032_GITHUB_USERNAME.
+- Combo-Fighters #34: authored by PERSON_5877_GITHUB_USERNAME and merged by Oliver Brooks; no submitted review.
+- Combo-Fighters #37: authored by PERSON_5877_GITHUB_USERNAME; Oliver Brooks submitted CHANGES_REQUESTED and later merged it; no APPROVED submitted review.
+
+Do not describe merging as approval and do not attribute the Collect & Win changes or PR #542 to Oliver Brooks.
+
+OE 17: Run separate gcal_search_events calls for "Season Pass", "Collect & Win", "Combo Fighter", and "design review", using timeMin "2025-09-01T00:00:00Z" and timeMax "2026-03-01T00:00:00Z".
+
+Report any event explicitly documenting design authorization. If no matching event is returned, state only that no design-authorization calendar event was found in the searched period.
+
+OE 18: Add a comment to ENG-2424 using linear_create_comment. The comment must record the live token-progression milestone values retrieved from the "Collect&Win - Day 2" and "Collect&Win - Day 3" spreadsheet tabs, identify the spreadsheet as the runtime source, and compare the live values with every extractable milestone value in the original design document; if its numeric table is not machine-readable, document the original design source and the extraction limitation.
+
+The comment must also state that the requester reports URL_53019 is not their Figma. If OE 8 finds no primary ownership evidence, state that the Figma’s authorship remains independently unverified; do not claim that it was created outside Design.
+
+OE 19: Add a comment to ENG-2428 using linear_create_comment. The comment must record the actual free- and premium-track reward values retrieved in OE 5, identify spreadsheet "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk", tabs "Season Pass - Free" and "Season Pass - Premium", range "B47:AE78", and compare them with the ZM3D Season Pass design specification.
+
+The comment must separately identify PR #438 as introducing the Season Pass implementation and "Bones" reward type, and PR #542 as adding token-doubling behavior. Do not describe those PRs as containing the spreadsheet’s numeric reward table.
+
+OE 20: Post one design-control escalation in the active #engineering channel using slack_send_message with channel "C09R0KXFX71".
+
+The message must link ENG-2424 and ENG-2428 and state that the reviewed records did not show design sign-off for the parameter divergences. It must distinguish authorship, approval, and merging:
+
+- Season Pass PR #438: Oliver Brooks authored and merged it; no APPROVED submitted review was found.
+- Season Pass/token-doubling PR #542: PERSON_5877_GITHUB_USERNAME authored it; EMPLOYEE_0032_GITHUB_USERNAME approved and merged it.
+- Collect & Win PR #468: PERSON_5877_GITHUB_USERNAME authored it; EMPLOYEE_0032_GITHUB_USERNAME merged it; no APPROVED submitted review was found.
+- Combo-Fighters PR #34: PERSON_5877_GITHUB_USERNAME authored it; Oliver Brooks merged it; no submitted review was found.
+- Combo-Fighters PR #37: PERSON_5877_GITHUB_USERNAME authored it; Oliver Brooks submitted CHANGES_REQUESTED and later merged it; no APPROVED submitted review was found.
+
+The message must not claim that Oliver Brooks shipped the Collect & Win changes or PR #542. It must also clarify that an engineering APPROVED review, where present, is not evidence of design sign-off.

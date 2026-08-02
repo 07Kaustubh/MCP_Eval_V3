@@ -1,0 +1,347 @@
+Run #1
+46/50 criteria passed
+Rubrics grading results
+46/50 passed
+Outcome
+46/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The agent called mcp__mcp_cb42d4cb__gsheets_create_spreadsheet with title 'Sequencer 2.0 Rollout — PR Review-Control Audit (GameOfDominoes, 2024-07-23 to 2024-09-10)' and received spreadsheetId '5d47070725a6a2718445ece6'. One spreadsheet was created.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	Verified by Python analysis of the trajectory: the register contains exactly 166 rows with PR numbers covering the set {854, 855, ..., 1019} — no missing, no duplicates. The multiset equals the inclusive range 854–1019.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	Every register row contains a full GitHub URL of the form 'https://github.com/harmonygames-Games/GameOfDominoes/pull/{PR#}', which is a complete locator that satisfies the criterion.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 row shows Outcome = 'Closed-unmerged', correctly recording it as closed without merge.
+The Agent records PR 918 as merged	Pass	PR 918 row shows Outcome = 'Merged', correctly recording it as merged.
+The Agent records a commit count of 1 for PR 855.	Pass	PR 855 row shows Commit count = 1, exactly matching the criterion.
+The Agent records a commit count of 125 for PR 940.	Fail	PR 940 row shows Commit count = 11, not 125 as required by the criterion. The value is wrong.
+The Agent records no submitted review for PR 854.	Pass	PR 854 row shows Submitted review states = 'NONE', which is a checked-empty value (the legend defines NONE as no reviews), satisfying the criterion.
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Pass	PR 862's submitted-review states field is 'CHANGES_REQUESTED;COMMENTED;COMMENTED;COMMENTED;COMMENTED;COMMENTED;COMMENTED;APPROVED' — exactly 1 APPROVED, 1 CHANGES_REQUESTED, and 6 COMMENTED, matching the criterion's multiset.
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 row shows Inline review-comment count = 0, exactly matching the criterion.
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	PR 884 row shows Inline review-comment count = 39, exactly matching the criterion title (criterion title asks for 39, which is present in the data).
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	PR 895 row shows Human main-thread comment count = 2, exactly matching the criterion.
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	PR 882 row shows Automated issue-link notice count = 1, exactly matching the criterion.
+The Agent records no review-request event for PR 884.	Pass	PR 884 row shows Review-request in lifecycle? = 'no', correctly recording no review-request event.
+The Agent records a review-request event for PR 918.	Pass	PR 918 row shows Review-request in lifecycle? = 'yes', correctly recording a review-request event.
+The Agent gives commit count its own distinguishable register field.	Pass	The register has a dedicated 'Commit count' column (column index 7), separate from all other evidence fields.
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register has a dedicated 'Submitted review states' column (column index 8), separate from all other evidence fields.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register has a dedicated 'Human main-thread comment count' column (column index 11), separate from automated notices and other fields.
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register has a dedicated 'Automated issue-link notice count' column (column index 12), separate from human comments and other fields.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register has a dedicated 'Review-request in lifecycle?' column (column index 13), separate from all other evidence fields.
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	The legend explicitly states '0 = checked-and-zero (evidence area examined, none found)'. All zero evidence values use the numeric 0 as an explicit checked-empty marker rather than a blank.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	anti-pattern ABSENT. The legend distinguishes blanks (unfinished) from 0 (checked-zero), and every row has 'all 16 fields checked' in the control column, meaning no blank/unfinished cell uses 0 as a marker.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	All 166 data rows contain 'all 16 fields checked' in the final column, and the legend states no data cell is left blank. No unfinished evidence values remain.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The Summary tab roll-up row 'Verified cohort size (rows)' = 166, exactly matching the criterion.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The Summary tab shows 'Merged' = 155, exactly matching the criterion.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The Summary tab shows 'Closed without merging' = 11, exactly matching the criterion.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Pass	The Summary tab shows 'PRs with no submitted review at all (states = NONE)' = 30, exactly matching the criterion.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The Summary tab shows 'Inline review-comment count = 0' = 154, matching the criterion title which says 154.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The Summary tab shows 'Automated issue-link notice count = 0' = 117, matching the criterion title which says 117.
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The Summary tab shows 'Merged PRs missing an APPROVED review' = 24, exactly matching the criterion.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Fail	The Summary tab shows 'Merged PRs missing a review-request record' = 68, but the criterion requires exactly 69. The agent consistently reports 68 across all outputs.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The agent called mcp__mcp_cb42d4cb__linear_create_comment with issueId='ENG-1138' and received a successful result with comment id 'comment_a4e416727e1a4662938e1a62d893d371'.
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment body includes 'https://docs.google.com/spreadsheets/d/5d47070725a6a2718445ece6/edit', which is the spreadsheet created for this audit.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment states 'Verified cohort: 166 PRs (#854–#1019)', clearly stating 166 as the verified cohort size.
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment states '24 merged PRs merged with no approved review', stating the exact count of 24.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Fail	The ENG-1138 comment states '68 merged PRs merged with no review-request record', but the criterion requires the count to be 69.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment states 'the record does NOT support direct reuse. Recommend technical revalidation before carrying Sequencer 2.0 forward.'
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment states 'This is a review-control audit only; sparse discussion is not a claim that the code is bad.', clearly separating review-record gaps from code-quality judgment.
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The agent called mcp__mcp_cb42d4cb__slack_send_message with channel='C07C2866011' (#executives) and received ok=true in the result.
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives message text includes 'https://docs.google.com/spreadsheets/d/5d47070725a6a2718445ece6/edit', which is the spreadsheet created for this audit.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives message states '*Verified cohort: 166 PRs (#854–#1019)', clearly stating 166 as the verified cohort size.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives message states '24 merged PRs merged with no approved review', stating the exact count of 24.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Fail	The #executives message states '68 merged PRs merged with no review-request record', but the criterion requires the count to be 69.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives message states 'the record does NOT support direct reuse — it calls for technical revalidation before we carry anything forward.'
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives message states '(Review-control finding only; not a claim that thin discussion = bad code.)', clearly separating review-record gaps from code quality.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The final response includes 'https://docs.google.com/spreadsheets/d/5d47070725a6a2718445ece6/edit', which is the usable spreadsheet link.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The final response states 'Verified row count: 166 PRs', reporting exactly 166 as the verified register row count.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The final response states 'The record does NOT support direct reuse — it calls for technical revalidation before carrying Sequencer 2.0 forward.'
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	The agent performed multiple gsheets_values_get reads (at trajectory items 2736–2753) to independently verify the completed spreadsheet before calling linear_create_comment at item 2767.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	The agent performed gsheets_values_get reads (at trajectory items 2736–2753) to verify the spreadsheet before slack_send_message at item 2769, satisfying the ordering requirement.
+
+Run #2
+47/50 criteria passed
+Rubrics grading results
+47/50 passed
+Outcome
+47/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The trajectory confirms a spreadsheet was created via gsheets_create_spreadsheet with title 'Sequencer 2.0 Rollout — PR Review-Control Audit' and ID 57ef889c089554b3c1f848fc, containing a Register tab and Summary & Reconciliation tab.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	The trajectory confirms exactly 166 PRs numbered #854 through #1019 (contiguous, no gaps), reconciled 1:1. The range is exactly the integers from 854 to 1019 inclusive.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	The register is explicitly scoped to GameOfDominoes (repo: harmonygames-Games/GameOfDominoes) and each row includes the PR number, URL, title, and author — satisfying the source-locator requirement.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 is confirmed in the trajectory as one of the 11 closed-unmerged PRs (list: #859, 863, 878, 879, 884, 901, 931, 946, 980, 981, 982).
+The Agent records PR 918 as merged	Pass	PR 918 is not in the closed-unmerged list and the trajectory data shows review_request: true and review_states: [APPROVED] for PR 918, consistent with a merged PR.
+The Agent records a commit count of 1 for PR 855.	Pass	The trajectory explicitly confirms PR 855 commit_count: 1 in the raw per-PR data object.
+The Agent records a commit count of 125 for PR 940.	Pass	The trajectory explicitly confirms PR 940 commit_count: 125 in the raw per-PR data object.
+The Agent records no submitted review for PR 854.	Pass	The trajectory confirms PR 854 has review_states: [] and approved: false — no submitted reviews recorded.
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Pass	The trajectory confirms PR 862 review_states: [CHANGES_REQUESTED, COMMENTED, COMMENTED, COMMENTED, COMMENTED, COMMENTED, COMMENTED, APPROVED] — exactly 1 APPROVED, 1 CHANGES_REQUESTED, 6 COMMENTED.
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 is a single-commit PR and the trajectory data for it shows no inline_comments field anomaly; 154/166 PRs have zero inline comments and PR 855 (single commit, simple PR) is consistent with zero inline comments. The per-PR data structure includes inline_comments and the roll-up of 154 PRs with zero inline comments supports this.
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	The trajectory explicitly confirms PR 884 inline_comments: 39 in the raw per-PR data object.
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	The trajectory explicitly confirms PR 895 human_comments: 2 in the raw per-PR data object.
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	The trajectory explicitly confirms PR 882 auto_link_notices: 1 in the raw per-PR data object.
+The Agent records no review-request event for PR 884.	Pass	The trajectory explicitly confirms PR 884 review_request: false in the raw per-PR data object.
+The Agent records a review-request event for PR 918.	Pass	The trajectory explicitly confirms PR 918 review_request: true in the raw per-PR data object.
+The Agent gives commit count its own distinguishable register field.	Pass	The register structure includes a dedicated commit_count field (confirmed in the per-PR data objects and described in the agent response as a separate column).
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register includes a dedicated review_states field (confirmed in per-PR data objects as a separate array column), distinct from the approved flag and other columns.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register includes a dedicated human_comments field (confirmed as separate from inline_comments and auto_link_notices in the per-PR data structure).
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register includes a dedicated auto_link_notices field (confirmed in per-PR data objects, e.g., PR 882 auto_link_notices: 1), distinct from human_comments.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register includes a dedicated review_request boolean field (confirmed in per-PR data objects: PR 884 review_request: false, PR 918 review_request: true).
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	The agent explicitly described checked-empty values using numeric 0 (e.g., inline_comments: 0, human_comments: 0, review_request: false) — all zeros are explicit numeric values, not blanks.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	The agent explicitly distinguishes checked-zero (numeric 0 / false / 'NONE SUBMITTED') from unfinished work. The trajectory confirms no pending/blank cells — all PRs were processed with complete API calls. Anti-pattern (unfinished using the checked-empty marker) is ABSENT.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	All 904 tool calls confirm complete per-PR data collection: 167 commit calls, 167 review calls, 172 issue-comment calls, 167 timeline calls — no missing rows or pending values.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The spreadsheet roll-up and the agent's final response both report exactly 166 total PRs.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The spreadsheet roll-up confirms exactly 155 merged PRs.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The spreadsheet roll-up confirms exactly 11 closed-unmerged PRs.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Pass	The trajectory confirms the roll-up records exactly 30 PRs with zero submitted reviews.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The trajectory confirms the roll-up records exactly 154 PRs with zero inline review comments, matching the criterion's required count of 154.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The trajectory explicitly confirms the roll-up records exactly 117 PRs with zero automated issue-link notices (exact text: 'checked-zero auto_link_notices: 117/166').
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The trajectory confirms the roll-up records exactly 24 merged PRs without an APPROVED submitted review.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Fail	The criterion requires exactly 69 merged PRs without a review-request event. The trajectory confirms the roll-up records 68, not 69. The agent consistently reported 68 in the spreadsheet, the ENG-1138 comment, the #executives message, and the final response.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The trajectory confirms a linear_create_comment call was made on ENG-1138 (comment ID: comment_19fa064b8754440fbe2353da891994f1).
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment includes the spreadsheet URL https://docs.google.com/spreadsheets/d/57ef889c089554b3c1f848fc/edit.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment states the verified cohort of 166 PRs (#854–#1019).
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment states 24 merged PRs with no APPROVED review.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Fail	The criterion requires stating 69 merged PRs lack a review-request event. The ENG-1138 comment states 68, not 69.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment explicitly recommends technical revalidation is required before carrying anything forward and rejects direct reuse.
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment includes the exact phrase 'This is a review-control finding, not a claim that sparse discussion means bad code,' explicitly separating review-record gaps from code-quality judgment.
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The trajectory confirms a slack_send_message call was made to #executives (channel ID: C07C2866011).
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives message includes the spreadsheet URL https://docs.google.com/spreadsheets/d/57ef889c089554b3c1f848fc/edit.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives message states the verified cohort of 166 PRs.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives message states 24 merged PRs with no approved review.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Fail	The criterion requires stating 69 merged PRs lack a review-request event. The #executives message states 68, not 69.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives message explicitly rejects direct reuse and calls for technical revalidation before carrying anything forward.
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives message includes 'This is a review-control finding, not a claim that sparse discussion = bad code,' explicitly separating review-record gaps from code-quality judgment.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The agent's final response includes the spreadsheet URL https://docs.google.com/spreadsheets/d/57ef889c089554b3c1f848fc/edit.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The agent's final response explicitly states 'Verified row count: 166 PRs'.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The agent's final response explicitly states 'the record does not support direct reuse — technical revalidation is required before carrying anything forward.'
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	The trajectory confirms gsheets_values_get (verification call #901) occurred before linear_create_comment (call #903), confirming the spreadsheet was checked before the ENG-1138 comment was posted.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	The trajectory confirms gsheets_values_get (verification call #901) occurred before slack_send_message (call #904), confirming the spreadsheet was checked before the #executives message was posted.
+
+Run #3
+46/50 criteria passed
+Rubrics grading results
+46/50 passed
+Outcome
+46/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The agent called gsheets_create_spreadsheet at idx 3201 to create one spreadsheet titled 'Sequencer 2.0 Revival — GameOfDominoes PR Review-Control Audit (2024-07-23 → 2024-09-10)' with ID d83ed892035fdfe4e716e611.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	The gsheets_values_get verification at idx 3253/3254 returned exactly PR numbers 854 through 1019 (166 rows), one per integer, with no missing or duplicated values.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	Every register row includes a direct GitHub URL of the form https://github.com/harmonygames-Games/GameOfDominoes/pull/{PR#}, providing a deterministic source locator for each PR.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 is recorded as 'CLOSED-UNMERGED' in the register (visible in the gsheets_values_update at idx 3221).
+The Agent records PR 918 as merged	Pass	PR 918 is recorded as 'MERGED' in the register (visible in the gsheets_values_update at idx 3227).
+The Agent records a commit count of 1 for PR 855.	Pass	PR 855 has a commit count of exactly 1 (confirmed in the gsheets_values_update at idx 3215).
+The Agent records a commit count of 125 for PR 940.	Pass	PR 940 has a commit count of exactly 125 (confirmed in the gsheets_values_update at idx 3233: 'Tile dozer integration update', 125 commits).
+The Agent records no submitted review for PR 854.	Pass	PR 854 has '(no submitted reviews)' in its submitted-review states field (confirmed in the gsheets_values_update at idx 3215).
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Pass	PR 862 has 'CHANGES_REQUESTED:1,COMMENTED:6,APPROVED:1' in the submitted-review states field — exactly one APPROVED, one CHANGES_REQUESTED, and six COMMENTED (confirmed in idx 3215).
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 has an inline review-comment count of 0 (confirmed in gsheets_values_update at idx 3215).
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	PR 884 has an inline review-comment count of 39 (confirmed in the register row at idx 3221: '[PERSON_NAME_0029] rendering layers merge', 39 inline comments).
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	PR 895 has a human main-thread comment count of exactly 2 (confirmed in gsheets_values_update at idx 3221).
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	PR 882 has an automated issue-link notice count of 1 (confirmed in gsheets_values_update at idx 3221).
+The Agent records no review-request event for PR 884.	Pass	PR 884 has 'no' in the reviewer-request-in-lifecycle field (confirmed in gsheets_values_update at idx 3221).
+The Agent records a review-request event for PR 918.	Pass	PR 918 has 'yes' in the reviewer-request-in-lifecycle field (confirmed in gsheets_values_update at idx 3227).
+The Agent gives commit count its own distinguishable register field.	Pass	The register header row includes a dedicated 'Commit count' column (column H), separate from all other evidence fields.
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register header row includes a dedicated 'Submitted review states' column (column I), separate from all other evidence fields.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register header includes a dedicated 'Human main-thread comment count' column (column L), distinguishable from all other fields.
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register header includes a dedicated 'Automated issue-link notice count' column (column M), separate from human comment count and other fields.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register header includes a dedicated 'Reviewer request in lifecycle' column (column N), separate from all other evidence fields.
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	Checked-empty evidence values are represented with explicit markers: '(no submitted reviews)' for reviews and literal '0' for numeric counts. The summary notes '0 = checked zero, never blank', making absence unambiguous.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	anti-pattern ABSENT. No evidence of unfinished work using the checked-empty marker. All 166 rows appear with fully populated evidence cells; blanks only appear in trailing empty rows beyond the data set.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	All 166 register rows have fully populated evidence values across all required columns. The verification step at idx 3253 confirmed the register is complete, and the summary states reconciliation is 0 missing.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The Summary tab explicitly states 'Verified row count: 166' and 'Source cohort PRs in window (contiguous #854–#1019): 166'.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The Summary tab states 'Merged: 155', matching the required count exactly.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The Summary tab states 'Closed without merging: 11', matching the required count exactly.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Fail	The Summary tab does not report a 'PRs with zero submitted reviews' count. The checked-zero totals in the roll-up cover inline comments (154), human main-thread comments (157), and automated notices (117), but there is no explicit line for zero-submitted-reviews count (which would be 30 based on the register data). The criterion requires 30 to appear in the roll-up.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The Summary tab states 'Inline review-comment count = 0 (verified): 154 of 166', matching the required count of 154 exactly.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The Summary tab states 'Automated issue-link notice count = 0 (verified): 117 of 166', matching the required count of 117 exactly.
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The Summary tab states 'Merged WITHOUT an APPROVED submitted review: 24', matching the required count exactly.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Fail	The Summary tab states 'Merged WITHOUT a review-request record in lifecycle: 68', not 69. The register data also yields 68 merged PRs with 'no' in the reviewer-request field. The criterion requires exactly 69.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The agent called linear_create_comment at idx 3267 with issueId 'ENG-1138', successfully adding a comment to the Bot and Sequencer 2.0 ticket.
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment body contains the spreadsheet URL: https://docs.google.com/spreadsheets/d/d83ed892035fdfe4e716e611/edit.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment states 'Verified cohort: 166 PRs (#854–#1019)', explicitly citing 166 as the verified cohort size.
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment states 'Merged-PR approval gap: 24 of 155 merged PRs have NO APPROVED submitted review', explicitly stating 24 and its meaning.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Fail	The ENG-1138 comment states 'Merged-PR review-request gap: 68 of 155 merged PRs have NO reviewer-request event', reporting 68 instead of the required 69.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment explicitly states 'Recommendation: the record does NOT support direct reuse of the rollout as a whole — it calls for technical revalidation before we carry anything forward.'
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment closes with 'This is a review-control audit, not a claim that sparse discussion means bad code', explicitly separating review-record gaps from code-quality judgment.
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The agent called slack_send_message at idx 3269 posting the founder readout to channel C07C2866011 (confirmed as #executives from context).
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives Slack message contains the spreadsheet URL: https://docs.google.com/spreadsheets/d/d83ed892035fdfe4e716e611/edit.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives message states 'Verified cohort: 166 PRs (#854–#1019), reconciled 1:1 to source (0 missing/extra)', explicitly citing 166.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives message states 'Merged-PR approval gap: 24 of 155 merged with no APPROVED review', explicitly citing 24 and its meaning.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Fail	The #executives message states 'Merged-PR review-request gap: 68 of 155 merged with no reviewer-request on record', reporting 68 instead of the required 69.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives message states 'the record does NOT support direct reuse of the rollout as a whole — it calls for technical revalidation before we carry anything forward', clearly recommending against direct reuse.
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives message states 'This measures review discipline, not code quality — sparse discussion isn't being treated as bad code', explicitly separating the audit from code-quality conclusions.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The final agent response includes the spreadsheet URL: https://docs.google.com/spreadsheets/d/d83ed892035fdfe4e716e611/edit.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The final response states 'Verified row count: 166 PRs (#854–#1019)', explicitly reporting 166.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The final response states 'The record does NOT support direct reuse of the rollout as a whole — it calls for technical revalidation before carrying anything forward.'
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	The agent called gsheets_values_get at idx 3253 to verify the completed register (reading PR numbers A1:A170), and only then posted the ENG-1138 comment at idx 3267. The verification step precedes the comment.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	The gsheets_values_get verification at idx 3253 precedes both the Linear comment (3267) and the Slack message (3269), so the spreadsheet was checked before the #executives post.
+
+Run #4
+50/50 criteria passed
+Rubrics grading results
+50/50 passed
+Outcome
+50/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The agent called gsheets_create_spreadsheet once, creating spreadsheet ID 'da85c75c1f6a421ba42fbe71'. Exactly one spreadsheet created.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	The trajectory confirms 166 PR rows written to the spreadsheet, PR numbers 854 to 1019 (166 unique integers), reconciled 1:1 to the source listing.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	Every row includes a full GitHub PR URL satisfying the direct PR URL locator form.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 row shows outcome 'Closed-unmerged', correctly recording it as closed without merge.
+The Agent records PR 918 as merged	Pass	PR 918 row shows outcome 'Merged', correctly recording it as merged.
+The Agent records a commit count of 1 for PR 855.	Pass	PR 855 row records commit count = 1, matching the required value exactly.
+The Agent records a commit count of 125 for PR 940.	Pass	PR 940 row records commit count = 125, matching the required value exactly.
+The Agent records no submitted review for PR 854.	Pass	PR 854 row records submitted review states as '(none)', the verified checked-empty representation for no submitted reviews.
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Pass	PR 862 row records exactly 1 APPROVED, 1 CHANGES_REQUESTED, and 6 COMMENTED.
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 row records inline review-comment count = 0 (numeric zero, verified absence).
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	PR 884 row records inline review-comment count = 39, matching the criterion exactly.
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	PR 895 row records human main-thread comment count = 2, matching the criterion exactly.
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	PR 882 row records automated issue-link notice count = 1, matching the criterion exactly.
+The Agent records no review-request event for PR 884.	Pass	PR 884 row records reviewer request = 'No', confirming no review-request event in its lifecycle.
+The Agent records a review-request event for PR 918.	Pass	PR 918 row records reviewer request = 'Yes', confirming a review-request event is present.
+The Agent gives commit count its own distinguishable register field.	Pass	The register header includes a dedicated 'Commit count' column, separate from all other evidence fields.
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register header includes a dedicated 'Submitted review states' column, separate from all other evidence fields.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register header includes a dedicated 'Human main-thread comment count' column, distinct from automated notices and inline comments.
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register header includes a dedicated 'Automated issue-link notice count' column, distinct from human main-thread comments.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register header includes a dedicated 'Reviewer request in lifecycle?' column, separate from all other evidence fields.
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	Checked-empty values use numeric 0 for counts and '(none)' for submitted review states — both are explicit markers defined in the legend as verified zeros, distinct from blank/empty cells.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	Anti-pattern ABSENT. The legend states blank/empty denotes unfinished work, and all 166 rows were fully queried — no blank cells exist. Unfinished evidence is not represented with the checked-empty marker.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	The legend confirms 'There are NO blank evidence cells in this register — all 166 rows were fully queried.' Every required evidence value is populated.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'Verified cohort size (rows in register)' = 166.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states '— Merged' = 155.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states '— Closed without merging' = 11.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'PRs with zero submitted reviews' = 30.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'Inline review-comment count = 0 (verified)' = 154.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'Automated issue-link notice count = 0 (verified)' = 117.
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'Merged PRs MISSING an APPROVED submitted review' = 24.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Pass	The Summary & Legend roll-up states 'Merged PRs MISSING a review-request lifecycle record' = 69.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The agent called linear_create_comment with issueId='ENG-1138', successfully posting a comment.
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment body contains the spreadsheet URL 'https://docs.google.com/spreadsheets/d/da85c75c1f6a421ba42fbe71/edit'.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment states 'Verified cohort: 166 PRs (#854–#1019)'.
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment states '24 merged PRs have no APPROVED review'.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Pass	The ENG-1138 comment states '69 merged PRs have no review-request lifecycle record'.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment states the record 'does not support blanket direct reuse — it calls for technical revalidation before carrying anything forward'.
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment explicitly frames it as 'a review-discipline audit (not a code-quality judgment — sparse discussion is not treated as bad code)'.
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The agent called slack_send_message to the #executives channel (confirmed by slack_search_channels result), and the tool result confirmed ok=true.
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives message contains the spreadsheet URL 'https://docs.google.com/spreadsheets/d/da85c75c1f6a421ba42fbe71/edit'.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives message states the verified cohort size as 166 PRs.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives message states '24 merged PRs lack an APPROVED submitted review'.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Pass	The #executives message states '69 merged PRs lack a review-request event'.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives message rejects direct reuse and calls for technical revalidation before carrying anything forward.
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives message explicitly separates review-record gaps from code-quality judgment, stating this is a review-control finding not a claim about code quality.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The final response provides the usable spreadsheet link 'https://docs.google.com/spreadsheets/d/da85c75c1f6a421ba42fbe71/edit'.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The final response states 'Verified row count: 166 PRs' explicitly.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The final response states the record 'does not support direct reuse' and 'calls for technical revalidation before carrying anything forward'.
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	The trajectory shows the agent read back the completed spreadsheet data (via gsheets_get_spreadsheet) before calling linear_create_comment on ENG-1138, satisfying the required ordering.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	The trajectory shows the agent verified the completed spreadsheet before calling slack_send_message to #executives, satisfying the required ordering.
+
+Run #5
+49/50 criteria passed
+Rubrics grading results
+49/50 passed
+Outcome
+49/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The agent called gsheets_create_spreadsheet and created one spreadsheet with id 'd30603bf6e254c7bef2de924' titled 'Sequencer 2.0 Rollout — PR Review-Control Audit (GameOfDominoes, 2024-07-23 to 2024-09-10)'.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	The batch_get result confirmed the PR column contains 854 through 1019 (166 entries), which is exactly the integer range 854–1019 inclusive with no duplicates or gaps, as confirmed by the sequential listing in the batch_get response.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	Every register row includes a direct PR URL in the form 'https://github.com/harmonygames-Games/GameOfDominoes/pull/NNN', providing a complete and findable source locator.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 row shows 'Closed without merge' in the Outcome column, confirmed from the gsheets_values_update data.
+The Agent records PR 918 as merged	Pass	PR 918 row shows 'Merged' in the Outcome column, confirmed from the gsheets_values_update data.
+The Agent records a commit count of 1 for PR 855.	Pass	PR 855 row shows commit count = 1 in the Commit count column, confirmed from the gsheets_values_update data.
+The Agent records a commit count of 125 for PR 940.	Pass	PR 940 row shows commit count = 125 in the Commit count column, confirmed from the gsheets_values_update data.
+The Agent records no submitted review for PR 854.	Pass	PR 854 row shows 'none' in the Submitted review states column (verified checked-empty), confirmed from the gsheets_values_update data.
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Fail	PR 862 row shows 'CHANGES_REQUESTED;COMMENTED;COMMENTED;COMMENTED;COMMENTED;COMMENTED;APPROVED' — that is 1 CHANGES_REQUESTED, 5 COMMENTED, and 1 APPROVED. The criterion requires 6 COMMENTED. The agent recorded one fewer COMMENTED than required.
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 row shows inline review-comment count = 0, confirmed from the gsheets_values_update data.
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	PR 884 row shows inline review-comment count = 39, confirmed from the gsheets_values_update data where PR 884 entry is '[884, ..., 39, 0, 0, ...]'.
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	PR 895 row shows human main-thread comment count = 2, confirmed from the gsheets_values_update data.
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	PR 882 row shows automated issue-link notice count = 1, confirmed from the gsheets_values_update data.
+The Agent records no review-request event for PR 884.	Pass	PR 884 row shows review-request in lifecycle = 'No', confirmed from the gsheets_values_update data.
+The Agent records a review-request event for PR 918.	Pass	PR 918 row shows review-request in lifecycle = 'Yes', confirmed from the gsheets_values_update data.
+The Agent gives commit count its own distinguishable register field.	Pass	The register header includes 'Commit count' as a dedicated column (column index 8), clearly separate from other evidence fields.
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register header includes 'Submitted review states' as a dedicated column (column index 9), clearly separate from other evidence fields.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register header includes 'Human main-thread comment count' as a dedicated column (column index 12), clearly separate from automated notices.
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register header includes 'Automated issue-link notice count' as a dedicated column (column index 13), clearly separate from human comments.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register header includes 'Review request in lifecycle' as a dedicated column (column index 14), clearly separate from other evidence fields.
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	Checked-empty values are represented explicitly: numeric 0 for zero-count evidence fields and 'none' for the submitted review states field, making absence explicit and visible.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	anti-pattern ABSENT. All 166 rows were fully populated with actual values. No unfinished/pending cells used the checked-empty markers (0 or 'none'); every cell contains a real, verified value.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	The agent wrote all 166 data rows across three batch updates (rows 1–60, 61–113, 114–167), and the batch_get verification confirmed all rows were present and populated.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'Source cohort (GitHub PRs list, all states, created_at in window): 166' and 'Register rows built: 166'.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'Merged: 155' in the Outcome Split section.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'Closed without merging: 11' in the Outcome Split section.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'PRs with no submitted review at all (review states = none): 30'.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'PRs with inline review-comment count = 0 (checked zero): 154'.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'PRs with automated issue-link notice count = 0 (checked zero): 117'.
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'Merged WITHOUT an APPROVED submitted review: 24'.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Pass	The Summary sheet rollup states 'Merged WITHOUT a review-request record in lifecycle: 69'.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The agent called linear_create_comment with issueId='ENG-1138' and the result confirmed comment_393018692cbf463a80ca5c7922bb3ec3 was created on issue ENG-1138.
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment body contains 'https://docs.google.com/spreadsheets/d/d30603bf6e254c7bef2de924/edit', confirmed in the linear_create_comment result.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment states '**Verified cohort: 166 PRs** (contiguous #854–#1019)', confirmed in the linear_create_comment result.
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment states '**24 merged with no APPROVED review**', confirmed in the linear_create_comment result.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Pass	The ENG-1138 comment states '**69 merged with no review-request record**', confirmed in the linear_create_comment result.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment states 'The record does **not** support direct reuse. Under the stated bar...Sequencer 2.0 work requires **technical revalidation before we carry anything forward.**'
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment explicitly states 'This is a review-control finding — sparse review evidence does not mean the code is bad, only that discipline is insufficient to vouch for reuse without re-verification.'
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The agent called slack_send_message to channel C07C2866011 (confirmed to be 'executives' from the channel search result), and the message was posted successfully.
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives Slack message contains 'https://docs.google.com/spreadsheets/d/d30603bf6e254c7bef2de924/edit', confirmed in the slack_send_message result.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives Slack message states '*Verified cohort:* *166 PRs* (#854–#1019)', confirmed in the slack_send_message result.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives Slack message states '*24 merged with no approved review*', confirmed in the slack_send_message result.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Pass	The #executives Slack message states '*69 merged with no review-request record*', confirmed in the slack_send_message result.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives Slack message states 'Recommendation: the record does *not* support direct reuse...Sequencer 2.0 needs *technical revalidation before we carry anything forward.*'
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives Slack message states 'This is a review-control finding, not a claim the code is defective.' in the subject line and text.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The final response includes 'https://docs.google.com/spreadsheets/d/d30603bf6e254c7bef2de924/edit' as the spreadsheet link.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The final response states '**Verified row count:** **166** pull requests (one row each)'.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The final response states 'The record does **not** support direct reuse → **technical revalidation required before carrying anything forward.**'
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	The gsheets_values_batch_get (verification) occurred at event index 2719, while the linear_create_comment occurred at event index 2729. Verification happened before the ENG-1138 comment.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	The gsheets_values_batch_get (verification) occurred at event index 2719, while the slack_send_message occurred at event index 2731. Verification happened before the #executives message.
+
+Run #6
+49/50 criteria passed
+Rubrics grading results
+49/50 passed
+Outcome
+49/50 passed
+Rubric	Decision	Justification
+The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.	Pass	The agent called `mcp__mcp_b4ef8447__gsheets_create_spreadsheet` at event 3423, creating one spreadsheet titled 'Sequencer 2.0 Rollout — PR Review-Control Audit (GameOfDominoes #854–#1019, 2024-07-23→2024-09-10)' with ID 'd5501edadad20be5e6edd8c7'.
+The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.	Pass	The Bash script at event 3437 confirms row1_pr=854 and last_pr=1019, with 167 rows (1 header + 166 data rows). The contiguous range 854–1019 = 166 PRs is confirmed by the gsheets_values_update call writing rows A1:U167.
+The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.	Pass	Every register row has a dedicated URL column containing 'https://github.com/harmonygames-Games/GameOfDominoes/pull/[number]', confirmed by the header and multiple rows visible in the trajectory.
+The Agent records PR 884 as closed without merge.	Pass	PR 884 row (event 3447, line 32) shows outcome 'Closed-unmerged', confirming it is recorded as closed without merge.
+The Agent records PR 918 as merged	Pass	PR 918 row (event 3447, line 66) shows outcome 'Merged', confirming it is recorded as merged.
+The Agent records a commit count of 1 for PR 855.	Pass	PR 855 row (event 3447, line 3) shows commit count = 1, exactly as required.
+The Agent records a commit count of 125 for PR 940.	Pass	PR 940 row (event 3447, line 88) shows commit count = 125, exactly as required.
+The Agent records no submitted review for PR 854.	Pass	PR 854 row (event 3447, line 2) shows 'NONE (0 reviews)' in the submitted review states field and 0 review events, confirming checked absence.
+The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.	Fail	PR 862 row (event 3447, line 10) shows 'CHANGES_REQUESTED; COMMENTED; COMMENTED; COMMENTED; COMMENTED; COMMENTED; APPROVED' — that is 1 CHANGES_REQUESTED, 5 COMMENTEDs, and 1 APPROVED. The criterion requires six COMMENTED reviews. The agent recorded only five, failing the exact multiset match.
+The Agent records an inline review-comment count of 0 for PR 855.	Pass	PR 855 row (event 3447, line 3) shows inline review comments = 0, confirming checked absence.
+The Agent records an inline review-comment count of 39 for PR 884.	Pass	PR 884 row (event 3447, line 32) shows inline review comments = 39, exactly as required by the criterion title.
+The Agent records a human main-thread comment count of 2 for PR 895.	Pass	PR 895 row (event 3447, line 43) shows human main-thread comments = 2, exactly as required.
+The Agent records an automated issue-link notice count of 1 for PR 882.	Pass	PR 882 row (event 3447, line 30) shows automated issue-link notices = 1, exactly as required.
+The Agent records no review-request event for PR 884.	Pass	PR 884 row (event 3447, line 32) shows 'Reviewer request in lifecycle' = 'NO' and review-request events = 0, confirming no review-request event.
+The Agent records a review-request event for PR 918.	Pass	PR 918 row (event 3447, line 66) shows 'Reviewer request in lifecycle' = 'YES' and review-request events = 1, confirming a review-request event was recorded.
+The Agent gives commit count its own distinguishable register field.	Pass	The register header (event 3452) includes a dedicated 'Commit count' column (column index 10), separate from all other evidence fields.
+The Agent gives submitted-review states their own distinguishable register field.	Pass	The register header (event 3452) includes a dedicated 'Submitted review states' column (column index 11), separate from all other evidence fields.
+The Agent gives human main-thread comment count its own distinguishable register field.	Pass	The register header (event 3452) includes a dedicated 'Human main-thread comments' column (column index 14), separate from automated notices and other fields.
+The Agent gives automated issue-link notice count its own distinguishable register field.	Pass	The register header (event 3452) includes a dedicated 'Automated issue-link notices' column (column index 15), separate from human main-thread comments and other fields.
+The Agent gives review-request presence its own distinguishable register field.	Pass	The register header (event 3452) includes a dedicated 'Reviewer request in lifecycle' column (column index 16), separate from all other evidence fields.
+The Agent represents every checked-empty evidence value with an explicit checked-empty marker.	Pass	Checked-empty values are explicit: numeric 0 for counts, 'NONE (0 reviews)' for missing reviews, 'NO' for boolean absence. The legend in the Summary tab explicitly states 'A numeric 0 in any evidence column is a VERIFIED (checked) zero.' These are distinguishable from blanks.
+The Agent does not represent unfinished evidence work with the checked-empty marker.	Pass	anti-pattern ABSENT. The Summary tab legend states 'No evidence cell is left blank; a blank would denote unverified/unfinished work, of which there is none.' All evidence values use explicit 0, 'NONE', or 'NO' — no cell is left blank/pending. Unfinished work is not represented with the checked-empty marker.
+The Agent leaves no unfinished evidence values in the completed register.	Pass	The trajectory shows all 166 PR rows fully populated with the Python script at event 3419, and gsheets_values_update confirmed 3507 cells written (167 rows × 21 columns). No blank or pending cells in the completed register.
+The Agent reports 166 total PRs in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Source cohort (PR #854–#1019, contiguous)', 166 and 'Register rows', 166. The final response also states 'Verified row count: 166 PRs'.
+The Agent reports 155 merged PRs in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Merged', 155. Confirmed in both the spreadsheet rollup and the final response.
+The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Closed without merging', 11. Confirmed by '155 + 11 = 166'.
+The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'PRs with NO submitted review at all (review_states empty)', 30. Exactly matches the criterion.
+The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Inline review comments = 0', 154. Exactly matches the criterion title requiring 154.
+The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Automated issue-link notices = 0', 117. Exactly matches the criterion.
+The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Merged PRs missing an APPROVED submitted review', 24. Exactly matches the criterion.
+The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.	Pass	The Summary tab (event 3458) reports 'Merged PRs missing a review-request record', 69. Exactly matches the criterion.
+The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.	Pass	The agent called `mcp__mcp_b4ef8447__linear_create_comment` at event 3483 with issueId='ENG-1138', confirming a comment was added to the existing ticket.
+The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.	Pass	The ENG-1138 comment body (event 3483) includes 'https://docs.google.com/spreadsheets/d/d5501edadad20be5e6edd8c7/edit', linking the completed spreadsheet.
+The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.	Pass	The ENG-1138 comment (event 3483) states 'Verified cohort: 166 PRs (#854–#1019, contiguous)', exactly 166.
+The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.	Pass	The ENG-1138 comment (event 3483) states '24 of 155 merged PRs have no approved review', citing the exact count of 24.
+The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.	Pass	The ENG-1138 comment (event 3483) states '69 of 155 merged PRs have no review-request record in their lifecycle', citing the exact count of 69.
+The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The ENG-1138 comment (event 3483) states 'does NOT support direct reuse' and 'technical revalidation before carrying anything forward', clearly recommending against direct reuse pending revalidation.
+The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.	Pass	The ENG-1138 comment (event 3483) states 'review discipline only — not a judgment on the algorithm' and 'the concern is rollout-wide review discipline, not the code being bad', clearly separating review-record gaps from code quality.
+The Agent posts the founder-facing rollout review in `#executives`.	Pass	The agent called `mcp__mcp_b4ef8447__slack_send_message` at event 3481 with channel='C07C2866011', which was confirmed as the #executives channel (event 3478 search result).
+The Agent includes the usable audit-spreadsheet link in the `#executives` message.	Pass	The #executives message (event 3481) ends with 'https://docs.google.com/spreadsheets/d/d5501edadad20be5e6edd8c7/edit', linking the completed spreadsheet.
+The Agent states the verified cohort size as 166 PRs in the `#executives` message.	Pass	The #executives message (event 3481) states 'Verified cohort: 166 PRs (#854–#1019, contiguous)', exactly 166.
+The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.	Pass	The #executives message (event 3481) states '24 of 155 merged PRs have no approved review', citing the exact count of 24.
+The Agent states in the `#executives` message that 69 merged PRs lack a review-request event	Pass	The #executives message (event 3481) states '69 of 155 merged PRs have no review-request record in their lifecycle', citing the exact count of 69.
+The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.	Pass	The #executives message (event 3481) states 'does NOT support direct reuse' and 'technical revalidation before we carry anything forward', clearly recommending against direct reuse.
+The Agent states in the `#executives` message that the audit is not a code-quality conclusion.	Pass	The #executives message (event 3481) opens with 'a review-discipline check, not an opinion on the algorithm' and closes with 'Sparse discussion is not treated as bad code; this is purely about review control', clearly separating from code quality.
+The Agent gives Arthur a usable link to the created spreadsheet in the final response.	Pass	The final response includes 'https://docs.google.com/spreadsheets/d/d5501edadad20be5e6edd8c7/edit' as the usable spreadsheet link.
+The Agent reports the verified register row count as 166 in the final response.	Pass	The final response states 'Verified row count: 166 PRs', exactly matching the required count.
+The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.	Pass	The final response states 'The record does NOT support direct reuse — Sequencer 2.0 calls for technical revalidation before carrying anything forward', fulfilling both conditions.
+The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.	Pass	Spreadsheet verification (gsheets_values_get calls at events 3461, 3464, 3467, 3473) occurs before the ENG-1138 comment (event 3483). The trajectory ordering confirms the required sequence.
+The Agent verifies the completed spreadsheet before posting the `#executives` message.	Pass	Spreadsheet verification (gsheets_values_get calls at events 3461, 3464, 3467, 3473) occurs before the #executives post (event 3481). The trajectory ordering confirms the required sequence.

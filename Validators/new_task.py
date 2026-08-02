@@ -29,7 +29,7 @@ except ImportError:
     from universes import get_framework_profile, list_universes
 
 ROOT = Path(__file__).resolve().parent.parent
-TASKS_DIR = ROOT / "Tasks"
+TASKS_DIR = ROOT / "Tasks"   # default; per-universe override via FRAMEWORKS working_dir_name
 
 TASKS_TEMPLATE_STARPM = ROOT / "Tasks_Template_starpm"
 # v21.2: upstream ships per-universe templates (3_UniverseDataForThisTask stub +
@@ -79,13 +79,13 @@ def next_index(tasks_dir):
     return max_n + 1
 
 
-def resolve_task_dir_name(arg):
+def resolve_task_dir_name(arg, work_root=None):
     arg = arg.strip()
     m = re.match(r"^(\d+)_([a-f0-9]+)$", arg)
     if m:
         return arg
     if re.match(r"^[a-f0-9]{8,}$", arg):
-        idx = next_index(TASKS_DIR)
+        idx = next_index(work_root if work_root is not None else TASKS_DIR)
         return f"{idx}_{arg}"
     raise SystemExit(f"ERROR: '{arg}' is not a recognized task id (expected hex string or <index>_<hex>)")
 
@@ -107,7 +107,7 @@ def scaffold_v4(task_dir, name, universe, review):
     if not TASKS_TEMPLATE_STARPM.is_dir():
         print(f"ERROR: V4 template missing: {TASKS_TEMPLATE_STARPM}", file=sys.stderr)
         sys.exit(1)
-    TASKS_DIR.mkdir(parents=True, exist_ok=True)
+    task_dir.parent.mkdir(parents=True, exist_ok=True)
     task_dir.mkdir()
     copy_template_tree(TASKS_TEMPLATE_STARPM, task_dir)
     for fname in V4_QC_PLACEHOLDER_FILES:
@@ -132,9 +132,29 @@ def scaffold_v4(task_dir, name, universe, review):
     print()
     print("Then run, in a fresh chat:")
     if review:
-        print(f"  PIPELINE REVIEW - Tasks/{name}")
+        print(f"  PIPELINE REVIEW - {task_dir.parent.name}/{name}")
     else:
-        print(f"  PIPELINE S0 - Tasks/{name}")
+        print(f"  PIPELINE S0 - {task_dir.parent.name}/{name}")
+
+
+def working_dir_for(universe: str):
+    """Per-universe task root. HarmonyGames authors into Generated_Tasks/, not Tasks/."""
+    name = get_framework_profile(universe).get("working_dir_name", "Tasks")
+    return ROOT / name
+
+
+def write_universe_marker(task_dir, universe: str) -> None:
+    """Persist the universe the operator ASKED for.
+
+    Without this, a freshly scaffolded task carries no universe marker anywhere, so the
+    first detect_universe() call scores zero on every signal set and resolves to the
+    tie-break default. That answer is then cached to _aux/Universe.txt and read
+    unconditionally by every later call, so the mis-detection is sticky and silent.
+    The operator already told us the universe on the command line; record it.
+    """
+    aux = task_dir / "_aux"
+    aux.mkdir(parents=True, exist_ok=True)
+    (aux / "Universe.txt").write_text(universe + "\n", encoding="utf-8")
 
 
 def main():
@@ -146,8 +166,9 @@ def main():
                     help="Target universe. starpm (v4) scaffolds the dual-model V4 shape; others keep the v3 shape.")
     args = ap.parse_args()
 
-    name = resolve_task_dir_name(args.task_id_or_full_name)
-    task_dir = TASKS_DIR / name
+    work_root = working_dir_for(args.universe)
+    name = resolve_task_dir_name(args.task_id_or_full_name, work_root)
+    task_dir = work_root / name
 
     if task_dir.exists():
         print(f"ERROR: {task_dir} already exists. Refusing to overwrite.", file=sys.stderr)
@@ -155,13 +176,15 @@ def main():
 
     if get_framework_profile(args.universe).get("trajectory_layout") == "per_model":
         scaffold_v4(task_dir, name, args.universe, args.review)
+        write_universe_marker(task_dir, args.universe)
         return
 
     paste_files = REVIEW_PASTE_FILES if args.review else CB_PASTE_FILES
     mode = "REVIEW" if args.review else "CB"
 
-    TASKS_DIR.mkdir(parents=True, exist_ok=True)
+    work_root.mkdir(parents=True, exist_ok=True)
     task_dir.mkdir()
+    write_universe_marker(task_dir, args.universe)
     for fname, _ in paste_files:
         (task_dir / fname).touch()
     # v21.2: every universe's upstream Tasks_Template ships injection artifacts.
@@ -176,6 +199,7 @@ def main():
     (task_dir / "trajectory-runs").mkdir()
 
     print(f"Created: {task_dir}")
+    print(f"Universe: {args.universe}  (recorded in _aux/Universe.txt)")
     print(f"Mode:    {mode}")
     print()
     print(f"Paste these {len(paste_files)} files NOW (each in its own file):")
@@ -190,13 +214,13 @@ def main():
         print(f"and parse_trajectories.py will pick them up during REVIEW step 3.")
         print()
         print("Then run, in a fresh chat:")
-        print(f"  PIPELINE REVIEW - Tasks/{name}")
+        print(f"  PIPELINE REVIEW - {task_dir.parent.name}/{name}")
         print()
         print("(REVIEW will produce PersonaBrief, Universe_Split, Universe_Index, Fact_Ledger,")
         print(" graph_report; then validate + run councils + FINAL + triage SALVAGEABLE/REBUILD.)")
     else:
         print("Then run, in a fresh chat:")
-        print(f"  PIPELINE S0 - Tasks/{name}")
+        print(f"  PIPELINE S0 - {task_dir.parent.name}/{name}")
         print()
         print("(S0 will produce PersonaBrief, Universe_Split, Universe_Index, Fact_Ledger, graph_report.)")
 

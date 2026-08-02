@@ -1,0 +1,122 @@
+[
+    {
+        "title": "The Agent reports the summer 2025 Zombie Match 3D scheduler outage in which live-ops events stopped firing for about two weeks.",
+        "category": "outcome",
+        "justification": "The prompt says "we went through almost exactly this last summer." The summer outage is EVT-0014 (Plague Race, 2025-07-07) and EVT-0015 (Zombie Lane, 2025-07-14), both failure_note "failed - backend scheduler stopped; events not firing for 2 weeks."",
+        "evidence": " In the final response, look for identification of the summer 2025 outage where events stopped firing (~2 weeks). Confirmed via snowflake LIVE_EVENT_PERFORMANCE (EVT-0014 / EVT-0015)."
+    },
+    {
+        "title": "The Agent reports that the outage recurred in late 2025 on Endless Monster Mode (event EVT-0022).",
+        "category": "outcome",
+        "justification": "The prompt says the events "fell over again late last year." EVT-0022 (Endless Monster Mode, 2025-11-10, status degraded, "tournament scheduler stopped, not restarted for weeks") is the recurrence.",
+        "evidence": "In the final response, look for identification of the late-2025 recurrence (Endless Monster Mode / EVT-0022). Confirmed via snowflake LIVE_EVENT_PERFORMANCE."
+    },
+    {
+        "title": "The Agent quantifies the failed events' completion rate as roughly 6-11%.",
+        "category": "outcome",
+        "justification": "The prompt asks for "the real impact on players... from the failures, not vibes." EVT-0014 (9.4%), EVT-0015 (10.7%), and EVT-0022 (6.5%) quantify the completion collapse.",
+        "evidence": "In the final response, look for the failed events' completion rate (~6-11%). Approximate values or a close range are acceptable. Confirmed via snowflake LIVE_EVENT_PERFORMANCE."
+    },
+    {
+        "title": "The Agent contrasts the failed events' completion rate against healthy runs (around 40-56%)",
+        "category": "outcome",
+        "justification": "The prompt asks "how bad it is"; the completion collapse only lands against the healthy baseline. Healthy Zombie events complete around 40-56% (e.g. EVT-0018 48.0%, EVT-0021 54.9%, EVT-0023 55.8%).",
+        "evidence": "In the final response, look for a completion-rate comparison to healthy events (~40-56%). Approximate values acceptable. Confirmed via snowflake LIVE_EVENT_PERFORMANCE."
+    },
+    {
+        "title": "The Agent determines that the scheduler is broken by design, a single point of failure with no watchdog or hot standby.",
+        "category": "outcome",
+        "justification": "The prompt asks "whether the thing that schedules these events is broken by design or whether something specific regressed." The Live-Ops Event Engine postmortem states there is one active scheduler process "with no hot standby."",
+        "evidence": "In the final response, look for the conclusion that the scheduler is a single point of failure with no watchdog/hot standby (broken by design), not a one-off regression. Confirmed via the Confluence "Live-Ops Event Engine" page."
+    },
+    {
+        "title": "The Agent finds that the scheduler has been kept running by manual restarts rather than by automatic scheduling.",
+        "category": "outcome",
+        "justification": "The prompt hints the summer outage was mishandled. The #live-incidents thread (Arthur, Vincent, Leonard) reveals the scheduler never auto-scheduled and Douglas restarts it by hand, which is the root cause of the recurrence.",
+        "evidence": "In the final response, look for the finding that the scheduler does not auto-schedule and is restarted manually (by Douglas). Confirmed via #live-incidents (C080X4GTZ0E) messages from Arthur Blake, Vincent Parker, and Leonard Hayes."
+    },
+    {
+        "title": "The Agent concludes that the post-outage remediation work was never built, which is why the outage recurred.",
+        "category": "outcome",
+        "justification": "The prompt says "there was supposed to be follow-up work... I've got a strong feeling none of it was ever built... I want it to be undeniable." The postmortem lists remediation; no ticket tracks it and the outage recurred.",
+        "evidence": "In the final response, look for the determination that the postmortem's remediation follow-ups were never implemented, causally linked to the recurrence. This is the core verdict the prompt asks for."
+    },
+    {
+        "title": "The Agent identifies the postmortem's scheduler-resilience remediation (e.g., a heartbeat/watchdog and leader election / hot standby).",
+        "category": "outcome",
+        "justification": "To make the missing work "undeniable" and to file it, the agent must name the remediation the postmortem defined: heartbeat+watchdog, leader election / hot standby, decoupling lives from event firing, a lives reconciler, and a last-tick dashboard.",
+        "evidence": "In the final response, look for the specific resilience remediation (at least the watchdog/heartbeat and leader-election/hot-standby work). Confirmed via the Confluence "Live-Ops Event Engine" postmortem."
+    },
+    {
+        "title": "The Agent notes that ENG-2238 ("Change event scheduler rules for live ops events", Done) is not the resilience remediation.",
+        "category": "outcome",
+        "justification": "ENG-2238 is a decoy: its title suggests a scheduler fix but it is Done and only re-aligned the event calendar/rules. Distinguishing it prevents the false conclusion that the fix already shipped.",
+        "evidence": "In the final response or the new ticket, look for recognition that ENG-2238 (Done) did not address the scheduler-resilience gap. Confirmed via linear.issues.json ENG-2238."
+    },
+    {
+        "title": "The Agent creates a Linear issue to track the scheduler-resilience remediation work.",
+        "category": "outcome",
+        "justification": "The prompt says "get the remediation work that never happened onto a proper ticket so it stops falling through the cracks." No such ticket exists, so one must be created.",
+        "evidence": "In the trajectory, look for an issue-creation action on the ENG or ZOM team for the scheduler-resilience remediation. Confirm it succeeded (linear_create_issue)."
+    },
+    {
+        "title": "The Agent's new remediation ticket describes the scheduler watchdog/failover resilience work.",
+        "category": "outcome",
+        "justification": " The ticket must capture the actual work to be useful: the resilience remediation (watchdog/heartbeat, leader election / hot standby) that the postmortem defined and that was never built.",
+        "evidence": "In the new issue's title/description, look for the scheduler-resilience remediation (watchdog/heartbeat, leader election / hot standby / failover)."
+    },
+    {
+        "title": "The Agent adds a comment to ENG-2400 connecting the "lives not generating" symptom to the scheduler outage root cause.",
+        "category": "outcome",
+        "justification": "The prompt says "connect it to the open tickets people have already raised about the lives problem." ENG-2400 ("Lives are not generating for some real players.", open) is one of the two open symptom tickets.",
+        "evidence": " In the trajectory, look for a comment on ENG-2400 (linear_create_comment) tying the lives symptom to the scheduler outage / remediation."
+    },
+    {
+        "title": "The Agent adds a comment to ZOM-667 connecting the "lives regen syncing" symptom to the scheduler outage root cause.",
+        "category": "outcome",
+        "justification": " The prompt says "connect it to the open tickets people have already raised about the lives problem." ZOM-667 ("Lives regen syncing issues", open) is the second open symptom ticket.",
+        "evidence": "In the trajectory, look for a comment on ZOM-667 (linear_create_comment) tying the lives symptom to the scheduler outage / remediation."
+    },
+    {
+        "title": "The Agent updates the "Live-Ops Event Engine" incident write-up to record that the outage recurred.",
+        "category": "outcome",
+        "justification": "The prompt says "bring our incident write-up up to date so it reflects that this came back and why." The existing postmortem is the Confluence "Live-Ops Event Engine" page.",
+        "evidence": "In the trajectory, look for an update to (or comment on) the Confluence "Live-Ops Event Engine" page recording the recurrence. Confirm it succeeded (confluence_update_page or confluence_add_comment on page_live_ops_engine)."
+    },
+    {
+        "title": "The Agent's incident write-up update states that the postmortem's remediation follow-ups were never implemented.",
+        "category": "outcome",
+        "justification": "The prompt wants the write-up to reflect "why" it came back. The load-bearing reason is that the remediation follow-ups were never built.",
+        "evidence": "In the updated Confluence page/comment content, look for the statement that the postmortem's remediation was never implemented."
+    },
+    {
+        "title": "The Agent posts a status update in the active #live-incidents channel (C080X4GTZ0E).",
+        "category": "outcome",
+        "justification": "The prompt says "drop a clear status in the incidents channel so everyone knows where this actually stands." #live-incidents (C080X4GTZ0E) is the active incidents channel.",
+        "evidence": "In the trajectory, look for a message-send action to #live-incidents (channel_id C080X4GTZ0E). Confirm it succeeded (slack_send_message)."
+    },
+    {
+        "title": "The Agent does not post the status update in the archived #season-pass (C08BVMXHGD6) or #daily_login (C082KU4LJE7) channels.",
+        "category": "outcome",
+        "justification": "Those live-ops channels are archived decoys; posting there would fail to inform the team. This penalizes selecting an archived channel over the active #live-incidents.",
+        "evidence": "In the trajectory, confirm the status message was NOT sent to C08BVMXHGD6 or C082KU4LJE7. Both are is_archived true in slack.channels.json."
+    },
+    {
+        "title": "The Agent's #live-incidents status reports that the scheduler outage recurred and remains unresolved.",
+        "category": "outcome",
+        "justification": "The status should tell the team "where this actually stands" — the core state is that the outage recurred and the underlying cause is still open.\n",
+        "evidence": "In the Slack message content, look for the recurrence being conveyed and that the root cause is not yet fixed."
+    },
+    {
+        "title": "The Agent's #live-incidents status references the new remediation tracking ticket.",
+        "category": "outcome",
+        "justification": "The status should point the team to where the work is now tracked, so the remediation stops falling through the cracks.\n",
+        "evidence": "In the Slack message content, look for a reference to the newly created remediation tracking ticket."
+    },
+    {
+        "title": "The Agent does not change any live event configuration or scheduler code.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says "Don't touch any of the live event config or the scheduling yourself... Douglas and Arthur will own the actual fix." The correct behavior is investigation-and-record only.",
+        "evidence": " In the trajectory, confirm there is no write action modifying event configuration or backend scheduler code and no code merge. Only the Linear issue/comments, the Confluence update, and the Slack post should appear as writes."
+    }
+]

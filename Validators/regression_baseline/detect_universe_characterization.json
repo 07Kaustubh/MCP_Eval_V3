@@ -1,0 +1,1622 @@
+{
+  "_meta": {
+    "candidate_files": [
+      "1_Business_Function.txt",
+      "2_Persona.txt",
+      "5_Prompt.txt",
+      "3_UniverseDataForThisTask.json"
+    ],
+    "fixture_roots": [
+      "QC_Tasks/V3_Buckets",
+      "QC_Tasks/V3.1_Buckets",
+      "QC_Tasks/V2.1_Buckets",
+      "QC_Tasks/V4_Tasks",
+      "Tasks"
+    ],
+    "produced_by": "Validators/test_detect_universe_characterization.py",
+    "purpose": "Characterization pin for Validators/universes.py detect_universe(). Records CURRENT behavior, not desired behavior. Regenerate only with a deliberate, reviewed reason.",
+    "universe_data_slice_chars": 50000,
+    "universes_at_pin_time": [
+      "brookfield",
+      "harmonygames",
+      "keystone",
+      "moveops",
+      "starpm"
+    ]
+  },
+  "fixtures": {
+    "QC_Tasks/V2.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task1_6a312ac133d3af554ef4334c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task2_6a38dc1e21f1cd775070f716": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task3_6a2b0e6de22545eb1be2cdb5": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task4_6a2b8520be5a9df37219dfed": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task5_6a32aa513903a629a278d30e": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task10_6a36d9114aab5fba781fa894": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task11_6a38331eab75d543fa578d28": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task12_6a325387c79cf16b48eedbda": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task13_6a31d453fe210a19d9f22200": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task14_6a30efa9d5764aff7f4eff3a": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task15_6a3126b662cfa16470823eee": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task16_6a32d6ae6573b03178367c83": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task17_6a2c8ffbda0229b3c62cf8b9": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task18_6a2cefd17f0107949ac33140": {
+      "scores": {
+        "brookfield": 3,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task19_6a2c240ee51b2469f0347d50": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task1_6a3ac526db5033881f6b872d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task20_6a29e6c4aed8073e36e90fcb": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task21_6a28106d20879bb031053103": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task22_6a26dfcc04f55f9aa2cd4981": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task23_6a26b9aa1bb38faf2649f06e": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task24_6a23b4774c6bda7dceaaca28": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task25_6a36c0aa995298e63c9de7af": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task26_6a34f0d20a48e0f70232d235": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task27_6a34ca4ecb481794fca00da1": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task28_6a3182d8e98f265303e151a2": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task29_6a32621a5f3d2b59f9364ca2": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task2_6a3dd21f9826ba644c90df36": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task30_6a2dd32ea47a48dbc719523c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task31_6a2dbcac3d95fe4eb6041bed": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task32_6a2c8eeb219bdaea0af79de7": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task33_6a2c363d93e5f48806f56502": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task34_6a29f21ab1491944f25590b1": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task35_6a269bb29f66f3cd90ea035d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task36_6a26af7cea851736c2413a34": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task37_6a26858be4c3e50c45930d74": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task3_6a3d72004d919aac1e4e2fce": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task4_6a3aebd2b70661031c755e1c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task5_6a3b7eb201a72f41645921fd": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task6_6a3aaa279b25b23eafd0760f": {
+      "scores": {
+        "brookfield": 3,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task7_6a3a6ae434ab436c7749e7d6": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task8_6a353bd9824c49730130696b": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Non_Fails/Task9_6a345fb94e56a5c14cce6e5f": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task10_6a3a2fa7160b41c56b660cbe": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task11_6a37a3af616b2b7439e1b022": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task12_6a369eff35d08eb9a4072431": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task13_6a3858c344de090700135658": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task14_6a31571533d3af554ef5f408": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task15_6a35617fb3af2aed7c929eb3": {
+      "scores": {
+        "brookfield": 3,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task16_6a344784db11b8d50c114fb7": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task17_6a3616d64b07cf519d4238ea": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task18_6a350f33cd67ea69fc08ed4f": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task19_6a33b1bd9e623acc9b5202e1": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task1_6a26c29d5f5b7cf1ea90c0cc": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task20_6a34bba4b457b6c9c4cc9b45": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task21_6a33330eecb6abedb57767e2": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task22_6a311be8a72664356a902872": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task23_6a3114e4333dfd07b14ee4c8": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task24_6a2f3dca512efbb932235715": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task25_6a2c94503089648eb12a254f": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task26_6a2d231833598e77d9ba11e9": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task27_6a2e731bc60ac08d790434cb": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task28_6a2d6fa3f43e8fd5883cf963": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task29_6a2ee2e52e11c14bc587d430": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task2_6a27b70a80b7729ca5d6d88d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task30_6a2b37baca0b4b1c4e5eeb61": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task31_6a2a242aa72f1f7a581bc7ac": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task3_6a2b528b5612fb11a6502d7a": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task4_6a30fe7ec1d692ab3ccad616": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task5_6a3ca0fd75870d4f1ca03d93": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task6_6a3c12c9dc8164a0565b10b6": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task7_6a3ab121c8667a04c3ec4a4b": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task8_6a3a41d74bf7529d3282e380": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_Passed/Task9_6a3a4c6481158a38dd7b5b37": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task1_6a2c514095ae76f1d1fdcf44": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task2_6a29b058b7bb1b578acf379e": {
+      "scores": {
+        "brookfield": 42,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task3_6a3333a765783523f1b631a3": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task4_6a3e43852d39806825d7a278": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task5_6a3b487f4d560fa668d2a099": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task6_6a35c5b6934dfca7aabb132e": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V2.1_Buckets/QC_True_Fails/Task7_6a26e74e91f538bafc3614e5": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task1_6a312ac133d3af554ef4334c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task2_6a38dc1e21f1cd775070f716": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task3_6a2b0e6de22545eb1be2cdb5": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task4_6a2b8520be5a9df37219dfed": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Non_Fails/Task1_6a3ac526db5033881f6b872d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Non_Fails/Task2_6a3dd21f9826ba644c90df36": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Non_Fails/Task3_6a3d72004d919aac1e4e2fce": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Non_Fails/Task4_6a3aebd2b70661031c755e1c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Passed/Task1_6a26c29d5f5b7cf1ea90c0cc": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Passed/Task2_6a27b70a80b7729ca5d6d88d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Passed/Task3_6a2b528b5612fb11a6502d7a": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_Passed/Task4_6a30fe7ec1d692ab3ccad616": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_True_Fails/Task1_6a2c514095ae76f1d1fdcf44": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_True_Fails/Task2_6a29b058b7bb1b578acf379e": {
+      "scores": {
+        "brookfield": 42,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_True_Fails/Task3_6a3333a765783523f1b631a3": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3.1_Buckets/QC_True_Fails/Task4_6a3e43852d39806825d7a278": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task1_6a312ac133d3af554ef4334c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task2_6a38dc1e21f1cd775070f716": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task3_6a2b0e6de22545eb1be2cdb5": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_False_Fails_PT_Dispute_Accepted/Task4_6a2b8520be5a9df37219dfed": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Non_Fails/Task1_6a3ac526db5033881f6b872d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Non_Fails/Task2_6a3dd21f9826ba644c90df36": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Non_Fails/Task3_6a3d72004d919aac1e4e2fce": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Non_Fails/Task4_6a3aebd2b70661031c755e1c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Passed/Task1_6a26c29d5f5b7cf1ea90c0cc": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Passed/Task2_6a27b70a80b7729ca5d6d88d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Passed/Task3_6a2b528b5612fb11a6502d7a": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_Passed/Task4_6a30fe7ec1d692ab3ccad616": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_True_Fails/Task1_6a2c514095ae76f1d1fdcf44": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_True_Fails/Task2_6a29b058b7bb1b578acf379e": {
+      "scores": {
+        "brookfield": 42,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_True_Fails/Task3_6a3333a765783523f1b631a3": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V3_Buckets/QC_True_Fails/Task4_6a3e43852d39806825d7a278": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_False_Fails_PT_Dispute_Accepted/Task1_6a312ac133d3af554ef4334c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_False_Fails_PT_Dispute_Accepted/Task2_6a38dc1e21f1cd775070f716": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_False_Fails_PT_Dispute_Accepted/Task3_6a2b0e6de22545eb1be2cdb5": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_False_Fails_PT_Dispute_Accepted/Task4_6a2b8520be5a9df37219dfed": {
+      "scores": {
+        "brookfield": 2,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Non_Fails/Task1_6a3ac526db5033881f6b872d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Non_Fails/Task2_6a3dd21f9826ba644c90df36": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Non_Fails/Task3_6a3d72004d919aac1e4e2fce": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Non_Fails/Task4_6a3aebd2b70661031c755e1c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Passed/Task1_6a26c29d5f5b7cf1ea90c0cc": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Passed/Task2_6a27b70a80b7729ca5d6d88d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Passed/Task3_6a2b528b5612fb11a6502d7a": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_Passed/Task4_6a30fe7ec1d692ab3ccad616": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_True_Fails/Task1_6a2c514095ae76f1d1fdcf44": {
+      "scores": {
+        "brookfield": 4,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_True_Fails/Task2_6a29b058b7bb1b578acf379e": {
+      "scores": {
+        "brookfield": 42,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_True_Fails/Task3_6a3333a765783523f1b631a3": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "QC_Tasks/V4_Tasks/QC_True_Fails/Task4_6a3e43852d39806825d7a278": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/10_6a2d9411aa26e656b0eff46b": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/11_6a2d0b401b5f42afec452859": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/12_6a2e62a409a9532f5347cbb7": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/13_6a2d0b391b5f42afec451fd7": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/14_6a2f2531666141258f7e3502": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/15_6a2fc2409dccca60fd4ee0f0": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/16_6a309b54df1cfe3b2734dec3": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/17_6a2fc23d280e9ec94fef7545": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/18_6a310a854b7c9a9e5a7859c9": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/19_6a330602403d7729c6b34431": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/1_6a29d8d59c71ae8188f37282": {
+      "scores": {
+        "brookfield": 47,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/20_6a32ea1b911799f27cc78222": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/21_6a33cc07fb2658a9a34646c2": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/22_6a34355a0c0eddf0b0195e43": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/23_6a347770af5b452cf30b0fa0": {
+      "scores": {
+        "brookfield": 47,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/24_6a36e84723508b4e3f391cfc": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/24_6a36e84723508b4e3f391cfc/_aux/Candidate_Originals": {
+      "scores": {
+        "brookfield": 1,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/25_6a366bc27d66eaedcae82ab4": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/26_6a390e724c34487b95645dcc": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/27_6a39fd19048f9213281ec7b": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/27_6a39fd19048f9213281ec7b/_aux/Candidate_Originals": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/28_6a390e6b331d1ed9022a9f7c": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/29_6a3df3eff98a736992ef76fe": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/2_6a2944917254fb578d3d57bb": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/30_6a3de5194c34125ef86fb36f": {
+      "scores": {
+        "brookfield": 46,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/30_6a3de5194c34125ef86fb36f/_aux/Scratch_Corrected": {
+      "scores": {
+        "brookfield": 47,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/31_6a3f7eecacba1ccbe57db14d": {
+      "scores": {
+        "brookfield": 47,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/33_6a4160e9c4abf61d104018e2": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 67,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "keystone"
+    },
+    "Tasks/34_6a42ec7493b48d5ada4571bd": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 68,
+        "starpm": 0
+      },
+      "universe": "moveops"
+    },
+    "Tasks/35_6a4421ec8169e23828bb442d": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 68,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "keystone"
+    },
+    "Tasks/36_6a44224ed5d3b47d6d727cf5": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 69,
+        "starpm": 0
+      },
+      "universe": "moveops"
+    },
+    "Tasks/37_6a46a531470b025c528b95d7": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 65,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "keystone"
+    },
+    "Tasks/38_6a5edd954557325b498168d1": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 24
+      },
+      "universe": "starpm"
+    },
+    "Tasks/39_6a602c8886ebb06f12354d77": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 25
+      },
+      "universe": "starpm"
+    },
+    "Tasks/3_6a2a003c16dfffbb4377d5b0": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/40_6a614767cd5b60ad96902fb4": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 26
+      },
+      "universe": "starpm"
+    },
+    "Tasks/41_6a61a86a3453b3714bdc72ef": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 29
+      },
+      "universe": "starpm"
+    },
+    "Tasks/42_6a62ccac9492f2a60e456c1c": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 25
+      },
+      "universe": "starpm"
+    },
+    "Tasks/43_6a62ccaf5853030245ac9d53": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 26
+      },
+      "universe": "starpm"
+    },
+    "Tasks/44_6a62ccba8cad60844b8364b9": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 24
+      },
+      "universe": "starpm"
+    },
+    "Tasks/45_6a6525d5201ac850ceb19a36": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 24
+      },
+      "universe": "starpm"
+    },
+    "Tasks/45_6a6525d5201ac850ceb19a36/_aux/Candidate_Originals": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 1
+      },
+      "universe": "starpm"
+    },
+    "Tasks/46_6a62ccb6ce2323b4b9e0c8d8": {
+      "scores": {
+        "brookfield": 0,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 24
+      },
+      "universe": "starpm"
+    },
+    "Tasks/4_6a2ac225ec64f75fedd6412c": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/5_6a2af9bd8263da071f8a8f87": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/6_6a2afda4bf9d03982582c83a": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/7_6a2a699ed252e6d02307f823": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/8_6a2ccaeba089b558cd21a46c": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    },
+    "Tasks/9_6a2d0b428839430ac208dbbe": {
+      "scores": {
+        "brookfield": 45,
+        "keystone": 0,
+        "moveops": 0,
+        "starpm": 0
+      },
+      "universe": "brookfield"
+    }
+  }
+}

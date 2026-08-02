@@ -142,6 +142,23 @@ def infer_edges(criteria):
     return edges
 
 
+def overly_broad_severity(task_dir) -> str:
+    """Severity of an Overly Broad finding, for THIS universe.
+
+    The ordering is not universal. StarPM adopted a 07/16 swap making Overly Specific
+    Moderate and Overly Broad Minor; HarmonyGames ships the pre-swap ordering, the exact
+    reverse. Overall Rubric Quality needs zero Major AND zero Moderate for a 5, so the
+    direction decides whether one criterion costs the top score.
+    """
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from universes import detect_universe, get_framework_profile
+        smap = get_framework_profile(detect_universe(Path(task_dir))).get("severity_map", {})
+        return smap.get("overly_broad", "moderate").upper()
+    except Exception:
+        return "MODERATE"
+
+
 def main():
     if len(sys.argv) != 2:
         print(__doc__)
@@ -198,7 +215,9 @@ def main():
         print(f"    {ante}: {by_idx[ante]}")
         print(f"    -> criterion {dep} is graded on an artifact criterion {ante} says was never created.")
         print(f"       Bind {dep}'s subject to that artifact, or explain why it can stand alone.\n")
-    print("This is the Overly Broad signal a fail-driven trajectory walk cannot see.")
+    _sev = overly_broad_severity(task_dir)
+    print(f"This is the Overly Broad signal a fail-driven trajectory walk cannot see. "
+          f"Severity for this universe: {_sev}.")
     return 1
 
 

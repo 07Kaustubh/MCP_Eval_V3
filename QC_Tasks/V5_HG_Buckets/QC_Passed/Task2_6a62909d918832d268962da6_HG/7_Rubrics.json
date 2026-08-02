@@ -1,0 +1,302 @@
+[
+    {
+        "title": "The Agent creates one spreadsheet for the Sequencer 2.0 rollout review register.",
+        "category": "outcome",
+        "justification": "The prompt requires a spreadsheet register as the durable audit artifact.",
+        "evidence": "Inspect the spreadsheet creation action and confirm one new spreadsheet is created for this review."
+    },
+    {
+        "title": "The Agent records a PR-number multiset containing exactly every integer from 854 through 1019 once.",
+        "category": "outcome",
+        "justification": "The UTC source window contains 166 GameOfDominoes PRs; multiset equality checks inclusion, exclusion, and duplication as one relation.",
+        "evidence": "Compare the completed register's PR-number column as a multiset with the inclusive integer range 854–1019."
+    },
+    {
+        "title": "The Agent gives every register row a deterministic source locator through a direct PR URL, the pair `GameOfDominoes` plus PR number, or a PR number inside a register explicitly scoped to `GameOfDominoes`.",
+        "category": "outcome",
+        "justification": "The prompt requires enough source detail to find every PR again.",
+        "evidence": "Inspect all 166 register rows and confirm each uses one of the three complete locator forms defined in the criterion."
+    },
+    {
+        "title": "The Agent records PR 884 as closed without merge.",
+        "category": "outcome",
+        "justification": "PR 884 spot-checks the required per-row disposition for closed-unmerged work.",
+        "evidence": "Inspect the PR 884 register row and confirm its disposition is closed without merge."
+    },
+    {
+        "title": "The Agent records PR 918 as merged",
+        "category": "outcome",
+        "justification": "PR 918 spot-checks the required per-row disposition for merged work.",
+        "evidence": "Inspect the PR 918 register row and confirm its disposition is merged."
+    },
+    {
+        "title": "The Agent records a commit count of 1 for PR 855.",
+        "category": "outcome",
+        "justification": "PR 855 spot-checks a single-commit chain.",
+        "evidence": "Inspect the PR 855 register row and confirm its commit count is exactly 1."
+    },
+    {
+        "title": "The Agent records a commit count of 125 for PR 940.",
+        "category": "outcome",
+        "justification": "PR 940 spot-checks a large commit chain.",
+        "evidence": "Inspect the PR 940 register row and confirm its commit count is exactly 125."
+    },
+    {
+        "title": "The Agent records no submitted review for PR 854.",
+        "category": "outcome",
+        "justification": "PR 854 spot-checks checked absence on the submitted-review surface.",
+        "evidence": "Inspect the PR 854 register row and confirm its submitted-review value is zero or an equivalent checked-empty value."
+    },
+    {
+        "title": "The Agent records PR 862's submitted-review state multiset as one APPROVED, one CHANGES_REQUESTED, and six COMMENTED.",
+        "category": "outcome",
+        "justification": "PR 862 spot-checks preservation of multiple formal review states.",
+        "evidence": "Inspect the PR 862 register row and confirm its submitted-review state counts match the criterion."
+    },
+    {
+        "title": "The Agent records an inline review-comment count of 0 for PR 855.",
+        "category": "outcome",
+        "justification": "PR 855 spot-checks checked absence on the inline-comment surface.",
+        "evidence": "Inspect the PR 855 register row and confirm its inline review-comment count is exactly 0."
+    },
+    {
+        "title": "The Agent records an inline review-comment count of 39 for PR 884.",
+        "category": "outcome",
+        "justification": "PR 884 spot-checks checked absence of human main-thread comments.",
+        "evidence": "Inspect the PR 884 register row and confirm its human main-thread comment count is exactly 0."
+    },
+    {
+        "title": "The Agent records a human main-thread comment count of 2 for PR 895.",
+        "category": "outcome",
+        "justification": "PR 895 spot-checks a populated human main-thread surface.",
+        "evidence": "Inspect the PR 895 register row and confirm its human main-thread comment count is exactly 2."
+    },
+    {
+        "title": "The Agent records an automated issue-link notice count of 1 for PR 882.",
+        "category": "outcome",
+        "justification": "PR 882 spot-checks a populated automated-notice surface with no submitted review.",
+        "evidence": "Inspect the PR 882 register row and confirm its automated issue-link notice count is exactly 1."
+    },
+    {
+        "title": "The Agent records no review-request event for PR 884.",
+        "category": "outcome",
+        "justification": "PR 884 spot-checks checked absence of a lifecycle review request.",
+        "evidence": "Inspect the PR 884 register row and confirm it records no review-request event."
+    },
+    {
+        "title": "The Agent records a review-request event for PR 918.",
+        "category": "outcome",
+        "justification": "PR 918 spot-checks a populated lifecycle review-request result.",
+        "evidence": "Inspect the PR 918 register row and confirm it records a review-request event."
+    },
+    {
+        "title": "The Agent gives commit count its own distinguishable register field.",
+        "category": "outcome",
+        "justification": "Commit evidence must remain independently auditable.",
+        "evidence": "Inspect the register structure and confirm commit count has a dedicated field."
+    },
+    {
+        "title": "The Agent gives submitted-review states their own distinguishable register field.",
+        "category": "outcome",
+        "justification": "Formal review states must remain independently auditable.",
+        "evidence": "Inspect the register structure and confirm submitted-review states have a dedicated field."
+    },
+    {
+        "title": "The Agent gives human main-thread comment count its own distinguishable register field.",
+        "category": "outcome",
+        "justification": "Human discussion must remain distinct from automated notices.",
+        "evidence": "Inspect the register structure and confirm human main-thread comment count has a dedicated field."
+    },
+    {
+        "title": "The Agent gives automated issue-link notice count its own distinguishable register field.",
+        "category": "outcome",
+        "justification": "Automated notices must remain distinct from human discussion.",
+        "evidence": "Inspect the register structure and confirm automated issue-link notice count has a dedicated field."
+    },
+    {
+        "title": "The Agent gives review-request presence its own distinguishable register field.",
+        "category": "outcome",
+        "justification": "Lifecycle review requests must remain independently auditable.",
+        "evidence": "Inspect the register structure and confirm review-request presence has a dedicated field."
+    },
+    {
+        "title": "The Agent represents every checked-empty evidence value with an explicit checked-empty marker.",
+        "category": "outcome",
+        "justification": "The prompt requires checked absence to be explicit",
+        "evidence": "Inspect checked-empty evidence cells and confirm each us"
+    },
+    {
+        "title": "The Agent does not represent unfinished evidence work with the checked-empty marker.",
+        "category": "outcome",
+        "justification": "Unfinished work must remain distinguishable from checked absence.",
+        "evidence": "Inspect pending or unchecked evidence cells and confirm none uses the representation selected for checked-empty evidence."
+    },
+    {
+        "title": "The Agent leaves no unfinished evidence values in the completed register.",
+        "category": "outcome",
+        "justification": "The exhaustive-register exception requires a global completion control in addition to record-level spot checks.",
+        "evidence": "Inspect the completed register and confirm no required evidence value remains blank, pending, or unchecked."
+    },
+    {
+        "title": "The Agent reports 166 total PRs in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requires reconciliation to the full source cohort.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the total PR count is exactly 166."
+    },
+    {
+        "title": "The Agent reports 155 merged PRs in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requests the merged versus closed-unmerged split.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the merged count is exactly 155."
+    },
+    {
+        "title": "The Agent reports 11 closed-unmerged PRs in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requests the merged versus closed-unmerged split.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the closed-unmerged count is exactly 11."
+    },
+    {
+        "title": "The Agent reports 30 PRs with zero submitted reviews in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requests checked-zero totals",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the zero-submitted-review count is exactly 30."
+    },
+    {
+        "title": "The Agent reports 154 PRs with zero inline review comments in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requests checked-zero totals.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the zero-human-comment count is exactly 157."
+    },
+    {
+        "title": "The Agent reports 117 PRs with zero automated issue-link notices in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "The prompt requests checked-zero totals.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the no-review-request count is exactly 77."
+    },
+    {
+        "title": "The Agent reports 24 merged PRs without an APPROVED submitted review in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "This merged-PR gap is part of Arthur's direct-reuse bar.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the merged-without-approved-review count is exactly 24."
+    },
+    {
+        "title": "The Agent reports 69 merged PRs without a review-request event in the spreadsheet roll-up.",
+        "category": "outcome",
+        "justification": "This merged-PR gap is part of Arthur's direct-reuse bar.",
+        "evidence": "Inspect the spreadsheet roll-up and confirm the merged-without-review-request count is exactly 69."
+    },
+    {
+        "title": "The Agent adds a comment to the existing Bot and Sequencer 2.0 ticket ENG-1138.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires a comment on the old ticket.",
+        "evidence": "Inspect Linear write actions and confirm a new comment is added to ENG-1138."
+    },
+    {
+        "title": "The Agent includes the usable audit-spreadsheet link in the ENG-1138 comment.",
+        "category": "outcome",
+        "justification": "The prompt requires the ticket comment to link the completed spreadsheet.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it contains the URL of the spreadsheet created for this task."
+    },
+    {
+        "title": "The Agent states the verified cohort size as 166 PRs in the ENG-1138 comment.",
+        "category": "outcome",
+        "justification": "The prompt requires both external notes to state the verified cohort size.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it states exactly 166 PRs."
+    },
+    {
+        "title": "The Agent states in the ENG-1138 comment that 24 merged PRs lack an APPROVED submitted review.",
+        "category": "outcome",
+        "justification": "The prompt requires the merged-PR approval gap in both notes.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it states the exact count and meaning."
+    },
+    {
+        "title": "The Agent states in the ENG-1138 comment that 69 merged PRs lack a review-request event.",
+        "category": "outcome",
+        "justification": "The prompt requires the merged-PR review-request gap in both notes.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it states the exact count and meaning."
+    },
+    {
+        "title": "The Agent recommends in the ENG-1138 comment against direct reuse until Sequencer 2.0 receives technical revalidation.",
+        "category": "outcome",
+        "justification": "The merged-PR gaps breach Arthur's stated reuse bar.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it rejects direct reuse and requires technical revalidation."
+    },
+    {
+        "title": "The Agent states in the ENG-1138 comment that the audit is not a code-quality conclusion.",
+        "category": "outcome",
+        "justification": "The prompt requires the review-control limitation in both notes.",
+        "evidence": "Inspect the ENG-1138 comment and confirm it separates review-record gaps from code-quality judgment."
+    },
+    {
+        "title": "The Agent posts the founder-facing rollout review in `#executives`.",
+        "category": "outcome",
+        "justification": "The prompt names #executives as the founder readout destination.",
+        "evidence": "Inspect Slack write actions and confirm a new message is posted to #executives."
+    },
+    {
+        "title": "The Agent includes the usable audit-spreadsheet link in the `#executives` message.",
+        "category": "outcome",
+        "justification": "The founder readout must lead to the completed register.",
+        "evidence": "Inspect the #executives message and confirm it contains the URL of the spreadsheet created for this task.."
+    },
+    {
+        "title": "The Agent states the verified cohort size as 166 PRs in the `#executives` message.",
+        "category": "outcome",
+        "justification": "The prompt requires both external notes to state the verified cohort size.",
+        "evidence": "Inspect the #executives message and confirm it states exactly 166 PRs."
+    },
+    {
+        "title": "The Agent states in the `#executives` message that 24 merged PRs lack an APPROVED submitted review.",
+        "category": "outcome",
+        "justification": "The prompt requires the merged-PR approval gap in both notes.",
+        "evidence": "Inspect the #executives message and confirm it states the exact count and meaning."
+    },
+    {
+        "title": "The Agent states in the `#executives` message that 69 merged PRs lack a review-request event",
+        "category": "outcome",
+        "justification": "The prompt requires the merged-PR review-request gap in both notes.",
+        "evidence": "Inspect the #executives message and confirm it states the exact count and meaning."
+    },
+    {
+        "title": "The Agent recommends in the `#executives` message against direct reuse until Sequencer 2.0 receives technical revalidation.",
+        "category": "outcome",
+        "justification": "The founder-facing readout must apply Arthur's stated reuse bar.",
+        "evidence": "Inspect the #executives message and confirm it rejects direct reuse and requires technical revalidation."
+    },
+    {
+        "title": "The Agent states in the `#executives` message that the audit is not a code-quality conclusion.",
+        "category": "outcome",
+        "justification": "The prompt requires the review-control limitation in both notes.",
+        "evidence": "Inspect the #executives message and confirm it separates review-record gaps from code-quality judgment."
+    },
+    {
+        "title": "The Agent gives Arthur a usable link to the created spreadsheet in the final response.",
+        "category": "outcome",
+        "justification": "The prompt asks for the usable spreadsheet link at handoff.",
+        "evidence": "Inspect the final response and confirm it contains the URL of the spreadsheet created for this task."
+    },
+    {
+        "title": "The Agent reports the verified register row count as 166 in the final response.",
+        "category": "outcome",
+        "justification": "The prompt asks for the verified row count at handoff.",
+        "evidence": "Inspect the final response and confirm it reports exactly 166 register data rows."
+    },
+    {
+        "title": "The Agent reports in the final response that direct reuse is not supported and technical revalidation is required.",
+        "category": "outcome",
+        "justification": "The prompt asks Arthur to receive the recommendation shared in the notes.",
+        "evidence": "Inspect the final response and confirm it rejects direct reuse and calls for technical revalidation."
+    },
+    {
+        "title": "The Agent verifies the completed spreadsheet before adding the ENG-1138 comment.",
+        "category": "process",
+        "justification": "The prompt explicitly orders the ticket comment after the completed spreadsheet has been checked; the comment outcome cannot prove that order.",
+        "evidence": "Inspect action order and confirm a trajectory-visible check of the completed spreadsheet occurs before the ENG-1138 comment."
+    },
+    {
+        "title": "The Agent verifies the completed spreadsheet before posting the `#executives` message.",
+        "category": "process",
+        "justification": "The prompt explicitly orders the founder readout after the completed spreadsheet has been checked; the post outcome cannot prove that order.",
+        "evidence": "Inspect action order and confirm a trajectory-visible check of the completed spreadsheet occurs before the `#executives` message."
+    }
+]

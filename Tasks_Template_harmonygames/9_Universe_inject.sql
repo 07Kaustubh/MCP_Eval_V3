@@ -1,0 +1,55 @@
+-- HARMONYGAMES TASK-SPECIFIC UNIVERSE INJECTION
+--
+-- Add only the records needed for this task's coherent HarmonyGames scenario.
+--
+-- 1. Ground every statement in the current universe.
+--    - Read HarmonyGames_Base_Universe/6_Universe_Schema.json and use only its
+--      declared table_schema/table_name pairs, columns, types, and nullability.
+--      Its SQL-backed namespaces cover Confluence, Contacts, GCal, GDocs,
+--      GDrive, GitHub, Gmail, GSheets, GSlides, Linear, Slack, and Trello;
+--      public._changelog records task changes.
+--    - Compare affected tables with HarmonyGames_Base_Universe/Services_Data/.
+--      Reuse each table's real ID, enum, timestamp, and relationship patterns.
+--    - Check HarmonyGames_Base_Universe/Tool_Access/*.json for the exact capabilities of all 13 enabled
+--      services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets,
+--      GSlides, Trello, Linear, Contacts, and Confluence.
+--
+-- 2. Fit the assigned business function: Engineering & Live-Ops; Product &
+--    Design; Growth / UA / Marketing; Founders / Exec / Strategy; Finance /
+--    Legal / HR / Ops; or Analytics & Data.
+--
+-- 3. Keep the scenario valid and discoverable.
+--    - Put injected activity within 2026-01-01 through 2026-02-28
+--      (America/Chicago), with plausible weekday/business-hour ordering.
+--    - Ensure every parent, user, channel, thread, issue, document, file, event,
+--      card, repository, and other reference resolves in base or injected data.
+--    - Give every injected record a natural path from the prompt through exact
+--      available discovery tools; avoid orphaned or tool-invisible data.
+--    - Keep names, emails, IDs, dates, statuses, ownership, links, and numeric
+--      facts consistent everywhere the same entity appears across services.
+--    - Persona ACL is active for Gmail, Slack, GCal, and Contacts reads. For any
+--      required injected evidence in those services, create coherent mailbox
+--      ownership, Slack channel membership, calendar ownership/share/invite,
+--      and contact visibility for the exact persona in 2_Persona.txt, unless the
+--      intended outcome is affirmative denial or an authorized unscoped
+--      alternate supplies the evidence.
+--    - Universe Explorer visibility is author god-mode truth, not proof that the
+--      assigned persona can read the evidence. Check persona-scoped reachability
+--      through the task Agent path. Writes are outside Persona ACL scope.
+--
+-- 4. Write natural service-native content. Match existing HarmonyGames tone,
+--    length, and formatting for Slack, Gmail, tickets, comments, and documents;
+--    avoid generic AI prose, repeated phrasing, and implausible completeness.
+--
+-- 5. Preserve investigative difficulty. Inject realistic evidence, constraints,
+--    and prior requests, but never final findings, computed totals, completed
+--    tables, or ready-to-submit deliverables. No single record should pre-solve
+--    the task; critical evidence should require meaningful cross-service work.
+--
+-- Before finalizing, validate schema compliance, unique IDs, reference
+-- integrity, chronology, base-universe compatibility, cross-service consistency,
+-- naturalness, tool reachability, and absence of pre-solved answers.
+--
+-- PASTE SQL STATEMENTS BELOW:
+-- ----------------------------------------------------------------------------
+

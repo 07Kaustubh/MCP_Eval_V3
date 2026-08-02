@@ -1,0 +1,86 @@
+[
+    {
+        "title": "The Agent briefs Brian Foster ([brian@harmonygames.co](mailto:brian@harmonygames.co)) on the Zombie Match 3D live-ops design discrepancies it found.",
+        "category": "outcome",
+        "justification": "The prompt says 'Brief Brian on the design discrepancies you find.' Brian Foster (brian@harmonygames.co) is the Head of Product & Live-Ops who drives these features. Phrased method-agnostically because the prompt names a goal, not a channel, Gmail is read-only in this universe, so the message is delivered over Slack (a DM to Brian or a channel he is in).",
+        "evidence": "Look for a communication to Brian Foster (brian@harmonygames.co) , the available channel is Slack (slack_send_message, DM to Brian or a channel he is in). Confirm it was sent."
+    },
+    {
+        "title": "The Agent's brief to Brian Foster covers a Collect & Win design discrepancy it found, where the shipped Collect & Win behavior does not match its intended design or spec.",
+        "category": "outcome",
+        "justification": "The prompt asks to brief Brian on 'the design discrepancies you find' and to dig into whether Collect & Win shipped as intended. The prompt scopes this generically to whatever discrepancy the agent surfaces, so this grades that the brief conveys a real Collect & Win design-vs-shipped discrepancy without pinning a specific one. Collect & Win has several grounded discrepancies in the universe (the Win & Collect infinite-lives timer per ENG-2349, the ENG-2402 reward-value mismatch, client-vs-server reward-grant problems, wrong-spec routing).",
+        "evidence": "In the Agent's Slack message to Brian, check that it names a real Collect & Win design-vs-shipped discrepancy the agent surfaced. Grounded examples in the universe include the Win & Collect infinite-lives timer shipping 15 min vs designed 10, rewards not matching the spec sheet / ENG-2402, a client-vs-server reward-grant problem, or wrong-spec routing."
+    },
+    {
+        "title": "The Agent's brief to Brian Foster covers the Axe Arena infinite-lives timer discrepancy: it should be 15 minutes but the build gives 10, separate from the win & collect timer.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to confirm the Axe Arena infinite-lives timer that shipped against the design, separately from the win & collect timer. ENG-2349 records the determinate mismatch (Axe Arena should be 15 minutes but ships 10), and the SAME ticket states the opposite direction for Win & Collect (ships 15, should be 10), so the brief must surface the Axe Arena timer mismatch specifically and in the correct direction.",
+        "evidence": "In the Agent's Slack message to Brian, check that it names the Axe Arena infinite-lives timer mismatch in the correct direction (designed 15 minutes, shipped 10 / ENG-2349), not the win & collect timer."
+    },
+    {
+        "title": "The Agent creates a Zombie Match 3D live-ops product-health document for the founders meeting.",
+        "category": "outcome",
+        "justification": "The prompt says 'put together a product health doc I can bring into the founders meeting.",
+        "evidence": "Look for a document creation action (gdocs_create_document) producing a Zombie Match 3D live-ops product-health / status document."
+    },
+    {
+        "title": "The Agent's product-health document reports a Collect & Win design discrepancy it found, where the shipped behavior does not match the intended design or spec.",
+        "category": "outcome",
+        "justification": "The prompt says 'If the intended behavior doesn't match what's in the builds, I need that documented,' and to reconcile whether Collect & Win shipped as intended. The prompt scopes this generically to whatever discrepancy the agent surfaces, so this grades that the document conveys a real Collect & Win design-vs-shipped discrepancy without pinning a specific one. This is distinct from the Axe Arena timer criterion, which requires the Axe Arena direction specifically. Grounded discrepancies exist in the universe (the Win & Collect infinite-lives timer per ENG-2349, the ENG-2402 reward mismatch, a client-vs-server grant, or spec-sheet sync).",
+        "evidence": "In the created document's content, check for a real Collect & Win design-vs-shipped discrepancy the agent surfaced. Grounded examples include the Win & Collect infinite-lives timer shipping 15 min vs designed 10, the 9-token stage should give 5 stars but ships 15 (ENG-2402), a client-vs-server reward-grant defect, or rewards not matching the spec sheet."
+    },
+    {
+        "title": "The Agent's product-health document states the Axe Arena infinite-lives timer discrepancy: it should be 15 minutes but the build gives 10.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for the actual shipped Axe Arena infinite-lives timer and the intended value called out, separately from the win & collect timer. ENG-2349 records the Axe Arena timer should be 15 minutes but ships 10, while the same ticket gives the OPPOSITE direction for Win & Collect (ships 15, should be 10) - so the document must state the Axe Arena value in the correct direction, a discrete spec-vs-build value that proves the reconciliation.",
+        "evidence": "In the created document's content, check for the Axe Arena infinite-lives timer discrepancy in the correct direction: designed 15 minutes, shipped 10 (ENG-2349), and not conflated with the win & collect timer (which is the reverse)."
+    },
+    {
+        "title": "The Agent's product-health document reports the Season Pass design-vs-shipped status, flagging that its live reward tiers cannot be reliably verified against the settled spec because the authoritative reward values live outside the accessible design docs (source-of-truth drift).",
+        "category": "outcome",
+        "justification": "The prompt (S3) asks whether the Season Pass 'matches what we settled on or drifted.' The Confluence spec (page_season_pass_spec) gives structure ($6.99, 30 tiers) but the per-tier reward VALUES are in an external sheet not present in the accessible docs, plus there are drift signals (empty reward tickets, DES-299 canceled, ZOM-575). So a clean design-vs-shipped match cannot be confirmed; the grounded finding is source-of-truth drift / unverifiable tiers.",
+        "evidence": "In the created document's content, check that the Season Pass status is addressed as unverifiable against the settled spec / source-of-truth drift (the authoritative reward values are not in the accessible design docs), rather than asserting a confirmed clean match."
+    },
+    {
+        "title": "The Agent's product-health document reports that Zombie Match 3D live-ops features were merged without a proper human code review , pull requests were reviewed only by the CodeRabbit bot or had no reviewer.",
+        "category": "outcome",
+        "justification": "The prompt says 'I also want to understand if any of these features went out without a proper human code review.' In the match3d repo the large majority of merged PRs have no human review (CodeRabbit-bot-only or none), contrary to the documented 'required review before merge' policy.",
+        "evidence": "In the created document's content, check for a finding that live-ops features/PRs were merged without a human code review (CodeRabbit-only or no reviewer)."
+    },
+    {
+        "title": "The Agent's product-health document reports the title-level retention trend for Zombie Match 3D, concluding it did not meaningfully improve after the live-ops features launched.",
+        "category": "outcome",
+        "justification": "The prompt says 'Include the title-level retention and revenue trends ... if these features launched and the player metrics didn't respond, that's critical context.' ZM3D retention did not meaningfully improve across the launch window (D1 ~27-28% monthly average, with D7 and D30 similarly flat). Phrased at the prompt's level ('retention' generally): any of D1/D7/D30 is acceptable, and the specific percentage is approximate context, not required.",
+        "evidence": "In the created document's content, check that the ZM3D title-level retention trend (D1, D7, or D30) is reported as not meaningfully improving / roughly flat (D1 ~27-28%). The directional finding is sufficient; the specific retention level and percentage are not required to pass."
+    },
+    {
+        "title": "The Agent's product-health document reports the title-level revenue trend for Zombie Match 3D, concluding that monetization did not sustain , revenue rose to a mid-2025 peak (around August 2025) and then declined through late 2025 into early 2026.",
+        "category": "outcome",
+        "justification": "The prompt says 'Include the title-level retention and revenue trends ... if these features launched and the player metrics didn't respond.' ZM3D title-level revenue (REVENUE_DAILY) ramped to ~$6.1K/month in Aug 2025 then declined to ~$3K by Jan 2026 (ARPU flat ~$0.03), so monetization did not sustain. Phrased at the goal level: the required finding is the directional trend, specific dollar and ARPU figures are approximate context, not required.",
+        "evidence": "In the created document's content, check for the ZM3D title-level revenue trend concluding monetization did not sustain (rose to a mid-2025 peak, then declined). Reporting the total title-level revenue direction is sufficient, specific dollar figures, ARPU, or an IAP/ad breakdown are not required to pass."
+    },
+    {
+        "title": "The Agent reopens or adds a note to a Done Collect & Win tracking ticket whose shipped behavior does not match the design, so the tracking reflects the true state.",
+        "category": "outcome",
+        "justification": "The prompt (S7/S8): 'If any ticket is marked done but the shipped behavior doesn't match the intended design, reopen it or add a note so the tracking is honest.' The prompt scopes this generically to ANY Done Collect & Win ticket, not one specific ID, so this grades the corrective write without pinning a target. Method-flexible (reopen or note) and target-flexible per the prompt's 'any ticket' wording.",
+        "evidence": "Look for a Linear write (reopening the issue or adding a comment) on a Done Collect & Win tracking ticket, reflecting that the shipped Collect & Win behavior does not match the design. Grounded Done targets in the universe include the rollup ENG-1727 (Done) or the Brain Chase design ticket ZOM-60 (Done)."
+    },
+    {
+        "title": "The Agent reopens or adds a note to a Done Win Streak / Axe Arena tracking ticket whose shipped behavior does not match the design, so the tracking reflects the true state.",
+        "category": "outcome",
+        "justification": "The prompt (S7/S8): 'If any ticket is marked done but the shipped behavior doesn't match the intended design, reopen it or add a note so the tracking is honest.' The prompt scopes this generically to ANY Done Win Streak ticket, not one specific ID, so this grades the corrective write without pinning a target. Method-flexible (reopen or note) and target-flexible per the prompt's 'any ticket' wording.",
+        "evidence": "Look for a Linear write (reopening the issue or adding a comment) on a Done Win Streak / Axe Arena tracking ticket, reflecting that the shipped behavior does not match the design. Grounded Done targets in the universe include the rollup ENG-1871 (Done) or the Dynamic Item Removal design ticket ZOM-300 (Done)."
+    },
+    {
+        "title": "The Agent's product-health document reports that the Leaderboard is marked Done but still has an unresolved shipped issue it surfaced.",
+        "category": "outcome",
+        "justification": "The prompt names the Leaderboard among the five live-ops features to reconcile. It is marked Done (ENG-2174) but carries multiple open issues. The prompt asks to document where shipped does not match design, scoped generically to whatever unresolved leaderboard issue the agent surfaces, so this grades the Done-but-unresolved finding without locking to a fixed bug ID.",
+        "evidence": "In the created document's content, check that the Leaderboard is reported as shipped (Done) but with a grounded unresolved issue the agent surfaced. Grounded examples include the session-reset ZOM-429, avatar not reflecting ENG-2076, profile-frame ENG-2181, or a promotion/demotion or scoring-metric mismatch."
+    },
+    {
+        "title": "The Agent's product-health document reports the daily login feature's design-vs-shipped status for Zombie Match 3D, covering the design-vs-shipped finding it reached for daily login.",
+        "category": "outcome",
+        "justification": "Daily login is one of the five live-ops features the prompt asks to reconcile ('the major live-ops features on Zombie Match, the Season Pass, daily login, win streak, leaderboards, and collect and win ... figure out whether what we intended to build is what actually shipped'), so it needs its own coverage. The prompt scopes this generically ('figure out whether what we intended is what shipped'), so this grades that the document addresses daily login's design-vs-shipped status with a grounded finding, without forcing one conclusion: valid findings include that its reward now matches intended design (the ENG-2229 diamond-tile vs 10-min infinite-lives mismatch is Done/resolved) and/or the open daily-login issues it surfaced (e.g., the ZOM-613 queue-stuck bug).",
+        "evidence": "In the created document's content, check that daily login is addressed with a grounded design-vs-shipped finding. Acceptable findings include that its reward behavior now matches intended design (ENG-2229 resolved) and/or the daily-login issues surfaced (e.g., ZOM-613 queue stuck). The criterion is satisfied by any grounded daily-login status finding, not a specific conclusion."
+    }
+]

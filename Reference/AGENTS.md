@@ -35,6 +35,9 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 | [Sessions/REDO.md](Sessions/REDO.md) | `PIPELINE REDO — Tasks/<TASK_DIR>` (reviewer redo: trajectory failed on difficulty / density, rebuild from scratch as CB) |
 | [Sessions/COMPARE.md](Sessions/COMPARE.md) | `PIPELINE COMPARE — Tasks/<TASK_DIR>` (diff local rubrics vs platform paste-back) |
 | [Sessions/CLOSE.md](Sessions/CLOSE.md) | `PIPELINE CLOSE — Tasks/<TASK_DIR>` (final read-only sanity check before declaring a task done) |
+| `PIPELINE MATERIALIZE — Tasks/<TASK_DIR>` | [Sessions/MATERIALIZE.md](Sessions/MATERIALIZE.md) | Apply REVIEW's Applied rows to produce `14_*` / `15_*` / prompt draft, then re-run the full gate set on the corrected materialization. |
+| `PIPELINE AUDIT — Tasks/<TASK_DIR> --phase {prompt\|oe\|rubrics\|all}` | [Sessions/AUDIT.md](Sessions/AUDIT.md) | Strictest-interpretation veteran second opinion. Auto-fires inline from S1/S2/S3; also available on demand. Read-only. |
+| `PIPELINE FEEDBACK — Tasks/<TASK_DIR>` | [Sessions/FEEDBACK.md](Sessions/FEEDBACK.md) | REVIEW flow only. Rate the candidate's ORIGINAL submission against the QC spec baseline, under a strict input allowlist. |
 
 ## Update protocol
 
@@ -42,3 +45,15 @@ Each runbook is self-bootstrapping — a fresh chat reads it and executes withou
 - `OE_Convention_Inventory.json` is extracted from `QC_Tasks/V3_Tasks/Task11..Task14/Oracle_Events.txt`. Regenerate when new V3 reference tasks are added.
 - Cards change only when the QC spec changes. Cite the QC spec sub-dim in any update.
 - Runbooks should remain copy-paste-stable across tasks. If a runbook needs per-task customization, add a `<TASK_DIR>` placeholder.
+
+## Universe routing
+
+Every runbook resolves its universe from `_aux/Universe.txt` (written by `new_task.py` from
+`--universe`, or by `detect_universe()` at S0) and reads constants from the
+`Validators/universes.py` registry. Five universes are registered: `brookfield`, `keystone`,
+`moveops`, `starpm`, `harmonygames`.
+
+Two routing facts are easy to miss. HarmonyGames authors into **`Generated_Tasks/`**, not
+`Tasks/`. And it is a hybrid framework (`hg`): single-model verification like the V3 family,
+plus V4's `injection` and `submission_gate` phases. Never infer its behaviour from either
+family alone.

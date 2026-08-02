@@ -76,3 +76,23 @@ Plain prose, in the persona's voice. No headings, no bullet lists in the prompt 
 - Generic urgency framing ("before it blows up", "keeping me up at night", "something changed in the last few days", etc.)
 
 These warns are not blocking — a human writer can override when the phrase is in fact natural for the persona — but they flag mass-produced tonality before the deliverable reaches the councils.
+
+## HarmonyGames (`hg`) deltas
+
+The 500-word cap and the em-dash ban are PROJECT POLICY here, not upstream spec: the
+HarmonyGames docs state neither, and its own instructions warn against prompts that are too
+short. Both still apply, on an explicit operator ruling.
+
+`today` is **2026-02-28**, which is a **Saturday** and the last day of February. Two traps
+follow. Routine Slack/Gmail business communication dated on a weekend is a temporal
+violation, so a prompt framed as "today" asking for routine comms is self-contradicting. And
+February is the second month of Q1, so "Q1 close" or "Q1 results are final" is incoherent;
+Q1 still has a month to run.
+
+Never construct, normalize or infer a persona email from a name. HarmonyGames addresses are
+irregular by design (`arthur_blake` is `blake@`, `julia_lawson` is `jlawson@`). Resolve via
+`HarmonyGames_Base_Universe/Persona_ACL_Roster.json`, and note the roster is not exhaustive:
+`2_Persona_Briefs.md` documents personas absent from it.
+
+Density is three separate thresholds, not one: authoring target 40+ calls AND 3+ services;
+prompt-eval hard gate >15 NECESSARY calls AND 2+ services; trajectory floor >=15 average.

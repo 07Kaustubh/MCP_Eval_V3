@@ -1,0 +1,27 @@
+Task: Task1_6a628947b9b7eafafb3e8f97_HG
+Business Function: Engineering
+QC Score: 2
+Final Score: 2
+
+============================================================
+
+## QC Auditor Feedback
+
+Failing issue:
+- [Fail - Too Easy] Three of six runs achieved 33/33, producing pass@1 of 50%, above the allowed 40% threshold.
+
+Non-failing issues:
+- [Non-Fail Minor Clarity / Specificity Issues] "Connect it to the open tickets" leaves the connection method underspecified.
+- [Non-Fail - Up to 15% Moderate Errors] C15 and C16 are overly specific about the ticket-connection method.
+- [Non-Fail - Inaccurate Oracle Events] OE1 omits fields needed by several rubrics; OE11 omits a valid Slack tool alias.
+- [Non-Fail - Rubric is agent-centric but does not follow the pattern] C12-C14 remain agent-centric despite alternate phrasing.
+
+## Error Categories
+
+["[All] [All] [Fail - Too Easy]","[Prompt] [Prompt Clarity/ Specificity] [Non-Fail Minor Clarity / Specificity Issues]","[All] [All] [Non-Fail - Up to 15% Moderate Errors]","[All] [All] [Non-Fail - Inaccurate Oracle Events]","[All] [All] [Non-Fail - Rubric is agent-centric but does not follow the pattern]"]
+
+============================================================
+
+## Final Verdict
+
+Final Score: 2 — FAIL

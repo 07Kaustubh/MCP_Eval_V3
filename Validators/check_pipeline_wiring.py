@@ -24,6 +24,9 @@ W5  every validator imports cleanly (syntax + import-time errors)
 W6  cross-validator symbol references resolve (from X import Y)
 W7  every validator declares a usage/CLI entry point
 W8  validators referenced in AGENTS.md's registry exist, and vice versa
+W9  no validator is both un-imported and undocumented (orphan)
+W10 rubric-category canonicalisation has exactly one implementation
+W11 the tool head-segment vocabulary is non-empty (phantom detection fails closed)
 
 Exit 0 clean, 1 when any check fails.
 """
@@ -53,6 +56,173 @@ def docs():
     for g in DOC_GLOBS:
         out.extend(sorted(ROOT.glob(g)))
     return out
+
+
+def check_unread_locals() -> list:
+    """W14: a local assigned from the capability registry and never read.
+
+    Added because three separate flags were "wired" by assigning them to a local that
+    nothing subsequently read - `_oe_grammar`, `_target`, and a `severity_for` helper that
+    had no call site. Each looked consumed to a grep and enforced nothing. The existing
+    dead-code check only looked for uncalled `def`s, so it reported clean all three times
+    and only manual review caught them.
+
+    Scope is deliberately narrow: assignments whose right-hand side mentions
+    get_framework_profile or get_universe_constants. Those are the ones that claim to make
+    a registry flag load-bearing, so a false positive elsewhere cannot make this noisy.
+    """
+    import ast
+    issues = []
+    root = Path(__file__).resolve().parent.parent
+    for f in sorted((root / "Validators").glob("*.py")):
+        if f.name == Path(__file__).name:
+            continue
+        try:
+            tree = ast.parse(f.read_text(encoding="utf-8", errors="ignore"))
+        except SyntaxError:
+            continue
+        for fn in [n for n in ast.walk(tree) if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]:
+            assigned = {}
+            for node in ast.walk(fn):
+                if isinstance(node, ast.Assign) and len(node.targets) == 1 \
+                        and isinstance(node.targets[0], ast.Name):
+                    rhs = ast.dump(node.value)
+                    if "get_framework_profile" in rhs or "get_universe_constants" in rhs:
+                        assigned[node.targets[0].id] = node.lineno
+            if not assigned:
+                continue
+            read = {n.id for n in ast.walk(fn) if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load)}
+            for name, line in sorted(assigned.items()):
+                if name not in read:
+                    issues.append(
+                        f"  [W14] {f.name}:{line} `{name}` is assigned from the registry in "
+                        f"`{fn.name}` and never read - the flag it reads enforces nothing"
+                    )
+    return issues
+
+
+def check_universe_parity() -> list:
+    """W15: a runbook that names SOME universes must name ALL of them.
+
+    Added because the "5th arm" was applied to ~20 prose files by hand and measurement
+    afterwards found 6 of 16 runbooks still naming only a subset. Hand-editing N
+    near-identical documents does not converge, and nothing detected the gap: a runbook
+    that routes on universe but omits one silently sends that universe down another's path.
+
+    Scope is deliberately narrow. A file that names NO universe is universe-generic and is
+    left alone; only a file that already routes by universe is required to be complete.
+    That keeps the check from demanding boilerplate in files that legitimately do not care.
+    """
+    issues = []
+    root = Path(__file__).resolve().parent.parent
+    try:
+        sys.path.insert(0, str(root / "Validators"))
+        from universes import UNIVERSES
+        names = sorted(UNIVERSES)
+    except Exception:
+        return []
+    for f in sorted((root / "Reference").rglob("*.md")):
+        text = f.read_text(encoding="utf-8", errors="ignore").lower()
+        present = [n for n in names if n in text]
+        # A file naming exactly ONE universe is calling out an exception ("HarmonyGames
+        # differs because..."), which is legitimate and complete on its own. A file naming
+        # TWO OR MORE is maintaining a routing table, and an incomplete routing table
+        # silently sends the omitted universe down another's path. Only the latter is a
+        # defect; flagging the former would demand four paragraphs of boilerplate in files
+        # that correctly do not care.
+        if len(present) < 2 or len(present) == len(names):
+            continue
+        missing = [n for n in names if n not in present]
+        rel = f.relative_to(root)
+        issues.append(
+            f"  [W15] {rel} routes by universe but never names: {', '.join(missing)}"
+        )
+    return issues
+
+
+def check_code_comment_citations() -> list:
+    """W13: a path cited inside a Validators/*.py comment must resolve.
+
+    Added because a comment in `detect_universe` cited
+    `Validators/test_signal_exclusivity.py` as the authority for its correctness while that
+    file did not exist, and this auditor reported 0 errors because it only read prose docs.
+    A dangling citation inside the function whose correctness it is supposed to establish is
+    exactly the failure hard rule 30 exists to prevent.
+    """
+    import re
+    issues = []
+    root = Path(__file__).resolve().parent.parent
+    cite = re.compile(r"(Validators/[A-Za-z0-9_./-]+\.py)")
+    for f in sorted((root / "Validators").glob("*.py")):
+        for i, line in enumerate(f.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+            st = line.strip()
+            if not (st.startswith("#") or '"""' in line or st.startswith("*")):
+                continue
+            for m in cite.finditer(line):
+                if not (root / m.group(1)).exists():
+                    issues.append(f"  [W13] {f.name}:{i} cites {m.group(1)}, which does not exist")
+    return issues
+
+
+def check_orphan_validators() -> list:
+    """W9: a validator nothing imports AND no doc mentions is dead weight or a lost wiring.
+
+    Doc-referenced-but-never-imported is normal and NOT reported: most validators are CLI
+    entry points invoked by a runbook, not libraries. Only the intersection is suspicious.
+    """
+    out = []
+    mods = sorted(p.stem for p in VDIR.glob("*.py") if p.stem != "__init__")
+    pys = [q for q in ROOT.rglob("*.py") if "__pycache__" not in str(q)]
+    mds = list(ROOT.rglob("*.md"))
+    for m in mods:
+        imported = any(re.search(rf"\b(?:import\s+{re.escape(m)}\b|from\s+{re.escape(m)}\s+import)",
+                                 q.read_text(encoding="utf-8", errors="ignore"))
+                       for q in pys if q.stem != m)
+        if imported:
+            continue
+        mentioned = any(re.search(rf"\b{re.escape(m)}\.py\b", q.read_text(encoding="utf-8", errors="ignore"))
+                        for q in mds)
+        if not mentioned:
+            out.append(f"[W9] Validators/{m}.py is imported by nothing and mentioned in no doc - orphan")
+    return out
+
+
+def check_duplicated_logic() -> list:
+    """W10: the rubric-category census must have exactly ONE implementation.
+
+    validate.py and v4_gates.py each grew their own copy; they gate the SAME balance rules
+    (Outcome-majority, or a Process<=40% cap), so drift between them is a scoring defect that
+    no other gate would catch. The shared implementation lives in universes.py because
+    validate.py imports v4_gates, which makes the reverse direction circular.
+    """
+    out = []
+    needle = 'startswith(' + '"outcome")'      # split so this file is not its own match
+    impls = [q.name for q in VDIR.glob("*.py")
+             if q.name != Path(__file__).name
+             and needle in q.read_text(encoding="utf-8", errors="ignore")]
+    if len(impls) > 1:
+        out.append("[W10] rubric-category canonicalisation is implemented in "
+                   f"{len(impls)} modules ({', '.join(sorted(impls))}) - collapse to "
+                   "universes.canonical_rubric_category")
+    return out
+
+
+def check_tool_vocab() -> list:
+    """W11: the tool head-segment vocabulary must be non-empty.
+
+    `_looks_like_tool_name` now fails closed, so an empty vocabulary would silently disable
+    phantom-tool detection rather than loosen it. Either failure mode is a scoring defect, so
+    the invariant is gated here instead of being assumed.
+    """
+    try:
+        sys.path.insert(0, str(VDIR))
+        from v4_gates import _tool_head_vocab
+        n = len(_tool_head_vocab())
+    except Exception as e:
+        return [f"[W11] could not build the tool head-segment vocabulary: {e}"]
+    return [] if n >= 20 else [f"[W11] tool head-segment vocabulary is {n} entries - expected 20+; "
+                               "tool catalogues are probably unreadable, which silently disables "
+                               "phantom-tool detection"]
 
 
 def main():
@@ -178,6 +348,14 @@ def main():
           f"{len(cited_scripts)} scripts cited by docs\n")
     for f in fails:
         print(f"  {f}")
+    # These three ran ONLY when `warns` was already non-empty, so on a clean run they were
+    # silently skipped - the exact silent-no-op this auditor exists to catch.
+    warns = (list(warns) + check_code_comment_citations() + check_unread_locals()
+             + check_universe_parity() + check_orphan_validators())
+    # W10 is a FAIL, not a warning: two live copies of the rubric-category census can drift
+    # apart and silently mis-score the balance rules - exactly the defect class AGENTS.md
+    # rule 18 says must become a standing gate instead of prose.
+    fails = list(fails) + check_duplicated_logic() + check_tool_vocab()
     if warns:
         print()
         for w in warns:

@@ -58,3 +58,10 @@ Two next-trigger paths:
 - Mismatch → user decides accept-platform vs re-upload-local per diff. If re-upload is chosen, the user resubmits to the platform, then re-invokes `PIPELINE COMPARE — Tasks/<TASK_DIR>` in a fresh chat to verify the paste-back is now clean.
 
 Do NOT chain to S4 or other phases inside this chat.
+
+## HarmonyGames (`hg`) note
+
+Platform paste-back for HarmonyGames may return `category` in either the lowercase form or
+the spec's 4-value enum. A pure case/sub-category difference is a platform normalization, not
+a mutation; a change to `title`, `justification` or `evidence` is a real diff. Report both,
+but do not treat the former as silent tampering.

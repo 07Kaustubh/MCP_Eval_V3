@@ -1,0 +1,37 @@
+Auditor Score and Feedback
+bad 2/5
+
+Prompt - Prompt Clarity and Specificity
+Score: 3/5
+Answer: [Non-Fail Minor Clarity / Specificity Issues]
+Feedback: "connect it to the open tickets" is vague and does not specify how the new ticket should be attached to the old tickets.
+Selected Error Categories:
+[Prompt] [Prompt Clarity/ Specificity] [Non-Fail Minor Clarity / Specificity Issues]
+
+Rubrics - Overall Rubric Quality
+Score: 3/5
+Answer: [Non-Fail - Up to 15% Moderate Errors]
+Feedback: [Moderate Issues] [Overly Specific Criteria] [C#15] [C#16] The prompt says "connect," but it is vague how this should be achieved. Different valid tools/actions could connect the tickets, while the criteria accept only one.
+Selected Error Categories:
+[All] [All] [Non-Fail - Up to 15% Moderate Errors]
+
+Oracle Events (OEs) - OE Accuracy
+Score: 3/5
+Answer: [Non-Fail - Inaccurate Oracle Events]
+Feedback: OE1 omits event_id, event_name, and completions even though multiple rubrics require event IDs, names, and a completion rate. OE11 also omits slack_send_message as a valid alias for conversations_add_message.
+Selected Error Categories:
+[All] [All] [Non-Fail - Inaccurate Oracle Events]
+
+Rubrics - Agent Centric Phrasing
+Score: 3/5
+Answer: [Non-Fail - Rubric is agent-centric but does not follow the pattern]
+Feedback: C#12, C#13, and C#14 use "The Agent's [artifact]..." phrasing but still depict actions performed by the Agent.
+Selected Error Categories:
+[All] [All] [Non-Fail - Rubric is agent-centric but does not follow the pattern]
+
+Trajectory Agent Failure Rate
+Score: 2/5
+Answer: [Fail - Too Easy]
+Feedback: More than 2 of 6 runs pass all valid rubrics (pass@1: 50%). Three runs achieved a perfect rubric score (33/33): Run #2, Run #4, and Run #5.
+Selected Error Categories:
+[All] [All] [Fail - Too Easy]

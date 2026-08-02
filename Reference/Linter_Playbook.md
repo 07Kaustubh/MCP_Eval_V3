@@ -184,3 +184,15 @@ python Validators/check_justification.py Tasks/<TASK_DIR>/_aux/Council_Reports/S
 ```
 
 Non-zero exit = revise + re-run. Same rule as Class A pushbacks: zero process leakage allowed in reviewer-facing text.
+
+## HarmonyGames (`hg`) note
+
+The forbidden-terms sweep must include this universe's directory names:
+`HarmonyGames_Base_Universe`, `Docs_harmonygames`, `Evals_harmonygames`,
+`Guide_harmonygames`, `Tasks_Template_harmonygames`.
+
+When justifying a 500-word or em-dash hit on a HarmonyGames task, cite the operator ruling
+recorded in AGENTS.md. Do NOT cite the HarmonyGames spec: it states neither rule, and a
+justification that invents a spec line is worse than one that names the real authority.
+
+The forbidden-terms sweep covers every registered universe's directory names, KeyStone (`Mortgage_Base_Universe`, `Docs_keystone`, `Evals_keystone`, `Tasks_Template_keystone`) and MoveOps included, not only the two named in the examples above.

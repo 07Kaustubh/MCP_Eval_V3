@@ -133,3 +133,29 @@ The QC spec's Overall Rubric Quality scoring uses % of total criteria as the den
 | Otherwise | **NON-FAIL (3-4)** |
 
 The absolute-count gates are a pipeline extension to prevent gaming. They activate ONLY when the rubric count is < 30; above 30, the % thresholds alone are reliable. AUDIT Lens 1 applies both the % and absolute gates strictly.
+
+## HarmonyGames (`hg`) deltas
+
+**`category` is a stored 4-value enum**, not the flat two-value form: `Outcome 1.1`
+(write-action result), `Outcome 1.2` (action content), `Outcome 2.1` (key fact in the final
+response), `Process`. This is AGENTS.md rule 24's `sub_category` already native to the
+schema. Do NOT add a separate `sub_category` key: an unsupported field trips a binary
+sub-dimension. The validator canonicalizes any `Outcome *` value to the `outcome` bucket
+before counting, and censuses the sub-categories in its report.
+
+**Balance is a flat cap, not a majority.** Process must be <= 40% of the set, binary, and
+**zero Process is explicitly valid**. There is NO Outcome-majority requirement here; that is
+the older framework's rule and it still governs the other four universes.
+
+**Severity is the PRE-swap ordering, the reverse of StarPM:** Overly Broad = **Moderate**,
+Overly Specific = **Minor**. Percentage bands are unchanged.
+
+Affirmative phrasing is mandatory: a criterion that defines passing only through prohibition
+or absence FAILs. Banned forms include "The Agent does not...", "makes no...", "never...",
+"avoids...", "refrains from..." and equivalent `without` constructions.
+
+Vague exemplar language ("such as", "e.g.", "for example") in ANY field is one **Moderate**
+issue per affected rubric. `set_acting_user` is environment configuration and must receive no
+rubric credit.
+
+> KeyStone (`v3.1`) and MoveOps (`v2.1`) use the same flat two-value `category` and the same Outcome-majority balance rule as Brookfield. Only HarmonyGames diverges on both.

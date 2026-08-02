@@ -81,3 +81,27 @@ When the task has a write-heavy finale, the last OE can summarize the final user
 `Reference/OE_Convention_Inventory.json` is auto-extracted from the 4 V3 reference OE files. It captures tool-usage frequencies, parameter-naming patterns, opening-phrase patterns, and parameter traps. Council A's convention sweep on OE phase reads this inventory and flags drift.
 
 If new V3 reference tasks are added, regenerate the inventory by re-extracting from the new sources.
+
+## HarmonyGames (`hg`) deltas
+
+Tool catalog is `HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**), and
+per `Guide_harmonygames` the capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`.
+
+**BATCH OEs.** HarmonyGames adds a parameterized OE form for long-horizon work (a task with
+at least one run in the 500-1000 tool-call band). The framework profile's `oe_grammar` is
+`["standard", "batch"]`; every other universe is `["standard"]` and must still reject the
+form. A BATCH OE states the fixed parameters, the varied parameter and its cohort, and the
+resulting call count, so the cohort is never left implicit.
+
+**Parameter traps, verified against the Tool_Access catalogs:**
+
+| tool | text parameter | trap |
+|---|---|---|
+| `slack_send_message` | `text` | not `payload` / `message` |
+| `slack_conversations_add_message` | `payload` | a SECOND send tool with a DIFFERENT param |
+| `linear_create_issue` | `team` | not `teamId` |
+| `linear_create_comment` | `body` (+ `issueId`) | |
+| `gdocs_create_document` | `bodyText` | not `body` / `content` |
+
+**Gmail is READ-ONLY.** All 27 `gmail_*` tools read, label or trash; there is no send, reply,
+compose or draft. An OE that emails anyone is not executable. Snowflake is query-only.

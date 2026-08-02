@@ -205,3 +205,15 @@ Do NOT pre-apply fixes in this chat.
 ## Bootstrap
 
 Read root `AGENTS.md` first. Findings must be grounded in the per-task universe — base universe assumptions are stale. Severity follows the QC spec. Be conservative about flagging Minor issues that don't actually affect the score.
+
+## HarmonyGames (`hg`) notes
+
+Candidate tasks live under `Generated_Tasks/`. Artifact shape is single-model: one
+`8_Verifier_Fails.txt` and flat `Agent_Responses/trajectory-run-{1..6}.json`.
+
+Two triage rules differ. Rubric balance is a flat Process <= 40% cap with NO Outcome-majority
+requirement, so a Process-light set is not a defect here. Severity ordering is reversed
+against StarPM: Overly Broad is Moderate, Overly Specific is Minor.
+
+Business function must be one of HarmonyGames' six; the Brookfield ten and the StarPM five do
+not apply.

@@ -1,0 +1,577 @@
+[
+  {
+    "name": "slack_health",
+    "parameters": {},
+    "description": "Check the health of the service."
+  },
+  {
+    "name": "slack_get_job_status",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Poll an async job; pending until ready, then ready or failed."
+  },
+  {
+    "name": "slack_get_job_result",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Fetch an async job's result once ready."
+  },
+  {
+    "name": "slack_channels_list",
+    "parameters": {
+      "channel_types": {
+        "required": "required",
+        "type": "string"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "sort": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List Slack channels, DMs, and Group DMs."
+  },
+  {
+    "name": "slack_conversations_history",
+    "parameters": {
+      "channel_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "include_activity_messages": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer | string | null"
+      }
+    },
+    "description": "Get messages from a Slack channel or DM."
+  },
+  {
+    "name": "slack_conversations_replies",
+    "parameters": {
+      "channel_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "thread_ts": {
+        "required": "required",
+        "type": "string"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "include_activity_messages": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get an entire Slack message thread."
+  },
+  {
+    "name": "slack_conversations_search_messages",
+    "parameters": {
+      "search_query": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "filter_date_on": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_date_during": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_date_after": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_date_before": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_in_channel": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_in_im_or_mpim": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_threads_only": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "filter_users_from": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "filter_users_with": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Search across Slack messages."
+  },
+  {
+    "name": "slack_conversations_add_message",
+    "parameters": {
+      "channel_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "payload": {
+        "required": "required",
+        "type": "string"
+      },
+      "content_type": {
+        "required": "optional",
+        "type": "string"
+      },
+      "thread_ts": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "user_id": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Post a message to a Slack channel or thread."
+  },
+  {
+    "name": "slack_conversations_edit_message",
+    "parameters": {
+      "channel_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "message_ts": {
+        "required": "required",
+        "type": "string"
+      },
+      "text": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "new_ts": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "shift_subsequent": {
+        "required": "optional",
+        "type": "boolean"
+      }
+    },
+    "description": "Edit an existing Slack message."
+  },
+  {
+    "name": "slack_read_channel",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Read channel/DM message history (newest first). Alias for conversations_history."
+  },
+  {
+    "name": "slack_read_thread",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "thread_ts": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Read a thread (parent + replies). Alias for conversations_replies."
+  },
+  {
+    "name": "slack_send_message",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "text": {
+        "required": "required",
+        "type": "string"
+      },
+      "thread_ts": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Send a message to a channel or DM. Alias for conversations_add_message."
+  },
+  {
+    "name": "slack_read_user_profile",
+    "parameters": {
+      "user": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Read a user's detailed profile."
+  },
+  {
+    "name": "slack_list_channel_members",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List members of a channel / group / MPIM."
+  },
+  {
+    "name": "slack_search_channels",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "include_private": {
+        "required": "optional",
+        "type": "boolean"
+      }
+    },
+    "description": "Find channels by name / topic / purpose."
+  },
+  {
+    "name": "slack_search_users",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Find users by name / email / profile."
+  },
+  {
+    "name": "slack_search_public",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Search messages restricted to PUBLIC channels only."
+  },
+  {
+    "name": "slack_search_public_and_private",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Search messages across all channels + DMs + MPIMs."
+  },
+  {
+    "name": "slack_submit_search",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Submit a workspace-wide message search for async execution."
+  },
+  {
+    "name": "slack_search_emojis",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Find custom workspace emojis by name."
+  },
+  {
+    "name": "slack_get_message_metadata",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "ts": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Read extended metadata for a message: edit history, etc."
+  },
+  {
+    "name": "slack_get_reactions",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "ts": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Read all reactions on a message."
+  },
+  {
+    "name": "slack_read_file",
+    "parameters": {
+      "file_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "max_bytes": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Read a file's content by ID (up to max_bytes, default 10 MB)."
+  },
+  {
+    "name": "slack_add_reaction",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "ts": {
+        "required": "required",
+        "type": "string"
+      },
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Add an emoji reaction to a message."
+  },
+  {
+    "name": "slack_create_conversation",
+    "parameters": {
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "is_private": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "is_im": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "user_ids": {
+        "required": "optional",
+        "type": "array | null"
+      },
+      "creator": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Create a channel, DM, or group DM."
+  },
+  {
+    "name": "slack_schedule_message",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "text": {
+        "required": "required",
+        "type": "string"
+      },
+      "post_at": {
+        "required": "required",
+        "type": "integer"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "thread_ts": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Schedule a message for future delivery."
+  },
+  {
+    "name": "slack_send_message_draft",
+    "parameters": {
+      "text": {
+        "required": "required",
+        "type": "string"
+      },
+      "channel": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "thread_ts": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Save a draft to 'Drafts & Sent' without sending."
+  },
+  {
+    "name": "slack_list_drafts",
+    "parameters": {
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "channel": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List saved drafts (newest first)."
+  },
+  {
+    "name": "slack_remove_reaction",
+    "parameters": {
+      "channel": {
+        "required": "required",
+        "type": "string"
+      },
+      "ts": {
+        "required": "required",
+        "type": "string"
+      },
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Remove an emoji reaction from a message."
+  },
+  {
+    "name": "slack_list_files",
+    "parameters": {
+      "channel": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "user": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List uploaded files, optionally filtered by channel or uploader."
+  }
+]

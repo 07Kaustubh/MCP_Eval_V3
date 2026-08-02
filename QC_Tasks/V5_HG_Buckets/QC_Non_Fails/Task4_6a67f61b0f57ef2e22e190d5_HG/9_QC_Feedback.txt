@@ -1,0 +1,20 @@
+Auditor Score and Feedback
+ok 3/5
+
+Prompt - Contrived / Unnatural Prompts
+Score: 3/5
+Answer: [Non-Fail - Somewhat Contrived / Unnatural Prompt]
+Feedback: The requirement for exact decimal precision ("Report completion rates to one decimal place and USD revenue to two decimal places") comes across as somewhat arbitrary and contrived.
+
+Selected Error Categories:
+[Prompt] [Contrived / Unnatural Prompts] [Non-Fail - Somewhat Contrived / Unnatural Prompt]
+
+Rubrics - Process Criteria
+Score: 3/5
+Answer: [Non-Fail - Missing Process Rubric]
+Feedback: The prompt contains an explicitly stated sequential dependency ("After confirming the existing issue set lacks complete live-stall resilience coverage, create one Engineering issue ...") that is not checked by any existing criterion. The rubric set should include a process criterion ensuring verification occurs first, such as: "The Agent verifies no existing issue covers live-stall resilience before creating the new tracking issue."
+
+Selected Error Categories:
+[All] [All] [Non-Fail - Missing Process Rubric]
+
+All other audited components received 5/5. No failing threshold was triggered.

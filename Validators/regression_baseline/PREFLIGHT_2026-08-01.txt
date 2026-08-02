@@ -1,0 +1,138 @@
+=== PREFLIGHT BASELINE FREEZE (T0.1) ===
+date: 2026-08-01T16:32:45Z
+git: e49620d branch=OMEGA
+python: Python 3.14.6
+
+----- check_regression.py -----
+REGRESSION GATE: PASS — anchors 62/62 (0 failed) · reports 21/21 identical · verdicts 7/7 unchanged
+EXIT=0
+
+----- test_regression_anchors.py -----
+[PASS] F4 — Code block in prompt
+[PASS] F5 — AI-style section header
+[PASS] F6 — AI-style closing
+[PASS] F7 — AI-style opening
+[PASS] v19 KS-6 — Cross-universe persona email domain mismatch
+[PASS] v19 IN-1 — Prompt injection pattern (ignore other criteria)
+[PASS] v19 FS-1 — Feasible-surface mismatch (status not in universe enum)
+[PASS] v19 KS-8 — KeyStone TRID timing claim verified
+[PASS] v19 KS-7 — KeyStone LOS-vs-CRM source-of-truth violation (rubric cites CRM for loan data)
+[PASS] v20 MO-1 — MoveOps auto-detection (PHMSA / Vectral / UrbanNest signals)
+[PASS] v20 MO-2 — MoveOps persona contaminated with Brookfield email domain
+[PASS] v20 MO-3 — MoveOps persona contaminated with KeyStone email domain
+[PASS] v20 MO-4 — Marcus Webb blocked as MoveOps persona (NPC / non-staff)
+[PASS] v20 MO-5 — Brookfield baseline preserved (no universe contamination from v20 multi-universe registry)
+[PASS] v-wave2 SP-1 - StarPM auto-detection (starpm.com / Star Property Management / hubspot / quickbooks / gcalendar / make-ready signals)
+[PASS] v-wave2 SP-2 - StarPM persona contaminated with Brookfield email domain
+[PASS] v-wave2 SP-3 - StarPM persona contaminated with KeyStone email domain
+[PASS] v-wave2 SP-4 - Invalid StarPM Slack channel (C012; StarPM has only C001-C008)
+[PASS] v-wave2 SP-5 - Brookfield retention code (AICPA_SQMS_7Y) in a StarPM OE is not flagged (StarPM has no retention codes; check self-disables, mirrors KS-4)
+[PASS] v-wave2 SP-6 - Brookfield baseline preserved after StarPM registry addition (guards the detect_universe tiebreak)
+[PASS] v-wave3 SP-7 - StarPM slack_send_message wrong param (payload) flagged via registry tool_param_traps (should be message)
+[PASS] v-wave3 SP-8 - StarPM create_draft wrong body param (content) flagged (should be body)
+[PASS] v-wave3 SP-9 - StarPM correct slack_send_message (message) / create_draft (body) usage is not falsely flagged
+[PASS] v-wave4 SP-INJ-1 - valid StarPM injection passes all deterministic Eval0 gates
+[PASS] v-wave4 SP-INJ-2 - StarPM injection with out-of-window date fails Eval0 P3
+[PASS] v-wave4 SP-SUB-1 - StarPM rubric citing phantom tool fails Eval5 F1
+[PASS] v-wave4 SP-SUB-2 - v3 (brookfield) task without inject file gets SKIP not FAIL for injection phase
+[PASS] v21.2 SP-INJ-3 - brookfield injection with future-dated row is flagged (ceiling = universe today)
+
+Regression anchors: 62 passed, 0 failed out of 62
+EXIT=0
+
+----- check_pipeline_wiring.py -----
+=== Pipeline wiring audit ===
+35 validators · 26 docs · 29 scripts cited by docs
+
+
+[OK] no wiring errors. 0 warning(s).
+EXIT=0
+
+----- check_eval_hashes.py -----
+[OK] Evals/1_Prompt_Eval.md: hash matches (6c8b1e9c1b3a57c3...)
+[OK] Evals/2_OE_Eval.md: hash matches (6c93562a0b2796fc...)
+[OK] Evals/3_Rubrics_Eval.md: hash matches (5c7713441a6161df...)
+[OK] Evals/4_Verifier_Fails_Eval.md: hash matches (df24e47fb9289d18...)
+[OK] Evals_keystone/1_Prompt_Eval.md: hash matches (dcaff45733e9c85c...)
+[OK] Evals_keystone/2_OE_Eval.md: hash matches (1f340ab741e3f59b...)
+[OK] Evals_keystone/3_Rubrics_Eval.md: hash matches (fc1679a3067ca8bc...)
+[OK] Evals_keystone/4_Verifier_Fails_Eval.md: hash matches (bcb6114e1ab00145...)
+[OK] Evals_moveops/1_Prompt_Eval.md: hash matches (c590456cb6e3fc1f...)
+[OK] Evals_moveops/2_OE_Eval.md: hash matches (72baad4e751e9359...)
+[OK] Evals_moveops/3_Rubrics_Eval.md: hash matches (cd9648053bb1da48...)
+[OK] Evals_moveops/4_Verifier_Fails_Eval.md: hash matches (3911bda7318e9a06...)
+[OK] Evals_starpm/0_Injection_Quality_Eval.md: hash matches (e9ebdd2430b48825...)
+[OK] Evals_starpm/1_Prompt_Eval.md: hash matches (92caf7d008c708c7...)
+[OK] Evals_starpm/2_OE_Eval.md: hash matches (9c23797429b43c54...)
+[OK] Evals_starpm/3_Rubrics_Eval.md: hash matches (5cfb797880e9f974...)
+[OK] Evals_starpm/4_Verifier_Fails_Eval.md: hash matches (3d315ad183264e9d...)
+[OK] Evals_starpm/5_Submission_Gate_Eval.md: hash matches (f6f792c93d0f02c0...)
+EXIT=0
+
+----- check_tool_catalog.py -----
+[OK] brookfield: catalog hash matches (58664540abcdd90c...)
+[OK] keystone: catalog hash matches (ec75e1c9f3c112cb...)
+[OK] moveops: catalog hash matches (e7a07c4658855565...)
+[OK] starpm: catalog hash matches (cf28285c4dc628ad...)
+EXIT=0
+
+----- qc_verdict.py selftest V3_Buckets -----
+Task3_6a3d72004d919aac1e4e2fce  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task4_6a3aebd2b70661031c755e1c  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task1_6a26c29d5f5b7cf1ea90c0cc  QC_Passed                              QC_Passed                              5  5   None      OK
+Task2_6a27b70a80b7729ca5d6d88d  QC_Passed                              QC_Passed                              5  5   None      OK
+Task3_6a2b528b5612fb11a6502d7a  QC_Passed                              QC_Passed                              5  5   None      OK
+Task4_6a30fe7ec1d692ab3ccad616  QC_Passed                              QC_Passed                              5  5   None      OK
+Task1_6a2c514095ae76f1d1fdcf44  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task2_6a29b058b7bb1b578acf379e  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task3_6a3333a765783523f1b631a3  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task4_6a3e43852d39806825d7a278  QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+
+QC VERDICT SELFTEST: 16/16 bucket-correct
+EXIT=0
+
+----- qc_verdict.py selftest V3.1_Buckets -----
+Task3_6a3d72004d919aac1e4e2fce  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task4_6a3aebd2b70661031c755e1c  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task1_6a26c29d5f5b7cf1ea90c0cc  QC_Passed                              QC_Passed                              5  5   None      OK
+Task2_6a27b70a80b7729ca5d6d88d  QC_Passed                              QC_Passed                              5  5   None      OK
+Task3_6a2b528b5612fb11a6502d7a  QC_Passed                              QC_Passed                              5  5   None      OK
+Task4_6a30fe7ec1d692ab3ccad616  QC_Passed                              QC_Passed                              5  5   None      OK
+Task1_6a2c514095ae76f1d1fdcf44  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task2_6a29b058b7bb1b578acf379e  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task3_6a3333a765783523f1b631a3  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task4_6a3e43852d39806825d7a278  QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+
+QC VERDICT SELFTEST: 16/16 bucket-correct
+EXIT=0
+
+----- qc_verdict.py selftest V2.1_Buckets -----
+Task7_6a3ab121c8667a04c3ec4a4b   QC_Passed                              QC_Passed                              5  5   None      OK
+Task8_6a3a41d74bf7529d3282e380   QC_Passed                              QC_Passed                              5  5   None      OK
+Task9_6a3a4c6481158a38dd7b5b37   QC_Passed                              QC_Passed                              5  5   None      OK
+Task1_6a2c514095ae76f1d1fdcf44   QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task2_6a29b058b7bb1b578acf379e   QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task3_6a3333a765783523f1b631a3   QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task4_6a3e43852d39806825d7a278   QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+Task5_6a3b487f4d560fa668d2a099   QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+Task6_6a35c5b6934dfca7aabb132e   QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+Task7_6a26e74e91f538bafc3614e5   QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+
+QC VERDICT SELFTEST: 80/80 bucket-correct
+EXIT=0
+
+----- qc_verdict.py selftest V4_Tasks -----
+Task3_6a3d72004d919aac1e4e2fce  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task4_6a3aebd2b70661031c755e1c  QC_Non_Fails                           QC_Non_Fails                           3  3   None      OK
+Task1_6a26c29d5f5b7cf1ea90c0cc  QC_Passed                              QC_Passed                              5  5   None      OK
+Task2_6a27b70a80b7729ca5d6d88d  QC_Passed                              QC_Passed                              5  5   None      OK
+Task3_6a2b528b5612fb11a6502d7a  QC_Passed                              QC_Passed                              5  5   None      OK
+Task4_6a30fe7ec1d692ab3ccad616  QC_Passed                              QC_Passed                              5  5   None      OK
+Task1_6a2c514095ae76f1d1fdcf44  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task2_6a29b058b7bb1b578acf379e  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task3_6a3333a765783523f1b631a3  QC_True_Fails                          QC_True_Fails                          2  2   Reject    OK
+Task4_6a3e43852d39806825d7a278  QC_True_Fails                          QC_True_Fails                          2  2   None      OK
+
+QC VERDICT SELFTEST: 16/16 bucket-correct
+EXIT=0
+

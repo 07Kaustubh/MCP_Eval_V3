@@ -10,7 +10,7 @@ whether the repo copy is identical or divergent, so adopt/deviate decisions are
 explicit instead of accidental.
 
 Usage:
-  python3 Validators/check_source_sync.py --source <extracted_pkg_root> --universe {brookfield|keystone|moveops|starpm}
+  python3 Validators/check_source_sync.py --source <extracted_pkg_root> --universe {brookfield|keystone|moveops|starpm|harmonygames}
 
 Exit 0 = fully in sync. Exit 1 = divergences found (listed; adopt upstream
 verbatim or record a deviation in AGENTS.md - never leave it silent).
@@ -38,6 +38,12 @@ SURFACES = {
         ("Evals", "Evals_moveops"), ("Docs", "Docs_moveops"),
         ("MoveOps_Base_Universe", "MoveOps_Base_Universe"),
         ("Tasks_Template", "Tasks_Template_moveops"),
+    ],
+    "harmonygames": [
+        ("Evals", "Evals_harmonygames"), ("Docs", "Docs_harmonygames"),
+        ("Guide", "Guide_harmonygames"),
+        ("HarmonyGames_Base_Universe", "HarmonyGames_Base_Universe"),
+        ("Tasks_Template", "Tasks_Template_harmonygames"),
     ],
     "starpm": [
         ("Evals", "Evals_starpm"), ("Docs", "Docs_starpm"), ("Guide", "Guide_starpm"),
@@ -94,7 +100,21 @@ def main() -> int:
             findings.append((kind, f"{repo_sub}/{path}"))
 
     if findings:
-        unexpected = [(k, f) for k, f in findings if f not in expected]
+        def _documented(path: str) -> bool:
+            """Exact match, or a directory-scoped key ending in `/**`.
+
+            A 5.6 GB vendored-out directory produces one finding per child, so an
+            exact-match-only manifest would need an entry per child and would rot the
+            moment upstream added a service. A `dir/**` key documents the boundary once.
+            """
+            if path in expected:
+                return True
+            for key in expected:
+                if key.endswith("/**") and path.startswith(key[:-2]):
+                    return True
+            return False
+
+        unexpected = [(k, f) for k, f in findings if not _documented(f)]
         if args.expect_deviations and not unexpected:
             print(f"\nSOURCE SYNC: PASS with {len(findings)} documented deviation(s) (source_sync_deviations.json)")
             return 0

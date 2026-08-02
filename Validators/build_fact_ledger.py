@@ -76,6 +76,27 @@ STARPM_ID_PATTERNS = {
 }
 
 
+# Derived from the 10 shipped HarmonyGames tasks in QC_Tasks/V5_HG_Buckets, NOT from
+# Services_Data (un-hydrated). Counts are occurrences measured in that corpus.
+# NOTE: a pipeline review asserted HG Linear issues look like "HG-1420". Measured against
+# the shipped corpus, that token occurs ZERO times; the real keys are team-prefixed.
+HARMONYGAMES_ID_PATTERNS = {
+    # ENG 5845, ZOM 2264, EVT 835, DES 412, ART 103, EPI 28, LATE 12
+    "linear_issue":  (re.compile(r"\b(?:ENG|ZOM|EVT|DES|ART|EPI|LATE)-\d{2,5}\b"), "id"),
+    # 11-char Slack IDs, e.g. C080X4GTZ0E - NOT the C001..C0NN shape of the other universes
+    "slack_channel": (re.compile(r"\bC[0-9A-Z]{10}\b"), "channel_id"),
+    "slack_user":    (re.compile(r"\bU[0-9A-Z]{10}\b"), "user_id"),
+    "trello_card":   (re.compile(r"\b[a-f0-9]{24}\b"), "id"),
+    "gdrive_file":   (re.compile(r"\b1[A-Za-z0-9_-]{25,}\b"), "id"),
+}
+
+# Registry key `id_pattern_set` selects one; absence means the v3-family default.
+ID_PATTERN_SETS = {
+    "starpm": STARPM_ID_PATTERNS,
+    "harmonygames": HARMONYGAMES_ID_PATTERNS,
+}
+
+
 def _money(val):
     if isinstance(val, bool):
         return None
@@ -163,7 +184,7 @@ def build_ledger(task_dir):
 
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
-    active_id_patterns = STARPM_ID_PATTERNS if universe == "starpm" else ID_PATTERNS
+    active_id_patterns = ID_PATTERN_SETS.get(consts.get("id_pattern_set"), ID_PATTERNS)
 
     emails = set()
     amounts = set()
@@ -332,6 +353,20 @@ def main():
     ap.add_argument("task_dir", help="path to Tasks/<TASK_DIR>")
     args = ap.parse_args()
     task_dir = Path(args.task_dir).resolve()
+    # Refuse to build against an unresolvable universe. A failed split leaves an EMPTY
+    # Universe_Split behind, so an is_dir() check passes and the builder writes an artifact
+    # full of zeros that downstream phases then trust. ImportError is tolerated (the module
+    # is optional); UniverseDataError is NOT swallowed.
+    try:
+        from universe_data_source import require_resolvable, UniverseDataError
+    except ImportError:
+        require_resolvable = None
+    if require_resolvable is not None:
+        try:
+            require_resolvable(Path(task_dir))
+        except UniverseDataError as _e:
+            print(f"FAIL: {_e}", file=sys.stderr)
+            return 1
     if not task_dir.is_dir():
         print(f"ERROR: {task_dir} not a directory", file=sys.stderr)
         sys.exit(2)
@@ -348,4 +383,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)

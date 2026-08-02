@@ -1,0 +1,112 @@
+[
+  {
+    "name": "snowflake_health",
+    "parameters": {},
+    "description": "Check the health of the service."
+  },
+  {
+    "name": "snowflake_get_job_status",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Poll an async job."
+  },
+  {
+    "name": "snowflake_get_job_result",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Fetch an async job's result once ready."
+  },
+  {
+    "name": "snowflake_list_databases",
+    "parameters": {},
+    "description": "List databases in the warehouse."
+  },
+  {
+    "name": "snowflake_list_schemas",
+    "parameters": {
+      "database": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List schemas, optionally within a single database."
+  },
+  {
+    "name": "snowflake_list_tables",
+    "parameters": {
+      "database": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "schema": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List tables and views, optionally filtered."
+  },
+  {
+    "name": "snowflake_describe_table",
+    "parameters": {
+      "table": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Describe a table's columns and metadata."
+  },
+  {
+    "name": "snowflake_execute_query",
+    "parameters": {
+      "sql": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer | null"
+      },
+      "offset": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Run a read-only Snowflake SQL query synchronously (SELECT/WITH/SHOW/DESCRIBE/USE)."
+  },
+  {
+    "name": "snowflake_submit_query",
+    "parameters": {
+      "sql": {
+        "required": "required",
+        "type": "string"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer | null"
+      },
+      "offset": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Submit a read-only query for async execution."
+  },
+  {
+    "name": "snowflake_query_history",
+    "parameters": {
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List recent queries run through this server."
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "name": "gdocs_health",
+    "parameters": {},
+    "description": "Check the health of the service."
+  },
+  {
+    "name": "gdocs_get_document",
+    "parameters": {
+      "documentId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get a Google Doc (full Docs-API-shaped document)."
+  },
+  {
+    "name": "gdocs_get_document_text",
+    "parameters": {
+      "documentId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get the plaintext body of a Doc."
+  },
+  {
+    "name": "gdocs_search_documents",
+    "parameters": {
+      "query": {
+        "required": "optional",
+        "type": "string"
+      },
+      "fullText": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "pageSize": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "pageToken": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Search Docs by title or body+title."
+  },
+  {
+    "name": "gdocs_get_viewer",
+    "parameters": {},
+    "description": "Return the active viewer email (None = admin mode)."
+  },
+  {
+    "name": "gdocs_set_viewer",
+    "parameters": {
+      "email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Switch the viewer-scope filter."
+  },
+  {
+    "name": "gdocs_create_document",
+    "parameters": {
+      "title": {
+        "required": "required",
+        "type": "string"
+      },
+      "bodyText": {
+        "required": "optional",
+        "type": "string"
+      },
+      "driveFileId": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Create a new Doc, optionally pre-linking a Drive file row."
+  },
+  {
+    "name": "gdocs_batch_update",
+    "parameters": {
+      "documentId": {
+        "required": "required",
+        "type": "string"
+      },
+      "requests": {
+        "required": "required",
+        "type": "array"
+      }
+    },
+    "description": "Apply a list of update requests to a Doc."
+  },
+  {
+    "name": "gdocs_delete_document",
+    "parameters": {
+      "documentId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Hard-delete a Doc."
+  }
+]

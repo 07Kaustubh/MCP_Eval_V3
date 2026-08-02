@@ -1,13 +1,13 @@
 # Validators
 
-24 Python scripts (see the ground-truth list below). Most take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block. All per-universe behavior routes through the `universes.py` registry keyed by `_aux/Universe.txt` - never hardcode Brookfield constants in a new check.
+39 Python scripts (see the ground-truth list below). Most take `<path_to_task_dir>` or `--task <path>` (compare_rubrics takes two file paths). All exit non-zero on FAIL so runbooks can block. All per-universe behavior routes through the `universes.py` registry keyed by `_aux/Universe.txt` - never hardcode Brookfield constants in a new check.
 
 ## Registry + framework core (read first)
 
-- **`universes.py`** - the multi-universe registry (`UNIVERSES`: brookfield, keystone, moveops, starpm), `detect_universe()` (signal-scored, ties default brookfield, cached to `_aux/Universe.txt`), `get_universe_constants()`, and the `FRAMEWORKS` table (`v3`/`v3.1`/`v2.1`/`v4`) with `get_framework_profile()`. Every other validator imports its constants from here.
+- **`universes.py`** - the multi-universe registry (`UNIVERSES`: brookfield, keystone, moveops, starpm, harmonygames), `detect_universe()` (signal-scored, ties default brookfield, cached to `_aux/Universe.txt`; HarmonyGames resolves via an exclusive-marker short-circuit that runs BEFORE scoring, because its per-task universe file is a pointer and would otherwise be signal-starved into the brookfield tie-break), `get_universe_constants()`, and the `FRAMEWORKS` table (`v3`/`v3.1`/`v2.1`/`v4`/`hg`) with `get_framework_profile()`. Every other validator imports its constants from here.
 - **`v4_gates.py`** - V4 deterministic phases `injection` (Evals_starpm/0) + `submission_gate` (Evals_starpm/5). Injection is presence-gated for ALL universes (runs whenever `9_Universe_inject.sql` carries executable statements; v3-family date ceiling = registry `today`).
-- **`qc_verdict.py`** - deterministic QC verdict engine (`parse`/`classify`/`selftest`/`audit`/`feedback`); `selftest` is bucket-correct 128/128 across `QC_Tasks/{V3_Buckets,V3.1_Buckets,V2.1_Buckets,V4_Tasks}`.
-- **`check_regression.py`** + **`test_regression_anchors.py`** - the zero-regression gate (frozen report hashes for 7 snapshot tasks) and 62 behavior anchors. Run `check_regression.py` after ANY validator edit; PASS = anchors 62/62, reports 21/21 identical, verdicts 7/7 unchanged.
+- **`qc_verdict.py`** - deterministic QC verdict engine (`parse`/`classify`/`selftest`/`audit`/`feedback`); `selftest` is bucket-correct 138/138 across `QC_Tasks/{V3_Buckets,V3.1_Buckets,V2.1_Buckets,V4_Tasks,V5_HG_Buckets}` (16+16+80+16+10). Corpus size is NOT fixed at 16: HarmonyGames ships 10 in a 4/4/2/0 split with one legitimately empty bucket.
+- **`check_regression.py`** + **`test_regression_anchors.py`** - the zero-regression gate (frozen report hashes for 7 snapshot tasks) and 78 behavior anchors, plus a `--dead-gate` self-check that neuters the validator's ability to emit any finding and asserts every non-allowlisted anchor then FAILS (anchor count is not anchor quality; two KeyStone anchors asserted nothing for several versions). `check_regression.py` runs it automatically. Run `check_regression.py` after ANY validator edit; PASS = anchors 78/78, reports 21/21 identical, verdicts 7/7 unchanged. The anchor total is NOT hardcoded in `check_regression.py`: it scrapes the suite's own summary and gates on `failed == 0 and passed == total`, so adding anchors needs no constant update here.
 - **`check_source_sync.py`** + `source_sync_deviations.json` - diffs repo spec surfaces against an extracted upstream drop (hash pins only catch repo-side edits, never a new upstream release).
 - **`check_eval_hashes.py`** / **`check_tool_catalog.py`** - repo-side drift pins for eval MDs and tool catalogs.
 - **`new_task.py`** / **`close_task.py`** - scaffolder (per-universe templates, V4 dual-model shape) and CLOSE audit (V4-aware artifact sets).
@@ -136,3 +136,22 @@ Edit `validate.py`. Each check appends to a `Report` (`fail` / `warn` / `note`).
 ## Adding a per-task summary
 
 Edit `build_universe_index.py`. Use `rows_of(path)` to iterate parsed inner row dicts (the records use `{"row_data": "<JSON-string>", "source": "..."}` shape — `rows_of` handles parsing).
+
+## Matching rules that return the expected number
+
+Three separate defects in this repo shared one shape: a matching rule that produced the
+number someone expected, while matching the wrong thing.
+
+1. Parity was measured with `grep 'universe == "hg"'`. `hg` is the FRAMEWORK key; the
+   universe key is `harmonygames`, so the probe could not match anything and reported clean.
+2. The replacement grep matched only `==`, so `if universe != "starpm"` in `v4_gates.py` was
+   invisible. The inventory said ten branches; there were eleven, and the eleventh is why F9
+   is unavailable for HarmonyGames.
+3. The dead-gate allowlist matched with bare `startswith`, so the entry `"v22 HG-1"` absorbed
+   `HG-10`, `HG-11`, `HG-12` and `HG-13`. A real leak was printed as "allowlisted" and the
+   gate returned 0.
+
+Each looked right because the count looked right. When a check reports clean, confirm it can
+report dirty: feed it a case that MUST fail. `--dead-gate` and the `[STALE]` allowlist check
+exist for exactly this, and both were themselves verified by injecting a failure.
+

@@ -1,0 +1,29 @@
+# Universe payload that is too large for git.
+# HarmonyGames inverts the usual boundary: for the other four universes the per-task
+# 3_UniverseDataForThisTask.json carries the data and *_Base_Universe/Data/ is stale
+# (AGENTS.md rule 3). HarmonyGames' per-task file is a ~721-byte POINTER, so
+# Services_Data/ IS the source of truth - it must stay hydratable, not be deleted.
+# 5.6 GB, ~314k files, a 223 MB JSON and four nested git packs. See
+# HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md
+# Ignore the CONTENTS, not the directory, so the hydration pointer survives a clone.
+# `**/Services_Data/` ignored the directory itself, which swallowed README_HYDRATE.md -
+# the only place the sha256, the source path and the nested-git-pack warning exist. On a
+# fresh clone AGENTS.md, Knowledge_Flow.md, NEW.md, split_universe.py's error message and
+# check_hydration.py's manifest reader all pointed at a file that could not exist, and
+# check_hydration.py self-disabled to [SKIP].
+**/Services_Data/*
+!**/Services_Data/README_HYDRATE.md
+
+# OS / editor cruft
+.DS_Store
+**/.DS_Store
+
+# Per-machine agent config from vendored drops
+.claude/
+
+__pycache__/
+*.pyc
+
+# Agent session state - machine-local, regenerable, not project content.
+.omo/
+.opencode/

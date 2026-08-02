@@ -62,9 +62,42 @@ def _write_task(task_dir: Path, prompt: str = "", oe: str = "", rubrics: list = 
     (task_dir / "2_Persona.txt").write_text(persona, encoding="utf-8")
 
 
-def _run_validate(task_dir: Path, phase: str) -> str:
+def _write_hg_task(task_dir: Path, rubrics: list = None, prompt: str = None,
+                   sql: str = "", pointer: bool = True) -> None:
+    """HarmonyGames fixture.
+
+    `_write_v4_task` cannot serve HG: it hardcodes "starpm" into _aux/Universe.txt and
+    hardcodes StarPM entity IDs. HG shares V4's injection/submission_gate phases but has
+    none of its services. Defaults to the POINTER data contract because that is what all
+    ten shipped HG tasks in QC_Tasks/V5_HG_Buckets actually use.
+    """
+    task_dir.mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux").mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux" / "Universe.txt").write_text("harmonygames\n", encoding="utf-8")
+    payload = ([{"How This Works": "This task uses the Base Universe data by default.",
+                 "Base Universe Path": "MCP_Eval_V2_HarmonyGames"}] if pointer else
+               {"linear": [{"id": "ENG-2400", "title": "Live-ops rollout"}],
+                "slack": [{"channel": "C080X4GTZ0E", "name": "engineering"}],
+                "contacts": [{"name": "Claire Morgan", "email": "claire@harmonygames.co"}]})
+    (task_dir / "3_UniverseDataForThisTask.json").write_text(json.dumps(payload), encoding="utf-8")
+    (task_dir / "5_Prompt.txt").write_text(
+        prompt or "Review the ENG-2400 rollout and bring the team up to date.", encoding="utf-8")
+    (task_dir / "4_Changelog.json").write_text("[]", encoding="utf-8")
+    if sql:
+        (task_dir / "9_Universe_inject.sql").write_text(sql, encoding="utf-8")
+    if rubrics is not None:
+        (task_dir / "7_Rubrics.json").write_text(json.dumps(rubrics, indent=2), encoding="utf-8")
+
+
+def _hg_r(title: str, category: str = "Outcome 1.1", just: str = "grounded in universe data",
+          evid: str = "call args") -> dict:
+    """One HG rubric. HG stores a 4-value category enum, unlike the v3 outcome/process pair."""
+    return {"title": title, "category": category, "justification": just, "evidence": evid}
+
+
+def _run_validate(task_dir: Path, phase: str, validate_py: Path = None) -> str:
     result = subprocess.run(
-        ["python3", str(VALIDATE_PY), "--phase", phase, "--task", str(task_dir)],
+        ["python3", str(validate_py or VALIDATE_PY), "--phase", phase, "--task", str(task_dir)],
         capture_output=True, text=True,
     )
     report = task_dir / "_aux" / "Validator_Reports" / f"{phase}.md"
@@ -378,8 +411,12 @@ ANCHORS = [
     {
         "name": "v18 KS-4 — KeyStone Brookfield-style retention code wrongly used (AICPA_SQMS_7Y)",
         "phase": "oe",
-        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the loan file.\nOE2: Upload disclosure document with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
-        "expect": "PASS",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the loan file.\nOE2: Upload disclosure document with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Post in channel C009 about it.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
+        # Paired: C009 is an invalid KeyStone channel and MUST flag, so this anchor needs a
+        # live validator. The real subject is expect_not: the Brookfield retention code must NOT
+        # be flagged on keystone. Previously it asserted only bare \"PASS\" and survived gate death.
+        "expect": "C009",
+        "expect_not": "AICPA_SQMS_7Y",
     },
     {
         "name": "v18 KS-5 — KeyStone universe detection (mortgage_los signal)",
@@ -459,13 +496,16 @@ ANCHORS = [
         "expect": "feasible-surface mismatch",
     },
     {
-        "name": "v19 KS-8 — KeyStone TRID timing claim verified",
+        "name": "v19 KS-8 - KeyStone single-service prompt fails the cross-service requirement",
         "phase": "prompt",
         "fixture": lambda d: (_write_task(d, prompt="I need help. There's a TRID concern: the closing disclosure was delivered 1 business day before closing on LN-2026-04417, which is short of the required window. Check mortgage_los disclosures and tell me what we need to do. Email Carlos about the breach and post in compliance-alerts.", persona="Denise Holloway"), (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8")),
-        "expect": "universe: keystone",
+        # Renamed: it used to claim a TRID timing check and asserted only the detection NOTE.
+        # TRID verification is in verify_universe_atoms.py, which validate.py never invokes,
+        # so the old name promised coverage that does not exist in this phase.
+        "expect": "cross-service requirement",
     },
     {
-        "name": "v19 KS-7 — KeyStone LOS-vs-CRM source-of-truth violation (rubric cites CRM for loan data)",
+        "name": "v19 KS-7 - KeyStone rubric census under keystone constants (2 outcome / 0 process)",
         "phase": "rubrics",
         "fixture": lambda d: (
             _write_task(
@@ -479,7 +519,11 @@ ANCHORS = [
             ),
             (Path(d) / "_aux" / "Universe.txt").write_text("keystone\n", encoding="utf-8"),
         ),
-        "expect": "universe: keystone",
+        # Renamed: it used to claim it covered the LOS-vs-CRM source-of-truth violation and
+        # asserted only the detection NOTE, so it passed even if that check were deleted.
+        # validate.py does not implement that check in any phase - the keystone claim
+        # verifiers live in verify_universe_atoms.py, a separate CLI. Asserts the real emission.
+        "expect": "counts: outcome=2, process=0",
     },
     {
         "name": "v20 MO-1 — MoveOps auto-detection (PHMSA / Vectral / UrbanNest signals)",
@@ -538,8 +582,10 @@ ANCHORS = [
     {
         "name": "v-wave2 SP-5 - Brookfield retention code (AICPA_SQMS_7Y) in a StarPM OE is not flagged (StarPM has no retention codes; check self-disables, mirrors KS-4)",
         "phase": "oe",
-        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready file.\nOE2: Upload the inspection report with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Confirm.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
-        "expect": "PASS",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready file.\nOE2: Upload the inspection report with retention_policy_code: AICPA_SQMS_7Y.\nOE3: Post in channel C012 about it.\nOE4: Reply.\nOE5: Mark.\nOE6: Log.\nOE7: Done.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        # Paired: C012 is not a StarPM channel and MUST flag; the retention code must NOT.
+        "expect": "C012",
+        "expect_not": "AICPA_SQMS_7Y",
     },
     {
         "name": "v-wave2 SP-6 - Brookfield baseline preserved after StarPM registry addition (guards the detect_universe tiebreak)",
@@ -566,8 +612,10 @@ ANCHORS = [
     {
         "name": "v-wave3 SP-9 - StarPM correct slack_send_message (message) / create_draft (body) usage is not falsely flagged",
         "phase": "oe",
-        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready records in the owner-relations thread.\nOE2: Post an update using slack_send_message with channel_id C001 and message: the make-ready status.\nOE3: Draft the owner note using create_draft with body: the summary.\nOE4: File the follow-up using save_issue with team: Operations.\nOE5: Confirm.\nOE6: Mark.\nOE7: Log.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
-        "expect": "PASS",
+        "fixture": lambda d: (_write_task(d, prompt="", oe="OE1: Search the make-ready records in the owner-relations thread.\nOE2: Post an update using slack_send_message with channel_id C001 and message: the make-ready status.\nOE3: Draft the owner note using create_draft with body: the summary.\nOE4: File the follow-up using save_issue with team: Operations.\nOE5: Post the recap in channel C012.\nOE6: Mark.\nOE7: Log.\nOE8: End."), (Path(d) / "_aux" / "Universe.txt").write_text("starpm\n", encoding="utf-8")),
+        # Paired: C012 MUST flag; CORRECT param usage must NOT be reported as a trap.
+        "expect": "C012",
+        "expect_not": "wrong parameter",
     },
     # Wave 4a anchors: V4-only phases (injection quality / submission gate) from
     # Evals_starpm 0 and 5. Gated on framework extra_phases; v3 universes SKIP.
@@ -621,13 +669,284 @@ ANCHORS = [
         ),
         "expect": "TEMPORAL_VIOLATION",
     },
+
+    # ---------------- HarmonyGames (universe 5, framework `hg`) ----------------
+    {
+        "name": "v22 HG-1 - HarmonyGames auto-detection (name marker + struct marker in the SAME file)",
+        "phase": "prompt",
+        "fixture": lambda d: _write_task(d, prompt="Pull the live-ops numbers together and brief the team on where the rollout stands.", persona="Claire Morgan - claire@harmonygames.co (see Persona_ACL_Roster for acting identity)"),
+        "expect": "universe: harmonygames",
+    },
+    {
+        "name": "v22 HG-2 - HG rubric citing a phantom Gmail send tool fails F1 (Gmail is READ-ONLY)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent sends the vendor an update via gmail_send_email about the rollout."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        "expect": "IMPOSSIBLE",
+    },
+    {
+        "name": "v22 HG-3 - F1 covers a NON-v4 HG service prefix (gdrive_) the legacy alternation missed",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent removes the stale build via gdrive_delete_everything before the release."),
+            _hg_r("The Agent reports the release state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        "expect": "gdrive_delete_everything",
+    },
+    {
+        "name": "v22 HG-4 - HG caps Process at 40% of the set (no Outcome-majority rule here)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent identifies the rollout owner.", "Outcome 1.1"),
+            _hg_r("The Agent queries the issue tracker before answering.", "Process"),
+            _hg_r("The Agent cross-checks the dashboard before answering.", "Process"),
+            _hg_r("The Agent checks the release channel before answering.", "Process"),
+        ]),
+        "expect": "caps it at 40%",
+    },
+    {
+        "name": "v22 HG-5 - HG set that is 20% Process is VALID (zero-Process is also valid here)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent identifies the rollout owner from the tracker."),
+            _hg_r("The Agent identifies the affected build number."),
+            _hg_r("The Agent records the decision in the tracker."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+            _hg_r("The Agent consults the tracker before reporting.", "Process"),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # Paired: the phantom tool MUST flag. Real subject is expect_not - 1 Process in 6 is
+        # under the 40% cap and must NOT trip it.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "caps it at 40%",
+    },
+    {
+        "name": "v22 HG-6 - HG zero-Outcome set fails MISSING_CRITERIA",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent consults the tracker before reporting.", "Process"),
+        ]),
+        "expect": "MISSING_CRITERIA",
+    },
+    {
+        "name": "v22 HG-7 - weekend-comms rule: Slack post dated a Saturday is a temporal violation",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent posts the rollout status in Slack on 2026-02-28."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        "expect": "weekend business comms",
+    },
+    {
+        "name": "v22 HG-8 - weekend rule does NOT fire on a weekday date (false-positive guard)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent posts the rollout status in Slack on 2026-02-27."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # Paired: phantom tool MUST flag; a WEEKDAY date must NOT trip the weekend rule.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "weekend business comms",
+    },
+    {
+        "name": "v22 HG-9 - a REAL HG NPC mailbox is not a phantom (regression guard for 20 false fails)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, pointer=False, rubrics=[
+            _hg_r("The Agent follows up with megan@harmonygames.co about the rollout."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+            _hg_r("The Agent also emails notarealperson@harmonygames.co for sign-off."),
+        ]),
+        # Paired: the fabricated address MUST be surfaced; the REAL NPC must NOT be.
+        "expect": "notarealperson@harmonygames.co",
+        "expect_not": "megan@harmonygames.co",
+    },
+    {
+        "name": "v22 HG-10 - a REAL persona with an IRREGULAR address (blake@, not arthur.blake@) is not a phantom",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, pointer=False, rubrics=[
+            _hg_r("The Agent asks blake@harmonygames.co to confirm the rollout."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # Paired: the phantom tool MUST flag, so this dies against a dead validator. The real
+        # subject stays in expect_not - the irregular persona address must NOT be flagged.
+        # This anchor was missed in the first pairing pass and the prefix collision hid it.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "blake@harmonygames.co",
+    },
+    {
+        "name": "v22 HG-11 - fabricated @harmonygames.co address is still surfaced under the pointer contract",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent emails notarealperson@harmonygames.co about the rollout."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        "expect": "notarealperson@harmonygames.co",
+    },
+    {
+        "name": "v22 HG-12 - blank rubric field is caught for HG (submission-gate coverage, not just StarPM)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            {"title": "The Agent identifies the rollout owner.", "category": "Outcome 1.1", "justification": "", "evidence": "call args"},
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        "expect": "BLANK_FIELD",
+    },
+
+    {
+        "name": "v22 XU-1 - cross-universe phantom (stripe_ under StarPM) is flagged - pins the union in service_prefix_re",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_v4_task(d, rubrics=[
+            {"title": "The Agent settles the balance via stripe_create_charge for recABCDE12345.",
+             "category": "outcome", "justification": "cleanup", "evidence": "call args"},
+            {"title": "The Agent identifies the make-ready record recABCDE12345 as In Progress.",
+             "category": "outcome", "justification": "Airtable is source of record", "evidence": "final response"},
+        ]),
+        "expect": "stripe_create_charge",
+    },
+    {
+        "name": "v22 XU-2 - cross-universe phantom (snowflake_ under StarPM) is flagged",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_v4_task(d, rubrics=[
+            {"title": "The Agent pulls the totals via snowflake_query for recABCDE12345.",
+             "category": "outcome", "justification": "reporting", "evidence": "call args"},
+            {"title": "The Agent identifies the make-ready record recABCDE12345 as In Progress.",
+             "category": "outcome", "justification": "Airtable is source of record", "evidence": "final response"},
+        ]),
+        "expect": "snowflake_query",
+    },
+    {
+        "name": "v22 XU-3 - snake_case PROSE is not a phantom tool (email_address / reminder_date)",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, pointer=False, rubrics=[
+            _hg_r("The Agent records the email_address and the reminder_date on the ENG-2400 ticket."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # Paired: a real phantom tool MUST flag; snake_case PROSE must NOT.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "email_address",
+    },
+    {
+        "name": "v22 HG-13 - fabricated address is surfaced as a WARN naming it when the universe is UNRESOLVABLE",
+        "phase": "submission_gate",
+        "fixture": lambda d: _write_hg_task(d, pointer=False, rubrics=[
+            _hg_r("The Agent emails notarealperson@harmonygames.co about the rollout."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        # The hard-FAIL branch fires only when the universe RESOLVES, which needs the
+        # gitignored 5.6 GB payload, so it is deliberately not asserted here. What IS
+        # testable un-hydrated is the degrade: the address must still be named.
+        "expect": "cannot be disproven",
+    },
 ]
+
+
+# Anchors that legitimately assert only a NOTE line (universe detection, censuses). NOTE
+# emission is deliberately left live under --dead-gate, so these are expected to survive.
+# Everything else MUST fail when the validator can emit no finding; an anchor that survives
+# a fully dead validator asserts nothing about the gate it is named for.
+DEAD_GATE_ALLOWLIST = {
+    "v18 KS-5", "v20 MO-1", "v20 MO-5", "v-wave2 SP-1", "v-wave2 SP-6", "v22 HG-1",
+    # KS-7 asserts a rubric-census NOTE. KS-8 was removed from this list once it began
+    # asserting a real cross-service FAIL and stopped surviving a dead validator.
+    "v19 KS-7",
+    # These two assert an ABSENCE by design - a valid injection clearing every gate, and a v3
+    # task correctly SKIPping the injection phase. Pairing a positive into either would destroy
+    # the property under test, so they are allowlisted explicitly rather than left looking like
+    # coverage they cannot provide.
+    "v-wave4 SP-INJ-1", "v-wave4 SP-SUB-2",
+}
+
+
+def _dead_gate_validator() -> Path:
+    """A copy of Validators/ whose Report can record no fail and no warn.
+
+    Copied rather than monkeypatched because the anchors run validate.py in a subprocess,
+    and because production code must not carry a test-only branch. `note` stays live so the
+    detection anchors keep something truthful to assert.
+    """
+    # Caller owns this directory and MUST remove it; run_dead_gate does so in a finally.
+    # It was leaking ~1 MB per invocation, and check_regression runs this after every
+    # validator edit, so the leak was unbounded.
+    tmp = Path(tempfile.mkdtemp(prefix="dead_gate_"))
+    dst = tmp / "Validators"
+    shutil.copytree(ROOT / "Validators", dst, ignore=shutil.ignore_patterns("__pycache__"))
+    v = dst / "validate.py"
+    src = v.read_text(encoding="utf-8")
+    for body in ("self.fails.append(msg)", "self.warns.append(msg)"):
+        if src.count(body) != 1:
+            raise SystemExit(f"dead-gate: expected exactly one `{body}` in validate.py, "
+                             f"found {src.count(body)} - the Report seam moved")
+        src = src.replace(body, "pass  # neutered by --dead-gate", 1)
+    v.write_text(src, encoding="utf-8")
+    return v
+
+
+def run_dead_gate(verbose: bool = False) -> int:
+    """Fail if any non-allowlisted anchor still passes against a validator that emits nothing."""
+    dead = _dead_gate_validator()
+    try:
+        return _run_dead_gate_inner(dead, verbose)
+    finally:
+        shutil.rmtree(dead.parent.parent, ignore_errors=True)
+
+
+def _run_dead_gate_inner(dead: Path, verbose: bool = False) -> int:
+    survivors = []
+    for anchor in ANCHORS:
+        with tempfile.TemporaryDirectory(prefix="dead_gate_anchor_") as tmp:
+            tdir = Path(tmp) / "task"
+            anchor["fixture"](tdir)
+            report = _run_validate(tdir, anchor["phase"], validate_py=dead)
+            exp, nexp = anchor.get("expect"), anchor.get("expect_not")
+            ok = (exp.lower() in report.lower()) if exp else True
+            if ok and nexp:
+                ok = nexp.lower() not in report.lower()
+            if ok:
+                survivors.append(anchor["name"])
+    # Exact match, or a prefix that ends at a token boundary. Bare startswith let the entry
+    # "v22 HG-1" absorb HG-10, HG-11, HG-12 and HG-13, so a genuine leak (HG-10) was reported
+    # as allowlisted and the gate returned 0. A matching rule that happens to produce the
+    # expected count is not evidence; this is the third time that shape has bitten this work.
+    def _allowed(name: str) -> bool:
+        return any(name == a or name.startswith(a + " ") for a in DEAD_GATE_ALLOWLIST)
+
+    allowed = [n for n in survivors if _allowed(n)]
+    leaked = [n for n in survivors if n not in allowed]
+    print("=== dead-gate self-check ===")
+    print(f"{len(ANCHORS)} anchors · {len(survivors)} survived a validator that emits nothing")
+    print(f"  allowlisted (assert a NOTE): {len(allowed)}")
+    for n in sorted(leaked):
+        print(f"  [LEAK] {n}")
+    # An allowlist entry that no longer matches a surviving anchor is stale: the anchor was
+    # strengthened and nobody pruned the exemption. Surfacing it keeps the exemption list
+    # honest instead of letting it grow into a blanket.
+    stale = [a for a in sorted(DEAD_GATE_ALLOWLIST)
+             if not any(n == a or n.startswith(a + " ") for n in survivors)]
+    for a in stale:
+        print(f"  [STALE] allowlist entry {a!r} matches no surviving anchor - remove it")
+    if leaked or stale:
+        if leaked:
+            print(f"\n[FAIL] {len(leaked)} anchor(s) pass against a dead validator - they assert nothing")
+        if stale:
+            print(f"[FAIL] {len(stale)} stale allowlist entr(ies)")
+        return 1
+    print("\n[OK] every non-allowlisted anchor requires a live validator")
+    return 0
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--dead-gate", action="store_true",
+                    help="assert every anchor needs a validator that can emit findings")
     args = ap.parse_args()
+    if args.dead_gate:
+        sys.exit(run_dead_gate(args.verbose))
 
     passed = 0
     failed = 0
@@ -638,7 +957,17 @@ def main():
             tdir = Path(tmp) / "task"
             anchor["fixture"](tdir)
             report = _run_validate(tdir, anchor["phase"])
-            if anchor["expect"].lower() in report.lower():
+            # `expect` asserts presence; `expect_not` asserts ABSENCE. Both may be given.
+            # Absence assertions exist because several checks degrade to a WARN rather than a
+            # FAIL, which leaves the report Status at PASS - so "Status:** PASS" alone cannot
+            # tell a working exemption from a broken one. Without expect_not those anchors
+            # pass under every mutation, i.e. they verify nothing.
+            _exp = anchor.get("expect")
+            _nexp = anchor.get("expect_not")
+            _ok = (_exp.lower() in report.lower()) if _exp else True
+            if _ok and _nexp:
+                _ok = _nexp.lower() not in report.lower()
+            if _ok:
                 passed += 1
                 print(f"[PASS] {anchor['name']}")
                 if args.verbose:
@@ -646,8 +975,10 @@ def main():
                     print("---")
             else:
                 failed += 1
-                failures.append((anchor["name"], anchor["expect"], report))
-                print(f"[FAIL] {anchor['name']} — expected '{anchor['expect']}' in validator output, NOT FOUND")
+                failures.append((anchor["name"], _exp or f"NOT:{_nexp}", report))
+                _why = (f"expected '{_exp}' in validator output, NOT FOUND" if _exp and _exp.lower() not in report.lower()
+                        else f"expected '{_nexp}' to be ABSENT, but it is present")
+                print(f"[FAIL] {anchor['name']} — {_why}")
                 if args.verbose:
                     print(report)
                     print("---")

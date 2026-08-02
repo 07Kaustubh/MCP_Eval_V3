@@ -1,0 +1,26 @@
+Auditor Score and Feedback
+bad 2/5
+
+Rubrics - Agent Centric Phrasing
+Score: 3/5
+Answer: [Non-Fail - Rubric is agent-centric but does not follow the pattern]
+Feedback: 10 of 14 criteria are phrased "The Agent's [artifact] [verb] X" rather than the literal "Agent [verb] X" pattern. This still matches the specification's sanctioned agent-centric example.
+
+Rubrics - Overall Rubric Quality
+Score: 2/5
+Answer: [Fail - 10%+ Major Rubric Errors]
+Feedback: Total major rubric errors: 50% (7/14).
+
+Major - missing outcome criterion:
+- There is no outcome criterion checking that Leaderboard tickets are updated, although ENG-2174 has three related open bugs (ENG-2181, ENG-2076, ZOM-429), and the auditor's OE version says the agent should likewise correct ENG-2174.
+
+Major - criteria not self-contained (6):
+- C2: No ticket, value, or specific Collect & Win discrepancy is named in the criterion text.
+- C5: Same self-containment gap as C2, restated for the document.
+- C11: No specific Done Collect & Win tracking tickets are named in the criterion text.
+- C12: Same gap as C11 for Win Streak / Axe Arena.
+- C13: No specific Leaderboard ticket ID or issue is named in the criterion text.
+- C14: No expected value or specific Daily Login finding is named in the criterion text.
+
+Selected Error Categories:
+[All] [All] [Fail - 10%+ Major Rubric Errors]

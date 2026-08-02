@@ -4,7 +4,10 @@
 Commands:
   parse    <task_dir>   - structural parse of QC_Feedback_Verdict.txt + 9/10/11 trio -> JSON
   classify <task_dir>   - derive bucket from parsed CONTENT (scores + dispute decision)
-  selftest <corpus_dir> - classify all labeled tasks, compare to bucket labels, 16/16 required
+  selftest <corpus_dir> - classify all labeled tasks, compare to bucket labels; every
+                          classifiable task must match its bucket. Corpus size varies by
+                          universe (V3/V3.1/V4 = 16, V2.1 = 80, HarmonyGames = 10 in a
+                          4/4/2/0 split with one legitimately empty bucket).
   audit    <task_dir>   - SSOT cross-reference: every finding's cited atoms checked against
                           the task's own universe data / prompt / OE / rubrics
   feedback <task_dir>   - draft a 9_QC_Feedback.txt skeleton from validator reports with
@@ -63,7 +66,12 @@ def parse_verdict(task_dir: Path) -> dict:
     vp = task_dir / "QC_Feedback_Verdict.txt"
     text = _read(vp)
     if not text.strip():
-        return {"error": f"missing or empty {vp}"}
+        # No derived verdict file, or an empty one. Fall back to the raw auditor form
+        # before giving up: the score is usually still recoverable from 9_QC_Feedback.txt.
+        fallback = parse_auditor_feedback(task_dir)
+        if fallback:
+            return fallback
+        return {"error": f"missing or empty {vp}, and 9_QC_Feedback.txt carries no score"}
     secs = _sections(text)
     error_cats = []
     ec_body = secs.get("Error Categories", "")
@@ -119,6 +127,382 @@ def parse_verdict(task_dir: Path) -> dict:
     }
 
 
+
+# --- structural extraction -------------------------------------------------------------
+# Regex tuning was tried three times on this and failed three times, twice by regressing the
+# HarmonyGames corpus from 10/10 to 8/10. The reason is that a pattern cannot tell a
+# dimension score from a score-shaped number in prose ("All other audited components
+# received 5/5") or from the document's own verdict line ("bad 2/5"), because the difference
+# is STRUCTURAL, not lexical. So this parses structure.
+#
+# Two real form shapes exist in the corpus:
+#   BLOCK  a dimension header line, then its `Score: N/5`, repeated, blank-line separated
+#   TERSE  a two-line summary: "Approved. No failing QC issues." / "Score 5"
+#
+# The denominator is the number of DIMENSION BLOCKS found, so a block that declares a
+# dimension but yields no attributable score is reported rather than dropped. Scope note:
+# this guard covers blocks with NO attributable score. It is not a universal proof that no
+# term can ever be dropped - the paths that did drop terms silently (break-on-first-score,
+# over-broad aggregate skips, a prose heuristic swallowing a real dimension) were found by
+# adversarial review, not by this guard, and are fixed individually above.
+
+# A copula between the label and the value is ordinary human phrasing ("Score is 2/5."),
+# and without it that line matched nothing and fell through to the prose branch, which
+# dropped it silently.
+_SCORE_LINE = re.compile(r"^\W*Score\s*(?:is|was|of|=)?\s*[:\-]?\s*"
+                         r"([1-5])\s*(?:/\s*5|\s+out\s+of\s+5)\b", re.IGNORECASE)
+# A dimension whose score is inline on the header itself: "Coherence: 2/5".
+_INLINE_DIM = re.compile(r"^\W*(?P<name>[A-Za-z][\w &/()'.-]{2,60}?)\s*[:\-]\s*"
+                         r"(?P<score>[1-5])\s*(?:/\s*5|\s+out\s+of\s+5)\b", re.IGNORECASE)
+# The document's own verdict, not a dimension: a bare quality word plus a score.
+# The form's own verdict is a BARE quality word plus a score and nothing else. Allowing
+# trailing text made "Pass Rate: 2/5" match on `pass` and discarded a real dimension along
+# with its score.
+# Same shape as _INLINE_DIM but scannable mid-line, for headers carrying several dimensions.
+# A score with no denominator ("Score: 2"). Real forms use this - the TERSE shape is a bare
+# "Score 5" - but it was honored ONLY in the terse fallback, which runs when nothing else
+# scored, so inside a dimension block it was invisible and the block was skipped in silence.
+# Safe to attribute here because aggregate lines are skipped upstream by _AGG_LABEL.
+# ONE bare-score vocabulary, shared by every consumer that needs it. Previously three
+# hand-maintained patterns disagreed: `Score of 2` was known to _SCORE_LINE but not here,
+# `Score is 2` was known here but not to the aggregate sweep, `Score: 2.` to neither. That
+# is the same sibling drift the shared _SCORE_TOKEN removed for denominator-bearing scores
+# and which was left fully intact for bare ones.
+# 0 is accepted here on purpose: it is OUT OF RANGE for a 1-5 scale, and capturing it means
+# the out-of-range guard can report it. Excluding it made "Score: 0" invisible instead.
+_BARE_SCORE = r"Score\s*(?:is|was|of|=)?\s*[:\-]?\s*([0-5])\s*\.?\s*"
+_BARE_SCORE_LINE = re.compile(r"^\W*" + _BARE_SCORE + r"$", re.IGNORECASE)
+_INLINE_DIM_SCAN = re.compile(r"(?P<name>[A-Za-z][\w &/()'.-]{2,60}?)\s*[:\-]\s*"
+                              r"(?P<score>[1-5])\s*(?:/\s*5|\s+out\s+of\s+5)\b", re.IGNORECASE)
+_VERDICT_LINE = re.compile(r"^\W*(?:ok|bad|good|poor|pass|fail|approved|rejected)\s+"
+                           r"[1-5]\s*/\s*5\W*$", re.IGNORECASE)
+# The separator must follow `Score` directly. Matching the prefix alone discarded a real
+# dimension named "QC Score Alignment" together with its score.
+# Vocabulary kept in step with _BARE_SCORE: the copula forms ("QC Score is 2") and the
+# "Overall Score" label were known to neither this nor the dimension path, so those lines
+# were neither skipped as aggregates nor scored as dimensions - they were simply invisible.
+# KNOWN LIMITATION, deliberate. _AGG_LABEL is `^`-anchored, so an aggregate stated
+# mid-sentence ("The Final Score: 2 was assigned by the auditor in review.") is neither
+# skipped as an aggregate nor read as a dimension, and a form carrying only that returns the
+# dimension minimum instead. Un-anchoring it is NOT the fix: that reopens the class where a
+# real dimension named "Pass Rate: 2/5" was consumed as a verdict because it began with a
+# quality word. A mid-sentence score is narrative-shaped, and no live corpus form uses it.
+_AGG_LABEL = re.compile(
+    r"^\W*(?:QC|Final|Proposed|Auditor|Overall)\s+Score\s*(?:is|was|of|=)?\s*[:\-]?\s*\d",
+    # NOTE: membership here is not sufficient to classify a line as an aggregate; see
+    # _readable_as_dimension in _extract_dimension_scores. "Overall Rubric Quality" is a
+    # real sub-dimension per AGENTS.md rule 27, so "Overall Score" is genuinely ambiguous
+    # and must lose to any extractor that can read the line.
+    re.IGNORECASE)
+_PREAMBLE = re.compile(r"Auditor\s+Score\s+and\s+Feedback", re.IGNORECASE)
+# Canonical vocabulary for DENOMINATOR-BEARING scores ("2/5", "two out of five"), used by
+# every consumer that asks "what values does this text claim?". Bare scores ("Score: 2")
+# have their own shared definition, `_BARE_SCORE`, below. The strict per-line EXTRACTORS
+# (_SCORE_LINE, _INLINE_DIM, _INLINE_DIM_SCAN) are deliberately narrower than both and are
+# not derived from them: the guard must be permissive so an unreadable form is loud, while
+# extraction stays strict so a value is only claimed when it is unambiguous.
+#
+# This exists because hand-syncing several regexes was the defect generator, not a defect.
+# Three rounds running, a fix landed in one site and its siblings kept the old vocabulary:
+# _SCORE_LINE was taught to collect every line while _INLINE_DIM_SCAN still read only the
+# first; the detector was widened to accept "two out of five" while the two RECORDERS that
+# feed the safety comparison stayed narrow, so those blocks were detected as
+# should-have-parsed and then recorded nothing, leaving the comparison with no value and
+# returning the higher number. A shared token makes that class of drift impossible.
+#
+# Deliberately WIDER than the extractors: it answers only "should this block have carried a
+# score?". A phrasing the extractors cannot read must be LOUD, never invisible.
+_WORD_NUM = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+# NOTE on percentages: a "%" alternative was tried and REMOVED against evidence. Real
+# auditor forms carry percentage thresholds in error-category names - "[Non-Fail - Up to 10%
+# Major Errors]" - and a scan finds the "0%" inside "10%", recording a score of 0.0 that
+# then trips the below-minimum rule on entirely legitimate text. A percentage is not a score
+# out of five in this corpus, so it is deliberately out of vocabulary.
+# BOTH word boundaries are load-bearing and were lost when five regexes were merged into
+# this one. Without them a scan finds a score inside a larger number: "12 of 55" captured
+# 2.0, "10/5" captured 0.0, "15 of 5" captured 5.0. Every gate stayed green while that was
+# live, because no fixture placed a multi-digit number next to a score token. That missing
+# left boundary is also the REAL reason a "%" alternative appeared to fail - it matched the
+# "0%" inside "10%" - so the earlier diagnosis ("a percentage is not a score") was right
+# about the conclusion and wrong about the cause.
+_SCORE_TOKEN = (r"\b(?:(?P<num>[0-9](?:\.[0-9])?)|"
+                r"(?P<word>zero|one|two|three|four|five))"
+                r"\s*(?:/\s*5|\s*(?:out\s+)?of\s+(?:5|five))\b")
+_ANY_SCORE_SHAPE = re.compile(_SCORE_TOKEN, re.IGNORECASE)
+
+
+def _score_values(text: str) -> list:
+    """Every score-like value in `text`, using the ONE canonical vocabulary.
+
+    Returns floats so a decimal or a word numeral compares correctly against the minimum.
+    Every consumer that needs "what values does this text claim?" calls this, so widening
+    the vocabulary widens all of them at once.
+    """
+    out = []
+    for m in _ANY_SCORE_SHAPE.finditer(text):
+        if m.group("num") is not None:
+            out.append(float(m.group("num")))
+        else:
+            out.append(float(_WORD_NUM[m.group("word").lower()]))
+    return out
+
+
+def _extract_dimension_scores(text: str, fname: str) -> tuple:
+    """Return (scores, error). Structural, block-aware, fails loudly on a scoreless block."""
+    blocks = [b for b in re.split(r"\n\s*\n", text) if b.strip()]
+    scores, unparsed, dropped, aggregates = [], [], [], []
+
+    for block in blocks:
+        lines = [ln for ln in block.splitlines() if ln.strip()]
+        if not lines:
+            continue
+        # Preamble / verdict / aggregate are LINE-level skips, not BLOCK-level.
+        #
+        # Anchoring to lines[0] and skipping the whole block was wrong in BOTH directions.
+        # The real corpus's dominant form puts a "Task Feedback" title on line 0 with
+        # "Auditor Score and Feedback" on line 1, so lines[0] never matched, the block was
+        # kept, and its verdict value "bad 2/5" was then reported as an unattributable
+        # dimension - 8 of 39 real auditor forms failed to parse. Searching the whole block
+        # instead is also wrong: that was R3, where a block merely MENTIONING the preamble
+        # lost its scores. Removing the offending LINES and scoring what remains satisfies
+        # both, and the surviving text must be rebuilt or the checks below re-find the value
+        # on a line that was just removed.
+        # A line that a DIMENSION extractor can read is never an aggregate. Adding
+        # "Overall" to _AGG_LABEL made the real dimension "Overall Score: 2/5" get consumed
+        # as the document verdict, removed, and then trip the below-minimum rule - a false
+        # block on a case an earlier round had established should score 2. Aggregate status
+        # is therefore the FALLBACK: claim a line only when no extractor could attribute it.
+        def _readable_as_dimension(ln: str) -> bool:
+            t = ln.strip()
+            return bool(_SCORE_LINE.match(t) or _BARE_SCORE_LINE.match(t)
+                        or _INLINE_DIM.match(t))
+
+        agg_lines = [ln for ln in lines
+                     if not _readable_as_dimension(ln)
+                     and (_PREAMBLE.match(ln.strip()) or _VERDICT_LINE.match(ln.strip())
+                          or _AGG_LABEL.match(ln.strip()))]
+        if agg_lines:
+            for ln in agg_lines:
+                aggregates.extend(_score_values(ln))
+                aggregates.extend(float(m.group(1)) for m in
+                                  re.finditer(_BARE_SCORE + r"(?![\d/])", ln, re.IGNORECASE))
+            lines = [ln for ln in lines if ln not in agg_lines]
+            if not lines:
+                continue
+            block = "\n".join(lines)
+
+        # Collect EVERY score in the block. Breaking on the first meant a block carrying
+        # N dimension scores contributed exactly ONE term, so [5,2,4,3] became [5] and MIN
+        # silently returned 5 - the dominant silent-optimistic path, and it bypassed the
+        # denominator guard entirely because a score WAS found. Verified corpus-neutral:
+        # 0 of 95 blocks across all five corpora carry more than one score line.
+        found = [int(m.group(1)) for m in
+                 (_SCORE_LINE.match(ln.strip()) for ln in lines) if m]
+        # ALWAYS collect bare scores alongside, never only-when-nothing-else-matched.
+        # Gating them behind `if not found` reproduced the D1/E1 lesson a third time: a
+        # block holding both "Score: 5/5" and "Score: 2" contributed only the 5. The two
+        # patterns cannot overlap - _BARE_SCORE_LINE requires end-of-line after the digit,
+        # so "Score: 5/5" can never match it - hence no double counting.
+        found += [int(m.group(1)) for m in
+                  (_BARE_SCORE_LINE.match(ln.strip()) for ln in lines) if m]
+        # Collect inline dimensions ALONGSIDE, never only-when-nothing-else-matched. This
+        # is the FOURTH instance of the same pattern in this function: _SCORE_LINE was
+        # ungated (D1), _INLINE_DIM_SCAN's line scope widened (E1), _BARE_SCORE_LINE
+        # ungated (F2) - and this gate was left. A block holding both a `Score:` line and
+        # an inline dimension silently dropped the inline one, and once aggregate status
+        # became a fallback, a line like "QC Score: 2/5" was excluded from the aggregate
+        # path AND unreachable on this one, so its value was lost from both.
+        # Measured corpus-neutral: 0 of 39 live forms change their minimum. Safe by
+        # construction too - adding values can only LOWER a MIN, which is the safe
+        # direction, and a duplicate match is harmless for the same reason.
+        found += [int(m.group("score"))
+                  for ln in lines
+                  for m in _INLINE_DIM_SCAN.finditer(ln.strip())]
+
+        # Run the remaining guards over the RESIDUAL (non-scoring) lines instead of
+        # skipping them when a score was found. `if found: continue` was the FIFTH instance
+        # of one path being gated behind another, and the most consequential: it meant a
+        # blank label, an unattributable score shape, or prose carrying a BELOW-MINIMUM
+        # value became invisible whenever it shared a block with any scored line. The
+        # one-directional prose rule - built specifically to make prose drops safe - was
+        # therefore effective only when a blank line happened to separate the prose from a
+        # score. Guard strength must not depend on paragraph breaks.
+        # Measured corpus-neutral: 0 of 39 live forms change.
+        # SPAN-level accounting, implementing the invariant directly.
+        #
+        # The guard containers shrank each round - whole block, then per line - and each
+        # time the next-finer leak appeared, because "was anything attributed here?" is the
+        # wrong question. The right one is the invariant: EVERY value _score_values() can
+        # see must end up attributed to a dimension, recorded as an aggregate, or passed
+        # through the one-directional guard. A line yielding one attributable score was
+        # removed whole, so "Rubric: 5/5 and the rest scored 2 out of 5" hid the 2.
+        #
+        # Cost, accepted deliberately and consistently with the same trade at block level:
+        # a genuinely historical parenthetical - "Score: 5/5 (prior revision was 2/5)" -
+        # now goes LOUD rather than resolving. That is a false block, and it is the safe
+        # direction: a false block is visible, a false pass is not. Widen the EXTRACTORS if
+        # a real form is hit; do not narrow this accounting.
+        # Measured corpus-neutral: 0 of 39 live forms carry a hidden surplus.
+        residual, surplus = [], []
+        for ln in lines:
+            t = ln.strip()
+            attributed = []
+            m = _SCORE_LINE.match(t)
+            if m:
+                attributed.append(float(m.group(1)))
+            m = _BARE_SCORE_LINE.match(t)
+            if m:
+                attributed.append(float(m.group(1)))
+            attributed += [float(m.group("score")) for m in _INLINE_DIM_SCAN.finditer(t)]
+            if not attributed:
+                residual.append(ln)
+                continue
+            leftover = list(_score_values(t))
+            for a in attributed:
+                if a in leftover:
+                    leftover.remove(a)
+            surplus.extend(leftover)
+        residual_text = "\n".join(residual)
+
+        blank_label = next((ln for ln in residual
+                            if re.match(r"^\W*Score\s*[:\-]?\s*$", ln.strip(), re.IGNORECASE)),
+                           None)
+        if blank_label is not None:
+            unparsed.append(f"{lines[0].strip()[:50]} -> blank {blank_label.strip()!r}")
+            continue
+
+        if residual and _ANY_SCORE_SHAPE.search(residual_text):
+            if not _looks_like_prose(residual_text):
+                unparsed.append(lines[0].strip()[:70])
+                continue
+            dropped.extend(_score_values(residual_text))
+
+        # A value sharing a line with an attributed score is narrative by position, so it
+        # goes through the same one-directional check rather than being discarded.
+        dropped.extend(surplus)
+
+        if found:
+            scores.extend(found)
+            continue
+
+    if unparsed:
+        return [], (f"partial score extraction in {fname}: {len(unparsed)} block(s) declare a "
+                    f"dimension but no score could be attributed: {unparsed}. Refusing to "
+                    f"report MIN over a subset, which is systematically optimistic.")
+
+    if scores:
+        # Enforce the one-directional safety property described above.
+        floor = min(scores)
+        below_agg = sorted(a for a in aggregates if a < floor)
+        if below_agg:
+            return [], (f"aggregate below minimum in {fname}: the form states an overall "
+                        f"score of {below_agg} while the lowest scored dimension is {floor}. "
+                        f"Reporting {floor} would be higher than the form's own verdict, "
+                        f"which is the one direction that is never safe.")
+        below = sorted(d for d in dropped if d < floor)
+        if below:
+            return [], (f"ambiguous score in {fname}: value(s) {below} appear in text read as "
+                        f"narrative, but they are BELOW the minimum scored dimension "
+                        f"({floor}). Dropping them would raise the reported score, which is "
+                        f"the one direction a drop is never safe in. Attribute them to a "
+                        f"dimension or reword the line.")
+        return scores, None
+
+    # TERSE form: "Approved. No failing QC issues." / "Score 5"
+    bare = [int(x) for x in re.findall(r"^\W*" + _BARE_SCORE + r"$", text,
+                                       re.MULTILINE | re.IGNORECASE)]
+    return ([min(bare)] if bare else []), None
+
+
+def _looks_like_prose(block: str) -> bool:
+    """A score shape inside a sentence is narrative, not a dimension score.
+
+    Real auditor forms write "All other audited components received 5/5. No failing
+    threshold was triggered." Counting that as an unattributed dimension made the guard fire
+    on 2 of 10 legitimate HarmonyGames tasks.
+    """
+    first = block.splitlines()[0].strip() if block.splitlines() else ""
+    # A line OPENING with a score label is a dimension line even when the extractors cannot
+    # read its value ("Score: 2.5/5 because ..."). Length and punctuation are not evidence
+    # against that; treating them as evidence sent an unreadable dimension down the prose
+    # path, where it was dropped silently instead of reported.
+    if re.match(r"^\W*Score\b", first, re.IGNORECASE):
+        return False
+    if _INLINE_DIM.match(first) or _SCORE_LINE.match(first):
+        # It declares a dimension and a score. Length and punctuation are not evidence
+        # against that, and treating them as evidence dropped real dimensions silently -
+        # the same convenient-heuristic failure this parser exists to remove.
+        return False
+    for ln in block.splitlines():
+        if _ANY_SCORE_SHAPE.search(ln):
+            words = len(ln.split())
+            if words > 8 or ln.strip().endswith("."):
+                return True
+    return False
+
+
+def parse_auditor_feedback(task_dir: Path) -> dict:
+    """Fallback parser for the RAW auditor form in `9_QC_Feedback.txt`.
+
+    Some corpora ship the auditor's working document without the derived
+    `QC_Feedback_Verdict.txt`, or ship that file empty (HarmonyGames does both: 6 of its
+    10 tasks have no verdict file and 2 more have a 0-byte one). The score is still
+    recoverable, because the raw form carries a per-dimension `Score: N/5` for every
+    dimension the auditor touched.
+
+    The overall score is taken as the MINIMUM across per-dimension scores. Be honest about
+    the strength of that rule:
+
+    - It is consistent with `Reference/Sessions/FEEDBACK.md:119` ("overall score can only be
+      as high as the lowest scoring rubric"), but that line itself says "Per the QC docs
+      scoring rule" and the primary source is NOT located in `Docs*/` or `Evals*/`. Treat
+      this as a working rule justified by agreement with recorded scores, not as a quoted
+      spec requirement.
+    - Cross-validation is N=2. Only 4 of 10 HarmonyGames tasks ship a verdict file and 2 of
+      those are 0 bytes, so MIN could be checked against a recorded `QC Score` on exactly two
+      tasks, both QC_True_Fails scoring 2.
+    - MIN is exercised on 4 of 10 tasks. The other 6 carry no per-dimension `Score: N/5`
+      lines and resolve through the single-score fallback below.
+
+    Returns {} when no score can be read, so the caller reports an honest skip rather than
+    inventing a classification.
+
+    Returns {} when no score can be read, so the caller can report an honest skip
+    rather than inventing a classification.
+    """
+    f = task_dir / "9_QC_Feedback.txt"
+    text = _read(f)
+    if not text.strip():
+        return {}
+
+    scores, err = _extract_dimension_scores(text, f.name)
+    if err:
+        return {"error": err, "qc_score": None, "final_score": None}
+    if not scores:
+        return {}
+
+    qc = min(scores)
+    return {
+        "task": task_dir.name,
+        "business_function": None,
+        "qc_score": qc,
+        "final_score": qc,
+        "auditor_feedback": text,
+        "findings": [{"severity": m.group(1), "tag": m.group(2).strip()}
+                     for m in CATEGORY_TAG_RE.finditer(text)],
+        "error_categories": [],
+        "dispute": None,
+        "validation": None,
+        "final_verdict": {"final_score": qc, "label": ""},
+        "source": "9_QC_Feedback.txt (raw auditor form; score = min across dimensions)",
+        "trio": {
+            "9_QC_Feedback": True,
+            "10_PT_Dispute": (task_dir / "10_PT_Dispute_To_QC_Feedback.txt").is_file(),
+            "11_Final_QC_Validation": (task_dir / "11_Final_QC_Validation_On_PT_Dispute.txt").is_file(),
+        },
+    }
+
+
 def classify(parsed: dict) -> str:
     qc = parsed.get("qc_score")
     final = parsed.get("final_score")
@@ -141,13 +525,22 @@ def classify(parsed: dict) -> str:
 
 def selftest(corpus: Path) -> int:
     rows, correct, total = [], 0, 0
+    skipped = []
     for bucket_dir in sorted(corpus.iterdir()):
         if not bucket_dir.is_dir() or not bucket_dir.name.startswith("QC_"):
             continue
         for task_dir in sorted(bucket_dir.iterdir()):
             if not task_dir.is_dir():
                 continue
-            if not (task_dir / "QC_Feedback_Verdict.txt").is_file():
+            # A task is classifiable if it carries EITHER the derived verdict file or the
+            # raw auditor form. Requiring only the former silently hid 8 of HarmonyGames'
+            # 10 tasks: 6 ship no verdict file and 2 ship a 0-byte one. Verified to add
+            # zero tasks to the four pre-existing corpora, so their totals cannot move.
+            has_verdict = (task_dir / "QC_Feedback_Verdict.txt").is_file() and \
+                (task_dir / "QC_Feedback_Verdict.txt").stat().st_size > 0
+            has_raw = (task_dir / "9_QC_Feedback.txt").is_file()
+            if not has_verdict and not has_raw:
+                skipped.append((task_dir.name, bucket_dir.name, "no verdict file and no 9_QC_Feedback.txt"))
                 continue
             total += 1
             parsed = parse_verdict(task_dir)
@@ -162,6 +555,13 @@ def selftest(corpus: Path) -> int:
     for r in rows:
         print(f"{r[0]:<{w}}  {r[1]:<38} {r[2]:<38} {str(r[3]):<2} {str(r[4]):<3} {str(r[5]):<9} {r[6]}")
     print()
+    if skipped:
+        print(f"skipped {len(skipped)} unclassifiable task(s):")
+        for name, bucket, why in skipped:
+            print(f"  {bucket}/{name}: {why}")
+        print()
+    # Corpus size is NOT fixed at 16. HarmonyGames ships 10 in a 4/4/2/0 split, with one
+    # bucket legitimately empty. Asserting a universal 16 would fail a valid corpus.
     print(f"QC VERDICT SELFTEST: {correct}/{total} bucket-correct")
     return 0 if correct == total and total > 0 else 1
 

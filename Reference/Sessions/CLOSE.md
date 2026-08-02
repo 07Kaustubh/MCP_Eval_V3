@@ -50,3 +50,13 @@ Do NOT modify the task contents in this chat.
 ## Bootstrap
 
 Read root `AGENTS.md` first. CLOSE is the final trigger in the workflow; nothing runs after it for a given task version.
+
+## HarmonyGames (`hg`) artifact set
+
+HG tasks live under `Generated_Tasks/`. The expected set is the V3-family one: `1`, `2`, `3`
+(a pointer), `4_Changelog.json`, `5`, `6`, `7`, `8_Verifier_Fails.txt`, `9_Universe_inject.sql`,
+and flat `Agent_Responses/trajectory-run-{1..6}.json`. There is no `8a`/`8b` split and no
+per-model trajectory subdirectory — that is StarPM's shape, not this one.
+
+`check_tool_catalog.py` pins five catalogs now; HarmonyGames' is
+`HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**).

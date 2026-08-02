@@ -122,3 +122,13 @@ Do NOT chain those phases inside the REDO chat. Each must be a fresh chat — th
 ## Bootstrap
 
 Read root `AGENTS.md` first. REDO is destructive of the in-place 5/6/7 — always archive before clearing. The candidate-rating evidence is the originals, not the rebuilt deliverable.
+
+## HarmonyGames (`hg`) note
+
+Candidate originals are archived from `Generated_Tasks/<TASK_DIR>/`, not `Tasks/`. The
+artifact set to archive is the single-model one: `8_Verifier_Fails.txt` plus flat
+`Agent_Responses/trajectory-run-{1..6}.json`, alongside `4_Changelog.json` and
+`9_Universe_inject.sql`.
+
+Density failure is judged against this universe's own bar (floor 15, design target 40), NOT
+the V3-family 50/40 scheme. Difficulty failure is still pass@1 > 40%.

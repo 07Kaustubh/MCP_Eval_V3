@@ -1,0 +1,962 @@
+[
+  {
+    "row_data": "{\"id\": \"fa_0bd35dbfdb7c4f\", \"cost\": 5902.63, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4918.87, \"in_service_date\": \"2026-01-09\", \"sap_asset_number\": \"FA-2025-000001\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 983.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fe7e621f730848\", \"cost\": 10239.94, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8777.14, \"in_service_date\": \"2025-07-08\", \"sap_asset_number\": \"FA-2025-000002\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 1462.80}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_81ca87b9248a4d\", \"cost\": 5293.05, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4599.94, \"in_service_date\": \"2025-08-07\", \"sap_asset_number\": \"FA-2025-000003\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 693.11}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_99b955df6f414d\", \"cost\": 3181.42, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2992.07, \"in_service_date\": \"2026-02-13\", \"sap_asset_number\": \"FA-2025-000004\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 189.35}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cc38a8242a434c\", \"cost\": 2363.86, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2335.72, \"in_service_date\": \"2026-06-05\", \"sap_asset_number\": \"FA-2025-000005\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 28.14}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5568775a657f4c\", \"cost\": 112824.12, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 110003.52, \"in_service_date\": \"2026-04-13\", \"sap_asset_number\": \"FA-2025-000006\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 2820.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9d87667c65d041\", \"cost\": 7390.96, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5132.66, \"in_service_date\": \"2025-08-25\", \"sap_asset_number\": \"FA-2025-000007\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2258.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2e4df4fc27164a\", \"cost\": 1750.23, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1264.03, \"in_service_date\": \"2025-09-26\", \"sap_asset_number\": \"FA-2025-000008\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 486.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0fb51b1a8ffb45\", \"cost\": 2585.16, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2369.73, \"in_service_date\": \"2026-04-15\", \"sap_asset_number\": \"FA-2025-000009\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 215.43}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_489aaf9bd88047\", \"cost\": 216587.13, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 194928.45, \"in_service_date\": \"2025-07-22\", \"sap_asset_number\": \"FA-2025-000010\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 21658.68}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_381320b811b64c\", \"cost\": 190210.67, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 187040.49, \"in_service_date\": \"2026-05-11\", \"sap_asset_number\": \"FA-2025-000011\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 3170.18}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fa750195d5434d\", \"cost\": 4951.45, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3961.21, \"in_service_date\": \"2025-07-24\", \"sap_asset_number\": \"FA-2025-000012\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 990.24}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d1c47eaf82b349\", \"cost\": 7383.03, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5127.15, \"in_service_date\": \"2025-08-28\", \"sap_asset_number\": \"FA-2025-000013\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2255.88}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f0314e343e794c\", \"cost\": 156152.85, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 143140.15, \"in_service_date\": \"2025-09-12\", \"sap_asset_number\": \"FA-2025-000014\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 13012.70}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_447ca6bc1d4c41\", \"cost\": 230438.44, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 224677.48, \"in_service_date\": \"2026-04-11\", \"sap_asset_number\": \"FA-2025-000015\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 5760.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7e231ac497d948\", \"cost\": 4544.76, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3534.84, \"in_service_date\": \"2025-11-08\", \"sap_asset_number\": \"FA-2025-000016\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 1009.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_17b2020c3a814e\", \"cost\": 237267.87, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 215518.34, \"in_service_date\": \"2025-08-24\", \"sap_asset_number\": \"FA-2025-000017\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 21749.53}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7dbbf9a28bc441\", \"cost\": 4720.74, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4196.22, \"in_service_date\": \"2026-03-25\", \"sap_asset_number\": \"FA-2025-000018\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 524.52}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e5551f392eb448\", \"cost\": 17176.15, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 14313.45, \"in_service_date\": \"2025-09-09\", \"sap_asset_number\": \"FA-2025-000019\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2862.70}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4afc52fa8c6242\", \"cost\": 111553.11, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 103186.62, \"in_service_date\": \"2025-10-18\", \"sap_asset_number\": \"FA-2025-000020\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 8366.49}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3e8533719e5e4d\", \"cost\": 5268.71, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5143.27, \"in_service_date\": \"2026-05-21\", \"sap_asset_number\": \"FA-2025-000021\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 125.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8f45376c43d840\", \"cost\": 118356.67, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 109479.88, \"in_service_date\": \"2025-10-08\", \"sap_asset_number\": \"FA-2025-000022\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 8876.79}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_962308f154934d\", \"cost\": 3317.91, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2488.47, \"in_service_date\": \"2025-10-19\", \"sap_asset_number\": \"FA-2025-000023\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 829.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_79ace2c3457247\", \"cost\": 3748.23, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2498.79, \"in_service_date\": \"2025-07-08\", \"sap_asset_number\": \"FA-2025-000024\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 1249.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_aca2e3e5802b4c\", \"cost\": 4294.69, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2982.39, \"in_service_date\": \"2025-08-17\", \"sap_asset_number\": \"FA-2025-000025\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 1312.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8ad193264a774e\", \"cost\": 5820.67, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4850.57, \"in_service_date\": \"2025-09-24\", \"sap_asset_number\": \"FA-2025-000026\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 970.10}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b92a2d551b1c4e\", \"cost\": 6266.46, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5744.26, \"in_service_date\": \"2026-02-26\", \"sap_asset_number\": \"FA-2025-000027\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 522.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cd117de374774b\", \"cost\": 1548.95, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1290.77, \"in_service_date\": \"2026-01-12\", \"sap_asset_number\": \"FA-2025-000028\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 258.18}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5f316cfc132e49\", \"cost\": 15889.47, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 12711.63, \"in_service_date\": \"2025-07-22\", \"sap_asset_number\": \"FA-2025-000029\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 3177.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_840f8ee20c574f\", \"cost\": 13787.31, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 11259.62, \"in_service_date\": \"2025-08-08\", \"sap_asset_number\": \"FA-2025-000030\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2527.69}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ebeac4f58d584c\", \"cost\": 117667.25, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 111783.89, \"in_service_date\": \"2026-01-06\", \"sap_asset_number\": \"FA-2025-000031\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 5883.36}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e1fc6f23217b4a\", \"cost\": 8960.29, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6222.39, \"in_service_date\": \"2025-08-15\", \"sap_asset_number\": \"FA-2025-000032\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2737.90}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9e30b2074f2d41\", \"cost\": 3547.72, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3153.52, \"in_service_date\": \"2026-03-27\", \"sap_asset_number\": \"FA-2025-000033\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 394.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_869a7286375f4f\", \"cost\": 5915.14, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5093.59, \"in_service_date\": \"2026-02-16\", \"sap_asset_number\": \"FA-2025-000034\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 821.55}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0671ab2451c34b\", \"cost\": 16487.86, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 13739.86, \"in_service_date\": \"2025-09-13\", \"sap_asset_number\": \"FA-2025-000035\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2748.00}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_461e915b67264b\", \"cost\": 11177.00, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10511.70, \"in_service_date\": \"2026-02-10\", \"sap_asset_number\": \"FA-2025-000036\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 665.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_41a201dc2d8142\", \"cost\": 168849.11, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 161813.71, \"in_service_date\": \"2026-02-05\", \"sap_asset_number\": \"FA-2025-000037\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 7035.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_149178a0cd2a4d\", \"cost\": 9365.45, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8585.00, \"in_service_date\": \"2026-04-24\", \"sap_asset_number\": \"FA-2025-000038\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 780.45}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_caef330ed09c44\", \"cost\": 1440.25, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1388.80, \"in_service_date\": \"2026-04-16\", \"sap_asset_number\": \"FA-2025-000039\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 51.45}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4c1de949886c45\", \"cost\": 47783.85, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 46191.05, \"in_service_date\": \"2026-03-03\", \"sap_asset_number\": \"FA-2025-000040\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1592.80}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_09a47405bffd40\", \"cost\": 26310.61, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 24337.27, \"in_service_date\": \"2025-10-13\", \"sap_asset_number\": \"FA-2025-000041\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1973.34}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_176a957937754e\", \"cost\": 69091.68, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 67364.40, \"in_service_date\": \"2026-04-02\", \"sap_asset_number\": \"FA-2025-000042\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1727.28}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e077d6f8fc3440\", \"cost\": 12689.28, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 12054.81, \"in_service_date\": \"2026-04-17\", \"sap_asset_number\": \"FA-2025-000043\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 634.47}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_534c03a8895e43\", \"cost\": 3087.70, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3050.94, \"in_service_date\": \"2026-06-11\", \"sap_asset_number\": \"FA-2025-000044\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 36.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4a451b2422df45\", \"cost\": 4528.61, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4377.65, \"in_service_date\": \"2026-05-10\", \"sap_asset_number\": \"FA-2025-000045\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 150.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_495871a948504a\", \"cost\": 1233.54, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1130.76, \"in_service_date\": \"2026-04-19\", \"sap_asset_number\": \"FA-2025-000046\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 102.78}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d0edb72cb2f847\", \"cost\": 61157.03, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 57079.91, \"in_service_date\": \"2025-11-05\", \"sap_asset_number\": \"FA-2025-000047\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 4077.12}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5ac7351975fd40\", \"cost\": 4365.37, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3516.55, \"in_service_date\": \"2025-12-10\", \"sap_asset_number\": \"FA-2025-000048\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 848.82}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_00c9e64dcf0144\", \"cost\": 178849.58, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 174378.35, \"in_service_date\": \"2026-04-26\", \"sap_asset_number\": \"FA-2025-000049\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 4471.23}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f2eb9b601c3240\", \"cost\": 81850.90, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 80486.72, \"in_service_date\": \"2026-05-04\", \"sap_asset_number\": \"FA-2025-000050\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1364.18}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c025cb26315949\", \"cost\": 4402.97, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4280.67, \"in_service_date\": \"2026-06-05\", \"sap_asset_number\": \"FA-2025-000051\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 122.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9387cac0177244\", \"cost\": 7574.09, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7483.92, \"in_service_date\": \"2026-06-11\", \"sap_asset_number\": \"FA-2025-000052\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 90.17}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8f238b3915c847\", \"cost\": 6460.58, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5845.30, \"in_service_date\": \"2025-11-28\", \"sap_asset_number\": \"FA-2025-000053\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 615.28}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8dcc67bc60d240\", \"cost\": 15354.90, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 12283.86, \"in_service_date\": \"2025-07-01\", \"sap_asset_number\": \"FA-2025-000054\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 3071.04}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2e027ac9551f45\", \"cost\": 7939.59, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6175.27, \"in_service_date\": \"2025-11-06\", \"sap_asset_number\": \"FA-2025-000055\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1764.32}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6d33664607bd41\", \"cost\": 11194.06, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 9141.79, \"in_service_date\": \"2025-08-03\", \"sap_asset_number\": \"FA-2025-000056\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2052.27}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_062ad82ecd0745\", \"cost\": 4204.54, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3854.17, \"in_service_date\": \"2026-04-18\", \"sap_asset_number\": \"FA-2025-000057\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 350.37}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_018c38fc3bc346\", \"cost\": 5379.86, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4333.78, \"in_service_date\": \"2025-12-26\", \"sap_asset_number\": \"FA-2025-000058\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1046.08}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c1c6ae643daa4b\", \"cost\": 3152.86, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2815.09, \"in_service_date\": \"2025-10-22\", \"sap_asset_number\": \"FA-2025-000059\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 337.77}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_64fbe2cc74144f\", \"cost\": 222192.33, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 211082.73, \"in_service_date\": \"2026-01-20\", \"sap_asset_number\": \"FA-2025-000060\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 11109.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_635e5cbcdd8d4b\", \"cost\": 8917.80, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6440.60, \"in_service_date\": \"2025-09-14\", \"sap_asset_number\": \"FA-2025-000061\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2477.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8b8caa7c2b2a4e\", \"cost\": 9562.73, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8879.69, \"in_service_date\": \"2026-01-26\", \"sap_asset_number\": \"FA-2025-000062\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 683.04}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c20d815ac9f74b\", \"cost\": 8585.71, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5962.32, \"in_service_date\": \"2025-08-13\", \"sap_asset_number\": \"FA-2025-000063\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2623.39}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e1885d516c3e44\", \"cost\": 5947.72, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5452.07, \"in_service_date\": \"2026-02-12\", \"sap_asset_number\": \"FA-2025-000064\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 495.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_10248a09667645\", \"cost\": 6158.57, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5816.43, \"in_service_date\": \"2026-05-07\", \"sap_asset_number\": \"FA-2025-000065\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 342.14}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_eb3388103d764a\", \"cost\": 10480.75, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 9482.59, \"in_service_date\": \"2025-11-12\", \"sap_asset_number\": \"FA-2025-000066\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 998.16}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_59281025e97044\", \"cost\": 89475.97, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 80528.41, \"in_service_date\": \"2025-07-04\", \"sap_asset_number\": \"FA-2025-000067\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 8947.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_51daed09872943\", \"cost\": 241008.24, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 224941.04, \"in_service_date\": \"2025-11-02\", \"sap_asset_number\": \"FA-2025-000068\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 16067.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_da39255748204d\", \"cost\": 7858.15, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6941.36, \"in_service_date\": \"2025-12-14\", \"sap_asset_number\": \"FA-2025-000069\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 916.79}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1068a441141149\", \"cost\": 2586.70, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2371.15, \"in_service_date\": \"2026-04-07\", \"sap_asset_number\": \"FA-2025-000070\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 215.55}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_dc0b916ee4994f\", \"cost\": 2526.21, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2357.81, \"in_service_date\": \"2026-03-22\", \"sap_asset_number\": \"FA-2025-000071\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 168.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3de9912c8e8e49\", \"cost\": 3584.59, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"900-People_and_Training\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3465.11, \"in_service_date\": \"2026-05-11\", \"sap_asset_number\": \"FA-2025-000072\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 119.48}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_29eb17ea33be4e\", \"cost\": 3791.12, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2948.64, \"in_service_date\": \"2025-11-17\", \"sap_asset_number\": \"FA-2025-000073\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 842.48}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fb3443b2cc9d4b\", \"cost\": 7555.84, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7429.91, \"in_service_date\": \"2026-06-10\", \"sap_asset_number\": \"FA-2025-000074\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 125.93}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3e309fc2ff2c46\", \"cost\": 7007.92, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5839.96, \"in_service_date\": \"2026-01-22\", \"sap_asset_number\": \"FA-2025-000075\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1167.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0d5745108bc541\", \"cost\": 82227.97, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices, training rooms, and collaboration spaces\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 79487.05, \"in_service_date\": \"2026-03-27\", \"sap_asset_number\": \"FA-2025-000076\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 2740.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_67873d8b8b7142\", \"cost\": 3154.05, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Risk\", \"description\": \"Office furniture, conference room tables, filing systems, and reception fixtures\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3041.40, \"in_service_date\": \"2026-04-20\", \"sap_asset_number\": \"FA-2025-000077\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 112.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2da676f1d13f4f\", \"cost\": 9353.48, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Network, telepresence, and shared office equipment supporting multi-office operations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7950.47, \"in_service_date\": \"2025-10-17\", \"sap_asset_number\": \"FA-2025-000078\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1403.01}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_45e57501f40642\", \"cost\": 8033.06, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"700-Technology\", \"description\": \"High-performance audit and data-processing workstations for advisory and compliance teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6247.94, \"in_service_date\": \"2025-11-17\", \"sap_asset_number\": \"FA-2025-000079\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1785.12}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d2d6aca2caeb4b\", \"cost\": 4146.32, \"status\": \"in_service\", \"entity_id\": \"brookfield\", \"lease_end\": null, \"cost_center\": \"800-Firm_Leadership\", \"description\": \"Staff laptops, monitors, and standard office technology deployed across service teams\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3109.70, \"in_service_date\": \"2025-10-22\", \"sap_asset_number\": \"FA-2025-000080\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 1036.62}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a879bea7316b40\", \"cost\": 11397.03, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10067.38, \"in_service_date\": \"2025-12-05\", \"sap_asset_number\": \"FA-2025-000001\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1329.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_31b7a4a1f7bb46\", \"cost\": 12463.18, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10385.98, \"in_service_date\": \"2025-11-04\", \"sap_asset_number\": \"FA-2025-000002\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2077.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7be6bd61496e48\", \"cost\": 152978.21, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 140230.01, \"in_service_date\": \"2025-09-01\", \"sap_asset_number\": \"FA-2025-000003\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 12748.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0396de847f7a4b\", \"cost\": 1578.10, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1052.02, \"in_service_date\": \"2025-07-25\", \"sap_asset_number\": \"FA-2025-000004\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 526.08}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a4753ba5df6349\", \"cost\": 8228.28, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8091.14, \"in_service_date\": \"2026-06-02\", \"sap_asset_number\": \"FA-2025-000005\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 137.14}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_449b14348dab40\", \"cost\": 35479.46, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 31931.54, \"in_service_date\": \"2025-07-03\", \"sap_asset_number\": \"FA-2025-000006\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 3547.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d1107907971543\", \"cost\": 60587.26, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 59072.59, \"in_service_date\": \"2026-04-13\", \"sap_asset_number\": \"FA-2025-000007\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1514.67}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3d17267a25984a\", \"cost\": 7200.08, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6360.08, \"in_service_date\": \"2025-12-13\", \"sap_asset_number\": \"FA-2025-000008\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 840.00}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e5aead57c83440\", \"cost\": 11988.58, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 9740.74, \"in_service_date\": \"2025-10-23\", \"sap_asset_number\": \"FA-2025-000009\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2247.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_61f58b6c56bd4c\", \"cost\": 17464.66, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 14190.01, \"in_service_date\": \"2025-10-12\", \"sap_asset_number\": \"FA-2025-000010\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 3274.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d3a3330b20764f\", \"cost\": 17741.64, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 15523.92, \"in_service_date\": \"2026-01-08\", \"sap_asset_number\": \"FA-2025-000011\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2217.72}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b7a74db4cc7747\", \"cost\": 3204.04, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2563.24, \"in_service_date\": \"2025-07-01\", \"sap_asset_number\": \"FA-2025-000012\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 640.80}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_37f68843749a41\", \"cost\": 12238.95, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 11423.03, \"in_service_date\": \"2026-03-28\", \"sap_asset_number\": \"FA-2025-000013\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 815.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d813f36c4c9f44\", \"cost\": 6473.88, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5502.78, \"in_service_date\": \"2025-10-05\", \"sap_asset_number\": \"FA-2025-000014\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 971.10}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_675d2252a96944\", \"cost\": 51333.30, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 46199.94, \"in_service_date\": \"2025-07-04\", \"sap_asset_number\": \"FA-2025-000015\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 5133.36}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2cad239ccc4b49\", \"cost\": 9658.12, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8209.39, \"in_service_date\": \"2025-10-13\", \"sap_asset_number\": \"FA-2025-000016\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1448.73}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4442ddd8c95a4c\", \"cost\": 1760.52, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1222.62, \"in_service_date\": \"2025-08-11\", \"sap_asset_number\": \"FA-2025-000017\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 537.90}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_dc459a6ca3c841\", \"cost\": 4039.42, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3837.46, \"in_service_date\": \"2026-04-05\", \"sap_asset_number\": \"FA-2025-000018\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 201.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6709c7386ea349\", \"cost\": 5570.04, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4641.72, \"in_service_date\": \"2025-11-16\", \"sap_asset_number\": \"FA-2025-000019\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 928.32}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3bb51f15b54043\", \"cost\": 2645.23, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2130.87, \"in_service_date\": \"2025-12-05\", \"sap_asset_number\": \"FA-2025-000020\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 514.36}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_19b82c6773c248\", \"cost\": 3388.83, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2918.18, \"in_service_date\": \"2026-02-21\", \"sap_asset_number\": \"FA-2025-000021\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 470.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9f5a06f1f20748\", \"cost\": 10187.22, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8828.90, \"in_service_date\": \"2025-11-24\", \"sap_asset_number\": \"FA-2025-000022\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1358.32}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1759293cce2a44\", \"cost\": 11016.97, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10885.82, \"in_service_date\": \"2026-06-05\", \"sap_asset_number\": \"FA-2025-000023\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 131.15}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_580674856f0a42\", \"cost\": 9515.66, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 9357.07, \"in_service_date\": \"2026-06-01\", \"sap_asset_number\": \"FA-2025-000024\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 158.59}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2cce437efe7843\", \"cost\": 3310.61, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3145.07, \"in_service_date\": \"2026-04-23\", \"sap_asset_number\": \"FA-2025-000025\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 165.54}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_11949acf44de49\", \"cost\": 3139.04, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2964.64, \"in_service_date\": \"2026-05-23\", \"sap_asset_number\": \"FA-2025-000026\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 174.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_547bed6ca90348\", \"cost\": 7443.80, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6048.08, \"in_service_date\": \"2025-10-20\", \"sap_asset_number\": \"FA-2025-000027\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1395.72}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c5e18ad3e4f04f\", \"cost\": 2702.56, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2541.71, \"in_service_date\": \"2026-02-14\", \"sap_asset_number\": \"FA-2025-000028\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 160.85}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_73a92e9fc23849\", \"cost\": 5934.35, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5863.70, \"in_service_date\": \"2026-06-09\", \"sap_asset_number\": \"FA-2025-000029\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 70.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ea26db7e5ad342\", \"cost\": 3613.05, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2910.53, \"in_service_date\": \"2025-12-11\", \"sap_asset_number\": \"FA-2025-000030\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 702.52}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d4049c64a28d43\", \"cost\": 179089.31, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 171627.26, \"in_service_date\": \"2026-02-11\", \"sap_asset_number\": \"FA-2025-000031\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 7462.05}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a46433d267b74c\", \"cost\": 8076.18, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7234.93, \"in_service_date\": \"2026-02-06\", \"sap_asset_number\": \"FA-2025-000032\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 841.25}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b69e0cb0ab434e\", \"cost\": 71378.90, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 69594.44, \"in_service_date\": \"2026-04-10\", \"sap_asset_number\": \"FA-2025-000033\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1784.46}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_53014dfbfb674c\", \"cost\": 4045.30, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3146.34, \"in_service_date\": \"2025-11-05\", \"sap_asset_number\": \"FA-2025-000034\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 898.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7a6f0107c0744e\", \"cost\": 7321.38, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7016.32, \"in_service_date\": \"2026-05-19\", \"sap_asset_number\": \"FA-2025-000035\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 305.06}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_77050cba9c904c\", \"cost\": 8392.27, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7518.07, \"in_service_date\": \"2026-02-13\", \"sap_asset_number\": \"FA-2025-000036\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 874.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_413392db87ca43\", \"cost\": 10130.03, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8803.43, \"in_service_date\": \"2025-08-27\", \"sap_asset_number\": \"FA-2025-000037\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 1326.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b237ffe81da94d\", \"cost\": 6344.38, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5551.36, \"in_service_date\": \"2026-01-10\", \"sap_asset_number\": \"FA-2025-000038\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 793.02}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a3431f8d437a4f\", \"cost\": 1871.56, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1804.72, \"in_service_date\": \"2026-04-23\", \"sap_asset_number\": \"FA-2025-000039\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 66.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4a2996369dbe4c\", \"cost\": 2328.14, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2004.79, \"in_service_date\": \"2026-02-21\", \"sap_asset_number\": \"FA-2025-000040\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 323.35}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f4db3ad7870f4c\", \"cost\": 142536.89, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 129470.98, \"in_service_date\": \"2025-08-01\", \"sap_asset_number\": \"FA-2025-000041\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 13065.91}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9b648a672ec74a\", \"cost\": 2061.73, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1947.19, \"in_service_date\": \"2026-05-24\", \"sap_asset_number\": \"FA-2025-000042\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 114.54}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_862c58eb2d2240\", \"cost\": 3242.44, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2882.16, \"in_service_date\": \"2026-03-14\", \"sap_asset_number\": \"FA-2025-000043\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 360.28}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e2107073049049\", \"cost\": 9663.21, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7448.69, \"in_service_date\": \"2025-08-09\", \"sap_asset_number\": \"FA-2025-000044\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2214.52}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_37bb943d6c1541\", \"cost\": 1465.73, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1302.89, \"in_service_date\": \"2026-03-27\", \"sap_asset_number\": \"FA-2025-000045\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 162.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0b3e825edd7145\", \"cost\": 3085.93, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2314.45, \"in_service_date\": \"2025-10-11\", \"sap_asset_number\": \"FA-2025-000046\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 771.48}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_47bd808c6c3841\", \"cost\": 28872.60, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 28391.40, \"in_service_date\": \"2026-05-23\", \"sap_asset_number\": \"FA-2025-000047\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 481.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_08eae931774c4b\", \"cost\": 3985.03, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3652.93, \"in_service_date\": \"2026-04-07\", \"sap_asset_number\": \"FA-2025-000048\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 332.10}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fea48e5fde464b\", \"cost\": 24243.99, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 22021.66, \"in_service_date\": \"2025-08-04\", \"sap_asset_number\": \"FA-2025-000049\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 2222.33}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_da3cfa3fdfdd4b\", \"cost\": 3047.35, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2708.75, \"in_service_date\": \"2026-03-22\", \"sap_asset_number\": \"FA-2025-000050\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 338.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5a022ea0455c4a\", \"cost\": 5255.82, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4630.12, \"in_service_date\": \"2025-09-26\", \"sap_asset_number\": \"FA-2025-000051\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 625.70}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2e76c40b348a44\", \"cost\": 6302.23, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6077.14, \"in_service_date\": \"2026-04-14\", \"sap_asset_number\": \"FA-2025-000052\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 225.09}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_afc1456c0f0344\", \"cost\": 5946.58, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5734.21, \"in_service_date\": \"2026-04-24\", \"sap_asset_number\": \"FA-2025-000053\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 212.37}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ad09d483c0474b\", \"cost\": 164526.70, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 157671.40, \"in_service_date\": \"2026-02-27\", \"sap_asset_number\": \"FA-2025-000054\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 6855.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4f0bbd58d07d45\", \"cost\": 10724.86, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10054.57, \"in_service_date\": \"2026-04-06\", \"sap_asset_number\": \"FA-2025-000055\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 670.29}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b93e2746c61743\", \"cost\": 33199.96, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 30156.59, \"in_service_date\": \"2025-08-04\", \"sap_asset_number\": \"FA-2025-000056\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 3043.37}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_bec33a137e3a48\", \"cost\": 11644.25, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 11367.01, \"in_service_date\": \"2026-05-17\", \"sap_asset_number\": \"FA-2025-000057\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 277.24}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_06bc469e838542\", \"cost\": 11451.86, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Conference room and office network equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8588.90, \"in_service_date\": \"2025-07-08\", \"sap_asset_number\": \"FA-2025-000058\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2862.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_87f3563f9b8540\", \"cost\": 2374.27, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1714.77, \"in_service_date\": \"2025-09-01\", \"sap_asset_number\": \"FA-2025-000059\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 659.50}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0f81c321f0a647\", \"cost\": 3166.97, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2639.15, \"in_service_date\": \"2026-01-02\", \"sap_asset_number\": \"FA-2025-000060\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 527.82}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_52aae2be92ae40\", \"cost\": 2874.15, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2395.11, \"in_service_date\": \"2026-01-26\", \"sap_asset_number\": \"FA-2025-000061\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 479.04}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9c1d48a4192b4b\", \"cost\": 8645.20, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8336.44, \"in_service_date\": \"2026-04-11\", \"sap_asset_number\": \"FA-2025-000062\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 308.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c913c348033b4a\", \"cost\": 142608.81, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 136666.76, \"in_service_date\": \"2026-02-24\", \"sap_asset_number\": \"FA-2025-000063\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 5942.05}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_79caac8eaad54d\", \"cost\": 2619.47, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2095.55, \"in_service_date\": \"2025-07-14\", \"sap_asset_number\": \"FA-2025-000064\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 523.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ca067f26357249\", \"cost\": 5932.32, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5240.23, \"in_service_date\": \"2025-12-15\", \"sap_asset_number\": \"FA-2025-000065\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 692.09}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f3bc4ec903364a\", \"cost\": 4018.06, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3348.40, \"in_service_date\": \"2026-01-10\", \"sap_asset_number\": \"FA-2025-000066\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 669.66}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5024542ab35e43\", \"cost\": 1709.00, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1464.80, \"in_service_date\": \"2025-07-26\", \"sap_asset_number\": \"FA-2025-000067\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 244.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_05acdac3344346\", \"cost\": 2449.15, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1972.94, \"in_service_date\": \"2025-12-19\", \"sap_asset_number\": \"FA-2025-000068\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 476.21}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c4988f54c4b447\", \"cost\": 2687.30, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2388.70, \"in_service_date\": \"2026-03-06\", \"sap_asset_number\": \"FA-2025-000069\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 298.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_efa3513f451549\", \"cost\": 116742.44, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 107013.94, \"in_service_date\": \"2025-09-08\", \"sap_asset_number\": \"FA-2025-000070\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 9728.50}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1243e5387b8848\", \"cost\": 3694.96, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3606.98, \"in_service_date\": \"2026-05-14\", \"sap_asset_number\": \"FA-2025-000071\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 87.98}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0d29967236634d\", \"cost\": 4033.98, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"900-Risk_and_Quality\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3889.92, \"in_service_date\": \"2026-04-17\", \"sap_asset_number\": \"FA-2025-000072\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 144.06}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_92b5bcbe5ba544\", \"cost\": 192164.02, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 184157.17, \"in_service_date\": \"2026-02-24\", \"sap_asset_number\": \"FA-2025-000073\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 8006.85}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_427b6d072dff4b\", \"cost\": 198525.38, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"200-Tax_and_Compliance\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 178672.82, \"in_service_date\": \"2025-07-01\", \"sap_asset_number\": \"FA-2025-000074\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 19852.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ca7d3d224f9b4b\", \"cost\": 2930.44, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2686.21, \"in_service_date\": \"2025-12-28\", \"sap_asset_number\": \"FA-2025-000075\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 244.23}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_60e4111bb35645\", \"cost\": 2537.36, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2446.73, \"in_service_date\": \"2026-04-17\", \"sap_asset_number\": \"FA-2025-000076\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 90.63}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ce977565240c4b\", \"cost\": 151145.33, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"500-Partner_Office\", \"description\": \"Leasehold improvements for client-facing offices and collaboration space\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 141069.01, \"in_service_date\": \"2025-11-21\", \"sap_asset_number\": \"FA-2025-000077\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 10076.32}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_06d666620b4d43\", \"cost\": 4196.51, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"600-Operations\", \"description\": \"Office furniture, shelving, and reference library collections\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4146.55, \"in_service_date\": \"2026-06-10\", \"sap_asset_number\": \"FA-2025-000078\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 49.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7961c5b5086a47\", \"cost\": 12547.12, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Document scanning, print, and secure file handling equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10037.68, \"in_service_date\": \"2025-07-10\", \"sap_asset_number\": \"FA-2025-000079\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2509.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6e8abf5c84c548\", \"cost\": 2557.35, \"status\": \"in_service\", \"entity_id\": \"northstar_legal\", \"lease_end\": null, \"cost_center\": \"800-People_and_Culture\", \"description\": \"Partner and staff workstation hardware\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2486.31, \"in_service_date\": \"2026-06-11\", \"sap_asset_number\": \"FA-2025-000080\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 71.04}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8382aa3ad30c44\", \"cost\": 2656.31, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2268.93, \"in_service_date\": \"2025-12-11\", \"sap_asset_number\": \"FA-2025-000001\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 387.38}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cdaa4cccc16e4d\", \"cost\": 3384.22, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2538.22, \"in_service_date\": \"2025-07-14\", \"sap_asset_number\": \"FA-2025-000002\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 846.00}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6486f9a648dc45\", \"cost\": 48707.19, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 44648.29, \"in_service_date\": \"2025-09-06\", \"sap_asset_number\": \"FA-2025-000003\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 4058.90}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cb64ceeb948443\", \"cost\": 63460.26, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 61344.92, \"in_service_date\": \"2026-05-03\", \"sap_asset_number\": \"FA-2025-000004\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 2115.34}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cad3c07e9cf246\", \"cost\": 2844.60, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2054.40, \"in_service_date\": \"2025-09-23\", \"sap_asset_number\": \"FA-2025-000005\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 790.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f32181496a1049\", \"cost\": 46783.75, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 37426.99, \"in_service_date\": \"2025-07-09\", \"sap_asset_number\": \"FA-2025-000006\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 9356.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d907b547207d4d\", \"cost\": 4191.79, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3842.47, \"in_service_date\": \"2026-04-11\", \"sap_asset_number\": \"FA-2025-000007\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 349.32}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_964b095c4dc948\", \"cost\": 1532.64, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1441.39, \"in_service_date\": \"2026-02-10\", \"sap_asset_number\": \"FA-2025-000008\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 91.25}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c2ae1872116d4f\", \"cost\": 17809.86, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 16325.71, \"in_service_date\": \"2026-02-03\", \"sap_asset_number\": \"FA-2025-000009\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1484.15}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c44bfc051a4b42\", \"cost\": 4596.55, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4405.03, \"in_service_date\": \"2026-05-05\", \"sap_asset_number\": \"FA-2025-000010\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 191.52}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fc3de36bc0b343\", \"cost\": 5234.62, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4798.38, \"in_service_date\": \"2025-12-15\", \"sap_asset_number\": \"FA-2025-000011\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 436.24}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_cd0de0944d4549\", \"cost\": 74821.21, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 69833.13, \"in_service_date\": \"2025-11-24\", \"sap_asset_number\": \"FA-2025-000012\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 4988.08}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7553a22123a047\", \"cost\": 10970.48, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10787.64, \"in_service_date\": \"2026-06-08\", \"sap_asset_number\": \"FA-2025-000013\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 182.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_87145b19c3f348\", \"cost\": 3010.51, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2508.73, \"in_service_date\": \"2026-01-23\", \"sap_asset_number\": \"FA-2025-000014\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 501.78}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f628e5f744af45\", \"cost\": 8462.86, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8039.71, \"in_service_date\": \"2026-04-12\", \"sap_asset_number\": \"FA-2025-000015\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 423.15}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_dc4f610fa72542\", \"cost\": 27263.57, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 24991.62, \"in_service_date\": \"2026-02-05\", \"sap_asset_number\": \"FA-2025-000016\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2271.95}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7b1c4106b27c4e\", \"cost\": 11305.61, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 11036.43, \"in_service_date\": \"2026-05-23\", \"sap_asset_number\": \"FA-2025-000017\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 269.18}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_954572734d6e44\", \"cost\": 91711.89, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 90947.62, \"in_service_date\": \"2026-06-09\", \"sap_asset_number\": \"FA-2025-000018\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 764.27}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_23208473684a44\", \"cost\": 1994.45, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1952.90, \"in_service_date\": \"2026-06-05\", \"sap_asset_number\": \"FA-2025-000019\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 41.55}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_003d5cf5731c4b\", \"cost\": 5811.09, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5714.24, \"in_service_date\": \"2026-06-07\", \"sap_asset_number\": \"FA-2025-000020\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 96.85}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f35b037e71a54b\", \"cost\": 1876.64, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1407.44, \"in_service_date\": \"2025-07-03\", \"sap_asset_number\": \"FA-2025-000021\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 469.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7d6c9defed3c4d\", \"cost\": 6775.74, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5807.82, \"in_service_date\": \"2025-07-21\", \"sap_asset_number\": \"FA-2025-000022\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 967.92}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7ad6b3e1606d47\", \"cost\": 2211.32, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2119.18, \"in_service_date\": \"2026-05-06\", \"sap_asset_number\": \"FA-2025-000023\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 92.14}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_8acd9dd99d8344\", \"cost\": 2572.39, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2358.01, \"in_service_date\": \"2026-04-11\", \"sap_asset_number\": \"FA-2025-000024\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 214.38}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e1904bb7c38340\", \"cost\": 5866.91, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4986.89, \"in_service_date\": \"2025-10-04\", \"sap_asset_number\": \"FA-2025-000025\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 880.02}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d563190ec32d46\", \"cost\": 1470.97, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1348.37, \"in_service_date\": \"2026-03-04\", \"sap_asset_number\": \"FA-2025-000026\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 122.60}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fdb76f4d0c8c4e\", \"cost\": 8617.61, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7796.89, \"in_service_date\": \"2025-11-13\", \"sap_asset_number\": \"FA-2025-000027\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 820.72}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7c7ac5819f1445\", \"cost\": 31169.88, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 28572.38, \"in_service_date\": \"2025-09-10\", \"sap_asset_number\": \"FA-2025-000028\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 2597.50}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c43ac90795194d\", \"cost\": 9405.11, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 8285.41, \"in_service_date\": \"2025-09-22\", \"sap_asset_number\": \"FA-2025-000029\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 1119.70}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3bbdb6e56d7449\", \"cost\": 2223.77, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1992.12, \"in_service_date\": \"2026-02-16\", \"sap_asset_number\": \"FA-2025-000030\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 231.65}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_f8bbf4b806c94c\", \"cost\": 20996.65, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 19246.95, \"in_service_date\": \"2026-02-16\", \"sap_asset_number\": \"FA-2025-000031\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1749.70}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_52998045bde146\", \"cost\": 2056.67, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2032.19, \"in_service_date\": \"2026-06-09\", \"sap_asset_number\": \"FA-2025-000032\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 24.48}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d0973e3dec6246\", \"cost\": 24328.65, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 22301.25, \"in_service_date\": \"2026-02-21\", \"sap_asset_number\": \"FA-2025-000033\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 2027.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fe873e4d84914d\", \"cost\": 2672.80, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2227.36, \"in_service_date\": \"2026-01-14\", \"sap_asset_number\": \"FA-2025-000034\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 445.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7f847eebfdaa4f\", \"cost\": 17625.69, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 17331.93, \"in_service_date\": \"2026-06-01\", \"sap_asset_number\": \"FA-2025-000035\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 293.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3e3945170c9745\", \"cost\": 4089.04, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3407.52, \"in_service_date\": \"2025-11-01\", \"sap_asset_number\": \"FA-2025-000036\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 681.52}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_840f2403584245\", \"cost\": 49803.91, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 48143.77, \"in_service_date\": \"2026-05-11\", \"sap_asset_number\": \"FA-2025-000037\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 1660.14}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_aa96462f4cff43\", \"cost\": 11409.20, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 11001.74, \"in_service_date\": \"2026-04-19\", \"sap_asset_number\": \"FA-2025-000038\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 407.46}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e311912aaef54f\", \"cost\": 3548.62, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3326.83, \"in_service_date\": \"2026-04-11\", \"sap_asset_number\": \"FA-2025-000039\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 221.79}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2a47d75c5aec44\", \"cost\": 1414.86, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1355.90, \"in_service_date\": \"2026-05-16\", \"sap_asset_number\": \"FA-2025-000040\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 58.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1477e0c2dd9d41\", \"cost\": 2543.53, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1766.38, \"in_service_date\": \"2025-08-06\", \"sap_asset_number\": \"FA-2025-000041\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 777.15}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_77aeb2f5690841\", \"cost\": 3936.36, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3499.00, \"in_service_date\": \"2026-03-01\", \"sap_asset_number\": \"FA-2025-000042\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 437.36}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_87047281625348\", \"cost\": 1931.03, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1716.47, \"in_service_date\": \"2026-03-25\", \"sap_asset_number\": \"FA-2025-000043\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 214.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ffe58672971c49\", \"cost\": 96879.57, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 90420.93, \"in_service_date\": \"2026-03-11\", \"sap_asset_number\": \"FA-2025-000044\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 6458.64}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a0c7f30fbf8843\", \"cost\": 102993.78, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 82395.06, \"in_service_date\": \"2025-07-02\", \"sap_asset_number\": \"FA-2025-000045\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 20598.72}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1c35ba5db8f940\", \"cost\": 3787.80, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3366.92, \"in_service_date\": \"2026-03-21\", \"sap_asset_number\": \"FA-2025-000046\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 420.88}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_d02b2c68ee6843\", \"cost\": 75291.97, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 74037.11, \"in_service_date\": \"2026-05-20\", \"sap_asset_number\": \"FA-2025-000047\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1254.86}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6adb5bfe0c1241\", \"cost\": 7055.57, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6047.69, \"in_service_date\": \"2025-07-13\", \"sap_asset_number\": \"FA-2025-000048\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 1007.88}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_eea311ff1c7c49\", \"cost\": 52842.93, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 48879.69, \"in_service_date\": \"2025-10-03\", \"sap_asset_number\": \"FA-2025-000049\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 3963.24}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_45d78f1ac6634e\", \"cost\": 3352.74, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2421.44, \"in_service_date\": \"2025-09-07\", \"sap_asset_number\": \"FA-2025-000050\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 931.30}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b8d6b42945304c\", \"cost\": 11782.45, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10996.97, \"in_service_date\": \"2026-03-11\", \"sap_asset_number\": \"FA-2025-000051\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 785.48}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_2269b27e0d694e\", \"cost\": 40584.88, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 39232.04, \"in_service_date\": \"2026-03-01\", \"sap_asset_number\": \"FA-2025-000052\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1352.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_05792b048eaf47\", \"cost\": 956.20, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 944.82, \"in_service_date\": \"2026-06-02\", \"sap_asset_number\": \"FA-2025-000053\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 11.38}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_b675d2a3ab454a\", \"cost\": 2748.70, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2061.55, \"in_service_date\": \"2025-10-07\", \"sap_asset_number\": \"FA-2025-000054\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 687.15}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_99282da5491347\", \"cost\": 4554.49, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4174.95, \"in_service_date\": \"2025-12-02\", \"sap_asset_number\": \"FA-2025-000055\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 379.54}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_ba01bf87c50f40\", \"cost\": 7900.28, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7524.08, \"in_service_date\": \"2026-03-09\", \"sap_asset_number\": \"FA-2025-000056\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 376.20}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_6f6ecf43b26849\", \"cost\": 4229.26, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3788.71, \"in_service_date\": \"2026-02-25\", \"sap_asset_number\": \"FA-2025-000057\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 440.55}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_12ade0cd117343\", \"cost\": 64921.46, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 60593.38, \"in_service_date\": \"2025-11-10\", \"sap_asset_number\": \"FA-2025-000058\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 4328.08}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_913e6ea6dc1642\", \"cost\": 18266.60, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 17048.84, \"in_service_date\": \"2026-03-07\", \"sap_asset_number\": \"FA-2025-000059\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1217.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_26bce63b9b7f49\", \"cost\": 14290.74, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 13218.93, \"in_service_date\": \"2025-10-16\", \"sap_asset_number\": \"FA-2025-000060\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1071.81}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_77c3e5a922fb40\", \"cost\": 90985.05, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 89468.63, \"in_service_date\": \"2026-05-08\", \"sap_asset_number\": \"FA-2025-000061\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 1516.42}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_4a68d75b6ffc46\", \"cost\": 5669.60, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5291.64, \"in_service_date\": \"2026-03-03\", \"sap_asset_number\": \"FA-2025-000062\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 377.96}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_72d2da1a1f3d4f\", \"cost\": 88638.66, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Leased office build-outs, conference-room improvements, and security access installations\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 86422.68, \"in_service_date\": \"2026-04-08\", \"sap_asset_number\": \"FA-2025-000063\", \"gl_account_number\": \"152000\", \"lease_term_months\": null, \"useful_life_months\": 120, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158400\", \"accumulated_depreciation\": 2215.98}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_01aa13282a3e4e\", \"cost\": 3742.69, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3040.96, \"in_service_date\": \"2025-10-16\", \"sap_asset_number\": \"FA-2025-000064\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 701.73}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_7e0b0b141efc49\", \"cost\": 8744.41, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 7869.97, \"in_service_date\": \"2026-01-10\", \"sap_asset_number\": \"FA-2025-000065\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 874.44}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c39fd8ab3bfc47\", \"cost\": 4946.08, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 4239.52, \"in_service_date\": \"2025-07-12\", \"sap_asset_number\": \"FA-2025-000066\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 706.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_0fd51d21396446\", \"cost\": 3666.65, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3259.25, \"in_service_date\": \"2026-03-12\", \"sap_asset_number\": \"FA-2025-000067\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 407.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_9d7a107e408849\", \"cost\": 6965.69, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 6799.85, \"in_service_date\": \"2026-05-16\", \"sap_asset_number\": \"FA-2025-000068\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 165.84}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_a2e8f39d393e40\", \"cost\": 1242.18, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 983.38, \"in_service_date\": \"2025-09-09\", \"sap_asset_number\": \"FA-2025-000069\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 258.80}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_eb208614ad7e49\", \"cost\": 167167.54, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 133733.98, \"in_service_date\": \"2025-07-26\", \"sap_asset_number\": \"FA-2025-000070\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 33433.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_db2f8f8f504e4c\", \"cost\": 1800.11, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1500.11, \"in_service_date\": \"2026-01-21\", \"sap_asset_number\": \"FA-2025-000071\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 300.00}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_c09d0dd2a9b24c\", \"cost\": 1568.82, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"900-Executive_and_Partner_Group\", \"description\": \"Office conference-room and workstation technology equipment\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 1536.14, \"in_service_date\": \"2026-06-02\", \"sap_asset_number\": \"FA-2025-000072\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 48, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 32.68}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5196f1b8b4df44\", \"cost\": 6176.36, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"100-Client_Accounting_Services\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 5146.96, \"in_service_date\": \"2025-09-12\", \"sap_asset_number\": \"FA-2025-000073\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1029.40}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_1fd766b42ff645\", \"cost\": 3990.00, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"200-Tax_Services\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 3800.00, \"in_service_date\": \"2026-03-03\", \"sap_asset_number\": \"FA-2025-000074\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 190.00}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_5c3426a7924547\", \"cost\": 11226.13, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"300-Audit_Support\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 10023.37, \"in_service_date\": \"2025-10-04\", \"sap_asset_number\": \"FA-2025-000075\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 1202.76}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_232c13b2cceb4d\", \"cost\": 9478.45, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"400-Advisory_and_Consulting\", \"description\": \"Office furniture, reception fixtures, and filing systems\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 9252.77, \"in_service_date\": \"2026-05-08\", \"sap_asset_number\": \"FA-2025-000076\", \"gl_account_number\": \"151000\", \"lease_term_months\": null, \"useful_life_months\": 84, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158300\", \"accumulated_depreciation\": 225.68}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_3dcb7ecb82964c\", \"cost\": 146085.51, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"500-Compliance_and_Regulatory\", \"description\": \"Capitalized internal workflow automation and client-service platform development\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 131476.95, \"in_service_date\": \"2026-01-27\", \"sap_asset_number\": \"FA-2025-000077\", \"gl_account_number\": \"155000\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158000\", \"accumulated_depreciation\": 14608.56}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_bc21ae4fc99943\", \"cost\": 21851.42, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"600-Firm_Operations\", \"description\": \"On-premise servers and high-capacity network infrastructure\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 20030.47, \"in_service_date\": \"2026-02-10\", \"sap_asset_number\": \"FA-2025-000078\", \"gl_account_number\": \"150200\", \"lease_term_months\": null, \"useful_life_months\": 60, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158200\", \"accumulated_depreciation\": 1820.95}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_fd9ed91432144d\", \"cost\": 3184.30, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"700-Technology_and_Data\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2388.25, \"in_service_date\": \"2025-10-20\", \"sap_asset_number\": \"FA-2025-000079\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 796.05}",
+    "source": "sap_subledger.fixed_assets"
+  },
+  {
+    "row_data": "{\"id\": \"fa_e41727f9c70e44\", \"cost\": 3457.43, \"status\": \"in_service\", \"entity_id\": \"acme_cloud\", \"lease_end\": null, \"cost_center\": \"800-Finance_and_Administration\", \"description\": \"Partner and staff laptop computers\", \"document_id\": null, \"lease_start\": null, \"net_book_value\": 2881.19, \"in_service_date\": \"2026-01-04\", \"sap_asset_number\": \"FA-2025-000080\", \"gl_account_number\": \"150100\", \"lease_term_months\": null, \"useful_life_months\": 36, \"depreciation_method\": \"straight_line\", \"accum_dep_account_number\": \"158100\", \"accumulated_depreciation\": 576.24}",
+    "source": "sap_subledger.fixed_assets"
+  }
+]

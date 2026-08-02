@@ -33,8 +33,20 @@ def split_and_write(task_dir: Path) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Reading: {src}")
-    with open(src, "r", encoding="utf-8") as f:
-        records = json.load(f)
+    # Route through the contract-aware accessor. For the four per_task_json universes this
+    # is byte-identical to reading the file directly; for HarmonyGames it resolves the
+    # pointer to the base export plus changelog. It also turns "pointer fed to the
+    # per_task_json reader" from a silent empty split into a hard, actionable error.
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from universe_data_source import load_universe_records, UniverseDataError
+        records, _meta = load_universe_records(task_dir)
+        if _meta["contract"] != "per_task_json":
+            print(f"contract: {_meta['contract']} (base={_meta['base_dir']}, "
+                  f"changelog rows={_meta['changelog_rows']})")
+    except UniverseDataError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
 
     if not isinstance(records, list):
         print("ERROR: top-level JSON must be an array.", file=sys.stderr)

@@ -102,7 +102,7 @@ The per-phase Council B scores QC sub-dims and allows 3-4 bands when explicitly 
 - Every soft convention in `Reference/<phase>_Format.md` is read as binding.
 - Every per-phase warning in the validator output is treated as a hard issue worth listing.
 - Every Hardness lever from `Hardness_Plan.md` must trace end-to-end through the artifact set with cited evidence; "probably triggered" is REVISE.
-- Density bar is 50+ midpoint (not 40 floor). 40-49 is flagged as `THIN`, not `PASS`. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task.
+- Density bar is 50+ midpoint (not 40 floor). 40-49 is flagged as `THIN`, not `PASS`. **Framework-scoped (read `_aux/Universe.txt`):** the 50/40 bands here are the V3-family scheme (Brookfield / KeyStone / MoveOps). StarPM (v4) uses a different bar - design target average 40+ tool calls (Docs_starpm/1 hard gate; FRAMEWORKS `density_floor`), absolute floor 15, applied PER MODEL (Opus and Gemini separately): midpoint >= 40 = PASS, 15-39 = THIN, < 15 = INSUFFICIENT. Never apply the 50/40 scheme to a StarPM task. HarmonyGames (`hg`) is different again and SINGLE-model: three normatively separate thresholds - authoring target 40+ calls AND 3+ services; prompt-eval hard gate >15 NECESSARY calls AND 2+ services; trajectory QC floor >=15 average. `set_acting_user`, ACL-denied reads and inaccessible retries count toward NONE of them.
 - Any answer-leakage hit on a derived figure is BLOCKER (per L6 from Learnings.md — agents read full thread depth and an answer stated verbatim is 100% pass).
 
 The point is to catch what the lighter per-phase pass let through. If AUDIT returns PASS under the strictest interpretation, the deliverable is genuinely 5-of-5.
@@ -140,12 +140,13 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
   - keystone → `Mortgage_Base_Universe/6_Server_Tools_Details.json`
   - moveops → `MoveOps_Base_Universe/6_Server_Tools_Details.json`
   - starpm → `StarPM_Base_Universe/7_Server_Tools_Details.json`
+  - harmonygames → `HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**; capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`)
 
 ## Eval spec verified for this phase
-- Universe-correct eval set (per `_aux/Universe.txt`): brookfield → `Evals/`; keystone → `Evals_keystone/`; moveops → `Evals_moveops/`; starpm → `Evals_starpm/` (v4: also run `0_Injection_Quality_Eval.md` + `5_Submission_Gate_Eval.md` via `validate.py --phase injection` / `--phase submission_gate`)
+- Universe-correct eval set (per `_aux/Universe.txt`): brookfield → `Evals/`; keystone → `Evals_keystone/`; moveops → `Evals_moveops/`; starpm → `Evals_starpm/` (v4: also run `0_Injection_Quality_Eval.md` + `5_Submission_Gate_Eval.md` via `validate.py --phase injection` / `--phase submission_gate`); harmonygames → `Evals_harmonygames/` (six evals 0-5, same phases as v4, but the F1-F6 trigger CONDITIONS do not transfer from StarPM - see HG-U10)
 - Evals_<universe>/<n>_<phase>_Eval.md :: <strictest reading applied>
 
-## QC spec re-verified (universe-correct doc set: brookfield → `Docs/`; keystone → `Docs_keystone/`; moveops → `Docs_moveops/`; starpm → `Docs_starpm/`)
+## QC spec re-verified (universe-correct doc set: brookfield → `Docs/`; keystone → `Docs_keystone/`; moveops → `Docs_moveops/`; starpm → `Docs_starpm/`; harmonygames → `Docs_harmonygames/`, whose filenames DROP the `V3` infix)
 - Docs_<universe>/7_QC_Spec_Doc1.json :: <all relevant sub-dims rescored under strict interpretation> (StarPM: 5 dims / 24 sub-dims; note the stale Jun-12 date string inside the JSON - the evals + `Docs_starpm/6_Prompt_Relative_Time_Updates.md` fix today at 2026-07-01 America/Chicago)
 - Docs_<universe>/8_QC_Spec_Doc2.md :: <appendix issue taxonomy re-applied>
 - StarPM caveat: `Docs_starpm/13_QC_Companion.md` is Brookfield-contaminated content (do NOT treat as StarPM SSOT; see `Validators/regression_baseline/ROUTING_DECISIONS.md`)

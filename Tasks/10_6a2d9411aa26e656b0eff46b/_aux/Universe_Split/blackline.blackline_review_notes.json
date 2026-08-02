@@ -1,0 +1,874 @@
+[
+  {
+    "row_data": "{\"id\": \"rn_31d406b2f62949\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2E691B2E18FA\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T13:14:25-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ec9629e49fa549\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-DDF779E39FEE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-04T15:53:43-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_01c3706d0f8e4e\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-3277D34B7F6B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-07T07:38:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5ae998030c794e\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-3277D34B7F6B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-07T14:55:03-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_0d321be1214742\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A1D6F9E46A76\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-04T17:09:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_76ac68a1f3a54f\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-542D2B14A9E7\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-06T20:02:43-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e4122f233aef4f\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-068A7DC995FE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-06T00:35:05-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_770e236640e046\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-372E1136BB3B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-07T19:21:18-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1ccb0e3aaee040\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"open\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-D058E274A0C2\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-07T01:53:54-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a37102c45ec34e\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-C7C0FAD858EB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T04:22:46-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a4df819c2fec42\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-C7C0FAD858EB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T21:39:11-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_700bad9e236741\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-C7C0FAD858EB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T00:33:24-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_d2338e1117e942\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-9B48FF130B5C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-07T08:08:54-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_170a9fba9f3a40\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A7596879D691\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-09T07:21:52-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ca6f55f548c441\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EFEE0DEA2F6C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-07T00:34:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_3cd7da345c2845\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EFEE0DEA2F6C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-06T11:06:07-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_d9a3a6fb22b943\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2130E7137810\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-04T11:19:26-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1b19b1eac9ee49\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-AF5D81A87B57\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-09T00:05:17-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_2580e65e111e4f\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-E2FC9231918F\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T13:03:21-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e028080cd49240\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A08AF23B0C00\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T14:58:27-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_dc57fccd78314f\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A08AF23B0C00\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T12:39:47-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e0d2a90d46984a\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A08AF23B0C00\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T21:39:45-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c47881f20f8d46\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-5A80AFBB2B8C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-07T03:20:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8e9f631af87140\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-5A80AFBB2B8C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-07T02:17:46-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_52a4f49aa1704e\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-5A80AFBB2B8C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T23:00:40-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_25e73451050d4a\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-0F7E5C54BD66\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T23:50:12-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7641ea3a82a444\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-FE0AE0DAEF24\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-07T00:30:55-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_715513f530194a\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-59474EA4B7E9\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-06T18:49:03-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e5e0eecfc31244\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-48D0684173DC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-06T10:10:24-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_0d8aadce9aab41\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-4289D650B26A\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-05T13:04:59-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_fab7cf340c9745\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-FF7D49551C30\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-08T03:16:05-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_72f2182f431249\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-FF7D49551C30\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-06T21:49:06-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_26abd1ac73554f\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-FBD73B4EE1F8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-04T23:07:46-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_411f29f13b8f41\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-FBD73B4EE1F8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-05T10:36:24-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b3a1a2a286ee44\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-A820A6592F3C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-03T04:35:56-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8e4d8e14593944\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-99AF431862E2\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-04T01:06:18-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8c00454cdbdd43\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-99AF431862E2\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-03T03:20:37-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c00d35f474d945\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-B68D8EA358B8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-04T15:49:03-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4a13584d2e3949\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-B68D8EA358B8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-03T19:17:16-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_53432d35e54644\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-B68D8EA358B8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-03T21:12:15-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_637da61e5e8642\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2541043F6D14\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-03T15:18:54-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_902def09489242\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2488FAC7B9C4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-07T06:50:43-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4e271f17bfbf4c\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2488FAC7B9C4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-06T05:20:16-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7a9ba9dab8d542\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2488FAC7B9C4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-07T10:18:05-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_2e14e763c05e49\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-CD23102EC5E3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-03T22:30:52-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_d97f5a36755d48\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-CD23102EC5E3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-04T04:57:13-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a513f3559bcc40\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-CD23102EC5E3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-04T14:58:14-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5d5655196f9b4b\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-5DEADD82E2C7\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-06T22:20:30-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9cc3a8816d934e\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-5DEADD82E2C7\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-07T20:33:32-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_318eb668385144\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-F8E55568CAA3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-07T17:17:20-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f2fb4193f5fa47\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-6D229069BA16\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-04T02:51:22-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b73b962512714a\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-549F38983E13\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-04T09:07:33-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_78aa47df90354f\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-C9B9BF64511F\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T06:17:33-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_309eec18f2dc42\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-7458F4FEEC4E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-04T14:51:57-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7345606b9f1842\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-7458F4FEEC4E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-03T20:29:19-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b2f78010a9ea4c\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-7458F4FEEC4E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-03T05:49:56-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b90e70ec22824e\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-E23C82AE76F5\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-05T16:26:49-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_27a361aeb0c04b\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-2C03B893CB3C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T04:48:55-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1bed8cb6016146\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-551D5A9C4227\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-06T14:26:15-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_949fca747e4a4e\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-CA7882D5D048\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-08T16:35:40-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_245b8a656cdd49\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EFD3B822EA4E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T01:39:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ab0709b67bd54e\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-3CDA7C3C395C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T19:54:18-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1d9a8f98daaf4e\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"open\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-55151C28DEC1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T01:44:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8d73b6b367ef43\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"open\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-55151C28DEC1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-03T10:04:10-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4894f0c9aade44\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-8F221A697774\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-06T13:06:21-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_be34f4af64ab42\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EEF29B279494\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-07T10:39:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e9c2c1d7fcd24d\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EEF29B279494\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-08T18:26:12-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1e792a255f2349\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-EEF29B279494\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-08T09:08:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b856fe580cee41\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-3F6AFBA74FDB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-07T02:34:59-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5a955ce504f54a\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-7DBFC8F2A043\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T13:35:20-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e3ac5af0362c4b\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-629CCC1078E1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-07T23:06:20-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_56e28f0f81604e\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"reopened\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-F678B0421266\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-06-02T05:22:13-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b809a0f9aae644\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"brookfield\", \"target_id\": \"BL-F678B0421266\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-06-02T07:07:18-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_564e65ce0d594f\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"open\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-75810CD0FEE4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-06-02T12:27:03-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5c12028ebda040\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"open\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-433E3BEEFD66\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-06-02T11:51:28-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9c6604f0556642\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-88818F6E40F3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-04T01:39:01-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7122ba517c2c4b\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-154C38395A79\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T22:12:27-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9dee2075798f4d\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"open\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-43515365C411\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-06T23:52:13-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_95dd9b88c84449\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-2B0A8753C944\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T05:20:43-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1553712086ac4d\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-8009D1EF516D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-07T13:34:46-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_96b0fc9dd90548\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-8009D1EF516D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-08T07:32:20-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c952c4ca346e42\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5FEFEA879504\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T22:02:32-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9de728e9b51f43\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5FEFEA879504\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T11:12:43-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c6b03d131f8943\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5FEFEA879504\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-06T03:43:07-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8a41a202b2b94f\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-9B7BF11AC107\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-07T09:48:23-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_638d42c767b044\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A6CFF923214C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-07T00:30:47-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7965aa15b4524b\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A6CFF923214C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-08T06:42:29-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7b0271169b6448\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-90E621BFE448\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-07T21:43:54-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b879281bd36d41\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-B5336D3995AA\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T09:38:04-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_2602dbe2814d4c\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-3A9F9698CA88\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-04T23:22:56-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ed845ac6cd8d45\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-C8A40675350E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-04T08:34:43-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1790165f928e45\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A0749E20BC67\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-08T02:29:16-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_72f3159285674f\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5D2181C330F0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T22:51:37-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_13b62fa0c83e41\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5D2181C330F0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T20:06:44-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_55b0ddac22b749\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-5D2181C330F0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-06T10:07:37-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f145d152b6fd48\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-0DEC7D2FD9E6\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-04T11:00:27-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_2b8cf1265b3e4e\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-8AB7B9EE73FF\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-08T17:20:35-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_033bae6259a140\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-4D0250B34D44\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-08T00:58:58-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_43a42425900140\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-FD7E4B8A3F5F\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-07T10:34:32-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f7213136989443\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-53BC0B4C5892\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-06T16:45:37-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b261811da0764c\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"open\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-84508F49343C\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-04T09:08:46-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a1fbe4ec5d184c\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-08C77B050CE7\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-05T12:40:50-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_680b19ce2ee740\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-D0E67E70C8E4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T07:35:05-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f235b2b3b65143\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-D0E67E70C8E4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T03:49:10-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_06f34c67e98b48\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-D0E67E70C8E4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T23:18:54-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5770f484908944\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-9F1B5CD13D74\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-07T16:54:21-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_fdf20c67bf904c\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-35699BAAFB0E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-04T16:10:28-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_be108bc858464f\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-35699BAAFB0E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T03:20:13-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a0d27fc7c62446\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-35699BAAFB0E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T02:57:35-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_763107e32bb94d\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-DB3156514852\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T19:43:20-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f1c4af55988d4d\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-DB3156514852\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T23:28:01-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_51f2a244571949\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-DB3156514852\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T10:12:50-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_18e1f201004a4e\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-7644DBA199A1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T00:42:59-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_d0c831930df34b\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-7644DBA199A1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T15:23:15-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_612288f1c7884a\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-7644DBA199A1\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-06T11:10:04-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6253fab6892c4f\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-776FA3F38B65\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T17:03:31-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b5f7b48cdee241\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-776FA3F38B65\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T12:44:24-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_92e0ab24550943\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-776FA3F38B65\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-05T13:58:34-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_16b29e01564244\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-BD7D38CDFBF7\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T07:42:33-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f866abe70e9842\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-165E8FCE2971\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-05T20:22:24-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6df4d647e6254e\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-165E8FCE2971\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-05T22:57:29-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c8545690739d47\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-E15CE7272127\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T23:21:20-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8993b1544d764f\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-E15CE7272127\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T16:09:43-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_30bfa2338f9340\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-E15CE7272127\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-05T07:26:57-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_0a078ecc615c4a\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-87C186686438\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-08T06:31:16-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_59da8de2bb344b\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-2E4FF3AC2107\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T12:09:57-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_0205986ae9a140\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-F05FA7BCDBB8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T19:51:48-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_47b86f85b41d4b\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-F05FA7BCDBB8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T14:24:25-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8f2158deedf94e\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-AEB17494E435\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T14:59:02-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c636436c21f846\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-AEB17494E435\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-03T21:12:26-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_773e5762c5de41\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-38CF00C44600\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T10:07:28-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4b6ba61d818248\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A1BC660554DD\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T12:30:15-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a4771bdfcc3345\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A1BC660554DD\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T07:13:37-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e5a7b5ffafdf43\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A4364A9FCACC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T20:32:17-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_20592a1eb48947\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-B34BBC7E0873\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-03T21:54:53-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_047d48fed78a4b\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-B34BBC7E0873\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-04T03:06:03-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_79599761b3804c\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-B34BBC7E0873\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-03T18:59:14-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_3753eeb30e4743\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A37871B6E06F\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-07T23:33:40-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_86a9902c786846\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-19155F407572\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-06T01:48:58-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_11dbf59037e841\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-DF7875456CC4\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-05T07:21:18-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e6bdc736fca346\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-203C61D4705E\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-08T01:40:30-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_da2ec6cbc6f14e\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-7646E0785057\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-08T16:53:38-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f14376f8858c48\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"open\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"northstar_legal\", \"target_id\": \"BL-A3D7273F3F2F\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-07T01:59:55-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9f13eb13e33f49\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-989949DF59DA\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T20:09:10-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_13b6d41b681c44\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-6C25818EE324\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-06T23:13:36-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f3a4785fe27544\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3E5A8FCCD734\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-05T18:40:42-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f472f1e8928845\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3E5A8FCCD734\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-04T14:42:39-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_abef27e7d0ea4a\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3E5A8FCCD734\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-04T12:17:57-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_45ff388db66d43\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-D2D206ABB3E8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-06T04:10:50-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4bf63430c9ad47\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F5746D1D06ED\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-08-08T06:35:36-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_d81e9ab0099040\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4A81DE7D9819\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-05T06:28:03-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c6789f6455604d\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-1DFC57BE5422\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T00:06:17-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_53fad3f2a38b43\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-B3E3F164EB7B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-04T15:47:12-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_de95b5bcc24a4b\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-DFB8A9E16195\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-04T16:33:38-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4cf209584ff84a\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-2479A1BD4E87\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-06T00:24:45-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5cb1c77c824a47\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-C773B50A0EBC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T10:29:50-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6bfea1b9a1264a\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-C773B50A0EBC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T17:23:35-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_74993c7a626d45\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-C773B50A0EBC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-08T10:47:16-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ffb826f5f8254f\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-CE93A35D0E22\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-09-04T15:52:56-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_61d245d582c140\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-1C24F6592409\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T15:49:10-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e0ec36470daa44\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F98D92C3ACFB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T02:27:47-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c6ea8d6d583648\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F98D92C3ACFB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-04T01:00:25-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_bb4a3ce9353241\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F98D92C3ACFB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-04T07:08:26-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_175540a712224e\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-8C0ADF5FBECF\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-05T06:45:07-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ae2fa4639cf94a\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-AFDC6137F473\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-10-07T17:10:40-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_fa2e723faf6046\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3F60ED1C7107\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-08T02:05:53-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7a520ac08bbd4c\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A87766CF2D6D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-08T01:13:03-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_14217fdc496b45\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9336A1A55F4B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-11-03T23:57:16-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9faeba18f67d4a\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-81E27B33699B\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-04T14:17:59-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_892faeb888e54f\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-0A512203798D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-05T22:39:55-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_91261c6f2f1c4d\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-0A512203798D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-05T13:24:54-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_20b9eeddf1034a\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-0A512203798D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-05T21:48:43-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_48c7391e7ddb4e\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F7FE8D3474A0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-07T22:25:27-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_84042336ebeb42\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-95D63A369256\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-04T12:36:55-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9961ada5d6344d\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-010375799F7D\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-06T05:59:22-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6208d747c1e840\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-B528469201AF\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2025-12-05T07:31:39-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_4b6afb9f644d44\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9598FF1496E3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-05T20:21:43-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_58931adf0c2144\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9598FF1496E3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-06T03:11:23-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a91e6bbf350b4f\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-FF72C9FFF280\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-05T02:30:35-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_a6d75570e96345\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-F4D33CBE6311\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-01-05T12:15:44-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_34d73316c68b40\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4A5BA12DC7BA\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-08T04:03:45-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_aaa72636a0fe49\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4A5BA12DC7BA\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-08T20:42:46-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_07e28470453445\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-5C15EB69EA54\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-07T04:01:48-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_98505047962246\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-724B769D7CEE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-08T11:50:02-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_f086dccc4db14b\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-E6D018C10BF3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-03T14:21:20-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_3757a159097e40\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-E6D018C10BF3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-03T09:08:53-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_8697fc004f5f43\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3816699ECD24\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-08T22:16:23-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_11bb5f30ca6a49\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3816699ECD24\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-08T12:46:42-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_0cb823e9346c48\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3816699ECD24\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-02-09T00:17:53-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e4ea515227f743\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-D96F89B2D799\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T16:59:41-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6669c80f4bc148\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-D96F89B2D799\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-08T11:37:25-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c64a778957ac42\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A62163E761B8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T23:36:17-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6f51de41167247\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A62163E761B8\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-08T08:21:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_6b35a16adc9747\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-FA5198987EB3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-04T00:28:29-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_cfb08a32d1b243\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-3EAFDF2621EB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-06T10:56:14-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_af6f6e40115245\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-EE9722014589\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-06T16:39:12-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_16db0d3b96684a\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-EE9722014589\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-07T03:33:43-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_3f0da8fe12a44f\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-EE9722014589\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-06T17:41:46-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_5f43dc6a079240\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-2B064282D758\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-03-05T23:27:04-05:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_9c9ffa31ba9c46\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9D9FD79E60F5\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T23:10:21-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_33ef5b4c8a134d\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9D9FD79E60F5\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T05:45:57-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_532dfbaee0644e\", \"body\": \"Foreign-currency revaluation entry referenced in the workbook - is this in scope for this period?\", \"state\": \"cleared\", \"author\": \"ryan.delgado@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-74C43B2CA226\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T11:39:10-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_3ab71fc3d7be44\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": \"See updated variance_explanations entry - supporting workbook attached.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-74C43B2CA226\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-05T11:18:37-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_b24e8bc10db74e\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Cleared offline; no action required.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-9033FE79EC75\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-04-06T11:05:59-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_887ae7fe509d4f\", \"body\": \"Did you sweep the intercompany clearing balance? The supporting balance still shows residual.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4ECC1E97E2BC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-05T17:56:27-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ac3daed6e97240\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"edith.banda@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4ECC1E97E2BC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-06T05:38:03-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e48fa90b080346\", \"body\": \"Need a brief narrative on the $3K accrual roll-forward before I sign off.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-4ECC1E97E2BC\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-05T20:37:32-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_080844c95d6c4c\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": \"Updated narrative + attached the SAP subledger detail.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A81316258BCB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-03T10:56:12-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_7fea421ebcd340\", \"body\": \"Why did the FX reset line move materially vs last month? Add a supporting comment.\", \"state\": \"cleared\", \"author\": \"daniel.jones@brookfieldcpas.com\", \"response\": \"Confirmed with controllership - variance traces to timing only.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A81316258BCB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-04T05:28:24-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c16d143fee784e\", \"body\": \"Can you reference the underlying contract for the $2K-ish prepaid amortization tail?\", \"state\": \"cleared\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-A81316258BCB\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-04T08:53:36-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_304c075d27d140\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"open\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-87D1B18158A0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-28T14:44:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ef612131d16e42\", \"body\": \"Please attach the subledger detail for the unreconciled $1K bucket.\", \"state\": \"cleared\", \"author\": \"james.randall@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-87D1B18158A0\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-28T09:05:34-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_1abfc7a7355241\", \"body\": \"Variance attribution to timing seems light - can you tie back to the cutover log?\", \"state\": \"open\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-8B05E6364FBE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-06-01T02:20:22-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_e4f47f96cbf944\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"open\", \"author\": \"jones.harrison@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-8B05E6364FBE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-31T07:25:35-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_933cd29e874e43\", \"body\": \"Looks fine to me overall, but please confirm the cost-center allocation is consistent with prior periods.\", \"state\": \"cleared\", \"author\": \"hannah.grant@brookfieldcpas.com\", \"response\": \"Fixed in the resubmit; please re-review.\", \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-8B05E6364FBE\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-31T04:20:31-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_ff87a7c40a3a47\", \"body\": \"Pull the SAP-AP detail behind the over-accrual; want to make sure we're not double-counting.\", \"state\": \"open\", \"author\": \"alex.cahoon@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-2BE9D12487D9\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-28T11:10:27-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"rn_c7726b1af8d244\", \"body\": \"BD3 lock implies this should be tied out - the supporting balance is moving daily. Confirm latest.\", \"state\": \"open\", \"author\": \"george.mcadam@brookfieldcpas.com\", \"response\": null, \"entity_id\": \"acme_cloud\", \"target_id\": \"BL-D633AC2E59C3\", \"cleared_at\": null, \"created_at\": null, \"sla_due_at\": \"2026-05-30T12:18:51-04:00\", \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  },
+  {
+    "row_data": "{\"id\": \"blackline_919e8a5134fe\", \"body\": \"Residual variance remains on certified reconciliation: $3,409.86 prepaid CPE stub from a stranded SAP partial-batch retry. Need decision on whether account 133000 should be trued up in April or allowed to roll into May.\", \"state\": \"open\", \"author\": \"persona_011\", \"response\": null, \"entity_id\": \"brookfield\", \"target_id\": \"BL-390E6284EC1D\", \"cleared_at\": null, \"created_at\": \"2026-05-12T14:10:00-04:00\", \"sla_due_at\": null, \"target_kind\": \"reconciliation\"}",
+    "source": "blackline.blackline_review_notes"
+  }
+]

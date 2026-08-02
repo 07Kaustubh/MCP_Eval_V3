@@ -1,0 +1,20 @@
+Verdict: Disagree
+Proposed Score: 5
+
+Critical context: This task previously passed QC 5/5 on rubric quality (attempt 6a5b0822cd384c790d821382, 13 criteria). ML then requested adding a Daily Login rubric and tightening the exemplar language in C2/C5/C11/C12/C13. The resulting current attempt is 6a5fd46c1f3bf9d3522bc488 with 14 tighter criteria. The dispute argues that the auditor reviewed stale or selectively truncated criterion text.
+
+RUBRIC QUALITY — [Fail - 10%+ Major Rubric Errors]
+
+Finding 1: Missing Leaderboard ticket-update rubric
+The quoted OE instruction to "likewise correct ENG-2174" does not exist in the submitted OE set. It existed in the prior attempt and was removed during revision. The current prompt requires correction only when a Done ticket makes tracking dishonest. ENG-2174 accurately records that Leaderboard was implemented, while its remaining defects are already tracked in open issues ENG-2181, ENG-2076, and ZOM-429. Leaderboard is still covered by the product-health reporting criterion.
+
+Finding 2: Six allegedly non-self-contained criteria
+The dispute states that the submitted criterion text itself includes concrete expected values and identifiers:
+- C2 includes the Win & Collect 15-minute shipped versus 10-minute designed discrepancy, ENG-2402, and other grounded Collect & Win examples.
+- C5 includes 15 versus 10 minutes, 15 versus 5 stars, ENG-2402, and other grounded examples.
+- C11 names ENG-1727, ZOM-60, and ENG-2402.
+- C12 names ENG-1871, ZOM-300, and ENG-2349.
+- C13 names ZOM-429, ENG-2076, and ENG-2181 with issue descriptions.
+- C14 names ENG-2229 and ZOM-613 and states which Daily Login findings are acceptable.
+
+The dispute concludes that the auditor either quoted superseded wording or ignored the concrete examples embedded in the submitted criteria. Therefore, it calculates 0/14 major errors and requests that the fail be overturned.

@@ -2,10 +2,11 @@
 """
 Universe registry — per-universe constants for multi-universe pipeline support.
 
-Three universes:
-- brookfield: CPAs & business advisory firm (current default)
-- keystone: Residential mortgage brokerage (V3.1)
-- moveops: B2B remote-work relocation services (V2.1)
+Registered universes (see UNIVERSES below for the authoritative list):
+- brookfield: CPAs & business advisory firm (v3, current default)
+- keystone: Residential mortgage brokerage (v3.1)
+- moveops: B2B remote-work relocation services (v2.1)
+- starpm: Residential property management (v4)
 
 Every validator + runbook + council prompt should read constants via
 `get_universe_constants(detect_universe(task_dir))` rather than hardcoding
@@ -25,11 +26,11 @@ UNIVERSES = {
         "base_path": "Brookfield_Base_Universe",
         "docs_path": "Docs",
         "evals_path": "Evals",
+        "qc_reference_path": "QC_Tasks/V3_Tasks",
         "tool_catalog": "Brookfield_Base_Universe/8_Server_Tools_Details.json",
         "persona_briefs": "Brookfield_Base_Universe/2_Persona_Briefs.md",
         "business_function_doc": "Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md",
         "universe_one_pager": "Brookfield_Base_Universe/7_Brookfield_Universe_One_pager.md",
-        "qc_reference_path": "QC_Tasks/V3_Tasks",
 
         "today": "2026-06-12",
         "today_tz": "US/Eastern",
@@ -106,11 +107,11 @@ UNIVERSES = {
         "base_path": "Mortgage_Base_Universe",
         "docs_path": "Docs_keystone",
         "evals_path": "Evals_keystone",
+        "qc_reference_path": "QC_Tasks/V3.1_Tasks",
         "tool_catalog": "Mortgage_Base_Universe/6_Server_Tools_Details.json",
         "persona_briefs": "Mortgage_Base_Universe/3_Persona_Briefs.md",
         "business_function_doc": "Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md",
         "universe_one_pager": "Mortgage_Base_Universe/2_Summary.md",
-        "qc_reference_path": "QC_Tasks/V3.1_Tasks",
 
         "today": "2026-04-28",
         "today_tz": "US/Eastern",
@@ -191,11 +192,11 @@ UNIVERSES = {
         "base_path": "MoveOps_Base_Universe",
         "docs_path": "Docs_moveops",
         "evals_path": "Evals_moveops",
+        "qc_reference_path": "QC_Tasks/V2.1_Tasks",
         "tool_catalog": "MoveOps_Base_Universe/6_Server_Tools_Details.json",
         "persona_briefs": "MoveOps_Base_Universe/2_Persona_Briefs.md",
         "business_function_doc": "MoveOps_Base_Universe/3_Task_Categories_Business_Functions.md",
         "universe_one_pager": "MoveOps_Base_Universe/5_MoveOps_One_Pager.md",
-        "qc_reference_path": "QC_Tasks/V2.1_Tasks",
 
         "today": "2026-04-26",
         "today_tz": "US/Pacific",
@@ -276,11 +277,11 @@ UNIVERSES = {
         "base_path": "StarPM_Base_Universe",
         "docs_path": "Docs_starpm",
         "evals_path": "Evals_starpm",
+        "qc_reference_path": "QC_Tasks/V4_Tasks",
         "tool_catalog": "StarPM_Base_Universe/7_Server_Tools_Details.json",
         "persona_briefs": "StarPM_Base_Universe/2_StarPM_PERSONA BRIEFS.md",
         "business_function_doc": "StarPM_Base_Universe/3_StarPM_TASK CATEGORIES.md",
         "universe_one_pager": "StarPM_Base_Universe/0_StarPM_One-Pager.md",
-        "qc_reference_path": "QC_Tasks/V4_Tasks",
 
         "today": "2026-07-01",
         "today_tz": "America/Chicago",
@@ -340,6 +341,12 @@ UNIVERSES = {
         "services": ["airtable", "contacts", "gcalendar", "gmail", "hubspot", "linear",
                      "quickbooks", "slack"],
 
+        # Routes per-universe behavior through the registry instead of a `universe ==`
+        # branch. The three pre-V4 universes deliberately declare NEITHER flag so their
+        # index output stays byte-identical (their tz literal is a preserved mislabel).
+        "id_pattern_set": "starpm",
+        "index_internal_by_domain": True,
+        "index_tz_from_registry": True,
         "account_trap_check": False,
         "entity_name_to_id": {
             "star property management": "starpm", "starpm": "starpm", "star pm": "starpm",
@@ -369,12 +376,200 @@ UNIVERSES = {
             "Persona-scope: 'my property' / 'my turns' binds to the persona's assigned property and Airtable coordinator field. Verify every rubric value is in the persona's scope.",
         ],
     },
+
+    "harmonygames": {
+        "name": "Harmony Games",
+        "framework_version": "hg",
+        "domain": "Mobile game studio (founder-led, remote-first)",
+        "base_path": "HarmonyGames_Base_Universe",
+        "docs_path": "Docs_harmonygames",
+        "evals_path": "Evals_harmonygames",
+        # NOTE the 5_ prefix: a FIFTH distinct tool-catalog prefix.
+        # Brookfield 8_, StarPM 7_, KeyStone/MoveOps 6_, HarmonyGames 5_.
+        "tool_catalog": "HarmonyGames_Base_Universe/5_Server_Tools_Details.json",
+        "persona_briefs": "HarmonyGames_Base_Universe/2_Persona_Briefs.md",
+        "business_function_doc": "HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md",
+        "universe_one_pager": "HarmonyGames_Base_Universe/0_Universe_One-Pager.md",
+        "universe_schema": "HarmonyGames_Base_Universe/6_Universe_Schema.json",
+        "persona_acl_roster": "HarmonyGames_Base_Universe/Persona_ACL_Roster.json",
+        "tool_access_dir": "HarmonyGames_Base_Universe/Tool_Access",
+        "qc_reference_path": "QC_Tasks/V5_HG_Buckets",
+
+        # 2026-02-28 is a SATURDAY and the last day of February. Both matter: the universe
+        # forbids routine weekday-business comms on a weekend, yet "today" is a weekend day.
+        "today": "2026-02-28",
+        "today_tz": "America/Chicago",
+        "injection_window": ("2026-01-01", "2026-02-28"),
+        "persona_email_domain": "harmonygames.co",
+        "business_functions": [
+            "Engineering & Live-Ops", "Product & Design", "Growth / UA / Marketing",
+            "Founders / Exec / Strategy", "Finance / Legal / HR / Ops", "Analytics & Data",
+        ],
+        "business_function_weights": {
+            "Engineering & Live-Ops": 0.25, "Product & Design": 0.20,
+            "Growth / UA / Marketing": 0.15, "Founders / Exec / Strategy": 0.15,
+            "Finance / Legal / HR / Ops": 0.15, "Analytics & Data": 0.10,
+        },
+        "tight_identifiers": [
+            "channel names", "doc IDs", "issue IDs", "card IDs", "repo names", "PR numbers",
+            "company names", "dollar amounts", "dates", "table names", "sheet ranges",
+        ],
+        "oe_service_map": {
+            "issues": "linear", "tickets": "linear",
+            "cards": "trello", "boards": "trello",
+            "repos": "github", "pull_requests": "github", "commits": "github",
+            "queries": "snowflake", "tables": "snowflake", "warehouse": "snowflake",
+            "docs": "gdocs", "spreadsheets": "gsheets", "slides": "gslides",
+            "files": "gdrive", "calendar_events": "gcal",
+            "email_threads": "gmail",
+            "chat": "slack", "channels": "slack",
+            "wiki": "confluence", "pages": "confluence",
+            "contacts": "contacts",
+        },
+        "cross_service_pairs": [
+            ("gmail", "slack"), ("gmail", "gdrive"), ("slack", "linear"), ("slack", "trello"),
+            ("github", "linear"), ("snowflake", "gsheets"), ("gdrive", "gdocs"),
+            ("confluence", "github"), ("gcal", "gmail"), ("snowflake", "slack"),
+        ],
+
+        "retention_codes": set(),
+        # 985 channels / 218 users: NOT enumerable, unlike the C001..C0NN sets elsewhere.
+        # An empty set here means "do not validate channel IDs against a whitelist".
+        "slack_channels": set(),
+        "classifications": set(),
+        "blackline_exception_types": set(),
+        # NPC mailboxes observed in the shipped HG QC corpus (QC_Tasks/V5_HG_Buckets).
+        # Harvested from the 10 shipped tasks, NOT from Services_Data, which is un-hydrated.
+        # KNOWABLY INCOMPLETE - the real universe has 218 Slack users. This is an allowlist
+        # that removes false positives; it is never an authority for absence.
+        # "name@harmonygames.co" is excluded on purpose: a template placeholder, not a mailbox.
+        "npcs": {
+            "benjamin.clark@harmonygames.co",
+            "felixyoung@harmonygames.co",
+            "graham@harmonygames.co",
+            "lauren@harmonygames.co",
+            "lucas@harmonygames.co",
+            "marcus.lee@harmonygames.co",
+            "matthew@harmonygames.co",
+            "megan@harmonygames.co",
+            "michelle.carter@harmonygames.co",
+            "morgan@harmonygames.co",
+            "nathan@harmonygames.co",
+            "oscar@harmonygames.co",
+            "patrick@harmonygames.co",
+            "peterlawson@harmonygames.co",
+            "rachel@harmonygames.co",
+            "ryan@harmonygames.co",
+            "scott@harmonygames.co",
+            "stevencarter@harmonygames.co",
+            "thomas@harmonygames.co",
+        },
+        # All 17 authoring personas, read verbatim from Persona_ACL_Roster.json.
+        # Emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@,
+        # martin_walsh -> martin.walsh@) so they are transcribed, never derived from names.
+        # Previously this held ONE entry, which made the v4_gates F2 persona check truthy
+        # but wrong: the other 16 real personas were flagged as unknown-persona defects.
+        "personas": {
+            "blake@harmonygames.co": "Arthur Blake",
+            "brian@harmonygames.co": "Brian Foster",
+            "calvin@harmonygames.co": "Calvin Price",
+            "claire@harmonygames.co": "Claire Morgan",
+            "douglas@harmonygames.co": "Douglas",
+            "frederick@harmonygames.co": "Frederick Stone",
+            "jlawson@harmonygames.co": "Julia Lawson",
+            "leonard@harmonygames.co": "Leonard Hayes",
+            "marcus@harmonygames.co": "Marcus Bennett",
+            "martin.walsh@harmonygames.co": "Martin Walsh",
+            "oliver@harmonygames.co": "Oliver Brooks",
+            "owen@harmonygames.co": "Owen Baker",
+            "robert@harmonygames.co": "Robert",
+            "samuel@harmonygames.co": "Samuel Turner",
+            "simon@harmonygames.co": "Simon Walker",
+            "victor@harmonygames.co": "Victor Barnes",
+            "vincent@harmonygames.co": "Vincent Parker",
+        },
+        "services": ["confluence", "contacts", "gcal", "gdocs", "gdrive", "github", "gmail",
+                     "gsheets", "gslides", "linear", "slack", "snowflake", "trello"],
+
+        # Routes per-universe behavior through the registry instead of a `universe ==`
+        # branch. The three pre-V4 universes deliberately declare NEITHER flag so their
+        # index output stays byte-identical (their tz literal is a preserved mislabel).
+        # 2026-02-28 is itself a Saturday; routine weekend business comms are a violation.
+        "weekend_comms_rule": True,
+        "id_pattern_set": "harmonygames",
+        "index_internal_by_domain": True,
+        "index_tz_from_registry": True,
+        "account_trap_check": False,
+        "entity_name_to_id": {
+            "harmony games": "harmonygames", "harmonygames": "harmonygames",
+        },
+        "lifecycle_check_kind": "persona_acl",
+        "lifecycle_states_closed": set(),
+        "lifecycle_states_open": set(),
+        # Docs_harmonygames/15_Persona_ACL.md states "eight scoped services" three times
+        # (:87, :124, :138). Its matrix marks five as truly unscoped - GitHub, Snowflake,
+        # Trello, Linear, Confluence - and marks Contacts "No" in the scoped-reads column
+        # while its own visibility note says contacts are "visible in the acting user's
+        # contact scope". 13 services - 5 unscoped = 8, which is what reconciles the
+        # matrix with the prose.
+        "acl_scoped_services": ["gmail", "gcal", "gdrive", "gdocs", "gsheets", "gslides",
+                                "slack", "contacts"],
+        "acl_unscoped_services": ["github", "snowflake", "trello", "linear", "confluence"],
+        "long_horizon_calls": (500, 1000),
+
+        # Verified against HarmonyGames_Base_Universe/Tool_Access/*-tools.json, which
+        # Guide:13 makes the capability authority.
+        "tool_param_traps": {
+            # TWO send tools with DIFFERENT text params. Unique to this universe.
+            "slack_send_message": {"content_field": "text", "wrong_fields": ["payload", "message", "content"], "window": 100, "ignorecase": True},
+            "slack_conversations_add_message": {"content_field": "payload", "wrong_fields": ["text", "message"], "window": 100, "ignorecase": True},
+            "linear_create_issue": {"required": "team", "wrong": "teamId", "window": 100},
+            "linear_create_comment": {"required": "issueId", "content_field": "body"},
+            # bodyText, NOT body/content - differs from every other universe.
+            "gdocs_create_document": {"content_field": "bodyText", "wrong_fields": ["body", "content"], "window": 100, "ignorecase": True},
+        },
+
+        "landmines": [
+            "Gmail is READ-ONLY. All 27 gmail_* tools are read/label/trash operations; there is NO send, reply, compose or draft tool. 'Email the vendor' is not an available action, and a rubric that requires one is ungradeable. Weaker than StarPM, which at least has create_draft. Snowflake is likewise query/read-only.",
+            "Two Slack send tools with DIFFERENT text parameters: slack_send_message uses `text`, slack_conversations_add_message uses `payload`. Both are valid. Never assume one param name across Slack.",
+            "gdocs_create_document takes `bodyText`, not `body` or `content`.",
+            "linear_create_issue takes `team`, not `teamId` (matches MoveOps, differs from Brookfield).",
+            "Weekend rule vs today: routine Slack/Gmail business communication dated on a weekend is a temporal violation, and today (2026-02-28) IS a Saturday and the last day of February. Any 'today'-framed routine-comms ask is a live authoring hazard.",
+            "Mid-quarter framing: 2026-02-28 is the second month of Q1/H1, so 'Q1 close' or 'Q1 results are final' is incoherent; Q1 still has a month to run.",
+            "Persona emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@, martin_walsh -> martin.walsh@). Docs_harmonygames/15_Persona_ACL.md: never construct, normalize or infer an email from a person's name. Resolve via Persona_ACL_Roster.json.",
+            "Slack has 985 channels and 218 users, so channel IDs are NOT enumerable against a whitelist the way C001..C0NN are in the other four universes.",
+            "Persona ACL: eight services apply persona-scoped read filtering. A read performed under the wrong acting identity is an Excluded execution, not a pass or a fail.",
+            "set_acting_user is environment configuration. It is never an Agent action, never Outcome/Process/OE, never complexity-bearing, and must receive no rubric credit.",
+            "Explicit no-tool list: Firebase, BigQuery, App Store Connect, Airtable, QuickBooks, Stripe are business topics only, never directly queryable. Zero service overlap with the other four universes.",
+        ],
+    },
 }
 
 
 def get_universe_constants(universe_name: str) -> dict:
-    """Return the constants dict for a universe. Defaults to brookfield if not recognized."""
-    return UNIVERSES.get(universe_name.lower().strip(), UNIVERSES["brookfield"])
+    """Return the constants dict for a universe. Raises KeyError on an unknown name.
+
+    Absence must be loud, never inherited. The previous behaviour silently returned the
+    Brookfield entry for any unrecognised string, so a typo in `_aux/Universe.txt`, or a
+    universe registered without a matching FRAMEWORKS profile, produced Brookfield's today
+    date, Brookfield's Slack whitelist and v3's density target applied to another
+    universe's task, with no error at any layer.
+
+    This is the same principle as Hydra's MISSING sentinel (reading an unset config value
+    raises rather than resolving) and pydantic-settings' `extra='forbid'` (an unrecognised
+    key is a validation error, not a silently dropped one).
+
+    Every call site passes either detect_universe() output or a name already validated
+    against list_universes(), so a raise here indicates a real defect rather than user
+    input.
+    """
+    key = (universe_name or "").lower().strip()
+    if key not in UNIVERSES:
+        raise KeyError(
+            f"unknown universe {universe_name!r}; registered: {sorted(UNIVERSES)}. "
+            f"Register it in UNIVERSES; do not fall back to another universe's constants."
+        )
+    return UNIVERSES[key]
 
 
 _KEYSTONE_SIGNALS = re.compile(
@@ -382,7 +577,7 @@ _KEYSTONE_SIGNALS = re.compile(
     re.IGNORECASE,
 )
 _BROOKFIELD_SIGNALS = re.compile(
-    r"\b(?:oracle_gl|BlackLine|Records?\s+Vault|Brookfield\s+CPAs?|brookfieldcpas\.com|journal\s+entr|trial\s+balance|SAP\s+subledger|fiscal\s+period|northstar_legal|acme_cloud|AICPA_SQMS_7Y|IRS_TAX_7Y|late_post_authorization_id)\b",
+    r"\b(?:oracle_gl|BlackLine|Records?\s+Vault|Brookfield\s+CPAs?|brookfieldcpas\.com|journal\s+entries|journal\s+entry|trial\s+balance|SAP\s+subledger|fiscal\s+period|northstar_legal|acme_cloud|AICPA_SQMS_7Y|IRS_TAX_7Y|late_post_authorization_id)\b",
     re.IGNORECASE,
 )
 _MOVEOPS_SIGNALS = re.compile(
@@ -393,6 +588,35 @@ _STARPM_SIGNALS = re.compile(
     r"\b(?:Star\s+Property\s+Management|starpm\.com|hubspot|quickbooks|gcalendar|make-ready|owner-relations|Brooke\s+Phillips|Patricia\s+Nguyen|Teresa\s+Wood)\b",
     re.IGNORECASE,
 )
+
+# SCORING signals only. The bare company name and its domain are deliberately NOT here.
+# "Harmony Games" is an ordinary company name and Brookfield is an accounting firm with
+# clients: a thin Brookfield input reading "Pay the Harmony Games invoice; remit to
+# billing@harmonygames.co" scored hg=2 bf=0 and was routed to the wrong universe. A name
+# The email DOMAIN is excluded for the same reason: a Brookfield task can legitimately
+# cite a client's billing address. Name markers still
+# participate in the short-circuit below, but only paired with a structural marker that
+# cannot appear in prose about another company.
+_HARMONYGAMES_SIGNALS = re.compile(
+    r"\b(?:Persona_ACL_Roster|set_acting_user|"
+    r"gslides_\w+|gsheets_\w+|gdocs_\w+|gdrive_\w+|gcal_\w+|snowflake_\w+|trello_\w+|"
+    r"confluence_\w+)\b|MCP_Eval_V\d+_HarmonyGames",
+    re.IGNORECASE,
+)
+
+
+def _write_marker(marker: Path, universe: str) -> None:
+    """Best-effort cache write. `_aux/Universe.txt` is an optimization, not the answer.
+
+    QC corpora are often read-only, and a detector that raises PermissionError on a
+    read-only fixture cannot be used by read-only auditing tools. Detection is pure;
+    only the cache is a side effect, so a failed write is silently tolerated.
+    """
+    try:
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(universe + "\n", encoding="utf-8")
+    except OSError:
+        pass
 
 
 def detect_universe(task_dir: Path) -> str:
@@ -407,7 +631,46 @@ def detect_universe(task_dir: Path) -> str:
         if cached in UNIVERSES:
             return cached
 
-    scores = {"brookfield": 0, "keystone": 0, "moveops": 0, "starpm": 0}
+    # Exclusive-marker short-circuit, BEFORE scoring.
+    #
+    # detect_universe sums raw regex hits over four files, and its highest-yield input is
+    # 3_UniverseDataForThisTask.json[:50000]. HarmonyGames' copy of that file is a ~721-byte
+    # POINTER, not data, so HarmonyGames is structurally starved of signal in the exact file
+    # that dominates scoring for the other four. Combined with the tie-goes-to-brookfield
+    # rule below, starvation would silently resolve to the wrong universe.
+    #
+    # These markers are verified to appear in ZERO bytes of the other four universes'
+    # corpora (Validators/test_signal_exclusivity.py), so matching one is decisive and
+    # cannot regress an existing universe.
+    for candidate in ("1_Business_Function.txt", "2_Persona.txt", "5_Prompt.txt",
+                      "3_UniverseDataForThisTask.json"):
+        f = task_dir / candidate
+        if f.is_file():
+            text = f.read_text(encoding="utf-8", errors="ignore")
+            # Require TWO DISTINCT markers, not one. A single case-insensitive
+            # "Harmony Games" is not proof of universe: Brookfield is an accounting firm
+            # with clients, and an ordinary future prompt like "reconcile the Harmony Games
+            # invoice against the trust account" would otherwise reroute the whole task and
+            # persist the wrong answer to _aux/Universe.txt. Exclusivity was verified against
+            # today's corpora; prompts are authored by humans afterwards.
+            # Require one NAME marker AND one STRUCTURAL marker, from disjoint families.
+            # Exclusivity of the STRUCTURAL family against the other four universes' corpora
+            # is asserted by Validators/test_signal_exclusivity.py.
+            # Counting two name-family tokens was not independent evidence: `harmonygames`
+            # is a substring of `harmonygames.co`, so an ordinary Brookfield prompt naming
+            # a client "Harmony Games" and its billing address "@harmonygames.co" produced
+            # two distinct tokens and hijacked the universe. A structural marker cannot
+            # appear in prose about a third-party company.
+            name_hit = re.search(r"harmonygames\.co|harmonygames|Harmony\s+Games",
+                                 text, re.IGNORECASE)
+            struct_hit = re.search(r"Persona_ACL_Roster|set_acting_user|"
+                                   r"MCP_Eval_V\d+_HarmonyGames",
+                                   text, re.IGNORECASE)
+            if name_hit and struct_hit:
+                _write_marker(marker, "harmonygames")
+                return "harmonygames"
+
+    scores = {"brookfield": 0, "keystone": 0, "moveops": 0, "starpm": 0, "harmonygames": 0}
     for candidate in ("1_Business_Function.txt", "2_Persona.txt", "5_Prompt.txt"):
         f = task_dir / candidate
         if f.is_file():
@@ -416,6 +679,7 @@ def detect_universe(task_dir: Path) -> str:
             scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(text))
             scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(text))
             scores["starpm"] += len(_STARPM_SIGNALS.findall(text))
+            scores["harmonygames"] += len(_HARMONYGAMES_SIGNALS.findall(text))
 
     universe_data = task_dir / "3_UniverseDataForThisTask.json"
     if universe_data.is_file():
@@ -424,9 +688,23 @@ def detect_universe(task_dir: Path) -> str:
         scores["brookfield"] += len(_BROOKFIELD_SIGNALS.findall(sample))
         scores["moveops"] += len(_MOVEOPS_SIGNALS.findall(sample))
         scores["starpm"] += len(_STARPM_SIGNALS.findall(sample))
+        scores["harmonygames"] += len(_HARMONYGAMES_SIGNALS.findall(sample))
 
     if all(v == 0 for v in scores.values()):
+        # ZERO EVIDENCE. Measured across the repo, 40 of 122 task dirs reach this branch,
+        # including ones that ship all four scored input files. Returning the default here
+        # launders "no idea" into a confident answer, and the answer is then CACHED to
+        # _aux/Universe.txt and read unconditionally forever after, so the mistake is
+        # sticky and silent.
+        #
+        # The default is still returned for back-compat (callers expect a universe name,
+        # and every existing regression anchor depends on it), but it is NO LONGER
+        # PERSISTED: a marker written from zero evidence is indistinguishable from one
+        # written from a confident detection, and that is the property that makes the
+        # failure permanent. Leaving the cache unwritten means the next call re-derives
+        # once real inputs are pasted.
         universe = "brookfield"
+        return universe
     else:
         max_score = max(scores.values())
         winners = [u for u, s in scores.items() if s == max_score]
@@ -435,8 +713,7 @@ def detect_universe(task_dir: Path) -> str:
         else:
             universe = sorted(winners)[0]
 
-    marker.parent.mkdir(parents=True, exist_ok=True)
-    marker.write_text(universe + "\n", encoding="utf-8")
+    _write_marker(marker, universe)
     return universe
 
 
@@ -445,53 +722,182 @@ def list_universes() -> list:
 
 
 # Per-framework behavioral profile, keyed by a universe's framework_version.
-# Nothing reads this yet (additive). It encodes the V4 (starpm) divergence from
-# the V3/V3.1/V2.1 baseline: per-model trajectories, a lower average-tool-call
-# density floor, and the injection + submission-gate phases. Wire consumers
-# through get_framework_profile(universe_name) in a later wave.
+#
+# THIS TABLE IS LOAD-BEARING. Consumers read it via get_framework_profile():
+#   parse_trajectories.py  trajectory_layout, verifier_files, density_floor_avg_tool_calls
+#   close_task.py          trajectory_layout
+#   new_task.py            trajectory_layout
+#   phase_ready.py         trajectory_layout
+#   validate.py            (profile lookup)
+# Verified by Validators/check_capability_registry.py (check C1), which fails if the
+# consumer count ever drops to zero.
+#
+# Paths (docs_path / evals_path / qc_reference_path) deliberately do NOT live here:
+# they are per-universe facts owned by UNIVERSES. Duplicating them let the two tables
+# silently disagree, which is check C2.
 FRAMEWORKS = {
     "v3": {
+        "severity_map": {"overly_specific": "moderate", "overly_broad": "minor"},
+        "model_under_test": "opus-4.8",
+        "trajectory_dispositions": ["pass", "fail"],
+        "pass_at_1_ceiling": 0.40,
+        "slack_channels_enumerable": True,
+        "working_dir_name": "Tasks",
+        "acl_gate": False,
+        "oe_grammar": ["standard"],
+        "injection_difficulty_floor": None,
+        "qc_binary_subdim_count": 10,
+        "qc_dimension_count": 5,
+        "qc_subdim_count": 24,
+        "density_prompt_gate_calls": None,
+        "density_prompt_gate_services": None,
+        "density_target_services": None,
+        "density_excluded_calls": [],
+        "long_horizon_call_band": None,
+        "universe_data_contract": "per_task_json",
+        "rubric_balance_rule": "outcome_gt_process",
+        "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
         "verifier_models": ["single"],
         "verifier_files": ["8_Verifier_Fails.txt"],
         "trajectory_layout": "flat",
         "extra_phases": [],
-        "docs_path": "Docs",
-        "evals_path": "Evals",
-        "qc_reference_path": "QC_Tasks/V3_Tasks",
     },
     "v3.1": {
+        "severity_map": {"overly_specific": "moderate", "overly_broad": "minor"},
+        "model_under_test": "opus-4.8",
+        "trajectory_dispositions": ["pass", "fail"],
+        "pass_at_1_ceiling": 0.40,
+        "slack_channels_enumerable": True,
+        "working_dir_name": "Tasks",
+        "acl_gate": False,
+        "oe_grammar": ["standard"],
+        "injection_difficulty_floor": None,
+        "qc_binary_subdim_count": 10,
+        "qc_dimension_count": 5,
+        "qc_subdim_count": 24,
+        "density_prompt_gate_calls": None,
+        "density_prompt_gate_services": None,
+        "density_target_services": None,
+        "density_excluded_calls": [],
+        "long_horizon_call_band": None,
+        "universe_data_contract": "per_task_json",
+        "rubric_balance_rule": "outcome_gt_process",
+        "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
         "verifier_models": ["single"],
         "verifier_files": ["8_Verifier_Fails.txt"],
         "trajectory_layout": "flat",
         "extra_phases": [],
-        "docs_path": "Docs_keystone",
-        "evals_path": "Evals_keystone",
-        "qc_reference_path": "QC_Tasks/V3.1_Tasks",
     },
     "v2.1": {
+        "severity_map": {"overly_specific": "moderate", "overly_broad": "minor"},
+        "model_under_test": "opus-4.8",
+        "trajectory_dispositions": ["pass", "fail"],
+        "pass_at_1_ceiling": 0.40,
+        "slack_channels_enumerable": True,
+        "working_dir_name": "Tasks",
+        "acl_gate": False,
+        "oe_grammar": ["standard"],
+        "injection_difficulty_floor": None,
+        "qc_binary_subdim_count": 10,
+        "qc_dimension_count": 5,
+        "qc_subdim_count": 24,
+        "density_prompt_gate_calls": None,
+        "density_prompt_gate_services": None,
+        "density_target_services": None,
+        "density_excluded_calls": [],
+        "long_horizon_call_band": None,
+        "universe_data_contract": "per_task_json",
+        "rubric_balance_rule": "outcome_gt_process",
+        "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
         "verifier_models": ["single"],
         "verifier_files": ["8_Verifier_Fails.txt"],
         "trajectory_layout": "flat",
         "extra_phases": [],
-        "docs_path": "Docs_moveops",
-        "evals_path": "Evals_moveops",
-        "qc_reference_path": "QC_Tasks/V2.1_Tasks",
+    },
+    "hg": {
+        # Severity is the PRE-swap ordering here, the REVERSE of StarPM's post-07/16 swap.
+        "severity_map": {"overly_specific": "minor", "overly_broad": "moderate"},
+        "model_under_test": "opus-4.7",
+        # A read under the wrong acting identity is EXCLUDED: a third disposition that must be
+        # subtracted before pass@1 and density are computed, not counted as a pass or a fail.
+        "trajectory_dispositions": ["pass", "fail", "excluded"],
+        "pass_at_1_ceiling": 0.40,
+        "slack_channels_enumerable": False,   # 985 channels / 218 users: no derivable whitelist
+        "working_dir_name": "Generated_Tasks",
+        "acl_gate": True,
+        "oe_grammar": ["standard", "batch"],
+        "injection_difficulty_floor": 2.5,    # NOT StarPM's 3.5
+        "qc_binary_subdim_count": 18,
+        "qc_dimension_count": 7,
+        "qc_subdim_count": 38,
+        "density_prompt_gate_calls": 15,
+        "density_prompt_gate_services": 2,
+        "density_target_services": 3,
+        # Only tool NAMES belong here, because the consumer matches on tool name.
+        # The spec also excludes ACL-denied reads and retries against inaccessible
+        # records, but those are ordinary calls (e.g. gmail_list_messages) whose RESULT
+        # was a permission error - there is no tool named `acl_denied_reads`. Listing
+        # them here would read as consumed while silently never firing, which is worse
+        # than leaving them out. They need result inspection, which depends on the
+        # `excluded` trajectory disposition; tracked as the trajectory_dispositions work.
+        "density_excluded_calls": ["set_acting_user"],
+        "long_horizon_call_band": (500, 1000),
+        # HarmonyGames' 3_UniverseDataForThisTask.json is a ~721-byte POINTER, not
+        # data. Truth is <base_path>/Services_Data/ overlaid by 4_Changelog.json.
+        "universe_data_contract": "base_export_plus_changelog",
+        # HarmonyGames is NOT "v5". It is v3-shaped SINGLE-model verification PLUS v4's
+        # injection + submission_gate phases. A version ordinal would imply a successor
+        # relationship to v4 that does not exist, so the key is the universe name.
+        # HarmonyGames QC spec replaces the Outcome-majority rule with a flat binary
+        # cap: Process <= 40% of the set, and zero Process is explicitly valid.
+        "rubric_balance_rule": "process_max_40pct",
+        # The spec defines a 4-value enum, but a census of all 10 shipped HG tasks
+        # (372 criteria, incl. 4 QC-PASSED tasks) found ZERO using it - every artifact
+        # uses the lowercase 2-value form. Enforcing the spec enum alone would fail
+        # every shipped task on a BINARY sub-dimension. Accept both; see HG-U7.
+        "rubric_category_enum": {"outcome", "process",
+                                 "Outcome 1.1", "Outcome 1.2", "Outcome 2.1", "Process"},
+        "density_target": 40,
+        "density_floor_avg_tool_calls": 15,
+        "verifier_models": ["single"],
+        "verifier_files": ["8_Verifier_Fails.txt"],
+        "trajectory_layout": "flat",
+        "extra_phases": ["injection", "submission_gate"],
     },
     "v4": {
+        "severity_map": {"overly_specific": "moderate", "overly_broad": "minor"},
+        "model_under_test": "opus-4.8",
+        "trajectory_dispositions": ["pass", "fail"],
+        "pass_at_1_ceiling": 0.40,
+        "slack_channels_enumerable": True,
+        "working_dir_name": "Tasks",
+        "acl_gate": False,
+        "oe_grammar": ["standard"],
+        "injection_difficulty_floor": 3.5,
+        "qc_binary_subdim_count": 10,
+        "qc_dimension_count": 5,
+        "qc_subdim_count": 24,
+        "density_prompt_gate_calls": None,
+        "density_prompt_gate_services": None,
+        "density_target_services": None,
+        "density_excluded_calls": [],
+        "long_horizon_call_band": None,
+        "universe_data_contract": "per_task_json",
+        "rubric_balance_rule": "outcome_gt_process",
+        "rubric_category_enum": {"outcome", "process"},
+        # AGENTS.md: V4 design target is 40+ average tool calls.
+        "density_target": 40,
         "density_floor_avg_tool_calls": 15,
         "verifier_models": ["opus", "gemini"],
         "verifier_files": ["8a_Verifier_Fails_Opus.txt", "8b_Verifier_Fails_Gemini.txt"],
         "trajectory_layout": "per_model",
         "extra_phases": ["injection", "submission_gate"],
-        "docs_path": "Docs_starpm",
-        "evals_path": "Evals_starpm",
-        "qc_reference_path": "QC_Tasks/V4_Tasks",
     },
 }
 
@@ -501,11 +907,21 @@ def get_framework_profile(universe_name: str) -> dict:
 
     Resolves the universe (brookfield=v3, keystone=v3.1, moveops=v2.1,
     starpm=v4) to its framework_version and looks that up in FRAMEWORKS.
-    Nothing reads this yet; it encodes the V4 behavioral divergence for
-    future wiring. Defaults to v3 for an unknown / unversioned universe.
+
+    Raises KeyError on a universe whose framework_version is not a registered
+    profile. That is a registry bug, not user input: every call site passes either
+    detect_universe() output or a name already validated against list_universes(),
+    so silently substituting another framework's behaviour would hide the defect
+    rather than surface it.
     """
-    version = get_universe_constants(universe_name).get("framework_version", "v3")
-    return FRAMEWORKS.get(version, FRAMEWORKS["v3"])
+    version = get_universe_constants(universe_name).get("framework_version")
+    if version not in FRAMEWORKS:
+        raise KeyError(
+            f"universe {universe_name!r} declares framework_version {version!r}, "
+            f"which is not in FRAMEWORKS ({sorted(FRAMEWORKS)}). "
+            f"Register the profile; do not fall back to another framework."
+        )
+    return FRAMEWORKS[version]
 
 
 if __name__ == "__main__":
@@ -523,3 +939,23 @@ if __name__ == "__main__":
     print(f"Services: {consts['services']}")
     print(f"Slack channels: {sorted(consts['slack_channels'])}")
     print(f"NPCs: {sorted(consts['npcs'])}")
+
+
+def canonical_rubric_category(value: str) -> str:
+    """Map a stored rubric category to its parent bucket: `outcome` or `process`.
+
+    HarmonyGames stores the guidelines' Outcome sub-categories directly in `category`
+    (`Outcome 1.1` write-action result, `Outcome 1.2` action content, `Outcome 2.1` key fact
+    in the final response, plus `Process`). Every other universe stores the flat two-value
+    form. Both must count into the same two buckets, because the balance rules
+    (Outcome-majority, or a Process <= 40% cap) are defined over the parent buckets.
+
+    Single source of truth. `validate.py` and `v4_gates.py` both censused categories with
+    their own copy; `validate.py` imports `v4_gates`, so the shared home has to be here.
+    """
+    v = (value or "").strip().lower()
+    if v.startswith("outcome"):
+        return "outcome"
+    if v.startswith("process"):
+        return "process"
+    return v

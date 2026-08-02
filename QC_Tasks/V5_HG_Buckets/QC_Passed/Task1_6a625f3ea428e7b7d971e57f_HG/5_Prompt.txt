@@ -1,0 +1,9 @@
+We’re getting close to handing over the last company access, and I don’t want the source-control history to become a loose end. Build a July 1, 2026 closeout pack for every open and closed pull request in harmonygames-Games/Combo-Fighters and harmonygames-Games/game-of-dominoes-backend. Use the wind-down decision and the task list on my Drive as the source anchors, and work out the cohort totals from the repository records.
+
+This is preservation work, not a code review; Arthur still owns the technical judgment. For each PR, track the commit chain, submitted reviews, inline diff discussion, lifecycle history, and general PR conversation. If something is missing, use NONE FOUND. Where a surface has multiple records, roll them into one concise block with counts and the dates, contributors, states, or file context that will help someone follow the history.
+
+Share the results in a spreadsheet with a Register tab: one row per PR, grouped by repository and PR number, with enough source metadata to find the PR again. Keep the five evidence summaries separate, include a completion marker and the cutoff, and only mark a row complete when all five checks are covered.
+
+These are our standard flags for record gaps: NO_SUBMITTED_REVIEW, NO_INLINE_REVIEW_DISCUSSION, NO_GENERAL_CONVERSATION, NO_REVIEW_REQUEST_EVENT, and MULTI_COMMIT_WITHOUT_APPROVAL. Use them only for record gaps, and use NONE when none applies. For the multi-commit flag, treat an APPROVED review anywhere in the PR record as approval.
+
+Also send a short TL;DR memo as a Markdown file. It should tie back to the relevant wind-down message and Drive task list, link the Register, summarize the repository and flag totals, and give someone enough context to understand what we’re preserving and why. Once you’re done, send me the spreadsheet and memo with the verified Register row count.

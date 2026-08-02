@@ -49,10 +49,10 @@ from typing import List
 ROOT = Path(__file__).resolve().parent.parent
 
 try:
-    from Validators.universes import detect_universe, get_universe_constants, get_framework_profile
+    from Validators.universes import detect_universe, get_universe_constants, get_framework_profile, canonical_rubric_category
 except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from universes import detect_universe, get_universe_constants, get_framework_profile
+    from universes import detect_universe, get_universe_constants, get_framework_profile, canonical_rubric_category
 
 EM_DASH_PATTERN = re.compile(r"[\u2014\u2013]")          # em-dash, en-dash
 TOOL_NAME_HINT = re.compile(r"\b(?:[a-z_]+_(?:list|search|get|create|update|send|add|upload|approve|reject|post|reply|submit|delete|show|history)_[a-z_]+|email_send_email|slack_conversations_add_message)\b")
@@ -236,6 +236,23 @@ STARPM_LINEAR_ISSUE = re.compile(r"\bOPS-\d{1,4}\b")
 STARPM_HUBSPOT_OBJ = re.compile(r"\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b")
 STARPM_INTERNAL_ID = re.compile(r"\b(?:rec[a-f0-9]{14,16}|OPS-\d{1,4}|(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}|comment_[a-f0-9]{32}|INV-2026-\d{3,7}(?:-\d{2,4})?|BILL-2026-\d{3,7})\b")
 STARPM_VALUE_TOKENS = re.compile(r"\d{4}-\d{2}-\d{2}|\$[\d,]+(?:\.\d+)?|\brec[a-f0-9]{14,16}\b|\bOPS-\d{1,4}\b|\b(?:deal|contact|ticket|comp|engagement)_[a-z0-9]{6,40}\b|\b(?:INV|BILL)-2026-\d{3,7}(?:-\d{2,4})?\b")
+# HarmonyGames. Opaque IDs only: Slack C*/U*, Trello 24-hex, Drive file ids. A
+# team-prefixed Linear key (ENG-2400) reads like a JIRA key a person would say aloud,
+# so it is NOT leakage - but it IS groundable, hence its presence below.
+HG_SLACK_CHANNEL = re.compile(r"\bC[0-9A-Z]{10}\b")
+HG_SLACK_USER = re.compile(r"\bU[0-9A-Z]{10}\b")
+HG_TRELLO_CARD = re.compile(r"\b[a-f0-9]{24}\b")
+HG_GDRIVE_FILE = re.compile(r"\b1[A-Za-z0-9_-]{25,}\b")
+HG_LINEAR_ISSUE = re.compile(r"\b(?:ENG|ZOM|EVT|DES|ART|EPI|LATE)-\d{2,5}\b")
+HG_INTERNAL_ID = re.compile(
+    r"\b(?:C[0-9A-Z]{10}|U[0-9A-Z]{10}|[a-f0-9]{24}|1[A-Za-z0-9_-]{25,})\b"
+)
+HG_GROUNDING = [
+    (HG_LINEAR_ISSUE, "Linear issue", "linear_issue"),
+    (HG_TRELLO_CARD, "Trello card", "trello_card"),
+    (HG_GDRIVE_FILE, "Drive file", "gdrive_file"),
+]
+
 STARPM_GROUNDING = [
     (STARPM_AIRTABLE_REC, "airtable record", "airtable_record"),
     (STARPM_LINEAR_ISSUE, "linear issue", "linear_issue"),
@@ -461,7 +478,9 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
     for m in MCP_SERVER_NAME.finditer(text):
         rep.fail(f"explicit MCP-server mention: `{m.group(0)}`")
 
-    internal_id_re = STARPM_INTERNAL_ID if universe == "starpm" else INTERNAL_ID
+    _pset = consts.get("id_pattern_set")
+    internal_id_re = (STARPM_INTERNAL_ID if _pset == "starpm"
+                      else HG_INTERNAL_ID if _pset == "harmonygames" else INTERNAL_ID)
     for m in internal_id_re.finditer(text):
         rep.fail(f"internal-ID leakage: `{m.group(0)}`")
 
@@ -570,6 +589,32 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
 
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
+    # HarmonyGames adds a parameterized BATCH OE form for long-horizon work
+    # (Evals_harmonygames/2). Universes whose grammar is ['standard'] must still
+    # reject it, so the allowance is read from the profile rather than assumed.
+    _oe_grammar = get_framework_profile(universe).get("oe_grammar", ["standard"])
+
+    def _check_oe_grammar(oe_text: str) -> None:
+        """A BATCH / parameterized OE is legal only where the profile declares it.
+
+        HarmonyGames adds the form for long-horizon work; the other four universes have no
+        such grammar, so a BATCH OE there is a malformed OE rather than an advanced one.
+        Gating on the flag is what makes the flag mean something.
+        """
+        batch = re.findall(r"^\s*OE\s*\d+\s*[-\u2014]+\s*BATCH\b.*$", oe_text, re.MULTILINE)
+        if batch and "batch" not in _oe_grammar:
+            for b in batch[:3]:
+                rep.fail(f"BATCH OE form is not part of this universe's OE grammar "
+                         f"({_oe_grammar}): {b.strip()[:90]}")
+        if batch and "batch" in _oe_grammar:
+            for b in batch:
+                if not re.search(r"\bvary\b|\bover each\b|\bfor each\b", b, re.IGNORECASE):
+                    rep.fail(f"BATCH OE states no varied cohort, so its call count is "
+                             f"unverifiable: {b.strip()[:90]}")
+                elif not re.search(r"Calls?\s*:\s*\d+", b, re.IGNORECASE):
+                    rep.warn(f"BATCH OE states no explicit call count: {b.strip()[:90]}")
+
+    _check_oe_grammar(text)
     local_retention_codes = consts["retention_codes"]
     local_slack_channels = consts["slack_channels"]
     local_classifications = consts["classifications"]
@@ -796,6 +841,12 @@ def validate_oe(task_dir: Path, rep: Report) -> None:
                 flagged_for_step.add(expected_service)
 
 
+def _canonical_category(value: str) -> str:
+    """Thin alias. The implementation lives in universes.canonical_rubric_category so
+    validate.py and v4_gates.py cannot drift apart on rubric-balance counting."""
+    return canonical_rubric_category(value)
+
+
 def validate_rubrics(task_dir: Path, rep: Report) -> None:
     f = task_dir / "7_Rubrics.json"
     if not f.is_file():
@@ -817,6 +868,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
 
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
+    _fw_profile = get_framework_profile(universe)
     local_retention_codes = consts["retention_codes"]
     local_slack_channels = consts["slack_channels"]
     local_classifications = consts["classifications"]
@@ -826,10 +878,15 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
     local_account_trap = consts["account_trap_check"]
     rep.note(f"universe: {universe}")
 
-    if universe == "starpm":
+    if consts.get("id_pattern_set") == "starpm":
         grounding_specs = STARPM_GROUNDING
         value_tokens_re = STARPM_VALUE_TOKENS
         suspicious_id_pats = (STARPM_AIRTABLE_REC, STARPM_LINEAR_ISSUE, STARPM_HUBSPOT_OBJ)
+    elif consts.get("id_pattern_set") == "harmonygames":
+        # Ledger keys match HARMONYGAMES_ID_PATTERNS in build_fact_ledger.py - one source.
+        grounding_specs = HG_GROUNDING
+        value_tokens_re = RUBRIC_VALUE_TOKENS
+        suspicious_id_pats = (HG_LINEAR_ISSUE, HG_TRELLO_CARD, HG_GDRIVE_FILE)
     else:
         grounding_specs = [
             (JE_ID, "JE", "je"),
@@ -861,6 +918,7 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
 
     outcome_n = 0
     process_n = 0
+    sub_category_counts: dict = {}
     rubric_severity = {i: {"major": 0, "moderate": 0, "minor": 0} for i in range(len(rubrics))}
 
     for i, r in enumerate(rubrics):
@@ -890,9 +948,20 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             rep.fail(f"{loc}: justification missing or empty")
         if not cat_raw:
             rep.fail(f"{loc}: category missing or empty")
-        cat = str(cat_raw).lower()
-        if cat not in ("outcome", "process"):
-            rep.fail(f"{loc}: rubric_category `{cat}` not in {{outcome, process}}")
+        cat_stored = str(cat_raw).strip()
+        _enum = _fw_profile.get("rubric_category_enum", {"outcome", "process"})
+        if cat_stored.lower() not in {e.lower() for e in _enum}:
+            rep.fail(f"{loc}: rubric_category `{cat_stored}` not in {sorted(_enum)}")
+        # Canonicalize the STORED value to its parent bucket before counting.
+        # HarmonyGames stores a 4-value enum (`Outcome 1.1` / `1.2` / `2.1` / `Process`),
+        # which is AGENTS.md rule 24's sub_category already native to the schema. Counting
+        # the raw string put every sub-category in neither bucket, so a spec-conformant HG
+        # set reported outcome=0 and hard-failed "no outcome rubrics". Canonicalizing keeps
+        # the sub-category available for reporting while making the counts correct.
+        cat = _canonical_category(cat_stored)
+        sub_cat = cat_stored if cat_stored.lower() != cat else None
+        if sub_cat:
+            sub_category_counts[cat_stored] = sub_category_counts.get(cat_stored, 0) + 1
         if cat == "outcome":
             outcome_n += 1
         elif cat == "process":
@@ -1285,12 +1354,26 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
                     rep.warn(f"rubric[{ri}] (X2 rubric-OE consistency): typed value `{aval}` ({atype}) in title differs from OE values of same type: {sample}. CONSISTENCY_GAP candidate. WARN-only observation period.")
 
     rep.note(f"counts: outcome={outcome_n}, process={process_n}")
+    if sub_category_counts:
+        rep.note("sub-categories: " + ", ".join(f"{k}={v}" for k, v in sorted(sub_category_counts.items())))
     if outcome_n == 0:
         rep.fail("no outcome rubrics (every task needs at least 1)")
-    if process_n > outcome_n:
-        rep.fail(f"process count ({process_n}) > outcome count ({outcome_n}) — process must be the minority")
-    if process_n > 0 and (process_n / max(1, outcome_n + process_n)) > 0.5:
-        rep.fail(f">50% of rubrics are process — outcome must outnumber process")
+    # Balance rule is per-framework. Brookfield/KeyStone/MoveOps/StarPM require an
+    # Outcome majority (Docs/7_QC_Spec_Doc1.json:151, dated 05/22). HarmonyGames'
+    # own spec replaces that with a flat binary cap of Process <= 40%, and states
+    # zero Process is valid. Each universe follows its own spec.
+    _rule = _fw_profile.get("rubric_balance_rule", "outcome_gt_process")
+    _total = outcome_n + process_n
+    if _rule == "process_max_40pct":
+        if outcome_n == 0:
+            rep.fail("zero outcome rubrics — Outcome is mandatory")
+        if _total and (process_n / _total) > 0.40:
+            rep.fail(f"process is {process_n}/{_total} ({process_n/_total:.0%}) of the set — cap is 40%")
+    else:
+        if process_n > outcome_n:
+            rep.fail(f"process count ({process_n}) > outcome count ({outcome_n}) — process must be the minority")
+        if process_n > 0 and (process_n / max(1, _total)) > 0.5:
+            rep.fail(f">50% of rubrics are process — outcome must outnumber process")
 
     # v21.3 producing-phase backstops (F7 ambiguous target / F8 non-atomic enum /
     # F9 unreconciled future calendar event): catch at S3, not only pre-upload.

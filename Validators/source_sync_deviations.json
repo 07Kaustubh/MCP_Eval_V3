@@ -3,5 +3,67 @@
   "brookfield": {
     "Docs/7_QC_Spec_Doc1.json": "Upstream ships KeyStone-mislabeled universe prose (v3 = Keystone Mortgage, Mortgage_Base_Universe paths, keystonemortgage.com example). Repo keeps the flavor-corrected Brookfield copy; all scoring rules are upstream-verbatim.",
     "Guide/How_To_Use_This_Eval.md": "Upstream directory-tree comment lists KeyStone-era data dirs (mortgage LOS, Stripe). Repo corrects the one line to Brookfield's actual Data/ layout."
+  },
+  "_anti_rot_rule": "Four states for every deviation entry, after the Debian empty-diff rule. (1) our side and upstream both match the recorded hashes -> deviation is LIVE and intentional, pass silently. (2) our side changed -> FAIL, accidental local drift. (3) upstream changed -> FAIL and RE-ADJUDICATE, because the justification was written against the old upstream text. (4) both sides are now identical -> the deviation is OBSOLETE, DELETE the entry. State 4 is the one manifests almost always miss, and it is why deviation files rot.",
+  "harmonygames": {
+    "_state_field": "one of: unresolved | permanent | pending-upstream | incidental (DEP-3 'Forwarded' semantics; 'permanent' == DEP-3 'Forwarded: not-needed', a deliberate local divergence never sent upstream)",
+    "_update_mechanism": "Static  (README.chromium enum: Autoroll | Manual | Static | Static.HardFork). Vendored from a one-off drop; no autoroller exists.",
+    "_last_update": "2026-08-01",
+    "HG-U2": {
+      "state": "pending-upstream",
+      "path": "QC_Tasks/V5_HG_Buckets/QC_Passed/",
+      "detail": "Guide_harmonygames and Evals_harmonygames cite QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG from 9 files, including mandatory conditional pre-reads and the sole BATCH/BIND[] exemplar. The directory does not exist anywhere in the drop. Pinned, never aliased to another task."
+    },
+    "HG-U3": {
+      "state": "permanent",
+      "path": "*/3_UniverseDataForThisTask.json",
+      "detail": "Every shipped task hardcodes a stale 'MCP_Eval_V2_HarmonyGames/' base path. universe_data_source.py resolves the base path from the registry and uses the embedded string only to detect that a pointer is present."
+    },
+    "HG-U5": {
+      "state": "permanent",
+      "path": "QC_Tasks/V5_HG_Buckets/",
+      "detail": "Corpus is 10 tasks in a 4/4/2/0 split with QC_False_Fails_PT_Dispute_Accepted legitimately empty, against qc_verdict.py's previously documented '16/16 required'. selftest now reports N/N rather than asserting 16."
+    },
+    "HG-U6": {
+      "state": "permanent",
+      "path": "QC_Tasks/V5_HG_Buckets/QC_Passed/Task1_6a625f3ea428e7b7d971e57f_HG/7_Rubrics.json",
+      "detail": "80 criteria against the project's 60-rubric cap, on a task upstream QC PASSED. Authority for flagging it anyway is an explicit operator ruling, not the upstream spec."
+    },
+    "HG-U7": {
+      "state": "permanent",
+      "path": "QC_Tasks/V5_HG_Buckets/*/*/7_Rubrics.json",
+      "detail": "Spec defines category as a 4-value enum (Outcome 1.1/1.2/2.1, Process). A census of all 10 shipped tasks found 372 criteria, ALL lowercase outcome/process, ZERO using the enum, including 4 QC-PASSED tasks. Enforcing the spec enum alone would fail every shipped task on a BINARY sub-dimension, so the registry accepts both forms."
+    },
+    "HG-U8": {
+      "state": "permanent",
+      "path": "Docs_harmonygames/",
+      "detail": "No date-stamped amendment markers anywhere (Brookfield's spec is dense with 05/05, 05/22, 06/09). AGENTS.md rule 25's 'later-dated entry wins' tiebreaker is inert for this universe."
+    },
+    "HG-U9": {
+      "state": "incidental",
+      "path": "Evals_harmonygames/3_Rubrics_Eval.md:441",
+      "detail": "Contamination sweep found exactly one hit, 'Northstar Games', a games-industry entity in a worked example, NOT Brookfield's northstar_legal. Docs 13_QC_Companion.md, contaminated at the same file number in the StarPM drop, is CLEAN here. No action."
+    },
+    "HG-U10": {
+      "state": "permanent",
+      "path": "Evals_harmonygames/",
+      "detail": "All six evals run 15-27% longer than Evals_starpm (0:+56 1:+97 2:+141 3:+176 4:+93 5:+118 lines) and 11_Taxonomy.md is 159 lines vs StarPM's 799. F1-F6 submission-gate family NAMES match V4 but trigger conditions do NOT transfer; hg_f1_f6 must be authored from HG's own eval."
+    },
+    "HG-U11": {
+      "state": "pending-upstream",
+      "path": "QC_Tasks/V5_HG_Buckets/QC_Non_Fails/Task1_6a5ad85c4c083980490873d6_HG/7_Rubrics.json",
+      "detail": "MALFORMED JSON: parse error at line 5 column 44. Shipped this way upstream. Found during the category census; the task is otherwise classifiable from 9_QC_Feedback.txt."
+    },
+    "HG-U12": {
+      "state": "pending-upstream",
+      "path": "QC_Tasks/V5_HG_Buckets/QC_Non_Fails/Task{1,2}_*_HG/QC_Feedback_Verdict.txt",
+      "detail": "Two 0-byte QC_Feedback_Verdict.txt files. qc_verdict.py now falls back to the raw auditor form in 9_QC_Feedback.txt, deriving the score as the MINIMUM across per-dimension scores."
+    },
+    "HG-U13": {
+      "state": "permanent",
+      "path": "HarmonyGames_Base_Universe/Services_Data/**",
+      "detail": "MISSING_IN_REPO by design. Services_Data is 5.6 GB / ~314k files including a 223 MB JSON and four nested git packs, against a 2.5 GB repo; GitHub rejects files over 100 MB and nested .git become broken gitlinks. It is gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md, which records the source path, byte size, file count and a sha256 of Base_Universe_Complete_Data.json so a stale hydrate is detectable. check_source_sync reports these paths as MISSING_IN_REPO; that is the intended state, not drift. HarmonyGames inverts the usual boundary: its per-task 3_UniverseDataForThisTask.json is a ~721-byte POINTER, so Services_Data IS the source of truth and cannot simply be deleted."
+    },
+    "HarmonyGames_Base_Universe/Services_Data/**": "HG-U13. MISSING_IN_REPO by design. Services_Data is 5.6 GB / ~314k files including a 223 MB JSON and four nested git packs, against a 2.5 GB repo; GitHub rejects files over 100 MB and nested .git become broken gitlinks. Gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md, which records source path, size, file count and a sha256 so a stale hydrate is detectable. HarmonyGames inverts the usual payload boundary: its per-task 3_UniverseDataForThisTask.json is a ~721-byte POINTER, so Services_Data IS the source of truth and cannot simply be deleted."
   }
 }

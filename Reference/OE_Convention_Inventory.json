@@ -18,17 +18,20 @@
     },
     "tools_used_count": 36,
     "tools_universe_count": 453,
-    "all_referenced_tools_valid": true
+    "all_referenced_tools_valid": true,
+    "scope": "Derived from four Brookfield V3 reference tasks; NOT universe-general. These patterns describe Brookfield conventions and must not be applied as drift criteria to keystone, moveops, starpm or harmonygames, whose conventions differ (e.g. HarmonyGames stores a 4-value rubric category enum and permits a BATCH OE grammar). Provenance is the value of this file, so it is deliberately not extended to other universes."
   },
-
   "format_rules": {
     "line_prefix": "^OE\\s*\\d+:?",
-    "examples": ["OE 1: ...", "OE1: ...", "OE 12: ..."],
+    "examples": [
+      "OE 1: ...",
+      "OE1: ...",
+      "OE 12: ..."
+    ],
     "numbered_sequential": true,
     "free_form_prose": "Not structured JSON. Numbered prose with full sentences.",
     "em_dash_banned": true
   },
-
   "tool_usage_frequencies": {
     "_note": "From V3 reference tasks. Counts indicate which tools are most common in well-formed OEs.",
     "email_search_emails": 12,
@@ -63,20 +66,81 @@
     "calendar_search_events": 1,
     "calendar_add_calendar_event": 1
   },
-
   "parameter_naming": {
     "_note": "Parameter names observed in V3 OE bodies. Hard parameter-trap rules below.",
-    "observed_params": ["query", "entity_id", "id", "vendor_id", "project", "posting_date_from", "status", "channel_types", "channel_id"],
+    "observed_params": [
+      "query",
+      "entity_id",
+      "id",
+      "vendor_id",
+      "project",
+      "posting_date_from",
+      "status",
+      "channel_types",
+      "channel_id"
+    ],
     "hard_traps": {
-      "email_send_email": {"body_field": "content", "wrong_aliases": ["body", "text", "message"]},
-      "email_reply_to_email": {"body_field": "content", "wrong_aliases": ["body", "text"]},
-      "messaging_send_message": {"body_field": "content", "wrong_aliases": ["body", "text"]},
-      "slack_conversations_add_message": {"body_field": "payload", "wrong_aliases": ["text", "content", "message", "body"]},
-      "linear_create_comment": {"body_field": "body", "id_field": "issueId", "wrong_id_aliases": ["issue_id", "issueid", "id"]},
-      "records_vault_upload_document": {"required": ["kind", "retention_policy_code", "classification", "content_b64"], "valid_retention_codes": ["AICPA_SQMS_7Y", "IRS_TAX_7Y", "FIRM_INTERNAL", "INDEFINITE"], "valid_classifications": ["public", "internal", "restricted"]}
+      "email_send_email": {
+        "body_field": "content",
+        "wrong_aliases": [
+          "body",
+          "text",
+          "message"
+        ]
+      },
+      "email_reply_to_email": {
+        "body_field": "content",
+        "wrong_aliases": [
+          "body",
+          "text"
+        ]
+      },
+      "messaging_send_message": {
+        "body_field": "content",
+        "wrong_aliases": [
+          "body",
+          "text"
+        ]
+      },
+      "slack_conversations_add_message": {
+        "body_field": "payload",
+        "wrong_aliases": [
+          "text",
+          "content",
+          "message",
+          "body"
+        ]
+      },
+      "linear_create_comment": {
+        "body_field": "body",
+        "id_field": "issueId",
+        "wrong_id_aliases": [
+          "issue_id",
+          "issueid",
+          "id"
+        ]
+      },
+      "records_vault_upload_document": {
+        "required": [
+          "kind",
+          "retention_policy_code",
+          "classification",
+          "content_b64"
+        ],
+        "valid_retention_codes": [
+          "AICPA_SQMS_7Y",
+          "IRS_TAX_7Y",
+          "FIRM_INTERNAL",
+          "INDEFINITE"
+        ],
+        "valid_classifications": [
+          "public",
+          "internal",
+          "restricted"
+        ]
+      }
     }
   },
-
   "opening_phrase_patterns": {
     "_note": "First three words of an OE line. Anchors the OE's intent. Match observed patterns.",
     "search_first": [
@@ -108,7 +172,6 @@
       "Call contacts_search_contacts with query ..."
     ]
   },
-
   "discovery_step_phrasing": {
     "tool_call_form": "Search <service> using <tool_name> with <param>=<value> ('or similar' acceptable for free-text queries)",
     "examples": [
@@ -118,7 +181,6 @@
     ],
     "concrete_values_required": "Every named id, entity, period, amount must be from the per-task universe. The OE validator and Council A enforce this."
   },
-
   "write_step_phrasing": {
     "form": "<Write action> using <tool_name> (... key params with concrete values ...).",
     "examples": [
@@ -127,7 +189,6 @@
       "Use slack_conversations_add_message in channel C008 (#compliance-and-registrations). The message payload should summarize <X>"
     ]
   },
-
   "conclude_clause_pattern": {
     "_note": "When a discovery step yields a conclusion the agent must draw, use 'Conclude:' verbatim. Observed 3 times across V3 references.",
     "form": "Conclude: <one-sentence reasoning that the agent must apply>.",
@@ -138,7 +199,6 @@
     ],
     "use_when": "Critical reasoning step that determines a downstream value or write decision."
   },
-
   "branching_phrasing": {
     "_note": "When the OE depends on what the discovery returns, name both branches.",
     "form": "The outcome of this check determines the action path: if <A>, <do X>; if <B>, <do Y>.",
@@ -146,7 +206,6 @@
       "The outcome of this check determines the action path: if a clean reissued invoice is present, route it through the normal AP release path; if absent, the escalation summary to Daniel must note the missed deadline and confirm that a hard deadline is being set."
     ]
   },
-
   "anti_patterns": {
     "_note": "Patterns NEVER seen in V3 references; OE validator should flag these.",
     "structured_json_oe": "OEs are NEVER written as JSON / YAML. Always numbered prose.",

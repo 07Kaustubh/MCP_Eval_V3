@@ -66,6 +66,20 @@ def main() -> int:
                 print(line)
         failures.append(f"anchors {passed}/{total} ({failed} failed)")
 
+    # Anchor COUNT is not anchor QUALITY. The dead-gate self-check neuters the validator's
+    # ability to emit any finding and asserts every non-allowlisted anchor then fails. Without
+    # it an anchor can sit in the suite asserting nothing, which is how two vacuous KeyStone
+    # anchors survived for several versions. Standing gate per AGENTS.md rule 18.
+    dg = subprocess.run(
+        [sys.executable, str(ROOT / "Validators" / "test_regression_anchors.py"), "--dead-gate"],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    if dg.returncode != 0:
+        for line in (dg.stdout + dg.stderr).splitlines():
+            if "[LEAK]" in line or "[FAIL]" in line:
+                print(line)
+        failures.append("dead-gate self-check: anchors pass against a validator that emits nothing")
+
     # 2) frozen report hashes
     baseline = load_baseline_hashes()
     identical = 0

@@ -1,0 +1,92 @@
+[
+    {
+        "title": "The Agent updates the Collect & Win optimization ticket (ENG-2424) with a comment or description change documenting the live build's token-progression milestone values or their source of truth.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'update the optimization tickets with the correct live values.' ENG-2424 is the Collect & Win optimization ticket ('Collect&win - Magical Wings - UI Optimization') that needs the live values recorded.",
+        "evidence": "Look for a Linear issue update or comment creation targeting issue ENG-2424. Confirm the content references the live token-progression milestone values, their source, or the discrepancy between design values and live values."
+    },
+    {
+        "title": "The Agent updates the Season Pass optimization ticket (ENG-2428) with a comment or description change documenting the live build's Season Pass reward values or their source of truth.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'update the optimization tickets with the correct live values.' ENG-2428 is the Season Pass optimization ticket ('Season Pass - UI Optimization') that needs the live values recorded.",
+        "evidence": "Look for a Linear issue update or comment creation targeting issue ENG-2428. Confirm the content references the live Season Pass reward values, the source spreadsheet, or the divergence from the Confluence design spec."
+    },
+    {
+        "title": "The Agent creates a message, issue, or comment that explicitly flags the person(s) who shipped parameter changes across the features without design sign-off.",
+        "category": "outcome",
+        "justification": "The prompt explicitly says 'flag whoever shipped changes without design sign-off.' This is a goal-level ask - the agent may flag via Slack message, a new Linear issue, a dedicated comment, or similar. Method-agnostic language is used because the prompt says 'flag' without specifying the medium.",
+        "evidence": "Look for any communication action (Slack message, Linear issue creation, or dedicated comment) that explicitly identifies and calls out the person responsible for merging parameter-changing PRs without design review. This may be a standalone message, a new tracking issue, or a clearly labeled flag section within a ticket comment."
+    },
+    {
+        "title": "The Agent's update to ENG-2424 mentions that the optimization work references a Figma that is not from the original designer.",
+        "category": "outcome",
+        "justification": "The prompt states 'the optimization work references a Figma that isn't mine.' ENG-2424's description contains a Figma link (URL_53019) that belongs to a different engineer, not Martin Walsh. The ticket update should document this discrepancy.",
+        "evidence": "Check the content of the ENG-2424 update or comment for a mention of the Figma reference belonging to someone other than the original designer, or a note that the referenced Figma is external to the design team's work."
+    },
+    {
+        "title": "The Agent's update to ENG-2428 references specific Season Pass reward divergences found in the implementation (such as the 'Bones' reward type, token doubling from PR #542, or values sourced from a different spreadsheet than the design spec).",
+        "category": "outcome",
+        "justification": "The prompt says 'the live build shows different values' for Season Pass. The implementation PR (#438) introduced a 'Bones' reward type not in the Confluence spec, and PR #542 added token doubling. The ticket update should document which specific values diverged.",
+        "evidence": "Check the content of the ENG-2428 update or comment for references to specific reward changes (e.g., 'Bones' reward type, token doubling, alternative spreadsheet, IAP entries) that differ from the original 'ZM3D Season Pass - Spec' design."
+    },
+    {
+        "title": "The Agent's flagging communication identifies Oliver Brooks (oliver@harmonygames.co) as the person who merged changes without design review.",
+        "category": "outcome",
+        "justification": "Oliver Brooks (EMPLOYEE_0003_GITHUB_USERNAME) merged PR #438 (Season Pass), PR #34 (Combo Fighter IAP/currencies), and PR #37 (Combo Fighter rarity tiers) - all without design sign-off. The flagging must name the responsible person for it to be actionable.",
+        "evidence": "Check the flagging communication (Slack message, Linear issue, or comment) for a reference to Oliver Brooks, his email oliver@harmonygames.co, or his GitHub username as the person who merged the parameter-changing PRs."
+    },
+    {
+        "title": "The Agent identifies PR #438 ('Feature/season pass') or other Season Pass PRs (e.g., PR #542) in the match3d repository as carrying reward values that differ from the design spec.",
+        "category": "outcome",
+        "justification": "The prompt asks 'which PRs carried which values' for Season Pass. PR #438 in the match3d repository is the primary Season Pass implementation PR, introducing rewards including a 'Bones' type not in the Confluence spec. The match3d repo is the correct location (Zombie Match 3D).",
+        "evidence": "Check the agent's final response or trajectory for identification of PR #438 (or subsequent Season Pass PRs like #542) in the match3d repository. The agent should note that these PRs introduced reward values differing from the design spec."
+    },
+    {
+        "title": "The Agent identifies that the Season Pass implementation references or pulls from a different source (such as an alternative spreadsheet) than the Confluence 'ZM3D Season Pass - Spec' design page that Martin designed from.",
+        "category": "outcome",
+        "justification": "The prompt explicitly states 'the PR that rewrote them pulls from a completely different spreadsheet than the spec I designed around.' The agent must discover and report this source divergence - the PR used a different spreadsheet than the Confluence spec.",
+        "evidence": "Check the agent's final response for identification of a spreadsheet or source reference in the Season Pass PRs that differs from the Confluence 'ZM3D Season Pass - Spec' page. Look for mentions of alternative spreadsheets, external data sources, or acknowledgment that the PR did not cite the Confluence spec."
+    },
+    {
+        "title": "The Agent identifies the Collect & Win optimization ticket (ENG-2424 'Collect&win - Magical Wings - UI Optimization') and reports that it references a Figma created by someone other than the original designer.",
+        "category": "outcome",
+        "justification": "The prompt states 'the optimization work references a Figma that isn't mine.' ENG-2424 contains Figma link URL_53019 and is assigned to a different engineer (not Martin Walsh). The agent must discover and report this.",
+        "evidence": "Check the agent's final response or trajectory for identification of ENG-2424 and its Figma reference, noting that the Figma was not created by the requesting designer (Martin Walsh)."
+    },
+    {
+        "title": "The Agent identifies that the Combo Fighter Game Design Document specifies a gold-only economy with no second currency in the MVP.",
+        "category": "outcome",
+        "justification": "The prompt states 'new currencies that don't appear in the GDD at all.' The Combo Fighter GDD explicitly states 'Rewards are gold only. No gems, no energy, no second currency in the MVP.' The agent must find and report this to establish the baseline that was violated.",
+        "evidence": "Check the agent's final response or trajectory for reference to the Combo Fighter GDD's gold-only economy rule, the 'no second currency' statement, or equivalent language establishing that the GDD did not include gems, tickets, or rarity tiers."
+    },
+    {
+        "title": "The Agent identifies PR #34 in the Combo-Fighters repository as introducing new currencies (Gems and Tickets) that contradict the GDD's gold-only economy.",
+        "category": "outcome",
+        "justification": "The prompt asks 'which PRs carried which values.' PR #34 ('IAP') in the Combo-Fighters repo introduced 'New currencies: Gems and Tickets; ticket usage now funds rewarded flows' - directly contradicting the GDD's 'no second currency' rule. Merged by Oliver Brooks on 2026-01-28.",
+        "evidence": "Check the agent's final response or trajectory for identification of PR #34 (title 'IAP', branch 'Blake/IAP') in the Combo-Fighters repo, noting it introduced Gems and/or Tickets as new currencies not in the GDD."
+    },
+    {
+        "title": "The Agent identifies PR #37 in the Combo-Fighters repository as introducing a rarity tier system (Common, Rare, Epic, Legendary, Mythic) that does not appear in the GDD.",
+        "category": "outcome",
+        "justification": "The prompt states 'the merged code introduced a rarity tier system...that don't appear in the GDD at all.' PR #37 added 'combo rarity tiers: Common, Rare, Epic, Legendary, Mythic' with unlock mechanics and combo leveling. Merged by Oliver Brooks on 2026-02-13.",
+        "evidence": "Check the agent's final response or trajectory for identification of PR #37 in the Combo-Fighters repo, noting it introduced rarity tiers (Common, Rare, Epic, Legendary, Mythic) not present in the GDD."
+    },
+    {
+        "title": "The Agent identifies Oliver Brooks (oliver@harmonygames.co) as the person who merged or approved the parameter-changing PRs across the Season Pass and/or Combo Fighter features without design sign-off.",
+        "category": "outcome",
+        "justification": "The prompt asks 'who approved the changes.' Oliver Brooks (EMPLOYEE_0003_GITHUB_USERNAME, oliver@harmonygames.co) merged PR #438 (Season Pass), PR #34 (Combo Fighter IAP), and PR #37 (Combo Fighter rarity). He is the common approver across at least two of the three features.",
+        "evidence": "Check the agent's final response for identification of Oliver Brooks (or his email/username) as the person who merged the parameter-changing PRs. The agent should connect him to at least the Combo Fighter PRs (#34, #37) and ideally also to the Season Pass PR (#438)."
+    },
+    {
+        "title": "The Agent identifies Collect & Win PRs in the match3d repository (such as PR #468 'Collect And Win', PR #470, #477, or #482) or a live-ops spreadsheet as the source of the token-progression milestone values that differ from the original design.",
+        "category": "outcome",
+        "justification": "The prompt states 'The Collect and Win event...has token-progression milestones in the build that don't match what I designed.' The prompt also asks 'which PRs carried which values' for all three features. PR #468 is the primary C&W implementation PR in match3d (merged by EMPLOYEE_0032, 2025-09-29), with follow-up PRs #470, #477, #482 making additional changes. The values may also be traced to a runtime-loaded spreadsheet.",
+        "evidence": "Check the agent's final response or trajectory for identification of match3d C&W PRs (PR #468, #470, #477, #482, or the 'Collect&Win Items' PR) or a reference to the live-ops spreadsheet carrying the token-progression milestones."
+    },
+    {
+        "title": "The Agent reports on whether any meeting, calendar event, or documented discussion thread authorized the parameter changes before they shipped.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks 'whether any meeting or thread documented the decisions.' The agent must search for and report whether formal authorization existed. Based on the universe data, no formal design-review meeting or thread documenting these parameter decisions was found.",
+        "evidence": "Check the agent's final response for a statement about the presence or absence of documented meetings, calendar events, or discussion threads that authorized the Season Pass, Collect & Win, or Combo Fighter parameter changes before shipping."
+    }
+]

@@ -1,0 +1,302 @@
+[
+    {
+        "title": "The Agent sends a Zombie Match 3D live-ops design-discrepancy brief in Brian Foster's existing direct conversation D076RBM29JS.",
+        "category": "outcome",
+        "justification": "The prompt requires a direct message in the existing Julia–Brian conversation; D076RBM29JS is that grounded conversation and is directly verifiable from message-write arguments.",
+        "evidence": "Inspect one Slack message write whose channel argument is D076RBM29JS and whose body contains the Zombie Match 3D live-ops brief."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Domino Delights source ticket ENG-2402 specifies 5 stars for the 9-token Collect & Win stage while the source build grants 15 stars.",
+        "category": "outcome",
+        "justification": "This is the exact source-build Collect & Win discrepancy requested by the revised prompt.\n\n",
+        "evidence": "Inspect the brief for ENG-2402, its Domino Delights provenance, and the intended 5-stars versus granted 15-stars comparison."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that available Zombie Match evidence does not prove ENG-2402's 5-stars-versus-15-stars discrepancy carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The prompt requires the Agent to distinguish source evidence from same-title shipped evidence.\n\n",
+        "evidence": "Inspect the brief for an explicit limitation on applying ENG-2402 to Zombie Match."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Domino Delights source ticket ENG-2349 specifies 15 minutes of infinite lives for Axe Arena while the source build grants 10 minutes.",
+        "category": "outcome",
+        "justification": "The prompt requests the exact Axe Arena timer comparison from the source ticket.\n\n",
+        "evidence": "Inspect the brief for ENG-2349, its source-project provenance, and the Axe Arena values in the correct direction."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster, separately from Axe Arena, that Domino Delights source ticket ENG-2349 specifies 10 minutes of infinite lives for Win & Collect while the source build grants 15 minutes.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requires the Win & Collect timer to remain separate from Axe Arena.\n\n",
+        "evidence": "Inspect the brief for the Win & Collect values in the correct direction and presented separately from Axe Arena."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that available Zombie Match evidence does not prove ENG-2349's exact Axe Arena timer carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The prompt prohibits treating the Domino source ticket as proof of Zombie Match's Axe Arena timer.\n\n",
+        "evidence": "Inspect the brief for an explicit limitation on applying ENG-2349's Axe Arena timer to Zombie Match."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that available Zombie Match evidence does not prove ENG-2349's exact Win & Collect timer carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The prompt prohibits treating the Domino source ticket as proof of Zombie Match's Win & Collect timer.\n\n",
+        "evidence": "Inspect the brief for an explicit limitation on applying ENG-2349's Win & Collect timer to Zombie Match."
+    },
+    {
+        "title": "The Agent concludes in the brief to Brian Foster that available evidence does not establish whether Zombie Match Win Streak/Axe Arena matches its intended design.",
+        "category": "outcome",
+        "justification": "The prompt requires an intended-versus-shipped conclusion for Win Streak while prohibiting unsupported use of Domino source evidence.\n\n",
+        "evidence": "Inspect the brief for the explicit unverified Zombie Match Win Streak/Axe Arena conclusion."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that the Season Pass live reward tiers cannot be conclusively reconciled because the authoritative per-tier reward values are outside the accessible design records.",
+        "category": "outcome",
+        "justification": "The accessible Season Pass specification does not contain the authoritative per-tier reward-value table.\n\n",
+        "evidence": "Inspect the brief for the Season Pass source-of-truth limitation rather than an unsupported clean-match claim."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Zombie Match weekly-leaderboard tracker ZOM-71 is Done.",
+        "category": "outcome",
+        "justification": "This embeds the exact current status of the same-title Leaderboard tracker.\n\n",
+        "evidence": "Inspect the brief for ZOM-71 and its Done status."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Zombie Match issue ZOM-429 remains Backlog.",
+        "category": "outcome",
+        "justification": "This embeds the exact unresolved Leaderboard issue status.\n\n",
+        "evidence": "Inspect the brief for ZOM-429 and its Backlog status."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that ZOM-429 prevents the next weekly-leaderboard session from starting until the app is killed.",
+        "category": "outcome",
+        "justification": "This is the exact next-session behavior recorded in ZOM-429.\n\n",
+        "evidence": "Inspect the brief for the ZOM-429 next-session behavior and kill-app workaround."
+    },
+    {
+        "title": " The Agent reports in the brief to Brian Foster that ZOM-429 prevents the weekly-leaderboard reward claim until the app is killed.",
+        "category": "outcome",
+        "justification": "This is the exact reward-claim behavior recorded in ZOM-429.\n\n",
+        "evidence": "Inspect the brief for the ZOM-429 reward-claim behavior and kill-app workaround."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Zombie Match Daily Login tracker ZOM-299 is Done.",
+        "category": "outcome",
+        "justification": "This embeds the exact current status of the same-title Daily Login tracker.\n",
+        "evidence": "Inspect the brief for ZOM-299 and its Done status."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that Zombie Match issue ZOM-613 remains Todo.",
+        "category": "outcome",
+        "justification": "This embeds the exact unresolved Daily Login issue status.\n\n",
+        "evidence": "Inspect the brief for ZOM-613 and its Todo status."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that ZOM-613 causes the Daily Login queue to become stuck during initiation.",
+        "category": "outcome",
+        "justification": "This is the exact Daily Login behavior recorded in ZOM-613.\n\n",
+        "evidence": "Inspect the brief for the ZOM-613 queue-stuck behavior during Daily Login initiation."
+    },
+    {
+        "title": "The Agent reports in the brief to Brian Foster that the ZOM-613 queue blockage can require killing and restarting the app.",
+        "category": "outcome",
+        "justification": "This is the exact recovery limitation recorded in ZOM-613.\n\n",
+        "evidence": "Inspect the brief for the ZOM-613 kill-and-restart recovery requirement."
+    },
+    {
+        "title": "The Agent creates a Zombie Match 3D live-ops product-health document for the founders meeting.",
+        "category": "outcome",
+        "justification": "The prompt explicitly requests a product-health document for the founders meeting.\n\n",
+        "evidence": "Inspect the document-creation arguments for a Zombie Match 3D live-ops product-health title and body."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Domino Delights source ticket ENG-2402 specifies 5 stars for the 9-token Collect & Win stage while the source build grants 15 stars.",
+        "category": "outcome",
+        "justification": "The document must record the exact source-build Collect & Win discrepancy.\n",
+        "evidence": "Inspect the document for ENG-2402, its source-project provenance, and the intended 5-stars versus granted 15-stars comparison."
+    },
+    {
+        "title": "The Agent reports in the product-health document that available Zombie Match evidence does not prove ENG-2402's 5-stars-versus-15-stars discrepancy carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The document must preserve the source-versus-Zombie evidence boundary.\n\n",
+        "evidence": "Inspect the document for an explicit limitation on applying ENG-2402 to Zombie Match."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Domino Delights source ticket ENG-2349 specifies 15 minutes of infinite lives for Axe Arena while the source build grants 10 minutes.",
+        "category": "outcome",
+        "justification": "The document must state the exact Axe Arena source-timer comparison.\n\n",
+        "evidence": "Inspect the document for ENG-2349, its source-project provenance, and the Axe Arena values in the correct direction."
+    },
+    {
+        "title": "The Agent reports in the product-health document, separately from Axe Arena, that Domino Delights source ticket ENG-2349 specifies 10 minutes of infinite lives for Win & Collect while the source build grants 15 minutes.",
+        "category": "outcome",
+        "justification": "The document must keep the Win & Collect timer separate from Axe Arena.\n\n",
+        "evidence": "Inspect the document for the Win & Collect values in the correct direction and presented separately from Axe Arena."
+    },
+    {
+        "title": "The Agent reports in the product-health document that available Zombie Match evidence does not prove ENG-2349's exact Axe Arena timer carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The document must not present the source-project Axe Arena timer as same-title shipped proof.\n\n",
+        "evidence": "Inspect the document for an explicit limitation on applying ENG-2349's Axe Arena timer to Zombie Match."
+    },
+    {
+        "title": "The Agent reports in the product-health document that available Zombie Match evidence does not prove ENG-2349's exact Win & Collect timer carried into the Zombie Match build.",
+        "category": "outcome",
+        "justification": "The document must not present the source-project Win & Collect timer as same-title shipped proof.\n\n",
+        "evidence": "Inspect the document for an explicit limitation on applying ENG-2349's Win & Collect timer to Zombie Match."
+    },
+    {
+        "title": "The Agent concludes in the product-health document that available evidence does not establish whether Zombie Match Win Streak/Axe Arena matches its intended design.",
+        "category": "outcome",
+        "justification": "The document must give an intended-versus-shipped conclusion for Win Streak without treating Domino source evidence as Zombie proof.\n\n",
+        "evidence": "Inspect the document for the explicit unverified Zombie Match Win Streak/Axe Arena conclusion."
+    },
+    {
+        "title": "The Agent reports in the product-health document that the Season Pass live reward tiers cannot be conclusively reconciled because the authoritative per-tier reward values are outside the accessible design records.",
+        "category": "outcome",
+        "justification": "The document must answer the Season Pass question without unsupported certainty.\n\n",
+        "evidence": "Inspect the document for the Season Pass source-of-truth limitation."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match weekly-leaderboard tracker ZOM-71 is Done.",
+        "category": "outcome",
+        "justification": "The document must record the exact current status of the same-title Leaderboard tracker.\n\n",
+        "evidence": "Inspect the document for ZOM-71 and its Done status."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match issue ZOM-429 remains Backlog.",
+        "category": "outcome",
+        "justification": "The document must record the exact unresolved Leaderboard issue status.\n\n",
+        "evidence": "Inspect the document for ZOM-429 and its Backlog status."
+    },
+    {
+        "title": "The Agent reports in the product-health document that ZOM-429 prevents the next weekly-leaderboard session from starting until the app is killed.",
+        "category": "outcome",
+        "justification": "The document must record the exact ZOM-429 next-session behavior.\n\n",
+        "evidence": "Inspect the document for the ZOM-429 next-session behavior and kill-app workaround."
+    },
+    {
+        "title": "The Agent reports in the product-health document that ZOM-429 prevents the weekly-leaderboard reward claim until the app is killed.",
+        "category": "outcome",
+        "justification": "The document must record the exact ZOM-429 reward-claim behavior.\n\n",
+        "evidence": "Inspect the document for the ZOM-429 reward-claim behavior and kill-app workaround."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match Daily Login tracker ZOM-299 is Done.",
+        "category": "outcome",
+        "justification": "The document must record the exact current status of the same-title Daily Login tracker.\n\n",
+        "evidence": "Inspect the document for ZOM-299 and its Done status."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match issue ZOM-613 remains Todo.",
+        "category": "outcome",
+        "justification": "The document must record the exact unresolved Daily Login issue status.\n\n",
+        "evidence": "Inspect the document for ZOM-613 and its Todo status."
+    },
+    {
+        "title": "The Agent reports in the product-health document that ZOM-613 causes the Daily Login queue to become stuck during initiation.",
+        "category": "outcome",
+        "justification": "The document must record the exact ZOM-613 Daily Login behavior.\n\n",
+        "evidence": "Inspect the document for the ZOM-613 queue-stuck behavior during Daily Login initiation."
+    },
+    {
+        "title": "The Agent reports in the product-health document that the ZOM-613 queue blockage can require killing and restarting the app.",
+        "category": "outcome",
+        "justification": "The document must record the exact ZOM-613 recovery limitation.\n\n\n\n",
+        "evidence": "Inspect the document for the ZOM-613 kill-and-restart recovery requirement."
+    },
+    {
+        "title": "The Agent reports in the product-health document that match3d Season Pass pull request #438 is merged.",
+        "category": "outcome",
+        "justification": "The human-review finding applies to this exact merged Season Pass change.\n\n",
+        "evidence": "Inspect the document for the merged state of match3d PR #438."
+    },
+    {
+        "title": "The Agent reports in the product-health document that match3d Season Pass pull request #438 had no human submitted review.",
+        "category": "outcome",
+        "justification": "This exact feature pull request answers the prompt's human-review question.\n\n",
+        "evidence": "Inspect the document for the no-human-review finding for match3d PR #438."
+    },
+    {
+        "title": "The Agent reports in the product-health document that pull-request review evidence alone does not establish which production release contained match3d Season Pass pull request #438.",
+        "category": "outcome",
+        "justification": "The document must keep merge-review evidence separate from an unsupported production-deployment conclusion.\n\n",
+        "evidence": "Inspect the document for an explicit deployment-provenance limitation concerning match3d PR #438."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match 3D monthly-average D1 retention remained approximately 27–28% from May 2025 through February 2026, with no meaningful sustained lift across the live-ops launch window.",
+        "category": "outcome",
+        "justification": "The prompt requests the title-level retention trend as roadmap context.\n\n",
+        "evidence": "Inspect the document for the approximate D1 range, date window, and flat directional conclusion."
+    },
+    {
+        "title": "The Agent reports in the product-health document that Zombie Match 3D monthly revenue rose to approximately $6,100 around August 2025 and then declined to approximately $3,000 by January 2026.",
+        "category": "outcome",
+        "justification": "The prompt requests the title-level revenue trend as roadmap context.\n",
+        "evidence": "\nInspect the document for the approximate peak, peak timing, later level, and declining direction."
+    },
+    {
+        "title": "The Agent submits exactly one comment to Zombie Match Daily Login tracker ZOM-299.",
+        "category": "outcome",
+        "justification": "The prompt requires one deterministic note on ZOM-299.\n\n",
+        "evidence": "Count the Linear comment-write arguments targeting ZOM-299; exactly one must be present."
+    },
+    {
+        "title": "The Agent states in the ZOM-299 comment that ZOM-613 remains Todo.",
+        "category": "outcome",
+        "justification": "The note must identify the exact unresolved same-title Daily Login issue and status.\n\n",
+        "evidence": "Inspect the ZOM-299 comment body for ZOM-613 and Todo."
+    },
+    {
+        "title": "The Agent states in the ZOM-299 comment that the Daily Login queue can become stuck during initiation.",
+        "category": "outcome",
+        "justification": "The note must explain the exact unresolved behavior recorded in ZOM-613.\n\n",
+        "evidence": "Inspect the ZOM-299 comment body for the Daily Login queue-stuck behavior during initiation."
+    },
+    {
+        "title": "The Agent states in the ZOM-299 comment that the ZOM-613 blockage can require killing and restarting the app.",
+        "category": "outcome",
+        "justification": "The note must explain the recovery limitation recorded in ZOM-613.\n\n",
+        "evidence": "Inspect the ZOM-299 comment body for the kill-and-restart recovery requirement."
+    },
+    {
+        "title": "The Agent submits exactly one comment to Zombie Match weekly-leaderboard tracker ZOM-71.",
+        "category": "outcome",
+        "justification": "The prompt requires one deterministic note on ZOM-71.\n\n",
+        "evidence": "Count the Linear comment-write arguments targeting ZOM-71; exactly one must be present."
+    },
+    {
+        "title": "The Agent states in the ZOM-71 comment that ZOM-429 remains Backlog.",
+        "category": "outcome",
+        "justification": "The note must identify the exact unresolved same-title weekly-leaderboard issue and status.\n\n\n\n",
+        "evidence": "Inspect the ZOM-71 comment body for ZOM-429 and Backlog."
+    },
+    {
+        "title": "The Agent states in the ZOM-71 comment that ZOM-429 prevents the next weekly-leaderboard session from starting until the app is killed.",
+        "category": "outcome",
+        "justification": "The note must explain the exact next-session behavior recorded in ZOM-429.\n\n",
+        "evidence": "Inspect the ZOM-71 comment body for the next-session behavior and kill-app workaround."
+    },
+    {
+        "title": "The Agent states in the ZOM-71 comment that ZOM-429 prevents the weekly-leaderboard reward claim until the app is killed.",
+        "category": "outcome",
+        "justification": "The note must explain the exact reward-claim behavior recorded in ZOM-429.\n",
+        "evidence": "Inspect the ZOM-71 comment body for the reward-claim behavior and kill-app workaround."
+    },
+    {
+        "title": "The Agent submits no non-comment Linear mutation to ZOM-299.",
+        "category": "outcome",
+        "justification": "The prompt authorizes only the required comment on ZOM-299 and prohibits other tracker changes.\n\n",
+        "evidence": "Verify that every Linear mutation targeting ZOM-299 is a comment write and that no issue-update arguments target ZOM-299."
+    },
+    {
+        "title": "The Agent submits no non-comment Linear mutation to ZOM-71.",
+        "category": "outcome",
+        "justification": "The prompt authorizes only the required comment on ZOM-71 and prohibits other tracker changes.\n",
+        "evidence": "Verify that every Linear mutation targeting ZOM-71 is a comment write and that no issue-update arguments target ZOM-71."
+    },
+    {
+        "title": "The Agent makes no Linear mutation targeting a record other than ZOM-299 or ZOM-71.",
+        "category": "outcome",
+        "justification": "The prompt prohibits substitute writes to Domino source trackers and design/art subtasks.\n\n",
+        "evidence": "Inspect all Linear mutation arguments and verify that every target is either ZOM-299 or ZOM-71."
+    }
+]

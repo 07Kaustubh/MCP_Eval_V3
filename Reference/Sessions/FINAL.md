@@ -26,7 +26,7 @@
 | `Tasks/<TASK_DIR>/_aux/Fact_Ledger.json` | S0 atom surface |
 | `Tasks/<TASK_DIR>/_aux/Universe_Index/` | S0 summaries |
 | `Tasks/_meta/Learnings.md` | empirical Opus 4.8 failure modes |
-| QC spec docs routed by `_aux/Universe.txt`: Brookfield `Docs/7+8` · KeyStone `Docs_keystone/7+8` · MoveOps `Docs_moveops` QC guidelines · StarPM `Docs_starpm/7_QC_Spec_Doc1.json` + `Docs_starpm/8_QC_Spec_Doc2.md` (NEVER cross-load another universe's spec) | QC scoring |
+| QC spec docs routed by `_aux/Universe.txt`: Brookfield `Docs/7+8` · KeyStone `Docs_keystone/7+8` · MoveOps `Docs_moveops` QC guidelines · StarPM `Docs_starpm/7_QC_Spec_Doc1.json` + `Docs_starpm/8_QC_Spec_Doc2.md` · HarmonyGames `Docs_harmonygames/7_QC_Spec_Doc1.json` + `Docs_harmonygames/8_QC_Spec_Doc2.md` (7 dims / 38 sub-dims, 18 BINARY) (NEVER cross-load another universe's spec) | QC scoring |
 | `Reference/Council_Protocol.md` | council instructions |
 
 ## Roster (4 perspectives in a single high-rigor sub-agent call)

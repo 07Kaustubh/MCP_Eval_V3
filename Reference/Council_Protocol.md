@@ -697,3 +697,18 @@ Every council / AUDIT / FINAL report MUST end with a fenced JSON block conformin
 - Cross-task aggregation: future `Validators/aggregate_verdicts.py` will glob `Tasks/*/_aux/Council_Reports/*.md`, extract the trailing JSON blocks, and emit portfolio-level QC trend tables.
 
 This format closes the gap where every council emitted its own freeform verdict text. Now any verdict from any phase can be parsed for portfolio-level analysis without writing per-phase regex.
+
+## HarmonyGames (`hg`) routing
+
+Business functions are the six in
+`HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md`: Engineering & Live-Ops
+25%, Product & Design 20%, Growth/UA/Marketing 15%, Founders/Exec/Strategy 15%,
+Finance/Legal/HR/Ops 15%, Analytics & Data 10%. The A10 prompt's Brookfield ten do not apply.
+
+The A5 persona whitelist is `Persona_ACL_Roster.json` (17 entries) PLUS the personas
+documented in `2_Persona_Briefs.md`. Do not treat the roster as exhaustive: a task whose
+persona is documented in the briefs but missing from the roster passed upstream QC.
+
+Services are the thirteen in the registry, with ZERO overlap with the other four universes.
+Model under test is **Opus 4.7**, not 4.8. QC spec is 7 dimensions / 38 sub-dimensions, 18 of
+them binary.

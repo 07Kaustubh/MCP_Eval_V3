@@ -365,6 +365,20 @@ def main():
     ap.add_argument("task_dir")
     args = ap.parse_args()
     task_dir = Path(args.task_dir).resolve()
+    # Refuse to build against an unresolvable universe. A failed split leaves an EMPTY
+    # Universe_Split behind, so an is_dir() check passes and the builder writes an artifact
+    # full of zeros that downstream phases then trust. ImportError is tolerated (the module
+    # is optional); UniverseDataError is NOT swallowed.
+    try:
+        from universe_data_source import require_resolvable, UniverseDataError
+    except ImportError:
+        require_resolvable = None
+    if require_resolvable is not None:
+        try:
+            require_resolvable(Path(task_dir))
+        except UniverseDataError as _e:
+            print(f"FAIL: {_e}", file=sys.stderr)
+            return 1
     split_dir = task_dir / "_aux" / "Universe_Split"
     if not split_dir.is_dir():
         print(f"ERROR: {split_dir} missing — run split_universe.py first", file=sys.stderr)
@@ -410,4 +424,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)

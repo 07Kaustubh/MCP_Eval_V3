@@ -127,9 +127,24 @@ def load_trajectory(path):
         return None
 
 
-def count_tool_calls(events):
+def count_tool_calls(events, excluded_names=()):
+    """Count tool calls, optionally excluding names that are not Agent work.
+
+    `excluded_names` comes from the framework profile's `density_excluded_calls`. For
+    HarmonyGames the QC spec is explicit that `set_acting_user`, ACL-denied reads and
+    retries against inaccessible records "are not necessary Agent work and do not count
+    toward any threshold". Counting them inflates density and can float a task over a
+    floor it did not really clear. Empty for every other universe, so their counts are
+    byte-identical.
+    """
     if not isinstance(events, list):
         return 0, 0
+    excluded = {str(x).lower() for x in (excluded_names or ())}
+
+    def _skip(name: str) -> bool:
+        n = (name or "").lower()
+        return any(e in n for e in excluded)
+
     total = 0
     mcp = 0
     for ev in events:
@@ -143,6 +158,8 @@ def count_tool_calls(events):
         # `tool_use` event (their event types are system/assistant/user/result),
         # so their counts are unchanged by this branch.
         if ev.get("type") == "tool_use":
+            if _skip(ev.get("tool_name", "")):
+                continue
             total += 1
             if ev.get("tool_name", "").startswith("mcp_"):
                 mcp += 1
@@ -156,6 +173,8 @@ def count_tool_calls(events):
             continue
         for block in content:
             if isinstance(block, dict) and block.get("type") == "tool_use":
+                if _skip(block.get("name", "")):
+                    continue
                 total += 1
                 if block.get("name", "").startswith("mcp__"):
                     mcp += 1
@@ -254,7 +273,63 @@ def write_stats(out_path, out):
         return False
 
 
-def build_per_run(discovered, task_dir):
+ACL_DENIAL_MARKERS = ("permission denied", "not authorized", "unauthorized",
+                      "access denied", "acl denied", "forbidden",
+                      "does not have access", "no access to")
+
+
+def _tool_result_text(ev) -> str:
+    """Only the TOOL RESULT text, never the whole stringified event.
+
+    Matching a denial phrase against `str(ev)` counted the agent's own prose ("I am not
+    authorized to send email") identically to an actual permission error from a tool. The
+    denial has to come from the environment to mean anything.
+    """
+    parts = []
+    if not isinstance(ev, dict):
+        return ""
+    msg = ev.get("message")
+    if isinstance(msg, dict):
+        content = msg.get("content")
+        if isinstance(content, list):
+            for b in content:
+                if isinstance(b, dict) and b.get("type") == "tool_result":
+                    c = b.get("content")
+                    parts.append(c if isinstance(c, str) else str(c))
+    if ev.get("type") in ("tool_result", "function_response"):
+        parts.append(str(ev.get("content") or ev.get("output") or ""))
+    return " ".join(parts).lower()
+
+
+def run_disposition(events, dispositions) -> str:
+    """Classify a run as `counted` or `excluded`.
+
+    HarmonyGames adds a THIRD trajectory disposition: a read performed under the wrong
+    acting identity is not a wrong answer, it is an invalid execution.
+
+    HONEST STATUS OF THIS RULE. It is OBSERVATIONAL ONLY - `runs_excluded` is reported but
+    the pass@1 and density denominators are NOT altered by it. Two reasons:
+
+    - There is no evidence it fires correctly. Across all 12 HarmonyGames trajectories in
+      the QC corpus it classifies ZERO runs as excluded, so the threshold below is asserted
+      rather than measured. Silently changing a difficulty verdict on an unvalidated
+      heuristic is how a task gets mis-graded.
+    - Subtracting a run moves BOTH gates at once: it raises pass@1 toward the 0.40 ceiling
+      and lowers the density mean. A false exclusion is therefore not neutral.
+
+    Promote it to affect the denominators only after a real excluded run is observed and
+    pinned as a fixture.
+    """
+    if "excluded" not in (dispositions or ()):
+        return "counted"
+    if not isinstance(events, list):
+        return "counted"
+    denials = sum(1 for ev in events
+                  if any(m in _tool_result_text(ev) for m in ACL_DENIAL_MARKERS))
+    return "excluded" if denials >= 3 else "counted"
+
+
+def build_per_run(discovered, task_dir, excluded_names=(), dispositions=()):
     per_run = []
     for run_n, fp, model in discovered:
         events = load_trajectory(fp)
@@ -264,11 +339,13 @@ def build_per_run(discovered, task_dir):
                 entry["model"] = model
             per_run.append(entry)
             continue
-        total, mcp = count_tool_calls(events)
+        total, mcp = count_tool_calls(events, excluded_names)
+        _disp = run_disposition(events, dispositions)
         entry = {
             "run": run_n,
             "file": str(fp.relative_to(task_dir)),
             "status": "ok",
+            "disposition": _disp,
             "tool_calls_total": total,
             "tool_calls_mcp_only": mcp,
         }
@@ -314,7 +391,8 @@ def run_per_model(task_dir, universe, per_run, valid, totals, mcps, avg_total, a
 
     overall_pass_at_1 = round(agg_pass / agg_runs, 3) if agg_runs else None
     density_ok = avg_total >= floor
-    difficulty_ok = (overall_pass_at_1 <= 0.40) if overall_pass_at_1 is not None else None
+    _ceiling = profile.get('pass_at_1_ceiling', 0.40)
+    difficulty_ok = (overall_pass_at_1 <= _ceiling) if overall_pass_at_1 is not None else None
     verdict = "OK"
     if not density_ok:
         verdict = "REBUILD_CANDIDATE_DENSITY"
@@ -325,6 +403,10 @@ def run_per_model(task_dir, universe, per_run, valid, totals, mcps, avg_total, a
     out = {
         "task": task_dir.name,
         "framework_version": get_universe_constants(universe).get("framework_version", "v3"),
+        # Read from the registry so the density verdict is judged against THIS universe's
+        # design target and THIS universe's model, rather than a hardcoded 50/Opus-4.8.
+        "density_target": get_framework_profile(universe).get("density_target"),
+        "model_under_test": get_framework_profile(universe).get("model_under_test"),
         "trajectory_layout": "per_model",
         "per_run": per_run,
         "runs_evaluated": len(valid),
@@ -391,9 +473,15 @@ def main():
         print(f"ERROR: no trajectory files found in {task_dir}/trajectory-runs/ or /Agent_Responses/", file=sys.stderr)
         sys.exit(2)
 
-    per_run = build_per_run(discovered, task_dir)
+    _excluded = get_framework_profile(universe).get('density_excluded_calls', [])
+    _disps = get_framework_profile(universe).get('trajectory_dispositions', [])
+    per_run = build_per_run(discovered, task_dir, _excluded, _disps)
 
+    # Excluded runs are REPORTED, not subtracted: see run_disposition's docstring. The
+    # rule has zero supporting observations in the corpus, and subtracting moves both the
+    # difficulty and density verdicts at once.
     valid = [r for r in per_run if r["status"] == "ok"]
+    _n_excluded = sum(1 for r in per_run if r.get("disposition") == "excluded")
     totals = [r["tool_calls_total"] for r in valid]
     mcps = [r["tool_calls_mcp_only"] for r in valid]
     avg_total = round(mean(totals), 1) if totals else 0.0
@@ -406,8 +494,12 @@ def main():
     # ---- flat path (v3 / v3.1 / v2.1): behavior byte-identical to the original ----
     vf = parse_verifier_fails(task_dir / "8_Verifier_Fails.txt")
 
-    density_ok = avg_total >= 40
-    difficulty_ok = (vf["pass_at_1"] <= 0.40) if vf is not None else None
+    _prof = get_framework_profile(universe)
+    _ceiling = _prof.get("pass_at_1_ceiling", 0.40)
+    _target = _prof.get("density_target")
+    _floor = _prof.get("density_floor_avg_tool_calls", 40)
+    density_ok = avg_total >= _floor
+    difficulty_ok = (vf["pass_at_1"] <= _ceiling) if vf is not None else None
     verdict = "OK"
     if not density_ok:
         verdict = "REBUILD_CANDIDATE_DENSITY"
@@ -422,7 +514,10 @@ def main():
         "avg_tool_calls_mcp_only": avg_mcp,
         "min_tool_calls_total": min(totals) if totals else 0,
         "max_tool_calls_total": max(totals) if totals else 0,
-        "density_ok_at_40": density_ok,
+        "runs_excluded": _n_excluded,   # OBSERVATIONAL: not subtracted from any denominator
+        f"density_ok_at_{_floor}": density_ok,
+        "density_target": _target,      # the universe's DESIGN target
+        "meets_density_target": (avg_total >= _target) if _target else None,
         "verifier_fails": vf,
         "difficulty_ok_at_40pct": difficulty_ok,
         "verdict": verdict,

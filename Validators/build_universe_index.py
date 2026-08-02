@@ -20,6 +20,7 @@ Usage:
 import json
 import sys
 from collections import Counter, defaultdict
+from functools import lru_cache
 from pathlib import Path
 
 UNIVERSE_FIXED_TODAY_DEFAULT = "2026-06-12"
@@ -45,16 +46,33 @@ def resolve_universe_tz(task_dir: Path) -> str:
     # The index historically hardcoded "America/New_York" for the timezone field.
     # That is wrong for moveops (registry today_tz=US/Pacific) and mislabeled for
     # brookfield/keystone (registry today_tz=US/Eastern, the same zone under a
-    # different name). To keep the three pre-V4 universes byte-identical we preserve
-    # the legacy literal for them and route the registry tz only for starpm
-    # (America/Chicago). The pre-existing mislabel is left intact intentionally.
+    # different name). The three pre-V4 universes deliberately do NOT declare
+    # `index_tz_from_registry`, so they keep the legacy literal and stay byte-identical;
+    # the pre-existing mislabel is left intact on purpose. Universes that DO declare it
+    # (starpm America/Chicago, harmonygames America/Chicago) get their real zone.
     try:
         u = detect_universe(task_dir)
-        if u == "starpm":
-            return get_universe_constants(u).get("today_tz", UNIVERSE_FIXED_TZ_DEFAULT)
+        c = get_universe_constants(u)
+        if c.get("index_tz_from_registry"):
+            return c.get("today_tz", UNIVERSE_FIXED_TZ_DEFAULT)
         return UNIVERSE_FIXED_TZ_DEFAULT
     except Exception:
         return UNIVERSE_FIXED_TZ_DEFAULT
+
+
+@lru_cache(maxsize=None)
+def _domain_tagging(universe: str):
+    """(use_domain, "@domain", npc_mailboxes) for persona-vs-NPC tagging.
+
+    Universes that declare `index_internal_by_domain` treat any address at the persona
+    domain as internal. Without this, HarmonyGames tagged all 17 personas as NPCs and the
+    index reported zero personas while the Fact_Ledger disagreed. The three pre-V4
+    universes do not declare it, so their tagging (and byte-identical output) is unchanged.
+    """
+    c = get_universe_constants(universe)
+    npcs = frozenset(e.lower() for e in (c.get("npcs") or set()) if isinstance(e, str) and "@" in e)
+    return (bool(c.get("index_internal_by_domain")),
+            "@" + str(c.get("persona_email_domain") or ""), npcs)
 
 
 def load(path: Path):
@@ -112,7 +130,9 @@ def entities_personas(split_dir: Path, out: Path) -> None:
         is_user = d.get("is_user")
         if email and email not in seen:
             seen.add(email)
-            internal = bool(is_user) or (universe == "starpm" and str(email).endswith("@starpm.com"))
+            _by_dom, _dom, _npcs = _domain_tagging(universe)
+            internal = bool(is_user) or (_by_dom and str(email).endswith(_dom)
+                                         and str(email).lower() not in _npcs)
             tag = "persona" if internal else "npc"
             rows.append((name or "", email, role or "", tag))
 
@@ -234,8 +254,12 @@ def key_facts(split_dir: Path, out: Path) -> None:
 
     issues = list(rows_of(split_dir / "linear.linear_issues.json"))
     if issues:
-        if universe == "starpm":
-            _ws = {w.get("id"): w.get("name") for w in rows_of(split_dir / "linear.linear_workflow_states.json")}
+        # Presence-driven, not name-driven: any universe whose split ships a workflow-state
+        # table gets human-readable state names. Verified that this file exists ONLY in
+        # starpm splits today, so brookfield/keystone/moveops output is unchanged.
+        _wsf = split_dir / "linear.linear_workflow_states.json"
+        if _wsf.is_file():
+            _ws = {w.get("id"): w.get("name") for w in rows_of(_wsf)}
             by_state = Counter(_ws.get(i.get("state_id"), str(i.get("state_id", "?"))) for i in issues)
         else:
             by_state = Counter(i.get("state", i.get("status", "?")) for i in issues)
@@ -345,6 +369,17 @@ def main() -> None:
         print("Usage: python Validators/build_universe_index.py <path_to_task_dir>", file=sys.stderr)
         sys.exit(1)
     task_dir = Path(sys.argv[1]).resolve()
+    # Refuse to build against an unresolvable universe. The split_dir check below is not
+    # enough: a failed split leaves an EMPTY Universe_Split behind, which is_dir() accepts,
+    # so this builder exited 0 and wrote an index describing nothing.
+    try:
+        from universe_data_source import require_resolvable, UniverseDataError
+        require_resolvable(task_dir)
+    except UniverseDataError as _e:
+        print(f"FAIL: {_e}", file=sys.stderr)
+        sys.exit(1)
+    except Exception:
+        pass
     split_dir = task_dir / "_aux" / "Universe_Split"
     if not split_dir.is_dir():
         print(f"ERROR: {split_dir} not found. Run split_universe.py first.", file=sys.stderr)

@@ -1,0 +1,482 @@
+[
+    {
+        "title": "The Agent creates one spreadsheet for the July 1 source-code provenance closeout.",
+        "category": "outcome",
+        "justification": "The register is the canonical per-PR preservation record.",
+        "evidence": "Inspect the trajectory for exactly one spreadsheet-creation action."
+    },
+    {
+        "title": "The Agent writes nonempty provenance Register data to a spreadsheet.",
+        "category": "outcome",
+        "justification": "The spreadsheet deliverable requires a concrete Register write action.",
+        "evidence": "Inspect spreadsheet-write arguments for nonempty data targeting a Register tab."
+    },
+    {
+        "title": "The Agent creates one TL;DR memo file for the source-code preservation closeout.",
+        "category": "outcome",
+        "justification": "The memo is the founder-facing companion record.",
+        "evidence": "Inspect the trajectory for exactly one file-creation action containing the requested memo."
+    },
+    {
+        "title": "The Agent formats the TL;DR memo content as Markdown.",
+        "category": "outcome",
+        "justification": "The prompt requests a Markdown memo rather than an unstructured plain-text note.",
+        "evidence": "Inspect the memo creation arguments for Markdown structure and either a .md filename or a Markdown MIME type."
+    },
+    {
+        "title": "The Agent names the spreadsheet tab Register.",
+        "category": "outcome",
+        "justification": "The prompt fixes one worksheet name for the preservation matrix.",
+        "evidence": "Inspect the created spreadsheet and written range for the exact tab name Register."
+    },
+    {
+        "title": "The Agent gives repository identity its own Register field.",
+        "category": "outcome",
+        "justification": "The prompt fixes one worksheet name for the preservation matrix.",
+        "evidence": "Inspect the created spreadsheet and written range for the exact tab name Register."
+    },
+    {
+        "title": "The Agent gives PR number its own Register field.",
+        "category": "outcome",
+        "justification": "PR number is one part of the metadata needed to locate a source PR.",
+        "evidence": "Inspect the Register header for a dedicated PR-number field."
+    },
+    {
+        "title": "The Agent gives commit evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Commit evidence must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated commit-evidence field."
+    },
+    {
+        "title": "The Agent gives submitted-review evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Submitted-review evidence must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated submitted-review field."
+    },
+    {
+        "title": "The Agent gives inline-diff discussion evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Inline-diff discussion must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated inline-discussion field."
+    },
+    {
+        "title": "The Agent gives general PR conversation evidence its own Register field.",
+        "category": "outcome",
+        "justification": "General PR conversation must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated general-conversation field."
+    },
+    {
+        "title": "The Agent gives lifecycle-history evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Lifecycle history must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated lifecycle-history field."
+    },
+    {
+        "title": "The Agent gives provenance flags their own Register field.",
+        "category": "outcome",
+        "justification": "Preservation-gap classifications must remain distinct from evidence summaries.",
+        "evidence": "Inspect the Register header for a dedicated provenance-flags field."
+    },
+    {
+        "title": "The Agent gives completion status its own Register field.",
+        "category": "outcome",
+        "justification": "The prompt requests a completion marker for every PR.",
+        "evidence": "Inspect the Register header for a dedicated completion-status field."
+    },
+    {
+        "title": "The Agent gives the cutoff its own Register field.",
+        "category": "outcome",
+        "justification": "The prompt requests the snapshot cutoff on every PR row.",
+        "evidence": "Inspect the Register header for a dedicated cutoff field."
+    },
+    {
+        "title": "The Agent records the Combo-Fighters PR-number multiset as every integer from 1 through 37 exactly once.",
+        "category": "outcome",
+        "justification": "This exact multiset accepts the complete discovered cohort and rejects missing, duplicate, or extra keys.",
+        "evidence": "Inspect the PR-number values on rows whose Repository is Combo-Fighters."
+    },
+    {
+        "title": "The Agent records the game-of-dominoes-backend PR-number multiset as every integer from 1 through 79 exactly once.",
+        "category": "outcome",
+        "justification": "This exact multiset accepts the complete discovered cohort and rejects missing, duplicate, or extra keys.",
+        "evidence": "Inspect the PR-number values on rows whose Repository is game-of-dominoes-backend."
+    },
+    {
+        "title": "The Agent keeps each repository's Register rows in one contiguous block.",
+        "category": "outcome",
+        "justification": "The prompt requires repository grouping while leaving the order of the two blocks flexible.",
+        "evidence": "Inspect the complete Register for exactly one uninterrupted block per repository."
+    },
+    {
+        "title": "The Agent uses one consistent PR-number sequence within each repository block.",
+        "category": "outcome",
+        "justification": "The prompt groups each repository block by PR number without prescribing direction.",
+        "evidence": "Inspect each repository block for a strictly ascending or strictly descending PR-number sequence."
+    },
+    {
+        "title": "The Agent records exactly 116 populated data rows in the complete Register.",
+        "category": "outcome",
+        "justification": "The total excludes out-of-scope rows beyond the two exact repository cohorts.",
+        "evidence": "Count all populated data rows across the complete Register, excluding the header."
+    },
+    {
+        "title": "The Agent uses only these non-NONE Provenance flags: NO_SUBMITTED_REVIEW, NO_INLINE_REVIEW_DISCUSSION, NO_GENERAL_CONVERSATION, NO_REVIEW_REQUEST_EVENT, and MULTI_COMMIT_WITHOUT_APPROVAL.",
+        "category": "outcome",
+        "justification": "The prompt defines a closed provenance-flag vocabulary.",
+        "evidence": "Inspect every non-NONE token in the Provenance flags field against the closed set in this criterion."
+    },
+    {
+        "title": "The Agent uses NONE only as the sole value of a Provenance flags cell.",
+        "category": "outcome",
+        "justification": "NONE represents the exclusive absence of all five preservation-gap flags.",
+        "evidence": "Inspect every Provenance flags field for any value that combines NONE with another token."
+    },
+    {
+        "title": "The Agent applies NO_SUBMITTED_REVIEW exactly on rows whose submitted-review summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of submitted review records.",
+        "evidence": "Compare the flag and submitted-review summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_INLINE_REVIEW_DISCUSSION exactly on rows whose inline-diff discussion summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of inline review discussion.",
+        "evidence": "Compare the flag and inline-discussion summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_GENERAL_CONVERSATION exactly on rows whose general PR conversation summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of general PR conversation.",
+        "evidence": "Compare the flag and general-conversation summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_REVIEW_REQUEST_EVENT exactly on rows whose lifecycle summary does not include review_requested.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of a review-request lifecycle event.",
+        "evidence": "Compare the flag and lifecycle event set on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies MULTI_COMMIT_WITHOUT_APPROVAL exactly on rows with more than one commit and no APPROVED state in the submitted-review summary.",
+        "category": "outcome",
+        "justification": "This is the prompt's approval rule for multi-commit preservation gaps.",
+        "evidence": "Compare the flag with the commit count and complete submitted-review state set on every row."
+    },
+    {
+        "title": "The Agent records Provenance flags as exactly NONE on every row where none of the five preservation-gap conditions applies.",
+        "category": "outcome",
+        "justification": "NONE is the required value when a PR has no record-gap flag.",
+        "evidence": "Inspect every row that meets none of the five flag conditions for the exact sole value NONE."
+    },
+    {
+        "title": "The Agent marks a row complete only when its commit-evidence field is populated.",
+        "category": "outcome",
+        "justification": "\"A completion marker requires a recorded result for the commit check.",
+        "evidence": "For every completed row, inspect the commit-evidence field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its submitted-review field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result or NONE FOUND for the review check.",
+        "evidence": "For every completed row, inspect the submitted-review field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its inline-discussion field is populated.",
+        "category": "outcome",
+        "justification": "\"A completion marker requires a recorded result or NONE FOUND for the inline check.",
+        "evidence": "For every completed row, inspect the inline-discussion field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its general-conversation field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result or NONE FOUND for the conversation check.",
+        "evidence": "For every completed row, inspect the general-conversation field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its lifecycle-history field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result for the lifecycle check.",
+        "evidence": "For every completed row, inspect the lifecycle-history field for a nonblank value."
+    },
+    {
+        "title": "The Agent records 2026-07-01 in every Cutoff cell.",
+        "category": "outcome",
+        "justification": "Every row belongs to the same preservation snapshot.",
+        "evidence": "Inspect the Cutoff field on every row for the exact date."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #1 Commit summary record count as exactly \\\\\"640\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #1 and inspect the semantic Commit summary record count value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #1 Commit summary first as exactly \\\\\"d8a8bb4f476d909499603e0a2ed185c5e2e7a5b3\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #1 and inspect the semantic Commit summary first value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #1 Commit summary last as exactly \\\\\"a230cb1de8061a891d7181a1047ce9d0aa8036f1\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #1 and inspect the semantic Commit summary last value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #37 Lifecycle summary record count as exactly \\\\\"7\\\\\".",
+        "category": "outcome",
+        "justification": "This source-grounded sample confirms an undated lifecycle record remains included in the count.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #37 and inspect the semantic Lifecycle summary record count value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #37 Lifecycle summary events as exactly the set \\\\\"closed, commented, head_ref_deleted, merged, review_requested, reviewed\\\\\"; ordering and delimiters may vary.",
+        "category": "outcome",
+        "justification": "This source-grounded sample confirms the undated reviewed event remains included in the event set.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #37 and compare the semantic set recorded for Lifecycle summary events."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #37 Lifecycle summary first as exactly \\\\\"2026-02-12T06:31:04Z\\\\\".",
+        "category": "outcome",
+        "justification": "This source-grounded sample confirms the first boundary comes from the earliest dated lifecycle record.",
+        "evidence": "\"Locate the row keyed by Combo-Fighters PR #37 and inspect the semantic Lifecycle summary first value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #37 Lifecycle summary last as exactly \\\\\"2026-02-13T21:59:05Z\\\\\".",
+        "category": "outcome",
+        "justification": "This source-grounded sample confirms the last boundary comes from the latest dated lifecycle record.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #37 and inspect the semantic Lifecycle summary last value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #20 General conversation summary record count as exactly \\\\\"2\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #20 and inspect the semantic General conversation summary record count value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #20 General conversation summary first as exactly \\\\\"2025-12-31T20:21:15Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #20 and inspect the semantic General conversation summary first value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #20 General conversation summary last as exactly \\\\\"2025-12-31T22:08:29Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #20 and inspect the semantic General conversation summary last value."
+    },
+    {
+        "title": "The Agent records Combo-Fighters PR #20 General conversation summary authors as exactly the set \\\\\"PERSON_5877_GITHUB_USERNAME, PERSON_6026_GITHUB_USERNAME\\\\\"; ordering and delimiters may vary.",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by Combo-Fighters PR #20 and compare the semantic set recorded for General conversation summary authors."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #1 General conversation summary as exactly \\\\\"NONE FOUND\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #1 and inspect its General conversation summary for the exact value in this criterion."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #35 Review summary record count as exactly \\\\\"2\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #35 and inspect the semantic Review summary record count value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #35 Review summary first as exactly \\\\\"2025-04-01T18:24:24Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #35 and inspect the semantic Review summary first value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #35 Review summary last as exactly \\\\\"2025-04-01T18:31:06Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #35 and inspect the semantic Review summary last value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #35 Review summary states as exactly the set \\\\\"APPROVED, COMMENTED\\\\\"; ordering and delimiters may vary.",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #35 and compare the semantic set recorded for Review summary states."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #35 Review summary authors as exactly \\\\\"PERSON_2967_GITHUB_USERNAME\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #35 and inspect the semantic Review summary authors value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Inline discussion summary record count as exactly \\\\\"25\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect the semantic Inline discussion summary record count value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Inline discussion summary first as exactly \\\\\"2025-09-10T13:06:42Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect the semantic Inline discussion summary first value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Inline discussion summary last as exactly \\\\\"2025-09-10T13:06:46Z\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect the semantic Inline discussion summary last value."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Inline discussion summary authors as exactly \\\\\"PERSON_6026_GITHUB_USERNAME\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect the semantic Inline discussion summary authors value."
+    },
+    {
+        "title": "The Agent records at least one of these source-grounded file paths in game-of-dominoes-backend PR #79 Inline discussion summary: \\\\\"NodeJsFargateApi/middlewares/verifyAdminToken.js, NodeJsFargateApi/routes/Admin.js, NodeJsFargateApi/routes/OfferManagement.js, NodeJsFargateApi/routes/ShopCatalog.js, OFFER_MANAGEMENT\\_[API.md](http://API.md), admin-token-generator.js, bin/backend_component_samples.ts, tools/IAPLayouts.json, tools/[README.md](http://README.md), tools/catalog-items.json, tools/generate-catalog-items.js, tools/populate-catalog-table.js\\\\\"; additional path context and delimiters may vary.",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and confirm its Inline discussion summary file context includes at least one path from the source-grounded set."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Provenance flags as exactly \\\\\"MULTI_COMMIT_WITHOUT_APPROVAL\\\\\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect its Provenance flags for the exact value in this criterion."
+    },
+    {
+        "title": "The Agent records exactly 0 NONE FOUND values in the commit-evidence summary column.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete repeated absence classification for one evidence surface.",
+        "evidence": "Count exact NONE FOUND values in the semantic commit-evidence summary field regardless of its header label or position."
+    },
+    {
+        "title": "The Agent records exactly 0 NONE FOUND values in the lifecycle-history summary column.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete repeated absence classification for one evidence surface.",
+        "evidence": "Count exact NONE FOUND values in the semantic lifecycle-history summary field regardless of its header label or position."
+    },
+    {
+        "title": "The Agent applies NO_SUBMITTED_REVIEW to exactly 30 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_SUBMITTED_REVIEW."
+    },
+    {
+        "title": "The Agent applies NO_INLINE_REVIEW_DISCUSSION to exactly 105 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_INLINE_REVIEW_DISCUSSION."
+    },
+    {
+        "title": "The Agent applies NO_GENERAL_CONVERSATION to exactly 78 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_GENERAL_CONVERSATION."
+    },
+    {
+        "title": "The Agent applies NO_REVIEW_REQUEST_EVENT to exactly 21 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_REVIEW_REQUEST_EVENT."
+    },
+    {
+        "title": "The Agent applies MULTI_COMMIT_WITHOUT_APPROVAL to exactly 22 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "\"Count rows whose Provenance flags field contains the exact token MULTI_COMMIT_WITHOUT_APPROVAL."
+    },
+    {
+        "title": "The Agent makes the closeout pack traceable to a source-backed company wind-down decision.",
+        "category": "outcome",
+        "justification": "The prompt asks for a traceable wind-down source without locking the memo to one valid Slack decision.",
+        "evidence": "Inspect the memo for an accurate reference to either the #executives cash-and-obligations decision or the later #winddown shutdown-and-codebase decision."
+    },
+    {
+        "title": "The Agent makes the closeout pack traceable to Task List.xlsx on Drive, resolving to file ID f_31115ddb6ed866f2b10d60.",
+        "category": "outcome",
+        "justification": "The prompt asks for a traceable checklist source without prescribing link formatting.",
+        "evidence": "Inspect the memo source trail for a usable link or file-ID reference to the exact checklist."
+    },
+    {
+        "title": "The Agent includes a usable Register link in the memo whose spreadsheet ID matches the created Register.",
+        "category": "outcome",
+        "justification": "The companion memo must resolve to its detailed evidence register.",
+        "evidence": "Inspect the memo link and compare its spreadsheet ID with the Register write."
+    },
+    {
+        "title": "The Agent states the Combo-Fighters total as exactly 37 in the memo.",
+        "category": "outcome",
+        "justification": "The memo must reconcile each repository to the detailed register.",
+        "evidence": "Inspect the memo for Combo-Fighters: 37."
+    },
+    {
+        "title": "The Agent states the game-of-dominoes-backend total as exactly 79 in the memo.",
+        "category": "outcome",
+        "justification": "The memo must reconcile each repository to the detailed register.",
+        "evidence": "Inspect the memo for game-of-dominoes-backend: 79."
+    },
+    {
+        "title": "The Agent states the overall pull-request total as exactly 116 in the memo.",
+        "category": "outcome",
+        "justification": "The founder summary must reconcile to the complete cohort.",
+        "evidence": "Inspect the memo for Total: 116."
+    },
+    {
+        "title": "The Agent states the NO_SUBMITTED_REVIEW total as exactly 30 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_SUBMITTED_REVIEW: 30."
+    },
+    {
+        "title": "The Agent states the NO_INLINE_REVIEW_DISCUSSION total as exactly 105 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_INLINE_REVIEW_DISCUSSION: 105."
+    },
+    {
+        "title": "The Agent states the NO_GENERAL_CONVERSATION total as exactly 78 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_GENERAL_CONVERSATION: 78."
+    },
+    {
+        "title": "The Agent states the NO_REVIEW_REQUEST_EVENT total as exactly 21 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_REVIEW_REQUEST_EVENT: 21."
+    },
+    {
+        "title": "The Agent states the MULTI_COMMIT_WITHOUT_APPROVAL total as exactly 22 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for MULTI_COMMIT_WITHOUT_APPROVAL: 22."
+    },
+    {
+        "title": "The Agent states in the memo that the flags identify source-record preservation gaps.",
+        "category": "outcome",
+        "justification": "The requested framing distinguishes preservation evidence from engineering review.",
+        "evidence": "Inspect the memo's explanatory statement about what the flags identify."
+    },
+    {
+        "title": "The Agent states in the memo that the flags are not code-quality conclusions.",
+        "category": "outcome",
+        "justification": "The prompt explicitly reserves code-quality judgment.",
+        "evidence": "Inspect the memo for an explicit code-quality disclaimer."
+    },
+    {
+        "title": "The Agent sends the completed provenance Register spreadsheet in the final handoff",
+        "category": "outcome",
+        "justification": "The founder explicitly asks to receive the completed spreadsheet.",
+        "evidence": "Inspect the final response for a spreadsheet link whose ID matches the spreadsheet ID used for the Register write."
+    },
+    {
+        "title": "The Agent sends the created Markdown TL;DR memo in the final handoff.",
+        "category": "outcome",
+        "justification": "The founder explicitly asks to receive the completed memo.",
+        "evidence": "Inspect the final response for a Drive link presented as the Markdown memo whose file ID matches a file ID used to access the saved memo."
+    },
+    {
+        "title": "The Agent reports a verified Register row count of exactly 116.",
+        "category": "outcome",
+        "justification": "The hand-back explicitly requests the verified row count.",
+        "evidence": "Inspect the final response for the exact data-row count 116."
+    }
+]

@@ -57,3 +57,28 @@ python Validators/new_task.py <task_id_or_full_name> --universe starpm --review 
 ```
 
 V4 shape adds over V3: `4_Changelog.json`, `8a_Verifier_Fails_Opus.txt`, `8b_Verifier_Fails_Gemini.txt`, `9_Universe_inject.sql`, `Agent_Responses/{Opus,Gemini}/Run1-6_Trajectory.json`, and the QC dispute placeholders `9_QC_Feedback.txt` / `10_PT_Dispute_To_QC_Feedback.txt` / `11_Final_QC_Validation_On_PT_Dispute.txt`. Injection (`9_Universe_inject.sql` + `4_Changelog.json`) is a FIRST-CLASS authoring artifact in V4: it is designed during task build and gated by `validate.py --phase injection` (Evals_starpm/0) at S0 re-run and FINAL.
+
+## HarmonyGames (`hg`) shape
+
+`python Validators/new_task.py <task_id> --universe harmonygames`
+
+HarmonyGames scaffolds into **`Generated_Tasks/`**, not `Tasks/` — its framework profile sets
+`working_dir_name`. Every trigger phrase for an HG task therefore reads
+`PIPELINE <PHASE> — Generated_Tasks/<TASK_DIR>`.
+
+The scaffolder writes `_aux/Universe.txt` from the `--universe` flag. That is load-bearing:
+a fresh scaffold carries no universe marker in any pasted file yet, so without it the first
+`detect_universe()` call scores zero on every signal set, resolves to the tie-break default,
+and caches that wrong answer — which every later call then reads unconditionally.
+
+Artifact shape is the V3 family's, NOT V4's: a single `8_Verifier_Fails.txt` and flat
+`Agent_Responses/trajectory-run-{1..6}.json`. It nonetheless ships `4_Changelog.json` +
+`9_Universe_inject.sql` and runs the `injection` and `submission_gate` phases, because `hg`
+combines single-model verification with V4's extra phases.
+
+`3_UniverseDataForThisTask.json` is a POINTER, not data. Do not expect to paste a universe
+export over it; the S0 chain resolves data via `Validators/universe_data_source.py` from
+`HarmonyGames_Base_Universe/Services_Data/`, which is gitignored and must be hydrated first
+(see its `README_HYDRATE.md`).
+
+> The V3-family universes (`brookfield`, `keystone`, `moveops`) all scaffold the same single-model shape into `Tasks/`: `8_Verifier_Fails.txt` plus flat trajectories, with `--universe` selecting the matching `Tasks_Template_*` tree. Only StarPM (dual-model, `8a`/`8b` + per-model subdirs) and HarmonyGames (single-model but `Generated_Tasks/`) diverge from that default.

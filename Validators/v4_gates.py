@@ -13,6 +13,7 @@ Validators/regression_baseline/V4_ENFORCEMENT_AUDIT.md.
 import json
 import re
 from datetime import date, datetime, timedelta, timezone
+from functools import lru_cache
 from pathlib import Path
 from decimal import Decimal, InvalidOperation
 
@@ -42,8 +43,23 @@ V3_ID_TOKEN_RE = re.compile(
 )
 
 
+# HarmonyGames opaque identifiers, measured in QC_Tasks/V5_HG_Buckets. Team-prefixed
+# Linear keys (ENG-2400) are human-speakable and are deliberately NOT treated as opaque.
+HG_ID_TOKEN_RE = re.compile(
+    r"\b(?:C[0-9A-Z]{10}|U[0-9A-Z]{10}|[a-f0-9]{24}|1[A-Za-z0-9_-]{25,}|"
+    r"(?:ENG|ZOM|EVT|DES|ART|EPI|LATE)-\d{2,5})\b"
+)
+
+
 def id_token_re_for(universe: str):
-    return ID_TOKEN_RE if universe == "starpm" else V3_ID_TOKEN_RE
+    """Per-universe identifier shapes. Keyed off the registry, not a name comparison."""
+    from universes import get_universe_constants
+    pset = (get_universe_constants(universe) or {}).get("id_pattern_set")
+    if pset == "starpm":
+        return ID_TOKEN_RE
+    if pset == "harmonygames":
+        return HG_ID_TOKEN_RE
+    return V3_ID_TOKEN_RE
 
 
 AI_TELL_PHRASES = [
@@ -398,6 +414,7 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
     base_ids = set(tok_re.findall(base_text))
     base_emails = set(e.lower() for e in EMAIL_RE.findall(base_text))
     personas = {e.lower() for e in (consts.get("personas") or {})} if isinstance(consts.get("personas"), dict) else set()
+    npc_mailboxes = {e.lower() for e in (consts.get("npcs") or set()) if isinstance(e, str) and "@" in e}
     valid_channels = set()
     for ch in (consts.get("slack_channels") or {}):
         valid_channels.add(ch if isinstance(ch, str) else str(ch))
@@ -491,8 +508,13 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
             if valid_channels and ch not in valid_channels:
                 rep.fail(f"[Eval0 P4 CROSS_SERVICE_VIOLATION] {table}: slack channel {ch} is not a valid {universe} channel ({sorted(valid_channels)[0]}..{sorted(valid_channels)[-1]})")
     for em in sorted(injected_emails):
-        if em.endswith("@" + domain) and personas and em not in personas and em not in base_emails:
-            rep.fail(f"[Eval0 P4 CROSS_SERVICE_VIOLATION] injected @{domain} address '{em}' matches no persona or base-universe mailbox (email format mismatch)")
+        if em.endswith("@" + domain) and personas and em not in personas and em not in npc_mailboxes and em not in base_emails:
+            _m = (f"[Eval0 P4 CROSS_SERVICE_VIOLATION] injected @{domain} address '{em}' matches "
+                  f"no persona or base-universe mailbox (email format mismatch)")
+            if _universe_unresolvable(str(task_dir), universe):
+                rep.warn(_m + " - NOTE: universe records unresolvable, base mailboxes unavailable")
+            else:
+                rep.fail(_m)
     rep.note("[Eval0 P4] COUNCIL: fact/status/amount/timeline contradiction review vs base universe requires semantic judgment - deterministic layer covers collisions, broken refs, channel validity, mailbox validity")
 
     # P5 naturalness  [Eval0 P5 AI_TELL]
@@ -527,8 +549,134 @@ def validate_injection(task_dir: Path, rep, universe: str, consts: dict, profile
                 rep.fail(f"[Eval0 P7 PRE_SOLVED] {table}.{col} contains {len(hits)} rubric-expected values verbatim ({', '.join(sorted(hits)[:4])}) - single record hands the agent the answer")
             elif len(hits) == 2:
                 rep.warn(f"[Eval0 P7] {table}.{col} concentrates 2 rubric-expected values ({', '.join(sorted(hits))}) - verify signal is scattered")
-    rep.note("[Eval0 P8] COUNCIL: injection difficulty/complexity composite (minimum 3.5) requires semantic scoring - not deterministically checkable")
+    rep.note(f"[Eval0 P8] COUNCIL: injection difficulty/complexity composite (minimum "
+             f"{profile.get('injection_difficulty_floor') or 3.5}) requires semantic scoring - not deterministically checkable")
     return True
+
+
+# Built per-universe from consts["services"] rather than a hardcoded alternation.
+# The literal list was a v3/v4 one, so on HarmonyGames it recognised only slack_, gmail_,
+# linear_ and contacts_ - and those four only by coincidence of prefix overlap. The other
+# NINE services (gcal, github, trello, snowflake, gdocs, gdrive, gsheets, gslides,
+# confluence) were invisible, so F1 could not flag a phantom tool in any of them. AGENTS.md
+# HG-U10 already warned that the F1-F6 trigger conditions do not transfer from V4; this is
+# that warning made true in code instead of contradicted by it.
+_LEGACY_EXTRA_PREFIXES = {"oracle_gl", "sap", "sap_subledger", "blackline", "records_vault",
+                          "mortgage_los", "filesystem", "stripe", "crm", "gcalendar"}
+_LEGACY_SERVICE_PREFIX_RE = re.compile(r"\b(?:slack|gmail|airtable|linear|hubspot|quickbooks|gcalendar|contacts|crm|stripe|oracle_gl|sap|blackline)_[a-z_]{3,}\b")
+
+
+@lru_cache(maxsize=32)
+def _universe_unresolvable(task_dir_str: str, universe: str) -> bool:
+    """True when this task's universe records cannot be resolved at all.
+
+    The earlier predicate asked "is 3_UniverseDataForThisTask.json a pointer?". That is the
+    WRONG signal: HarmonyGames ships a pointer in EVERY task by contract, including when
+    Services_Data/ is hydrated and the mailbox set IS knowable, so keying off it made the
+    hard-FAIL branch dead code for HG in every state. `load_universe_records` raises
+    UniverseDataError only when the payload genuinely cannot be resolved, which is the
+    condition this degrade was always meant to express.
+    """
+    try:
+        from universe_data_source import load_universe_records, UniverseDataError
+    except Exception:
+        return False
+    try:
+        load_universe_records(Path(task_dir_str), universe)
+        return False
+    except UniverseDataError:
+        return True
+    except Exception:
+        return False
+
+
+_COMMS_VERB_RE = re.compile(
+    r"\b(?:post|posts|posted|message|messages|messaged|send|sends|sent|email|emails|emailed|"
+    r"notify|notifies|notified|reply|replies|replied|announce|announces|dm|dms)\b", re.I)
+
+
+@lru_cache(maxsize=1)
+def _tool_head_vocab() -> frozenset:
+    """Head segments observed right after a service prefix in REAL tool catalogs.
+
+    Widening `service_prefix_re` to the union of every universe's services pulled generic
+    English nouns into the alternation (email, calendar, public, reminder, filesystem,
+    messaging), so ordinary prose matched: "record the email_address on the ticket" raised a
+    phantom-tool defect. Measured across all five catalogs, 1130 real tool names yield only
+    68 distinct head segments and none of those prose tokens has one. Requiring a real head
+    is therefore a precise, self-maintaining filter rather than a hand-kept denylist.
+    """
+    import re as _re
+    from universes import UNIVERSES, get_universe_constants
+    names, svcs = set(), set(_LEGACY_EXTRA_PREFIXES)
+    for u in UNIVERSES:
+        c = get_universe_constants(u)
+        svcs |= set(c.get("services") or [])
+        try:
+            cat = Path(c.get("tool_catalog", ""))
+            if not cat.is_absolute():
+                cat = Path(__file__).resolve().parent.parent / cat
+            if cat.is_file():
+                names |= set(_re.findall(r'"(?:name|tool_name)"\s*:\s*"([a-z0-9_]+)"',
+                                         cat.read_text(encoding="utf-8", errors="ignore")))
+        except Exception:
+            pass
+    heads = set()
+    for n in names:
+        pref = max((x for x in svcs if n.startswith(x + "_")), key=len, default=None)
+        if pref:
+            rest = n[len(pref) + 1:].split("_")
+            if rest and rest[0]:
+                heads.add(rest[0])
+    return frozenset(heads)
+
+
+@lru_cache(maxsize=1)
+def _all_service_prefixes() -> frozenset:
+    from universes import UNIVERSES, get_universe_constants
+    out = set(_LEGACY_EXTRA_PREFIXES)
+    for u in UNIVERSES:
+        out |= set(get_universe_constants(u).get("services") or [])
+    return frozenset(out)
+
+
+def _looks_like_tool_name(tok: str) -> bool:
+    """True when `tok` plausibly names a tool rather than being snake_case prose."""
+    low = tok.lower()
+    pref = max((x for x in _all_service_prefixes() if low.startswith(x + "_")), key=len, default=None)
+    if not pref:
+        return False
+    rest = low[len(pref) + 1:].split("_")
+    vocab = _tool_head_vocab()
+    # Fail CLOSED on an empty vocabulary. The old `not vocab or ...` escape meant a
+    # catalogue-read failure silently restored every false positive it exists to suppress.
+    # An empty vocab is a broken environment, not a permissive one; check_pipeline_wiring
+    # W11 gates it so the breakage surfaces loudly instead of as scoring noise.
+    return bool(rest and rest[0] and vocab and rest[0] in vocab)
+
+
+def service_prefix_re(consts: dict):
+    """Tool-name prefix matcher for phantom-tool detection (Eval5 F1).
+
+    Matches THIS universe's services PLUS every other universe's service
+    prefixes. In-universe hits are checked against the local tool catalogue by
+    the caller; out-of-universe hits are phantom by construction. Building the
+    alternation from consts["services"] ALONE was tried and is wrong in the
+    other direction: it stops flagging cross-universe leakage such as
+    `stripe_create_charge` or `oracle_gl_post_je` in a StarPM rubric, and the
+    bare-service fallback below cannot cover them because \b does not match
+    between a service name and the trailing underscore of a tool name.
+    """
+    from universes import UNIVERSES  # local import: avoids an import cycle
+    names = set((consts or {}).get("services") or [])
+    for _u in UNIVERSES.values():
+        names.update(_u.get("services") or [])
+    names.update(_LEGACY_EXTRA_PREFIXES)
+    if not names:
+        return _LEGACY_SERVICE_PREFIX_RE
+    alt = "|".join(sorted((re.escape(s) for s in names), key=len, reverse=True))
+    return re.compile(r"\b(?:" + alt + r")_[a-z0-9_]+\b", re.IGNORECASE)
+
 
 
 def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, profile: dict) -> bool:
@@ -571,12 +719,13 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
     # the deliverable the pipeline exists to protect. Universe data plus the injection are the
     # source of truth; the OE is not.
     searchable = base_text + "\n" + inject_text
+    payload_is_pointer = _universe_unresolvable(str(task_dir), universe)
+    weekend_comms_rule = bool(consts.get("weekend_comms_rule"))
     searchable_amounts = _searchable_amounts(searchable)
     prompt_wants_future_write = bool(_PROMPT_SCHED_RE.search(prompt_text))
     domain = consts.get("persona_email_domain", "starpm.com")
     personas = {e.lower() for e in (consts.get("personas") or {})} if isinstance(consts.get("personas"), dict) else set()
-
-    SERVICE_PREFIX_RE = re.compile(r"\b(?:slack|gmail|airtable|linear|hubspot|quickbooks|gcalendar|contacts|crm|stripe|oracle_gl|sap|blackline)_[a-z_]{3,}\b")
+    npc_mailboxes = {e.lower() for e in (consts.get("npcs") or set()) if isinstance(e, str) and "@" in e}
     blank_fields = 0
     for idx, r in enumerate(rubrics, 1):
         title = str(r.get("title", r.get("criterion", "")))
@@ -592,8 +741,8 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
                 blank_fields += 1
 
         # F1 impossible-with-tools  [Eval5 P1 IMPOSSIBLE]
-        for tok in SERVICE_PREFIX_RE.findall(blob):
-            if tool_names and tok not in tool_names:
+        for tok in service_prefix_re(consts).findall(blob):
+            if tool_names and tok not in tool_names and _looks_like_tool_name(tok):
                 rep.fail(f"[Eval5 P1 IMPOSSIBLE] rubric #{idx} references tool '{tok}' which does not exist in the {universe} tool catalog")
         for svc in re.findall(r"\b(oracle_gl|sap_subledger|blackline|records_vault|mortgage_los|stripe|filesystem)\b", blob):
             if svc not in services:
@@ -614,13 +763,32 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
                 continue
             rep.fail(f"[Eval5 P2 MISMATCH] rubric #{idx} references date {raw} after universe today ({WINDOW_END}) - future-dated expectation")
 
+        # Weekend-comms rule. Declared per-universe; only HarmonyGames carries it today.
+        # Its own `today` (2026-02-28) IS a Saturday, so a "post this today" ask lands
+        # squarely on the violation. Scoped to comms verbs so a weekend date attached to a
+        # non-comms fact (a due date, a report period) is not flagged.
+        if weekend_comms_rule:
+            _ctx = title + " " + evid
+            if _COMMS_VERB_RE.search(_ctx):
+                for d, raw in set(_dates_in(_ctx)):
+                    if d is not None and d.weekday() >= 5:
+                        rep.fail(f"[Eval5 P2 MISMATCH] rubric #{idx} dates routine business "
+                                 f"communication on {raw}, a {d.strftime('%A')} - {universe} treats "
+                                 f"weekend business comms as a temporal violation")
+
         # F2 phantom refs  [Eval5 P2 PHANTOM]
-        for ref in set(ID_TOKEN_RE.findall(blob)):
+        for ref in set(id_token_re_for(universe).findall(blob)):
             if ref not in searchable:
                 rep.fail(f"[Eval5 P2 PHANTOM] rubric #{idx} cites '{ref}' which appears nowhere in universe data or the injection (QC spec 07/16: universe data is the sole source of truth, an OE mention does not qualify)")
         for em in set(e.lower() for e in EMAIL_RE.findall(blob)):
-            if em.endswith("@" + domain) and personas and em not in personas and em not in searchable.lower():
-                rep.fail(f"[Eval5 P2 PHANTOM] rubric #{idx} cites persona address '{em}' matching no {universe} persona or universe mailbox")
+            if em.endswith("@" + domain) and personas and em not in personas and em not in npc_mailboxes and em not in searchable.lower():
+                _m = (f"[Eval5 P2 PHANTOM] rubric #{idx} cites persona address '{em}' "
+                      f"matching no {universe} persona or universe mailbox")
+                if payload_is_pointer:
+                    rep.warn(_m + " - NOTE: universe records are unresolvable (payload not hydrated),"
+                                  " so this address cannot be disproven")
+                else:
+                    rep.fail(_m)
 
         # F3 process gates  [Eval5 P3 TOOL_GATE/QUERY_GATE]
         if cat == "process" and PROCESS_GATE_RE.search(title):
@@ -661,11 +829,34 @@ def validate_submission_gate(task_dir: Path, rep, universe: str, consts: dict, p
         rep.warn("[Eval5 P6 6.7 DELEGATION_AMBIGUITY] prompt mixes 'I'll [verb]' with agent imperatives - COUNCIL: confirm who acts on each deliverable")
 
     # F6.2 forward coverage  [Eval5 P6 6.2 MISSING_CRITERIA]
-    outcome_count = sum(1 for r in rubrics if str(r.get("category", "")).lower() == "outcome")
-    process_count = sum(1 for r in rubrics if str(r.get("category", "")).lower() == "process")
+    # Canonicalize BEFORE counting. HarmonyGames stores the guidelines' Outcome
+    # sub-categories directly in `category` ("Outcome 1.1" / "1.2" / "2.1"), so an
+    # exact-match census counted them as NEITHER bucket: a conformant HG set of
+    # 4 Outcome + 1 Process reported "0 outcome / 1 process" and this gate rejected it
+    # with "zero Outcome rubrics". validate.py already had _canonical_category and this
+    # file carried a SECOND, unfixed census - the duplicated-logic failure AGENTS.md
+    # rule 18 exists to prevent.
+    def _canon(v):
+        """Alias for universes.canonical_rubric_category (single source of truth)."""
+        from universes import canonical_rubric_category
+        return canonical_rubric_category(v)
+
+    outcome_count = sum(1 for r in rubrics if _canon(r.get("category")) == "outcome")
+    process_count = sum(1 for r in rubrics if _canon(r.get("category")) == "process")
     if outcome_count == 0:
         rep.fail("[Eval5 P6 6.2 MISSING_CRITERIA] zero Outcome rubrics - every deliverable is uncovered")
-    if rubrics and process_count > outcome_count:
+
+    # Balance is per-framework, read from the registry. Hardcoding outcome-majority here
+    # enforced against HarmonyGames the exact mandate AGENTS.md hard rule 8 EXEMPTS it
+    # from: HG's own QC spec replaces it with a flat Process <= 40% cap and states that
+    # zero Process is valid.
+    _bal = (profile or {}).get("rubric_balance_rule", "outcome_gt_process")
+    _total = outcome_count + process_count
+    if rubrics and _bal == "process_max_40pct":
+        if _total and (process_count / _total) > 0.40:
+            rep.fail(f"[Eval5 P3] Process is {process_count}/{_total} "
+                     f"({process_count / _total:.0%}) of the set - this universe caps it at 40%")
+    elif rubrics and process_count > outcome_count:
         rep.fail(f"[Eval5 P3] Process rubrics ({process_count}) outnumber Outcome rubrics ({outcome_count}) - violates outcome-first mandate")
     rep.note(f"[Eval5 P7] rubric census: {outcome_count} outcome / {process_count} process / {len(rubrics)} total")
     rep.note("[Eval5 P6] COUNCIL: under-strictness (6.3), exclusion coverage (6.6), UGT convergence (6.8), OE authority (6.9), strict feasibility (6.10), date-alignment ambiguity (6.11) require semantic judgment - flagged for council review")
