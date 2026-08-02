@@ -27,6 +27,7 @@ W8  validators referenced in AGENTS.md's registry exist, and vice versa
 W9  no validator is both un-imported and undocumented (orphan)
 W10 rubric-category canonicalisation has exactly one implementation
 W11 the tool head-segment vocabulary is non-empty (phantom detection fails closed)
+W12 docs asserting a universe COUNT agree with the registry (CHANGELOG exempt)
 
 Exit 0 clean, 1 when any check fails.
 """
@@ -42,7 +43,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 VDIR = ROOT / "Validators"
 
-DOC_GLOBS = ["AGENTS.md", "Reference/*.md", "Reference/Sessions/*.md"]
+# QUICK_START.md was absent here, which is why it sat at "four universes / v20" through
+# the whole HarmonyGames integration with no gate noticing. It is a LIVE operator doc and
+# must stay accurate. CHANGELOG.md is deliberately NOT scanned: it is append-only history,
+# so it legitimately names modules that were later deleted - v21.3 records removing a
+# stale detection-module reference, and scanning history for live paths flagged it 8 times.
+DOC_GLOBS = ["AGENTS.md", "QUICK_START.md",
+             "Reference/*.md", "Reference/Sessions/*.md"]
 
 # path-shaped tokens inside backticks
 PATH_RE = re.compile(r"`([A-Za-z0-9_][A-Za-z0-9_./*-]*\.(?:py|md|json|txt|sql|sh))`")
@@ -225,6 +232,42 @@ def check_tool_vocab() -> list:
                                "phantom-tool detection"]
 
 
+def check_universe_count_claims() -> list:
+    """W12: a doc asserting "N universes" must agree with the registry.
+
+    CHANGELOG.md is exempt: it is append-only history, so an old entry saying "four
+    universes" was true when written and must not be rewritten.
+    """
+    sys.path.insert(0, str(VDIR))
+    from universes import UNIVERSES
+    n = len(UNIVERSES)
+    words = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+    expected = {str(n), words.get(n, "")}
+    out = []
+    for d in docs():
+        if d.name == "CHANGELOG.md":
+            continue
+        txt = d.read_text(encoding="utf-8", errors="ignore")
+        # "the other N universes" is RELATIVE phrasing and is correct when N == total - 1
+        # (e.g. the HarmonyGames section saying "the other four universes" with 5 registered).
+        # Accepting it blindly would hide a real defect: the StarPM section said "the other
+        # three universes", which was right at 4 registered and wrong at 5.
+        # The possessive form ("three universes' output") names a SUBSET, not a total, so
+        # it is excluded by the lookahead above rather than being counted as a claim.
+        rel = {str(n - 1), words.get(n - 1, "")}
+        for m in re.finditer(r"(other\s+)?\b(one|two|three|four|five|six|seven|\d+)\s+universes\b(?!['\u2019])",
+                             txt, re.I):
+            is_rel = bool(m.group(1))
+            val = m.group(2).lower()
+            if (val in rel) if is_rel else (val in expected):
+                continue
+            if True:
+                kind = "relative count should be " + str(n - 1) if is_rel else "should be " + str(n)
+                out.append(f"[W12] {d.relative_to(ROOT)} claims '{m.group(0).strip()}' - {kind} "
+                           f"({n} registered: {', '.join(sorted(UNIVERSES))})")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--task", default=None)
@@ -342,12 +385,9 @@ def main():
     for s in sorted(on_disk - registered):
         warns.append(f"[W8] Validators/{s} exists but is not in the AGENTS.md registry")
 
-    # ---------- report
-    print("=== Pipeline wiring audit ===")
-    print(f"{len(list(VDIR.glob('*.py')))} validators · {len(docs())} docs · "
-          f"{len(cited_scripts)} scripts cited by docs\n")
-    for f in fails:
-        print(f"  {f}")
+    # ---------- extra checks. These MUST run BEFORE the report: they were appended to
+    # `fails`/`warns` AFTER the print loop, so their findings counted toward the exit
+    # code and printed nowhere - the gate said '5 wiring error(s)' and listed none.
     # These three ran ONLY when `warns` was already non-empty, so on a clean run they were
     # silently skipped - the exact silent-no-op this auditor exists to catch.
     warns = (list(warns) + check_code_comment_citations() + check_unread_locals()
@@ -355,7 +395,15 @@ def main():
     # W10 is a FAIL, not a warning: two live copies of the rubric-category census can drift
     # apart and silently mis-score the balance rules - exactly the defect class AGENTS.md
     # rule 18 says must become a standing gate instead of prose.
-    fails = list(fails) + check_duplicated_logic() + check_tool_vocab()
+    fails = (list(fails) + check_duplicated_logic() + check_tool_vocab()
+             + check_universe_count_claims())
+
+    # ---------- report
+    print("=== Pipeline wiring audit ===")
+    print(f"{len(list(VDIR.glob('*.py')))} validators · {len(docs())} docs · "
+          f"{len(cited_scripts)} scripts cited by docs\n")
+    for f in fails:
+        print(f"  {f}")
     if warns:
         print()
         for w in warns:

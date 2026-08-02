@@ -4,9 +4,30 @@ One task = one walk through this list.
 
 ---
 
-## Universe (auto-detected — v20)
+## Universe (auto-detected — v22)
 
-Pipeline supports four universes: **Brookfield CPAs & Advisors** (public accounting / business advisory; default), **Keystone Mortgage Partners** (residential mortgage brokerage; v18+), **MoveOps Inc.** (B2B remote-work relocation services; V2.1 framework; v20+), and **Star Property Management** (residential property management, San Antonio TX; V4 framework; v21+ - dual-model Opus+Gemini verification, injection + submission-gate phases, today 2026-07-01 America/Chicago). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+Pipeline supports **five universes**: **Brookfield CPAs & Advisors** (public accounting / business advisory; default), **Keystone Mortgage Partners** (residential mortgage brokerage; v18+), **MoveOps Inc.** (B2B remote-work relocation services; V2.1 framework; v20+), **Star Property Management** (residential property management, San Antonio TX; V4 framework; v21+ - dual-model Opus+Gemini verification, injection + submission-gate phases, today 2026-07-01 America/Chicago), and **Harmony Games** (mobile game studio; framework `hg`; v22+ - see the box below). Universe is auto-detected at S0 from prompt + persona + universe-data signals and cached to `_aux/Universe.txt`. Override by manually editing the file. Every validator + council + audit + final reads `_aux/Universe.txt` and routes to the correct constants (today, persona briefs, retention codes, Slack channels, services, business functions, tool catalog).
+
+### Harmony Games — what differs operationally (v22+)
+
+`hg` is a hybrid, not a V4 successor: **single-model** verification like the V3 family, plus V4's injection and submission-gate phases.
+
+| | Harmony Games |
+|---|---|
+| Working directory | **`Generated_Tasks/`**, not `Tasks/` |
+| Model under test | **Claude Opus 4.7**, not 4.8 |
+| Today | 2026-02-28 America/Chicago - **a Saturday**, and mid-Q1 |
+| Verifier fails | one `8_Verifier_Fails.txt` (not StarPM's `8a`/`8b`) |
+| Trajectories | flat `trajectory-run-{1..6}.json` |
+| Rubric balance | flat **Process <= 40% cap**; zero Process is valid. No Outcome-majority rule |
+| Rubric category | 4-value enum: `Outcome 1.1` / `1.2` / `2.1` / `Process` |
+| Severity | Overly **Broad** = Moderate, Overly **Specific** = Minor (reverse of StarPM) |
+| Injection floor | **2.5**, not StarPM's 3.5 |
+| Density | authoring target 40+ calls AND 3+ services; QC floor >=15 average |
+
+**Before anything else on an HG task: hydrate.** HarmonyGames inverts the payload boundary - its per-task `3_UniverseDataForThisTask.json` is a ~720-byte pointer and `Services_Data/` (5.6 GB, gitignored) is the source of truth. Run `python3 Validators/check_hydration.py`; if it FAILs, follow `HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md`. Every S0 builder refuses to run un-hydrated rather than writing an artifact full of zeros.
+
+Landmines the agent already knows, listed so you recognise them: **Gmail is read-only** (no send/reply/draft tool exists, so "email the vendor" is ungradeable); two Slack send tools with **different** text params (`text` vs `payload`); persona emails are **irregular** (`arthur_blake` -> `blake@`) and must be read from `Persona_ACL_Roster.json`, never constructed; 985 Slack channels so channel IDs are **not** whitelist-checkable; persona ACL makes a read under the wrong acting identity an **Excluded** run, a third disposition beyond pass/fail.
 
 ## Setup once per task (one trigger does the folder + paths)
 

@@ -1,3 +1,15 @@
+## v22 (2026-08-02) - HarmonyGames integrated as universe #5 (framework `hg`)
+
+Fifth universe. `hg` is a genuine hybrid, NOT a v4 successor: V3-family single-model verification plus V4's injection + submission_gate phases. Payload ~25 MB vendored; the 5.6 GB `Services_Data/` is gitignored behind `README_HYDRATE.md` (the repo's first `.gitignore`).
+
+- **Registry-driven, not name-compared**: new declared keys `id_pattern_set`, `index_internal_by_domain`, `index_tz_from_registry`, `weekend_comms_rule`. Eleven per-universe branches remain, inventoried and justified in AGENTS.md - ten `==` plus one negated `!= "starpm"` that an `==`-only grep cannot see, which is why F9 is unavailable for HG (HG-U11).
+- **Defects found and fixed** (each reproduced first): `service_prefix_re` had been spliced INTO `validate_submission_gate`, leaving ~118 lines unreachable after a `return`; phantom-tool detection was blind to 9 of 13 HG services, then over-matched prose once widened (fixed with a verb-head vocabulary measured from 1130 real tool names -> 68 segments); the registry held 1 of 17 personas and 20 real NPC mailboxes false-failed; HG emitted `America/New_York`; the weekend-comms rule had zero coverage on a universe whose own today IS a Saturday; four of six S0 builders returned rc=0 against no data and wrote zero-filled artifacts.
+- **Anchors 62 -> 78**, plus `--dead-gate`: it neuters the validator's ability to emit findings and fails if a non-allowlisted anchor still passes. Anchor count is not anchor quality - two KeyStone anchors had asserted nothing for several versions. Wired into `check_regression`.
+- **New wiring gates**: W9 orphan validators, W10 duplicated category-census (gating, not warning), W11 tool-vocabulary non-empty, W12 universe-count claims vs registry.
+- **Docs corrected rather than extended**: "no hardcoded per-universe values" was false; 128/128-on-4-corpora is now 138/138 across 5; the `HG-1420` Linear-key exemplar is fabricated (zero occurrences in the real corpus - real keys are team-prefixed `ENG-`/`ZOM-`/`EVT-`). QUICK_START.md still said "four universes / v20" and was missed by every gate because `DOC_GLOBS` never scanned it; now scanned.
+
+Gates: check_regression PASS 78/78 anchors, 21/21 byte-identical reports, 7/7 verdicts; qc_verdict 138/138 across five corpora; pipeline_wiring W1-W12 clean. `check_hydration` FAILs by design until `Services_Data/` is hydrated.
+
 ## v21.4 (2026-07-22) - Council/AUDIT/runbook prose correctness audit
 
 Ran a deterministic contradiction scan (stated constants vs registry + eval/QC ground truth) across all 28 pipeline-owned runbook/council/format-card docs:
