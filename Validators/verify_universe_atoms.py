@@ -19,6 +19,7 @@ Usage:
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -27,10 +28,10 @@ from typing import List, Dict
 ROOT = Path(__file__).resolve().parent.parent
 
 try:
-    from Validators.universes import detect_universe, get_universe_constants
+    from Validators.universes import detect_universe, get_universe_constants, get_framework_profile
 except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from universes import detect_universe, get_universe_constants
+    from universes import detect_universe, get_universe_constants, get_framework_profile
 
 
 ACCOUNT_CLAIM = re.compile(
@@ -111,6 +112,117 @@ def load_universe_data(task_dir: Path) -> dict:
                     continue
             indexed.setdefault(src, []).append(rd)
     return indexed
+
+
+POINTER_MARKERS = {"How This Works", "Base Universe Path", "Changelog Path", "SQL Query"}
+_COMBINED_BLOB = "Base_Universe_Complete_Data.json"
+
+
+def is_pointer_payload(task_dir: Path) -> bool:
+    """True when 3_UniverseDataForThisTask.json is the upstream pointer, not data."""
+    f = task_dir / "3_UniverseDataForThisTask.json"
+    if not f.is_file():
+        return False
+    try:
+        payload = json.load(open(f, encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    return (isinstance(payload, list) and len(payload) == 1
+            and isinstance(payload[0], dict)
+            and POINTER_MARKERS & set(payload[0]))
+
+
+class Presence:
+    """Answers "does this atom appear in the universe?" for one task.
+
+    Two backends, chosen by how the universe stores its data.
+
+    `blob` (brookfield / keystone / moveops / starpm)
+        3_UniverseDataForThisTask.json IS the data, so the old in-memory substring test
+        is exactly right. It is now built ONCE per task instead of once per atom, which
+        is the same answer for a fraction of the work.
+
+    `export` (harmonygames)
+        The per-task file is a ~700-byte POINTER. Reading it as data yielded one record
+        with no source, so every presence search missed and real personas were reported
+        as phantom emails on every HG task. The truth is the hydrated base export, which
+        is 1.7 GB of JSON across 71k files - far too much to load, which is what OOM-killed
+        an earlier attempt at this fix. So we stream: ONE pass, one compiled alternation
+        of every atom, fixed-size chunks with an overlap so a needle straddling a chunk
+        boundary is still found, and an early exit as soon as every atom is accounted for.
+        Memory is O(atoms), never O(universe).
+
+    Atoms must be primed in a batch before lookup, because the export backend can only
+    afford a single pass over the payload.
+    """
+
+    def __init__(self, universe: str, task_dir: Path, indexed: dict, consts: dict):
+        self.universe = universe
+        self.task_dir = task_dir
+        contract = get_framework_profile(universe).get("universe_data_contract", "per_task_json")
+        self.mode = "export" if contract == "base_export_plus_changelog" else "blob"
+        self._blob = None
+        self._found = None
+        if self.mode == "blob":
+            self._blob = json.dumps(indexed, default=str).lower()
+
+    def _scan_roots(self):
+        """Files to stream, cheapest-and-likeliest first so the early exit pays off."""
+        base = ROOT / get_universe_constants(self.universe)["base_path"] / "Services_Data"
+        changelog = self.task_dir / "4_Changelog.json"
+        if changelog.is_file():
+            yield changelog
+        seen = set()
+        for depth in (1, None):          # service-level tables first, then nested records
+            for dirpath, _dirnames, filenames in os.walk(base):
+                rel_depth = len(Path(dirpath).relative_to(base).parts)
+                if depth == 1 and rel_depth != 1:
+                    continue
+                if depth is None and rel_depth <= 1:
+                    continue
+                for name in sorted(filenames):
+                    if not name.endswith(".json") or name.startswith("._") or name == _COMBINED_BLOB:
+                        continue
+                    p = os.path.join(dirpath, name)
+                    if p in seen:
+                        continue
+                    seen.add(p)
+                    yield Path(p)
+
+    def prime(self, atoms) -> None:
+        atoms = sorted({a.lower() for a in atoms if a})
+        if self.mode == "blob" or not atoms:
+            self._found = set()
+            return
+        rx = re.compile(b"|".join(re.escape(a.encode()) for a in atoms))
+        overlap = max(len(a) for a in atoms) - 1
+        found = set()
+        for path in self._scan_roots():
+            try:
+                fh = open(path, "rb")
+            except OSError:
+                try:                      # Windows MAX_PATH: the payload nests past 260 chars
+                    fh = open("\\\\?\\" + str(path.resolve()), "rb")
+                except OSError:
+                    continue
+            with fh:
+                tail = b""
+                while True:
+                    chunk = fh.read(8 << 20)
+                    if not chunk:
+                        break
+                    found.update(m.decode("utf-8", "ignore") for m in rx.findall((tail + chunk).lower()))
+                    tail = chunk[-overlap:] if overlap > 0 else b""
+            if len(found) == len(atoms):
+                break                     # every atom accounted for; no need to read the rest
+        self._found = found
+
+    def contains(self, atom: str) -> bool:
+        if self.mode == "blob":
+            return atom.lower() in self._blob
+        if self._found is None:
+            raise RuntimeError("Presence.prime() must run before contains() on the export backend")
+        return atom.lower() in self._found
 
 
 def collect_atoms_from_text(text: str) -> Dict[str, List]:
@@ -240,13 +352,14 @@ def verify_airtable_vs_crm_claim_moveops(claim: dict, check: AtomCheck) -> None:
     )
 
 
-def verify_starpm_atoms(text: str, indexed: dict, consts: dict, check: AtomCheck) -> None:
+def verify_starpm_atoms(text: str, indexed: dict, consts: dict, check: AtomCheck,
+                        presence: "Presence") -> None:
     # Structured StarPM ids must exist in the universe (a phantom id is a FAIL).
     for pat, label in ((STARPM_AIRTABLE_REC, "airtable record"),
                        (STARPM_LINEAR_ISSUE, "linear issue"),
                        (STARPM_HUBSPOT_OBJ, "hubspot object")):
         for atom in sorted(set(pat.findall(text))):
-            verify_atom_presence(atom, label, indexed, check)
+            verify_atom_presence(atom, label, presence, check)
     full_blob = json.dumps(indexed, default=str).lower()
     # Invoice numbers live in a decoy-heavy space (near-duplicate files); WARN on
     # absence rather than FAIL so the operator disambiguates the authoritative doc.
@@ -372,12 +485,13 @@ def verify_no_response_claim(claim: dict, indexed: dict, check: AtomCheck) -> No
         )
 
 
-def verify_atom_presence(atom: str, atom_type: str, indexed: dict, check: AtomCheck) -> None:
-    full_blob = json.dumps(indexed, default=str).lower()
-    if atom.lower() in full_blob:
+def verify_atom_presence(atom: str, atom_type: str, presence: "Presence", check: AtomCheck) -> None:
+    where = ("the hydrated base export" if presence.mode == "export"
+             else "3_UniverseDataForThisTask.json")
+    if presence.contains(atom):
         check.record(
             atom=f"{atom_type} {atom}",
-            query=f"presence search in 3_UniverseDataForThisTask.json",
+            query=f"presence search in {where}",
             row="found",
             verdict="present in universe",
             severity="PASS",
@@ -385,7 +499,7 @@ def verify_atom_presence(atom: str, atom_type: str, indexed: dict, check: AtomCh
     else:
         check.record(
             atom=f"{atom_type} {atom}",
-            query=f"presence search in 3_UniverseDataForThisTask.json",
+            query=f"presence search in {where}",
             row="NOT FOUND",
             verdict=f"phantom {atom_type} — not in this task's universe",
             severity="FAIL",
@@ -431,7 +545,22 @@ def main():
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
     indexed = load_universe_data(task_dir)
-    if not indexed:
+    export_backed = (get_framework_profile(universe).get("universe_data_contract", "per_task_json")
+                     == "base_export_plus_changelog")
+
+    if export_backed:
+        # The per-task file is a POINTER here, so a thin `indexed` is EXPECTED and must not
+        # be read as "no data". What would be fatal is an un-hydrated payload: with nothing
+        # to search, every atom looks phantom and the gate emits confident false FAILs.
+        # Refuse to render a verdict instead - a skipped check is recoverable, a wrong one
+        # gets acted on.
+        services = ROOT / consts["base_path"] / "Services_Data"
+        if not services.is_dir() or not any(p.is_dir() for p in services.iterdir()):
+            print(f"[SKIP] verify_universe_atoms: {universe} payload is NOT HYDRATED "
+                  f"({services} has no service directories) - cannot verify atoms without "
+                  f"data. Hydrate via Validators/hydrate_harmonygames.sh, then re-run.")
+            sys.exit(0)
+    elif not indexed:
         print(f"WARN: no 3_UniverseDataForThisTask.json on {task_dir} — cannot verify atoms")
         sys.exit(0)
 
@@ -458,6 +587,19 @@ def main():
     combined = "\n".join(text_parts)
     atoms = collect_atoms_from_text(combined)
 
+    # Every atom that will get a presence verdict, resolved in ONE pass. The export
+    # backend cannot afford a scan per atom, and priming up front also means the blob
+    # backend stops re-serialising the universe once per atom.
+    presence = Presence(universe, task_dir, indexed, consts)
+    presence_atoms = set()
+    for bucket in ("je_ids", "vendor_ids", "doc_ids", "exc_ids", "recon_ids",
+                   "apinv_ids", "loan_ids", "emails"):
+        presence_atoms |= set(atoms.get(bucket) or [])
+    if universe == "starpm":
+        for pat in (STARPM_AIRTABLE_REC, STARPM_LINEAR_ISSUE, STARPM_HUBSPOT_OBJ):
+            presence_atoms |= set(pat.findall(combined))
+    presence.prime(presence_atoms)
+
     if consts.get("account_trap_check"):
         for c in atoms["accounts"]:
             verify_account_claim_brookfield(c, indexed, check)
@@ -474,23 +616,23 @@ def main():
         for c in atoms["airtable_vs_crm_claims"]:
             verify_airtable_vs_crm_claim_moveops(c, check)
     if universe == "starpm":
-        verify_starpm_atoms(combined, indexed, consts, check)
-    for je in set(atoms["je_ids"]):
-        verify_atom_presence(je, "JE", indexed, check)
-    for vid in set(atoms["vendor_ids"]):
-        verify_atom_presence(vid, "vendor", indexed, check)
-    for did in set(atoms["doc_ids"]):
-        verify_atom_presence(did, "doc", indexed, check)
-    for eid in set(atoms["exc_ids"]):
-        verify_atom_presence(eid, "exception", indexed, check)
-    for rid in set(atoms["recon_ids"]):
-        verify_atom_presence(rid, "recon", indexed, check)
-    for ai in set(atoms["apinv_ids"]):
-        verify_atom_presence(ai, "apinv", indexed, check)
-    for li in set(atoms["loan_ids"]):
-        verify_atom_presence(li, "loan", indexed, check)
-    for em in set(atoms["emails"]):
-        verify_atom_presence(em, "email", indexed, check)
+        verify_starpm_atoms(combined, indexed, consts, check, presence)
+    for je in sorted(set(atoms["je_ids"])):
+        verify_atom_presence(je, "JE", presence, check)
+    for vid in sorted(set(atoms["vendor_ids"])):
+        verify_atom_presence(vid, "vendor", presence, check)
+    for did in sorted(set(atoms["doc_ids"])):
+        verify_atom_presence(did, "doc", presence, check)
+    for eid in sorted(set(atoms["exc_ids"])):
+        verify_atom_presence(eid, "exception", presence, check)
+    for rid in sorted(set(atoms["recon_ids"])):
+        verify_atom_presence(rid, "recon", presence, check)
+    for ai in sorted(set(atoms["apinv_ids"])):
+        verify_atom_presence(ai, "apinv", presence, check)
+    for li in sorted(set(atoms["loan_ids"])):
+        verify_atom_presence(li, "loan", presence, check)
+    for em in sorted(set(atoms["emails"])):
+        verify_atom_presence(em, "email", presence, check)
 
     report = render_report(check)
     out_dir = task_dir / "_aux" / "Council_Reports"
