@@ -24,6 +24,3 @@
 __pycache__/
 *.pyc
 
-# Agent session state - machine-local, regenerable, not project content.
-.omo/
-.opencode/
