@@ -76,18 +76,38 @@ STARPM_ID_PATTERNS = {
 }
 
 
-# Derived from the 10 shipped HarmonyGames tasks in QC_Tasks/V5_HG_Buckets, NOT from
-# Services_Data (un-hydrated). Counts are occurrences measured in that corpus.
-# NOTE: a pipeline review asserted HG Linear issues look like "HG-1420". Measured against
-# the shipped corpus, that token occurs ZERO times; the real keys are team-prefixed.
+# Re-derived 2026-08-03 from the HYDRATED Services_Data export, which is the id space
+# these patterns are supposed to describe. The previous set was reverse-engineered from
+# task text while the payload was un-hydrated, and four of the five were wrong against
+# ground truth. Patterns are applied to json.dumps(row) below, which includes Slack
+# message BODIES, so precision matters as much as recall: a loose pattern invents ids
+# out of prose. Recall/FP below are measured over 586k Slack messages (681 MB) plus the
+# users and channels tables; "FP" means matched-but-absent-from-the-owning-table, and
+# every residual FP was hand-checked to be id-shaped (orphan references), not prose.
 HARMONYGAMES_ID_PATTERNS = {
-    # ENG 5845, ZOM 2264, EVT 835, DES 412, ART 103, EPI 28, LATE 12
-    "linear_issue":  (re.compile(r"\b(?:ENG|ZOM|EVT|DES|ART|EPI|LATE)-\d{2,5}\b"), "id"),
-    # 11-char Slack IDs, e.g. C080X4GTZ0E - NOT the C001..C0NN shape of the other universes
-    "slack_channel": (re.compile(r"\bC[0-9A-Z]{10}\b"), "channel_id"),
-    "slack_user":    (re.compile(r"\bU[0-9A-Z]{10}\b"), "user_id"),
+    # linear.issues.id: 3852 keys, prefixes ENG/ZOM/ART/DES/EPI. \d{2,5} missed the 12
+    # single-digit keys (EPI-1..EPI-9, DES-4/7/9). Now 3852/3852. EVT and LATE are absent
+    # from the export but occur in authored task text, so they stay in the alternation.
+    "linear_issue":  (re.compile(r"\b(?:ENG|ZOM|EVT|DES|ART|EPI|LATE)-\d{1,5}\b"), "id"),
+    # slack.channels.id: 985 ids - 385 C (channels) and 600 D (DMs), 11 AND 12 chars.
+    # C[0-9A-Z]{10} caught 139/985. A bare [CD][0-9A-Z]{10,11} reaches 985 but drags in
+    # 5715 FPs: uppercase UUID segments out of client_msg_id, and words like DRAMATICALLY
+    # and CONFIDENTIAL. Requiring an embedded digit kills the words; refusing a hyphen or
+    # word char on either side kills the UUID segments. Net: 985/985 recall, 62 FP - both
+    # better than the pattern it replaces (139/985, 67 FP).
+    "slack_channel": (re.compile(r"(?<![-0-9A-Za-z_])[CD](?=[0-9A-Z]*\d)[0-9A-Z]{10,11}(?![-0-9A-Za-z_])"), "channel_id"),
+    # slack.users.id is TWO spaces, not one: 118 raw Slack ids (U + 8..10 chars, incl.
+    # USLACKBOT which has no digit) and 100 opaque tokens in four families. Messages
+    # reference users by the TOKEN form, so indexing only raw ids missed every message
+    # author. The digit guard stops U-prefixed words like UNLIMITED. Now 218/218.
+    "slack_user":    (re.compile(r"\b(?:U(?=[0-9A-Z]*\d)[0-9A-Z]{8,10}|USLACKBOT"
+                                 r"|(?:PERSON|EMPLOYEE|SVC|SLACK)[A-Z_]*_\d{4}_SLACK_ID)\b"), "user_id"),
+    # trello.cards.id: 803 ids, 24 hex chars. Already 803/803 - left alone.
     "trello_card":   (re.compile(r"\b[a-f0-9]{24}\b"), "id"),
-    "gdrive_file":   (re.compile(r"\b1[A-Za-z0-9_-]{25,}\b"), "id"),
+    # gdrive.drive_files.id: 53702 ids, ALL `f_`/`d_` + 22 hex. The old Google-style
+    # 1[A-Za-z0-9_-]{25,} matched 0 of them while inventing 73730 phantom ids from prose
+    # slugs ("1-1-3-screenshot-1701735493647"). Now 53702/53702 with 0 FP.
+    "gdrive_file":   (re.compile(r"\b[fd]_[0-9a-f]{22}\b"), "id"),
 }
 
 # Registry key `id_pattern_set` selects one; absence means the v3-family default.
