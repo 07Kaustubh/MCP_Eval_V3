@@ -5,29 +5,9 @@
     "description": "Check the health of the service."
   },
   {
-    "name": "gmail_get_job_status",
+    "name": "gmail_archive_thread",
     "parameters": {
-      "job_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Poll an async job."
-  },
-  {
-    "name": "gmail_get_job_result",
-    "parameters": {
-      "job_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Fetch an async job's result once ready."
-  },
-  {
-    "name": "gmail_get_message",
-    "parameters": {
-      "message_id": {
+      "thread_id": {
         "required": "required",
         "type": "string"
       },
@@ -36,109 +16,7 @@
         "type": "string | null"
       }
     },
-    "description": "Get a single message by ID from a specific mailbox."
-  },
-  {
-    "name": "gmail_get_messages_batch",
-    "parameters": {
-      "message_ids": {
-        "required": "required",
-        "type": "array"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Batch-fetch multiple messages from one mailbox (up to 100)."
-  },
-  {
-    "name": "gmail_list_messages",
-    "parameters": {
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      },
-      "max_results": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "page_token": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "List messages in a mailbox, optionally filtered by labels."
-  },
-  {
-    "name": "gmail_search_messages",
-    "parameters": {
-      "query": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "max_results": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "page_token": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Search messages in a mailbox using Gmail q-operators."
-  },
-  {
-    "name": "gmail_submit_search_messages",
-    "parameters": {
-      "query": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "max_results": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "page_token": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Submit a message search for async execution."
-  },
-  {
-    "name": "gmail_modify_message_labels",
-    "parameters": {
-      "message_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "add_label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      },
-      "remove_label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      }
-    },
-    "description": "Add/remove labels on a single message."
+    "description": "Archive a thread by removing the INBOX label from all its messages."
   },
   {
     "name": "gmail_batch_modify_message_labels",
@@ -161,186 +39,6 @@
       }
     },
     "description": "Batch version of modify_message_labels (up to 1000)."
-  },
-  {
-    "name": "gmail_trash_message",
-    "parameters": {
-      "message_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Move a message to TRASH (reversible)."
-  },
-  {
-    "name": "gmail_untrash_message",
-    "parameters": {
-      "message_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Restore a trashed message."
-  },
-  {
-    "name": "gmail_delete_message",
-    "parameters": {
-      "message_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Permanently delete a message (irreversible)."
-  },
-  {
-    "name": "gmail_get_thread",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Get a thread by ID; messages ordered by internalDate ASC."
-  },
-  {
-    "name": "gmail_list_threads",
-    "parameters": {
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      },
-      "max_results": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "page_token": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "List threads in a mailbox, most-recent first."
-  },
-  {
-    "name": "gmail_modify_thread_labels",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "add_label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      },
-      "remove_label_ids": {
-        "required": "optional",
-        "type": "array | null"
-      }
-    },
-    "description": "Apply label changes to all messages in a thread."
-  },
-  {
-    "name": "gmail_trash_thread",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Move all messages in a thread to TRASH."
-  },
-  {
-    "name": "gmail_untrash_thread",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Restore a trashed thread."
-  },
-  {
-    "name": "gmail_archive_thread",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Archive a thread by removing the INBOX label from all its messages."
-  },
-  {
-    "name": "gmail_delete_thread",
-    "parameters": {
-      "thread_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Permanently delete a thread and all its messages."
-  },
-  {
-    "name": "gmail_list_labels",
-    "parameters": {
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "List all labels visible to this user."
-  },
-  {
-    "name": "gmail_get_label",
-    "parameters": {
-      "label_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "user_email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Get a single label by ID."
   },
   {
     "name": "gmail_create_label",
@@ -387,19 +85,32 @@
     "description": "Delete a user label."
   },
   {
-    "name": "gmail_get_profile",
+    "name": "gmail_delete_message",
     "parameters": {
+      "message_id": {
+        "required": "required",
+        "type": "string"
+      },
       "user_email": {
         "required": "optional",
         "type": "string | null"
       }
     },
-    "description": "Get the mailbox owner profile."
+    "description": "Permanently delete a message (irreversible)."
   },
   {
-    "name": "gmail_list_users",
-    "parameters": {},
-    "description": "List all mailbox owners known to this server."
+    "name": "gmail_delete_thread",
+    "parameters": {
+      "thread_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Permanently delete a thread and all its messages."
   },
   {
     "name": "gmail_get_attachment",
@@ -418,5 +129,294 @@
       }
     },
     "description": "Get an attachment's metadata plus inline base64 bytes when small."
+  },
+  {
+    "name": "gmail_get_job_result",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Fetch an async job's result once ready."
+  },
+  {
+    "name": "gmail_get_job_status",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Poll an async job."
+  },
+  {
+    "name": "gmail_get_label",
+    "parameters": {
+      "label_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get a single label by ID."
+  },
+  {
+    "name": "gmail_get_message",
+    "parameters": {
+      "message_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get a single message by ID from a specific mailbox."
+  },
+  {
+    "name": "gmail_get_messages_batch",
+    "parameters": {
+      "message_ids": {
+        "required": "required",
+        "type": "array"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Batch-fetch multiple messages from one mailbox (up to 100)."
+  },
+  {
+    "name": "gmail_get_profile",
+    "parameters": {
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get the mailbox owner profile."
+  },
+  {
+    "name": "gmail_get_thread",
+    "parameters": {
+      "thread_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get a thread by ID; messages ordered by internalDate ASC."
+  },
+  {
+    "name": "gmail_list_labels",
+    "parameters": {
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List all labels visible to this user."
+  },
+  {
+    "name": "gmail_list_messages",
+    "parameters": {
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      },
+      "max_results": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "page_token": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List messages in a mailbox, optionally filtered by labels."
+  },
+  {
+    "name": "gmail_list_threads",
+    "parameters": {
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      },
+      "max_results": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "page_token": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List threads in a mailbox, most-recent first."
+  },
+  {
+    "name": "gmail_list_users",
+    "parameters": {},
+    "description": "List all mailbox owners known to this server."
+  },
+  {
+    "name": "gmail_modify_message_labels",
+    "parameters": {
+      "message_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "add_label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      },
+      "remove_label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      }
+    },
+    "description": "Add/remove labels on a single message."
+  },
+  {
+    "name": "gmail_modify_thread_labels",
+    "parameters": {
+      "thread_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "add_label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      },
+      "remove_label_ids": {
+        "required": "optional",
+        "type": "array | null"
+      }
+    },
+    "description": "Apply label changes to all messages in a thread."
+  },
+  {
+    "name": "gmail_search_messages",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "max_results": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "page_token": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Search messages in a mailbox using Gmail q-operators."
+  },
+  {
+    "name": "gmail_submit_search_messages",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "max_results": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "page_token": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Submit a message search for async execution."
+  },
+  {
+    "name": "gmail_trash_message",
+    "parameters": {
+      "message_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Move a message to TRASH (reversible)."
+  },
+  {
+    "name": "gmail_trash_thread",
+    "parameters": {
+      "thread_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Move all messages in a thread to TRASH."
+  },
+  {
+    "name": "gmail_untrash_message",
+    "parameters": {
+      "message_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Restore a trashed message."
+  },
+  {
+    "name": "gmail_untrash_thread",
+    "parameters": {
+      "thread_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "user_email": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Restore a trashed thread."
   }
 ]

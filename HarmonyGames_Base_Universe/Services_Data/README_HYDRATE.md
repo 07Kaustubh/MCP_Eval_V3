@@ -35,6 +35,35 @@ teammate nothing until they actually need HarmonyGames.
 Verified against the upstream drop: path+size identical for **all 294,512 files**, plus a
 400-file sha256 sample with zero mismatches.
 
+## Searching this payload — read this before you grep
+
+Two traps here have already produced confident, wrong conclusions.
+
+**1. `git grep`, `rg` and every ripgrep-backed search return ZERO matches by design.**
+`.gitignore` carries `**/Services_Data/*`, and those tools honour it, so a search over this
+directory silently reports "no matches" whether or not the string is there. Absence of
+matches is NOT evidence of absence. Force it explicitly:
+
+```sh
+rg --no-ignore --hidden 'oliver@harmonygames.co' HarmonyGames_Base_Universe/Services_Data
+```
+
+**2. The service-level tables are not the whole universe.** The 118 files sitting directly
+under each service directory hold only 234 MB. The records live deeper — `slack/messages/`
+(901 MB), `gmail/threads/` (338 MB), `github/root/` (166 MB), `gdrive/root/` (54 MB) — 1.9 GB
+of JSON across 71,021 files in all. A scan scoped to the top level misses most of the data
+and will report real values as missing. This exact mistake made 11 of the 17 roster emails
+look absent when every one of them is present.
+
+**3. Two Windows-specific hazards.** Paths inside the Unity `PackageCache` trees exceed the
+260-char `MAX_PATH` limit, so `open()` and `os.path.getsize()` raise on files `os.walk` just
+listed — retry through the `\\?\` prefix. And the tarball carries macOS AppleDouble `._*.json`
+siblings that are not valid UTF-8; skip any name starting with `._`.
+
+The reference implementation of a correct scan is `Presence` in
+`Validators/verify_universe_atoms.py`: one streaming pass, chunked with an overlap, constant
+memory. Do not load this payload into memory — earlier attempts were OOM-killed.
+
 ## The one deliberate omission
 
 The 17 nested git repositories (548 MB) are excluded. Their **working trees are fully

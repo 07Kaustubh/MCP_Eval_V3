@@ -5,41 +5,31 @@
     "description": "Check the health of the service."
   },
   {
-    "name": "confluence_list_spaces",
+    "name": "confluence_add_comment",
     "parameters": {
-      "query": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "includeArchived": {
-        "required": "optional",
-        "type": "boolean"
-      },
-      "limit": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "offset": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "List spaces in the Confluence site."
-  },
-  {
-    "name": "confluence_get_space",
-    "parameters": {
-      "query": {
+      "page_id": {
         "required": "required",
         "type": "string"
+      },
+      "authorId": {
+        "required": "required",
+        "type": "string"
+      },
+      "body": {
+        "required": "required",
+        "type": "string"
+      },
+      "parentId": {
+        "required": "optional",
+        "type": "string | null"
       }
     },
-    "description": "Get a single space by id, key, or name."
+    "description": "Add a comment to a page (optionally as a threaded reply)."
   },
   {
-    "name": "confluence_create_space",
+    "name": "confluence_add_label",
     "parameters": {
-      "key": {
+      "page_id": {
         "required": "required",
         "type": "string"
       },
@@ -47,66 +37,12 @@
         "required": "required",
         "type": "string"
       },
-      "description": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "type": {
+      "prefix": {
         "required": "optional",
         "type": "string"
       }
     },
-    "description": "Create a new space."
-  },
-  {
-    "name": "confluence_get_page",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Get a single page by id, including its body content."
-  },
-  {
-    "name": "confluence_list_pages",
-    "parameters": {
-      "space": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "parentId": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "status": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "title": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "limit": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "offset": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "List pages, optionally filtered by space, parent, status, or title."
-  },
-  {
-    "name": "confluence_get_page_children",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "List the direct child pages of a page."
+    "description": "Apply a label to a page."
   },
   {
     "name": "confluence_create_page",
@@ -139,30 +75,26 @@
     "description": "Create a new page in a space."
   },
   {
-    "name": "confluence_update_page",
+    "name": "confluence_create_space",
     "parameters": {
-      "page_id": {
+      "key": {
         "required": "required",
         "type": "string"
       },
-      "title": {
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "description": {
         "required": "optional",
         "type": "string | null"
       },
-      "body": {
+      "type": {
         "required": "optional",
-        "type": "string | null"
-      },
-      "status": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "parentId": {
-        "required": "optional",
-        "type": "string | null"
+        "type": "string"
       }
     },
-    "description": "Update a page. Editing title or body bumps the version number."
+    "description": "Create a new space."
   },
   {
     "name": "confluence_delete_page",
@@ -173,6 +105,69 @@
       }
     },
     "description": "Move a page to the trash (soft delete; sets status to trashed)."
+  },
+  {
+    "name": "confluence_get_current_user",
+    "parameters": {},
+    "description": "Get the current session user."
+  },
+  {
+    "name": "confluence_get_job_result",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get the result of a completed Confluence asynchronous job."
+  },
+  {
+    "name": "confluence_get_job_status",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get the status of a previously submitted Confluence asynchronous job."
+  },
+  {
+    "name": "confluence_get_page",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get a single page by id, including its body content."
+  },
+  {
+    "name": "confluence_get_page_children",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "List the direct child pages of a page."
+  },
+  {
+    "name": "confluence_get_page_diff",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "from_version": {
+        "required": "required",
+        "type": "integer"
+      },
+      "to_version": {
+        "required": "required",
+        "type": "integer"
+      }
+    },
+    "description": "Unified diff of a page's body between two versions."
   },
   {
     "name": "confluence_get_page_history",
@@ -199,6 +194,122 @@
     "description": "Get a specific historical version of a page."
   },
   {
+    "name": "confluence_get_space",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get a single space by id, key, or name."
+  },
+  {
+    "name": "confluence_get_user",
+    "parameters": {
+      "query": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get a user by id, account id, email, or display name."
+  },
+  {
+    "name": "confluence_list_attachments",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "List attachment metadata for a page."
+  },
+  {
+    "name": "confluence_list_comments",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "List comments on a page in chronological order."
+  },
+  {
+    "name": "confluence_list_labels",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "List labels applied to a page."
+  },
+  {
+    "name": "confluence_list_pages",
+    "parameters": {
+      "space": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "parentId": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "status": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "title": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "offset": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List pages, optionally filtered by space, parent, status, or title."
+  },
+  {
+    "name": "confluence_list_spaces",
+    "parameters": {
+      "query": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "includeArchived": {
+        "required": "optional",
+        "type": "boolean"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "offset": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List spaces in the Confluence site."
+  },
+  {
+    "name": "confluence_list_users",
+    "parameters": {
+      "query": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List users, optionally filtered by name/email substring."
+  },
+  {
     "name": "confluence_restore_page_version",
     "parameters": {
       "page_id": {
@@ -211,24 +322,6 @@
       }
     },
     "description": "Restore a page to a historical version (creates a new version)."
-  },
-  {
-    "name": "confluence_get_page_diff",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "from_version": {
-        "required": "required",
-        "type": "integer"
-      },
-      "to_version": {
-        "required": "required",
-        "type": "integer"
-      }
-    },
-    "description": "Unified diff of a page's body between two versions."
   },
   {
     "name": "confluence_search",
@@ -261,100 +354,6 @@
     "description": "Search current pages via a CQL string or structured filters (CQL parsed for type/space/label/title/text/parent, AND-combined)."
   },
   {
-    "name": "confluence_list_comments",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "List comments on a page in chronological order."
-  },
-  {
-    "name": "confluence_add_comment",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "authorId": {
-        "required": "required",
-        "type": "string"
-      },
-      "body": {
-        "required": "required",
-        "type": "string"
-      },
-      "parentId": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Add a comment to a page (optionally as a threaded reply)."
-  },
-  {
-    "name": "confluence_list_labels",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "List labels applied to a page."
-  },
-  {
-    "name": "confluence_add_label",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      },
-      "name": {
-        "required": "required",
-        "type": "string"
-      },
-      "prefix": {
-        "required": "optional",
-        "type": "string"
-      }
-    },
-    "description": "Apply a label to a page."
-  },
-  {
-    "name": "confluence_list_attachments",
-    "parameters": {
-      "page_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "List attachment metadata for a page."
-  },
-  {
-    "name": "confluence_list_users",
-    "parameters": {
-      "query": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "limit": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "List users, optionally filtered by name/email substring."
-  },
-  {
-    "name": "confluence_get_user",
-    "parameters": {
-      "query": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Get a user by id, account id, email, or display name."
-  },
-  {
     "name": "confluence_search_user",
     "parameters": {
       "query": {
@@ -369,8 +368,59 @@
     "description": "Search users by name or email."
   },
   {
-    "name": "confluence_get_current_user",
-    "parameters": {},
-    "description": "Get the current session user."
+    "name": "confluence_submit_search",
+    "parameters": {
+      "cql": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "text": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "space": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "label": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "title": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Submit an asynchronous search across Confluence content; returns a job id to poll."
+  },
+  {
+    "name": "confluence_update_page",
+    "parameters": {
+      "page_id": {
+        "required": "required",
+        "type": "string"
+      },
+      "title": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "body": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "status": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "parentId": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Update a page. Editing title or body bumps the version number."
   }
 ]

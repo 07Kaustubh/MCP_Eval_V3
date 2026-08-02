@@ -5,9 +5,54 @@
     "description": "Check the health of the service."
   },
   {
-    "name": "gcal_list_calendars",
-    "parameters": {},
-    "description": "List calendars visible to the viewer."
+    "name": "gcal_create_event",
+    "parameters": {
+      "calendarId": {
+        "required": "required",
+        "type": "string"
+      },
+      "event": {
+        "required": "required",
+        "type": "object"
+      }
+    },
+    "description": "Create an event on a calendar."
+  },
+  {
+    "name": "gcal_delete_event",
+    "parameters": {
+      "calendarId": {
+        "required": "required",
+        "type": "string"
+      },
+      "eventId": {
+        "required": "required",
+        "type": "string"
+      },
+      "hardDelete": {
+        "required": "optional",
+        "type": "boolean"
+      }
+    },
+    "description": "Delete an event (soft-delete by default)."
+  },
+  {
+    "name": "gcal_freebusy_query",
+    "parameters": {
+      "calendarIds": {
+        "required": "required",
+        "type": "array"
+      },
+      "timeMin": {
+        "required": "required",
+        "type": "string"
+      },
+      "timeMax": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Query free/busy windows across calendars."
   },
   {
     "name": "gcal_get_calendar",
@@ -18,6 +63,25 @@
       }
     },
     "description": "Get a single calendar."
+  },
+  {
+    "name": "gcal_get_event",
+    "parameters": {
+      "calendarId": {
+        "required": "required",
+        "type": "string"
+      },
+      "eventId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get a single event."
+  },
+  {
+    "name": "gcal_list_calendars",
+    "parameters": {},
+    "description": "List calendars visible to the viewer."
   },
   {
     "name": "gcal_list_events",
@@ -58,107 +122,6 @@
     "description": "List events on a calendar, optionally filtered."
   },
   {
-    "name": "gcal_get_event",
-    "parameters": {
-      "calendarId": {
-        "required": "required",
-        "type": "string"
-      },
-      "eventId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Get a single event."
-  },
-  {
-    "name": "gcal_search_events",
-    "parameters": {
-      "q": {
-        "required": "required",
-        "type": "string"
-      },
-      "timeMin": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "timeMax": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "maxResults": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "Cross-calendar text search."
-  },
-  {
-    "name": "gcal_freebusy_query",
-    "parameters": {
-      "calendarIds": {
-        "required": "required",
-        "type": "array"
-      },
-      "timeMin": {
-        "required": "required",
-        "type": "string"
-      },
-      "timeMax": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Query free/busy windows across calendars."
-  },
-  {
-    "name": "gcal_get_viewer",
-    "parameters": {},
-    "description": "Return the active viewer email (None = admin mode)."
-  },
-  {
-    "name": "gcal_set_viewer",
-    "parameters": {
-      "email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Switch the viewer-scope filter."
-  },
-  {
-    "name": "gcal_create_event",
-    "parameters": {
-      "calendarId": {
-        "required": "required",
-        "type": "string"
-      },
-      "event": {
-        "required": "required",
-        "type": "object"
-      }
-    },
-    "description": "Create an event on a calendar."
-  },
-  {
-    "name": "gcal_update_event",
-    "parameters": {
-      "calendarId": {
-        "required": "required",
-        "type": "string"
-      },
-      "eventId": {
-        "required": "required",
-        "type": "string"
-      },
-      "event": {
-        "required": "required",
-        "type": "object"
-      }
-    },
-    "description": "Replace an event (full update)."
-  },
-  {
     "name": "gcal_patch_event",
     "parameters": {
       "calendarId": {
@@ -175,24 +138,6 @@
       }
     },
     "description": "Patch an event with a partial update."
-  },
-  {
-    "name": "gcal_delete_event",
-    "parameters": {
-      "calendarId": {
-        "required": "required",
-        "type": "string"
-      },
-      "eventId": {
-        "required": "required",
-        "type": "string"
-      },
-      "hardDelete": {
-        "required": "optional",
-        "type": "boolean"
-      }
-    },
-    "description": "Delete an event (soft-delete by default)."
   },
   {
     "name": "gcal_respond_to_event",
@@ -219,5 +164,45 @@
       }
     },
     "description": "Update an attendee's responseStatus on an event."
+  },
+  {
+    "name": "gcal_search_events",
+    "parameters": {
+      "q": {
+        "required": "required",
+        "type": "string"
+      },
+      "timeMin": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "timeMax": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "maxResults": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Cross-calendar text search."
+  },
+  {
+    "name": "gcal_update_event",
+    "parameters": {
+      "calendarId": {
+        "required": "required",
+        "type": "string"
+      },
+      "eventId": {
+        "required": "required",
+        "type": "string"
+      },
+      "event": {
+        "required": "required",
+        "type": "object"
+      }
+    },
+    "description": "Replace an event (full update)."
   }
 ]

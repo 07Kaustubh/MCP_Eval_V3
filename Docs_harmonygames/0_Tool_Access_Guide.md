@@ -55,11 +55,11 @@ the catalogs.
 * **GSheets — read and write:** search/read spreadsheets and ranges; create spreadsheets; update or append values; batch-update spreadsheets. The catalog has no spreadsheet-delete tool.
 * **GSlides — read and write:** search/read presentations and pages; create presentations; batch-update presentations. The catalog has no presentation-delete tool.
 * **Trello — read and write:** inspect/search boards, lists, cards, members, actions, comments, checklists, labels, and attachments; create/update/move/archive/delete cards; add comments, members, and labels; create/archive lists; create labels, checklists, and checklist items; update checklist items.
-* **Linear — read and write:** inspect users, teams, projects, issues, statuses, labels, cycles, and comments; create users, teams, projects, issues, and comments; update projects and issues. The catalog has no delete tools.
+* **Linear — read and write:** inspect users, teams, projects, issues, statuses, labels, cycles, comments, and attachments; create users, teams, projects, issues, and comments; update projects and issues. The catalog has no delete tools.
 * **Contacts — read and write:** list/get/search, add, edit, and delete contacts.
 * **Confluence — read and write:** inspect/search spaces, pages, history, versions, diffs, comments, labels, attachments, and users; create spaces and pages; update/delete/restore pages; add comments and labels. The catalog does not provide space, comment, label, attachment, or user deletion.
 
-Health, job-status, and job-result tools exist only where listed in the individual catalogs. The environment automatically applies `set_acting_user` with the exact roster email after universe load and reapplies it each run and turn. It is environment configuration, not an Agent tool, Oracle Event, rubric process requirement, or task call-count contribution.
+Health tools, async submission tools (`*_submit_*`), and their paired job-status and job-result tools exist only where listed in the individual catalogs. The environment automatically applies `set_acting_user` with the exact roster email after universe load and reapplies it each run and turn. It is environment configuration, not an Agent tool, Oracle Event, rubric process requirement, or task call-count contribution.
 
 ## Authoring rules
 

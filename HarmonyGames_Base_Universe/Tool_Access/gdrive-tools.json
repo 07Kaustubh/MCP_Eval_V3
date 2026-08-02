@@ -5,14 +5,78 @@
     "description": "Check the health of the service."
   },
   {
-    "name": "gdrive_get_job_status",
+    "name": "gdrive_create_file",
     "parameters": {
-      "job_id": {
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "content": {
+        "required": "required",
+        "type": "string"
+      },
+      "mimeType": {
+        "required": "optional",
+        "type": "string"
+      },
+      "parentId": {
+        "required": "optional",
+        "type": "string"
+      },
+      "driveMimeType": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "description": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Create a file with content."
+  },
+  {
+    "name": "gdrive_create_folder",
+    "parameters": {
+      "name": {
+        "required": "required",
+        "type": "string"
+      },
+      "parentId": {
+        "required": "optional",
+        "type": "string"
+      }
+    },
+    "description": "Create a folder."
+  },
+  {
+    "name": "gdrive_delete_file",
+    "parameters": {
+      "fileId": {
         "required": "required",
         "type": "string"
       }
     },
-    "description": "Poll an async job."
+    "description": "Hard delete a file."
+  },
+  {
+    "name": "gdrive_get_file_metadata",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Get metadata for a single file."
+  },
+  {
+    "name": "gdrive_get_file_path",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Resolve a file ID to its full /My Drive/.../name.ext path."
   },
   {
     "name": "gdrive_get_job_result",
@@ -23,6 +87,110 @@
       }
     },
     "description": "Fetch an async job's result once ready."
+  },
+  {
+    "name": "gdrive_get_job_status",
+    "parameters": {
+      "job_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Poll an async job."
+  },
+  {
+    "name": "gdrive_list_folder",
+    "parameters": {
+      "folderId": {
+        "required": "optional",
+        "type": "string"
+      },
+      "pageSize": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "pageToken": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "List immediate children of a folder."
+  },
+  {
+    "name": "gdrive_list_recent_files",
+    "parameters": {
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "List files sorted by modifiedTime descending."
+  },
+  {
+    "name": "gdrive_list_sheets",
+    "parameters": {
+      "spreadsheetId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "List tabs in a Google Sheet."
+  },
+  {
+    "name": "gdrive_move_file",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      },
+      "newParentId": {
+        "required": "required",
+        "type": "string"
+      },
+      "oldParentId": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Move a file (addParents/removeParents)."
+  },
+  {
+    "name": "gdrive_read_file",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      },
+      "exportMimeType": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Read a file's content with format conversion (Docs\u2192MD, Sheets\u2192CSV, Slides\u2192text)."
+  },
+  {
+    "name": "gdrive_read_sheet_range",
+    "parameters": {
+      "spreadsheetId": {
+        "required": "required",
+        "type": "string"
+      },
+      "sheetIndex": {
+        "required": "optional",
+        "type": "integer"
+      }
+    },
+    "description": "Read one tab of a Google Sheet as CSV."
+  },
+  {
+    "name": "gdrive_restore_from_trash",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Untrash a file."
   },
   {
     "name": "gdrive_search",
@@ -67,6 +235,32 @@
     "description": "Search Drive files; mirrors GET /drive/v3/files with q syntax."
   },
   {
+    "name": "gdrive_share_file",
+    "parameters": {
+      "fileId": {
+        "required": "required",
+        "type": "string"
+      },
+      "emailAddress": {
+        "required": "optional",
+        "type": "string | null"
+      },
+      "role": {
+        "required": "optional",
+        "type": "string"
+      },
+      "type": {
+        "required": "optional",
+        "type": "string"
+      },
+      "domain": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Grant a permission (owner-only)."
+  },
+  {
     "name": "gdrive_submit_search",
     "parameters": {
       "query": {
@@ -109,124 +303,19 @@
     "description": "Submit a Drive file search for async execution."
   },
   {
-    "name": "gdrive_list_folder",
-    "parameters": {
-      "folderId": {
-        "required": "optional",
-        "type": "string"
-      },
-      "pageSize": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "pageToken": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "List immediate children of a folder."
-  },
-  {
-    "name": "gdrive_get_file_metadata",
+    "name": "gdrive_trash_file",
     "parameters": {
       "fileId": {
         "required": "required",
         "type": "string"
       }
     },
-    "description": "Get metadata for a single file."
+    "description": "Soft-delete: set trashed=true."
   },
   {
-    "name": "gdrive_get_file_path",
+    "name": "gdrive_update_file_content",
     "parameters": {
       "fileId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Resolve a file ID to its full /My Drive/.../name.ext path."
-  },
-  {
-    "name": "gdrive_list_recent_files",
-    "parameters": {
-      "limit": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "List files sorted by modifiedTime descending."
-  },
-  {
-    "name": "gdrive_read_file",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      },
-      "exportMimeType": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Read a file's content with format conversion (Docs→MD, Sheets→CSV, Slides→text)."
-  },
-  {
-    "name": "gdrive_list_sheets",
-    "parameters": {
-      "spreadsheetId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "List tabs in a Google Sheet."
-  },
-  {
-    "name": "gdrive_read_sheet_range",
-    "parameters": {
-      "spreadsheetId": {
-        "required": "required",
-        "type": "string"
-      },
-      "sheetIndex": {
-        "required": "optional",
-        "type": "integer"
-      }
-    },
-    "description": "Read one tab of a Google Sheet as CSV."
-  },
-  {
-    "name": "gdrive_get_viewer",
-    "parameters": {},
-    "description": "Return the current viewer (None = admin mode)."
-  },
-  {
-    "name": "gdrive_set_viewer",
-    "parameters": {
-      "email": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Switch the active viewer at runtime."
-  },
-  {
-    "name": "gdrive_create_folder",
-    "parameters": {
-      "name": {
-        "required": "required",
-        "type": "string"
-      },
-      "parentId": {
-        "required": "optional",
-        "type": "string"
-      }
-    },
-    "description": "Create a folder."
-  },
-  {
-    "name": "gdrive_create_file",
-    "parameters": {
-      "name": {
         "required": "required",
         "type": "string"
       },
@@ -236,22 +325,10 @@
       },
       "mimeType": {
         "required": "optional",
-        "type": "string"
-      },
-      "parentId": {
-        "required": "optional",
-        "type": "string"
-      },
-      "driveMimeType": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "description": {
-        "required": "optional",
         "type": "string | null"
       }
     },
-    "description": "Create a file with content."
+    "description": "Replace a file's content."
   },
   {
     "name": "gdrive_update_file_metadata",
@@ -274,97 +351,5 @@
       }
     },
     "description": "Update file metadata (owner-only)."
-  },
-  {
-    "name": "gdrive_update_file_content",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      },
-      "content": {
-        "required": "required",
-        "type": "string"
-      },
-      "mimeType": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Replace a file's content."
-  },
-  {
-    "name": "gdrive_move_file",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      },
-      "newParentId": {
-        "required": "required",
-        "type": "string"
-      },
-      "oldParentId": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Move a file (addParents/removeParents)."
-  },
-  {
-    "name": "gdrive_trash_file",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Soft-delete: set trashed=true."
-  },
-  {
-    "name": "gdrive_restore_from_trash",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Untrash a file."
-  },
-  {
-    "name": "gdrive_delete_file",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Hard delete a file."
-  },
-  {
-    "name": "gdrive_share_file",
-    "parameters": {
-      "fileId": {
-        "required": "required",
-        "type": "string"
-      },
-      "emailAddress": {
-        "required": "optional",
-        "type": "string | null"
-      },
-      "role": {
-        "required": "optional",
-        "type": "string"
-      },
-      "type": {
-        "required": "optional",
-        "type": "string"
-      },
-      "domain": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Grant a permission (owner-only)."
   }
 ]

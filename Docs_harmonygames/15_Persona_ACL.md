@@ -108,16 +108,21 @@ task call to include in complexity or trajectory call counts.
 
 ## Google viewer-context tools
 
-Some Google service catalogs expose service-specific `*_get_viewer` or
-`*_set_viewer` tools. Viewer context is not task persona identity and does not
-replace taxonomy, the roster, `persona_email`, or `set_acting_user`. It cannot
-authorize an ACL bypass, and viewer calls earn no Oracle Event, Process, or
-complexity credit.
+The catalog no longer exposes any `*_get_viewer` or `*_set_viewer` tool. GCal,
+GDrive, GDocs, GSheets, and GSlides each had a get/set pair; all ten were removed
+from `5_Server_Tools_Details.json`. A new task may not call one, and a rubric or
+Oracle Event that names one cites a phantom tool.
 
-If a manual viewer change causes scoped Google reads under the wrong identity or
-otherwise defeats the assigned persona scope, classify the execution as
-**Excluded (environment/config/path violation)**. This now applies to GDrive,
-GDocs, GSheets, and GSlides as well as GCal.
+The rule below still governs archived material. Viewer calls appear in the
+V5_HG_Buckets QC reference trajectories, and one `8_Verifier_Fails.txt` cites
+`gcal_get_viewer`, so anyone grading those runs still needs it.
+
+Viewer context was never task persona identity and never replaced taxonomy, the
+roster, `persona_email`, or `set_acting_user`. It could not authorize an ACL
+bypass, and viewer calls earned no Oracle Event, Process, or complexity credit.
+Where a manual viewer change caused scoped Google reads under the wrong identity,
+or otherwise defeated the assigned persona scope, the execution is
+**Excluded (environment/config/path violation)**.
 
 ## Task-authoring and evaluation rules
 

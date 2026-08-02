@@ -5,30 +5,6 @@
     "description": "Check the health of the service."
   },
   {
-    "name": "contacts_get_contacts",
-    "parameters": {
-      "limit": {
-        "required": "optional",
-        "type": "integer"
-      },
-      "cursor": {
-        "required": "optional",
-        "type": "string | null"
-      }
-    },
-    "description": "Get contacts list with cursor pagination."
-  },
-  {
-    "name": "contacts_get_contact",
-    "parameters": {
-      "contact_id": {
-        "required": "required",
-        "type": "string"
-      }
-    },
-    "description": "Get a specific contact by ID."
-  },
-  {
     "name": "contacts_add_new_contact",
     "parameters": {
       "first_name": {
@@ -87,6 +63,16 @@
     "description": "Add a new contact."
   },
   {
+    "name": "contacts_delete_contact",
+    "parameters": {
+      "contact_id": {
+        "required": "required",
+        "type": "string"
+      }
+    },
+    "description": "Delete a contact."
+  },
+  {
     "name": "contacts_edit_contact",
     "parameters": {
       "contact_id": {
@@ -101,14 +87,28 @@
     "description": "Edit a contact's fields."
   },
   {
-    "name": "contacts_delete_contact",
+    "name": "contacts_get_contact",
     "parameters": {
       "contact_id": {
         "required": "required",
         "type": "string"
       }
     },
-    "description": "Delete a contact."
+    "description": "Get a specific contact by ID."
+  },
+  {
+    "name": "contacts_get_contacts",
+    "parameters": {
+      "limit": {
+        "required": "optional",
+        "type": "integer"
+      },
+      "cursor": {
+        "required": "optional",
+        "type": "string | null"
+      }
+    },
+    "description": "Get contacts list with cursor pagination."
   },
   {
     "name": "contacts_search_contacts",
