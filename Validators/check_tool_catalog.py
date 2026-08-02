@@ -24,7 +24,22 @@ HASH_FILE = Path(__file__).resolve().parent / "tool_catalog_hashes.json"
 
 
 def compute_hash(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """Hash a catalog with line endings normalised to LF.
+
+    The pinned hashes were captured on macOS. A Windows checkout with
+    core.autocrlf=true materialises the same catalog with CRLF, so a raw byte hash
+    reported DRIFT on all five universes at once for content that had not changed.
+    That made the printed "Run with --update" advice actively dangerous: on Windows it
+    rewrote every pinned hash with a CRLF value and broke the baseline for everyone else.
+    Normalising here means only a real content change can drift, which is what makes
+    --update safe to follow.
+
+    Line endings ONLY. Unlike the validator reports, a catalog is JSON, where a
+    backslash is an escape character rather than a path separator - rewriting it would
+    change what the hash means. Verified: all five catalogs contain zero backslash bytes,
+    so there is nothing separator-shaped to normalise anyway.
+    """
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def main():

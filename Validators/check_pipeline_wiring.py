@@ -36,6 +36,7 @@ Exit 0 clean, 1 when any check fails.
 import argparse
 import ast
 import importlib.util
+import os
 import re
 import subprocess
 import sys
@@ -64,6 +65,73 @@ def docs():
     for g in DOC_GLOBS:
         out.extend(sorted(ROOT.glob(g)))
     return out
+
+
+_TREE = {}
+
+
+def tree():
+    """Walk the repo ONCE and cache what the path/orphan checks need.
+
+    A hydrated HarmonyGames puts ~600k files under Services_Data, and the payload holds
+    real .py and .md files, so it cannot simply be skipped without losing coverage - its
+    README_HYDRATE.md is what mentions check_hydration.py. The cost was never the walk
+    (~4s); it was re-walking per cited token and re-reading every doc per validator
+    module. Walk once, reuse everywhere.
+
+    Returns dict with `pys`, `mds` (same membership as the previous rglob calls) and
+    `by_name`, mapping a basename to every repo-relative path that ends in it.
+    """
+    if not _TREE:
+        pys, mds, by_name = [], [], {}
+        for dirpath, dirnames, filenames in os.walk(ROOT):
+            d = Path(dirpath)
+            rel = d.relative_to(ROOT).as_posix()
+            for name in list(dirnames) + filenames:
+                by_name.setdefault(name, []).append(name if rel == "." else f"{rel}/{name}")
+            for name in filenames:
+                p = d / name
+                if name.endswith(".py"):
+                    if "__pycache__" not in str(p):
+                        pys.append(p)
+                elif name.endswith(".md"):
+                    mds.append(p)
+        _TREE.update(pys=pys, mds=mds, by_name=by_name)
+    return _TREE
+
+
+def read_text_safe(p: Path) -> str:
+    """Read a scanned file, tolerating Windows' 260-char MAX_PATH.
+
+    The hydrated payload carries Unity PackageCache docs whose absolute paths exceed
+    MAX_PATH, so a plain read_text raises FileNotFoundError on Windows even though
+    os.walk just listed the file. Retry through the extended-length prefix so the file is
+    still scanned rather than skipped; only give up if that fails too.
+    """
+    try:
+        return p.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        try:
+            with open(rf"\\?\{p}", encoding="utf-8", errors="ignore") as fh:
+                return fh.read()
+        except OSError:
+            UNREADABLE.append(p)
+            return ""
+
+
+UNREADABLE = []
+
+
+def resolves_anywhere(tok: str) -> bool:
+    """True iff ROOT.glob(f'**/{tok}') would match - answered from the cached index.
+
+    `**/` matches zero or more leading directories, so a token matches when some path is
+    exactly it or ends with '/' + it.
+    """
+    for rel in tree()["by_name"].get(tok.rsplit("/", 1)[-1], ()):
+        if rel == tok or rel.endswith("/" + tok):
+            return True
+    return False
 
 
 def check_unread_locals() -> list:
@@ -180,17 +248,26 @@ def check_orphan_validators() -> list:
     """
     out = []
     mods = sorted(p.stem for p in VDIR.glob("*.py") if p.stem != "__init__")
-    pys = [q for q in ROOT.rglob("*.py") if "__pycache__" not in str(q)]
-    mds = list(ROOT.rglob("*.md"))
+    if not mods:
+        return out
+    # One pass per file testing every module, rather than one pass per module over every
+    # file: identical answers, but 43x fewer reads of the same 3.7k docs.
+    # Longest name first so an alternation cannot settle for a prefix of another module.
+    alt = "|".join(re.escape(m) for m in sorted(mods, key=len, reverse=True))
+    import_re = re.compile(rf"\b(?:import\s+({alt})\b|from\s+({alt})\s+import)")
+    mention_re = re.compile(rf"\b({alt})\.py\b")
+
+    imported, mentioned = set(), set()
+    for q in tree()["pys"]:
+        for mo in import_re.finditer(read_text_safe(q)):
+            name = mo.group(1) or mo.group(2)
+            if name != q.stem:            # a module importing itself never counted
+                imported.add(name)
+    for q in tree()["mds"]:
+        mentioned.update(mo.group(1) for mo in mention_re.finditer(read_text_safe(q)))
+
     for m in mods:
-        imported = any(re.search(rf"\b(?:import\s+{re.escape(m)}\b|from\s+{re.escape(m)}\s+import)",
-                                 q.read_text(encoding="utf-8", errors="ignore"))
-                       for q in pys if q.stem != m)
-        if imported:
-            continue
-        mentioned = any(re.search(rf"\b{re.escape(m)}\.py\b", q.read_text(encoding="utf-8", errors="ignore"))
-                        for q in mds)
-        if not mentioned:
+        if m not in imported and m not in mentioned:
             out.append(f"[W9] Validators/{m}.py is imported by nothing and mentioned in no doc - orphan")
     return out
 
@@ -343,7 +420,7 @@ def main():
             cands = [ROOT / tok, ROOT / "Validators" / tok, ROOT / "Reference" / tok]
             if tok.startswith("Tasks/") or "<TASK_DIR>" in tok:
                 continue
-            if not any(c.exists() for c in cands) and not list(ROOT.glob(f"**/{tok}"))[:1]:
+            if not any(c.exists() for c in cands) and not resolves_anywhere(tok):
                 fails.append(f"[W1] {rel}: cites `{tok}` which does not exist")
         for m in SCRIPT_RE.finditer(txt):
             script, flagblob = m.group(1), m.group(2) or ""

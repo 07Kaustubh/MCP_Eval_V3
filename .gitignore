@@ -17,6 +17,13 @@
 # OS / editor cruft
 .DS_Store
 **/.DS_Store
+# macOS AppleDouble siblings. The HarmonyGames tarball was built on macOS and carries
+# these throughout, including `HarmonyGames_Base_Universe/._Services_Data`, which sits
+# OUTSIDE the Services_Data rule above and so showed up untracked in `git status` for
+# everyone who hydrates. They are not valid UTF-8, so anything walking the payload must
+# skip them anyway - see README_HYDRATE.md.
+._*
+**/._*
 
 # Per-machine agent config from vendored drops
 .claude/

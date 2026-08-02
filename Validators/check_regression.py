@@ -29,7 +29,16 @@ PHASES = ["prompt", "oe", "rubrics"]
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """Hash a report OS-neutrally.
+
+    The baseline was captured on macOS: LF endings, POSIX separators in the paths the
+    reports quote. On Windows the same validator emits CRLF and backslash-separated
+    paths, so a raw byte hash reports drift for content that is otherwise identical.
+    Normalise both before hashing. This affects the comparison only, never the file.
+    """
+    text = path.read_bytes().decode("utf-8")
+    text = text.replace("\r\n", "\n").replace("\\", "/")
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def load_baseline_hashes() -> dict:
