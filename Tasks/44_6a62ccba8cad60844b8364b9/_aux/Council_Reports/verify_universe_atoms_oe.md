@@ -1,4 +1,4 @@
-[WARN] verify_universe_atoms: 0 fails, 1 warns, 33 atoms checked (universe: starpm) -> /Users/kaustubhbhargava/MCP_Eval_V3/Tasks/44_6a62ccba8cad60844b8364b9/_aux/Council_Reports/verify_universe_atoms.md
+[WARN] verify_universe_atoms: 0 fails, 1 warns, 33 atoms checked (universe: starpm) -> Tasks/44_6a62ccba8cad60844b8364b9/_aux/Council_Reports/verify_universe_atoms.md
 # Universe Atom Verification Report
 
 **Atoms checked:** 33

@@ -28,6 +28,7 @@ W9  no validator is both un-imported and undocumented (orphan)
 W10 rubric-category canonicalisation has exactly one implementation
 W11 the tool head-segment vocabulary is non-empty (phantom detection fails closed)
 W12 docs asserting a universe COUNT agree with the registry (CHANGELOG exempt)
+W13 no tracked pipeline file embeds a machine-local home path
 
 Exit 0 clean, 1 when any check fails.
 """
@@ -268,6 +269,50 @@ def check_universe_count_claims() -> list:
     return out
 
 
+def check_absolute_paths() -> list:
+    """W13: no tracked pipeline file may embed a machine-local home path.
+
+    Two frozen baseline reports carried the author's absolute path. Report comparison is
+    sha256 over the whole file, so `check_regression` reported 21/21 on the machine that
+    froze it and "report drift" for every other user - a gate that only its author could
+    pass. The hydration pointer had the same defect: it told a teammate to rsync from a
+    directory that exists on one laptop.
+
+    Agent session directories are excluded: they are machine-local by nature and the repo
+    tracks them by convention.
+    """
+    import subprocess
+    try:
+        tracked = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True,
+                                 text=True, timeout=60).stdout.split()
+    except Exception as e:
+        return [f"[W13] could not list tracked files: {e}"]
+    # Scope: PIPELINE-OWNED files only. QC_Tasks/** and Tasks/** are vendored platform data
+    # and per-task outputs - their trajectory JSONs legitimately contain the agent sandbox's
+    # own sandbox home paths (~300 of them), which are captured content, not ours.
+    # The defect this guards is a pipeline artifact carrying its AUTHOR's home directory:
+    # two frozen baseline reports did exactly that and made check_regression unpassable for
+    # anyone else.
+    pat = re.compile(r"/(?:Users|home)/[A-Za-z0-9._-]+/")
+    owned = ("Validators/", "Reference/")
+    out = []
+    for rel in tracked:
+        is_owned = rel.startswith(owned) or ("/" not in rel) or rel.endswith("README_HYDRATE.md")
+        if not is_owned or not rel.endswith((".py", ".md", ".json", ".txt", ".out", ".sql")):
+            continue
+        f = ROOT / rel
+        try:
+            txt = f.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        m = pat.search(txt)
+        if m:
+            n = len(pat.findall(txt))
+            out.append(f"[W13] {rel} embeds a machine-local path ({n}x, e.g. '{m.group(0)}') - "
+                       "use a repo-relative path or a documented placeholder")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--task", default=None)
@@ -396,7 +441,7 @@ def main():
     # apart and silently mis-score the balance rules - exactly the defect class AGENTS.md
     # rule 18 says must become a standing gate instead of prose.
     fails = (list(fails) + check_duplicated_logic() + check_tool_vocab()
-             + check_universe_count_claims())
+             + check_universe_count_claims() + check_absolute_paths())
 
     # ---------- report
     print("=== Pipeline wiring audit ===")

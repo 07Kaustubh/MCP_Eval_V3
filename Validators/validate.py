@@ -48,6 +48,20 @@ from typing import List
 
 ROOT = Path(__file__).resolve().parent.parent
 
+def _rel(path) -> str:
+    """Render a path relative to the repo root.
+
+    Reports are hashed byte-for-byte by check_regression and stdout is frozen under
+    regression_baseline/validate_outputs/, so emitting an absolute path bakes the author's
+    home directory into both: the gate passed only on the machine that froze it and
+    reported drift for every other user. Repo-relative is stable across checkouts.
+    """
+    try:
+        return str(Path(path).resolve().relative_to(ROOT))
+    except Exception:
+        return str(path)
+
+
 try:
     from Validators.universes import detect_universe, get_universe_constants, get_framework_profile, canonical_rubric_category
 except ImportError:
@@ -415,7 +429,7 @@ def check_oe_param_traps(text: str, consts: dict, rep: Report) -> None:
 def validate_prompt(task_dir: Path, rep: Report) -> None:
     f = task_dir / "5_Prompt.txt"
     if not f.is_file():
-        rep.fail(f"missing {f}")
+        rep.fail(f"missing {_rel(f)}")
         return
     text = f.read_text(encoding="utf-8")
 
@@ -583,7 +597,7 @@ def validate_prompt(task_dir: Path, rep: Report) -> None:
 def validate_oe(task_dir: Path, rep: Report) -> None:
     f = task_dir / "6_Oracle_Events.txt"
     if not f.is_file():
-        rep.fail(f"missing {f}")
+        rep.fail(f"missing {_rel(f)}")
         return
     text = f.read_text(encoding="utf-8")
 
@@ -850,7 +864,7 @@ def _canonical_category(value: str) -> str:
 def validate_rubrics(task_dir: Path, rep: Report) -> None:
     f = task_dir / "7_Rubrics.json"
     if not f.is_file():
-        rep.fail(f"missing {f}")
+        rep.fail(f"missing {_rel(f)}")
         return
     try:
         rubrics = json.loads(f.read_text(encoding="utf-8"))
@@ -1448,12 +1462,12 @@ def main() -> None:
             if not ran:
                 out = out_dir / f"{phase}.md"
                 out.write_text(rep.render(), encoding="utf-8")
-                print(f"[SKIP] {phase}: not applicable to universe '{universe}' -> {out}")
+                print(f"[SKIP] {phase}: not applicable to universe '{universe}' -> {_rel(out)}")
                 continue
         out = out_dir / f"{phase}.md"
         out.write_text(rep.render(), encoding="utf-8")
         status = "FAIL" if rep.fails else "PASS"
-        print(f"[{status}] {phase}: {len(rep.fails)} fails, {len(rep.warns)} warns, {len(rep.notes)} notes -> {out}")
+        print(f"[{status}] {phase}: {len(rep.fails)} fails, {len(rep.warns)} warns, {len(rep.notes)} notes -> {_rel(out)}")
         if rep.fails:
             overall_fail = True
 
