@@ -108,6 +108,23 @@ def main() -> int:
                     print(line)
             failures.append(f"{label}: the universe scan is no longer provably constant-memory")
 
+    # The labeled QC corpora are the ground truth `qc_verdict.py selftest` grades against.
+    # On 2026-08-06 an upstream drop moved 35 of 112 HarmonyGames corpus files - 7_Rubrics,
+    # 8_Verifier_Fails, 6_Oracle_Events and 12 trajectories - and selftest kept reporting
+    # 10/10 bucket-correct, because the labels still matched the STALE artifacts. A green
+    # selftest is evidence the labels fit the files, never that the files are current.
+    # check_source_sync needs `--source <drop>` and so cannot see a repo-side edit at all.
+    # Standing gate per AGENTS.md rule 18.
+    qc = subprocess.run(
+        [sys.executable, str(ROOT / "Validators" / "check_qc_corpus.py")],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    if qc.returncode != 0:
+        for line in (qc.stdout + qc.stderr).splitlines():
+            if "[FAIL]" in line:
+                print(line)
+        failures.append("QC corpus: labeled ground truth drifted from its pin")
+
     # 2) frozen report hashes
     baseline = load_baseline_hashes()
     identical = 0

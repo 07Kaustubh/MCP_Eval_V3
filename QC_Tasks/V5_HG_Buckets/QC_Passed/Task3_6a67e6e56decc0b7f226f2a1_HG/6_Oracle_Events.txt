@@ -24,7 +24,7 @@ OE 12: Correct the Done Zombie Match Daily Login tracker with linear_create_comm
 
 OE 13: Correct the Done Zombie Match weekly-leaderboard tracker with linear_create_comment({"issueId":"ZOM-71","body":"ZOM-429 remains Backlog: the next weekly leaderboard session and reward claim require killing the app. ZOM-71 remains Done, but this unresolved same-title behavior must stay visible in the feature tracker."}). Do not change ZOM-71's status.
 
-OE 14: Find Brian Foster with slack_search_users({"query":"Brian Foster"}). Expected: Brian Foster, brian@harmonygames.co, Slack user EMPLOYEE_0026_SLACK_ID.
+OE 14: Find Brian Foster with slack_search_users({"query":"Brian Foster"}). Expected: Brian Foster, brian.foster@harmonygames.co, Slack user EMPLOYEE_0026_SLACK_ID.
 
 OE 15: Brief Brian Foster with slack_send_message({"channel":"D076RBM29JS","text":"Brian: Zombie Match 3D live-ops design reconciliation: ..."}) in the existing direct conversation between Julia Lawson and Brian Foster. The brief must cover the design reconciliation: ENG-2402’s source-build 5-stars-intended versus 15-stars-granted Collect & Win discrepancy and the absence of proof that it carried into Zombie Match; ENG-2349’s source-build Axe Arena 15-intended/10-granted timer separately from Win & Collect’s 10-intended/15-granted timer; the conclusion that Zombie Match Win Streak/Axe Arena remains unverified; Season Pass reward tiers being unverifiable because the authoritative values are outside accessible design records; the ZOM-429 Leaderboard session-reset issue; and the open Zombie Match ZOM-613 Daily Login queue issue.
 

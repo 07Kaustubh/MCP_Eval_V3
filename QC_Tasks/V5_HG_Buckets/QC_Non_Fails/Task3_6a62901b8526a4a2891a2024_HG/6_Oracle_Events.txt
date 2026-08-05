@@ -23,7 +23,7 @@ OE 5: Verify the live Season Pass spreadsheet and retrieve its reward values.
 
 First, use github_get_file_contents with owner "harmonygames-Games", repo "match3d-backend", path "config/config.exs", and ref "main". Expected discovery: ZombiesGame.SeasonPass is configured with spreadsheet ID "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk", sheets "Season Pass - Free" and "Season Pass - Premium", and range "B47:AE78".
 
-Then use gdrive_search with query "name = 'Zombie Match Economy 1.0.xlsx' and trashed = false". Expected discovery: Drive file "Zombie Match Economy 1.0.xlsx" (file ID f_89aebb6083dc44501666c7), owned by brian@harmonygames.co.
+Then use gdrive_search with query "name = 'Zombie Match Economy 1.0.xlsx' and trashed = false". Expected discovery: Drive file "Zombie Match Economy 1.0.xlsx" (file ID f_89aebb6083dc44501666c7), owned by brian.foster@harmonygames.co.
 
 Finally, use gsheets_values_batch_get with spreadsheetId "1UEpyibxuQSB2-ib7UgppYDeeHtmkmM1fhSKNbQ_t_Sk" and ranges ["'Season Pass - Free'!B47:AE78", "'Season Pass - Premium'!B47:AE78"]. Expected discovery: the live free- and premium-track reward tables consumed by match3d-backend. Compare these values and reward types with the ZM3D Season Pass design specification.
 

@@ -48,10 +48,10 @@
         "evidence": "Check the evaluation document for a no-go, hold, close-out, or equivalent conditional recommendation."
     },
     {
-        "title": "The Agent provides Leonard Hayes’ contact email as [leonard@harmonygames.co](mailto:leonard@harmonygames.co) in the partner evaluation document.",
+        "title": "The Agent provides Leonard Hayes’ contact email as [leonard.hayes@harmonygames.co](mailto:leonard.hayes@harmonygames.co) in the partner evaluation document.",
         "category": "outcome",
         "justification": "The prompt explicitly asks to 'include contact details for anyone at Harmony Games I should reach out to directly.' Leonard Hayes is the primary contact as Co-founder & Creative Director who led the pitch.",
-        "evidence": "Check the partner evaluation document for Leonard Hayes and leonard@harmonygames.co."
+        "evidence": "Check the partner evaluation document for Leonard Hayes and leonard.hayes@harmonygames.co."
     },
     {
         "title": "The Agent states in the mattel_proposal summary that Harmony Games should not advance without further validation.",
@@ -68,7 +68,7 @@
     {
         "title": "The Agent identifies Speaker Notes Mattel.docx (f_1260d68b087f86840f709e) as Leonard Hayes’ Mattel pitch notes.",
         "category": "outcome",
-        "justification": "The prompt explicitly asks to 'pull the actual pitch deck and any speaker notes they prepared so I can see what they claimed about their capabilities.' The GDrive contains 'Speaker Notes Mattel.docx' owned by leonard@harmonygames.co.",
+        "justification": "The prompt explicitly asks to 'pull the actual pitch deck and any speaker notes they prepared so I can see what they claimed about their capabilities.' The GDrive contains 'Speaker Notes Mattel.docx' owned by leonard.hayes@harmonygames.co.",
         "evidence": "Check the agent's trajectory for Google Drive search actions finding the Speaker Notes Mattel document and retrieval of its content."
     },
     {

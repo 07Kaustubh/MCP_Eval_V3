@@ -1,7 +1,7 @@
 Rubrics - Overall Rubric Quality: Overlapping/Redundant Criteria  - C6 and C13:
-C6 states: ""The Agent's flagging communication identifies Oliver Brooks ([oliver@harmonygames.co]) as the person who merged changes without design review.""
-C13 states: ""The Agent identifies Oliver Brooks ([oliver@harmonygames.co]) as the person who merged or approved the parameter-changing PRs across the Season Pass and/or Combo Fighter features without design sign-off.""
-Both criteria check the identical fact: that the agent's output names Oliver Brooks, using the identical identifying detail (oliver@harmonygames.co email), as the individual who merged parameter changes without design sign-off. C13 additionally specifies the features (Season Pass and/or Combo Fighter), but per universe data Oliver Brooks is the sole merger identified across all PRs in question (PR #438 (Season Pass), PR #34 and PR #37 (Combo Fighter)), so any agent output that satisfies C13's feature-scoped identification necessarily satisfies C6's unscoped identification, and vice versa.
+C6 states: ""The Agent's flagging communication identifies Oliver Brooks ([oliver.brooks@harmonygames.co]) as the person who merged changes without design review.""
+C13 states: ""The Agent identifies Oliver Brooks ([oliver.brooks@harmonygames.co]) as the person who merged or approved the parameter-changing PRs across the Season Pass and/or Combo Fighter features without design sign-off.""
+Both criteria check the identical fact: that the agent's output names Oliver Brooks, using the identical identifying detail (oliver.brooks@harmonygames.co email), as the individual who merged parameter changes without design sign-off. C13 additionally specifies the features (Season Pass and/or Combo Fighter), but per universe data Oliver Brooks is the sole merger identified across all PRs in question (PR #438 (Season Pass), PR #34 and PR #37 (Combo Fighter)), so any agent output that satisfies C13's feature-scoped identification necessarily satisfies C6's unscoped identification, and vice versa.
 
 Rubrics - Process Criteria: There are no rubrics selected as process criteria.
 

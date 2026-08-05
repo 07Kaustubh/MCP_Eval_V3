@@ -44,6 +44,13 @@ SURFACES = {
         ("Guide", "Guide_harmonygames"),
         ("HarmonyGames_Base_Universe", "HarmonyGames_Base_Universe"),
         ("Tasks_Template", "Tasks_Template_harmonygames"),
+        # The labeled QC corpus is SSOT for qc_verdict.py selftest. It was absent from this
+        # table until 2026-08-06, so a drop that changed 35 of 112 corpus files - including
+        # 7_Rubrics, 8_Verifier_Fails, 6_Oracle_Events and 12 trajectories - passed sync
+        # while selftest reported 10/10 against stale ground truth. Only the other universes'
+        # corpora stay unmapped, because their upstream drops are not on hand to verify the
+        # source-side directory name.
+        ("QC_Tasks", "QC_Tasks/V5_HG_Buckets"),
     ],
     "starpm": [
         ("Evals", "Evals_starpm"), ("Docs", "Docs_starpm"), ("Guide", "Guide_starpm"),

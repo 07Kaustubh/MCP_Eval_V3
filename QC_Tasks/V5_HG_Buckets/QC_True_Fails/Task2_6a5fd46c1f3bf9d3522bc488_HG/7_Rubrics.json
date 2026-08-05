@@ -1,9 +1,9 @@
 [
     {
-        "title": "The Agent briefs Brian Foster ([brian@harmonygames.co](mailto:brian@harmonygames.co)) on the Zombie Match 3D live-ops design discrepancies it found.",
+        "title": "The Agent briefs Brian Foster ([brian.foster@harmonygames.co](mailto:brian.foster@harmonygames.co)) on the Zombie Match 3D live-ops design discrepancies it found.",
         "category": "outcome",
-        "justification": "The prompt says 'Brief Brian on the design discrepancies you find.' Brian Foster (brian@harmonygames.co) is the Head of Product & Live-Ops who drives these features. Phrased method-agnostically because the prompt names a goal, not a channel, Gmail is read-only in this universe, so the message is delivered over Slack (a DM to Brian or a channel he is in).",
-        "evidence": "Look for a communication to Brian Foster (brian@harmonygames.co) , the available channel is Slack (slack_send_message, DM to Brian or a channel he is in). Confirm it was sent."
+        "justification": "The prompt says 'Brief Brian on the design discrepancies you find.' Brian Foster (brian.foster@harmonygames.co) is the Head of Product & Live-Ops who drives these features. Phrased method-agnostically because the prompt names a goal, not a channel, Gmail is read-only in this universe, so the message is delivered over Slack (a DM to Brian or a channel he is in).",
+        "evidence": "Look for a communication to Brian Foster (brian.foster@harmonygames.co) , the available channel is Slack (slack_send_message, DM to Brian or a channel he is in). Confirm it was sent."
     },
     {
         "title": "The Agent's brief to Brian Foster covers a Collect & Win design discrepancy it found, where the shipped Collect & Win behavior does not match its intended design or spec.",

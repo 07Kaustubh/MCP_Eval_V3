@@ -30,10 +30,10 @@
         "evidence": "Check the content of the ENG-2428 update or comment for references to specific reward changes (e.g., 'Bones' reward type, token doubling, alternative spreadsheet, IAP entries) that differ from the original 'ZM3D Season Pass - Spec' design."
     },
     {
-        "title": "The Agent's flagging communication identifies Oliver Brooks (oliver@harmonygames.co) as the person who merged changes without design review.",
+        "title": "The Agent's flagging communication identifies Oliver Brooks (oliver.brooks@harmonygames.co) as the person who merged changes without design review.",
         "category": "outcome",
         "justification": "Oliver Brooks (EMPLOYEE_0003_GITHUB_USERNAME) merged PR #438 (Season Pass), PR #34 (Combo Fighter IAP/currencies), and PR #37 (Combo Fighter rarity tiers) - all without design sign-off. The flagging must name the responsible person for it to be actionable.",
-        "evidence": "Check the flagging communication (Slack message, Linear issue, or comment) for a reference to Oliver Brooks, his email oliver@harmonygames.co, or his GitHub username as the person who merged the parameter-changing PRs."
+        "evidence": "Check the flagging communication (Slack message, Linear issue, or comment) for a reference to Oliver Brooks, his email oliver.brooks@harmonygames.co, or his GitHub username as the person who merged the parameter-changing PRs."
     },
     {
         "title": "The Agent identifies PR #438 ('Feature/season pass') or other Season Pass PRs (e.g., PR #542) in the match3d repository as carrying reward values that differ from the design spec.",
@@ -72,9 +72,9 @@
         "evidence": "Check the agent's final response or trajectory for identification of PR #37 in the Combo-Fighters repo, noting it introduced rarity tiers (Common, Rare, Epic, Legendary, Mythic) not present in the GDD."
     },
     {
-        "title": "The Agent identifies Oliver Brooks (oliver@harmonygames.co) as the person who merged or approved the parameter-changing PRs across the Season Pass and/or Combo Fighter features without design sign-off.",
+        "title": "The Agent identifies Oliver Brooks (oliver.brooks@harmonygames.co) as the person who merged or approved the parameter-changing PRs across the Season Pass and/or Combo Fighter features without design sign-off.",
         "category": "outcome",
-        "justification": "The prompt asks 'who approved the changes.' Oliver Brooks (EMPLOYEE_0003_GITHUB_USERNAME, oliver@harmonygames.co) merged PR #438 (Season Pass), PR #34 (Combo Fighter IAP), and PR #37 (Combo Fighter rarity). He is the common approver across at least two of the three features.",
+        "justification": "The prompt asks 'who approved the changes.' Oliver Brooks (EMPLOYEE_0003_GITHUB_USERNAME, oliver.brooks@harmonygames.co) merged PR #438 (Season Pass), PR #34 (Combo Fighter IAP), and PR #37 (Combo Fighter rarity). He is the common approver across at least two of the three features.",
         "evidence": "Check the agent's final response for identification of Oliver Brooks (or his email/username) as the person who merged the parameter-changing PRs. The agent should connect him to at least the Combo Fighter PRs (#34, #37) and ideally also to the Season Pass PR (#438)."
     },
     {
