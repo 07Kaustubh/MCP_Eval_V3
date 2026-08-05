@@ -1,6 +1,40 @@
 # HarmonyGames Common Errors and Fixes
 
-Use this guide with [`7_QC_Spec_Doc1.json`](7_QC_Spec_Doc1.json), [`8_QC_Spec_Doc2.md`](8_QC_Spec_Doc2.md), and the ordered [`../Evals/`](../Evals/) playbooks. Validate every capability against [`../HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/). Examples explain a rule; they never create a tool, entity, or accepted grading path.
+Use this guide with [`7_QC_Spec_Doc1.json`](7_QC_Spec_Doc1.json), [`8_QC_Spec_Doc2.md`](8_QC_Spec_Doc2.md), and the ordered [`../Evals/`](../Evals/) playbooks. Validate every capability against [`../HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json). Examples explain a rule; they never create a tool, entity, or accepted grading path.
+
+## Latest cohort — highest-frequency misses (n = 12)
+
+From the most recent QC review. `X/12` = tasks affected; ranked within each area so you know where to look first. These complement the detailed rules in the sections below.
+
+### Prompt
+
+- **Contrived / spec-sheet register — 5/12.** ~600-word prompts that enumerate each deliverable's exact contents, preservation rules, and reply format. The scenario is natural; the voice isn't. State the goal and the deliverables, then stop — do not list their contents. (See "Writing a tool script", "Bolting unrelated asks together".)
+- **Unique Ground Truth (UGT) — 4/12.** Two defensible readings that produce different final universe states: "those tickets" (6 or 10), two documented conversion rates 2× apart, or a premise some runs accept and others correctly refuse. If runs split, UGT fails — one clause must make a single reading correct.
+- **Clarity / action-decision ambiguity — 4/12.** "Keep track of anything with no code behind it" — cancel them or leave them? "The design spec" with four candidates. One clause usually fixes it. (See "Creating action ambiguity".)
+- **Truthfulness — 4/12 (2 hard, 2 minor).** A premise the universe contradicts: "that thread still has no reply from me" when the reply is right there; a rolling window the source Slack denies. Check every stated premise against `Services_Data/` before shipping.
+
+### Oracle Events
+
+- **Inaccurate Oracle Events — 12/12.** Wrong counts, wrong service or table, misquoted messages, paths that return nothing for the assigned persona. Non-failing on its own, but it is where most of the real damage starts. Verify every OE figure against `Services_Data/` before you write rubrics off it. (See "Treating OEs as ground truth", "Ignoring numeric visibility".)
+- **OE requirements propagated into scored rubrics — 4/12.** OEs sit at authority rank 6, so they cannot bind the Agent. If a demand exists only in the OE and not in the prompt, it cannot become a criterion.
+
+### Rubrics
+
+- **Missing criteria — 9/12.** An explicitly enumerated prompt ask with zero rubric coverage: a register column, one item out of a five-item list, the headline number the whole task exists to produce. Build the coverage matrix from the prompt sentence by sentence; give every enumerated item its own criterion. (See "Missing requirement-level coverage".)
+- **Over-specified criterion — 8/12.** The rubric demands a value, format, or destination the prompt never authorizes: a fully qualified table name, comma separators, a date inside a Slack post, a specific PR. Test: could a run follow the prompt perfectly and still fail this? If yes, cut it. (See "Locking a goal to one method".)
+- **Undefined acceptance / not self-contained — 7/12.** "States a specific figure", "a discrete, testable definition", "approximately the mid-20% range". No expected value means any answer passes and the criterion discriminates nothing. Embed the value in the title. (See "Hiding acceptance rules in justification or evidence".)
+- **Atomicity — 6/12.** Two funds, three ticket states, or four verification rows in one criterion. If the halves can fail independently, split them. (See "Bundling independent conditions".)
+- **Broken rubric values — 5/12.** Expected value contradicted by the universe: a number read from the wrong spreadsheet column, a claim the records invert, a percentage with no source anywhere. Grep the number before you accept it.
+- **Duplicate and vague rubrics — 5/12.** Pairs where one criterion fully subsumes the other, plus `such as` and `e.g.` in evidence fields. (See "Keeping duplicate rubrics", "Using vague exemplar language".)
+- **All-failing rubric handling — 4/12.** The all-fail criterion was itself defective, and/or `failing_rubric_justification` was left blank. An AF needs a justification that establishes a genuine model miss, not a restatement of the outcome. (See "Trusting all-failing criteria automatically".)
+
+### Universe
+
+- **Cross-service incoherence — 4/12.** Two load-bearing sources disagreeing: a page rewritten to $65.50 while the table comment still says ~35% for two weeks, or $10,500 in HEADCOUNT against $4,500 in the signed agreement. If you edit one side, fix the other.
+
+
+
+==============================
 
 ## Prompt errors
 
@@ -92,8 +126,8 @@ A task that can be solved in 12 calls fails the prompt gate even when an ineffic
 
 ## Persona ACL errors
 
-Use [`15_Persona_ACL.md`](15_Persona_ACL.md) with the exact
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json)
+Use [`14_Persona_ACL.md`](14_Persona_ACL.md) with the exact
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json)
 entry. Persona ACL is active and applies to reads only.
 
 ### Guessing or rewriting the persona email
@@ -102,8 +136,8 @@ entry. Persona ACL is active and applies to reads only.
 wrong email instead of the roster value.
 
 ✅ Copy the exact `persona_key` and `email` from the 17-entry roster into the
-task identity. A wrong email changes Gmail, Slack, GCal, and Contacts
-visibility and is a Persona, Truthfulness, and Feasibility defect.
+task identity. A wrong email changes Gmail, Slack, GCal, and Drive-family
+(GDrive/GDocs/GSheets/GSlides) visibility and is a Persona, Truthfulness, and Feasibility defect.
 
 ### Letting AMV override Taxonomy
 
@@ -119,7 +153,7 @@ environment configuration, not Agent work or a rubric/process/call-count item.
 **Problem:** Universe Explorer or a local export contains the required record,
 so the author assumes the Agent can read it.
 
-✅ Explorer is author god-mode. Re-test required Gmail, Slack, GCal, and Contacts
+✅ Explorer is author god-mode. Re-test required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides)
 evidence from the assigned persona's Runner/Verifier view. Required
 scoped-service evidence that persona cannot reach hard-fails the task unless
 the intended outcome is an affirmative access-denial finding plus reporting,
@@ -127,12 +161,12 @@ escalation, or an authorized alternative.
 
 ### Applying ACL to the public-service group
 
-**Problem:** The author invents persona read filters for GDrive, GitHub,
-Snowflake, GDocs, GSheets, GSlides, Trello, Linear, or Confluence—or interprets
+**Problem:** The author invents persona read filters for Contacts, GitHub,
+Snowflake, Trello, Linear, or Confluence—or interprets
 “public-service group” as public outside the evaluation environment.
 
-✅ Those nine services are unscoped across task personas. Only Gmail, Slack,
-GCal, and Contacts reads are persona-scoped. “Unscoped” means shared across task
+✅ Those six services are unscoped across task personas. Only Gmail, Slack,
+GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped. “Unscoped” means shared across task
 personas, not Internet-public.
 
 ### Assuming ACL denies writes
@@ -141,7 +175,7 @@ personas, not Internet-public.
 including writes on Drive, Docs, Sheets, or Slides.
 
 ✅ Writes are outside Persona ACL scope. Determine every write solely from
-[`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/); never infer write denial from persona read
+[`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json); never infer write denial from persona read
 visibility.
 
 ### Blocked-call inflation
@@ -292,7 +326,7 @@ If the prompt says “notify Brian,” a rubric must not force one service when 
 
 ❌ “The Agent posts in `#season-pass`.”
 
-✅ “The Agent notifies Brian Foster at brian@harmonygames.co through an enabled collaboration surface.”
+✅ “The Agent notifies Brian Foster at brian.foster@harmonygames.co through an enabled collaboration surface.”
 
 Use the exact method only when the prompt or a validly incorporated live source requires it.
 
@@ -365,8 +399,8 @@ Use the live environment for final truth. Common local verification paths are:
 This checkout contains the full base export in service-level JSON and sharded
 payloads. Combine it with task `3_UniverseDataForThisTask.json`,
 `4_Changelog.json`, `9_Universe_inject.sql`, and live service reads for
-task-specific state and tool-visible behavior. For Gmail, Slack, GCal, and
-Contacts, test that behavior as the exact assigned roster persona; Explorer or
+task-specific state and tool-visible behavior. For Gmail, Slack, GCal, and the
+Drive-family (GDrive/GDocs/GSheets/GSlides), test that behavior as the exact assigned roster persona; Explorer or
 another persona's view is insufficient.
 
 ## Legacy examples

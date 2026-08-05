@@ -11,11 +11,11 @@ directly.
 1. [`1_Project_Instructions_Overall.md`](1_Project_Instructions_Overall.md)
 2. [`../HarmonyGames_Base_Universe/0_Universe_One-Pager.md`](../HarmonyGames_Base_Universe/0_Universe_One-Pager.md)
    through
-   [`../HarmonyGames_Base_Universe/4_Reference_Sheet.md`](../HarmonyGames_Base_Universe/4_Reference_Sheet.md)
-3. [`15_Persona_ACL.md`](15_Persona_ACL.md), including the exact linked persona
+   [`../HarmonyGames_Base_Universe/5_Reference_Sheet.md`](../HarmonyGames_Base_Universe/5_Reference_Sheet.md)
+3. [`14_Persona_ACL.md`](14_Persona_ACL.md), including the exact linked persona
    roster
 4. [`0_Tool_Access_Guide.md`](0_Tool_Access_Guide.md), then the exact catalogs
-   in [`../HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/)
+   in [`../HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json)
 5. [`2_Rubrics_Guidelines.md`](2_Rubrics_Guidelines.md)
 6. The prompt and rubric specialist guides listed below
 7. [`../Guide/How_To_Use_This_Eval.md`](../Guide/How_To_Use_This_Eval.md) before
@@ -24,7 +24,7 @@ directly.
 ### Evaluators
 
 1. [`../Guide/How_To_Use_This_Eval.md`](../Guide/How_To_Use_This_Eval.md)
-2. [`15_Persona_ACL.md`](15_Persona_ACL.md) for the Agent/Verifier identity and
+2. [`14_Persona_ACL.md`](14_Persona_ACL.md) for the Agent/Verifier identity and
    read-visibility rules
 3. Run [`../Evals/0_Injection_Quality_Eval.md`](../Evals/0_Injection_Quality_Eval.md)
    through
@@ -36,11 +36,11 @@ directly.
 
 ### Long-horizon tasks
 
-Read [`14_Long_Horizon_Task_Guidelines.md`](14_Long_Horizon_Task_Guidelines.md)
-and calibrate against
-[`../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/).
-Task5 remains a craft baseline, but its persona artifact is not the current
-task template.
+Read [`13_Long_Horizon_Task_Guidelines.md`](13_Long_Horizon_Task_Guidelines.md),
+which develops one long-horizon worked example end to end — a February 28, 2026
+source-control preservation pack requiring 592 tool calls — and calibrate
+against it. That worked example is a craft baseline, not the current task
+template.
 
 ### Historical calibration compatibility
 
@@ -49,13 +49,13 @@ non-roster identity. They are craft/history references only, not proof of
 current ACL compliance or performance and not a persona format to copy. Every
 new or current task must use `2_Persona.txt` with Persona Key, Persona Email,
 Name, Role, and Department copied exactly from one
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json)
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json)
 entry. Do not edit historical QC folders to retrofit this format.
 
 ## Document ownership
 
 - [`0_Tool_Access_Guide.md`](0_Tool_Access_Guide.md) — human tool summary;
-  `HarmonyGames_Base_Universe/Tool_Access/*.json` remains authoritative.
+  `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` remains authoritative.
 - [`1_Project_Instructions_Overall.md`](1_Project_Instructions_Overall.md) —
   end-to-end authoring workflow and design targets.
 - [`2_Rubrics_Guidelines.md`](2_Rubrics_Guidelines.md) — canonical rubric
@@ -82,10 +82,9 @@ entry. Do not edit historical QC folders to retrofit this format.
   Evals/QC.
 - [`12_Always_Failing_Rubrics.md`](12_Always_Failing_Rubrics.md) — all-failing
   rubric diagnosis.
-- [`13_QC_Companion.md`](13_QC_Companion.md) — plain-language QC companion.
-- [`14_Long_Horizon_Task_Guidelines.md`](14_Long_Horizon_Task_Guidelines.md) —
+- [`13_Long_Horizon_Task_Guidelines.md`](13_Long_Horizon_Task_Guidelines.md) —
   500–1,000-call task supplement.
-- [`15_Persona_ACL.md`](15_Persona_ACL.md) — authoritative task-visible
+- [`14_Persona_ACL.md`](14_Persona_ACL.md) — authoritative task-visible
   identity, persona lifecycle, and read-visibility policy; tool catalogs remain
   authoritative for capabilities.
 
@@ -114,5 +113,5 @@ entry. Do not edit historical QC folders to retrofit this format.
 - Persona ACL: **17 task-visible personas; scoped reads on Gmail, Slack, GCal,
   and Contacts only**
 - Business functions: **6**
-- Working tasks: `Generated_Tasks/<task-name>/`
+- Working tasks: `<task-name>/` (copied from `Tasks_Template/`)
 - Completed calibration examples: `QC_Tasks/`

@@ -28,7 +28,7 @@ Facing a retention ceiling in the casual market, the studio began a second title
 
 > **Note:** this org chart includes storyline identities, contractors, and
 > external participants. Only the 17 exact entries in
-> [`Persona_ACL_Roster.json`](Persona_ACL_Roster.json) are selectable task
+> [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json) are selectable task
 > personas. Use the roster for identity fields and
 > [`2_Persona_Briefs.md`](2_Persona_Briefs.md) for role context; storyline
 > presence does not make another identity selectable. Several external
@@ -68,13 +68,13 @@ Thomas Baker & Benjamin Clark (outside counsel — Rimon/Orrick seed close), plu
 
 Harmony Games runs on a **game-studio tool stack** (not a business-ops stack). The state of record is spread across:
 
-> **Tool authority and boundary:** `HarmonyGames_Base_Universe/Tool_Access/*.json` is authoritative. Directly available services are Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. There are no direct Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe tools. Those names below describe company systems, vendors, topics, or artifacts; retrieve evidence about them through Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, Confluence, or Snowflake as relevant.
+> **Tool authority and boundary:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is authoritative. Directly available services are Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. There are no direct Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe tools. Those names below describe company systems, vendors, topics, or artifacts; retrieve evidence about them through Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, Confluence, or Snowflake as relevant.
 
 > **Persona ACL boundary:** task identity comes only from the 17-entry
-> [`Persona_ACL_Roster.json`](Persona_ACL_Roster.json), with read visibility
-> governed by [`Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md). Gmail,
-> Slack, GCal, and Contacts reads are persona-scoped; the other nine service
-> reads are unscoped, and writes are outside Persona ACL.
+> [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json), with read visibility
+> governed by [`Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md). Gmail,
+> Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped; the
+> other six service reads are unscoped, and writes are outside Persona ACL.
 
 > **Base export vs. live task state:** `Services_Data/` contains the full base service-level JSON. Large content is sharded or nested for Slack messages, Gmail threads, GDrive content, and GitHub repository content; `Services_Data/Base_Universe_Complete_Data.json` is the combined export. A live task can differ after its `9_Universe_inject.sql` and `4_Changelog.json` changes, and live tool responses determine what the Agent can observe.
 

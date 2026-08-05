@@ -384,14 +384,16 @@ UNIVERSES = {
         "base_path": "HarmonyGames_Base_Universe",
         "docs_path": "Docs_harmonygames",
         "evals_path": "Evals_harmonygames",
-        # NOTE the 5_ prefix: a FIFTH distinct tool-catalog prefix.
-        # Brookfield 8_, StarPM 7_, KeyStone/MoveOps 6_, HarmonyGames 5_.
-        "tool_catalog": "HarmonyGames_Base_Universe/5_Server_Tools_Details.json",
+        # Tool-catalog prefix 6_, SHARED with KeyStone and MoveOps.
+        # Brookfield 8_, StarPM 7_, KeyStone/MoveOps/HarmonyGames 6_.
+        # The 2026-08 upstream drop renumbered HG 5_ -> 6_, so HarmonyGames no
+        # longer carries a distinct prefix; three distinct prefixes remain, not five.
+        "tool_catalog": "HarmonyGames_Base_Universe/6_Server_Tools_Details.json",
         "persona_briefs": "HarmonyGames_Base_Universe/2_Persona_Briefs.md",
         "business_function_doc": "HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md",
         "universe_one_pager": "HarmonyGames_Base_Universe/0_Universe_One-Pager.md",
-        "universe_schema": "HarmonyGames_Base_Universe/6_Universe_Schema.json",
-        "persona_acl_roster": "HarmonyGames_Base_Universe/Persona_ACL_Roster.json",
+        "universe_schema": "HarmonyGames_Base_Universe/7_Universe_Schema.json",
+        "persona_acl_roster": "HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json",
         "tool_access_dir": "HarmonyGames_Base_Universe/Tool_Access",
         "qc_reference_path": "QC_Tasks/V5_HG_Buckets",
 
@@ -464,7 +466,7 @@ UNIVERSES = {
             "stevencarter@harmonygames.co",
             "thomas@harmonygames.co",
         },
-        # All 17 authoring personas, read verbatim from Persona_ACL_Roster.json.
+        # All 17 authoring personas, read verbatim from 4_Persona_ACL_Roster.json.
         # Emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@,
         # martin_walsh -> martin.walsh@) so they are transcribed, never derived from names.
         # Previously this held ONE entry, which made the v4_gates F2 persona check truthy
@@ -506,15 +508,21 @@ UNIVERSES = {
         "lifecycle_check_kind": "persona_acl",
         "lifecycle_states_closed": set(),
         "lifecycle_states_open": set(),
-        # Docs_harmonygames/15_Persona_ACL.md states "eight scoped services" three times
-        # (:87, :124, :138). Its matrix marks five as truly unscoped - GitHub, Snowflake,
-        # Trello, Linear, Confluence - and marks Contacts "No" in the scoped-reads column
-        # while its own visibility note says contacts are "visible in the acting user's
-        # contact scope". 13 services - 5 unscoped = 8, which is what reconciles the
-        # matrix with the prose.
+        # Docs_harmonygames/14_Persona_ACL.md (2026-08 drop) settles an ambiguity the
+        # superseded 15_Persona_ACL.md carried. That older doc asserted "eight scoped
+        # services" three times (:87, :129) while its own matrix marked Contacts "No" in
+        # the scoped-reads column, and this registry reconciled toward eight. Upstream has
+        # now corrected the prose to match the matrix: :61 enumerates the scoped seven,
+        # and :52-53 states the unscoped group "contains exactly Contacts, GitHub,
+        # Snowflake, Trello, Linear, and Confluence". Tasks_Template 9_Universe_inject.sql
+        # independently confirms "Persona ACL is active for Gmail, Slack, GCal, and
+        # Drive-family reads". 7 + 6 = 13. Reads only - :17 "Persona ACL does not govern
+        # writes", and :134 forbids making an ACL-based write denial necessary to any
+        # prompt, Oracle Event or rubric.
         "acl_scoped_services": ["gmail", "gcal", "gdrive", "gdocs", "gsheets", "gslides",
-                                "slack", "contacts"],
-        "acl_unscoped_services": ["github", "snowflake", "trello", "linear", "confluence"],
+                                "slack"],
+        "acl_unscoped_services": ["contacts", "github", "snowflake", "trello", "linear",
+                                  "confluence"],
         "long_horizon_calls": (500, 1000),
 
         # Verified against HarmonyGames_Base_Universe/Tool_Access/*-tools.json, which
@@ -536,9 +544,9 @@ UNIVERSES = {
             "linear_create_issue takes `team`, not `teamId` (matches MoveOps, differs from Brookfield).",
             "Weekend rule vs today: routine Slack/Gmail business communication dated on a weekend is a temporal violation, and today (2026-02-28) IS a Saturday and the last day of February. Any 'today'-framed routine-comms ask is a live authoring hazard.",
             "Mid-quarter framing: 2026-02-28 is the second month of Q1/H1, so 'Q1 close' or 'Q1 results are final' is incoherent; Q1 still has a month to run.",
-            "Persona emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@, martin_walsh -> martin.walsh@). Docs_harmonygames/15_Persona_ACL.md: never construct, normalize or infer an email from a person's name. Resolve via Persona_ACL_Roster.json.",
+            "Persona emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@, martin_walsh -> martin.walsh@). Docs_harmonygames/14_Persona_ACL.md: never construct, normalize or infer an email from a person's name. Resolve via 4_Persona_ACL_Roster.json.",
             "Slack has 985 channels and 218 users, so channel IDs are NOT enumerable against a whitelist the way C001..C0NN are in the other four universes.",
-            "Persona ACL: eight services apply persona-scoped read filtering. A read performed under the wrong acting identity is an Excluded execution, not a pass or a fail.",
+            "Persona ACL: seven services apply persona-scoped read filtering. A read performed under the wrong acting identity is an Excluded execution, not a pass or a fail.",
             "set_acting_user is environment configuration. It is never an Agent action, never Outcome/Process/OE, never complexity-bearing, and must receive no rubric credit.",
             "Explicit no-tool list: Firebase, BigQuery, App Store Connect, Airtable, QuickBooks, Stripe are business topics only, never directly queryable. Zero service overlap with the other four universes.",
         ],
@@ -756,6 +764,10 @@ FRAMEWORKS = {
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
         "rubric_balance_rule": "outcome_gt_process",
+        # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
+        # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
+        "rubric_negative_criteria_gate": False,
+        "rubric_vague_exemplar_scope": "title_only",
         "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
@@ -784,6 +796,10 @@ FRAMEWORKS = {
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
         "rubric_balance_rule": "outcome_gt_process",
+        # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
+        # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
+        "rubric_negative_criteria_gate": False,
+        "rubric_vague_exemplar_scope": "title_only",
         "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
@@ -812,6 +828,10 @@ FRAMEWORKS = {
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
         "rubric_balance_rule": "outcome_gt_process",
+        # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
+        # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
+        "rubric_negative_criteria_gate": False,
+        "rubric_vague_exemplar_scope": "title_only",
         "rubric_category_enum": {"outcome", "process"},
         "density_target": 50,
         "density_floor_avg_tool_calls": 40,
@@ -857,6 +877,13 @@ FRAMEWORKS = {
         # HarmonyGames QC spec replaces the Outcome-majority rule with a flat binary
         # cap: Process <= 40% of the set, and zero Process is explicitly valid.
         "rubric_balance_rule": "process_max_40pct",
+        # Negative Criteria (QC dimension 23) and the every-field Vague Exemplar scan
+        # exist ONLY in the HarmonyGames spec. Grepping Docs/, Docs_keystone/,
+        # Docs_moveops/ and Docs_starpm/ for "negative criteri", "criteria framing" and
+        # "vague exemplar" returns nothing, and AGENTS.md rule 25 has each universe follow
+        # its own spec, so these gate on the framework rather than running everywhere.
+        "rubric_negative_criteria_gate": True,
+        "rubric_vague_exemplar_scope": "all_fields",
         # The spec defines a 4-value enum, but a census of all 10 shipped HG tasks
         # (372 criteria, incl. 4 QC-PASSED tasks) found ZERO using it - every artifact
         # uses the lowercase 2-value form. Enforcing the spec enum alone would fail
@@ -890,6 +917,10 @@ FRAMEWORKS = {
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
         "rubric_balance_rule": "outcome_gt_process",
+        # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
+        # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
+        "rubric_negative_criteria_gate": False,
+        "rubric_vague_exemplar_scope": "title_only",
         "rubric_category_enum": {"outcome", "process"},
         # AGENTS.md: V4 design target is 40+ average tool calls.
         "density_target": 40,

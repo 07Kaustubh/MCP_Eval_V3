@@ -705,7 +705,7 @@ Business functions are the six in
 25%, Product & Design 20%, Growth/UA/Marketing 15%, Founders/Exec/Strategy 15%,
 Finance/Legal/HR/Ops 15%, Analytics & Data 10%. The A10 prompt's Brookfield ten do not apply.
 
-The A5 persona whitelist is `Persona_ACL_Roster.json` (17 entries) PLUS the personas
+The A5 persona whitelist is `4_Persona_ACL_Roster.json` (17 entries) PLUS the personas
 documented in `2_Persona_Briefs.md`. Do not treat the roster as exhaustive: a task whose
 persona is documented in the briefs but missing from the roster passed upstream QC.
 

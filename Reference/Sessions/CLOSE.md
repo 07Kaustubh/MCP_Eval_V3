@@ -59,4 +59,4 @@ and flat `Agent_Responses/trajectory-run-{1..6}.json`. There is no `8a`/`8b` spl
 per-model trajectory subdirectory — that is StarPM's shape, not this one.
 
 `check_tool_catalog.py` pins five catalogs now; HarmonyGames' is
-`HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**).
+`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` (prefix **6**).

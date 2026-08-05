@@ -46,15 +46,16 @@ Rounding out the stack:
 
 ### Tool-access boundary
 
-`HarmonyGames_Base_Universe/Tool_Access/*.json` is the authoritative tool catalog. The agent has direct tools only for **Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence**.
+`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is the authoritative tool catalog. The agent has direct tools only for **Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence**.
 
 Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM systems, Airtable, QuickBooks, and Stripe may appear as company systems, topics, or artifacts, but there are **no direct tools** for them. Evidence about those systems must be retrieved through available sources such as Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, Confluence, or Snowflake, as relevant.
 
 Only the 17 entries in
-[`Persona_ACL_Roster.json`](Persona_ACL_Roster.json) are selectable task
-personas. [`Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md) defines the
-active boundary: Gmail, Slack, GCal, and Contacts reads are persona-scoped; the
-other nine service reads are unscoped, and writes are outside Persona ACL.
+[`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json) are selectable task
+personas. [`Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) defines the
+active boundary: Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are
+persona-scoped; the other six service reads are unscoped, and writes are outside
+Persona ACL.
 
 ## What carries over (same project framework)
 
@@ -94,7 +95,7 @@ limited to the exact 17-entry roster linked above.
 - [**Summary**](1_Universe_Summary.md) — company, org chart, all 76 storylines by lens, systems. Start here.
 - [**Persona Briefs**](2_Persona_Briefs.md) — per-persona active work, relationships, open threads.
 - [**Task Categories**](3_Task_Categories_Business_Functions.md) — 6 business functions, exact write-capability matrix, Outcome/Process guidance, worked prompts.
-- [**Reference Sheet**](4_Reference_Sheet.md) — dense reference: personas, externals, Slack/Linear/GitHub/Trello/Confluence/Drive/Snowflake structures, env/universe IDs.
-- **Authoritative tool catalog:** [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) — per-service JSON inventories with the exact available tool names and parameters.
+- [**Reference Sheet**](5_Reference_Sheet.md) — dense reference: personas, externals, Slack/Linear/GitHub/Trello/Confluence/Drive/Snowflake structures, env/universe IDs.
+- **Authoritative tool catalog:** [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) — per-service JSON inventories with the exact available tool names and parameters.
 - **Repository navigation:** [root README](../README.md) · [Docs index](../Docs/README.md).
-- [**Get Universe Data**](7_Get_Universe_Data.sql) — SQL to extract the full universe from Postgres.
+- [**Get Universe Data**](8_Get_Universe_Data.sql) — SQL to extract the full universe from Postgres.

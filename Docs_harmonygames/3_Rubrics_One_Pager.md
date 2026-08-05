@@ -2,7 +2,7 @@
 
 ---
 
-This is a quick reference derived from [`Docs/2_Rubrics_Guidelines.md`](2_Rubrics_Guidelines.md). **If this page conflicts with Docs/2, Docs/2 wins.** Start from the [`Docs/README.md`](README.md) index; use [`Evals/3_Rubrics_Eval.md`](../Evals/3_Rubrics_Eval.md) for evaluation policy. [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) is authoritative for service availability and capabilities. Keep exact tool names out of prompts and rubric criteria.
+This is a quick reference derived from [`Docs/2_Rubrics_Guidelines.md`](2_Rubrics_Guidelines.md). **If this page conflicts with Docs/2, Docs/2 wins.** Start from the [`Docs/README.md`](README.md) index; use [`Evals/3_Rubrics_Eval.md`](../Evals/3_Rubrics_Eval.md) for evaluation policy. [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is authoritative for service availability and capabilities. Keep exact tool names out of prompts and rubric criteria.
 
 **Last updated:** July 30, 2026
 
@@ -19,13 +19,13 @@ alone is enough.
 
 ## **Persona ACL Quick Check**
 
-Persona ACL is active. Use [`15_Persona_ACL.md`](15_Persona_ACL.md) and the
+Persona ACL is active. Use [`14_Persona_ACL.md`](14_Persona_ACL.md) and the
 exact key/email in
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 
-* Gmail, Slack, GCal, Contacts, GDrive, GDocs, GSheets, and GSlides reads are
+* Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are
   persona-scoped.
-* GitHub, Snowflake, Trello, Linear, and Confluence reads are unscoped. Writes
+* Contacts, GitHub, Snowflake, Trello, Linear, and Confluence reads are unscoped. Writes
   are outside ACL scope.
 * Explorer author god-mode proves that a record exists, not that the assigned
   Agent Runner can reach it. Agent Runner and Run Verifiers use the same
@@ -89,7 +89,7 @@ The exact issue and direction make the Outcome specific enough to prove the reco
 
 **✅ Process rubric warranted:**
 
-"The Agent briefs Brian Foster at brian@harmonygames.co before scheduling the live-ops review."
+"The Agent briefs Brian Foster at brian.foster@harmonygames.co before scheduling the live-ops review."
 
 The prompt or a validly incorporated source must establish the dependency. The
 brief and meeting have separate Outcome criteria, but both pass regardless of
@@ -122,7 +122,7 @@ Frame every rubric as an affirmative behavior or observable state attributable t
 
 | Avoid: tool/artifact-centric | Required: agent-centric |
 | ----- | ----- |
-| "A message was sent using a specific messaging function to Brian…" | "The Agent sends the summary to Brian Foster at brian@harmonygames.co." |
+| "A message was sent using a specific messaging function to Brian…" | "The Agent sends the summary to Brian Foster at brian.foster@harmonygames.co." |
 | "The message body includes the bug details and status." | "The Agent's message to Brian includes the Season Pass reward bug details and a status comparison (fixed vs still open)." |
 | "The Brian summary mentions the timer issue." | "The Agent reports in the summary to Brian Foster that ENG-2349 records the Axe Arena timer discrepancy." |
 
@@ -162,7 +162,7 @@ Affirmative wording does not remove coverage of exclusions, decoys, or prohibite
 
 | Situation | Pattern | Example |
 | ----- | ----- | ----- |
-| One correct value / fact | Strict (EM) | `brian@harmonygames.co` |
+| One correct value / fact | Strict (EM) | `brian.foster@harmonygames.co` |
 | Free-text or agent-generated label | Objective semantic rule | `a title semantically equivalent to Zombie Match 3D live-ops health` |
 | Multiple valid answers | Closed / Open / Any-one | State a complete set, an objective semantic rule, or an explicit any-one set |
 | Content with specific requirements | Required Elements | `must state the shipped timer, intended timer, and issue ID` |
@@ -212,7 +212,7 @@ Two conceptual categories and four stored fields. **Outcome** is the standard an
   open, citing the specific ZOM ticket IDs. \[Outcome\]
 * Write one Outcome criterion per relevant Linear issue, naming the exact ticket
   ID and required status from ground truth.
-* The Agent sends a Slack message to brian@harmonygames.co (Brian Foster).
+* The Agent sends a Slack message to brian.foster@harmonygames.co (Brian Foster).
   \[Outcome\]
 * The Agent's Slack message to Brian Foster includes which bugs are fixed versus
   still open and states that ticket statuses were updated. \[Outcome\]
@@ -224,5 +224,5 @@ The strict findings criteria prove the necessary research occurred, so separate 
 
 **Process criterion only if the task requires this dependency:**
 
-* The Agent briefs Brian Foster at brian@harmonygames.co before scheduling the live-ops sync meeting.
+* The Agent briefs Brian Foster at brian.foster@harmonygames.co before scheduling the live-ops sync meeting.
 

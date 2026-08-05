@@ -13,11 +13,11 @@
 
 Start with the [`Docs/README.md`](README.md) reading path. Use the following hierarchy instead of treating every guide or example as equally authoritative:
 
-1. [`HarmonyGames_Base_Universe/Tool_Access/*.json`](../HarmonyGames_Base_Universe/Tool_Access/) controls enabled services, exact tools, parameters, and operations.
-2. [`Docs/15_Persona_ACL.md`](15_Persona_ACL.md) and its exact linked roster control task-visible identity and persona-scoped read visibility.
+1. [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) controls enabled services, exact tools, parameters, and operations.
+2. [`Docs/14_Persona_ACL.md`](14_Persona_ACL.md) and its exact linked roster control task-visible identity and persona-scoped read visibility.
 3. The live service data, task injection/changelog,
    [`HarmonyGames_Base_Universe/`](../HarmonyGames_Base_Universe/), and
-   [`6_Universe_Schema.json`](../HarmonyGames_Base_Universe/6_Universe_Schema.json)
+   [`7_Universe_Schema.json`](../HarmonyGames_Base_Universe/7_Universe_Schema.json)
    control live task/universe facts and database structure.
 4. The prompt and any uniquely discoverable company record it validly incorporates control what the Agent was asked to do.
 5. [`Evals/`](../Evals/) provide the current procedures and repository-level
@@ -44,7 +44,7 @@ These are design targets, not the lower rejection floors. [`Evals/1_Prompt_Eval.
 
 ### **Long-Horizon Tasks**
 
-If a task is assigned or proposed as long-horizon, read `Docs/14_Long_Horizon_Task_Guidelines.md` before designing, attempting, or reviewing it. A long-horizon task has at least one agent run with 500–1,000 tool calls. The volume must come from necessary work over a source-defined cohort or separately exposed evidence—not repeated reads, arbitrary checkpoints, unnecessary writes, or instructions designed to manufacture calls.
+If a task is assigned or proposed as long-horizon, read `Docs/13_Long_Horizon_Task_Guidelines.md` before designing, attempting, or reviewing it. A long-horizon task has at least one agent run with 500–1,000 tool calls. The volume must come from necessary work over a source-defined cohort or separately exposed evidence—not repeated reads, arbitrary checkpoints, unnecessary writes, or instructions designed to manufacture calls.
 
 **What you are NOT creating:**
 
@@ -78,7 +78,7 @@ Read the Universe Guides to understand the company's background, key personas an
 * [HarmonyGames — One-Pager](../HarmonyGames_Base_Universe/0_Universe_One-Pager.md) — quick overview.
 * [HarmonyGames — Persona Briefs](../HarmonyGames_Base_Universe/2_Persona_Briefs.md) — per-persona active work, relationships, and open threads.
 * [HarmonyGames — Task Categories](../HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md) — 6 business functions, write-tool matrix, and worked prompts.
-* [HarmonyGames — Reference Sheet](../HarmonyGames_Base_Universe/4_Reference_Sheet.md) — personas, externals, service structures, and environment/universe IDs.
+* [HarmonyGames — Reference Sheet](../HarmonyGames_Base_Universe/5_Reference_Sheet.md) — personas, externals, service structures, and environment/universe IDs.
 
 **Fixed date for the HarmonyGames universe:**
 
@@ -86,11 +86,11 @@ Read the Universe Guides to understand the company's background, key personas an
 
 ### **Your Assigned Persona**
 
-You will be assigned one of the 17 task-visible personas through the taxonomy. Use the exact identity and email in [`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json); never derive an email from a name. Your tasks should make sense from this persona's perspective — Leonard wouldn't debug VFX animations, Julia wouldn't audit financials, Douglas wouldn't negotiate vendor deals.
+You will be assigned one of the 17 task-visible personas through the taxonomy. Use the exact identity and email in [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json); never derive an email from a name. Your tasks should make sense from this persona's perspective — Leonard wouldn't debug VFX animations, Julia wouldn't audit financials, Douglas wouldn't negotiate vendor deals.
 
 If your assigned persona is "saturated" (you've exhausted the interesting situations for that role), you may switch to a different roster persona through the taxonomy. When you do, mark which persona the task is written for so we can track the distribution. Do not touch the AMV persona dropdown: it overrides the taxonomy selection and persists.
 
-Every persona receives the same 13-service catalog, but Persona ACL actively scopes reads on Gmail, Slack, GCal, and Contacts. Reads on GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence are unscoped. Writes are outside Persona ACL scope; use the tool catalogs, not ACL, to determine write capability. See [`Docs/15_Persona_ACL.md`](15_Persona_ACL.md).
+Every persona receives the same 13-service catalog, but Persona ACL actively scopes reads on Gmail, Slack, GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL). Reads on Contacts, GitHub, Snowflake, Trello, Linear, and Confluence are unscoped. Writes are outside Persona ACL scope; use the tool catalogs, not ACL, to determine write capability. See [`Docs/14_Persona_ACL.md`](14_Persona_ACL.md).
 
 The environment automatically applies `set_acting_user` with the roster's exact email after universe load and reapplies it for every run and turn. This is environment configuration, not an Agent tool, Oracle Event or rubric process requirement, or task-call contribution. The Agent Runner and Run Verifiers use the same required persona.
 
@@ -124,19 +124,19 @@ There is no task-visible Finance persona or CFO. Finance is a business function 
 
 **Explore the universe and be familiarized with how it works and behaves\!**
 
-### **Important note**: You do not need to write "I am Leonard Hayes" in the prompt. The platform supplies the taxonomy-selected identity. That persona shapes both the work request and read visibility on Gmail, Slack, GCal, and Contacts.
+### **Important note**: You do not need to write "I am Leonard Hayes" in the prompt. The platform supplies the taxonomy-selected identity. That persona shapes both the work request and read visibility on Gmail, Slack, GCal, and the Drive-family (GDrive/GDocs/GSheets/GSlides).
 
 ### **What Data Can the Agent Access?**
 
 The agent has exactly 13 task-visible services: Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, Trello, Confluence, Contacts, GCal, and Snowflake. For prompt writing, you do not need to specify tool names or parameters. Required evidence must both exist in the universe and be readable by the assigned persona; author visibility in Universe Explorer is not sufficient for a scoped service.
 
 **⚠️ Important tool constraints for HarmonyGames:**
-* [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) is the authority for enabled tools; see the concise [Tool Access Guide](0_Tool_Access_Guide.md).
+* [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is the authority for enabled tools; see the concise [Tool Access Guide](0_Tool_Access_Guide.md).
 * **Gmail is triage-capable, but cannot send** — it supports read/search, attachments, label changes, archive, trash/untrash/delete, and label creation/deletion. There is no send/reply/compose tool.
 * **Snowflake is read/query-only** — it lists and describes warehouse objects and runs queries; it is not a write surface.
 * **Exactly 13 service catalogs are enabled:** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
-* **Persona-scoped reads apply only to Gmail, Slack, GCal, and Contacts.** List and search results are filtered, and a known object ID does not bypass visibility; inaccessible by-ID reads are denied or return not found.
-* **The other nine services are unscoped for reads. Persona ACL does not govern writes.**
+* **Persona-scoped reads apply only to Gmail, Slack, GCal, and the Drive-family (GDrive/GDocs/GSheets/GSlides).** List and search results are filtered, and a known object ID does not bypass visibility; inaccessible by-ID reads are denied or return not found.
+* **The other six services (Contacts, GitHub, Snowflake, Trello, Linear, Confluence) are unscoped for reads. Persona ACL does not govern writes.**
 * **No direct tools exist for CRM, Airtable, QuickBooks, Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, or Stripe.** Those names may appear as business topics or evidence recorded inside enabled services, but the agent cannot query them directly.
 
 ---
@@ -149,9 +149,9 @@ The agent has exactly 13 task-visible services: Slack, Linear, GitHub, Gmail, GD
 
 * [**HarmonyGames — Universe Summary**](../HarmonyGames_Base_Universe/1_Universe_Summary.md) (please read carefully)
 * [**HarmonyGames — One-Pager**](../HarmonyGames_Base_Universe/0_Universe_One-Pager.md)
-* [**HarmonyGames — Reference Sheet**](../HarmonyGames_Base_Universe/4_Reference_Sheet.md) (personas, channels, repos, env/uni IDs)
+* [**HarmonyGames — Reference Sheet**](../HarmonyGames_Base_Universe/5_Reference_Sheet.md) (personas, channels, repos, env/uni IDs)
 
-Use Universe Explorer author god-mode and the chat agent to understand what data exists. Before relying on Gmail, Slack, GCal, or Contacts evidence, confirm it from the assigned persona's Agent/Verifier view:
+Use Universe Explorer author god-mode and the chat agent to understand what data exists. Before relying on Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) evidence, confirm it from the assigned persona's Agent/Verifier view:
 
 * Search Gmail for interesting investor threads, vendor negotiations, legal closings  
 * Browse Slack channels for product decisions, feature debates, live-ops incidents  
@@ -315,7 +315,7 @@ Before you run the agent, write down the Oracle Events (OEs) — the key steps a
 
 This should be free-form text, not structured JSON. It proves you've thought through the solution path and makes writing rubrics much easier afterward.
 
-OEs are non-authoritative internal plans. Prompt language and live universe evidence define correctness; exact tool feasibility comes from `HarmonyGames_Base_Universe/Tool_Access/*.json`. An OE contradiction is a signal to investigate and correct the OE, not permission to reinterpret the prompt or ground truth. Validate OEs with [`Evals/2_OE_Eval.md`](../Evals/2_OE_Eval.md).
+OEs are non-authoritative internal plans. Prompt language and live universe evidence define correctness; exact tool feasibility comes from `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`. An OE contradiction is a signal to investigate and correct the OE, not permission to reinterpret the prompt or ground truth. Validate OEs with [`Evals/2_OE_Eval.md`](../Evals/2_OE_Eval.md).
 
 For each important step, note:
 
@@ -455,7 +455,7 @@ See the Rubrics Guidelines for full instructions. Quick summary:
 ## **Step 6: Verify Before Submitting**
 
 * Global existence only: Universe Explorer proves that every referenced fact exists globally; it does not prove persona reachability  
-* Persona-readable: Every required Gmail, Slack, GCal, and Contacts fact is proven reachable in the taxonomy-selected persona's Agent/Verifier view
+* Persona-readable: Every required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) fact is proven reachable in the taxonomy-selected persona's Agent/Verifier view
 * Persona consistent: Agent Runner and Run Verifiers use the same exact roster persona and email; the AMV dropdown was not used
 * Authoring target: Task is designed for 40+ necessary average calls across 3+ enabled services  
 * Evaluation floors understood: Prompt requires >15 calls and 2+ services; trajectory QC requires >=15 average calls and 2+ services  

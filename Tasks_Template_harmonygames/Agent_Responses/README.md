@@ -19,7 +19,7 @@ the platform automatically applies the email-required `set_acting_user`
 configuration and re-applies it on every run/turn; it must not appear as a
 manual Agent tool call.
 
-Gmail, Slack, GCal, and Contacts reads are persona-scoped. If a trajectory
+Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads are persona-scoped. If a trajectory
 unexpectedly succeeds in reading data that its assigned persona is not
 authorized to see, classify it as **Excluded (environment/config defect)**,
 drop it from model scoring, and rerun it with the required persona scope. An

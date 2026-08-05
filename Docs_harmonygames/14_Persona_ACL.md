@@ -2,16 +2,17 @@
 
 Persona ACL is active and fully implemented for HarmonyGames. This document is
 the authority for task-visible identities and persona-scoped read visibility.
-[`HarmonyGames_Base_Universe/Tool_Access/*.json`](../HarmonyGames_Base_Universe/Tool_Access/) remains the authority for service
+[`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) remains the authority for service
 capabilities, exact tools, parameters, and available read and write operations.
 
 ## Two policy layers
 
 1. **Identity configuration:** the assigned taxonomy persona resolves to one
    exact roster email. The environment uses that email as the acting user.
-2. **Read enforcement:** Gmail, Slack, GCal, Contacts, GDrive, GDocs, GSheets,
-   and GSlides filter reads to data visible to the acting user. The other five
-   task-visible services do not apply persona-scoped read filtering.
+2. **Read enforcement:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and
+   GSlides filter reads to data visible to the acting user. The other six
+   task-visible services (Contacts, GitHub, Snowflake, Trello, Linear, and
+   Confluence) do not apply persona-scoped read filtering.
 
 Persona ACL does not govern writes. A cataloged write may still be available,
 but this policy must not be cited as granting or denying it.
@@ -19,7 +20,7 @@ but this policy must not be cited as granting or denying it.
 ## Task-visible personas
 
 The exact 17-record roster is
-[`HarmonyGames_Base_Universe/Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 Use its `persona_key`, `name`, `email`, `role`, and `department` values exactly.
 Never construct, normalize, or infer an email from a person's name.
 
@@ -37,7 +38,7 @@ HarmonyGames evaluation environment.
 | Gmail | Yes | Acting user's mailbox-visible messages, threads, labels, profile, and attachments |
 | Slack | Yes | Conversations, messages, threads, files, and related records visible to the acting Slack user |
 | GCal | Yes | Calendars, events, and free/busy data visible to the acting user |
-| Contacts | No | Contacts visible in the acting user's contact scope |
+| Contacts | No | Unscoped |
 | GDrive | Yes | Files and folders the acting user owns or that are shared with them, including metadata, content, and search results |
 | GDocs | Yes | Documents readable by the acting user through the same Drive file visibility |
 | GSheets | Yes | Spreadsheets, sheet metadata, and cell ranges readable by the acting user through the same Drive file visibility |
@@ -49,7 +50,7 @@ HarmonyGames evaluation environment.
 | Confluence | No | Unscoped |
 
 The unscoped group is the policy's **public-service group**. It contains exactly
-GitHub, Snowflake, Trello, Linear, and Confluence.
+Contacts, GitHub, Snowflake, Trello, Linear, and Confluence.
 
 The four Google document services share Drive's underlying file ACL. A file that
 is invisible to the acting user in GDrive is also invisible through GDocs,
@@ -57,7 +58,7 @@ GSheets, and GSlides, including by-ID reads.
 
 ## Scoped read behavior
 
-For Gmail, Slack, GCal, Contacts, GDrive, GDocs, GSheets, and GSlides:
+For Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides:
 
 - **List operations** return only records visible to the acting user.
 - **Search operations** search only within that visible set and do not reveal
@@ -84,7 +85,7 @@ record is unavailable to the selected persona.
   Runner. A verifier must not depend on broader author visibility.
 
 Author god-mode is for universe inspection only. It does not make author-visible
-evidence in any of the eight scoped services reachable by the Agent or verifier.
+evidence in any of the seven scoped services reachable by the Agent or verifier.
 
 ## Persona lifecycle and precedence
 
@@ -108,25 +109,20 @@ task call to include in complexity or trajectory call counts.
 
 ## Google viewer-context tools
 
-The catalog no longer exposes any `*_get_viewer` or `*_set_viewer` tool. GCal,
-GDrive, GDocs, GSheets, and GSlides each had a get/set pair; all ten were removed
-from `5_Server_Tools_Details.json`. A new task may not call one, and a rubric or
-Oracle Event that names one cites a phantom tool.
+Some Google service catalogs expose service-specific `*_get_viewer` or
+`*_set_viewer` tools. Viewer context is not task persona identity and does not
+replace taxonomy, the roster, `persona_email`, or `set_acting_user`. It cannot
+authorize an ACL bypass, and viewer calls earn no Oracle Event, Process, or
+complexity credit.
 
-The rule below still governs archived material. Viewer calls appear in the
-V5_HG_Buckets QC reference trajectories, and one `8_Verifier_Fails.txt` cites
-`gcal_get_viewer`, so anyone grading those runs still needs it.
-
-Viewer context was never task persona identity and never replaced taxonomy, the
-roster, `persona_email`, or `set_acting_user`. It could not authorize an ACL
-bypass, and viewer calls earned no Oracle Event, Process, or complexity credit.
-Where a manual viewer change caused scoped Google reads under the wrong identity,
-or otherwise defeated the assigned persona scope, the execution is
-**Excluded (environment/config/path violation)**.
+If a manual viewer change causes scoped Google reads under the wrong identity or
+otherwise defeats the assigned persona scope, classify the execution as
+**Excluded (environment/config/path violation)**. This now applies to GDrive,
+GDocs, GSheets, and GSlides as well as GCal.
 
 ## Task-authoring and evaluation rules
 
-- Validate every required read in the eight scoped services from the assigned
+- Validate every required read in the seven scoped services from the assigned
   persona's Agent/Verifier view, not only from Universe Explorer.
 - Design prompts so all required evidence is reachable by that persona. A
   deliberate read denial may be contextual evidence, but inaccessible content
@@ -139,5 +135,5 @@ or otherwise defeated the assigned persona scope, the execution is
   Oracle Event, or rubric. Determine write feasibility only from the
   authoritative tool catalogs.
 - A shared catalog does not imply shared read visibility: all personas have the
-  same 13 task-visible services, while eight of those services enforce
+  same 13 task-visible services, while seven of those services enforce
   persona-scoped reads.

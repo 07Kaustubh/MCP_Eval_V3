@@ -21,14 +21,14 @@ supplements:
 
 The normal rules still apply: prompts must sound natural, all requested work must form one coherent situation, the task must be grounded in the environment, and rubrics must be outcome-first.
 
-[`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) is authoritative for every enabled service, exact operation, parameter, pagination control, and batch capability. A long-horizon design must use only those documented capabilities; examples in this guide do not imply additional tools.
+[`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is authoritative for every enabled service, exact operation, parameter, pagination control, and batch capability. A long-horizon design must use only those documented capabilities; examples in this guide do not imply additional tools.
 
-Persona ACL is active. Read [`15_Persona_ACL.md`](15_Persona_ACL.md) and bind
+Persona ACL is active. Read [`14_Persona_ACL.md`](14_Persona_ACL.md) and bind
 the task to the exact key/email in
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
-Gmail, Slack, GCal, and Contacts reads are persona-scoped; GDrive, GitHub,
-Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence reads remain
-unscoped. Writes are outside ACL scope.
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
+Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are
+persona-scoped; Contacts, GitHub, Snowflake, Trello, Linear, and Confluence
+reads remain unscoped. Writes are outside ACL scope.
 
 For task facts, the live task state and its injection/changelog take precedence
 over the base export. For scoring, the current Evals and scored QC
@@ -37,22 +37,11 @@ examples.
 
 ## Canonical Worked Example
 
-Every pattern in this guide is implemented end to end in one validated task:
+Every pattern in this guide is illustrated end to end by one worked example, developed inline through the sections below: a February 28, 2026 source-control preservation pack in which Leonard Hayes asks for every open and closed pull request in two repositories to be captured as a spreadsheet Register plus a Markdown memo. It exercises prompt naturalness, environment injection, `BATCH` Oracle Events, runtime bindings, and large-audit-table rubric coverage.
 
-**[`QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/)**
+The walkthrough that follows covers, in order: where its 592 tool calls come from, how the repetition is expressed as `BATCH` Oracle Events with runtime bindings, and how 116 records are graded with 79 outcome-first criteria rather than one rubric per row.
 
-Read it before designing or reviewing a long-horizon task. It is the reference implementation for prompt naturalness, environment injection, `BATCH` Oracle Events, runtime bindings, and large-audit-table rubric coverage. Leonard Hayes asks for a February 28, 2026 source-control preservation pack covering every open and closed pull request in two repositories, delivered as a spreadsheet Register plus a Markdown memo.
-
-| File | What it demonstrates |
-|------|----------------------|
-| [`5_Prompt.txt`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/5_Prompt.txt) | A four-sentence delegation that still requires 592 tool calls |
-| [`Prompt_and_Injected_Conversation.md`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/Prompt_and_Injected_Conversation.md) | The prompt beside the injected Slack thread that carries the operating rules |
-| [`9_Universe_inject.sql`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/9_Universe_inject.sql), [`4_Changelog.json`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/4_Changelog.json) | The injected channel, thread, and messages, recorded row by row |
-| [`6_Oracle_Events.txt`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/6_Oracle_Events.txt) | `BATCH` notation, `BIND[...]` runtime bindings, per-OE `Calls:` counts, and a final exact call total |
-| [`7_Rubrics.json`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json) | 79 outcome-first criteria covering 116 records without one rubric per row |
-| [`3_UniverseDataForThisTask.json`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/3_UniverseDataForThisTask.json) | The task-scoped universe slice the ground truth was derived from |
-
-> **Reuse the structure, never the content.** Do not copy this task's scenario, cohort, repositories, evidence surfaces, flag vocabulary, column set, or totals — those belong to this task alone. What transfers is the shape: a source-defined cohort, separately exposed evidence surfaces, operating rules discovered in the environment, and totals reconciled against a saved artifact.
+> **Reuse the structure, never the content.** Do not copy this example's scenario, cohort, repositories, evidence surfaces, flag vocabulary, column set, or totals — those belong to it alone. What transfers is the shape: a source-defined cohort, separately exposed evidence surfaces, operating rules discovered in the environment, and totals reconciled against a saved artifact.
 
 ### Where the 592 Calls Come From
 
@@ -167,7 +156,7 @@ The natural version should still produce the same long-horizon work. The complex
 
 ### Worked Example: Source-Code / IP Provenance Closeout
 
-The same underlying task — 116 pull requests, five evidence surfaces, a Register and a memo — can be requested three ways. All three demand the same 580 record-level evidence calls; they differ only in how much of the reasoning the user does on the agent's behalf. Only the third one shipped, as [`5_Prompt.txt`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/5_Prompt.txt).
+The same underlying task — 116 pull requests, five evidence surfaces, a Register and a memo — can be requested three ways. All three demand the same 580 record-level evidence calls; they differ only in how much of the reasoning the user does on the agent's behalf. Only the third version is natural enough to ship; it appears as Tier 3 below.
 
 #### Tier 1 — Unnatural: the prompt as a runbook
 
@@ -299,7 +288,7 @@ The agent must read Slack to learn the vocabulary. That adds tool calls **and** 
 - **Small and plausible:** The OBI spec allows a limited amount of synthetic content. Keep injected records realistic and proportionate.
 - **Discoverable, not prescriptive:** Seed policies, requests, and constraints—not the final register contents or pre-computed totals.
 - **Cross-service consistent:** If Slack references `Task List.xlsx` or a specific PR, that record must exist (or be intentionally seeded) in Drive/GitHub.
-- **Persona-reachable:** Required Gmail, Slack, GCal, or Contacts records must
+- **Persona-reachable:** Required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) records must
   be visible to the exact assigned persona unless the intended outcome is an
   affirmative denial finding plus reporting, escalation, or an authorized
   alternative. Universe Explorer author god-mode and local exports prove global
@@ -310,7 +299,7 @@ The agent must read Slack to learn the vocabulary. That adds tool calls **and** 
   solution path or acceptance criteria.
 - **No adversarial hidden instructions:** Injection supports realistic work discovery; it must not trick the model.
 
-A complete example of a compliant injection — one private channel, one thread, fourteen messages, each recorded as an individual row — is in [`9_Universe_inject.sql`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/9_Universe_inject.sql) with the matching entries in [`4_Changelog.json`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/4_Changelog.json). Nothing in that injection contains a register row, a flag total, or a cohort size; it seeds only the rules the agent must discover.
+A compliant injection for this example is small — one private channel, one thread, fourteen messages, each recorded as an individual row in the task's own `9_Universe_inject.sql` and `4_Changelog.json`. Nothing in that injection contains a register row, a flag total, or a cohort size; it seeds only the rules the agent must discover.
 
 ### Synthetic Data Is Acceptable
 
@@ -428,8 +417,8 @@ In HarmonyGames:
 - Snowflake is analytical evidence and is read-only.
 - Trello and Confluence may contain roadmap and durable operating context.
 
-These are source roles, not ACL rules. Gmail, Slack, GCal, and Contacts reads
-are persona-scoped. Drive, Docs, Sheets, Slides, GitHub, Snowflake, Trello,
+These are source roles, not ACL rules. Gmail, Slack, GCal, and the Drive-family (Drive, Docs, Sheets, Slides) reads
+are persona-scoped. Contacts, GitHub, Snowflake, Trello,
 Linear, and Confluence reads remain unscoped, and Persona ACL does not grant or
 deny writes.
 
@@ -474,7 +463,7 @@ After a write, verify the keys and dimensions needed to prove it landed correctl
 
 Created artifacts receive identifiers only at runtime. Create each destination once, retain its returned ID or URL, and use that same value for later writes and verification. In Oracle Events, represent this dependency with a binding such as `BIND[OE005.spreadsheetId]` rather than inventing a future ID.
 
-For large repeated retrievals, Oracle Events may describe a parameterized `BATCH` over the complete source-defined key set. The batch description must identify the fixed arguments, varied key, expected coverage, and empty-result behavior. `BATCH` documents legitimate repetition; it must not conceal an unknown cohort or an inflated loop. See the canonical [`6_Oracle_Events.txt`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/6_Oracle_Events.txt) for both notations in use.
+For large repeated retrievals, Oracle Events may describe a parameterized `BATCH` over the complete source-defined key set. The batch description must identify the fixed arguments, varied key, expected coverage, and empty-result behavior. `BATCH` documents legitimate repetition; it must not conceal an unknown cohort or an inflated loop. Both notations are shown in use under [How the Repetition Is Expressed in Oracle Events](#how-the-repetition-is-expressed-in-oracle-events).
 
 ### 6. Reconcile Before Handoff
 
@@ -533,7 +522,7 @@ Follow the normal rubric guidelines:
 - Do not write a rubric for every expected tool call.
 - Do not reward a model merely for producing a high call count.
 
-For a large register, assess completeness through source-defined keys, exact totals, required columns, classification rules, and verified artifact contents. The deliverable—not the length of the trajectory—is the primary result. The canonical [`7_Rubrics.json`](../QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json) shows what that looks like in practice; see [How 116 Records Are Graded Without 116 Rubrics](#how-116-records-are-graded-without-116-rubrics).
+For a large register, assess completeness through source-defined keys, exact totals, required columns, classification rules, and verified artifact contents. The deliverable—not the length of the trajectory—is the primary result. See [How 116 Records Are Graded Without 116 Rubrics](#how-116-records-are-graded-without-116-rubrics) for what that looks like in practice.
 
 For repetitive row-level checks, use the
 [explicit spot-check rule](#explicit-spot-check-rule-for-large-redundant-audits):

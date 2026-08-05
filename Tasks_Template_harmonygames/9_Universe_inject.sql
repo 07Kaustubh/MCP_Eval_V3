@@ -3,14 +3,14 @@
 -- Add only the records needed for this task's coherent HarmonyGames scenario.
 --
 -- 1. Ground every statement in the current universe.
---    - Read HarmonyGames_Base_Universe/6_Universe_Schema.json and use only its
+--    - Read HarmonyGames_Base_Universe/7_Universe_Schema.json and use only its
 --      declared table_schema/table_name pairs, columns, types, and nullability.
 --      Its SQL-backed namespaces cover Confluence, Contacts, GCal, GDocs,
 --      GDrive, GitHub, Gmail, GSheets, GSlides, Linear, Slack, and Trello;
 --      public._changelog records task changes.
 --    - Compare affected tables with HarmonyGames_Base_Universe/Services_Data/.
 --      Reuse each table's real ID, enum, timestamp, and relationship patterns.
---    - Check HarmonyGames_Base_Universe/Tool_Access/*.json for the exact capabilities of all 13 enabled
+--    - Check HarmonyGames_Base_Universe/6_Server_Tools_Details.json for the exact capabilities of all 13 enabled
 --      services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets,
 --      GSlides, Trello, Linear, Contacts, and Confluence.
 --
@@ -27,10 +27,11 @@
 --      available discovery tools; avoid orphaned or tool-invisible data.
 --    - Keep names, emails, IDs, dates, statuses, ownership, links, and numeric
 --      facts consistent everywhere the same entity appears across services.
---    - Persona ACL is active for Gmail, Slack, GCal, and Contacts reads. For any
---      required injected evidence in those services, create coherent mailbox
---      ownership, Slack channel membership, calendar ownership/share/invite,
---      and contact visibility for the exact persona in 2_Persona.txt, unless the
+--    - Persona ACL is active for Gmail, Slack, GCal, and Drive-family
+--      (GDrive/GDocs/GSheets/GSlides) reads. For any required injected evidence
+--      in those services, create coherent mailbox ownership, Slack channel
+--      membership, calendar ownership/share/invite, and Drive file
+--      ownership/share for the exact persona in 2_Persona.txt, unless the
 --      intended outcome is affirmative denial or an authorized unscoped
 --      alternate supplies the evidence.
 --    - Universe Explorer visibility is author god-mode truth, not proof that the

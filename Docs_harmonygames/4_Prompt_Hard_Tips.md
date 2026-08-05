@@ -4,7 +4,7 @@
 
 This doc shares empirical search and difficulty patterns. Use it for intuition, not as policy or a checklist. Start from the [`Docs/README.md`](README.md) index and validate prompts with [`Evals/1_Prompt_Eval.md`](../Evals/1_Prompt_Eval.md) and [`Evals/5_Submission_Gate_Eval.md`](../Evals/5_Submission_Gate_Eval.md). Current Evals override older trajectory anecdotes.
 
-For current service availability, exact operations, parameters, and pagination controls, treat [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) as authoritative. For company facts, use the live HarmonyGames services and [`HarmonyGames_Base_Universe/`](../HarmonyGames_Base_Universe/). Examples here describe task patterns; they do not add tools, facts, or evaluation rules. Oracle Events are non-authoritative plans.
+For current service availability, exact operations, parameters, and pagination controls, treat [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) as authoritative. For company facts, use the live HarmonyGames services and [`HarmonyGames_Base_Universe/`](../HarmonyGames_Base_Universe/). Examples here describe task patterns; they do not add tools, facts, or evaluation rules. Oracle Events are non-authoritative plans.
 
 ## Observations: How agents search
 
@@ -17,13 +17,13 @@ Agents do broad keyword searches and work with whatever comes back first. Once t
 If a task requires an authoritative source, make the expected outcome depend on facts available there. Add a Process rubric for source verification only when it passes the normal three-condition test; do not reward a particular tool call by default.
 
 **Agents must plan scoped searches around membership.** Persona ACL is active:
-Gmail, Slack, GCal, and Contacts reads depend on the assigned persona's mailbox,
+Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads depend on the assigned persona's mailbox,
 conversation membership/visibility, calendar ownership/sharing/invites, and
-contact visibility. The other nine services—GDrive, GitHub, Snowflake, GDocs,
-GSheets, GSlides, Trello, Linear, and Confluence—remain unscoped, and writes are
-outside ACL scope. Use [`15_Persona_ACL.md`](15_Persona_ACL.md) and the exact
+Drive file ownership/share. The other six services—Contacts, GitHub, Snowflake,
+Trello, Linear, and Confluence—remain unscoped, and writes are
+outside ACL scope. Use [`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact
 identity in
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 Universe Explorer is author god-mode, so finding a record there or in a local
 export proves existence but not Agent Runner reachability. Build the intended
 path from persona-visible anchors or an authorized unscoped source.
@@ -36,7 +36,7 @@ If you add a dispute, complaint, or open question to the universe, also add a re
 
 If the same issue appears in multiple sources with different levels of detail, agents tend to go with whichever version they find first. Placing the most complete version in a less obvious location (a Linear ticket description vs a Slack thread) makes the task harder.
 
-**Data past the first result page is easy to miss.** Many enabled list/search tools expose a cursor, page token, page number, offset, or limit, but the exact controls differ by catalog. Agents often stop after the first response instead of paginating or narrowing the query. If your edit uses the same keywords as many existing messages, it may get pushed behind more recent traffic. Keep required evidence discoverable through a realistic query and verify the retrieval path against `HarmonyGames_Base_Universe/Tool_Access/*.json`; do not rely on an arbitrary result cap to manufacture difficulty. Slack thread replies are also easy to miss if the agent reads only channel history instead of the thread.
+**Data past the first result page is easy to miss.** Many enabled list/search tools expose a cursor, page token, page number, offset, or limit, but the exact controls differ by catalog. Agents often stop after the first response instead of paginating or narrowing the query. If your edit uses the same keywords as many existing messages, it may get pushed behind more recent traffic. Keep required evidence discoverable through a realistic query and verify the retrieval path against `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`; do not rely on an arbitrary result cap to manufacture difficulty. Slack thread replies are also easy to miss if the agent reads only channel history instead of the thread.
 
 ---
 

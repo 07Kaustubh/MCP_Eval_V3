@@ -1,9 +1,9 @@
 [
     {
-        "How This Works": "This task uses the Base Universe data by default. If the changelog has entries, those entries override the corresponding base data for this task only.",
-        "Base Universe Path": "MCP_Eval_V2_HarmonyGames/HarmonyGames_Base_Universe",
-        "Changelog Path": "MCP_Eval_V2_HarmonyGames/Generated_Tasks/<task-name>/4_Changelog.json",
-        "Note for Tasker": "Check the changelog at: outlier-task -> universe -> dataset -> public -> table -> changelog. If any entries exist, run the SQL query below and paste the result JSON data into 4_Changelog.json.",
+        "How This Works": "This task uses the Base Universe data by default (already present in the eval under MCP_Eval_V4_HarmonyGames/HarmonyGames_Base_Universe). Do NOT extract or paste the full universe data. Only the changelog is extracted, and only when this task performs an injection or a CB has already injected/modified records.",
+        "Base Universe Path": "MCP_Eval_V4_HarmonyGames/HarmonyGames_Base_Universe",
+        "Changelog Path": "MCP_Eval_V4_HarmonyGames/<task-name>/4_Changelog.json",
+        "Note for Tasker": "Check the changelog at: outlier-task -> universe -> dataset -> public -> table -> changelog. If (and only if) it has entries, run the SQL query below and paste the result JSON into 4_Changelog.json. If there are no entries, leave 4_Changelog.json empty ([]) and do not extract any universe data.",
         "SQL Query": "SELECT 'public._changelog', to_jsonb(t) FROM public._changelog t;"
     }
 ]

@@ -4,7 +4,7 @@
     "Sub-Dimensions": [
       {
         "Sub- Dimension": "Authority Order",
-        "Notes for Auditors": "HarmonyGames_Base_Universe/Tool_Access/*.json controls enabled services, exact tools, parameters, and capabilities. Docs/15_Persona_ACL.md controls persona-scoped read semantics, and HarmonyGames_Base_Universe/Persona_ACL_Roster.json controls exact persona key/email bindings. HarmonyGames_Base_Universe/Services_Data/, the task's 4_Changelog.json, and 9_Universe_inject.sql control universe facts; HarmonyGames_Base_Universe/6_Universe_Schema.json controls database structure. This file controls scored QC dimensions, while Evals/*.md supplies the current evaluation procedure and repository-level policy overrides. QC examples are calibration history, not policy.",
+        "Notes for Auditors": "HarmonyGames_Base_Universe/6_Server_Tools_Details.json controls enabled services, exact tools, parameters, and capabilities. Docs/14_Persona_ACL.md controls persona-scoped read semantics, and HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json controls exact persona key/email bindings. HarmonyGames_Base_Universe/Services_Data/, the task's 4_Changelog.json, and 9_Universe_inject.sql control universe facts; HarmonyGames_Base_Universe/7_Universe_Schema.json controls database structure. This file controls scored QC dimensions, while Evals/*.md supplies the current evaluation procedure and repository-level policy overrides. QC examples are calibration history, not policy.",
         "Fail (1/2 Rating)": "[Fail - Wrong Authority] A task or audit relies on a legacy example, Oracle Event, authoring guide, or assumed product capability to override the prompt, live universe, schema, tool catalogs, or current Evals.",
         "Non-Fail (3/4 Rating)": "N/A",
         "Pass (5 Rating)": "All claims and decisions follow the repository authority order."
@@ -23,7 +23,7 @@
     "Sub-Dimensions": [
       {
         "Sub- Dimension": "Schema and Structure",
-        "Notes for Auditors": "Validate every injected or modified record against HarmonyGames_Base_Universe/6_Universe_Schema.json: columns, types, nullability, foreign keys, and allowed values.",
+        "Notes for Auditors": "Validate every injected or modified record against HarmonyGames_Base_Universe/7_Universe_Schema.json: columns, types, nullability, foreign keys, and allowed values.",
         "Fail (1/2 Rating)": "[Fail - Schema Violation] Any injected or modified record has an unknown column, wrong type, missing required value, broken foreign key, invalid enum, or malformed nested structure.",
         "Non-Fail (3/4 Rating)": "N/A",
         "Pass (5 Rating)": "Every injected and modified record conforms to the current schema."
@@ -70,10 +70,17 @@
       },
       {
         "Sub- Dimension": "Feasibility",
-        "Notes for Auditors": "Check every explicit ask against live data and HarmonyGames_Base_Universe/Tool_Access/*.json. Exactly 13 services are enabled. Persona ACL is active and implemented: Gmail, Slack, GCal, and Contacts reads are scoped to the assigned persona; GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence reads are unscoped; writes are outside ACL scope. Verify dimensional feasibility for each requested breakdown and numeric observability for every exact value, precision, rounding rule, or derived result. Raw JSON, local-export, or Universe Explorer existence is insufficient when the assigned Agent persona's cataloged path cannot expose the required value.",
-        "Fail (1/2 Rating)": "[Fail - Prompt Infeasible] Any explicit ask is impossible, impractical, conflicting, unsupported by enabled tools, missing required data or dimensions, requires precision unavailable through the tool-visible environment, or depends on required Gmail, Slack, GCal, or Contacts evidence inaccessible to the assigned persona. The persona-scoped read rule does not fail a task whose intended outcome is an affirmative access-denial finding plus reporting, escalation, or an authorized alternative. There is no minor-secondary-request escape.",
+        "Notes for Auditors": "Check every explicit ask against live data and HarmonyGames_Base_Universe/6_Server_Tools_Details.json. Exactly 13 services are enabled. Persona ACL is active and implemented: Gmail, Slack, GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL) reads are scoped to the assigned persona; Contacts, GitHub, Snowflake, Trello, Linear, and Confluence reads are unscoped; writes are outside ACL scope. Verify dimensional feasibility for each requested breakdown and numeric observability for every exact value, precision, rounding rule, or derived result. Raw JSON, local-export, or Universe Explorer existence is insufficient when the assigned Agent persona's cataloged path cannot expose the required value.",
+        "Fail (1/2 Rating)": "[Fail - Prompt Infeasible] Any explicit ask is impossible, impractical, conflicting, unsupported by enabled tools, missing required data or dimensions, requires precision unavailable through the tool-visible environment, or depends on required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) evidence inaccessible to the assigned persona. The persona-scoped read rule does not fail a task whose intended outcome is an affirmative access-denial finding plus reporting, escalation, or an authorized alternative. There is no minor-secondary-request escape.",
         "Non-Fail (3/4 Rating)": "N/A",
         "Pass (5 Rating)": "Every explicit ask is actionable, discoverable, dimensionally supported, and numerically observable."
+      },
+      {
+        "Sub- Dimension": "Persona ACL Reachability",
+        "Notes for Auditors": "Persona ACL is active: scoped services return only records owned by, shared with, or visible to the assigned roster persona. Universe Explorer shows all records regardless of persona, so judge reachability from record details — Gmail sender/recipient/cc, Slack channel/DM membership, and Drive-family file ownership or share. Persona-scoped reads: Gmail, Slack, GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL). Unscoped reads: Contacts, GitHub, Snowflake, Trello, Linear, and Confluence. Writes are never ACL-blocked.",
+        "Fail (1/2 Rating)": "[Fail - Prompt Feasibility with Tools] A required read targets an element inaccessible to the assigned persona in a scoped service (Gmail, Slack, GCal, or the Drive-family), and the intended outcome is not an affirmative access-denial finding plus reporting, escalation, or an authorized alternative.",
+        "Non-Fail (3/4 Rating)": "N/A",
+        "Pass (5 Rating)": "Every required scoped-service read is reachable by the assigned persona, or the prompt's intended outcome is an authorized access-denial finding."
       },
       {
         "Sub- Dimension": "Explicit Tool Mention",
@@ -126,7 +133,7 @@
       },
       {
         "Sub- Dimension": "Persona",
-        "Notes for Auditors": "Use HarmonyGames_Base_Universe/Persona_ACL_Roster.json for the exact 17 task-visible persona key/email bindings, Docs/15_Persona_ACL.md for access semantics, and HarmonyGames_Base_Universe/2_Persona_Briefs.md plus current universe data for role context. The roster covers Design, Engineering, Executive, and Product and has no Finance persona or CFO. Keep the taxonomy-selected identity unchanged; the AMV dropdown must not override it.",
+        "Notes for Auditors": "Use HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json for the exact 17 task-visible persona key/email bindings, Docs/14_Persona_ACL.md for access semantics, and HarmonyGames_Base_Universe/2_Persona_Briefs.md plus current universe data for role context. The roster covers Design, Engineering, Executive, and Product and has no Finance persona or CFO. Keep the taxonomy-selected identity unchanged; the AMV dropdown must not override it.",
         "Fail (1/2 Rating)": "[Fail - Persona Mismatch] The request is not plausible for the exact assigned roster persona's role, authority, voice, or required scoped-read access.",
         "Non-Fail (3/4 Rating)": "[Non-Fail - Persona Mismatch] The request is plausible for the assigned persona but fits another persona better.",
         "Pass (5 Rating)": "The prompt aligns with the exact assigned roster persona in role, identity, and required scoped-read reachability."
@@ -152,8 +159,8 @@
     "Sub-Dimensions": [
       {
         "Sub- Dimension": "Universe Feasibility (Data Exists)",
-        "Notes for Auditors": "This checkout contains the full base export in service-level JSON files and sharded Slack, Gmail, GDrive, and GitHub payloads under Services_Data/. Check 3_UniverseDataForThisTask.json, 4_Changelog.json, 9_Universe_inject.sql, and the live service responses for task-specific additions, changes, rendering, pagination, and tool-visible precision. Universe Explorer is author god-mode and local exports show global existence; neither proves assigned-persona reachability. Test Gmail, Slack, GCal, and Contacts reads under the exact roster persona. Do not invent ACL scoping for the other nine services or write-side denial.",
-        "Fail (1/2 Rating)": "[Fail - Missing Universe Data] A core fact, entity, event, dimension, or value required by the prompt is absent or unreachable to the assigned persona. Required Gmail, Slack, GCal, or Contacts evidence visible only to another persona fails unless the intended outcome is an affirmative access-denial finding plus reporting, escalation, or an authorized alternative.",
+        "Notes for Auditors": "This checkout contains the full base export in service-level JSON files and sharded Slack, Gmail, GDrive, and GitHub payloads under Services_Data/. Check 3_UniverseDataForThisTask.json, 4_Changelog.json, 9_Universe_inject.sql, and the live service responses for task-specific additions, changes, rendering, pagination, and tool-visible precision. Universe Explorer is author god-mode and local exports show global existence; neither proves assigned-persona reachability. Test Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads under the exact roster persona. Do not invent ACL scoping for the other six services (Contacts, GitHub, Snowflake, Trello, Linear, Confluence) or write-side denial.",
+        "Fail (1/2 Rating)": "[Fail - Missing Universe Data] A core fact, entity, event, dimension, or value required by the prompt is absent or unreachable to the assigned persona. Required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) evidence visible only to another persona fails unless the intended outcome is an affirmative access-denial finding plus reporting, escalation, or an authorized alternative.",
         "Non-Fail (3/4 Rating)": "N/A",
         "Pass (5 Rating)": "All core facts exist and are retrievable through enabled tools under the applicable assigned-persona read scope."
       },
@@ -185,10 +192,17 @@
       },
       {
         "Sub- Dimension": "OE Accuracy",
-        "Notes for Auditors": "Verify every tool, service, parameter, entity, expected value, count, and date against HarmonyGames_Base_Universe/Tool_Access/*.json and the live universe. For quantitative claims, verify raw truth and tool-visible precision. OEs must respect prompt prohibitions.",
+        "Notes for Auditors": "Verify every tool, service, parameter, entity, expected value, count, and date against HarmonyGames_Base_Universe/6_Server_Tools_Details.json and the live universe. For quantitative claims, verify raw truth and tool-visible precision. OEs must respect prompt prohibitions.",
         "Fail (1/2 Rating)": "N/A; OE accuracy issues alone are non-failing.",
         "Non-Fail (3/4 Rating)": "[Non-Fail - Inaccurate Oracle Events] One or more OEs use the wrong tool, service, parameter, expected data, count, precision, date, or prompt-forbidden write. Minor imprecision may receive a 4 when it cannot change the outcome.",
         "Pass (5 Rating)": "Following the OEs literally would produce a correct, prompt-compatible trajectory using observable data."
+      },
+      {
+        "Sub- Dimension": "Negative Events",
+        "Notes for Auditors": "Oracle Events must describe an observable action or discovery; a non-action must not be presented as an event. Pre-scan each OE for does not, must not, never, no action, and refrains from, then review each hit. A lookup that confirms a negative or absent factual state stays valid because the lookup itself is observable. This dimension is purely non-failing.",
+        "Fail (1/2 Rating)": "N/A; OE negative-framing issues alone are non-failing.",
+        "Non-Fail (3/4 Rating)": "[Non-Fail - OE Framing] One or more Oracle Events describe a non-action rather than an observable event or discovery.",
+        "Pass (5 Rating)": "No Oracle Event describes a non-action rather than an observable event or discovery."
       }
     ]
   },
@@ -271,6 +285,13 @@
         "Fail (1/2 Rating)": "[Fail - Non-Agent-Centric, Negative, or Tool-Named Criterion] One or more titles use an artifact or model as actor, define passing only through prohibition or absence, or name a tool.",
         "Non-Fail (3/4 Rating)": "[Non-Fail - Agent-Centric but Nonstandard Form] The criterion is affirmative and clearly attributable to the Agent but uses a valid possessive or other nonstandard agent-centric construction.",
         "Pass (5 Rating)": "Every title is affirmative, agent-centric, natural, and tool-agnostic."
+      },
+      {
+        "Sub- Dimension": "Negative Criteria",
+        "Notes for Auditors": "Every rubric title tied to a normal prompt instruction must be affirmatively framed; only an explicit non-action or prohibition instruction may be graded through negative wording. Pre-scan for does not, must not, never, no, without, fails to, and avoids, then review each hit. A negative indicator that only describes the reported content is acceptable, as in The Agent reports that PR #438 had no human-submitted review, because the actor and action remain affirmative and the negative word only names the content being checked.",
+        "Fail (1/2 Rating)": "[Fail - Criteria Framing] One or more rubric criteria that do not correspond to an explicit non-action or prohibition prompt instruction are not framed affirmatively.",
+        "Non-Fail (3/4 Rating)": "N/A",
+        "Pass (5 Rating)": "Every rubric criterion that does not correspond to a non-action or prohibition prompt instruction is framed affirmatively."
       }
     ]
   },

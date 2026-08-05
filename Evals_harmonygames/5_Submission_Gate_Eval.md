@@ -4,16 +4,16 @@
 
 Each stored rubric object in `7_Rubrics.json` has exactly `title`, `category`, `justification`, and `evidence`. `title` contains the complete conceptual criterion text; there is no stored `criterion` key. `category` must be exactly `Outcome 1.1`, `Outcome 1.2`, `Outcome 2.1`, or `Process`.
 
-**Persona ACL is active and implemented.** `Docs/15_Persona_ACL.md` is authoritative for access semantics, and `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` is authoritative for exact taxonomy persona records. Apply Persona ACL only to reads in Gmail, Slack, GCal, and Contacts; do not infer write denial or ACL for other services.
+**Persona ACL is active and implemented.** `Docs/14_Persona_ACL.md` is authoritative for access semantics, and `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` is authoritative for exact taxonomy persona records. **Do NOT hardcode the scoped-service list in this eval** — read the **Access matrix** in `Docs/14_Persona_ACL.md` at eval time and treat every service it marks persona-scoped for reads as scoped and every service it marks unscoped as unscoped; if that doc changes, this eval follows it automatically with no edit here. Do not assert a specific service's scope status from memory. Never infer write denial or ACL on writes for any service.
 
 **Persona artifact hard gate:** `2_Persona.txt` must contain Persona Key,
 Persona Email, Name, Role, and Department values that all exactly match one
-entry in `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`. A missing field,
+entry in `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`. A missing field,
 mixed entry, inferred email, or value mismatch prevents submission.
 
 ---
 
-## The 6 Defect Families
+## The 8 Defect Families
 
 | # | Family | What it catches |
 |---|---|---|
@@ -22,7 +22,9 @@ mixed entry, inferred email, or value mismatch prevents submission.
 | F3 | **Process Rubric Violations** | Rubrics that credit tool-calling motions instead of measuring outcomes |
 | F4 | **Rubric Defects (Broken / Over-Strict)** | Target data missing in universe, required precision unavailable through tools, hidden derivations, or valid alternative paths penalized |
 | F5 | **Illegal Tool-Output Dependencies** | Rubrics whose grading requires inspecting tool return values (not visible in transcript) |
-| F6 | **QC-Pattern Compliance** | Atomicity, requirement-level coverage, affirmative criterion wording, overly broad, prompt-specificity ceiling, duplicate rubrics, vague exemplar language, destination mismatch, blank fields, exclusion gaps, delegation ambiguity, OE contradictions, strict feasibility/date checks, complexity |
+| F6 | **QC-Pattern Compliance** | Atomicity, requirement-level coverage, affirmative criterion wording (Negative Criteria), overly broad, prompt-specificity ceiling, duplicate rubrics, vague exemplar language, destination mismatch, blank fields, exclusion gaps, delegation ambiguity, OE contradictions, strict feasibility/date checks, numeric visibility, ACL-denial outcome, complexity |
+| F7 | **Rubric Framing & Integrity** | Negative/prohibition-only criteria (Negative Criteria dimension), coupled-claim over-bundling, multi-surface false-overlap vs true overlap, set-level (non-self-contained) reasoning, Outcome/Process category balance, agent-centric phrasing, over- vs under-specification severity |
+| F8 | **All-Failing & Empirical Difficulty** | All-fail rubrics without a valid genuine-model-failure justification, pass@1 out of band (too easy / unreachable-by-defect), high error rate, and prompt-edited-without-re-run (stale trajectories) |
 
 ---
 
@@ -36,15 +38,15 @@ mixed entry, inferred email, or value mismatch prevents submission.
   - [ ] 0.2: Read 2_Persona.txt and 1_Business_Function.txt — require Persona Key, Persona Email, Name, Role, and Department to match one roster entry exactly; extract role, authority, and department
   - [ ] 0.3: Read 6_Oracle_Events.txt — extract every tool call, parameter, expected value
   - [ ] 0.4: Read 7_Rubrics.json — catalog every rubric: ID, `title`, `category`, `justification`, `evidence`, expected values
-  - [ ] 0.5: Read every HarmonyGames_Base_Universe/Tool_Access/*.json catalog (all 13 services) — build the authoritative tool, parameter, and capability inventory
+  - [ ] 0.5: Read HarmonyGames_Base_Universe/6_Server_Tools_Details.json (the combined catalog for all 13 services) — build the authoritative tool, parameter, and capability inventory
   - [ ] 0.6: Read 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Services_Data/ (always) + 4_Changelog.json (if exists) — build complete universe state
   - [ ] 0.7: Read HarmonyGames_Base_Universe/2_Persona_Briefs.md — extract persona role boundaries
-  - [ ] 0.8: If any run uses 500–1,000 tool calls, read Docs/14_Long_Horizon_Task_Guidelines.md and QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/ (the pass baseline), then run the long-horizon legitimacy checks
+  - [ ] 0.8: If any run uses 500–1,000 tool calls, read Docs/13_Long_Horizon_Task_Guidelines.md and QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/ (the pass baseline), then run the long-horizon legitimacy checks
   - [ ] 0.9: If rubrics use record-level spot checks, determine whether the large audit-table exception applies; do not impose a minimum spot-check count
-  - [ ] 0.10: Read Docs/15_Persona_ACL.md + HarmonyGames_Base_Universe/Persona_ACL_Roster.json; after the five-field hard gate passes, bind the required taxonomy persona and verify Agent Runner/Run Verifier parity
+  - [ ] 0.10: Read Docs/14_Persona_ACL.md + HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json; after the five-field hard gate passes, bind the required taxonomy persona and verify Agent Runner/Run Verifier parity
 
 - [ ] Phase 1: F1 — Impossible-with-Tools
-  - [ ] 1.1: For EACH rubric, verify every referenced tool exists exactly in HarmonyGames_Base_Universe/Tool_Access/*.json
+  - [ ] 1.1: For EACH rubric, verify every referenced tool exists exactly in HarmonyGames_Base_Universe/6_Server_Tools_Details.json
   - [ ] 1.2: For EACH rubric, verify every referenced parameter exists in that tool's parameter list
   - [ ] 1.3: Verify CRUD coverage — if rubric expects update/delete, does that tool type exist?
   - [ ] 1.4: For EACH search/filter rubric, verify the tool supports the required filter attribute
@@ -53,7 +55,7 @@ mixed entry, inferred email, or value mismatch prevents submission.
   - [ ] 1.7: Check for PDF/attachment content referenced without a reader tool
   - [ ] 1.8: Check amount derivation — any rubric amounts from partial/truncated data?
   - [ ] 1.9: Check numeric observability — compare canonical raw values/inputs with tool-visible values/precision; inaccessible precision is UNREACHABLE
-  - [ ] 1.10: Check Persona ACL feasibility for every required Gmail, Slack, GCal, or Contacts read: mailbox ownership; Slack membership/public visibility; calendar ownership/share/invite; Contacts visibility; intentional denial outcome or authorized unscoped alternate
+  - [ ] 1.10: Check Persona ACL feasibility for every required read in a service the live `Docs/14_Persona_ACL.md` Access matrix marks scoped (derive the set from the doc — do not hardcode it), using the test appropriate to each scoped service type: mailbox ownership for mail; membership/public visibility for chat; calendar ownership/share/invite; file ownership/share for a Drive-family service (inherits Drive's file ACL, by-ID does not bypass); intentional denial outcome or authorized unscoped alternate
   - [ ] 1.11: Record verdict per rubric: FEASIBLE / IMPOSSIBLE / UNREACHABLE
 
 - [ ] Phase 2: F2 — Persona & Date Mismatch
@@ -91,7 +93,7 @@ mixed entry, inferred email, or value mismatch prevents submission.
   - [ ] 4.7: Check role/segregation overreach — persona required to act beyond their authority?
   - [ ] 4.8: For service creates, verify reference fields (project_id, assignee_id) are discoverable
   - [ ] 4.9: Verify rubric facts match CURRENT universe data (not stale from previous snapshot)
-  - [ ] 4.10: Reject rubrics/prompt reasoning that assumes write-side ACL denial or persona ACL on GDrive/GitHub/Snowflake/GDocs/GSheets/GSlides/Trello/Linear/Confluence
+  - [ ] 4.10: Reject any assumption of write-side ACL denial (all services). For reads, enforce ACL exactly per the live `Docs/14_Persona_ACL.md` Access matrix: reject invented persona ACL on a doc-unscoped service, AND reject reasoning that treats a doc-scoped-service record as readable when it is not visible to the assigned persona
   - [ ] 4.11: Record verdict: SOUND / BROKEN / OVER_STRICT
 
 - [ ] Phase 5: F5 — Illegal Tool-Output Dependencies
@@ -123,9 +125,27 @@ mixed entry, inferred email, or value mismatch prevents submission.
   - [ ] 6.18: Affirmative ACL-Denial Outcome — intentional denial criteria require the Agent to identify/report/escalate the denial or surface an authorized alternative; "does not access" alone is invalid
   - [ ] 6.19: ACL Complexity Hygiene — blocked/denied/repeated calls and set_acting_user environment configuration do not count toward complexity
 
-- [ ] Phase 7: Final Verdict
-  - [ ] 7.1: Fill in per-rubric findings table + task-level checks table
-  - [ ] 7.2: Count hard failures per family and apply Overall Rubric Quality thresholds to Moderate findings
+- [ ] Phase 7: F7 — Rubric Framing & Integrity
+  - [ ] 7.1: Negative/prohibition-only criteria — reuse the F6.16 lexical pre-scan; a non-prohibition criterion whose PASS condition is the absence of an action fails the Negative Criteria dimension. Prefer positive end-state framing; do not double-count with F6.16.
+  - [ ] 7.2: Coupled-claim over-bundling — for "identifies X because Y" criteria, confirm Y is the same-source grounding of X (valid) and not a second independent ask from a different source (split)
+  - [ ] 7.3: Multi-surface overlap — the same value graded on 2+ DIFFERENT artifacts (Slack vs GDoc vs final response) is correctly atomic, NOT a duplicate; the same value graded twice on the SAME artifact IS redundant
+  - [ ] 7.4: Set-level self-containment — reject any justification of the form "not overly broad because criterion C#X catches it"; each criterion must stand alone and embed its own expected value
+  - [ ] 7.5: Category balance — Outcome present and #Outcome > #Process; no write action mislabeled Process (cross-check the Process > 40% task-level gate)
+  - [ ] 7.6: Agent-centric phrasing — every conceptual criterion in `title` reads "The Agent + action + context"; no literal tool name/ID in `title` (evidence may name a real tool for the cross-check)
+  - [ ] 7.7: Over- vs under-specification severity — free-text/agent-generated content locked to an exact phrase or exact derived number as a literal string = Overly Specific (Minor per the V3 taxonomy); structured one-correct-value fields (emails, IDs, dates, dollar amounts, exact universe strings) stay EXACT and are never overly specific; overly broad = Moderate
+  - [ ] 7.8: Record verdict: CLEAN / NEGATIVE_RUBRIC / OVER_BUNDLED / FALSE_OVERLAP / NOT_SELF_CONTAINED / CATEGORY_IMBALANCE / PHRASING / SPEC_SEVERITY
+
+- [ ] Phase 8: F8 — All-Failing & Empirical Difficulty
+  - [ ] 8.1: If trajectories exist, identify EVERY rubric that fails ALL completed runs (empty/errored runs excluded); confirm a valid 1-2 line genuine-model-failure justification per all-fail rubric. ≥2 invalid all-fail → FAIL. Diagnose access-sensitive fails under the assigned persona; environment/config/path defects are not model failures.
+  - [ ] 8.2: Compute pass@1 — must be IN BAND: at most 2 of 6 completed runs pass all valid rubrics (pass@1 ≤ 40%). Flag <15-necessary-call / single-service / investigate+one-write solvability as TOO_EASY.
+  - [ ] 8.3: Unreachable / 0%-by-defect — pass@1 = 0% driven by a rubric/universe/ACL defect (buried datum, undiscoverable ref, cross-persona-only evidence, tool-precision loss) rather than genuine difficulty
+  - [ ] 8.4: Error rate — three or more of six runs erroring invalidates the difficulty read (at least 4 of 6 must complete)
+  - [ ] 8.5: Prompt-edit gate — if `5_Prompt.txt` changed since the last run, the 6 trajectories + `8_Verifier_Fails.txt` MUST be regenerated; stale (byte-identical to pre-edit) trajectories = STALE_TRAJECTORIES FAIL
+  - [ ] 8.6: Record verdict: CERTIFIED / INVALID_ALL_FAIL / TOO_EASY / UNREACHABLE / HIGH_ERROR_RATE / STALE_TRAJECTORIES
+
+- [ ] Phase 9: Final Verdict
+  - [ ] 9.1: Fill in per-rubric findings table + task-level checks table
+  - [ ] 9.2: Count hard failures per family (F1–F8) and apply Overall Rubric Quality thresholds to Moderate findings
 ```
 
 ---
@@ -139,17 +159,19 @@ mixed entry, inferred email, or value mismatch prevents submission.
 | `6_Oracle_Events.txt` | Expected agent steps — tool calls, parameters |
 | `7_Rubrics.json` | All stored rubric objects (`title`, `category`, `justification`, `evidence`) — primary target of this eval |
 | `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
-| `HarmonyGames_Base_Universe/Tool_Access/*.json` | **Authoritative MCP catalogs** — read all 13 JSON files for exact services, tools, parameters, and capabilities |
+| `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | **Authoritative MCP catalogs** — Read the combined catalog for exact services, tools, parameters, and capabilities |
 | `HarmonyGames_Base_Universe/2_Persona_Briefs.md` | Persona role boundaries |
 | `Agent_Responses/trajectory-run-{N}.json` | Canonical agent trajectories (if available); when a canonical file is absent, accept legacy `Agent_Responses/Run{N}_Trajectory.json` |
-| `Docs/14_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run |
-| `Docs/15_Persona_ACL.md` | Active scoped-read semantics, exact identity requirements, expected-denial handling, and author/runner/verifier separation |
-| `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact taxonomy Persona Key, Persona Email, Name, Role, and Department values |
+| `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run |
+| `Docs/14_Persona_ACL.md` | Active scoped-read semantics, exact identity requirements, expected-denial handling, and author/runner/verifier separation |
+| `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy Persona Key, Persona Email, Name, Role, and Department values |
 | `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` | Canonical long-horizon pass baseline (592 calls) |
 
 **Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail can search/read, read attachments, mutate message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but cannot send/reply/compose/draft. Snowflake is query/read-only.
 
-**ACL boundary:** Persona-scoped reads apply only to Gmail, Slack, GCal, and Contacts. GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence are the policy's unscoped public-service group: shared across task personas, not public outside the HarmonyGames evaluation environment. Do not invent persona ACL within that group. Writes are outside ACL scope and tasks must not assume write denial.
+**ACL boundary (read the doc; do NOT hardcode):** Persona-scoped reads apply to exactly the services the `Docs/14_Persona_ACL.md` **Access matrix** marks scoped; the services it marks unscoped are the shared public-service group (shared across task personas, not public outside the HarmonyGames evaluation environment). Derive both sets from the doc at eval time and defer to it if it changes — do not assert a specific service's scope status from memory. Do not invent persona ACL on a service the doc marks unscoped, and do not treat a service the doc marks scoped as unscoped. Writes are outside ACL scope and tasks must not assume write denial.
+
+**Persona ACL feasibility is a STRONG HARD GATE that blocks submission on its own.** A rubric whose success depends on a scoped-service read the assigned persona cannot reach (with no affirmative-denial outcome and no authorized unscoped alternate) is UNREACHABLE and prevents submission regardless of how clean every other family is. It cannot be waived, offset by passing families, or excused as a minor/secondary item, and Universe Explorer author god-mode never satisfies it.
 
 `HarmonyGames_Base_Universe/Services_Data/` is the current full base checkout, not a sampled subset: it contains the consolidated export, service-level JSON, sharded payloads, and repository trees.
 
@@ -161,7 +183,7 @@ mixed entry, inferred email, or value mismatch prevents submission.
 
 | Check | What to look for | Audit example | Verdict |
 |---|---|---|---|
-| Phantom tool | Tool in rubric doesn't exist in `HarmonyGames_Base_Universe/Tool_Access/*.json` | Rubric expects deletion of a Linear issue, but the catalog exposes issue create/update/read operations and no issue-delete operation | **IMPOSSIBLE** |
+| Phantom tool | Tool in rubric doesn't exist in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | Rubric expects deletion of a Linear issue, but the catalog exposes issue create/update/read operations and no issue-delete operation | **IMPOSSIBLE** |
 | Phantom parameter | Parameter doesn't exist for that tool | Rubric expects `status` filter on search tool — no such parameter | **IMPOSSIBLE** |
 | Missing CRUD | Rubric expects update/delete but only create/read exists | Prompt requires updating a Linear user, but the catalog has `linear_create_user`, `linear_get_user`, and `linear_list_users` with no user-update tool | **IMPOSSIBLE** |
 | Missing filter | Rubric requires a parameter the named tool doesn't support | Rubric requires an `assignee` filter on `linear_get_issue`, whose only parameter is `id`; a valid OE must instead use a tool whose documented parameters fit the task | **IMPOSSIBLE** |
@@ -170,7 +192,7 @@ mixed entry, inferred email, or value mismatch prevents submission.
 | Unreadable content | Rubric references file/attachment content without reader tool | Rubric expects values from PDF but tools only return filenames | **IMPOSSIBLE** |
 | Truncated amount | Rubric amount derived from partial/first-page data | Rubric says "total of all invoices" but only first page of 500+ is accessible | **UNREACHABLE** |
 | Precision loss | Raw universe contains a decimal, but the cataloged query path renders a whole-unit value and exposes no prompt-authorized recovery path | Raw `$10.52` is rendered as `$11`, while the rubric requires `$10.52` | **UNREACHABLE** |
-| Cross-persona scoped-service read | Successful completion requires a Gmail/Slack/GCal/Contacts record outside the assigned persona's implemented visibility, with no intentional-denial outcome or authorized alternate | Another persona's private mailbox is the only source of a required answer | **UNREACHABLE** |
+| Cross-persona scoped-service read | Successful completion requires a record in a doc-scoped service (scoped set per the live `Docs/14_Persona_ACL.md` Access matrix — do not hardcode it) outside the assigned persona's implemented visibility, with no intentional-denial outcome or authorized alternate | Another persona's private mailbox, or a Sheet never shared with the persona, is the only source of a required answer | **UNREACHABLE** |
 | Author-visibility substitution | Universe Explorer god-mode visibility is used to claim Agent Runner feasibility | Author can inspect a private Slack channel that the assigned runner persona cannot read | **UNREACHABLE** |
 
 ### Long-Horizon Legitimacy Check
@@ -203,8 +225,8 @@ An eligible large audit table does not need one rubric per repeated record-field
 | Persona role mismatch | Prompt actions exceed persona's role/authority | Coordinator doing executive-level strategic planning | **MISMATCH** |
 | Wrong attribution | Slack/email messages attributed to wrong persona | Slack posts authored as `user_elena` when persona is Lisa Smith | **MISMATCH** |
 | Role overreach | Rubric requires persona to approve/certify beyond their authority | Engineer required to approve a budget report (lead's job) | **MISMATCH** |
-| Date contradiction | System date vs scenario date inconsistency | `current_date` is Jan 2026 but scenario references March-April events | **MISMATCH** |
-| Future-as-past | Rubric expects analysis of events not yet happened per effective date | Prompt pins April 28 but system date varies per rollout (Oct, Sep) | **MISMATCH** |
+| Date contradiction | System date vs scenario date inconsistency | Fixed date is February 28, 2026 but scenario treats March–April 2026 events as already completed | **MISMATCH** |
+| Future-as-past | Rubric expects analysis of events not yet happened per effective date | Prompt asks to analyze April 2026 results, but "today" is February 28, 2026 — those events haven't happened yet | **MISMATCH** |
 | Phantom entity | Prompt references email/message/person that doesn't exist in universe | "Grace sent me a meeting notice" — no such email exists | **PHANTOM** |
 | Staff inconsistency | `is_active` status contradicts prompt claims | `is_active=true` with `termination_date=null` but prompt says "last day April 4th" | **PHANTOM** |
 | Inactive recipient | Rubric targets someone not in Contacts/Slack or deactivated | Slack message to a person who doesn't exist in contacts or has been deactivated | **PHANTOM** |
@@ -256,8 +278,9 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 | ID format locked | Rubric pins a structured ID that the prompt did not require | Rubric pins an internal channel ID even though direct environment evidence establishes another valid supported form | **OVER_STRICT** |
 | Role overreach | Rubric requires persona to act beyond their role authority | Engineer required to close/certify an item reserved for lead | **OVER_STRICT** |
 | Undiscoverable ref | Service create requires a reference value no available tool can discover | A required reference cannot be obtained from any cataloged search/list/read path | **BROKEN** |
-| Write-denial assumption | Rubric rejects or excuses a write because a related read service is persona-scoped | Treating ACL as if it blocked a Slack/GCal/Gmail/Contacts write | **BROKEN** |
-| Invented unscoped-service ACL | Rubric requires persona visibility rules for Drive-family or another unscoped service | Treating GDrive/GDocs/GSheets/GSlides as persona-scoped under this ACL | **OVER_STRICT** |
+| Write-denial assumption | Rubric rejects or excuses a write because a related read service is persona-scoped | Treating ACL as if it blocked a Slack/GCal/Gmail/GDrive write | **BROKEN** |
+| Invented ACL on a doc-unscoped service | Rubric requires persona visibility rules for a service the `Docs/14_Persona_ACL.md` Access matrix marks **unscoped** | Treating an unscoped public-service-group record as persona-scoped | **OVER_STRICT** |
+| Ignored ACL on a doc-scoped service | Rubric/OE assumes a scoped-service record is readable by any persona when the doc marks that service **scoped** and the record is not visible to the assigned persona | Treating an unshared file in a scoped Drive-family service as reachable regardless of the acting user | **BROKEN** |
 
 ---
 
@@ -298,7 +321,7 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 | 6.13 | **Duplicate Rubrics** | Two rubrics have the same pass/fail signal for the same requirement on the same artifact, including semantic paraphrases and differently labeled copies. | **DUPLICATE_RUBRIC** |
 | 6.14 | **Vague Exemplar Language (Moderate)** | A rubric contains `such as`, `e.g.`, or `for example`. Count once per affected rubric, regardless of occurrences or fields. | **VAGUE_EXEMPLAR** |
 | 6.15 | **Explicit Acceptance** | A flexible rubric gives illustrations or a vague catch-all instead of a complete accepted set or an objective semantic acceptance rule. | **UNDEFINED_ACCEPTANCE** |
-| 6.16 | **Affirmative Criterion Wording** | Run a case-insensitive lexical pre-scan of every `title` for `does not`, `do not`, `makes no`, `has no`, standalone `no`/`not`, `never`, `without`, `avoid`, `refrain`, and `fail to`, then review every hit. A conceptual criterion in `title` defines passing through prohibition-only or absence-only syntax when the hit supplies the acceptance condition. Rewrite exclusions as affirmative Agent classifications, scope boundaries, or preserved states. Negative factual states (`unimplemented`, `unconfirmed`, `unresolved`) and exact immutable entity titles containing negation tokens remain valid. Legacy reference examples do not override this repository-level rule. | **NEGATIVE_CRITERION_WORDING** |
+| 6.16 | **Affirmative Criterion Wording (Negative Criteria dimension)** | Scored under `Docs/7_QC_Spec_Doc1.json` → Rubric → **Negative Criteria** ([Fail - Criteria Framing]). Run a case-insensitive lexical pre-scan of every `title` for `does not`, `do not`, `makes no`, `has no`, standalone `no`/`not`, `never`, `without`, `avoid`, `refrain`, and `fail to`, then review every hit. A conceptual criterion in `title` defines passing through prohibition-only or absence-only syntax when the hit supplies the acceptance condition, unless the prompt explicitly requires that prohibition/non-action. A negation that only describes reported content ("reports that PR #438 had no human-submitted review") stays affirmative. Rewrite exclusions as affirmative Agent classifications, scope boundaries, or preserved states. Negative factual states (`unimplemented`, `unconfirmed`, `unresolved`) and exact immutable entity titles containing negation tokens remain valid. Legacy reference examples do not override this repository-level rule. | **NEGATIVE_CRITERION_WORDING** |
 | 6.17 | **Numeric Visibility** | A prompt or rubric requires a value, precision, rounding result, or derivation that exists only in raw backing data or depends on an unstated calculation, while cataloged tools expose a rounded/truncated value or omit required inputs. The same finding applies when an OE mismatch propagates into prompt/rubric scoring; an OE-only inaccuracy remains non-failing under `Evals/2_OE_Eval.md`. Display-format instructions do not silently authorize recomputation. | **NUMERIC_VISIBILITY_MISMATCH** |
 | 6.18 | **Affirmative ACL-Denial Outcome** | An intentional scoped-read denial is graded only as inactivity (`does not access`) instead of an affirmative Agent action such as identifying/reporting/escalating the denial or finding an authorized alternate. | **NEGATIVE_CRITERION_WORDING / MISSING_CRITERIA** |
 | 6.19 | **ACL Complexity Hygiene** | Complexity includes blocked/denied/repeated calls or `set_acting_user` environment configuration. | **TOO_EASY / INFLATED_COMPLEXITY** |
@@ -314,20 +337,54 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 7. **Numeric-observability matrix:** For every quantitative prompt ask and rubric expected value, record canonical raw value/inputs, cataloged tool path, actual tool-visible value/precision, and prompt-authorized derivation. Raw universe existence alone never proves scoreability.
 8. **Persona ACL matrix:** Require the exact five-field roster entry, resolve
    its Persona Email for the assigned taxonomy persona, verify runner/verifier
-   parity, and map every Gmail, Slack, GCal, or Contacts read to scoped
-   visibility, intentional affirmative denial handling, or an authorized
-   unscoped alternate. Keep Universe Explorer author god-mode separate.
+   parity, and map every read in a doc-scoped service to scoped visibility,
+   intentional affirmative denial handling, or an authorized unscoped alternate.
+   Derive the scoped-service set live from the `Docs/14_Persona_ACL.md` Access
+   matrix (do not hardcode it; defer to the doc if it changes). Keep Universe
+   Explorer author god-mode separate.
 
 ---
 
-## Phase 7: Final Verdict
+## Phase 7: F7 — Rubric Framing & Integrity
+
+> **What this catches:** framing defects that can pass F1–F6 but degrade grading quality — negative/prohibition-only criteria, false bundling/overlap, set-level (non-self-contained) reasoning, category imbalance, phrasing, and over- vs under-specification severity. This family enforces the Rubric dimension's **Negative Criteria** and **Agent-Centric Phrasing** sub-dimensions at the gate.
+
+| # | Check | What to look for | Verdict if found |
+|---|---|---|---|
+| 7.1 | **Negative / prohibition-only criterion** | PASS condition is the ABSENCE of an action ("The Agent does not / must not / no X"). Reuse the F6.16 lexical pre-scan; this is the **Negative Criteria** dimension. Allowed ONLY when the prompt explicitly requires the prohibition/non-action AND a positive companion backstops the required work — otherwise rewrite to a positive end-state, classification, scope boundary, or preserved state. A negation that only describes reported content ("reports that PR #438 had no human-submitted review") stays affirmative. Do not double-count with F6.16. | **NEGATIVE_RUBRIC** |
+| 7.2 | **Coupled-claim over-bundle** | "Identifies X because Y" where X and Y are two INDEPENDENT asks from different sources (would fail for two different reasons) → split. Same-source grounding of one finding is valid. | **OVER_BUNDLED** |
+| 7.3 | **False overlap / true overlap** | The same value on 2+ DIFFERENT write surfaces (Slack post, GDoc body, final response) is correctly atomic, NOT overlap. The same value graded twice on the SAME artifact, or two criteria failing for the identical single mistake on one artifact, IS redundant. | **REDUNDANT** |
+| 7.4 | **Set-level self-containment** | Any criterion (or its justification) that relies on "a sibling criterion catches the wrong answer" — set-level coherence is rejected; each criterion must stand alone and embed its own expected value. | **NOT_SELF_CONTAINED** |
+| 7.5 | **Category balance** | Outcome must be present and #Outcome > #Process; Process must be ≤40% of the set (cross-check the task-level Process>40% gate). A write action (create/update/post) labeled Process is mislabeled. | **CATEGORY_IMBALANCE** |
+| 7.6 | **Agent-centric phrasing** | The conceptual criterion in `title` must read "The Agent + action + context"; no literal tool name/ID in `title` (evidence may name a real tool for the cross-check). Possessive Agent forms ("The Agent's Slack update covers…") are valid. | **PHRASING** |
+| 7.7 | **Over- / under-specification severity** | Free-text/agent-generated content (message bodies, subjects, search queries, issue titles) locked to an exact phrase or exact derived number as a literal string = **Overly Specific (Minor** per the V3 taxonomy — use "(or similar)"/approximate). Structured one-correct-value fields (emails, IDs, dates, dollar amounts, exact universe strings) stay EXACT and are never overly specific. Overly broad = **Moderate**. | **SPEC_SEVERITY** |
+
+**Do not punish universe-created ambiguity:** if a careful agent could reach a different, well-justified answer from the same data (ambiguous linkage, duplicate/conflicting records, system-of-record vs reality), either broaden the criterion to credit both defensible readings or fix the universe so only one reading is reasonable — do not lock a single reading with an over-strict criterion.
+
+---
+
+## Phase 8: F8 — All-Failing & Empirical Difficulty
+
+> **What this catches:** rubric/difficulty defects only visible against the 6-run trajectories, plus the single most-missed integrity gap — editing the prompt WITHOUT re-running the agents. If trajectories are absent because the task was never run, 8.1–8.4 are DEFERRED (not PASS) and the task cannot be certified until a run exists. These checks mirror the Trajectory QC dimensions and `Evals/3_Rubrics_Eval.md` / `Evals/4_Verifier_Fails_Eval.md`; use the same assigned persona for any access-sensitive diagnosis.
+
+| # | Check | What to look for | Verdict if found |
+|---|---|---|---|
+| 8.1 | **Invalid all-fail rubric** | A rubric failing ALL completed runs whose failure is a rubric-quality or environment/config/path defect (unreachable datum, wrong key, over-strict, phantom tool, cross-persona-only evidence), not a genuine model miss. Needs a valid 1-2 line justification. **≥2 invalid all-fail → FAIL.** | **INVALID_ALL_FAIL** |
+| 8.2 | **Too easy** | pass@1 too high (more than 2 of 6 completed runs pass all valid rubrics), or the task is solvable in <15 necessary calls / a single service / investigate + one write. | **TOO_EASY** |
+| 8.3 | **Unreachable / 0% by defect** | pass@1 = 0% driven by a rubric/universe/ACL defect (a buried datum gating a well-supported answer, an undiscoverable ref, cross-persona-only evidence, tool-precision loss) rather than genuine difficulty. | **UNREACHABLE** |
+| 8.4 | **High error rate** | Three or more of six runs errored/timed out (fewer than 4 completed) — the difficulty read is unreliable; investigate before certifying. | **HIGH_ERROR_RATE** |
+| 8.5 | **Stale trajectories (prompt edited, not re-run)** | `5_Prompt.txt` changed but `Agent_Responses/*` and `8_Verifier_Fails.txt` are byte-identical to the pre-edit run. A prompt edit MANDATES regenerating the 6 trajectories + verifier fails + re-certifying difficulty. | **STALE_TRAJECTORIES** |
+
+---
+
+## Phase 9: Final Verdict
 
 **Per-rubric aggregate table:**
 
-| Rubric # | `title` (conceptual criterion) | F1 | F2 | F3 | F4 | F5 | F6 | Overall |
-|---|---|---|---|---|---|---|---|---|
-| 1 | ... | FEASIBLE | CONSISTENT | N/A | SOUND | SELF_CONTAINED | PASS | **PASS** |
-| 2 | ... | IMPOSSIBLE | — | — | BROKEN | — | NOT_ATOMIC | **FAIL** |
+| Rubric # | `title` (conceptual criterion) | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | Overall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ... | FEASIBLE | CONSISTENT | N/A | SOUND | SELF_CONTAINED | PASS | CLEAN | CERTIFIED | **PASS** |
+| 2 | ... | IMPOSSIBLE | — | — | BROKEN | — | NOT_ATOMIC | NEGATIVE_RUBRIC | STALE_TRAJECTORIES | **FAIL** |
 
 **Task-level summary:**
 
@@ -357,6 +414,15 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 | F6: Any persona roster/runner/verifier mismatch or scoped-feasibility gap? | PASS/FAIL | |
 | F6: Any negative-only ACL-denial criterion? | PASS/FAIL | |
 | F6: Any inflated ACL/config complexity? | PASS/FAIL | |
+| F7: Any NEGATIVE_RUBRIC (Negative Criteria)? | PASS/FAIL | |
+| F7: Any OVER_BUNDLED / REDUNDANT? | PASS/FAIL | |
+| F7: Any NOT_SELF_CONTAINED (set-level reasoning)? | PASS/FAIL | |
+| F7: Any CATEGORY_IMBALANCE (#Outcome ≤ #Process)? | PASS/FAIL | |
+| F7: Any PHRASING / SPEC_SEVERITY defect? | PASS/FAIL | |
+| F8: Any INVALID_ALL_FAIL (≥2 → FAIL)? | PASS/FAIL | |
+| F8: pass@1 in band (not TOO_EASY / UNREACHABLE)? | PASS/FAIL | |
+| F8: Any HIGH_ERROR_RATE (<4 of 6 completed)? | PASS/FAIL | |
+| F8: Any STALE_TRAJECTORIES (prompt edited, not re-run)? | PASS/FAIL | |
 | Process > 40%? | PASS/FAIL | |
 
 ```
@@ -370,6 +436,8 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 │ F4 (Broken / Over-Strict):   ___            │
 │ F5 (Tool-Output Deps):       ___            │
 │ F6 (QC-Pattern Compliance):  ___            │
+│ F7 (Rubric Framing & Integ): ___            │
+│ F8 (All-Fail & Difficulty):  ___            │
 │ TOTAL FAILURES:              ___            │
 │                                             │
 │ VERDICT:  PASS / FAIL                       │
@@ -380,7 +448,7 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 
 ---
 
-## Quick Reference: 38 Canonical Submission Gate Patterns
+## Quick Reference: 47 Canonical Submission Gate Patterns
 
 | # | Pattern | Family | Auto-flag |
 |---|---|---|---|
@@ -422,6 +490,15 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 | 36 | A rubric uses `such as`, `e.g.`, or `for example` (Moderate, once per rubric), or fails to define the accepted answer set/rule | F6 | VAGUE_EXEMPLAR / UNDEFINED_ACCEPTANCE |
 | 37 | A `title` defines passing through prohibition-only or absence-only wording instead of an affirmative Agent action, classification, scope boundary, or preserved state | F6 | NEGATIVE_CRITERION_WORDING |
 | 38 | Canonical raw value has greater precision than every cataloged tool-visible path, or the rubric requires an unstated calculation to recover it | F1/F4/F6 | UNREACHABLE / BROKEN / NUMERIC_VISIBILITY_MISMATCH |
+| 39 | Criterion PASS condition = absence of an action ("does not / must not") with no explicit prompt prohibition + positive companion | F7 | NEGATIVE_RUBRIC |
+| 40 | "Identifies X because Y" bundles two independent asks from different sources | F7 | OVER_BUNDLED |
+| 41 | Two criteria fail for the identical single mistake on the SAME artifact | F7 | REDUNDANT |
+| 42 | Criterion relies on "a sibling rubric catches the wrong answer" | F7 | NOT_SELF_CONTAINED |
+| 43 | #Process ≥ #Outcome or >40%, or a write action labeled Process | F7 | CATEGORY_IMBALANCE |
+| 44 | Free-text locked to an exact phrase / exact derived number as a literal string (no "or similar") | F7 | SPEC_SEVERITY |
+| 45 | ≥2 rubrics fail ALL completed runs with no valid genuine-model-failure reason | F8 | INVALID_ALL_FAIL |
+| 46 | pass@1 out of band — too easy (>2 of 6 pass) or 0% caused by a buried/undiscoverable/cross-persona datum | F8 | TOO_EASY / UNREACHABLE |
+| 47 | Prompt edited but agent trajectories + verifier fails are byte-identical (not re-run) | F8 | STALE_TRAJECTORIES |
 
 ---
 
@@ -436,5 +513,9 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 7. **Zero duplicates; tally vague exemplars correctly.** Remove exact or semantic duplicate rubrics. Count each rubric containing `such as`, `e.g.`, or `for example` as one Moderate issue and rewrite it with a complete accepted set or objective rule.
 8. **Use affirmative acceptance wording while preserving exclusions.** A prohibition-only or absence-only conceptual criterion in `title` is a hard F6 failure. Rewrite it as an observable positive Agent state without dropping the decoy, exclusion, or prohibited-action signal.
 9. **Verify numeric observability, not raw existence alone.** Every exact or precision-sensitive value must survive a cataloged tool path or a prompt-authorized derivation from tool-visible inputs. Repeated rounding across same-snapshot runs is an environment signal.
-10. **Enforce Persona ACL at the correct boundary.** Require an exact roster-backed taxonomy persona, Agent Runner/Run Verifier parity, and assigned-persona feasibility for Gmail/Slack/GCal/Contacts reads. Keep author god-mode separate; never infer write denial or ACL on the other nine services.
+10. **Enforce Persona ACL at the correct boundary — STRONG HARD GATE, and read the boundary from the doc.** Require an exact roster-backed taxonomy persona, Agent Runner/Run Verifier parity, and assigned-persona feasibility for reads in every service the live `Docs/14_Persona_ACL.md` Access matrix marks scoped (do not hardcode the set; defer to the doc if it changes). A single unreachable required scoped read (no affirmative-denial outcome, no authorized unscoped alternate) is a standalone, non-waivable block on submission. Keep author god-mode separate; never infer write denial on any service, and never invent read ACL on a service the doc marks unscoped.
 11. **Do not reward environment setup.** `set_acting_user`, blocked calls, denial retries, and repeated calls are not Agent complexity, OEs, or Process behavior.
+12. **Prefer positive framing; never argue set-level.** A prohibition-only or absence-only conceptual criterion fails the Negative Criteria dimension (F7.1) unless the prompt explicitly requires the non-action and a positive companion backstops the work. "It's not overly broad because criterion C#X catches it" is rejected — every criterion stands alone and embeds its own expected value (F7.4).
+13. **Same value on different artifacts is atomic, not a duplicate.** A value graded across distinct write surfaces (Slack, GDoc, final response) is correctly separate; only the same value on the same artifact is redundant (F7.3).
+14. **A prompt edit invalidates prior runs.** Changing `5_Prompt.txt` mandates regenerating the 6 trajectories + `8_Verifier_Fails.txt` and re-certifying difficulty. Stale (byte-identical) trajectories are an automatic FAIL — structural fixes are empirically unverified until the re-run lands (F8.5).
+15. **Keep pass@1 in band.** At most 2 of 6 completed runs may pass all valid rubrics; a 0% pass@1 caused by a rubric/universe/ACL defect is UNREACHABLE, not difficulty; fewer than 4 completed runs makes the difficulty read unreliable (F8).

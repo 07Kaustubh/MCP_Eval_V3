@@ -27,7 +27,7 @@ Pipeline supports **five universes**: **Brookfield CPAs & Advisors** (public acc
 
 **Before anything else on an HG task: hydrate.** HarmonyGames inverts the payload boundary - its per-task `3_UniverseDataForThisTask.json` is a ~720-byte pointer and `Services_Data/` (5.6 GB, gitignored) is the source of truth. Run `python3 Validators/check_hydration.py`; if it FAILs, follow `HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md`. Every S0 builder refuses to run un-hydrated rather than writing an artifact full of zeros.
 
-Landmines the agent already knows, listed so you recognise them: **Gmail is read-only** (no send/reply/draft tool exists, so "email the vendor" is ungradeable); two Slack send tools with **different** text params (`text` vs `payload`); persona emails are **irregular** (`arthur_blake` -> `blake@`) and must be read from `Persona_ACL_Roster.json`, never constructed; 985 Slack channels so channel IDs are **not** whitelist-checkable; persona ACL makes a read under the wrong acting identity an **Excluded** run, a third disposition beyond pass/fail.
+Landmines the agent already knows, listed so you recognise them: **Gmail is read-only** (no send/reply/draft tool exists, so "email the vendor" is ungradeable); two Slack send tools with **different** text params (`text` vs `payload`); persona emails are **irregular** (`arthur_blake` -> `blake@`) and must be read from `4_Persona_ACL_Roster.json`, never constructed; 985 Slack channels so channel IDs are **not** whitelist-checkable; persona ACL makes a read under the wrong acting identity an **Excluded** run, a third disposition beyond pass/fail.
 
 ## Setup once per task (one trigger does the folder + paths)
 

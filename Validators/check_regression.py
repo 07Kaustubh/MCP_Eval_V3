@@ -89,6 +89,25 @@ def main() -> int:
                 print(line)
         failures.append("dead-gate self-check: anchors pass against a validator that emits nothing")
 
+    # The universe atom scan must stay constant-memory. An earlier fix for the HarmonyGames
+    # phantom-atom bug was OOM-KILLED because it materialised the multi-GB base export, and
+    # nothing in Validators/ measured memory, so the regression could only ever announce
+    # itself as an OOM on an operator's machine. test_memory_bounds asserts a 384 MiB peak-RSS
+    # ceiling (measured: 160 MiB streaming vs 673 MiB for the whole-file load it replaced) and
+    # SKIPs cleanly when the gitignored payload is not hydrated. Standing gate per AGENTS.md
+    # rule 18. --self-check is run too, on the same principle as --dead-gate above: a guard
+    # that has only ever reported clean is indistinguishable from one that cannot report.
+    for label, extra in (("memory bounds", []), ("memory-bounds self-check", ["--self-check"])):
+        mb = subprocess.run(
+            [sys.executable, str(ROOT / "Validators" / "test_memory_bounds.py")] + extra,
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        if mb.returncode != 0:
+            for line in (mb.stdout + mb.stderr).splitlines():
+                if "[FAIL]" in line or "[MISSED]" in line or "[STALE]" in line:
+                    print(line)
+            failures.append(f"{label}: the universe scan is no longer provably constant-memory")
+
     # 2) frozen report hashes
     baseline = load_baseline_hashes()
     identical = 0

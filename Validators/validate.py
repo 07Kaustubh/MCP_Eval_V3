@@ -67,6 +67,19 @@ try:
 except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from universes import detect_universe, get_universe_constants, get_framework_profile, canonical_rubric_category
+try:
+    from Validators.check_rubric_antipatterns import (
+        negative_framing_hit, prompt_mandate_for, vague_exemplar_fields)
+except ImportError:
+    from check_rubric_antipatterns import (
+        negative_framing_hit, prompt_mandate_for, vague_exemplar_fields)
+
+try:
+    from Validators.check_persona_acl import (
+        load_roster, load_brief_names, check_persona_resolves, check_no_impossible_writes)
+except ImportError:
+    from check_persona_acl import (
+        load_roster, load_brief_names, check_persona_resolves, check_no_impossible_writes)
 
 EM_DASH_PATTERN = re.compile(r"[\u2014\u2013]")          # em-dash, en-dash
 TOOL_NAME_HINT = re.compile(r"\b(?:[a-z_]+_(?:list|search|get|create|update|send|add|upload|approve|reject|post|reply|submit|delete|show|history)_[a-z_]+|email_send_email|slack_conversations_add_message)\b")
@@ -876,9 +889,11 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
         return
 
     prompt_text = ""
+    prompt_raw = ""
     pf = task_dir / "5_Prompt.txt"
     if pf.is_file():
-        prompt_text = pf.read_text(encoding="utf-8").lower()
+        prompt_raw = pf.read_text(encoding="utf-8")
+        prompt_text = prompt_raw.lower()
 
     universe = detect_universe(task_dir)
     consts = get_universe_constants(universe)
@@ -1019,6 +1034,39 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             rep.warn(f"{loc}: non-agent voice or eval-internal phrase `{m.group(0)}` in title (use agent-centric phrasing)")
         for m in RUBRIC_NEGATION.finditer(title):
             rep.warn(f"{loc}: awkward negation `{m.group(0)}` in title (state the positive expectation)")
+
+        # Negative Criteria - QC dimension 23, [Fail - Criteria Framing], Fail=2/Pass=5
+        # with Non-Fail "N/A", i.e. BINARY (Docs_harmonygames/8_QC_Spec_Doc2.md:293-302).
+        # Gated on the framework profile because the dimension exists ONLY in the
+        # HarmonyGames spec; the shared logic lives in check_rubric_antipatterns so the
+        # standalone gate and this one cannot drift. The spec mandates pre-scan THEN
+        # adjudicate, so a blanket ban on the seven indicator words is itself a violation:
+        # the spec ships a MUST-PASS example that contains one.
+        if _fw_profile.get("rubric_negative_criteria_gate"):
+            _neg = negative_framing_hit(title)
+            if _neg:
+                _mandate = prompt_mandate_for(title, prompt_raw)
+                if _mandate:
+                    rep.note(f"{loc}: negative framing `{_neg[0]}` in title is prompt-mandated, so the explicit non-action exemption applies. Mandating sentence: \"{_mandate[:140]}\"")
+                else:
+                    rep.fail(f"{loc}: [Fail - Criteria Framing] title negates the Agent's own action via `{_neg[0]}` and no prompt sentence mandates that prohibition. Rewrite affirmatively. A negative word is fine when it only names the reported content, as in `reports that PR #438 had no human-submitted review`.")
+
+        # Vague Exemplar Language - one Moderate per affected rubric, scanned across EVERY
+        # field (7_QC_Spec_Doc1.json Rubric/Sub-Dimensions[6]: "Scan every field ... count
+        # one Moderate issue per affected rubric"). V3_VAGUE_CONNECTOR below already bans
+        # these in the TITLE for every universe, so a title hit is skipped here rather than
+        # charged twice against the same rubric.
+        if _fw_profile.get("rubric_vague_exemplar_scope") == "all_fields":
+            _vf = vague_exemplar_fields({
+                "title": title,
+                "evidence": evidence if isinstance(evidence, str) else "",
+                "justification": justification if isinstance(justification, str) else "",
+            })
+            if _vf and not V3_VAGUE_CONNECTOR.search(title):
+                _vfield, _vphrase = _vf[0]
+                _vextra = f" (+{len(_vf) - 1} more field(s))" if len(_vf) > 1 else ""
+                rep.warn(f"{loc}: Vague Exemplar Language — `{_vphrase}` in {_vfield}{_vextra}. Illustrative language leaves the accepted set undefined; state the accepted set or an objective semantic rule. One Moderate per affected rubric.")
+                rubric_severity[i]["moderate"] += 1
 
         if re.search(r"approximately\s+(?:\d{4}-\d{2}-\d{2}|[A-F0-9]{12}|exc_|VEN-)", title):
             rep.fail(f"{loc}: `approximately` used in front of an ID/date — restrict to calculated/rounded values")
@@ -1418,6 +1466,39 @@ def validate_rubrics(task_dir: Path, rep: Report) -> None:
             rep.fail(f"Overall Rubric Quality FAIL — {rubrics_with_major} rubrics carry Major issues (absolute-count cap is 2). Tighten or split.")
 
 
+def validate_persona_acl(task_dir: Path, rep: Report) -> None:
+    """Persona ACL as a PROMPT FEASIBILITY gate (AGENTS.md rule 32).
+
+    Docs_harmonygames/14_Persona_ACL.md makes a read the assigned persona cannot
+    perform a TASK DEFECT, not a model miss - `[Fail - Prompt Feasibility with Tools]`.
+    Universe Explorer god-mode shows ALL records, so authoring against it silently
+    produces infeasible prompts.
+
+    Gated on the registry `acl_gate` flag, so every non-HG universe SKIPs and the
+    frozen report hashes (38 snapshot tasks, all brookfield/keystone/moveops) cannot move.
+
+    Reads only. :17 "Persona ACL does not govern writes", and :134 forbids making an
+    ACL-based write denial necessary to a prompt, Oracle Event or rubric - so the
+    write check here is CATALOG feasibility (Gmail has no send tool), never ACL denial.
+    """
+    universe = detect_universe(task_dir)
+    if not get_framework_profile(universe).get("acl_gate", False):
+        return
+    consts = get_universe_constants(universe)
+    roster = load_roster(consts)
+    if not roster:
+        rep.warn(f"persona ACL: roster missing or empty ({consts.get('persona_acl_roster')}); "
+                 f"ACL-1 identity resolution cannot be verified")
+        return
+    scoped = consts.get("acl_scoped_services", [])
+    rep.note(f"persona ACL active: {len(scoped)} scoped service(s) ({', '.join(scoped)}); "
+             f"validate every required read from the assigned persona's view, not Universe Explorer god-mode")
+    for issue in check_persona_resolves(task_dir, roster, load_brief_names(consts)):
+        (rep.fail if issue.strip().startswith("[FAIL]") else rep.warn)(f"persona ACL: {issue.strip()}")
+    for issue in check_no_impossible_writes(task_dir):
+        (rep.fail if issue.strip().startswith("[FAIL]") else rep.warn)(f"persona ACL: {issue.strip()}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--phase", required=True, choices=["prompt", "oe", "rubrics", "all", "injection", "submission_gate"])
@@ -1444,6 +1525,7 @@ def main() -> None:
         rep = Report(phase)
         if phase == "prompt":
             validate_prompt(task_dir, rep)
+            validate_persona_acl(task_dir, rep)
         elif phase == "oe":
             validate_oe(task_dir, rep)
         elif phase == "rubrics":

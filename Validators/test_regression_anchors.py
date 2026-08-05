@@ -107,6 +107,99 @@ def _run_validate(task_dir: Path, phase: str, validate_py: Path = None) -> str:
 
 
 
+def _run_fact_ledger(task_dir: Path, phase: str = None, builder_py: Path = None) -> str:
+    """Build the Fact_Ledger and return it as text for substring assertions.
+
+    Loads `build_ledger` directly rather than shelling out to the script, because
+    build_fact_ledger.main() gates on universe_data_source.require_resolvable(), which for
+    HarmonyGames demands a hydrated multi-GB Services_Data export. Routing through main()
+    would make these anchors pass or fail on ambient machine state - the exact defect the
+    HG-13 comment above warns about. build_ledger() itself reads only _aux/Universe_Split,
+    which the fixture writes, so the id capture is testable without the payload.
+
+    `builder_py` mirrors _run_validate's `validate_py`: it points the loader at a mutated
+    copy so a caller can prove these anchors are capable of failing.
+
+    `phase` is unused but MUST stay second: the anchor loop calls every runner as
+    runner(task_dir, anchor["phase"]), so a runner that omits it silently binds the phase
+    string to the next parameter. That is not hypothetical - it bound "rubrics" to
+    builder_py here and crashed the whole suite.
+    """
+    import importlib.util
+    src = builder_py or (ROOT / "Validators" / "build_fact_ledger.py")
+    spec = importlib.util.spec_from_file_location(f"_bfl_{abs(hash(str(src)))}", src)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return json.dumps(mod.build_ledger(Path(task_dir)), default=str)
+
+
+def _split_rows(task_dir: Path, source: str, rows: list) -> None:
+    """Write one Universe_Split file in the {source, row_data} shape the splitter emits."""
+    split = task_dir / "_aux" / "Universe_Split"
+    split.mkdir(parents=True, exist_ok=True)
+    (split / f"{source}.json").write_text(json.dumps(
+        [{"source": source, "row_data": json.dumps(r, ensure_ascii=False)} for r in rows],
+    ), encoding="utf-8")
+
+
+def _write_hg_ledger_task(task_dir: Path) -> None:
+    """HG task whose split carries VERBATIM rows from the hydrated export.
+
+    Values are copied from HarmonyGames_Base_Universe/Services_Data (slack.users.json,
+    gdrive.drive_files.json) rather than invented, so the anchors pin the real id spaces:
+    slack.users holds 218 ids in four opaque token families plus raw U-ids, and every one of
+    gdrive.drive_files' 53,702 ids is `f_`/`d_` + 22 hex. Both spaces were mis-modelled until
+    d54c306, which shipped no test - these anchors are that missing gate.
+    """
+    task_dir.mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux").mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux" / "Universe.txt").write_text("harmonygames\n", encoding="utf-8")
+    (task_dir / "3_UniverseDataForThisTask.json").write_text(json.dumps([{
+        "How This Works": "This task uses the Base Universe data by default.",
+        "Base Universe Path": "MCP_Eval_V2_HarmonyGames/HarmonyGames_Base_Universe",
+        "SQL Query": "SELECT 'public._changelog', to_jsonb(t) FROM public._changelog t;",
+    }]), encoding="utf-8")
+    _split_rows(task_dir, "slack.slack.users", [
+        {"id": "EMPLOYEE_0002_SLACK_ID", "email": "marcus.bennett@harmonygames.co",
+         "real_name": "Marcus Bennett", "is_bot": False},
+        {"id": "PERSON_6065_SLACK_ID", "real_name": "Contractor", "is_bot": False},
+        {"id": "SLACK_BOT_0004_SLACK_ID", "real_name": "GitHub", "is_bot": True},
+    ])
+    _split_rows(task_dir, "gdrive.gdrive.drive_files", [
+        {"id": "f_166ee3037ecff61ed8f247", "name": "Release Candidate Checklist",
+         "owner_email": "robert@harmonygames.co", "parents": ["d_9f7ba94f7526d54d8482ba"]},
+    ])
+
+
+def _write_v3_ledger_task(task_dir: Path) -> None:
+    """Brookfield task for the cross-universe invariance anchor."""
+    task_dir.mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux").mkdir(parents=True, exist_ok=True)
+    (task_dir / "_aux" / "Universe.txt").write_text("brookfield\n", encoding="utf-8")
+    (task_dir / "3_UniverseDataForThisTask.json").write_text("[]", encoding="utf-8")
+    _split_rows(task_dir, "oracle_gl.ogl_accounts", [
+        {"entity_id": "brookfield", "account_number": "105000", "account_name": "Cash - Trust"},
+    ])
+
+
+def _run_antipatterns(task_dir: Path, phase: str = None, script: Path = None) -> str:
+    """Run the standalone rubric anti-pattern checker and return its stdout.
+
+    `phase` is unused but MUST stay second - see the identical note on _run_fact_ledger.
+    `script` mirrors _run_validate's `validate_py` so a caller can point this at a mutated
+    copy and prove the anchors can fail.
+
+    Assert against the finding lines (`criterion <n> [<field>]`), never against the
+    rationale prose: on a bad argv the checker prints its own __doc__ and returns 2, and
+    that docstring contains `FAIL only if`, `MODERATE` and `MINOR`. An anchor keyed to
+    those strings would pass while asserting nothing about the check.
+    """
+    src = script or (ROOT / "Validators" / "check_rubric_antipatterns.py")
+    result = subprocess.run([sys.executable, str(src), str(task_dir)],
+                            capture_output=True, text=True)
+    return result.stdout + "\n" + result.stderr
+
+
 def _write_v4_task(task_dir: Path, sql: str = "", rubrics: list = None) -> None:
     """StarPM (v4) fixture: universe data + injection + rubrics for the v4-only phases."""
     task_dir.mkdir(parents=True, exist_ok=True)
@@ -678,6 +771,19 @@ ANCHORS = [
         "expect": "universe: harmonygames",
     },
     {
+        "name": "v22 ACL-2 - persona ACL is WIRED into validate.py --phase prompt, not just a standalone script",
+        "phase": "prompt",
+        # Expects a FAIL, never a note: the dead-gate neuters the validator's ability to
+        # emit findings, and a note survives that (the defect that made RA-4 vacuous).
+        # check_persona_acl.py was invoked by NOTHING until 2026-08-06 - documented,
+        # registered, and dead - while Persona ACL was a live QC fail dimension.
+        "fixture": lambda d: (_write_hg_task(d),
+                              (d / "2_Persona.txt").write_text(
+                                  "Persona Key: nobody\nPersona Email: nobody@harmonygames.co\n"
+                                  "Name: Nobody Atall\nRole: Ghost\n", encoding="utf-8")),
+        "expect": "not in the persona roster",
+    },
+    {
         "name": "v22 HG-2 - HG rubric citing a phantom Gmail send tool fails F1 (Gmail is READ-ONLY)",
         "phase": "submission_gate",
         "fixture": lambda d: _write_hg_task(d, rubrics=[
@@ -846,6 +952,150 @@ ANCHORS = [
         # hydrated - an anchor must not depend on ambient machine state.
         "expect": "notarealperson@harmonygames.co",
     },
+    # ---- Fact_Ledger id spaces (build_fact_ledger.py, not validate.py) ----
+    # d54c306 corrected four of the five HG id patterns against the hydrated export and
+    # shipped zero tests, leaving the fix unpinned: nothing would have caught a revert.
+    # These run the ledger builder, so they carry `runner` and are excluded from the
+    # validator dead-gate rather than allowlisted into it.
+    {
+        "name": "v22 HG-14 - HG Slack users are EMPLOYEE_*_SLACK_ID tokens, not raw U-ids",
+        "phase": "rubrics",
+        "runner": _run_fact_ledger,
+        "fixture": _write_hg_ledger_task,
+        "expect": "EMPLOYEE_0002_SLACK_ID",
+    },
+    {
+        "name": "v22 HG-15 - HG Drive file ids (f_ + 22 hex) reach the ledger atom surface",
+        "phase": "rubrics",
+        "runner": _run_fact_ledger,
+        "fixture": _write_hg_ledger_task,
+        "expect": "f_166ee3037ecff61ed8f247",
+    },
+    {
+        "name": "v22 HG-16 - HG id buckets do NOT leak into a v3-family ledger",
+        "phase": "rubrics",
+        "runner": _run_fact_ledger,
+        "fixture": _write_v3_ledger_task,
+        "expect": "slack_channel",
+        "expect_not": "gdrive_file",
+    },
+    # ---- Rubric QC dimensions added by the 2026-08 HarmonyGames drop ----
+    # Negative Criteria: Docs_harmonygames/8_QC_Spec_Doc2.md:293-302, QC dimension 23,
+    # error category [Fail - Criteria Framing], Fail=2 / Pass=5 with Non-Fail explicitly
+    # "N/A" in 7_QC_Spec_Doc1.json[5]/Sub-Dimensions[11], i.e. BINARY.
+    # Vague Exemplar Language: :270, one Moderate per affected rubric, scanned across
+    # EVERY field (7_QC_Spec_Doc1.json[5]/Sub-Dimensions[6] "Scan every field").
+    # Both dimensions exist ONLY in Docs_harmonygames - grepping Docs/, Docs_keystone/,
+    # Docs_moveops/ and Docs_starpm/ for "negative criteri", "criteria framing" and
+    # "vague exemplar" returns nothing - so they are gated on the hg framework profile.
+    # RA-5 pins that gating, which is also what keeps the 21 frozen report hashes intact.
+    {
+        "name": "v22 RA-1 - a negative predicate on the Agent fails Criteria Framing",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent does not omit the ENG-1797 link."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        # The spec's own Bad example, verbatim from 8_QC_Spec_Doc2.md:300.
+        "expect": "[Fail - Criteria Framing]",
+    },
+    {
+        "name": "v22 RA-2 - a negative indicator naming only the REPORTED CONTENT is valid",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent reports that PR #438 had no human-submitted review."),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # The spec's own Valid example, verbatim from 8_QC_Spec_Doc2.md:299. Paired: the
+        # phantom tool token MUST flag so this dies against a dead validator, while the
+        # framing check must NOT fire on a title whose only negation is inside the content.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "[Fail - Criteria Framing]",
+    },
+    {
+        "name": "v22 RA-3 - vague exemplar language is caught in a NON-title field",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent includes the ENG-1797 link in the rollout summary.",
+                  evid="Look for the link, such as the ENG-1797 URL, in the summary."),
+            _hg_r("The Agent reports the rollout state to the user.", "Outcome 2.1", evid="final response"),
+        ]),
+        # validate.py already banned these connectors in the TITLE for every universe.
+        # The HG spec widens the scan to every field, which is where all three real
+        # hits in the snapshot corpus actually live (evidence and justification).
+        "expect": "Vague Exemplar Language",
+    },
+    {
+        "name": "v22 RA-4 - an explicitly prompt-mandated prohibition downgrades to a note",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_hg_task(
+            d,
+            prompt="Do not change the ticket status on ENG-1797 while you work.",
+            rubrics=[
+                _hg_r("The Agent does not change the ticket status on ENG-1797."),
+                _hg_r("The Agent does not omit the ENG-1797 link."),
+            ]),
+        # Both criteria are negatively framed and only the FIRST is prompt-mandated, so the
+        # two assertions are per-index rather than per-report. Keying the `expect` to the
+        # note instead made this anchor survive the dead gate: NOTE emission is left live by
+        # design, so a note-only assertion proves nothing about a gate. The un-mandated
+        # criterion must FAIL (this is what dies against a dead validator) and the mandated
+        # one must NOT. rubric[1] also pins the >= 2 shared-token rule: it shares only
+        # `eng-1797` with the prompt sentence, so it does not earn the exemption.
+        "expect": "rubric[1]: [Fail - Criteria Framing]",
+        "expect_not": "rubric[0]: [Fail - Criteria Framing]",
+    },
+    {
+        "name": "v22 RA-5 - both dimensions are HG-only and do NOT fire on a v3-family task",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_task(
+            d,
+            prompt="Close out the docket and tell me where it stands.",
+            oe="OE1: Search the records.",
+            rubrics=[
+                {"title": "The Agent does not omit the ENG-1797 link.", "category": "outcome",
+                 "justification": "x", "evidence": "Per OE1, such as the ENG-1797 URL."},
+                {"title": "The Agent provides a thorough recap.", "category": "outcome",
+                 "justification": "x", "evidence": "Per OE1"},
+            ]),
+        # Paired: a brookfield-live check MUST flag so this dies against a dead validator,
+        # while neither HG-only dimension may fire. Three shipped non-HG tasks in the
+        # frozen snapshot corpus carry these exact shapes; firing here would both
+        # retro-fail them on a dimension their spec never had and break the 21 hashes.
+        "expect": "subjective term",
+        "expect_not": "[Fail - Criteria Framing]",
+    },
+    {
+        "name": "v22 RA-7 - a bare `no`/`without` naming a FINDING is not a negative predicate",
+        "phase": "rubrics",
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent records no submitted review for PR 854."),
+            _hg_r("The Agent reports 24 merged PRs without an APPROVED submitted review."),
+            _hg_r("The Agent purges the stale build via gdrive_delete_everything."),
+        ]),
+        # Both titles are shipped verbatim from QC_PASSED HarmonyGames tasks and both are
+        # valid: an affirmative verb (records / reports) whose object noun phrase happens to
+        # be headed by a negative determiner. Treating all seven spec indicators alike
+        # flagged these, and RA-1 and RA-2 both still passed while it did - neither carries
+        # this shape. This anchor is the one that dies if VERB_NEGATION is ever widened
+        # back to NEG_INDICATOR. Paired so it also dies against a dead validator.
+        "expect": "gdrive_delete_everything",
+        "expect_not": "[Fail - Criteria Framing]",
+    },
+    {
+        "name": "v22 RA-6 - the standalone checker agrees with the spec on BOTH worked examples",
+        "phase": "rubrics",
+        "runner": _run_antipatterns,
+        "fixture": lambda d: _write_hg_task(d, rubrics=[
+            _hg_r("The Agent reports that PR #438 had no human-submitted review."),
+            _hg_r("The Agent does not omit the ENG-1797 link."),
+        ]),
+        # Keyed to the checker's own `criterion <n> [<field>]` finding lines, which the
+        # docstring does not contain. Criterion 2 is the spec's Bad example and MUST be
+        # named; criterion 1 is the spec's Valid example and must NEVER be.
+        "expect": "criterion 2",
+        "expect_not": "criterion 1",
+    },
 ]
 
 
@@ -901,7 +1151,15 @@ def run_dead_gate(verbose: bool = False) -> int:
 
 def _run_dead_gate_inner(dead: Path, verbose: bool = False) -> int:
     survivors = []
+    # Anchors carrying their own `runner` never invoke validate.py, so "does this survive a
+    # dead validator?" is not a meaningful question for them - they would survive by
+    # construction and allowlisting them would dilute the exemption list into a blanket.
+    # They are skipped and counted, and their ability to fail is proven by mutating the
+    # module they DO exercise (_run_fact_ledger takes `builder_py` for exactly that).
+    skipped = [a["name"] for a in ANCHORS if a.get("runner")]
     for anchor in ANCHORS:
+        if anchor.get("runner"):
+            continue
         with tempfile.TemporaryDirectory(prefix="dead_gate_anchor_") as tmp:
             tdir = Path(tmp) / "task"
             anchor["fixture"](tdir)
@@ -922,7 +1180,8 @@ def _run_dead_gate_inner(dead: Path, verbose: bool = False) -> int:
     allowed = [n for n in survivors if _allowed(n)]
     leaked = [n for n in survivors if n not in allowed]
     print("=== dead-gate self-check ===")
-    print(f"{len(ANCHORS)} anchors · {len(survivors)} survived a validator that emits nothing")
+    print(f"{len(ANCHORS)} anchors · {len(skipped)} not validator-backed (skipped) · "
+          f"{len(survivors)} survived a validator that emits nothing")
     print(f"  allowlisted (assert a NOTE): {len(allowed)}")
     for n in sorted(leaked):
         print(f"  [LEAK] {n}")
@@ -960,7 +1219,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix="regr_anchor_") as tmp:
             tdir = Path(tmp) / "task"
             anchor["fixture"](tdir)
-            report = _run_validate(tdir, anchor["phase"])
+            report = anchor.get("runner", _run_validate)(tdir, anchor["phase"])
             # `expect` asserts presence; `expect_not` asserts ABSENCE. Both may be given.
             # Absence assertions exist because several checks degrade to a WARN rather than a
             # FAIL, which leaves the report Status at PASS - so "Status:** PASS" alone cannot

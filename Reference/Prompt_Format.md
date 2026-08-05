@@ -91,7 +91,7 @@ Q1 still has a month to run.
 
 Never construct, normalize or infer a persona email from a name. HarmonyGames addresses are
 irregular by design (`arthur_blake` is `blake@`, `julia_lawson` is `jlawson@`). Resolve via
-`HarmonyGames_Base_Universe/Persona_ACL_Roster.json`, and note the roster is not exhaustive:
+`HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`, and note the roster is not exhaustive:
 `2_Persona_Briefs.md` documents personas absent from it.
 
 Density is three separate thresholds, not one: authoring target 40+ calls AND 3+ services;

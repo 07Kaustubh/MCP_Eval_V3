@@ -9,7 +9,7 @@ Persona ACL gate. Runs only for universes whose framework profile sets `acl_gate
 Why this exists
 ---------------
 HarmonyGames is the only universe with persona-scoped read visibility as a first-class
-rule. Eight of its thirteen services filter reads by acting identity; five are unscoped.
+rule. Seven of its thirteen services filter reads by acting identity; six are unscoped.
 A read performed under the wrong identity is neither a pass nor a fail, it is an
 `Excluded` execution, which is a third trajectory disposition the other four universes do
 not have.
@@ -55,7 +55,7 @@ READ_ONLY_WRITE_PHRASES = {
 def load_brief_names(consts) -> set:
     """Persona names documented in the universe's persona briefs.
 
-    The ACL roster is NOT the full persona set. `Persona_ACL_Roster.json` carries 17
+    The ACL roster is NOT the full persona set. `4_Persona_ACL_Roster.json` carries 17
     entries, but `2_Persona_Briefs.md` documents others - Tim Steudler (Business
     Development Manager, Licensing) appears in the briefs, the universe summary and the
     reference sheet, and is the assigned persona of a task that PASSED upstream QC.
@@ -108,7 +108,7 @@ def check_persona_resolves(task_dir: Path, roster: list, brief_names: set) -> li
             issues.append(
                 f"FAIL ACL-1: email(s) {sorted(unknown)} are not in the persona roster. "
                 f"HarmonyGames persona addresses are irregular by design and must be read "
-                f"from Persona_ACL_Roster.json, never constructed from a name."
+                f"from 4_Persona_ACL_Roster.json, never constructed from a name."
             )
         return issues
 
@@ -120,12 +120,12 @@ def check_persona_resolves(task_dir: Path, roster: list, brief_names: set) -> li
     if any(b and b in low for b in brief_names):
         who = next(b for b in brief_names if b and b in low)
         print(f"[WARN] ACL-1: persona {who.title()!r} is documented in "
-              f"{ROOT.name}/2_Persona_Briefs.md but is absent from Persona_ACL_Roster.json "
+              f"{ROOT.name}/2_Persona_Briefs.md but is absent from 4_Persona_ACL_Roster.json "
               f"({len(roster)} entries). Upstream roster gap; not blocking.")
         return issues
     issues.append(
         "FAIL ACL-1: 2_Persona.txt names no persona found in either "
-        "Persona_ACL_Roster.json or the persona briefs."
+        "4_Persona_ACL_Roster.json or the persona briefs."
     )
     return issues
 

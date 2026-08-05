@@ -1,8 +1,8 @@
 # Harmony Games — Persona Briefs
 
-> Universe date: **February 28, 2026**. The exact 17 task-visible identities are in [`Persona_ACL_Roster.json`](Persona_ACL_Roster.json); [`../Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md) controls their read visibility. The "active work / relationships / open threads" below describe what people do across the storylines. Additional people can appear in service data without being selectable task personas.
+> Universe date: **February 28, 2026**. The exact 17 task-visible identities are in [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json); [`../Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) controls their read visibility. The "active work / relationships / open threads" below describe what people do across the storylines. Additional people can appear in service data without being selectable task personas.
 
-> **Tool and ACL clarification:** `HarmonyGames_Base_Universe/Tool_Access/*.json` defines capabilities for exactly 13 services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail, Slack, GCal, and Contacts reads are persona-scoped; the other nine services are unscoped. Writes are outside Persona ACL scope. Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, and Stripe references below are narrative systems, vendors, topics, or artifacts—not directly callable tools. Gmail has no send/reply/compose capability; Snowflake is query/read-only.
+> **Tool and ACL clarification:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` defines capabilities for exactly 13 services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped; the other six services are unscoped. Writes are outside Persona ACL scope. Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, and Stripe references below are narrative systems, vendors, topics, or artifacts—not directly callable tools. Gmail has no send/reply/compose capability; Snowflake is query/read-only.
 
 ## How to read these
 
@@ -21,13 +21,13 @@ name. Universe Explorer is author god-mode, while the Agent Runner and Run
 Verifiers share the same required persona and scoped read view. There is no
 task-visible Finance persona or CFO.
 
-### Leonard Hayes — Co-founder & Creative Director · `leonard@harmonygames.co` · Executive · `leonard_hayes`
+### Leonard Hayes — Co-founder & Creative Director · `leonard.hayes@harmonygames.co` · Executive · `leonard_hayes`
 **Active work:** The studio's primary operator. Drives product direction, live-ops strategy, difficulty tuning, the analytics stack, fundraising (2023 seed, 2024 board cadence, 2025 bridge round), and most external vendor/partner relationships. Owns the financial model and runway narrative.
 **Key relationships:** Internal — Arthur Blake (co-founder/CTO), Robert (co-founder/design), Frederick Stone (BD/UA); leans on Douglas/Owen Baker/Oliver Brooks for engineering and Julia Lawson/Brian Foster for product. External — Griffin Gaming Partners, AppLovin (Marcus Lee), Solsten, Adjoe, Mattel (Tim Steudler), outside counsel.
 **Open threads:** Failed $2.5M bridge round · Mattel "Dream Life Glow" pitch · Combo Fighter live experiment · Telegram DD port · Helpshift wind-down · company runway/wind-down.
 **Recent activity:** Investor-update emails, board decks, pitch decks (Drive), most `#founders`/`#investors`/`#executives` decisions, Snowflake analytics reads, and Metabase dashboard evidence referenced in available Slack/Drive/Confluence artifacts.
 
-### Arthur Blake — Co-founder & CTO · `blake@harmonygames.co` · Executive · `arthur_blake`
+### Arthur Blake — Co-founder & CTO · `arthur.blake@harmonygames.co` · Executive · `arthur_blake`
 **Active work:** Owns engineering architecture and the internal tooling saga (puzzle editor, bot/sequencer, difficulty simulation, vision-bot QA). Built the financial model that anchored the seed pitch; co-signatory/secretary on the Carta advisor-equity program; personally bridge-funded the company via promissory notes. Reviews/merges most major PRs.
 **Key relationships:** Internal — Leonard Hayes, Robert, Douglas (backend), Owen Baker/Oliver Brooks (Unity). External — Griffin counsel, Carta.
 **Open threads:** WebGL build-size reduction for the CrazyGames deal · Combo Fighter backend (sign-in/leaderboards) · Telegram MiniApp WebGL work.
@@ -39,37 +39,37 @@ task-visible Finance persona or CFO.
 **Open threads:** Combo Fighter design/live tuning · Progression Philosophy GDD · character-ability VFX debates.
 **Recent activity:** GDDs and design docs (Drive), `#game-design`/`#god-gameart`/`#god-vfx`/`#prototype` threads, level-balance decisions.
 
-### Frederick Stone — Co-founder · `frederick@harmonygames.co` · Executive · `frederick_stone`
+### Frederick Stone — Co-founder · `frederick.stone@harmonygames.co` · Executive · `frederick_stone`
 **Active work:** Owns the external UA/ad-network and creative-vendor portfolio end-to-end — AppLovin, Google Ads, Adjoe, Node Media, PlayableX, Solsten — plus brand naming/trademark and the ad-monetization rollout. Runs soft-launch campaigns and attribution setup.
 **Key relationships:** Internal — Leonard Hayes, Robert, Marcus Lee/George Miller (UA), Marcus Bennett (creative). External — AppLovin, Adjoe, Node Media, PlayableX, Google.
 **Open threads:** Domino Delights sunset & pivot to a new title's UA · PlayableX ZM3D playable (stalled) · fundraising-metrics pressure.
 **Recent activity:** Vendor Slack channels (`#node-external`, AppLovin/Adjoe channels), UA campaign setup, ASO/store-listing work, Gmail vendor threads.
 
-### Brian Foster — Game Engineer · `brian@harmonygames.co` · Engineering · `brian_foster`
+### Brian Foster — Game Engineer · `brian.foster@harmonygames.co` · Engineering · `brian_foster`
 **Active work:** Drives cross-title live-ops features (Win Streak, Leaderboards, Collect & Win, Season Pass, Daily Login/Gift) and difficulty-tuning workstreams across GoD and match3d. Owns live-ops UI optimization tickets.
 **Key relationships:** Owen Baker, Oliver Brooks, Calvin Price, Douglas (engineering); Martin Walsh/Marcus Bennett (art); Leonard Hayes/Robert (product direction).
 **Open threads:** Live-ops UI optimization (ENG-2404) · Collect & Win Magical Wings tuning · Combo Fighter UX proposal.
 **Recent activity:** `#winandcollect`/`#season-pass`/`#zm-collect-win` threads, Linear ENG/ZOM live-ops tickets, reward-table specs (Sheets).
 
-### Julia Lawson — Product Manager · `jlawson@harmonygames.co` · Product · `julia_lawson`
+### Julia Lawson — Product Manager · `julia.lawson@harmonygames.co` · Product · `julia_lawson`
 **Active work:** Product/design decisions across Domino Delights and GoD — TAM validation, FTUE/tutorial tooling requirements, puzzle difficulty tuning, progression/card-economy design. Owns the puzzle-layout pipeline (1200 levels) and drove the Mattel pitch deck + Q&A prep.
 **Key relationships:** Arthur Blake (ships her tooling), Robert/Leonard Hayes (design), Martin Walsh/Claire Morgan (art), Brian Foster (live-ops).
 **Open threads:** Mattel "Dream Life Glow" deck & anticipated-Q&A · Zombie Match Lite scoping · tutorial-editor backlog.
 **Recent activity:** `#mattel_proposal`/`#game-design`/`#zombie-design` threads, DES/ENG Linear tickets, GDDs and pitch decks (Drive).
 
-### Vincent Parker — Game Systems Engineer · `vincent@harmonygames.co` · Engineering · `vincent_parker`
+### Vincent Parker — Game Systems Engineer · `vincent.parker@harmonygames.co` · Engineering · `vincent_parker`
 **Active work:** QA and systems engineering across live-ops features — structured QA passes (Season Pass, Daily Login, River Rush, Collect & Win), event/economy tickets, and 4X-crypto tokenomics design. Files many of the ZOM live bugs.
 **Key relationships:** Owen Baker, Calvin Price, Oliver Brooks, Samuel Turner (engineering/QA); Brian Foster (product).
 **Open threads:** ZOM live-bug triage (daily login resets, tornado-boost physics, win-streak-freezer) · 4X proposal economy.
 **Recent activity:** Linear ZOM bug tickets, `#zombie-bugs`/`#4xgameproposal` threads, QA canvases.
 
-### Victor Barnes — Game Engineer · `victor@harmonygames.co` · Engineering · `victor_barnes`
+### Victor Barnes — Game Engineer · `victor.barnes@harmonygames.co` · Engineering · `victor_barnes`
 **Active work:** *(Roster: Engineering.)* In the storylines, leads the art/animation team — character-ability VFX quality bar, character-profile UI, outsourced art-vendor management (Leapblock, Martin Walsh), and Quests art. Supplies hero video and UA creative.
 **Key relationships:** Marcus Bennett, Claire Morgan, Martin Walsh (art); Robert/Leonard Hayes (direction); Ozhan (freelance animator).
 **Open threads:** Zombie animation roster (Ozhan) · marketing-asset production.
 **Recent activity:** ART Linear tickets, `#god-gameart`/`#god-vfx` threads, and Figma art references/exports available through Linear, Slack, Drive, or GitHub.
 
-### Marcus Bennett — Artist · `marcus@harmonygames.co` · Design · `marcus_bennett`
+### Marcus Bennett — Artist · `marcus.bennett@harmonygames.co` · Design · `marcus_bennett`
 **Active work:** Character art, animation, and VFX across GoD and Zombie Match 3D — Sophie's UX-to-3D pipeline, custom character-ability VFX, an in-house UA video pipeline that outperformed agency creative, and End Game/Endless Mode VFX for match3d.
 **Key relationships:** Robert, Victor Barnes, Claire Morgan, Calvin Price (VFX handoff), Frederick Stone (UA creative).
 **Open threads:** match3d VFX integration (PR #408 handoff) · UA video refresh.
@@ -81,30 +81,30 @@ task-visible Finance persona or CFO.
 **Open threads:** Leaderboards scaling (Step Functions/cache) · stalled player-compensation tool.
 **Recent activity:** Backend PRs (liveops repo), ENG Linear tickets, `#analytics`/`#engineering-bots` threads.
 
-### Owen Baker — Game Engineer (Unity) · `owen@harmonygames.co` · Engineering · `owen_baker`
+### Owen Baker — Game Engineer (Unity) · `owen.baker@harmonygames.co` · Engineering · `owen_baker`
 **Active work:** Data infra (Firebase→BigQuery, Singular reconciliation, Remote Config A/B) plus live-ops feature delivery (Win Streak, Leaderboards, Collect & Win, IAP/offers) and R&D prototypes.
 **Key relationships:** Arthur Blake, Douglas, Brian Foster, Vincent Parker.
 **Open threads:** Win Streak / Collect & Win match3d ports · combo-leveling UI (Combo Fighter).
 **Recent activity:** `GameOfDominoes`/`match3d` PRs, ENG/ZOM tickets.
 
-### Oliver Brooks — Senior Game Engineer · `oliver@harmonygames.co` · Engineering · `oliver_brooks`
+### Oliver Brooks — Senior Game Engineer · `oliver.brooks@harmonygames.co` · Engineering · `oliver_brooks`
 **Active work:** Senior Unity engineer (hired mid-2024 backfill). Built and shipped the full Season Pass (GoD then match3d), Win Streak/IAP fixes, FTUE, and Zombie Match Lite branch work; contributes to Combo Fighter.
 **Key relationships:** Arthur Blake, Brian Foster, Calvin Price, EMPLOYEE_0032.
 **Open threads:** Zombie Match Lite (stalled) · Combo Fighter combo rarity/leveling.
 **Recent activity:** `match3d`/`Combo-Fighters` PRs (Season Pass PR #438), ZOM tickets, `#season-pass`/`#zombie-match-lite`.
 
-### Calvin Price — Game Engineer (Unity VFX) · `calvin@harmonygames.co` · Engineering · `calvin_price`
+### Calvin Price — Game Engineer (Unity VFX) · `calvin.price@harmonygames.co` · Engineering · `calvin_price`
 **Active work:** Unity/live-ops engineer — Daily Login/Gift build, Helpshift integration, Season Pass QA builds, VFX integration.
 **Key relationships:** Brian Foster, Oliver Brooks, Vincent Parker, Marcus Bennett.
 **Open threads:** Daily login reset/refresh live bugs · Helpshift rollout.
 **Recent activity:** `match3d` PRs, ZOM tickets, `#zombie-match3d` threads.
 
-### Claire Morgan — Art Lead · `claire@harmonygames.co` · Design · `claire_morgan`
+### Claire Morgan — Art Lead · `claire.morgan@harmonygames.co` · Design · `claire_morgan`
 **Active work:** Art lead — Sophie expression/marketing art, coin/tile prefabs and collision meshes (Tile Dozer), Quests art, TAM/market research support.
 **Key relationships:** Robert, Marcus Bennett, Victor Barnes, Martin Walsh.
 **Recent activity:** ART tickets, `#god-gameart`, Drive art assets, and Figma references/exports linked from available services.
 
-### Samuel Turner — Game Designer · `samuel@harmonygames.co` · Design · `samuel_turner`
+### Samuel Turner — Game Designer · `samuel.turner@harmonygames.co` · Design · `samuel_turner`
 **Active work:** Client UI + tooling — Quests UI, vision-bot editor tooling, win-streak debug tooling, WinStreakFreeze unit-bug fix.
 **Key relationships:** Arthur Blake (vision bot), Douglas (Quests), Vincent Parker, Robert.
 **Recent activity:** `match3d`/`GameOfDominoes` PRs, ZOM/ENG tickets.
@@ -114,7 +114,7 @@ task-visible Finance persona or CFO.
 **Key relationships:** Victor Barnes, Robert, Leonard Hayes, contractor-era leads.
 **Recent activity:** ART tickets, `#god-ui-ux` threads, and Figma file references/exports linked from available services.
 
-### Simon Walker — Data Analyst (Contractor) · `simon@harmonygames.co` · Engineering · `simon_walker`
+### Simon Walker — Data Analyst (Contractor) · `simon.walker@harmonygames.co` · Engineering · `simon_walker`
 **Active work:** Stood up the BigQuery/dbt/Metabase analytics layer and the retention dashboards; drove Singular reconciliation and manual data-detective work. Evidence about these non-direct systems is available through Slack, Gmail, Drive, GitHub, Linear, Confluence, and Snowflake artifacts.
 **Key relationships:** Leonard Hayes, Douglas, Arthur Blake, Owen Baker.
 **Recent activity:** `#analytics` threads, dashboard/spreadsheet artifacts.

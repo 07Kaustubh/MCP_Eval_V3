@@ -6,13 +6,13 @@ This document explains the machine-readable dimensions in [`7_QC_Spec_Doc1.json`
 
 ## Authority order
 
-1. [`../HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) — enabled services, exact tools, parameters, and capabilities.
-2. [`15_Persona_ACL.md`](15_Persona_ACL.md) and the exact 17-entry
-   [`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json)
+1. [`../HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) — enabled services, exact tools, parameters, and capabilities.
+2. [`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact 17-entry
+   [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json)
    — task-visible identity and persona-scoped read visibility.
 3. [`../HarmonyGames_Base_Universe/Services_Data/`](../HarmonyGames_Base_Universe/Services_Data/),
    task `4_Changelog.json`, task `9_Universe_inject.sql`, and
-   [`../HarmonyGames_Base_Universe/6_Universe_Schema.json`](../HarmonyGames_Base_Universe/6_Universe_Schema.json)
+   [`../HarmonyGames_Base_Universe/7_Universe_Schema.json`](../HarmonyGames_Base_Universe/7_Universe_Schema.json)
    — live task/universe facts and database structure.
 4. The prompt and any live, uniquely discoverable source it validly
    incorporates — the requested work.
@@ -26,8 +26,8 @@ This document explains the machine-readable dimensions in [`7_QC_Spec_Doc1.json`
 Oracle Events and historical examples never override the prompt, live universe, schema, tool catalogs, or current Evals.
 
 Persona identity and read visibility are governed by
-[`15_Persona_ACL.md`](15_Persona_ACL.md) and the exact 17-entry
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact 17-entry
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 Use the selected roster entry's Persona Key, Persona Email, Name, Role, and
 Department exactly; never infer an email from a name.
 
@@ -48,8 +48,8 @@ These numbers apply at different stages:
 - Snowflake is query/read-only.
 - Product names outside the 13 catalogs may be business topics or evidence stored in an enabled service; they are not direct tools.
 - Persona ACL is active and implemented and scopes reads only for Gmail, Slack,
-  GCal, and Contacts. GDrive,
-  GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence
+  GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit
+  Drive's file ACL). Contacts, GitHub, Snowflake, Trello, Linear, and Confluence
   reads remain unscoped; writes are outside ACL scope.
 - Universe Explorer is author god-mode. Agent Runner and Run Verifiers use the
   same assigned persona.
@@ -97,20 +97,21 @@ Every explicit ask must be achievable with enabled tools and live data. There is
 
 For each ask, verify:
 
-- the operation exists in `HarmonyGames_Base_Universe/Tool_Access/*.json`;
+- the operation exists in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`;
 - the needed entity and facts exist and are discoverable;
 - each requested “by X” or “per X” breakdown has an actual queryable X dimension;
 - each exact number or precision is exposed by the Agent's tool path, or every input for a prompt-authorized derivation is visible.
-- every required Gmail, Slack, GCal, or Contacts fact is visible to the exact
+- every required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) fact is visible to the exact
   assigned roster persona.
 
 A value in raw JSON does not make an ask feasible when the tool-visible response rounds, truncates, coerces, or omits it.
 
-Required Gmail, Slack, GCal, or Contacts evidence inaccessible to the assigned
-persona is a hard feasibility failure unless the intended task outcome is an
-affirmative access-denial finding plus reporting, escalation, or an authorized
-alternative. Do not apply persona read scoping to the other nine services, and
-do not infer write denial from Persona ACL.
+Required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides)
+evidence inaccessible to the assigned persona is a hard feasibility failure
+unless the intended task outcome is an affirmative access-denial finding plus
+reporting, escalation, or an authorized alternative. Do not apply persona read
+scoping to the other six services (Contacts, GitHub, Snowflake, Trello, Linear,
+Confluence), and do not infer write denial from Persona ACL.
 
 ### Clarity, truthfulness, and time
 
@@ -143,8 +144,9 @@ dropdown because it overrides the taxonomy selection.
 ## Universe QC
 
 Use the live environment for existence and tool visibility. For Gmail, Slack,
-GCal, and Contacts, test visibility as the assigned roster persona; author
-god-mode is not a reachability check. Current HarmonyGames paths include:
+GCal, and the Drive-family (GDrive/GDocs/GSheets/GSlides), test visibility as the
+assigned roster persona; author god-mode is not a reachability check. Current
+HarmonyGames paths include:
 
 - `HarmonyGames_Base_Universe/Services_Data/slack/messages/<channel>/<YYYY-MM>.json`
 - `HarmonyGames_Base_Universe/Services_Data/linear/linear.issues.json`
@@ -187,6 +189,15 @@ Each OE should state an affirmative tool-use event, the exact tool and relevant 
 Prohibitions and inactivity are not events. Do not create an OE that only says the Agent refrains from a write. A real lookup that confirms an unresolved or absent implementation is valid because the lookup is observable.
 
 OEs are Non-Fail dimensions, but inaccuracies must be corrected before rubric evaluation.
+
+### Negative events
+
+Oracle Events must describe an observable action or discovery; a non-action is not an event. Scan each OE for `does not`, `must not`, `never`, `no action`, and `refrains from`. A lookup that confirms an absent or negative factual state stays valid because the lookup is observable.
+
+- Bad: “The Agent does not change the ticket status.”
+- Valid: “The Agent looks up the ticket status and finds it unresolved.”
+
+This dimension is purely non-failing: flag any non-action-as-event as a `[Non-Fail - OE Framing]` concern.
 
 ## Rubric JSON schema
 
@@ -278,6 +289,17 @@ finding, scope boundary, report, escalation, or authorized alternative.
 Negative factual states such as `unresolved`, `unimplemented`, `unconfirmed`,
 and `access denied` remain valid when the Agent affirmatively reports or
 classifies them. Affirmative wording must preserve exclusion coverage.
+
+### Negative criteria
+
+This is a focused, standalone check on affirmative framing, scored separately from Agent-centric phrasing. Every rubric `title` tied to a normal prompt instruction must be affirmatively framed; only an explicit non-action or prohibition instruction may be graded through negative wording. Pre-scan for `does not`, `must not`, `never`, `no`, `without`, `fails to`, and `avoids`, then review each hit.
+
+A negative indicator that only describes the reported content is acceptable:
+
+- Valid: “The Agent reports that PR #438 had no human-submitted review.” The actor and action (“The Agent reports…”) are affirmative and “no human-submitted review” only names the content being checked.
+- Bad: “The Agent does not omit the ENG-1797 link.”
+
+A criterion fails `[Fail - Criteria Framing]` only when it does not correspond to an explicit non-action or prohibition instruction yet is framed negatively.
 
 ### Process rubrics: three conditions
 

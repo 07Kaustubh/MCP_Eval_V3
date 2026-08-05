@@ -10,8 +10,8 @@ A prompt is a natural work request written from a HarmonyGames persona's perspec
 - Every claim, every entity, every relationship, every implied fact in the prompt MUST be verified against the actual universe data. No assumptions. No shortcuts.
 - **Feasibility is king.** If the data doesn't exist in the universe to answer what the prompt asks, the task is broken. You MUST deep-explore the universe data to confirm every ask is answerable. Do not trust summaries - go to the raw JSON files.
 - **Numeric observability is part of feasibility.** A value existing in raw universe JSON is insufficient when the cataloged tool renders it at lower precision, truncates it, or omits the inputs required to derive it. Exact-value and formatting asks must be reachable through the same tool-visible environment the Agent receives.
-- **Oracle Events are non-authoritative planning notes.** They may help investigate solvability, but they cannot override the prompt, validly incorporated live sources, universe data, `HarmonyGames_Base_Universe/Tool_Access/*.json`, trajectory evidence, rubrics, or current Evals. An OE contradiction is an investigation signal, not ground truth.
-- **Persona ACL is active and implemented.** Every prompt ask must be feasible under the assigned taxonomy persona's exact key/email binding from `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`, using the read-scope semantics in `Docs/15_Persona_ACL.md`.
+- **Oracle Events are non-authoritative planning notes.** They may help investigate solvability, but they cannot override the prompt, validly incorporated live sources, universe data, `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`, trajectory evidence, rubrics, or current Evals. An OE contradiction is an investigation signal, not ground truth.
+- **Persona ACL feasibility is a STRONG HARD GATE.** Every prompt ask must be feasible under the assigned taxonomy persona's exact key/email binding from `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`, using the read-scope semantics in `Docs/14_Persona_ACL.md` (derive the scoped-service set live from its Access matrix; do not hardcode it). A single persona-scoped read that the assigned persona cannot reach — with no affirmative-denial outcome and no authorized unscoped alternate — is a **standalone FAIL**. It cannot be waived, offset by other passing dimensions, or excused as a "minor/secondary" ask, and author god-mode visibility never satisfies it.
 - When in doubt, dig deeper. Read more files. Search more broadly. The cost of missing a factual error or a feasibility gap is far greater than the cost of spending extra time exploring.
 
 ---
@@ -23,7 +23,7 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and every HarmonyGames_Base_Universe/Tool_Access/*.json catalog (all 13 services; plus the long-horizon guide when applicable)
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (covers all 13 services; plus the long-horizon guide when applicable)
 - [ ] Phase 0.2: DO VERY DEEP EXPLORATION OF UNIVERSE DATA - This is critical for feasibility, truthfulness, and data existence checks later
 - [ ] Phase 0.3: Explore QC-passed task prompts - Understand what good prompts look like
 - [ ] Phase 1.1: Persona Coherence - Deep verification against 1_Universe_Summary.md
@@ -38,8 +38,10 @@ TODO:
 - [ ] Phase 2.2: Feasibility - Tool capability + Data existence + Dimensional feasibility verification
   - [ ] HARD GATE (T10): Dimensional Feasibility - For every per-X breakdown the prompt asks for, confirm the universe data carries that dimension field; missing field → FAIL Feasibility
   - [ ] HARD GATE: Numeric Observability - For every exact value, precision, rounding, or derived-number ask, verify the required value and inputs survive the cataloged tool path at the requested precision
+  - [ ] STRONG HARD GATE: Persona-Scoped Read Feasibility & Ask-Level ACL Violation - Derive the scoped-service set live from the `Docs/14_Persona_ACL.md` access matrix (do not hardcode); confirm every required scoped-service read is visible to the assigned persona, and flag any prompt ask that directs the persona to read scoped data outside their view (unless affirmative-denial or authorized alternate). Any unreachable required scoped read = standalone FAIL, non-waivable
 - [ ] Phase 2.3: Truthfulness - EXHAUSTIVE universe data verification (CRITICAL)
   - [ ] HARD GATE: Phantom Tight-Identifier Grep - Extract every tight identifier (channel names, IDs, vendor/entity names, account numbers, amounts, dates) and grep each against universe JSON; no match = phantom = FAIL
+  - [ ] HARD GATE: State-Premise Verification - Extract every declarative claim about current state (still no reply, hasn't been merged, rolling window, I own/approve this) and verify against universe; contradicted premise = Major FAIL
 - [ ] Phase 2.4: Cross-Service Requirement - Service mapping
 - [ ] Phase 2.5: Investigation + Action - Read/Write balance
 - [ ] HARD GATE: Minimum Complexity / Difficulty - Task must be genuinely challenging (>15 tool calls, 2+ services, multiple writes, info friction)
@@ -48,6 +50,7 @@ TODO:
   - [ ] HARD GATE: Write-Action Divergence - Enumerate write action(s) under each reasonable reading; different write actions (or write vs no-write / act vs defer) → FAIL Clarity (Action Decision Ambiguity)
   - [ ] HARD GATE: Delegation Clarity - Scan for "I'll [verb]" statements; if ambiguous delegation vs self-action → FAIL (Action Decision Ambiguity)
 - [ ] Phase 2.7: Contrived vs Natural Difficulty - Pattern analysis
+  - [ ] HARD GATE: Spec-Sheet Register Escalation - 2+ register triggers (enumerated deliverable contents, preservation/format rules, prescribed reply format, contents-driven length) escalates the soft over-stacking flag to a Contrived FAIL
 - [ ] Phase 2.8: Alignment with Today's Date - Detect relative time, apply the "would answer change?" litmus test, verify resolution against fixed date (February 28, 2026)
 - [ ] Phase 3.1: Data Existence - Per-entity verification in universe files
 - [ ] Phase 3.2: Cross-Service Coherence - Changelog review
@@ -68,11 +71,11 @@ TODO:
 | **QC Spec (Primary)** | `Docs/7_QC_Spec_Doc1.json` | All prompt sub-dimensions with fail/non-fail/pass definitions |
 | **QC Spec (Appendix)** | `Docs/8_QC_Spec_Doc2.md` | Detailed auditor notes, rubric quality definitions |
 | **Project Instructions** | `Docs/1_Project_Instructions_Overall.md` | Task creation guidelines, prompt writing rules, common mistakes |
-| **Long-Horizon Guidelines** | `Docs/14_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run: natural delegation, cohort scale, batching, and anti-inflation |
-| **Persona ACL** | `Docs/15_Persona_ACL.md` | Active persona-scoped read semantics, scoped/unscoped services, identity binding, and author/runner/verifier separation |
+| **Long-Horizon Guidelines** | `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run: natural delegation, cohort scale, batching, and anti-inflation |
+| **Persona ACL** | `Docs/14_Persona_ACL.md` | Active persona-scoped read semantics, scoped/unscoped services, identity binding, and author/runner/verifier separation |
 | **Rubrics Guidelines** | `Docs/2_Rubrics_Guidelines.md` | Outcome (mandatory) + Process (optional), agent-centric phrasing |
 | **Rubrics One-Pager** | `Docs/3_Rubrics_One_Pager.md` | Quick-reference summary of the rubric rules |
-| **Prompt Diversity** | `Docs/5_Prompt_Diversity_Business_Function.md` | Business function framing and examples only; validate every service/tool claim against `HarmonyGames_Base_Universe/Tool_Access/*.json` |
+| **Prompt Diversity** | `Docs/5_Prompt_Diversity_Business_Function.md` | Business function framing and examples only; validate every service/tool claim against `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` |
 | **Hard Prompt Tips** | `Docs/4_Prompt_Hard_Tips.md` | How agents search, tips for creating genuinely hard prompts |
 | **Common Errors** | `Docs/9_Common_Error.md` | Frequent errors in prompt and rubric creation with fixes |
 | **Taxonomy** | `Docs/11_Taxonomy.md` | Key version updates, task version guidance |
@@ -82,22 +85,21 @@ TODO:
 | **Universe One-Pager** | `HarmonyGames_Base_Universe/0_Universe_One-Pager.md` | Concise overview of the HarmonyGames universe and what's new |
 | **Universe Summary** | `HarmonyGames_Base_Universe/1_Universe_Summary.md` | Company summary, personas, scenarios, org chart, systems, company context |
 | **Persona Briefs** | `HarmonyGames_Base_Universe/2_Persona_Briefs.md` | Detailed per-persona profiles - active work, relationships, open threads |
-| **Reference Sheet** | `HarmonyGames_Base_Universe/4_Reference_Sheet.md` | Dense reference: personas, externals, service structures, env/universe IDs |
+| **Reference Sheet** | `HarmonyGames_Base_Universe/5_Reference_Sheet.md` | Dense reference: personas, externals, service structures, env/universe IDs |
 | **Task Categories** | `HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md` | Task categories with tool/artifact guidance and worked examples |
-| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/Tool_Access/*.json` | Read all 13 JSON files for the only available services and exact tool names, parameters, and capabilities |
-| **Universe Schema** | `HarmonyGames_Base_Universe/6_Universe_Schema.json` | Database schema for all universe tables and columns |
-| **Persona ACL Roster** | `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
+| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | Read the combined catalog for the only available services and exact tool names, parameters, and capabilities |
+| **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
+| **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
 **Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Do not infer any additional service from examples or older documentation. Gmail supports search/read, attachment reads, message/thread label changes, thread archive, message/thread trash/untrash/delete, and label create/delete, but no send/reply/compose/draft. Snowflake is query/read-only.
 
-**ACL boundary:** Persona scoping applies to **reads only** in Gmail, Slack, GCal, and Contacts. GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence are unscoped. Writes are outside ACL scope: do not infer that a write is denied merely because a related read is scoped, and do not invent Drive-family ACL restrictions.
+**ACL boundary (read the doc; do NOT hardcode the service set):** `Docs/14_Persona_ACL.md` is the single, authoritative, and *live* source for which services are persona-scoped for reads. Before evaluating ACL, read that doc's **Access matrix** and derive the sets dynamically: every service its matrix marks **Persona-scoped reads = Yes** is scoped; every service it marks **No** is unscoped. Use whatever the doc currently says — if the doc changes, this eval follows it automatically. Do not rely on any list memorized from a prior version of this eval, and do not reintroduce a hardcoded service list here. (Mechanic note, not a scope claim: if the matrix marks the Google Drive-family scoped, the doc's rule is that GDocs/GSheets/GSlides inherit GDrive's underlying file ACL and that supplying a known object ID does not bypass scoping.) Writes are **always** outside ACL scope: never infer that a write is denied because a related read is scoped, regardless of service.
 
-**Sample QC Tasks (for comparison — 4 categories):**
+**Sample QC Tasks (for comparison — 3 categories):**
 - `QC_Tasks/QC_Passed/` — QC score 5. Clean reference tasks; study their prompts, OEs, and rubrics for what quality looks like.
 - `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` — the canonical **long-horizon** reference (592 calls). Its `5_Prompt.txt` is four sentences; the operating rules live in an injected Slack thread shown in `Prompt_and_Injected_Conversation.md`. Use it as the naturalness baseline whenever a prompt is expected to drive a 500–1,000-call run.
-- `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing quality issues (non-atomic criteria, inaccurate OEs, missing outcome checks). Study these + `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md` for the specific defect patterns this eval must catch.
+- `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing quality issues (non-atomic criteria, inaccurate OEs, missing outcome checks). Study these for the specific defect patterns this eval must catch.
 - `QC_Tasks/QC_True_Fails/` — QC score 2 (confirmed fails). Tasks with structural failures — rubric misreads prompt, impossible requests, contradictory universe data. Study these for hard-fail patterns.
-- `QC_Tasks/QC_False_Fails_PT_Dispute_Accepted/` — QC score 2 overturned to 3-5 on dispute. Tasks where QC over-applied a fail category; study these for where the eval should prevent over-flagging.
 
 Historical calibration folders may contain free-text persona artifacts or
 non-roster identities. Use those folders for prompt and rubric craft/history
@@ -113,7 +115,7 @@ five fields from one of the roster's 17 entries.
 |------|---------|
 | `5_Prompt.txt` | The prompt to evaluate |
 | `2_Persona.txt` | Assigned persona for this task |
-| `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact persona key/email binding for the assigned taxonomy persona |
+| `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding for the assigned taxonomy persona |
 | `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 
 ---
@@ -140,7 +142,7 @@ This checkout is the full base export, not a sampled subset. It includes `Base_U
 | **Contacts** | `contacts/contacts.contacts.json`; `contacts/contacts.current_user_id.json` | Contact details and the current-user mapping |
 | **Snowflake** | `snowflake/snowflake.tables.json`; `snowflake/snowflake.databases.json`; `snowflake/snowflake.schemas.json`; `snowflake/snowflake.query_history.json` | Analytics table metadata and query history — read-only |
 
-> For a broad consolidated pass, read `HarmonyGames_Base_Universe/Services_Data/Base_Universe_Complete_Data.json`; use the service-level and sharded files in the same full checkout for detail. `HarmonyGames_Base_Universe/7_Get_Universe_Data.sql` can also retrieve the full base export.
+> For a broad consolidated pass, read `HarmonyGames_Base_Universe/Services_Data/Base_Universe_Complete_Data.json`; use the service-level and sharded files in the same full checkout for detail. `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` can also retrieve the full base export.
 
 > **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** Some table-wise files may be empty or absent from a service split because they are write targets or populated only for a task. Check the table-wise files that actually exist, `Base_Universe_Complete_Data.json`, and `3_UniverseDataForThisTask.json` before deciding a service is empty or a task has a feasibility gap.
 
@@ -155,8 +157,8 @@ This checkout is the full base export, not a sampled subset. It includes `Base_U
 Pull paths and "what to extract" from the [Reference Documents](#reference-documents-must-read-before-evaluation) table above. Cover them in this priority order:
 
 1. **Read in full:** `7_QC_Spec_Doc1.json` (pass/fail criteria per sub-dimension), `8_QC_Spec_Doc2.md` (severity + auditor guidance), `9_Common_Error.md` (common prompt/rubric errors), `1_Universe_Summary.md` (personas, company context, systems, relationships), `2_Persona_Briefs.md` (per-persona active work and relationships).
-2. **Skim for context:** `4_Reference_Sheet.md` (reference sheet). **Read all 13 `HarmonyGames_Base_Universe/Tool_Access/*.json` files in full** for exact tools, parameters, and capabilities; these catalogs are the sole authority for tool access.
-3. **If long-horizon:** Read `Docs/14_Long_Horizon_Task_Guidelines.md` in full and apply its necessary-calls, environment-reference, and batch-work rules.
+2. **Skim for context:** `5_Reference_Sheet.md` (reference sheet). **Read `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` in full** for exact tools, parameters, and capabilities; these catalogs are the sole authority for tool access.
+3. **If long-horizon:** Read `Docs/13_Long_Horizon_Task_Guidelines.md` in full and apply its necessary-calls, environment-reference, and batch-work rules.
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
@@ -164,7 +166,7 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 
 **Explore EVERY file in the [Universe Data Files](#universe-data-files-for-verification) table above** - that table is the single source of truth for file paths, what to verify in each service, and which tables are empty in the base universe. Reading order:
 
-1. **Start broad:** read `Base_Universe_Complete_Data.json` or pull the full base export via `HarmonyGames_Base_Universe/7_Get_Universe_Data.sql` for a consolidated pass.
+1. **Start broad:** read `Base_Universe_Complete_Data.json` or pull the full base export via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` for a consolidated pass.
 2. **Drill into the full checkout:** open the service-level JSON, sharded payloads, and repository trees under `Services_Data/`, prioritizing the services the prompt under evaluation actually touches.
 3. **Skip the empty-in-base tables** for existence checks (see the empty-table note under the table) - but still check whether the task populates them via `UniverseDataForThisTask.json`.
 
@@ -172,7 +174,7 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 
 ### 0.3 Explore QC-Passed Task Prompts
 
-**Read the `5_Prompt.txt` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good prompts are written.** This gives you a baseline for what quality looks like - tone, complexity, natural language, persona voice, how asks are woven into a coherent scenario, and how difficulty is created organically. Also review `QC_Tasks/QC_Non_Fails/` (score-3 tasks with non-failing issues) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails) to see what real prompt/universe defects look like. See `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md` for a consolidated summary of score-3 defect patterns.
+**Read the `5_Prompt.txt` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good prompts are written.** This gives you a baseline for what quality looks like - tone, complexity, natural language, persona voice, how asks are woven into a coherent scenario, and how difficulty is created organically. Also review `QC_Tasks/QC_Non_Fails/` (score-3 tasks with non-failing issues) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails) to see what real prompt/universe defects look like.
 
 **Pay attention to:**
 - How the prompt introduces the situation naturally (not as a spec document)
@@ -181,7 +183,7 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 - How the persona's voice and role shape the request
 - How the prompt avoids pre-solving, tool mentions, and contrived constraints
 
-**For long-horizon tasks, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` first.** Compare its `5_Prompt.txt` against `Prompt_and_Injected_Conversation.md`: a four-sentence request drives 592 tool calls because the repositories, cutoff, evidence surfaces, flag vocabulary, approval rule, completion rule, and totals scope all live in an injected Slack thread instead of the user message. `Docs/14_Long_Horizon_Task_Guidelines.md` walks the same scenario through three tiers of naturalness and tabulates exactly which details moved out of the prompt. A long-horizon prompt that reads like a spec sheet is a finding even when every individual ask is feasible.
+**For long-horizon tasks, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` first.** Compare its `5_Prompt.txt` against `Prompt_and_Injected_Conversation.md`: a four-sentence request drives 592 tool calls because the repositories, cutoff, evidence surfaces, flag vocabulary, approval rule, completion rule, and totals scope all live in an injected Slack thread instead of the user message. `Docs/13_Long_Horizon_Task_Guidelines.md` walks the same scenario through three tiers of naturalness and tabulates exactly which details moved out of the prompt. A long-horizon prompt that reads like a spec sheet is a finding even when every individual ask is feasible.
 - How difficult & complex they have maintained
 
 **Also review tasks that had issues** - look for patterns in what prompt mistakes are common. Knowing what fails is as important as knowing what passes.
@@ -195,7 +197,7 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 ### 1.1 Persona Coherence Check
 
 **Read `2_Persona.txt` and verify the acting identity against the exact
-17-entry `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`. Use
+17-entry `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`. Use
 `2_Persona_Briefs.md` only for role, relationship, and voice context.**
 
 **Verification Checklist:**
@@ -208,7 +210,7 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 | Responsibility Scope | Does request fall within persona's department/level (prepare/review/approve)? | Yes/No - [reason] |
 
 **IMPORTANT:** Only the 17 exact entries in
-`HarmonyGames_Base_Universe/Persona_ACL_Roster.json` may be the acting task
+`HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` may be the acting task
 voice. The org chart contains additional storyline identities that are not
 selectable personas. Use `2_Persona_Briefs.md` for role context for a selected
 roster identity; NPCs and non-roster identities appear only as
@@ -316,7 +318,7 @@ Retrieve and inspect the source before scoring clarity, truthfulness, feasibilit
 
 ### 1.4 Prompt Diversity Check
 
-**Prompt diversity is a major quality bar.** Refer to `Docs/5_Prompt_Diversity_Business_Function.md` for conceptual business-function framing and examples, but validate its write-tool suggestions against `HarmonyGames_Base_Universe/Tool_Access/*.json`. For the authoritative category list and worked examples, cross-check the task categories defined in `HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md` and the QC spec.
+**Prompt diversity is a major quality bar.** Refer to `Docs/5_Prompt_Diversity_Business_Function.md` for conceptual business-function framing and examples, but validate its write-tool suggestions against `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`. For the authoritative category list and worked examples, cross-check the task categories defined in `HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md` and the QC spec.
 
 > **Caveat:** `Docs/5_Prompt_Diversity_Business_Function.md` may describe a different business-function set. When the doc and `HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md` / QC spec disagree, **treat the latter as authoritative.**
 
@@ -368,7 +370,7 @@ If all 6 agent runs converge on the same end-state, this is a mandatory investig
 
 **This is NOT just a tool capability check.** You must verify TWO things:
 
-**A. Tool Feasibility** - Do the MCP tools support every action the prompt requires? Read and cross-check all 13 `HarmonyGames_Base_Universe/Tool_Access/*.json` catalogs.
+**A. Tool Feasibility** - Do the MCP tools support every action the prompt requires? Read and cross-check the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog.
 
 | Ask from Prompt | Required Capability | Tool(s) Available? | Feasible? |
 |-----------------|--------------------|--------------------|-----------|
@@ -418,19 +420,27 @@ Raw backing data establishes canonical truth; tool-visible output establishes wh
 5. Separate **display formatting** from **calculation instructions**. “Report to one decimal place” controls presentation; it does not silently authorize a hidden recomputation from other columns.
 6. If the requested precision is lost and the prompt supplies no explicit derivation rule or reachable alternate source, mark the ask **FAIL (Feasibility)**.
 
-**E. Persona-Scoped Read Feasibility (HARD GATE)**
+**E. Persona-Scoped Read Feasibility & Ask-Level ACL Violation (STRONG HARD GATE — standalone FAIL)**
 
-For every Gmail, Slack, GCal, or Contacts fact required for successful completion, record its source and whether the assigned persona can read it:
+**This gate stands alone.** A single required scoped-service read that the assigned persona cannot reach — with no affirmative-denial outcome and no authorized unscoped alternate — FAILS the prompt on its own, regardless of how strong every other dimension is. It cannot be waived, averaged away, or excused as a minor/secondary ask, and raw-data or Universe Explorer author god-mode existence never satisfies it.
 
-| Required Scoped-Service Fact | Service / Record | Scoped Read? | Assigned-Persona Visibility Basis | Authorized Alternate Source? | Verdict |
+**First, load the scope dynamically:** read the **Access matrix** in `Docs/14_Persona_ACL.md` and list the services it currently marks persona-scoped for reads. Do NOT hardcode the set from memory or from this eval. Apply the checks below to every service in that doc-derived scoped set. Mechanic note (not a scope claim): if that set includes the Google Drive-family, remember the doc's rule that GDocs/GSheets/GSlides inherit GDrive's file ACL and that supplying a known object ID does **not** bypass scoping.
+
+This gate has two lenses — run BOTH:
+
+**Lens 1 — Required-read feasibility.** For every fact in a persona-scoped service that is required for successful completion, record its source and whether the assigned persona can read it:
+
+| Required Scoped-Service Fact | Service / Record | Scoped per ACL doc? | Assigned-Persona Visibility Basis | Authorized Alternate Source? | Verdict |
 |------------------|------------------|--------------|--------------------------------------|------------------------------|---------|
-| [fact] | [record] | Gmail / Slack / GCal / Contacts / No | mailbox ownership / channel membership or implemented public visibility / calendar ownership-share-invite / visible contact / N/A | [source or none] | Feasible / **FAIL** |
+| [fact] | [record] | Yes (which service) / No | mailbox ownership / channel membership or implemented public visibility / calendar ownership-share-invite / Drive ownership-or-share / N/A | [source or none] | Feasible / **FAIL** |
+
+**Lens 2 — Ask-level ACL violation.** Independently, scan every explicit and buried ask in the prompt for any directive that instructs the assigned persona to *read* scoped-service data outside their visibility (e.g., "open the spreadsheet Leonard shared internally," "check Maria's calendar," "pull the doc from the Design drive") when that record is not owned by / shared with / visible to the persona. Such an ask is an **ACL violation → FAIL**, even if the same fact happens to be reachable elsewhere — unless the prompt's intended outcome is an affirmative denial (identify/report/escalate) or an explicitly authorized alternate source.
 
 Rules:
-1. Gmail, Slack, GCal, or Contacts evidence visible only to another persona cannot be required for successful completion. Its presence in raw data or Universe Explorer author god-mode does not make the ask feasible.
+1. Scoped-service evidence visible only to another persona cannot be required for successful completion. Its presence in raw data or Universe Explorer author god-mode does not make the ask feasible.
 2. An intentional read-denial task is valid only when successful completion requires an **affirmative compliant outcome**, such as identifying/reporting the denial, escalating it, or finding an authorized alternate source. A prompt that merely requires impossible access still fails.
-3. Expected denial followed by an authorized unscoped-source investigation can be feasible. Apply ACL only to reads in Gmail, Slack, GCal, and Contacts; the other nine services remain unscoped.
-4. Writes are outside ACL scope. Never infer write denial, including for GDrive, GDocs, GSheets, or GSlides.
+3. Expected denial followed by an authorized unscoped-source investigation can be feasible. Apply ACL to reads only in the services the ACL doc marks scoped; services it marks unscoped remain readable by any task persona.
+4. Writes are **always** outside ACL scope. Never infer write denial for any service, including the Drive-family.
 5. `set_acting_user` is environment configuration, not an Agent tool call or prompt ask.
 
 **Feasibility Checklist:**
@@ -445,7 +455,8 @@ Rules:
 | No requests beyond MCP tool access | |
 | **Dimensional feasibility: every per-X breakdown the prompt asks for has a corresponding field in the universe data** | |
 | **Numeric observability: every requested exact value or precision is retrievable or explicitly derivable from tool-visible data** | |
-| **Persona-scoped feasibility: every required Gmail, Slack, GCal, or Contacts fact is visible to the assigned persona, intentionally denied with an affirmative compliant outcome, or available from an authorized unscoped alternate source** | |
+| **Persona-scoped feasibility: every required fact in a persona-scoped service (per the `Docs/14_Persona_ACL.md` access matrix) is visible to the assigned persona, intentionally denied with an affirmative compliant outcome, or available from an authorized unscoped alternate source** | |
+| **Ask-level ACL: no prompt ask directs the persona to read scoped-service data outside their visibility (unless the intended outcome is affirmative denial or an authorized alternate)** | |
 
 **Scoring:**
 - FAIL (1-2): Contains impossible/impractical requests, conflicting instructions, OR required data does not exist in the universe
@@ -465,6 +476,14 @@ Rules:
 - **Minor (1 = NON-FAIL, 2+ = FAIL):** errors in **loose descriptors** — person first-name-only references where the universe context disambiguates, role titles, casual entity references. Natural language absorbs these.
 - **Escalation:** a Minor error escalates to Major if it actually causes agent failure (e.g., a first name where two people in the universe share it).
 - **HARD GATE — phantom tight-identifier grep (mandatory before a Truthfulness pass):** Extract **every** tight identifier in the prompt — channel names, document/ticket/issue IDs, vendor & company entity names, account numbers, dollar amounts, dates — and grep each against the relevant universe JSON. Any that returns no match = phantom = **Major (FAIL)**. **Near-match trap:** a partial/substring match is NOT a match — if the prompt names channel 'X' but only 'X-and-Y' exists, 'X' is a phantom (it is passed literally into the tool call and fails). Do **not** assume "that's what they meant." Do not skip this gate.
+
+- **HARD GATE — state-premise verification (mandatory before a Truthfulness pass):** The phantom-grep gate above catches bad *identifiers*; it does NOT catch bad *state premises* — declarative claims about the current state of the world that the universe contradicts. These grep clean (the named entity exists) yet still send the agent down a false path, and they were the latest cohort's hardest Truthfulness misses (see `Docs/9_Common_Error.md`: "that thread still has no reply from me" when a reply is right there; "a rolling window the source Slack denies"). Extract **every declarative state premise** in the prompt — anything the persona asserts as currently true — and verify each against the universe. Watch for:
+  - persistence claims: "still no reply", "hasn't been merged/closed/paid/answered", "is still open", "nobody has responded yet"
+  - existence / absence claims: "there's no ticket for this", "I never got the invoice", "we have no record of X"
+  - temporal-window claims: "for the past two weeks", "since Monday nothing has…", "over the last sprint"
+  - relationship / ownership state: "I own this", "this is assigned to me", "I'm the approver on it"
+
+  Any state premise the universe **contradicts** is **Major (FAIL)** — treat it exactly like a phantom identifier, because it breaks the task the same way. A premise that is merely **unverifiable** (no supporting record either way) is a truthfulness risk: flag it and confirm the task is still solvable without it.
 
 **Verification Protocol:**
 
@@ -541,7 +560,7 @@ Services required: [count]
 | Action (post Slack message, create issue, schedule GCal event, etc.) | Yes/No | "..." |
 | Investigation feeds the action (can't act without investigating) | Yes/No | "..." |
 
-**Write Actions:** Use `Docs/5_Prompt_Diversity_Business_Function.md` only for business-function framing. Build the actual write-tool list from every `HarmonyGames_Base_Universe/Tool_Access/*.json` catalog. In particular, Gmail has mailbox/label mutations but no send, reply, compose, or draft tool; Snowflake has no writes.
+**Write Actions:** Use `Docs/5_Prompt_Diversity_Business_Function.md` only for business-function framing. Build the actual write-tool list from the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog. In particular, Gmail has mailbox/label mutations but no send, reply, compose, or draft tool; Snowflake has no writes.
 
 **Scoring:**
 - FAIL: Only investigation with NO tool-based write action (unless intentional)
@@ -610,6 +629,17 @@ If ANY such statement appears alongside imperatives directed at the agent (e.g.,
 | Difficulty from precision, not complexity | Yes/No | "..." |
 | Arbitrary checkpoints, repeated reads, or unnecessary writes added to increase calls | Yes/No | "..." |
 
+**HARD GATE — Spec-Sheet Register Escalation (mandatory):** Over-stacking is a *soft* flag under Naturalness (1.2), but the latest cohort shows the ~600-word "spec-sheet register" prompt is the single most common contrived fail (5/12; see `Docs/9_Common_Error.md`). Escalate the soft flag into a **Contrived FAIL** here when the prompt exhibits the register — a natural scenario delivered in an unnatural voice that reads like a deliverables spec rather than a message. Trigger it when **two or more** of these are present:
+
+| Register trigger | Found? | Quote |
+|-----------|--------|-------|
+| Enumerates each deliverable's exact contents item-by-item ("the note should contain (a)…(b)…(c)…") | Yes/No | "..." |
+| States preservation / format rules for the output ("keep the existing order", "don't change the headers", "use this exact structure") | Yes/No | "..." |
+| Prescribes the reply format ("respond with a table with these columns", "give me back exactly these fields") | Yes/No | "..." |
+| Length driven by exhaustively listing contents rather than by scenario complexity | Yes/No | "..." |
+
+**Baseline for calibration:** `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/5_Prompt.txt` is four sentences and drives 592 calls — the operating detail lives in an injected thread, not the user message. A prompt that instead front-loads every deliverable's contents into the user message is contrived even when every individual ask is feasible. State the goal and the deliverables, then stop — do not enumerate their contents.
+
 **Natural Difficulty Indicators (GOOD):**
 
 | Indicator | Found? | Quote |
@@ -675,7 +705,7 @@ If ANY such statement appears alongside imperatives directed at the agent (e.g.,
 
 ### 3.1 Data Existence Verification
 
-All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phase 2.3 (Truthfulness). Phase 3.1 adds one additional check: confirm every verified entity is also **programmatically retrievable via MCP tool queries** (not just present in the raw JSON). Cross-check all 13 `HarmonyGames_Base_Universe/Tool_Access/*.json` catalogs.
+All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phase 2.3 (Truthfulness). Phase 3.1 adds one additional check: confirm every verified entity is also **programmatically retrievable via MCP tool queries** (not just present in the raw JSON). Cross-check the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog.
 
 - [ ] All core facts verified in Phase 2.2B/2.3 are retrievable via available MCP tools
 - [ ] No entity exists only in a file the tools can't query
@@ -823,6 +853,7 @@ All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phas
 | Mistake | How to Detect | Severity |
 |---------|---------------|----------|
 | Phantom entity / tight identifier | Named entity or tight ID (channel, vendor, amount, date) returns no match on grep of universe JSON | Major (Truthfulness) |
+| **False state premise** | **A stated claim about current state ("still no reply", "hasn't been merged", "rolling window", "assigned to me") is contradicted by the universe — greps clean but breaks the task** | **Major (Truthfulness)** |
 | Wrong relationships | Verify preparer→reviewer→approver and entity/portfolio mappings against the org chart in `1_Universe_Summary.md` | Major (Truthfulness) |
 | Pre-solved prompt | Root cause stated in prompt | Major (Pre-Solving) |
 | Bolt-on asks | Remove sentence test - rest still makes sense | Major (Coherence) |
@@ -830,7 +861,9 @@ All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phas
 | Single-service task | Only one service needed | Major (Cross-Service) |
 | No write action | Only investigation, no action | Major (Investigation+Action) |
 | Contrived difficulty | Arbitrary precision requirements | Major (Contrived) |
+| **Spec-sheet register** | **~600-word prompt that enumerates each deliverable's contents + preservation rules + reply format (2+ triggers) — natural scenario, unnatural voice** | **Major (Contrived)** |
 | Persona mismatch | Request outside persona's scope | Major (Persona) |
+| Persona ACL violation | Prompt requires (or directs) reading scoped-service data outside the persona's view — scoped set derived live from the `Docs/14_Persona_ACL.md` Access matrix; no affirmative-denial or authorized alternate | Major (Feasibility) |
 | Ambiguous end-state | Two readings → different final universe states (file vs defer, write A vs B) | Major (Unique Ground Truth) |
 | Action decision ambiguity | Two readings → different write actions (or write vs no-write / act vs defer) | Major (Clarity - 06/09) |
 | Wrong business function | Category doesn't match the task categories | Major (Business Function) |

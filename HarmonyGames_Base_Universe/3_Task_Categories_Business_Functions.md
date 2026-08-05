@@ -20,14 +20,14 @@ Each of the six is described below with typical work, its **write-action surface
 ### ⚠️ Universe-specific tool note (read first)
 - **Tool boundary:** use the full service summary in the
   [`One-Pager`](0_Universe_One-Pager.md#tool-access-boundary), the exact
-  capabilities in the [`Reference Sheet`](4_Reference_Sheet.md#tool-capabilities-and-persona-acl),
-  and `HarmonyGames_Base_Universe/Tool_Access/*.json` as authority.
+  capabilities in the [`Reference Sheet`](5_Reference_Sheet.md#tool-capabilities-and-persona-acl),
+  and `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` as authority.
 - **Business function is not identity:** select the required persona from the
-  exact [`Persona_ACL_Roster.json`](Persona_ACL_Roster.json). There is no
+  exact [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json). There is no
   task-visible Finance persona or CFO; pair Finance work with an appropriate
   roster persona.
 - **Persona ACL:** apply
-  [`../Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md) for identity and read
+  [`../Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) for identity and read
   visibility. The write surfaces below describe catalog capability, not
   persona-based authorization or denial.
 
@@ -67,7 +67,7 @@ Each of the six is described below with typical work, its **write-action surface
 
 ## Exact Write-Capability Matrix
 
-This matrix is rebuilt from `HarmonyGames_Base_Universe/Tool_Access/*.json`; omitted actions are unavailable. It describes service capabilities, not Persona ACL enforcement.
+This matrix is rebuilt from `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`; omitted actions are unavailable. It describes service capabilities, not Persona ACL enforcement.
 
 | Service | Exact available write/action surface |
 |---|---|
@@ -92,5 +92,5 @@ This matrix is rebuilt from `HarmonyGames_Base_Universe/Tool_Access/*.json`; omi
 - Use **Outcome** rubrics for required action results, action content, and key final-response facts.
 - Use **Process** rubrics only when the process itself is explicitly required and outcome evidence cannot capture it. Do not add tool-selection criteria merely because a service was historically labeled "default" or "non-default."
 - Ground any required action in the exact capabilities above. A rubric must not require Gmail sending, Snowflake writes, or direct calls to a non-tool system.
-- Validate required Gmail, Slack, GCal, and Contacts reads from the assigned persona's Agent/Verifier view. Universe Explorer is author god-mode; author-visible evidence may still be inaccessible to the selected persona.
+- Validate required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads from the assigned persona's Agent/Verifier view. Universe Explorer is author god-mode; author-visible evidence may still be inaccessible to the selected persona.
 - Do not write a rubric for acting-user setup or assume a persona-based write denial. Scoped list/search/get results, including by-ID denied/not-found behavior, are read-visibility constraints only.

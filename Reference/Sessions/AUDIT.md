@@ -140,7 +140,7 @@ Before declaring done, write `Tasks/<TASK_DIR>/_aux/Verification_audit_<phase>.m
   - keystone → `Mortgage_Base_Universe/6_Server_Tools_Details.json`
   - moveops → `MoveOps_Base_Universe/6_Server_Tools_Details.json`
   - starpm → `StarPM_Base_Universe/7_Server_Tools_Details.json`
-  - harmonygames → `HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**; capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`)
+  - harmonygames → `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` (prefix **6**; capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`)
 
 ## Eval spec verified for this phase
 - Universe-correct eval set (per `_aux/Universe.txt`): brookfield → `Evals/`; keystone → `Evals_keystone/`; moveops → `Evals_moveops/`; starpm → `Evals_starpm/` (v4: also run `0_Injection_Quality_Eval.md` + `5_Submission_Gate_Eval.md` via `validate.py --phase injection` / `--phase submission_gate`); harmonygames → `Evals_harmonygames/` (six evals 0-5, same phases as v4, but the F1-F6 trigger CONDITIONS do not transfer from StarPM - see HG-U10)

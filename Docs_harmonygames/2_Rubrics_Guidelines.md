@@ -2,7 +2,7 @@
 
 ---
 
-Start with the [`Docs/README.md`](README.md) index. This document is the canonical rubric-authoring guide, and [`Evals/3_Rubrics_Eval.md`](../Evals/3_Rubrics_Eval.md) is the evaluation authority. When these guidelines discuss services, actions, tool calls, or parameters, [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/) is authoritative. The prompt and live HarmonyGames evidence define requested work and ground truth. Oracle Events are non-authoritative planning notes: they can reveal a gap, but cannot override the prompt, universe, catalogs, trajectory, or current Evals.
+Start with the [`Docs/README.md`](README.md) index. This document is the canonical rubric-authoring guide, and [`Evals/3_Rubrics_Eval.md`](../Evals/3_Rubrics_Eval.md) is the evaluation authority. When these guidelines discuss services, actions, tool calls, or parameters, [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is authoritative. The prompt and live HarmonyGames evidence define requested work and ground truth. Oracle Events are non-authoritative planning notes: they can reveal a gap, but cannot override the prompt, universe, catalogs, trajectory, or current Evals.
 
 ## **Note: This doc has undergone some changes on July 23\. Please read the change log below carefully\!**
 
@@ -44,26 +44,26 @@ Rubrics are specific, checkable statements about what the AI agent should accomp
 
 **What this means for you:** Every expected value must be in the rubric itself. If you write "The Agent posted a Slack message to the co-founder," the judge doesn't know which co-founder is intended.
 
-Instead write "The Agent posted a Slack message to leonard@harmonygames.co (Co-founder & Creative Director)."
+Instead write "The Agent posted a Slack message to leonard.hayes@harmonygames.co (Co-founder & Creative Director)."
 
 ---
 
 ## **Persona ACL and Rubric Feasibility**
 
-Persona ACL is active. Read [`15_Persona_ACL.md`](15_Persona_ACL.md) for the
+Persona ACL is active. Read [`14_Persona_ACL.md`](14_Persona_ACL.md) for the
 policy and use the exact persona key/email from
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 The Agent Runner and Run Verifiers use the same assigned persona; Universe
 Explorer is author god-mode and proves existence, not Agent reachability.
 
 Apply ACL inside the normal Persona, Feasibility, Universe Reachability, and
 Rubric Correctness/Self-Containment checks:
 
-* **Persona-scoped reads:** Gmail, Slack, GCal, and Contacts.
-* **Unscoped reads:** GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides,
-  Trello, Linear, and Confluence.
+* **Persona-scoped reads:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides.
+* **Unscoped reads:** Contacts, GitHub, Snowflake, Trello, Linear, and
+  Confluence.
 * **Writes:** outside ACL scope. Determine write feasibility from
-  [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/); never infer a write denial from read
+  [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json); never infer a write denial from read
   scoping.
 * **Required persona-scoped evidence:** hard-fail a task when it is
   inaccessible to the assigned persona, unless the intended outcome is an
@@ -85,7 +85,7 @@ Frame every rubric as an affirmative behavior or observable state attributable t
 
 | Avoid: tool/artifact-centric | Required: agent-centric |
 | ----- | ----- |
-| "A message was sent using a specific messaging function to Brian…" | "The Agent sends the summary to Brian Foster at brian@harmonygames.co." |
+| "A message was sent using a specific messaging function to Brian…" | "The Agent sends the summary to Brian Foster at brian.foster@harmonygames.co." |
 | "The message body includes the bug details and status." | "The Agent's message to Brian includes the Season Pass reward bug details and a status comparison (fixed vs still open)." |
 | "The Brian summary mentions the ZOM-299 daily login bug." | "The Agent reports in the summary to Brian Foster that ZOM-299 (daily login reset) is a known open issue." |
 
@@ -142,7 +142,7 @@ Outcome rubrics use three sub-categories. Use only the ones that apply to your t
 
 Did the right action happen with the right details? Verified from the trajectory (tool call).
 
-`The Agent posted a Slack message from jlawson@harmonygames.co to brian@harmonygames.co.`
+`The Agent posted a Slack message from julia.lawson@harmonygames.co to brian.foster@harmonygames.co.`
 
 Use for: every write action. Always required when a write action exists.
 
@@ -181,7 +181,7 @@ Use natural language in prompts and rubric criteria. Do not mention implementati
 | Task prompts | Never mention tool names |
 | Rubrics | Never mention tool names |
 
-✅ Adequate: `The Agent posted a Slack message to brian@harmonygames.co.` 
+✅ Adequate: `The Agent posted a Slack message to brian.foster@harmonygames.co.` 
 
 ❌ Avoid: `A message was sent via a specific messaging function to Brian.`
 
@@ -275,7 +275,7 @@ In those cases, a stricter outcome is always preferable to a process rubric.
 | :---- |
 |  `The Agent must brief Brian Foster before scheduling the live-ops review.`  |
 | **✅ Process rubric is appropriate:** |
-|  `"The Agent briefs Brian Foster at brian@harmonygames.co before scheduling the live-ops review."` **Why this works:** The communication and meeting each have an Outcome, but those Outcomes do not prove the required order. |
+|  `"The Agent briefs Brian Foster at brian.foster@harmonygames.co before scheduling the live-ops review."` **Why this works:** The communication and meeting each have an Outcome, but those Outcomes do not prove the required order. |
 
 ---
 
@@ -283,7 +283,7 @@ In those cases, a stricter outcome is always preferable to a process rubric.
 
 ***Outcome (1.1 / 1.2) — verified from trajectory:***
 
-Write-action result — Strict: `The Agent posts a Slack message from leonard@harmonygames.co to brian@harmonygames.co.`
+Write-action result — Strict: `The Agent posts a Slack message from leonard.hayes@harmonygames.co to brian.foster@harmonygames.co.`
 
 Slack message topic — Flexible: `The Agent’s Slack message communicates the current Season Pass reward-bug status; wording may vary without changing that meaning.`
 
@@ -303,7 +303,7 @@ Key facts — Flexible: `The Agent identifies the Zombie Match 3D retention tren
 
 | Situation | Pattern | Example |
 | ----- | ----- | ----- |
-| One correct value / fact | Strict (EM) | "brian@harmonygames.co" |
+| One correct value / fact | Strict (EM) | "brian.foster@harmonygames.co" |
 | Freetext parameter or agent-generated label | Flexible (Fuzzy) | Define an objective meaning: "a title semantically equivalent to Zombie Match 3D live-ops health" |
 | Agent content with specific requirements | Required Elements | "must state the shipped timer, intended timer, and issue ID" |
 | Similar entities, one correct | Selection Logic | "Marcus Lee, the UA manager, rather than Marcus Bennett, the artist" |
@@ -345,7 +345,7 @@ Linear — must include: Title (what the issue title should contain), Assignee (
 
 | Incomplete | Complete |
 | ----- | ----- |
-| "Agent messaged the product owner" | "The Agent sends the live-ops brief to Brian Foster at brian@harmonygames.co." |
+| "Agent messaged the product owner" | "The Agent sends the live-ops brief to Brian Foster at brian.foster@harmonygames.co." |
 | "Message sent about live-ops bugs" | Two atomic criteria: "The Agent posts in `#season-pass`." and "The Agent distinguishes fixed Season Pass bugs from open Season Pass bugs in that message." |
 
 ---
@@ -358,10 +358,10 @@ The judge can't look anything up. Include all expected values.
 
 | Bad | Good |
 | ----- | ----- |
-| "Message sent to the CTO" | "The Agent posted a Slack message to blake@harmonygames.co (CTO, Arthur Blake)" |
+| "Message sent to the CTO" | "The Agent posted a Slack message to arthur.blake@harmonygames.co (CTO, Arthur Blake)" |
 | "The timer is correct" | "The Agent reports that ENG-2349 records the Axe Arena timer as 10 minutes shipped and 15 minutes intended." |
 | "Slack message has enough context" | "The Agent's Slack message to Brian Foster states the Axe Arena shipped timer and intended timer." |
-| "Agent contacted the right person" | "The Agent posts a Slack message to brian@harmonygames.co (Brian Foster)" |
+| "Agent contacted the right person" | "The Agent posts a Slack message to brian.foster@harmonygames.co (Brian Foster)" |
 
 **Rule 2: One Thing Per Rubric, No Overlaps, No Gaps**
 
@@ -378,7 +378,7 @@ Quantifier-based bundling such as `"at least N"` is not atomic when it compresse
 
 * Tightly coupled facts may be bundled in two cases  
 * Same action: identifiers checked together in one action   
-  * (for example, "The Agent posted a Slack message mentioning brian@harmonygames.co and leonard@harmonygames.co" — both are visible in the same message parameters);   
+  * (for example, "The Agent posted a Slack message mentioning brian.foster@harmonygames.co and leonard.hayes@harmonygames.co" — both are visible in the same message parameters);   
   * Same data point: facts from a single record that are meaningfully inseparable   
   * (e.g., "The Agent identifies Owen Baker (match3d) as the assignee for the sprite-optimization sprint" — name, repo, and sprint assignment all come from the same Linear ticket and would pass or fail together).   
 * Use judgment: if two claims could plausibly fail independently, split them.
@@ -387,7 +387,7 @@ Quantifier-based bundling such as `"at least N"` is not atomic when it compresse
 
 | Bad (unverifiable) | Good (verifiable) |
 | ----- | ----- |
-| "Message exists in Slack channel" | "The Agent posted a Slack message to brian@harmonygames.co" |
+| "Message exists in Slack channel" | "The Agent posted a Slack message to brian.foster@harmonygames.co" |
 | "Calendar event was created" | "The Agent creates the live-ops review event for March 6, 2026 with Brian Foster and Leonard Hayes as attendees." |
 | "The Agent understood the problem" | "The Agent identifies ZOM-387 as the Giant Analytics Ticket." |
 
@@ -500,9 +500,9 @@ Before submitting, confirm:
 * Implicit asks covered where they test reasoning or synthesis  
 * Every criterion is verifiable from the trajectory or final response  
 * Persona-scoped criteria are gradeable from the trajectory/final response or evidence visible to the same assigned persona, never hidden cross-persona state
-* Required Gmail, Slack, GCal, and Contacts facts are reachable by the exact roster persona, or the prompt intentionally asks for an affirmative denial outcome plus reporting, escalation, or an authorized alternative
-* GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence reads remain unscoped; no rubric invents ACL read scoping for them
-* Write feasibility comes from `HarmonyGames_Base_Universe/Tool_Access/`, not Persona ACL
+* Required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) facts are reachable by the exact roster persona, or the prompt intentionally asks for an affirmative denial outcome plus reporting, escalation, or an authorized alternative
+* Contacts, GitHub, Snowflake, Trello, Linear, and Confluence reads remain unscoped; no rubric invents ACL read scoping for them
+* Write feasibility comes from `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`, not Persona ACL
 * Environment `set_acting_user` configuration is absent from OEs, rubrics, Process criteria, and call counts
 * Gmail triage rubrics identify the target message/thread and requested triage operation or label  
 * Slack rubrics list specific content items  
@@ -530,7 +530,7 @@ Before submitting, confirm:
 
 **When the prompt is open-ended ("create tickets for anything needing follow-up"):** Go to the universe, identify the actual GT items that need follow-up, and write one rubric per item naming it explicitly. "At least one" is only acceptable if the GT is genuinely indeterminate — which is rare. If the universe shows 3 specific items needing tickets, write 3 rubrics.
 
-**Large audit-table exception:** A qualifying long-horizon audit may use overall total/reconciliation checks plus representative atomic record-level spot checks under `Docs/14_Long_Horizon_Task_Guidelines.md`. The Oracle Events and execution remain exhaustive. There is no minimum spot-check count and no one-rubric-per-row requirement. This exception does not apply to distinct write actions or other non-repetitive requirements.
+**Large audit-table exception:** A qualifying long-horizon audit may use overall total/reconciliation checks plus representative atomic record-level spot checks under `Docs/13_Long_Horizon_Task_Guidelines.md`. The Oracle Events and execution remain exhaustive. There is no minimum spot-check count and no one-rubric-per-row requirement. This exception does not apply to distinct write actions or other non-repetitive requirements.
 
 **The key principle:** Rubrics should be grounded in GT, not in what feels like a "reasonable threshold." Outside the documented large audit-table exception, an agent that updates 8 of 9 tickets should fail — the prompt asked for all 9\. Gradation comes from having 9 separate rubrics, not from setting an arbitrary pass threshold on one bundled rubric.
 
@@ -582,7 +582,7 @@ If the agent gets the recipient wrong, how many rubrics fail? If more than one, 
 
 **Mistake 12: Over-specific phrasing that penalizes valid alternatives.**
 
-Writing “The Agent posts in #season-pass” when the prompt says “brief Brian” can reject a valid direct message or another authorized collaboration path. Match the prompt's specificity: “The Agent briefs Brian Foster at brian@harmonygames.co” is method-agnostic.
+Writing “The Agent posts in #season-pass” when the prompt says “brief Brian” can reject a valid direct message or another authorized collaboration path. Match the prompt's specificity: “The Agent briefs Brian Foster at brian.foster@harmonygames.co” is method-agnostic.
 
 ---
 

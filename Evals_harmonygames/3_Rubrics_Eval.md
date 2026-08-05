@@ -2,7 +2,7 @@
 
 ## Overview
 
-You are a **ruthlessly thorough** rubric quality evaluator for Original Conference tasks. You do NOT do surface-level checks. You do NOT skim. You do NOT assume any rubric is correct until you have personally verified every factual claim against the prompt, any validly incorporated live source, the actual universe data, the trajectory evidence, and `HarmonyGames_Base_Universe/Tool_Access/*.json`. Oracle Events are non-authoritative planning notes: use OE contradictions as mandatory investigation signals, never as ground truth or as authority to add a requirement.
+You are a **ruthlessly thorough** rubric quality evaluator for Original Conference tasks. You do NOT do surface-level checks. You do NOT skim. You do NOT assume any rubric is correct until you have personally verified every factual claim against the prompt, any validly incorporated live source, the actual universe data, the trajectory evidence, and `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`. Oracle Events are non-authoritative planning notes: use OE contradictions as mandatory investigation signals, never as ground truth or as authority to add a requirement.
 
 Rubrics are specific yes/no criteria that an LLM judge uses to grade an AI agent's trajectory (tool calls, parameters, responses) and final response. Each stored object in `7_Rubrics.json` has exactly four fields: `title`, `category`, `justification`, and `evidence`. The conceptual criterion is the acceptance statement stored in `title`; there is no stored `criterion` key. The only valid `category` values are `Outcome 1.1`, `Outcome 1.2`, `Outcome 2.1`, and `Process`. Each rubric must be: **self-contained, atomic, objective, correctly categorized, and verifiable.**
 
@@ -14,7 +14,7 @@ Issues are classified by severity (Major/Moderate/Minor/Non-Failing) and counted
 - **Accuracy is non-negotiable.** Every expected value, entity name, dollar amount, and email address embedded in a rubric MUST match canonical universe data and be reachable through the Agent's cataloged tool environment at the precision the criterion requires. Wrong or unobservable values = wrong scoring.
 - **Completeness is non-negotiable.** Every explicit prompt ask must have a covering Outcome rubric. Process rubrics are optional and added ONLY when the three-condition test passes. Missing Outcome rubrics = gaps in evaluation.
 - **Requirement-level coverage is non-negotiable.** Every explicit requirement in the prompt must be covered by at least one rubric. This includes each action, requested fact or conclusion, content item, recipient, destination, condition, qualifier, timing or ordering constraint, format requirement, and exclusion stated in the prompt.
-- **Large audit-table exception.** For a qualifying long-horizon audit under `Docs/14_Long_Horizon_Task_Guidelines.md`, repetitive per-record facts may be evaluated with overall total/reconciliation checks plus representative atomic spot checks. There is no minimum number of spot-check criteria and no one-rubric-per-row requirement. Oracle Events and execution must remain exhaustive, and every non-repetitive requirement still needs direct rubric coverage. `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` is the worked reference for applying this exception.
+- **Large audit-table exception.** For a qualifying long-horizon audit under `Docs/13_Long_Horizon_Task_Guidelines.md`, repetitive per-record facts may be evaluated with overall total/reconciliation checks plus representative atomic spot checks. There is no minimum number of spot-check criteria and no one-rubric-per-row requirement. Oracle Events and execution must remain exhaustive, and every non-repetitive requirement still needs direct rubric coverage. `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` is the worked reference for applying this exception.
 - **Valid incorporation by reference counts as prompt authorization.** When the prompt explicitly directs the Agent to follow a uniquely discoverable company record, the task-relevant requirements clearly stated in that live record count as prompt requirements. The record must exist in the live task environment and be supported by the base universe or task changelog/injection; incidental facts in the record do not become requirements.
 - **Agent-centric, affirmative acceptance phrasing is non-negotiable.** Every criterion must read as a positively stated action or observable state attributable to **The Agent** ("The Agent posts…", "The Agent identifies…", "The Agent confines repository activity to inspection…") and must **never name a tool** (for example, no `slack_send_message` and no `(via the Slack tool)`). Prohibition-only or absence-only criterion syntax is invalid, including `The Agent does not…`, `The Agent makes no…`, `The Agent never…`, `The Agent avoids…`, `The Agent refrains from…`, `The Agent fails to…`, and equivalent `without` constructions. Rewrite exclusions as affirmative classifications, scope boundaries, or preserved states. This is a scored sub-dimension - a single violation fails it.
 - **Positive wording never removes exclusion coverage.** Required exclusions, decoys, and prohibited actions must still have atomic rubrics. Express them affirmatively: `The Agent classifies X outside the qualifying set`, `The Agent leaves page Y unchanged`, or `The Agent confines production activity to observation`. Negative factual states such as `unimplemented`, `unconfirmed`, or `unresolved` remain valid when the Agent affirmatively reports or classifies them. Exact immutable entity titles containing words such as `not` are exempt. This repository-level policy overrides legacy negative-criterion wording in reference documents and sample tasks.
@@ -34,16 +34,17 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and every HarmonyGames_Base_Universe/Tool_Access/*.json catalog (all 13 services)
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 13 services, combined)
 - [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Services_Data/ BEFORE evaluating anything
 - [ ] Phase 0.3: Explore QC-passed task rubrics - Understand what good rubrics look like
-- [ ] HARD GATE: Persona ACL - read Docs/15_Persona_ACL.md + Persona_ACL_Roster.json; verify exact taxonomy persona identity and runner/verifier parity
+- [ ] HARD GATE: Persona ACL - read Docs/14_Persona_ACL.md + 4_Persona_ACL_Roster.json; verify exact taxonomy persona identity and runner/verifier parity
 - [ ] Phase 1.1: Rubric Inventory & Category Distribution (Outcome 1.1/1.2/2.1 vs Process)
 - [ ] Phase 1.2: Four-Field Validation (`title`, `category`, `justification`, `evidence`)
   - [ ] HARD GATE: Blank Fields — Zero Tolerance (every rubric must have `title`, `category`, `justification`, and `evidence` populated)
-  - [ ] HARD GATE: Large Audit-Table Eligibility — If spot checks replace per-record rubric expansion, verify the conditions in `Docs/14_Long_Horizon_Task_Guidelines.md` without imposing a minimum spot-check count; calibrate against `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json`
+  - [ ] HARD GATE: Large Audit-Table Eligibility — If spot checks replace per-record rubric expansion, verify the conditions in `Docs/13_Long_Horizon_Task_Guidelines.md` without imposing a minimum spot-check count; calibrate against `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json`
   - [ ] HARD GATE: Requirement-Level Forward Coverage — Every Explicit Prompt Requirement Must Have a Rubric (decompose prompt into atomic requirements → map each to at least one rubric)
 - [ ] Phase 2: Per-Rubric Quality Assessment - Self-Contained, Atomic, Correct, Verifiable, Objective, Category for EACH rubric
+  - [ ] HARD GATE (Phase 2.1): Placeholder-Acceptance Pre-Scan - lexical scan of every title for "states a specific figure", "the correct value", "a discrete testable definition", open-ended range hedges; value not embedded = Not Self-Contained (Major)
   - [ ] HARD GATE (Gap 1): Atomicity Decomposition - For EACH rubric, split into independent claims, fill decomposition table; 2+ independently pass/fail claims, including quantifier-based bundling such as "at least N", = Not Atomic (Major)
   - [ ] HARD GATE: Atomicity — Split Completely (ML-confirmed July 2026; each criterion tests exactly ONE independently-verifiable item)
 - [ ] Phase 2.3: Correctness Check - DEEP EXPLORATION (verify EVERY expected value against universe data, persona scope, act-vs-defer, impossible derivations, imported constraints, action alignment)
@@ -63,12 +64,14 @@ TODO:
 - [ ] Phase 2.8: Agent-Centric + Affirmative Acceptance Phrasing + No-Tool-Names (scored sub-dimension)
   - [ ] HARD GATE: Positive-Criterion Wording — scan the conceptual criterion in every `title` field for prohibition-only or absence-only syntax; one violation fails the sub-dimension
   - [ ] MANDATORY LEXICAL PRE-SCAN: search `title` fields case-insensitively for `does not`, `do not`, `makes no`, `has no`, standalone `no`/`not`, `never`, `without`, `avoid`, `refrain`, and `fail to`; review every hit against the narrow immutable-title and affirmative-factual-state exemptions
+- [ ] Phase 2.8A: Negative Criteria (scored sub-dimension) — a non-prohibition criterion framed negatively is [Fail - Criteria Framing]; the pre-scan above feeds both this and Agent-Centric Phrasing
 - [ ] Phase 2.9: Flexibility patterns
 - [ ] Phase 2.10: Service Metadata Completeness
 - [ ] Phase 2.11: Date/Time Alignment - If prompt uses relative time, verify rubric dates match the resolved dates (from February 28, 2026)
 - [ ] Phase 3.1: Completeness - Outcome (Prompt Ask Coverage, compound-ask decomposition, verdict-vs-evidence, per-deliverable coverage, Write-as-Deliverable Preservation hard gate)
   - [ ] HARD GATE (Gap 3): Final-Response Coverage - Enumerate every fact/finding/conclusion the prompt asks the agent to report to the user; verify each has a 2.1 Outcome rubric; missing = Major
   - [ ] HARD GATE (Gap 4): OE-to-Rubric Cross-Reference - First verify each OE reflects an authorized prompt/source requirement; map each authorized write-action OE to its 1.1/1.2 rubric and each authorized user-facing discovery to its 2.1 rubric; an unmapped authorized requirement = Missing Criteria, while an unauthorized OE is an OE defect
+  - [ ] HARD GATE: Requirement Provenance — every criterion cites an authorizing prompt sentence (or validly incorporated source); OE-only requirement = Incorrect (Major); every value re-grounded from the universe, never copied from an OE figure
   - [ ] HARD GATE: Exclusion / Decoy Coverage (if filter criteria + decoys exist, rubrics must penalize incorrect inclusion)
 - [ ] Phase 3.2: Process Rubric Audit (three-condition test)
   - [ ] HARD GATE: No rubric or Process credit for set_acting_user environment configuration
@@ -78,7 +81,7 @@ TODO:
 - [ ] Phase 4.2: Percentage Threshold Calculation
 - [ ] Phase 5.0: MANDATORY Pre-Verdict Completeness Sweep (Gap 7) - Final pass for single-blemish score-4 patterns: one missing criterion, one wrong OE count, one phrasing mismatch, one non-atomic criterion, one category mislabel
 - [ ] HARD GATE: Pre-Submission All-Fail Prediction (predict AF rubrics before agent runs; 2+ predicted AF = FAIL)
-- [ ] Phase 5.1: Final Scoring Table (5 Rubric sub-dimensions)
+- [ ] Phase 5.1: Final Scoring Table (6 Rubric sub-dimensions)
 - [ ] Phase 5.2: Verdict + Issues + Recommendations
 ```
 
@@ -90,33 +93,32 @@ TODO:
 
 | Document | Path | What to Extract |
 |----------|------|-----------------|
-| **QC Spec (Primary)** | `Docs/7_QC_Spec_Doc1.json` | **GRADING SOURCE** - all Rubric sub-dimensions + thresholds (Overall Rubric Quality, All-Failing Rubrics, Category Balance, Process Rubrics, Agent-Centric Phrasing) |
+| **QC Spec (Primary)** | `Docs/7_QC_Spec_Doc1.json` | **GRADING SOURCE** - all Rubric sub-dimensions + thresholds (Overall Rubric Quality, All-Failing Rubrics, Category Balance, Process Rubrics, Agent-Centric Phrasing, Negative Criteria) |
 | **QC Spec (Appendix)** | `Docs/8_QC_Spec_Doc2.md` | **Rubric Quality Definitions** - severity taxonomy (Major/Moderate/Minor/Non-Failing with examples) |
 | **Rubrics Guidelines** | `Docs/2_Rubrics_Guidelines.md` | **CRITICAL** - two conceptual categories (Outcome + Process), exact stored category values, three-condition Process test, agent-centric phrasing, flexibility patterns, Common Mistakes 1–12 |
 | **Rubrics One-Pager** | `Docs/3_Rubrics_One_Pager.md` | Quick reference - Outcome sub-cats (1.1/1.2/2.1), three-condition test, flexibility patterns |
 | **All-Failing Rubrics** | `Docs/12_Always_Failing_Rubrics.md` | Valid vs invalid all-failing rubrics (feeds the All-Failing Rubrics sub-dimension) |
 | **Project Instructions** | `Docs/1_Project_Instructions_Overall.md` | Rubric writing guidelines (Step 5), Outcome-first workflow |
-| **Long-Horizon Guidelines** | `Docs/14_Long_Horizon_Task_Guidelines.md` | Conditional outcome-first, environment-reference, complete-cohort, and anti-inflation rules |
-| **Persona ACL** | `Docs/15_Persona_ACL.md` | Active scoped-read semantics, affirmative denial handling, identity binding, and verifier evidence boundary |
+| **Long-Horizon Guidelines** | `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional outcome-first, environment-reference, complete-cohort, and anti-inflation rules |
+| **Persona ACL** | `Docs/14_Persona_ACL.md` | Active scoped-read semantics, affirmative denial handling, identity binding, and verifier evidence boundary |
 | **Common Errors** | `Docs/9_Common_Error.md` | Frequent errors in task and rubric creation with fixes |
 | **Taxonomy** | `Docs/11_Taxonomy.md` | Key version updates, task version guidance |
 | **Universe Summary** | `HarmonyGames_Base_Universe/1_Universe_Summary.md` | Company summary, personas, clients, scenarios, company context |
 | **Persona Briefs** | `HarmonyGames_Base_Universe/2_Persona_Briefs.md` | Detailed per-persona profiles - active work, relationships, open threads |
 | **Task Categories** | `HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md` | Task categories by business function with tool/artifact guidance |
-| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/Tool_Access/*.json` | Read all 13 JSON files for exact available services, tool names, parameters, and capabilities |
-| **Universe Schema** | `HarmonyGames_Base_Universe/6_Universe_Schema.json` | Database schema for all universe tables and columns |
-| **Persona ACL Roster** | `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
+| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | Read the combined catalog for exact available services, tool names, parameters, and capabilities |
+| **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
+| **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
 **Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail supports search/read and mailbox/label mutations, but no send, reply, compose, or draft. Snowflake is query/read-only. Examples in older documents or sample tasks do not add capabilities.
 
-**ACL boundary:** Persona scoping applies to **reads only** in Gmail, Slack, GCal, and Contacts. GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence are unscoped. Writes are outside ACL scope; rubrics must not assume write denial or invent Drive-family ACL requirements. Bind the assigned taxonomy persona to the exact roster key/email; the AMV dropdown cannot override it, and Agent Runner and Run Verifiers must use the same persona.
+**ACL boundary (read the doc; do NOT hardcode):** Persona scoping applies to **reads only**, and only to the services the `Docs/14_Persona_ACL.md` **Access matrix** marks persona-scoped. Derive that scoped set (and its unscoped complement) from the doc at eval time; if the doc changes, this eval follows it with no edit here — do not assert a specific service's scope status from memory. Writes are outside ACL scope; rubrics must not assume write denial for any service, nor invent read ACL on a service the doc marks unscoped. Bind the assigned taxonomy persona to the exact roster key/email; the AMV dropdown cannot override it, and Agent Runner and Run Verifiers must use the same persona.
 
-**Sample QC Tasks (for comparison — 4 categories):**
+**Sample QC Tasks (for comparison — 3 categories):**
 - `QC_Tasks/QC_Passed/` — QC score 5. Clean reference rubrics; study their self-containment, atomicity, correctness, and flexibility craft.
 - `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` — the canonical **long-horizon** reference: 79 criteria covering a 116-row register. Study it before applying the large audit-table exception.
-- `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing rubric issues (non-atomic criteria, missing outcomes, OE inaccuracies). Study these + `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md` for the specific defect patterns this eval must catch.
+- `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing rubric issues (non-atomic criteria, missing outcomes, OE inaccuracies). Study these for the specific defect patterns this eval must catch.
 - `QC_Tasks/QC_True_Fails/` — QC score 2 (confirmed fails). Tasks with structural rubric failures — rubric misreads prompt, incorrect criteria, role overreach. Use as worked negative examples.
-- `QC_Tasks/QC_False_Fails_PT_Dispute_Accepted/` — QC score 2 overturned on dispute. Study for where the eval over-flags or under-flags.
 
 ---
 
@@ -126,7 +128,7 @@ TODO:
 |------|---------|
 | `5_Prompt.txt` | The prompt the rubrics evaluate |
 | `2_Persona.txt` | The assigned persona |
-| `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact persona key/email binding for Agent Runner and Run Verifiers |
+| `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding for Agent Runner and Run Verifiers |
 | `6_Oracle_Events.txt` | Critical path steps (for process rubric coverage) |
 | `7_Rubrics.json` | Stored rubric objects with exactly `title`, `category`, `justification`, and `evidence` |
 | `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
@@ -148,7 +150,7 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 ### 0.1 Read Reference Documents
 
 1. **Read every doc in the Reference Documents table above**, pulling the "What to Extract" column for each. Priority order: `7_QC_Spec_Doc1.json` (sub-dimensions + thresholds) → `8_QC_Spec_Doc2.md` (severity taxonomy) → `2_Rubrics_Guidelines.md` (two conceptual categories, exact stored category values, three-condition Process test, agent-centric phrasing, flexibility, Common Mistakes 1–12) → `3_Rubrics_One_Pager.md`, `12_Always_Failing_Rubrics.md`, `9_Common_Error.md`.
-2. **Skim `HarmonyGames_Base_Universe/1_Universe_Summary.md`** for personas/clients/channels, and **read every `HarmonyGames_Base_Universe/Tool_Access/*.json` file in full** for exact tool names and parameters (for evaluator cross-checks - criteria themselves must never name tools).
+2. **Skim `HarmonyGames_Base_Universe/1_Universe_Summary.md`** for personas/clients/channels, and **read `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` in full** for exact tool names and parameters (for evaluator cross-checks - criteria themselves must never name tools).
 
 ### 0.2 DO VERY DEEP EXPLORATION OF UNIVERSE DATA
 
@@ -170,13 +172,13 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 - `contacts/` — `contacts.contacts.json`, `contacts.current_user_id.json`
 - `snowflake/` — `snowflake.tables.json`, `snowflake.databases.json`, `snowflake.schemas.json`, `snowflake.query_history.json`
 
-You can also pull the full universe via `HarmonyGames_Base_Universe/7_Get_Universe_Data.sql`.
+You can also pull the full universe via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`.
 
 Cross-check every literal in a rubric against the raw JSON by searching it directly. Documents in the universe are stored as JSON data.
 
 ### 0.3 Explore QC-Passed Task Rubrics
 
-**Read the `7_Rubrics.json` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good rubrics are structured.** This gives you a baseline for craft - how they embed expected values, decompose content, and handle flexibility. For negative examples, review `QC_Tasks/QC_Non_Fails/` (score-3 defect patterns in `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md`) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails).
+**Read the `7_Rubrics.json` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good rubrics are structured.** This gives you a baseline for craft - how they embed expected values, decompose content, and handle flexibility. For negative examples, review `QC_Tasks/QC_Non_Fails/` (score-3 defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails).
 
 **For long-horizon tasks, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` in full.** It grades a 116-row register with 79 criteria and shows the five devices that make the large audit-table exception work without losing coverage:
 
@@ -367,7 +369,7 @@ Every rubric must have ALL four fields populated:
 Before analyzing individual rubrics, decompose the prompt and any validly incorporated environment source into atomic authorized requirements. Every requirement must map to at least one rubric.
 
 **Procedure:**
-1. Determine whether the task invokes the large audit-table exception in `Docs/14_Long_Horizon_Task_Guidelines.md`. If it does not, use ordinary per-item coverage.
+1. Determine whether the task invokes the large audit-table exception in `Docs/13_Long_Horizon_Task_Guidelines.md`. If it does not, use ordinary per-item coverage.
 2. Extract every explicit action, requested fact or conclusion, content item, recipient, destination, condition, qualifier, timing or ordering constraint, format requirement, and exclusion from the prompt and any validly incorporated source.
 3. Split compound requirements into independently verifiable parts.
 4. For each atomic requirement, identify at least one rubric that tests that requirement on the correct artifact or destination.
@@ -441,6 +443,26 @@ The prompt may explain why the task exists, and `evidence` may explain where or 
 - **"The accepted entity is one of: HarmonyGames, Northstar Games, or Pixel Forge"** → The complete accepted set is explicit
 
 **Self-containment nuance (from `8_QC_Spec_Doc2.md`):** Process/reasoning rubrics must also be self-contained. Where more than one tool or path is genuinely valid, the rubric may test *intent* (what behavior must occur) through visible calls, arguments, and final-response evidence rather than naming one path. Hidden tool-result content cannot complete an underspecified acceptance target.
+
+### MANDATORY LEXICAL PRE-SCAN: Placeholder-Acceptance Phrases (Undefined Acceptance)
+
+This is the self-containment analog to the negative-wording pre-scan (Phase 2.8) and the vague-exemplar scan (Phase 2.7A). **A criterion can name the *category* of the answer without ever embedding the answer** — "states a specific figure", "a discrete, testable definition", "reports the correct amount". When acceptance is deferred like this, any on-topic response passes and the criterion discriminates nothing. This was the latest cohort's #3 rubric miss (undefined acceptance / not self-contained — 7/12; see `Docs/9_Common_Error.md`).
+
+**Scan every `title` case-insensitively for placeholder-acceptance phrases, including:**
+- `a/the specific <figure|number|amount|value|date|percentage|count|name|total>`
+- `states a specific …`, `provides a specific …`, `includes a specific …`
+- `the correct <value|amount|figure|answer|number|date>`, `an accurate <…>`, `the right <…>`
+- `an appropriate/relevant <figure|amount|value>`
+- `a discrete, testable definition`, `a concrete/definite value`
+- open-ended range hedges that name no endpoints: `approximately the mid-20% range`, `roughly the expected range`, `in the right ballpark`
+
+**Decision rule for each hit:** the criterion is self-contained ONLY if the exact accepted value (or a complete accepted set, or an objective numeric acceptance band **with stated endpoints**) also appears in `title`. If the phrase merely promises that a value exists without stating it → **Not Self-Contained (Major)**. Embed the value: rewrite "The Agent states a specific reconciliation figure" → "The Agent states the reconciliation figure is approximately $1,800 or less".
+
+**Exemption:** a genuinely agent-generated freetext field graded by an objective semantic rule (Phase 2.9) is not a placeholder when the rule states the meaning a paraphrase must preserve. This pre-scan flags **missing values**, not paraphrase tolerance.
+
+| Rubric ID | Placeholder phrase in `title` | Exact value / closed set / stated band in `title`? | Issue | Severity |
+|---|---|---|---|---|
+| R# | "states a specific figure" | No | Undefined acceptance | Major |
 
 ---
 
@@ -519,7 +541,7 @@ Examples of violations:
 - [ ] **Reverse-groundedness:** every literal value (invoice #, amount, date, ID) traces to either the prompt or the universe data. A value that exists **nowhere** in the universe and was **not** asked for is fabricated → **Incorrect (Major)**.
 - [ ] Expected behavior matches what the prompt actually asks for
 - [ ] `justification` claims are also factually accurate (not just the conceptual criterion in `title`)
-- [ ] **Tool-name factual check (evidence/justification only):** any tool name that appears in an evidence/justification field exists exactly in `HarmonyGames_Base_Universe/Tool_Access/*.json`. Note: the **criterion text must not name tools at all** (that is the Agent-Centric Phrasing sub-dimension, Phase 2.8). If a field permits alternative tools or methods, verify every listed alternative can perform the action.
+- [ ] **Tool-name factual check (evidence/justification only):** any tool name that appears in an evidence/justification field exists exactly in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`. Note: the **criterion text must not name tools at all** (that is the Agent-Centric Phrasing sub-dimension, Phase 2.8). If a field permits alternative tools or methods, verify every listed alternative can perform the action.
 - [ ] No typos in criterion or evidence fields that could cause the judge to score incorrectly (misspelled entity name, wrong email address, wrong figure)
 - [ ] Rubric does not lock in a specific method/channel the prompt left open - if the prompt says "notify"/"reach out" without specifying how, the rubric must allow alternatives, not force a single channel (see Phase 2.7)
 - [ ] Rubric specificity matches the prompt - neither looser (accepts wrong answers → Overly Broad) nor stricter (rejects valid paths → Overly Specific / Incorrect)
@@ -591,7 +613,7 @@ This is a common pattern: prompt says "post the issue details in #eng-review" bu
 - "The issue was updated successfully" → Hidden tool-return success cannot define passing; use the visible write call and arguments
 - "Another persona's private mailbox contains the expected answer" → Cross-persona hidden state cannot prove or disprove the assigned Agent's completion
 
-For scoped Gmail, Slack, GCal, and Contacts reads, direct verifier evidence must use the same exact roster identity as the Agent Runner. Universe Explorer author god-mode is never acceptance evidence. For the other nine services, do not invent persona read scoping.
+For reads in a persona-scoped service (derive the set live from the `Docs/14_Persona_ACL.md` Access matrix — do not hardcode it), direct verifier evidence must use the same exact roster identity as the Agent Runner. Universe Explorer author god-mode is never acceptance evidence. For the services the doc marks unscoped, do not invent persona read scoping.
 
 ---
 
@@ -658,9 +680,9 @@ Any added requirement that rejects a valid response is **Incorrect (Major)**. A 
 
 **Patterns to catch:**
 
-1. **Channel / method lock-in.** The prompt says "reach out / notify / let them know / update them," but the rubric requires one specific channel. A different available, prompt-authorized method may be equally valid. Because a valid alternative path exists and the rubric would fail it → classify **`over_specified`** and score **Incorrect (Major)**. A Gmail-send path is not an alternative at all: `HarmonyGames_Base_Universe/Tool_Access/gmail-tools.json` has no send, reply, compose, or draft tool.
+1. **Channel / method lock-in.** The prompt says "reach out / notify / let them know / update them," but the rubric requires one specific channel. A different available, prompt-authorized method may be equally valid. Because a valid alternative path exists and the rubric would fail it → classify **`over_specified`** and score **Incorrect (Major)**. A Gmail-send path is not an alternative at all: `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` has no send, reply, compose, or draft tool.
 2. **Content checks chained to an over-prescribed channel.** "The Agent's Slack post to X mentions Y" when Slack itself was over-prescribed - the content check is fine but the channel binding is over-specific. Re-phrase to the deliverable ("The Agent notifies X, including Y") unless the prompt explicitly required Slack.
-3. **Exact structured-value lock-in that a valid alternative could fail.** A rubric/evidence may demand a structured form that the prompt did not require. Check **both** criterion and evidence. **Required cross-check (mandatory):** open the relevant `HarmonyGames_Base_Universe/Tool_Access/*.json` catalog and verify the exact parameter name, required/optional status, and type. Do not infer undocumented aliases or accepted forms from a string type; treat an alternative form as valid only when the catalog or direct environment evidence establishes it.
+3. **Exact structured-value lock-in that a valid alternative could fail.** A rubric/evidence may demand a structured form that the prompt did not require. Check **both** criterion and evidence. **Required cross-check (mandatory):** open the relevant `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog and verify the exact parameter name, required/optional status, and type. Do not infer undocumented aliases or accepted forms from a string type; treat an alternative form as valid only when the catalog or direct environment evidence establishes it.
 4. **`evidence` / `justification` over-specifying beyond `title`.** The conceptual criterion in `title` permits any prompt-authorized communication method, but `evidence` requires a Slack message posted on June 9 - a stricter hidden requirement. `title` is the gradable unit; flag `evidence`/`justification` that smuggles in constraints absent from `title` (over-specification + self-containment risk). If the hidden constraint affects grading, treat it as **Incorrect (Major)**, not a wording nit.
 5. **Reward-hackable "at least N of M".** "The Agent updated at least 5 of the 9 tickets" → an agent updates 5 arbitrary items and passes. When this wording bundles independently pass/fail items, classify the criterion as **Not Atomic (Major)**. For ordinary enumerable work, require one rubric per GT item. For a qualifying large audit table, use overall total/reconciliation controls plus representative atomic spot checks instead; the exception never makes an arbitrary "at least N" threshold valid. "At least one" is acceptable only when the GT is genuinely indeterminate.
 6. **Fabricated / ungrounded expected values.** A rubric expects an invoice number/amount/date that exists **nowhere** in the universe **and** was never asked for in the prompt. Run the reverse-groundedness check (Phase 2.3): every literal must trace to the prompt or the universe data. Ungrounded **and** beyond-prompt → **Incorrect (Major)**.
@@ -767,6 +789,21 @@ For EACH criterion, verify:
 
 ---
 
+### 2.8A Negative Criteria Check ⚠️ SCORED SUB-DIMENSION
+
+**This is a separate scored sub-dimension (Phase 5.1), per `Docs/7_QC_Spec_Doc1.json` → Rubric → Negative Criteria.** It reuses the same mandatory lexical pre-scan as Phase 2.8 but isolates one signal: **affirmative framing**. Every rubric `title` tied to a normal prompt instruction must be affirmatively framed; only an explicit non-action or prohibition instruction in the prompt may be graded through negative wording.
+
+For EACH criterion:
+- [ ] Run (or reuse) the case-insensitive pre-scan for `does not`, `do not`, `makes no`, `has no`, standalone `no`/`not`, `never`, `without`, `fails to`, and `avoids`; review every hit in context.
+- [ ] A negative indicator that only **describes the reported content** is valid — "The Agent reports that PR #438 had no human-submitted review" stays affirmative because the actor and action ("The Agent reports…") are affirmative and "no human-submitted review" only names the content being checked.
+- [ ] Negative factual states the Agent affirmatively reports/classifies (`unresolved`, `unimplemented`, `unconfirmed`, `access denied`) and exact immutable entity titles containing a negation token remain valid.
+
+**[Fail - Criteria Framing]:** one or more criteria that do **not** correspond to an explicit non-action/prohibition prompt instruction are framed negatively (passing is defined through absence or prohibition). This fails the Negative Criteria sub-dimension (1/2).
+
+**Relationship to Phase 2.8:** the two sub-dimensions score different signals from the same scan. A prohibition-only `title` fails **Negative Criteria**; if it *also* uses an artifact/system subject or names a tool, it *additionally* fails **Agent-Centric Phrasing**. Log each applicable sub-dimension separately, but count the criterion once at its highest severity in the Phase 4 quality tally.
+
+---
+
 ### 2.9 Flexibility Check
 
 **Match the rubric's matching mode to the value type. Use "approximately"/range for calculated numbers; exact for counts, IDs, and dates.**
@@ -807,7 +844,7 @@ For EACH criterion, verify:
 - [ ] No send, reply, compose, or draft behavior
 
 **Slack rubrics should pin down:**
-- [ ] Channel or DM recipient (use the prompt-required destination; verify the exact tool parameter in `HarmonyGames_Base_Universe/Tool_Access/slack-tools.json` and do not invent accepted aliases)
+- [ ] Channel or DM recipient (use the prompt-required destination; verify the exact tool parameter in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` and do not invent accepted aliases)
 - [ ] Content (specific items to mention)
 
 **Optional - service-specific write-action content** (state as content the rubric should verify, **without naming the tool**):
@@ -918,6 +955,20 @@ For a qualifying large audit table, repeated per-record read OEs align through o
 - [ ] Every Outcome rubric traces back to an explicit or reasonably implied prompt requirement - if a rubric checks an action, outcome, or detail the prompt never asked for (and that doesn't make the response better), flag it as **Incorrect (Major)**
 - [ ] Every literal value is grounded in the prompt or universe (no fabricated invoice #/amount/date - see Phase 2.7 #6)
 - Note: rubrics for reasonably *implied* actions (e.g., confirming a write action succeeded, including data the prompt implicitly needs) are fine - only flag rubrics with no plausible prompt grounding
+
+**HARD GATE — Requirement Provenance (every criterion traces to the prompt, never only to an OE):**
+
+This closes the propagation path behind the cohort's "OE requirements propagated into scored rubrics" miss (4/12) and the fact that inaccurate OEs are the upstream root of most rubric defects (12/12 tasks had OE inaccuracies; see `Docs/9_Common_Error.md`). Oracle Events sit at authority rank 6 — they **cannot bind the Agent**. A requirement that exists only in an OE, not in the prompt (or a validly incorporated live source), is an invented obligation.
+
+**Procedure (mandatory — one row per rubric):** cite the exact prompt sentence (or validly incorporated source passage) that authorizes each rubric's requirement, then independently confirm every embedded value was re-grounded from the universe data itself — **not** copied from an OE figure.
+
+| Rubric ID | Requirement | Authorizing prompt sentence (quote) or source | Value re-grounded from universe (not the OE)? | Provenance |
+|---|---|---|---|---|
+| R# | [requirement] | "[exact prompt quote]" | Yes/No | Prompt / Incorporated source / **OE-only → Incorrect (Major)** |
+
+**Decision rules:**
+- A requirement whose only source is an OE (no prompt sentence, no validly incorporated source) → **Incorrect (Major)** — the OE cannot raise the specificity ceiling (cross-ref the Phase 2.7 Prompt Specificity Ceiling and the T10 imported-constraint gate).
+- A value that matches an OE but that you did NOT independently re-verify against the universe is **unverified** — go verify it (Phase 2.3). Never treat the OE figure as ground truth; an inaccurate OE count copied into a criterion becomes a broken rubric value (the cohort's "broken rubric values" miss, 5/12).
 
 **Write-as-Deliverable Preservation (HARD GATE — mandatory before declaring write criteria "Incorrect"):**
 
@@ -1101,11 +1152,13 @@ During rubric evaluation (before agent runs are available), predict whether any 
 
 **If 2+ rubrics are predicted AF → FAIL (Fail — 2+ Invalid All-Fail Rubrics)**. Do not wait for agent runs to confirm — flag immediately based on defects already found during evaluation.
 
+- **AF justification quality (assessed at the verifier stage):** when an AF is confirmed after runs, its `failing_rubric_justification` must establish a **genuine model miss** — what a correct agent should have done and what the model did instead — not a restatement of the criterion or the outcome. This was the cohort's AF miss (4/12; see `Docs/9_Common_Error.md`). Enforced in `Evals/4_Verifier_Fails_Eval.md` Phase 1 Step 6.
+
 ---
 
 ### 5.1 Final Scoring Table
 
-**Score ALL FIVE Rubric sub-dimensions (from `7_QC_Spec_Doc1.json` → `Rubric` dimension):**
+**Score ALL SIX Rubric sub-dimensions (from `7_QC_Spec_Doc1.json` → `Rubric` dimension):**
 
 | Dimension | Sub-Dimension | Score | Justification |
 |-----------|--------------|-------|---------------|
@@ -1113,10 +1166,11 @@ During rubric evaluation (before agent runs are available), predict whether any 
 | Rubric | All-Failing Rubrics | **N/A → 5** | Requires verifier-run results; **assess at the audit/verifier stage**. Still surface obvious false-negative rubrics (fabricated/over-specific/beyond-prompt) under Overall Quality. |
 | Rubric | Rubric Category Balance | **1/2 or 5** | Outcome present and Process <=40%? 0 Outcome or >40% Process = FAIL. **Binary - no NON-FAIL band.** |
 | Rubric | Process Rubrics | 1/3/5 | All Process rubrics pass the three-condition test? FAIL at 2+ invalid. |
-| Rubric | Agent-Centric Phrasing | **1 / 3-4 / 5** | FAIL (1/2) if a criterion is not agent-centric at all (artifact/system subject, passive voice), names a tool, or uses negative/prohibition-only acceptance syntax. **NON-FAIL (3-4) (06/09):** agent-centric and affirmative but doesn't follow the strict ['Agent' + verb + context] pattern (e.g., possessive forms like 'The Agent's status update covers…'). PASS (5): clean affirmative 'The Agent + verb + context', no tool names. |
+| Rubric | Agent-Centric Phrasing | **1 / 3-4 / 5** | FAIL (1/2) if a criterion is not agent-centric at all (artifact/system subject, passive voice) or names a tool. **NON-FAIL (3-4) (06/09):** agent-centric and affirmative but doesn't follow the strict ['Agent' + verb + context] pattern (e.g., possessive forms like 'The Agent's status update covers…'). PASS (5): clean affirmative 'The Agent + verb + context', no tool names. |
+| Rubric | Negative Criteria | **1/2 or 5** | [Fail - Criteria Framing] if a non-prohibition criterion is framed negatively (passing defined only through absence/prohibition). **Binary - no NON-FAIL band.** PASS (5): every criterion not tied to an explicit non-action/prohibition instruction is affirmatively framed (Phase 2.8A). |
 
 **Grading Rules:**
-- **Rubric Category Balance** is **binary** - Fail (1/2) or Pass (5); no 3/4 band. **Agent-Centric Phrasing** has a 3/4 NON-FAIL band as of 06/09 (agent-centric and affirmative but off-pattern = NON-FAIL, not FAIL); FAIL applies to non-agent-centric subjects, tool names, or negative/prohibition-only acceptance syntax. The affirmative-wording requirement is an additional repository-level policy even where legacy QC references omit it.
+- **Rubric Category Balance** and **Negative Criteria** are **binary** - Fail (1/2) or Pass (5); no 3/4 band. **Agent-Centric Phrasing** has a 3/4 NON-FAIL band as of 06/09 (agent-centric and affirmative but off-pattern = NON-FAIL, not FAIL); FAIL applies to non-agent-centric subjects or tool names. The affirmative-wording requirement is an additional repository-level policy even where legacy QC references omit it; negative/prohibition-only acceptance syntax is scored under **Negative Criteria** (and, when the subject is also an artifact/tool, additionally under Agent-Centric Phrasing).
 - Grade to the LOWEST sub-dimension.
 - If ANY sub-dimension is Fail → Rubric dimension FAILS.
 - ALL sub-dimensions must be 5 for PASS.
@@ -1185,6 +1239,7 @@ During rubric evaluation (before agent runs are available), predict whether any 
 | Rubric Category Balance | 1/2 or 5 | ... |
 | Process Rubrics | 1/3/5 | ... |
 | Agent-Centric Phrasing | 1 / 3-4 / 5 | ... |
+| Negative Criteria | 1/2 or 5 | ... |
 
 ---
 
@@ -1217,6 +1272,8 @@ During rubric evaluation (before agent runs are available), predict whether any 
 |---------|---------------|----------|
 | Not self-contained | References "the [designated role]" without email | Major |
 | **Self-contained catch-all trap** | **`title` lists specific names PLUS a vague catch-all like "or another open issue" - decompose phrase-by-phrase** | **Major** |
+| **Undefined acceptance (placeholder phrase)** | **`title` names the answer category without the value ("states a specific figure", "the correct amount", "a discrete testable definition") - run the Phase 2.1 placeholder pre-scan** | **Major (Not Self-Contained)** |
+| **Requirement sourced only from an OE** | **A criterion's requirement traces to an Oracle Event but no prompt sentence / validly incorporated source - OEs sit at authority rank 6 and cannot bind the Agent** | **Major (Incorrect)** |
 | Not atomic | "AND" connecting independent actions | Major |
 | Incorrect criteria | Verify against universe data - mismatch | Major |
 | **Wrong persona scope** | **Invoice-level total ($2,650) attributed to the persona's work when only a portion ($850) is theirs - verify assignments** | **Major** |
@@ -1231,7 +1288,7 @@ During rubric evaluation (before agent runs are available), predict whether any 
 | **Overly broad answer set** | **Accepts a valid set PLUS an invalid option** | **Moderate** |
 | **Reward-hackable "at least N of M"** | **Quantifier bundles independently pass/fail items into one criterion** | **Major — Not Atomic** |
 | **Channel/method lock-in** | **Rubric requires Slack or another specific method but prompt said "notify"/"reach out" - a valid available alternative path exists that it would fail** | **Major (Minor only if no valid path is rejected)** |
-| **Structured-value lock-in** | **Demands an unauthorized form; cross-check exact documented parameters in `HarmonyGames_Base_Universe/Tool_Access/*.json` and require evidence before claiming aliases are accepted** | **Major** |
+| **Structured-value lock-in** | **Demands an unauthorized form; cross-check exact documented parameters in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` and require evidence before claiming aliases are accepted** | **Major** |
 | **`evidence` over-specifies beyond `title`** | **`evidence` adds a constraint `title` does not state** | **Minor → Major** |
 | **Fabricated / ungrounded value** | **Invoice #/amount/date found nowhere in prompt or universe** | **Major (Incorrect)** |
 | Overly specific | Exact freetext wording required when the prompt permits meaning-preserving paraphrases | Minor |

@@ -84,7 +84,7 @@ If new V3 reference tasks are added, regenerate the inventory by re-extracting f
 
 ## HarmonyGames (`hg`) deltas
 
-Tool catalog is `HarmonyGames_Base_Universe/5_Server_Tools_Details.json` (prefix **5**), and
+Tool catalog is `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` (prefix **6**), and
 per `Guide_harmonygames` the capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`.
 
 **BATCH OEs.** HarmonyGames adds a parameterized OE form for long-horizon work (a task with

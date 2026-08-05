@@ -6,13 +6,13 @@ Use this when writing prompts, Oracle Events, and rubrics to stay consistent wit
 
 ## Tool capabilities and Persona ACL
 
-`HarmonyGames_Base_Universe/Tool_Access/*.json` is the sole authority for capabilities, exact tool names,
-and parameters. [`../Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md) is the
+`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is the sole authority for capabilities, exact tool names,
+and parameters. [`../Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) is the
 authority for task-visible identity and read visibility.
 
 - **Available services:** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
-- **Persona-scoped reads:** Gmail, Slack, GCal, and Contacts. List/search results are filtered to the acting user, and direct by-ID retrieval does not bypass visibility; inaccessible records are denied or returned as not found.
-- **Unscoped reads:** GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence.
+- **Persona-scoped reads:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides (the Drive-family inherits Drive's file ACL). List/search results are filtered to the acting user, and direct by-ID retrieval does not bypass visibility; inaccessible records are denied or returned as not found.
+- **Unscoped reads:** Contacts, GitHub, Snowflake, Trello, Linear, and Confluence.
 - **Context:** Universe Explorer is author god-mode. Agent Runner and Run Verifiers use the same taxonomy-selected required persona. The environment automatically applies `set_acting_user` with the exact roster email after universe load and reapplies it each run and turn. Do not use the persistent, overriding AMV persona dropdown. Acting-user setup is environment configuration, not Agent work or a task-call contribution.
 - **Writes:** Persona ACL does not govern writes. Use the catalogs alone to determine write capability; do not assume persona-based write permission or denial.
 - **Gmail:** read/search, thread/message/label/profile lookup, and attachment reads; triage writes include message/thread label modifications, batch message-label changes, thread archive, message/thread trash/untrash/delete, and label creation/deletion. There is no send/reply/compose and no single-message archive tool.
@@ -25,30 +25,30 @@ authority for task-visible identity and read visibility.
 ## Task-visible personas (exact ACL roster)
 
 The machine-readable source is
-[`Persona_ACL_Roster.json`](Persona_ACL_Roster.json), and it is authoritative
+[`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json), and it is authoritative
 over the human-readable table below. Use each email exactly; never derive it
 from the name. There are exactly 17 task-visible personas and no task-visible
 Finance persona or CFO.
 
 | Persona key | Name | Email | Role | Department |
 |----|------|-------|-------|------|
-| claire_morgan | Claire Morgan | claire@harmonygames.co | Art Lead | Design |
-| marcus_bennett | Marcus Bennett | marcus@harmonygames.co | Artist | Design |
-| samuel_turner | Samuel Turner | samuel@harmonygames.co | Game Designer | Design |
+| claire_morgan | Claire Morgan | claire.morgan@harmonygames.co | Art Lead | Design |
+| marcus_bennett | Marcus Bennett | marcus.bennett@harmonygames.co | Artist | Design |
+| samuel_turner | Samuel Turner | samuel.turner@harmonygames.co | Game Designer | Design |
 | martin_walsh | Martin Walsh | martin.walsh@harmonygames.co | Game Designer | Design |
-| simon_walker | Simon Walker | simon@harmonygames.co | Data Analyst (Contractor) | Engineering |
-| victor_barnes | Victor Barnes | victor@harmonygames.co | Game Engineer | Engineering |
-| brian_foster | Brian Foster | brian@harmonygames.co | Game Engineer | Engineering |
-| calvin_price | Calvin Price | calvin@harmonygames.co | Game Engineer (Unity VFX) | Engineering |
-| owen_baker | Owen Baker | owen@harmonygames.co | Game Engineer (Unity) | Engineering |
-| vincent_parker | Vincent Parker | vincent@harmonygames.co | Game Systems Engineer | Engineering |
-| oliver_brooks | Oliver Brooks | oliver@harmonygames.co | Senior Game Engineer | Engineering |
+| simon_walker | Simon Walker | simon.walker@harmonygames.co | Data Analyst (Contractor) | Engineering |
+| victor_barnes | Victor Barnes | victor.barnes@harmonygames.co | Game Engineer | Engineering |
+| brian_foster | Brian Foster | brian.foster@harmonygames.co | Game Engineer | Engineering |
+| calvin_price | Calvin Price | calvin.price@harmonygames.co | Game Engineer (Unity VFX) | Engineering |
+| owen_baker | Owen Baker | owen.baker@harmonygames.co | Game Engineer (Unity) | Engineering |
+| vincent_parker | Vincent Parker | vincent.parker@harmonygames.co | Game Systems Engineer | Engineering |
+| oliver_brooks | Oliver Brooks | oliver.brooks@harmonygames.co | Senior Game Engineer | Engineering |
 | douglas | Douglas | douglas@harmonygames.co | Software Engineer | Engineering |
-| frederick_stone | Frederick Stone | frederick@harmonygames.co | Co-founder | Executive |
+| frederick_stone | Frederick Stone | frederick.stone@harmonygames.co | Co-founder | Executive |
 | robert | Robert | robert@harmonygames.co | Co-Founder & Creative Director | Executive |
-| leonard_hayes | Leonard Hayes | leonard@harmonygames.co | Co-founder & Creative Director | Executive |
-| arthur_blake | Arthur Blake | blake@harmonygames.co | Co-founder & CTO | Executive |
-| julia_lawson | Julia Lawson | jlawson@harmonygames.co | Product Manager | Product |
+| leonard_hayes | Leonard Hayes | leonard.hayes@harmonygames.co | Co-founder & Creative Director | Executive |
+| arthur_blake | Arthur Blake | arthur.blake@harmonygames.co | Co-founder & CTO | Executive |
+| julia_lawson | Julia Lawson | julia.lawson@harmonygames.co | Product Manager | Product |
 
 ## Additional storyline identities (not selectable personas)
 

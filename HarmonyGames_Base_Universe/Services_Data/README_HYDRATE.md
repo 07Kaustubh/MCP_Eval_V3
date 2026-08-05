@@ -16,7 +16,7 @@ HarmonyGames inverts the usual boundary. For the other four universes the per-ta
 `3_UniverseDataForThisTask.json` carries the data. Here that file is a ~721-byte **pointer**
 and this directory IS the source of truth — so it must stay *hydratable*, never deleted.
 
-It cannot go into git: 5.6 GB, 294,512 files, and three files above GitHub's **100 MB hard
+It cannot go into git: 8.1 GB, 316,544 files, and three files above GitHub's **100 MB hard
 per-file limit** (`Base_Universe_Complete_Data.json` 223 MB, `snowflake/snowflake.tables.json`
 125 MB, and a 100 MB packfile). Release assets are not part of a clone, so this costs a
 teammate nothing until they actually need HarmonyGames.
@@ -29,10 +29,10 @@ teammate nothing until they actually need HarmonyGames.
 | assets | 3 parts (700 + 700 + 428 MB) + `MANIFEST.txt` |
 | archive | `tar --exclude=.git \| zstd -10`, 1,917,167,087 bytes |
 | archive sha256 | `8263e0324cc1c56521a52bb660131a23765ce03fc93c314a486406092d401a5a` |
-| payload | 294,512 files across 13 service directories |
-| `Base_Universe_Complete_Data.json` | 233,946,251 bytes, sha256 `30751b6066af0ae5c84bf782dbceeb53c143902d3cee55542d8c611640858ebf` |
+| payload | 316,544 files across 13 service directories |
+| `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b` |
 
-Verified against the upstream drop: path+size identical for **all 294,512 files**, plus a
+Verified against the upstream drop: path+size identical for **all 316,544 files**, plus a
 400-file sha256 sample with zero mismatches.
 
 ## Searching this payload — read this before you grep

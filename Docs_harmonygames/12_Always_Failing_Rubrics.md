@@ -6,15 +6,15 @@ supplements the scored QC specification and
 not override either one.
 
 For tools, parameters, operations, and service limits,
-[`HarmonyGames_Base_Universe/Tool_Access/*.json`](../HarmonyGames_Base_Universe/Tool_Access/) is the sole authority. For rubric
+[`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is the sole authority. For rubric
 wording and classification, use
 [`2_Rubrics_Guidelines.md`](2_Rubrics_Guidelines.md),
 [`Evals/3_Rubrics_Eval.md`](../Evals/3_Rubrics_Eval.md), and the current scored
 QC specifications.
 
 Persona ACL is active. Use
-[`15_Persona_ACL.md`](15_Persona_ACL.md) and the exact key/email in
-[`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json).
+[`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact key/email in
+[`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 Agent Runner and Run Verifiers must use the same persona; Universe Explorer
 remains author god-mode.
 
@@ -38,7 +38,7 @@ For each AF rubric:
 2. Verify every expected fact in the live task state and base/injected ground
    truth.
 3. Verify feasibility and observable precision against every relevant
-   `HarmonyGames_Base_Universe/Tool_Access/*.json` catalog, the assigned persona's applicable read scope,
+   `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog, the assigned persona's applicable read scope,
    and the actual trajectory results.
 4. Read each completed trajectory rather than relying on the verifier summary.
 5. Classify the pattern:
@@ -52,12 +52,12 @@ For each AF rubric:
      or precision systematically cannot be reached. This is an invalid AF, not
      model difficulty, and should be escalated.
 
-For Gmail, Slack, GCal, and Contacts reads, reproduce the failure as the exact
+For Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads, reproduce the failure as the exact
 assigned roster persona. A record found only through Explorer, local export, or
 another persona does not establish Runner reachability. Required scoped-service
 evidence inaccessible to the assigned persona makes the task/rubric invalid
 unless the authorized outcome is an affirmative denial finding plus reporting,
-escalation, or an authorized alternative. The other nine services remain
+escalation, or an authorized alternative. The other six services remain
 unscoped, and writes are outside ACL scope.
 
 The number of failures is only a prioritization signal. Repetition never proves

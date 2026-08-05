@@ -12,16 +12,16 @@ Oracle Events describe the key tool-use steps a correct AI agent would take to s
 - Every OE claim - every tool name, every service reference, every expected data value, every persona/entity name, every dollar amount - MUST be verified against the actual universe data. No assumptions. No shortcuts.
 - **Accuracy is everything.** If an OE says "search service X for data" but the data lives in a different service, that's an inaccuracy. If an OE says "find 4 records" but the universe has 6, that's an inaccuracy. You MUST deep-explore the universe data to catch these.
 - **Numeric values require two-layer verification.** Verify the canonical raw-universe value and the value/precision actually returned through the OE's tool path. An OE is inaccurate when it promises precision the Agent cannot observe or requires an unstated calculation to recover it.
-- Every tool reference MUST be verified against every `HarmonyGames_Base_Universe/Tool_Access/*.json` catalog - correct exact tool name, service, parameters, and capability.
+- Every tool reference MUST be verified against the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog - correct exact tool name, service, parameters, and capability.
 - **Prohibitions and no-ops are not Oracle Events.** An OE must describe an affirmative tool-use step. Do not require or accept standalone OEs such as "The Agent does not update X," "makes no write," "never contacts Y," or "avoids changing Z," because no event or tool call occurs. Required exclusions and prohibited actions belong in atomic, affirmatively worded Outcome rubrics under `Evals/3_Rubrics_Eval.md`.
 - **Negative findings remain valid.** A real lookup may affirmatively search for evidence and return a checked absence or negative factual state, such as "search the repository and confirm no implementation evidence is found" or "read the issue and confirm it remains unresolved." Distinguish these observable tool results from prohibition-only or absence-only no-op syntax.
 - **OEs must respect the prompt's negative constraints.** Although a prohibited action does not need its own OE, the OE set must not prescribe that action. Audit every write-action OE against the prompt's exclusions; a conflict is an OE Accuracy issue.
-- **Persona ACL is active and implemented.** Validate every read OE under the assigned taxonomy persona using `Docs/15_Persona_ACL.md` and the exact key/email in `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`. Universe Explorer author god-mode is not evidence that an Agent Runner read is reachable.
+- **Persona ACL is active and implemented.** Validate every read OE under the assigned taxonomy persona using `Docs/14_Persona_ACL.md` and the exact key/email in `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`. Universe Explorer author god-mode is not evidence that an Agent Runner read is reachable.
 - When in doubt, dig deeper. Read more files. Search more broadly. The cost of missing an OE inaccuracy is that it propagates into broken rubrics.
 
 > **CRITICAL: OE Authority Rule (ML-confirmed July 2026)**
 > Oracle Events are **CB internal planning documents**, NOT ground truth. They document the CB's intended solution path but do NOT define what is correct.
-> - OEs **cannot override** the prompt, validly incorporated live sources, universe data, `HarmonyGames_Base_Universe/Tool_Access/*.json`, trajectory evidence, rubrics, or current Evals
+> - OEs **cannot override** the prompt, validly incorporated live sources, universe data, `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`, trajectory evidence, rubrics, or current Evals
 > - OE-rubric contradictions are **mandatory investigation signals** — resolve them from those authoritative sources, never by treating the OE as the tiebreaker
 > - If an OE says "both X and Y are valid," this is a **grading accommodation**, NOT evidence that the prompt is ambiguous. Do not use OE accommodations to fail the prompt on UGT.
 > - OE inaccuracies are Non-Fail unless they indicate the rubrics are also wrong
@@ -34,7 +34,7 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and every HarmonyGames_Base_Universe/Tool_Access/*.json catalog (all 13 services)
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 13 services, combined)
 - [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Services_Data/ BEFORE evaluating anything - Critical
 - [ ] Phase 0.3: Explore sample Oracle Events in `QC_Tasks/QC_Passed/` (score-5 reference) + `QC_Tasks/QC_Non_Fails/` (score-3 defects) + `QC_Tasks/QC_True_Fails/` (hard fails) - Critical
 - [ ] HARD GATE: Persona ACL Binding - exact roster match; assigned taxonomy persona used for scoped reads; Agent Runner and Run Verifiers use the same identity
@@ -44,7 +44,7 @@ TODO:
 - [ ] HARD GATE: Negative/No-Op OE Scan - review negation terms; reject prohibition-only or absence-only OEs while preserving tool-observed negative findings
   - [ ] HARD GATE: Reject set_acting_user as an OE or counted call; it is environment configuration
 - [ ] Phase 1.3: Prompt ↔ OE Alignment - Map asks to OEs
-- [ ] Phase 2.1: Per-OE Tool Verification (against all HarmonyGames_Base_Universe/Tool_Access/*.json catalogs)
+- [ ] Phase 2.1: Per-OE Tool Verification (against all HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalogs)
 - [ ] Phase 2.2: Per-OE Service Verification (data exists in that service?)
 - [ ] Phase 2.3: Per-OE Parameter Verification (queries would work?)
 - [ ] HARD GATE: Numeric Observability - for every quantitative OE claim, record raw-universe value/inputs, tool-visible rendering, and any prompt-authorized derivation
@@ -70,24 +70,24 @@ TODO:
 
 | Document | Path | What to Extract |
 |----------|------|-----------------|
-| **QC Spec (Primary)** | `Docs/7_QC_Spec_Doc1.json` | OE Completeness and OE Accuracy grading definitions |
+| **QC Spec (Primary)** | `Docs/7_QC_Spec_Doc1.json` | OE Completeness, OE Accuracy, and OE Negative Events grading definitions |
 | **QC Spec (Appendix)** | `Docs/8_QC_Spec_Doc2.md` | Audit workflow Step 5 (OE evaluation) |
 | **Project Instructions** | `Docs/1_Project_Instructions_Overall.md` | OE writing rules (Step 3.5), how OEs drive rubric writing |
-| **Long-Horizon Guidelines** | `Docs/14_Long_Horizon_Task_Guidelines.md` | Conditional `BATCH` notation, source-defined cohort coverage, runtime bindings, and anti-inflation rules |
-| **Persona ACL** | `Docs/15_Persona_ACL.md` | Active scoped-read semantics, expected denials, identity binding, and author/runner/verifier separation |
+| **Long-Horizon Guidelines** | `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional `BATCH` notation, source-defined cohort coverage, runtime bindings, and anti-inflation rules |
+| **Persona ACL** | `Docs/14_Persona_ACL.md` | Active scoped-read semantics, expected denials, identity binding, and author/runner/verifier separation |
 | **Rubrics Guidelines** | `Docs/2_Rubrics_Guidelines.md` | OE→rubric mapping: Outcome (1.1/1.2/2.1) + Process (three-condition test) |
 | **Rubrics One-Pager** | `Docs/3_Rubrics_One_Pager.md` | Quick-reference for the Outcome/Process decision |
 | **Common Errors** | `Docs/9_Common_Error.md` | Frequent errors in task and rubric creation with fixes |
 | **Universe Summary** | `HarmonyGames_Base_Universe/1_Universe_Summary.md` | Company summary, personas, scenarios, org chart, company context |
 | **Persona Briefs** | `HarmonyGames_Base_Universe/2_Persona_Briefs.md` | Detailed per-persona profiles - active work, relationships, open threads |
-| **Reference Sheet** | `HarmonyGames_Base_Universe/4_Reference_Sheet.md` | Dense reference: personas, externals, service structures, env/universe IDs |
-| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/Tool_Access/*.json` | Read all 13 JSON files for exact available services, tools, parameters, and capabilities - **CRITICAL for verification** |
-| **Universe Schema** | `HarmonyGames_Base_Universe/6_Universe_Schema.json` | Database schema for all universe tables and columns |
-| **Persona ACL Roster** | `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
+| **Reference Sheet** | `HarmonyGames_Base_Universe/5_Reference_Sheet.md` | Dense reference: personas, externals, service structures, env/universe IDs |
+| **Tool Catalogs (Authoritative)** | `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | Read the combined catalog for exact available services, tools, parameters, and capabilities - **CRITICAL for verification** |
+| **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
+| **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
 **Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail is not read-only: it can search/read, read attachments, modify message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels; it cannot send, reply, compose, or draft. Snowflake is query/read-only.
 
-**ACL boundary:** Persona scoping applies to **reads only** in Gmail, Slack, GCal, and Contacts. GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, and Confluence are unscoped. Writes are outside ACL scope; an OE must not assume write denial or a Drive-family read ACL.
+**ACL boundary (read the doc; do NOT hardcode):** Persona scoping applies to **reads only**, and only to the services the `Docs/14_Persona_ACL.md` **Access matrix** marks persona-scoped. Derive that scoped set (and its unscoped complement) from the doc at eval time; if the doc changes, this eval follows it with no edit here. Do not assert a specific service's scope status from memory. Writes are outside ACL scope; an OE must not assume write denial for any service.
 
 ---
 
@@ -97,7 +97,7 @@ TODO:
 |------|---------|
 | `5_Prompt.txt` | The prompt the OEs are solving |
 | `2_Persona.txt` | The assigned persona |
-| `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | Exact persona key/email binding used by Agent Runner and Run Verifiers |
+| `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding used by Agent Runner and Run Verifiers |
 | `6_Oracle_Events.txt` | The Oracle Events to evaluate |
 | `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 
@@ -119,11 +119,11 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 
 1. **Read `Docs/7_QC_Spec_Doc1.json`** - Extract OE Completeness and OE Accuracy definitions
 2. **Read `Docs/8_QC_Spec_Doc2.md`** - Understand audit workflow Step 5 (OE evaluation)
-3. **Read every JSON file in `HarmonyGames_Base_Universe/Tool_Access/` (all 13 catalogs)** - Know all available tools, their exact names, parameters, and capabilities. This directory is the sole source of truth for tool verification.
+3. **Read `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` in full (the combined catalog for all 13 services)** - Know all available tools, their exact names, parameters, and capabilities. This file is the sole source of truth for tool verification.
 4. **Read `Docs/2_Rubrics_Guidelines.md`** - Understand how OEs map to rubrics: write actions → Outcome 1.1/1.2, key facts asked for → Outcome 2.1, read/lookup → Process candidates via the three-condition test
 5. **Skim `HarmonyGames_Base_Universe/1_Universe_Summary.md`** - Quick-reference for all personas, client entities, vendors, Slack channels, scenarios
 6. **Skim `Docs/9_Common_Error.md`** - Common errors in task creation
-7. **If long-horizon, read `Docs/14_Long_Horizon_Task_Guidelines.md` in full** - Apply its parameterized batch, complete-cohort, and necessary-call rules
+7. **If long-horizon, read `Docs/13_Long_Horizon_Task_Guidelines.md` in full** - Apply its parameterized batch, complete-cohort, and necessary-call rules
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
@@ -145,7 +145,7 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 - `contacts/contacts.contacts.json`; `contacts/contacts.current_user_id.json`
 - `snowflake/snowflake.tables.json`; `snowflake/snowflake.databases.json`; `snowflake/snowflake.schemas.json`; `snowflake/snowflake.query_history.json` — read-only
 
-You can also pull the full universe via `HarmonyGames_Base_Universe/7_Get_Universe_Data.sql`.
+You can also pull the full universe via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`.
 
 **Note:** HarmonyGames documents live in structured database tables and service data files. Verify project names, amounts, dates, and persona details in these JSON records against OE claims the same way you verify any other universe data.
 
@@ -163,7 +163,7 @@ You can also pull the full universe via `HarmonyGames_Base_Universe/7_Get_Univer
 
 **For long-horizon OEs, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/6_Oracle_Events.txt`.** It is the canonical reference for a 592-call task expressed in 22 Oracle Events: ten `BATCH` OEs cover the 580 record-level calls, `BIND[OE007.spreadsheetId]` carries the runtime spreadsheet identity into every later write and read-back, each OE ends with its own `Calls:` count, and the file closes with `FINAL EXACT MINIMUM CALL TOTAL: 592`. Use it to judge whether a long-horizon OE set is complete, arithmetically checkable, and free of invented future identifiers.
 
-**To study OE mistakes:** review `QC_Tasks/QC_Non_Fails/` (score-3 tasks — see `QC_Tasks/QC_Non_Fails/QC_Score3_Knowledge_Extract.md` for consolidated defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails). Also check `QC_Tasks/QC_False_Fails_PT_Dispute_Accepted/` for cases where QC over-flagged OE issues that were later overturned on dispute.
+**To study OE mistakes:** review `QC_Tasks/QC_Non_Fails/` (score-3 tasks with non-failing defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails).
 
 ---
 
@@ -304,7 +304,7 @@ Reasoning OEs (flagged): [X]
 
 ### 2.1 Tool Verification
 
-**For EACH OE, verify the tool(s) against all `HarmonyGames_Base_Universe/Tool_Access/*.json` catalogs:**
+**For EACH OE, verify the tool(s) against all `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalogs:**
 
 | OE # | Tool(s) in OE | Tool Exists? | Correct for This Data? | Alternatives Missing? |
 |------|--------------|-------------|----------------------|---------------------|
@@ -316,7 +316,7 @@ Reasoning OEs (flagged): [X]
 - Referencing an unqualified generic variant is invalid; use the exact catalog name, such as `slack_conversations_search_messages`, `gmail_search_messages`, `linear_get_issue`, or `github_get_issue`, as appropriate.
 - Assuming a capability from a familiar product rather than the catalog is invalid. In particular, Gmail has no send, reply, compose, or draft tool.
 - Missing tool alternatives that would also work
-- Using "(or similar)" when NO similar tool exists - verify that at least one alternative tool can actually perform the stated action in `HarmonyGames_Base_Universe/Tool_Access/*.json`
+- Using "(or similar)" when NO similar tool exists - verify that at least one alternative tool can actually perform the stated action in `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`
 
 ---
 
@@ -334,18 +334,22 @@ Reasoning OEs (flagged): [X]
 
 #### Persona-Scoped Read Verification
 
-First bind the assigned taxonomy persona to the exact key/email in `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`; the AMV dropdown cannot override that identity. For each read OE, apply this matrix:
+First bind the assigned taxonomy persona to the exact key/email in `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`; the AMV dropdown cannot override that identity. Then read the **Access matrix** in `Docs/14_Persona_ACL.md` and split the services into the doc's persona-scoped set and its unscoped complement — **do not hardcode either set here.**
 
-| Service | Persona Scope | Required Verification |
-|---------|---------------|-----------------------|
-| Gmail | Scoped | Mailbox ownership |
-| Slack | Scoped | Channel membership or public visibility as implemented |
-| GCal | Scoped | Calendar ownership, share, or invitation |
-| Contacts | Scoped | Contact visibility for the acting persona |
-| GDrive, GitHub, Snowflake, GDocs, GSheets, GSlides, Trello, Linear, Confluence | Unscoped | Ordinary tool/data reachability only; do not invent persona ACL |
+- For each read OE against a service the doc marks **unscoped**: ordinary tool/data reachability only; do not invent persona ACL.
+- For each read OE against a service the doc marks **scoped**: prove assigned-persona visibility using the test appropriate to that service type:
+
+| Service type (apply only if the doc marks it scoped) | Required Verification |
+|------------------------------------------------------|-----------------------|
+| Mail | Mailbox ownership |
+| Chat | Channel membership or public visibility as implemented |
+| Calendar | Calendar ownership, share, or invitation |
+| Drive-family (drive/docs/sheets/slides) | Drive file ownership or share; the Drive-family inherits Drive's file ACL, and a known object ID does not bypass it |
+
+*(The table lists how to verify each service **type** — it does not declare which services are scoped. That comes solely from the live `Docs/14_Persona_ACL.md` Access matrix.)*
 
 Rules:
-- Required Gmail, Slack, GCal, or Contacts evidence visible only to another persona makes the OE path inaccurate unless the intended outcome is access denial or an authorized unscoped alternate source exists.
+- Required evidence in a persona-scoped service (per the live `Docs/14_Persona_ACL.md` Access matrix — derive the set from the doc, do not hardcode it) visible only to another persona makes the OE path inaccurate unless the intended outcome is access denial or an authorized unscoped alternate source exists.
 - An expected 403/not-found/empty result caused by correct scope is valid when followed by the prompt-required affirmative report/escalation or an authorized alternate lookup.
 - Writes are outside ACL scope. Do not prescribe or reject an OE based on an inferred write denial.
 - Agent Runner and Run Verifiers must use the same required persona. Wrong identity binding is an environment/configuration issue, not evidence about the OE's factual accuracy.
@@ -533,6 +537,7 @@ A critical path step is one where: without it, you can't imagine a successful tr
 |-----------|--------------|-------------|---------------|
 | Oracle Events | OE Completeness | 3/4/5 | ... |
 | Oracle Events | OE Accuracy | 3/4/5 | ... |
+| Oracle Events | OE Negative Events | 3/5 | ... |
 
 **Grading Rules (OE dimensions are NON-FAIL only):**
 
@@ -544,6 +549,11 @@ A critical path step is one where: without it, you can't imagine a successful tr
 - NON-FAIL (3): OEs reference wrong tool, wrong service, wrong parameters, or wrong expected data
 - NON-FAIL (4): OEs are substantively correct but contain minor imprecisions that remain observable and do not change the accepted result
 - PASS (5): All OEs are factually accurate. Tools, services, parameters, canonical values, tool-visible rendering, and expected data all align.
+
+**OE Negative Events** (purely non-failing; per `Docs/7_QC_Spec_Doc1.json` → Oracle Event → Negative Events):
+- NON-FAIL (3) [Non-Fail - OE Framing]: One or more OEs describe a non-action rather than an observable event or discovery (the Negative/No-Op OE Scan in Phase 1.2 / sweep item 5 flagged a prohibition-only or absence-only pseudo-OE such as "The Agent does not update X," "makes no write," or "never contacts Y").
+- PASS (5): No OE describes a non-action rather than an observable event or discovery. A lookup that affirmatively confirms a negative or absent factual state stays valid because the lookup is observable.
+- **Scope note:** a standalone no-op/prohibition pseudo-OE is scored here as an OE Negative Events non-fail; when the same OE also drops a required critical step or prescribes a prompt-forbidden write, log the additional OE Completeness / OE Accuracy finding as well.
 
 ---
 
@@ -595,6 +605,7 @@ A critical path step is one where: without it, you can't imagine a successful tr
 |-----------|-------|---------------|
 | OE Completeness | 3/4/5 | ... |
 | OE Accuracy | 3/4/5 | ... |
+| OE Negative Events | 3/5 | ... |
 
 ---
 
@@ -627,7 +638,7 @@ A critical path step is one where: without it, you can't imagine a successful tr
 
 | Mistake | How to Detect | Severity |
 |---------|---------------|----------|
-| Wrong tool name | Check against every `HarmonyGames_Base_Universe/Tool_Access/*.json` catalog | Non-Fail (Accuracy) |
+| Wrong tool name | Check against the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog | Non-Fail (Accuracy) |
 | Data in wrong service | Search universe files - not found in claimed service | Non-Fail (Accuracy) |
 | Wrong counts | Verify every name/number against universe | Non-Fail (Accuracy) |
 | Missing critical step | Map prompt asks to OEs - gap found | Non-Fail (Completeness) |
@@ -636,7 +647,7 @@ A critical path step is one where: without it, you can't imagine a successful tr
 | Prohibition/no-op presented as an OE | OE defines only inactivity and has no tool call | Non-Fail (Completeness) |
 | Negative factual finding with no lookup | OE asserts checked absence/unresolved state without a tool-use step that can observe it | Non-Fail (Completeness and/or Accuracy) |
 | OE prescribes a prompt-forbidden action | Compare every write OE against prompt exclusions and scope boundaries | Non-Fail (Accuracy) |
-| Persona-scoped read assumes cross-persona visibility | Bind the exact roster identity and test Gmail/Slack/GCal/Contacts visibility rather than relying on author god-mode | Non-Fail (Accuracy) |
+| Persona-scoped read assumes cross-persona visibility | Bind the exact roster identity and test scoped-service visibility (scoped set derived live from the `Docs/14_Persona_ACL.md` Access matrix) rather than relying on author god-mode | Non-Fail (Accuracy) |
 | Expected ACL denial has no affirmative follow-up | Denial-only text is incomplete; require prompt-authorized reporting, escalation, or authorized alternate lookup | Non-Fail (Completeness) |
 | `set_acting_user` counted as an OE/call | Identity binding is environment configuration, not Agent work | Non-Fail (Completeness/Accuracy) |
 | Wrong email address | Search `contacts/contacts.contacts.json` and relevant `gmail/threads/<thread>.json` files | Non-Fail (Accuracy) |
@@ -653,4 +664,4 @@ A critical path step is one where: without it, you can't imagine a successful tr
 - **Do not confuse checked absence with a no-op** — a search that returns no evidence is a valid event when its tool path and result are verifiable
 - **Audit OE writes against prompt boundaries** — prohibited actions need no OE, but any OE that prescribes one is inaccurate
 - **Never take `proposed_resolution` at face value** — always cross-check accessible comms for override decisions
-- **Keep ACL layers separate** — author god-mode is not runner reachability; scoped reads use the assigned roster identity, while writes and the other nine service reads remain outside ACL scope
+- **Keep ACL layers separate** — author god-mode is not runner reachability; scoped reads use the assigned roster identity, while writes and the doc-unscoped service reads remain outside ACL scope

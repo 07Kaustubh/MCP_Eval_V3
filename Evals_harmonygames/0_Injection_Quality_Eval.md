@@ -14,15 +14,20 @@ This eval consolidates all injection validation into 7 hard gates plus a difficu
 **Active workflow window:** 2026-01-01 to 2026-02-28
 **Services:** Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, GCal, Trello, Confluence, Contacts, Snowflake
 
-`HarmonyGames_Base_Universe/Tool_Access/*.json` is the sole authority for tool capabilities. Gmail can search/read messages and threads, read attachments, modify labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but it has no send, reply, compose, or draft tool. Snowflake is query/read-only.
+`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is the sole authority for tool capabilities. Gmail can search/read messages and threads, read attachments, modify labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but it has no send, reply, compose, or draft tool. Snowflake is query/read-only.
 
 `HarmonyGames_Base_Universe/Services_Data/` is the current full base checkout: it contains the consolidated export plus service-level JSON, sharded payloads, and repository trees. It is not a sampled subset. Combine it with task injection/changelog records and live service reads to establish task-specific state and tool-visible behavior.
 
-**Persona ACL is active and implemented.** Apply
-`Docs/15_Persona_ACL.md`; `HarmonyGames_Base_Universe/Persona_ACL_Roster.json`
+**Persona ACL feasibility is a STRONG HARD GATE.** Apply
+`Docs/14_Persona_ACL.md` (derive the scoped-service set live from its Access
+matrix; do not hardcode it); `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`
 defines the exact persona records. Before scoped reachability checks,
 `2_Persona.txt` must match one roster entry exactly on Persona Key, Persona
-Email, Name, Role, and Department.
+Email, Name, Role, and Department. Any required record in a scoped service that
+the assigned Agent Runner persona cannot reach — with no intentional-denial
+outcome and no authorized unscoped alternate — is a **standalone FAIL** for this
+eval; it cannot be waived or offset by structural/realism strength, and Universe
+Explorer author god-mode never satisfies it.
 
 ---
 
@@ -34,14 +39,14 @@ Email, Name, Role, and Department.
 - [ ] Phase 0: Load & Pre-Read
   - [ ] 0.1: Read 9_Universe_inject.sql (PRIMARY — the injection SQL) + 4_Changelog.json (if exists) + 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Services_Data/ (always for base comparison) — catalog every injected/modified record
   - [ ] 0.2: Read 4_Changelog.json — extract the CB's change manifest
-  - [ ] 0.3: Read HarmonyGames_Base_Universe/6_Universe_Schema.json — load column names, types, NOT NULLs, FKs
-  - [ ] 0.4: Read every JSON file in HarmonyGames_Base_Universe/Tool_Access/ (all 13 service catalogs) — build the authoritative tool, parameter, and capability inventory for reachability
+  - [ ] 0.3: Read HarmonyGames_Base_Universe/7_Universe_Schema.json — load column names, types, NOT NULLs, FKs
+  - [ ] 0.4: Read every JSON file in HarmonyGames_Base_Universe/6_Server_Tools_Details.json (combined tool catalog) — build the authoritative tool, parameter, and capability inventory for reachability
   - [ ] 0.5: Read base data for each affected service in HarmonyGames_Base_Universe/Services_Data/
   - [ ] 0.6: Read 5_Prompt.txt (if available) — understand what scenario the injection supports
   - [ ] 0.7: Build inventory: list every injected record (table, ID, operation: insert/update/delete)
-  - [ ] 0.8: If the task is long-horizon, read Docs/14_Long_Horizon_Task_Guidelines.md and apply its injection, discoverability, and anti-inflation rules
-  - [ ] 0.9: Read 2_Persona.txt + HarmonyGames_Base_Universe/Persona_ACL_Roster.json; require Persona Key, Persona Email, Name, Role, and Department to match one roster entry exactly
-  - [ ] 0.10: Read Docs/15_Persona_ACL.md; only after the five-field roster match, bind the assigned taxonomy persona for scoped reachability checks
+  - [ ] 0.8: If the task is long-horizon, read Docs/13_Long_Horizon_Task_Guidelines.md and apply its injection, discoverability, and anti-inflation rules
+  - [ ] 0.9: Read 2_Persona.txt + HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json; require Persona Key, Persona Email, Name, Role, and Department to match one roster entry exactly
+  - [ ] 0.10: Read Docs/14_Persona_ACL.md; only after the five-field roster match, bind the assigned taxonomy persona for scoped reachability checks
 
 - [ ] Phase 1: Schema & Structural Validation
   - [ ] 1.1: For EACH injected record, verify all columns match the table's schema
@@ -97,7 +102,7 @@ Email, Name, Role, and Department.
   - [ ] 6.2: For EACH injected record, trace a tool call chain (max 5 calls) from prompt context to record
   - [ ] 6.3: Verify injected records are indexed by an exact available discovery tool (for example, gmail_search_messages, linear_list_issues, or slack_conversations_search_messages)
   - [ ] 6.4: Check for orphaned records — data that exists but no tool path leads to it
-  - [ ] 6.5: For every required record in Gmail, Slack, GCal, or Contacts, verify reachability as the assigned persona: mailbox ownership; Slack membership or implemented public visibility; calendar ownership, share, or invitation; or persona-visible Contacts
+  - [ ] 6.5: For every required record in a persona-scoped service (derive the scoped set live from the `Docs/14_Persona_ACL.md` Access matrix — do not hardcode it), verify reachability as the assigned persona using the visibility test appropriate to that service type: mailbox ownership for mail; membership or implemented public visibility for chat; ownership, share, or invitation for calendars; file ownership or share for a Drive-family service (Drive-family inherits Drive's file ACL, and a known object ID does not bypass it)
   - [ ] 6.6: Treat required evidence visible only to another persona as ORPHANED unless the intended outcome is access denial or an authorized unscoped alternate source supplies the evidence
   - [ ] 6.7: Keep Universe Explorer author god-mode separate from Agent Runner reachability
   - [ ] 6.8: Record verdict per record: REACHABLE / ORPHANED / PHANTOM
@@ -131,13 +136,13 @@ Email, Name, Role, and Department.
 | `4_Changelog.json` | CB's change manifest (auto-generated from the platform) — what was added, modified, or deleted |
 | `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 | `HarmonyGames_Base_Universe/Services_Data/` | Current full base export for comparison — consolidated, service-level, and sharded payloads plus repository trees (for example, `linear/linear.issues.json`) — the BEFORE state, not a sample |
-| `HarmonyGames_Base_Universe/6_Universe_Schema.json` | Schema — column names, types, constraints, foreign keys |
-| `HarmonyGames_Base_Universe/Tool_Access/*.json` | **Authoritative MCP tool inventory** — read all 13 JSON catalogs for exact service availability, tool names, parameters, and reachability/discovery support |
+| `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Schema — column names, types, constraints, foreign keys |
+| `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | **Authoritative MCP tool inventory** — Read the combined catalog for exact service availability, tool names, parameters, and reachability/discovery support |
 | `2_Persona.txt` | **Required persona artifact** — Persona Key, Persona Email, Name, Role, and Department must exactly match one roster entry before scoped reachability checks |
-| `Docs/15_Persona_ACL.md` | **Authoritative persona ACL semantics** — scoped read services, visibility rules, runner/verifier identity parity, and author god-mode separation |
-| `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` | **Authoritative identity roster** — exact taxonomy Persona Key, Persona Email, Name, Role, and Department values |
+| `Docs/14_Persona_ACL.md` | **Authoritative persona ACL semantics** — scoped read services, visibility rules, runner/verifier identity parity, and author god-mode separation |
+| `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | **Authoritative identity roster** — exact taxonomy Persona Key, Persona Email, Name, Role, and Department values |
 | `5_Prompt.txt` | The prompt (if written already) — for reachability chain tracing |
-| `Docs/14_Long_Horizon_Task_Guidelines.md` | Conditional reference for tasks with a 500–1,000-call run |
+| `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional reference for tasks with a 500–1,000-call run |
 
 ---
 
@@ -204,10 +209,10 @@ When local exports and the live environment disagree, treat the live environment
 |---|---|---|---|
 | Outside window | Timestamp before January 1 or after February 28, 2026 | Email `sent_at: "2026-03-15T10:00:00Z"` — after the universe cutoff | **TEMPORAL_VIOLATION** |
 | Weekend business comm | Slack message or email timestamped on Saturday/Sunday | Slack DM in #eng-general at `2026-02-14T09:30:00` (Saturday) | **TEMPORAL_VIOLATION** |
-| Reply before parent | Child message timestamp precedes parent | Parent `ts: 1719504000` (June 27); reply `ts: 1719417600` (June 26) | **TEMPORAL_VIOLATION** |
-| sent_at > received_at | Email sent timestamp after received timestamp | `sent_at: "2026-06-20T14:00:00Z"`, `received_at: "2026-06-20T13:55:00Z"` | **TEMPORAL_VIOLATION** |
-| Event time illogical | Calendar event start >= end, or outside workflow window | Meeting `start: "2026-06-25T15:00"`, `end: "2026-06-25T14:00"` | **TEMPORAL_VIOLATION** |
-| Implausible hour | Routine business comm at 3:00 AM on a weekday | Slack message in #eng-general at `2026-06-18T03:15:00-05:00` | Flag (soft) |
+| Reply before parent | Child message timestamp precedes parent | Parent `ts: 1772064000` (Feb 26); reply `ts: 1771977600` (Feb 25) | **TEMPORAL_VIOLATION** |
+| sent_at > received_at | Email sent timestamp after received timestamp | `sent_at: "2026-02-20T14:00:00Z"`, `received_at: "2026-02-20T13:55:00Z"` | **TEMPORAL_VIOLATION** |
+| Event time illogical | Calendar event start >= end, or outside workflow window | Meeting `start: "2026-02-25T15:00"`, `end: "2026-02-25T14:00"` | **TEMPORAL_VIOLATION** |
+| Implausible hour | Routine business comm at 3:00 AM on a weekday | Slack message in #eng-general at `2026-02-18T03:15:00-05:00` | Flag (soft) |
 
 **Any TEMPORAL_VIOLATION → FAIL.**
 
@@ -224,7 +229,7 @@ When local exports and the live environment disagree, treat the live environment
 | Record collision | Injected record has same ID or key as an existing base record | Injecting a contact with `contact_id: "cnt_042"` when that ID already exists in base Contacts | **COLLISION** |
 | Fact contradiction | Injection contradicts an established fact in the base universe | Base GSheets shows active contract with AppLovin through Sept 2026; injection adds email saying "AppLovin contract terminated last month" | **CONTRADICTION** |
 | Status/state conflict | Injection changes entity state in one service but not others | Injecting a Linear ticket status `"Done"` but Trello card still says `"In Progress"` for the same feature | **CONTRADICTION** |
-| Timeline collision | Injection creates impossible timeline with existing events | Injecting a sprint planning at 2pm June 25 when base Calendar already has an all-day hackathon for the same person | **COLLISION** |
+| Timeline collision | Injection creates impossible timeline with existing events | Injecting a sprint planning at 2pm Feb 25 when base Calendar already has an all-day hackathon for the same person | **COLLISION** |
 | Amount conflict | Injected financial data contradicts existing records | Base GSheets budget shows design contractor cost = $3,200; injected email says "the $2,800 design invoice" | **CONTRADICTION** |
 | Relationship break | Injection changes a relationship established in base data | Base Linear shows engineer assigned to Domino Delights; injection places them on Zombie Match 3D with no reassignment record | **CONTRADICTION** |
 | Orphaned update | Injection modifies a record but leaves dependent records stale | Injecting a new assignee on a Linear ticket but not updating the Slack thread where the old assignee was discussed | **CONTRADICTION** |
@@ -269,9 +274,9 @@ When local exports and the live environment disagree, treat the live environment
 
 ---
 
-## Phase 6: Phantom & Reachability Check (HARD GATE)
+## Phase 6: Phantom & Reachability Check (STRONG HARD GATE)
 
-**Every injected record must have an ordinary cataloged discovery path, and every required Gmail, Slack, GCal, or Contacts record must be reachable by the assigned Agent Runner persona, support an intentional denial outcome, or have an authorized unscoped alternate. Orphaned required data creates phantom entity failures downstream.** A scoped-service record intentionally outside the assigned persona's view is not orphaned when the task requires the Agent to affirmatively report or escalate the denial, or to use an authorized unscoped alternate. Universe Explorer author god-mode can inspect all records for authoring and does not prove Agent Runner reachability.
+**Every injected record must have an ordinary cataloged discovery path, and every required record in a persona-scoped service (derive the scoped set live from the `Docs/14_Persona_ACL.md` Access matrix — do not hardcode it) must be reachable by the assigned Agent Runner persona, support an intentional denial outcome, or have an authorized unscoped alternate. Orphaned required data creates phantom entity failures downstream.** A scoped-service record intentionally outside the assigned persona's view is not orphaned when the task requires the Agent to affirmatively report or escalate the denial, or to use an authorized unscoped alternate. Universe Explorer author god-mode can inspect all records for authoring and does not prove Agent Runner reachability.
 
 | Check | What to look for | Audit example | Verdict |
 |---|---|---|---|
@@ -280,7 +285,7 @@ When local exports and the live environment disagree, treat the live environment
 | Wrong mailbox | Required Gmail evidence exists only in another persona's mailbox | Assigned persona cannot read the required thread and no authorized alternate source exists | **ORPHANED** |
 | Slack visibility mismatch | Required Slack evidence is outside the assigned persona's channel membership/public visibility as implemented | Author sees a private channel in Universe Explorer, but the assigned runner persona cannot | **ORPHANED** |
 | Calendar visibility mismatch | Required GCal evidence is neither owned, shared with, nor invited to the assigned persona | Another persona's private event is the only source of a required scoped-service fact | **ORPHANED** |
-| Contacts visibility mismatch | Required contact evidence is outside the assigned persona's visible Contacts set | Cross-persona-only contact data is required for successful completion | **ORPHANED** |
+| Drive-family visibility mismatch | Required GDrive/GDocs/GSheets/GSlides evidence is neither owned by nor shared with the assigned persona (Drive-family inherits Drive file ACL; a known object ID does not bypass it) | A Sheet or Doc never shared with the persona is the only source of a required scoped-service fact | **ORPHANED** |
 | Chain too deep | Discovery requires >5 sequential tool calls from any prompt-referenced starting point | Agent must: list channels → find channel → get messages → find reference → search Linear → get issue → list comments (7 calls minimum, no shortcut) | Flag (soft) |
 | Orphaned thread | Injected Gmail thread has no connection to any entity the prompt references | New email thread about a vendor not mentioned in prompt, contacts, or any other service | **PHANTOM** |
 | Dead-end reference | Injected record references an entity that itself is unreachable | Slack message says `"see the GSheets row for PlayableX"` but PlayableX has no GSheets records | **PHANTOM** |
@@ -288,15 +293,17 @@ When local exports and the live environment disagree, treat the live environment
 **Procedure (mandatory):**
 1. Read `2_Persona.txt` and require Persona Key, Persona Email, Name, Role, and
    Department to match all five values of one
-   `HarmonyGames_Base_Universe/Persona_ACL_Roster.json` entry exactly. A
+   `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` entry exactly. A
    missing field, mixed entry, inferred email, or value mismatch fails this
    gate before any scoped reachability check.
 2. Bind the assigned taxonomy persona to that exact roster entry and apply
-   `Docs/15_Persona_ACL.md`.
+   `Docs/14_Persona_ACL.md`.
 3. For each injected record, identify the MCP tool(s) that can return it.
-4. For every required Gmail, Slack, GCal, or Contacts read, test the path under
-   the assigned persona's implemented visibility rules. Do not invent scoping
-   beyond [`Docs/15_Persona_ACL.md`](../Docs/15_Persona_ACL.md).
+4. For every required read in a persona-scoped service (derive the scoped set
+   live from the `Docs/14_Persona_ACL.md` Access matrix — do not hardcode it),
+   test the path under the assigned persona's implemented visibility rules. Do
+   not invent scoping beyond [`Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md),
+   and do not treat a doc-scoped service as unscoped.
 5. Trace a call chain (max 5 calls) from a prompt-referenced entity to the record.
 6. A scoped record visible only to another persona is not a defect when the task
    intentionally asks the Agent to encounter and affirmatively report/escalate
@@ -304,7 +311,7 @@ When local exports and the live environment disagree, treat the live environment
    successful completion.
 7. Otherwise, if no assigned-persona path exists for a required scoped-service record → the record is orphaned → FAIL.
 
-**Any ORPHANED or PHANTOM record → FAIL.**
+**Any ORPHANED or PHANTOM record → FAIL.** This is a standalone, non-waivable blocker: one required scoped-service record unreachable by the assigned persona (with no affirmative-denial outcome and no authorized unscoped alternate) fails the eval on its own, regardless of structural, temporal, cross-service, or realism quality.
 
 ---
 
@@ -335,7 +342,7 @@ When local exports and the live environment disagree, treat the live environment
 | **Cross-Service Spread** | How many services does the injected scenario touch? | Single service (e.g., only Slack messages) | 3 services (e.g., Slack + Linear + Gmail) | 5+ services (e.g., Slack + Linear + Gmail + GitHub + GSheets) |
 | **Information Scattering** | Is critical info distributed or concentrated? | All in one record (e.g., one Linear issue has everything) | Across 2-3 records in different services | Scattered across 5+ records in 3+ services — agent must collect fragments |
 | **Trap Density** | Does the injection include decoys or misleading data? | No traps — only the correct data exists | 1-2 decoys (e.g., a similar project name, a nearly-matching budget figure) | 3+ realistic traps (e.g., two contractors with similar names, overlapping Linear tickets, stale vs current PR statuses) |
-| **Temporal Complexity** | Does the injection create timeline reasoning demands? | No time dimension — all data is current | Some date reasoning (e.g., distinguish June vs May invoices) | Complex timeline with ordering dependencies (stale vs current status, overlapping events, superseded approvals) |
+| **Temporal Complexity** | Does the injection create timeline reasoning demands? | No time dimension — all data is current | Some date reasoning (e.g., distinguish January vs February invoices) | Complex timeline with ordering dependencies (stale vs current status, overlapping events, superseded approvals) |
 | **Tool Call Depth** | Minimum tool calls to discover all injected scenario data? | <5 calls (one search surfaces everything) | 10-20 calls across multiple services | 25+ calls required, multi-hop discovery chains |
 | **Reasoning Chain** | Does the agent need to connect dots, not just retrieve? | Retrieve and report — answer is in one tool response | Cross-reference 2 sources (e.g., match Slack mention to GSheets budget entry) | Multi-hop reasoning across 3+ sources (e.g., Slack → Linear ticket → GSheets entry → Contacts to identify the responsible vendor) |
 | **Write Action Diversity** | How many different write tools would a correct solution need? | One write action (e.g., post one Slack message) | 2-3 writes across services (e.g., Slack post + Linear update + Trello card move) | 4+ writes across 3+ services (e.g., Slack + Linear issue + Trello card + Confluence page + GCal event) |
@@ -420,4 +427,4 @@ When local exports and the live environment disagree, treat the live environment
 4. **Every injected record must be reachable** — orphaned data creates phantom entity failures downstream. If an agent can't discover it via MCP tools, it doesn't exist for evaluation purposes.
 5. **Cross-service consistency is non-negotiable** — a team member named "Foster" in Slack and "Forster" in Gmail will cause agent confusion that isn't part of the intended difficulty.
 6. **Pre-solving kills task value** — if one record hands the agent the answer, the task measures retrieval speed, not reasoning ability. Scatter the signal, add noise, require synthesis.
-7. **Author visibility is not runner visibility** — Universe Explorer has author god-mode. Required Gmail, Slack, GCal, or Contacts evidence must still be reachable to the assigned Agent Runner persona under the active read ACL, subject only to intentional denial outcomes or authorized unscoped alternate sources.
+7. **Author visibility is not runner visibility** — Universe Explorer has author god-mode. Required evidence in a persona-scoped service (per the live `Docs/14_Persona_ACL.md` Access matrix — derive the set from the doc, do not hardcode it) must still be reachable to the assigned Agent Runner persona under the active read ACL, subject only to intentional denial outcomes or authorized unscoped alternate sources.

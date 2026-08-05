@@ -2,7 +2,7 @@
 
 **NEW**: The agent is now capable of inferring time. In the HarmonyGames universe it will take **February 28, 2026 (a Saturday)** as today's date, which means you are able to create relative time scenarios in prompts now.
 
-Any action in a time-based example must also be supported by [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/); relative-time wording does not add a service or capability.
+Any action in a time-based example must also be supported by [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json); relative-time wording does not add a service or capability.
 
 * "*Leonard sent me this email 3 days ago*" means the email was received February 25, 2026.
 * "*... and schedule a project review for next Friday*" is referring to March 6, 2026.
@@ -72,12 +72,12 @@ Thanks, everyone!
 2. Check that the resolved date has the intended weekday, quarter, and business context.
 3. Verify the relevant source records actually exist inside the resolved window; do not use a relative date to hide missing evidence.
 4. Confirm names, dates, channels, repositories, and other tight identifiers against the HarmonyGames data.
-5. Confirm every requested action is supported by [`HarmonyGames_Base_Universe/Tool_Access/`](../HarmonyGames_Base_Universe/Tool_Access/). Relative wording does not add a service or capability.
+5. Confirm every requested action is supported by [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json). Relative wording does not add a service or capability.
 6. Resolve the assigned persona through the exact key/email in
-   [`Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/Persona_ACL_Roster.json)
-   and verify that time-window evidence in Gmail, Slack, GCal, or Contacts is
+   [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json)
+   and verify that time-window evidence in Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) is
    visible to that persona. Explorer/local-export existence alone is
-   insufficient. See [`15_Persona_ACL.md`](15_Persona_ACL.md).
+   insufficient. See [`14_Persona_ACL.md`](14_Persona_ACL.md).
 
 ## **Reviewer note**
 
