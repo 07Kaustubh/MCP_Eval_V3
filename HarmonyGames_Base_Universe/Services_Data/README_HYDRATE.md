@@ -16,23 +16,32 @@ HarmonyGames inverts the usual boundary. For the other four universes the per-ta
 `3_UniverseDataForThisTask.json` carries the data. Here that file is a ~721-byte **pointer**
 and this directory IS the source of truth — so it must stay *hydratable*, never deleted.
 
-It cannot go into git: 8.1 GB, 316,544 files, and three files above GitHub's **100 MB hard
-per-file limit** (`Base_Universe_Complete_Data.json` 223 MB, `snowflake/snowflake.tables.json`
+It cannot go into git: 8.1 GB, 316,543 files, and three files above GitHub's **100 MB hard
+per-file limit** (`Base_Universe_Complete_Data.json` 359 MB, `snowflake/snowflake.tables.json`
 125 MB, and a 100 MB packfile). Release assets are not part of a clone, so this costs a
 teammate nothing until they actually need HarmonyGames.
+
+> **UNRESOLVED — READ BEFORE HYDRATING.** The rows below describe the **v2** payload from the
+> 2026-08 `MCP_Eval_V4_HarmonyGames` drop (8.1 GB, 316,543 files, blob `31cb9ee5...1fc146b`).
+> The published release asset and `Validators/hydrate_harmonygames.sh` both still point at
+> **v1** (5.6 GB, blob `30751b60...858ebf`). Running the hydrate script therefore fetches v1,
+> and `check_hydration.py` will FAIL loudly on the blob sha and file count - that failure is
+> correct, not a bug in the checker. Until v2 is published as a release asset, the only source
+> of the v2 payload is the upstream drop itself. Publishing v2 requires bumping the release
+> tag AND `ARCHIVE_SHA256` AND `BLOB_SHA256` together (see the re-issue rule below).
 
 ## What you are getting
 
 | | |
 |---|---|
-| release tag | `harmonygames-payload-v1` |
+| release tag | **`harmonygames-payload-v1` — HOLDS v1, NOT the payload described below** |
 | assets | 3 parts (700 + 700 + 428 MB) + `MANIFEST.txt` |
 | archive | `tar --exclude=.git \| zstd -10`, 1,917,167,087 bytes |
-| archive sha256 | `8263e0324cc1c56521a52bb660131a23765ce03fc93c314a486406092d401a5a` |
-| payload | 316,544 files across 13 service directories |
+| archive sha256 | `8263e032...401a5a` — **this is the v1 archive.** It extracts to a 233,946,251-byte blob (`30751b60...858ebf`), NOT the 359,094,851-byte blob in the row below. One archive cannot extract to two blobs: the v2 payload is NOT YET PUBLISHED as a release asset. |
+| payload | 316,543 files across 13 service directories |
 | `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b` |
 
-Verified against the upstream drop: path+size identical for **all 316,544 files**, plus a
+Verified against the upstream drop: path+size identical for **all 316,543 files**, plus a
 400-file sha256 sample with zero mismatches.
 
 ## Searching this payload — read this before you grep

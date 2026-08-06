@@ -35,20 +35,56 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def parse_pointer(readme: Path) -> dict:
-    """Pull the recorded size / count / sha256 out of the hydration pointer."""
+    """Pull the recorded size / count / sha256 out of the hydration pointer.
+
+    The pointer is a MARKDOWN TABLE, not colon-delimited lines. The original regexes
+    looked for `sha256:` / `bytes:` / `service dirs:` and therefore matched NOTHING once
+    the table landed, so parse_pointer returned {} and every downstream check was guarded
+    out - check_universe reported `[OK] payload hydrated and matches its manifest` while
+    verifying nothing at all. That is the exact "matching rule returns the expected result
+    while matching the wrong thing" failure Validators/AGENTS.md documents three times.
+
+    Both shapes are accepted so a future edit to either format cannot silently re-mute the
+    gate, and an unparseable pointer is now a FINDING rather than a silent skip (see
+    check_universe's `pointer_unparsed` handling).
+    """
     if not readme.is_file():
         return {}
     text = readme.read_text(encoding="utf-8", errors="ignore")
     out = {}
-    m = re.search(r"sha256:\s*([0-9a-f]{64})", text, re.IGNORECASE)
+
+    # blob row: | `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb...` |
+    m = re.search(r"Base_Universe_Complete_Data\.json[^|]*\|\s*([0-9,]+)\s*bytes[^`]*`([0-9a-f]{64})`",
+                  text, re.IGNORECASE)
     if m:
-        out["sha256"] = m.group(1).lower()
-    m = re.search(r"bytes:\s*([0-9]+)", text, re.IGNORECASE)
+        out["bytes"] = int(m.group(1).replace(",", ""))
+        out["sha256"] = m.group(2).lower()
+
+    # payload row: | payload | 316,544 files across 13 service directories |
+    m = re.search(r"\|\s*payload\s*\|\s*([0-9,]+)\s*files\s+across\s+([0-9]+)\s+service",
+                  text, re.IGNORECASE)
     if m:
-        out["bytes"] = int(m.group(1))
-    m = re.search(r"service dirs:\s*([0-9]+)", text, re.IGNORECASE)
+        out["files"] = int(m.group(1).replace(",", ""))
+        out["service_dirs"] = int(m.group(2))
+
+    # archive sha row: | archive sha256 | `8263...` |
+    m = re.search(r"\|\s*archive sha256\s*\|\s*`([0-9a-f]{64})`", text, re.IGNORECASE)
     if m:
-        out["service_dirs"] = int(m.group(1))
+        out["archive_sha256"] = m.group(1).lower()
+
+    # legacy colon form, kept so an older pointer still parses
+    if "sha256" not in out:
+        m = re.search(r"sha256:\s*([0-9a-f]{64})", text, re.IGNORECASE)
+        if m:
+            out["sha256"] = m.group(1).lower()
+    if "bytes" not in out:
+        m = re.search(r"bytes:\s*([0-9]+)", text, re.IGNORECASE)
+        if m:
+            out["bytes"] = int(m.group(1))
+    if "service_dirs" not in out:
+        m = re.search(r"service dirs:\s*([0-9]+)", text, re.IGNORECASE)
+        if m:
+            out["service_dirs"] = int(m.group(1))
     return out
 
 
@@ -61,6 +97,24 @@ def check_universe(name: str) -> list:
 
     issues = []
     pointer = parse_pointer(readme)
+
+    # An INCOMPLETE pointer is a finding, never a silent skip. Every check below is guarded
+    # on `pointer.get(...) is not None`, so a manifest the parser cannot read disables the
+    # entire gate while still printing [OK]. That is how this script reported
+    # "payload hydrated and matches its manifest" for the whole period the README was a
+    # markdown table and parse_pointer returned {} - it verified nothing and said so in the
+    # affirmative. Fail loudly on an unreadable manifest instead.
+    REQUIRED = ("sha256", "bytes", "service_dirs", "files")
+    missing = [k for k in REQUIRED if pointer.get(k) is None]
+    if missing:
+        issues.append(
+            f"FAIL: `{name}` hydration manifest {readme.relative_to(ROOT)} is UNREADABLE - "
+            f"could not parse {', '.join(missing)}. Every downstream size/sha/count check is "
+            f"guarded on these values, so an unparsed manifest silently disables the gate. "
+            f"Fix the manifest format or parse_pointer(); do not ignore this."
+        )
+        return issues
+
     subdirs = [p for p in data_dir.iterdir() if p.is_dir()] if data_dir.is_dir() else []
     if not subdirs:
         issues.append(
@@ -76,6 +130,17 @@ def check_universe(name: str) -> list:
             f"FAIL: `{name}` has {len(subdirs)} service dir(s), manifest records {expected}. "
             f"The hydrate is partial or the upstream drop changed shape."
         )
+
+    # The manifest records a file count; it was parsed and never compared, so a partial
+    # rsync that still produced 13 service dirs passed. Counting 316k paths costs ~1s.
+    want_files = pointer.get("files")
+    if want_files is not None:
+        got_files = sum(1 for f in data_dir.rglob("*") if f.is_file() and f.name != "README_HYDRATE.md")
+        if got_files != want_files:
+            issues.append(
+                f"FAIL: `{name}` payload holds {got_files} files, manifest records {want_files}. "
+                f"A partial hydrate produces the right service dirs and the wrong file count."
+            )
 
     blob = data_dir / "Base_Universe_Complete_Data.json"
     want = pointer.get("sha256")

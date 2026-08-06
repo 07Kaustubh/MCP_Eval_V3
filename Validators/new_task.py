@@ -38,6 +38,14 @@ TASKS_TEMPLATE_STARPM = ROOT / "Tasks_Template_starpm"
 TEMPLATE_BY_UNIVERSE = {
     "keystone": ROOT / "Tasks_Template_keystone",
     "moveops": ROOT / "Tasks_Template_moveops",
+    # starpm and harmonygames were MISSING until 2026-08-06, so both silently fell back to
+    # the Brookfield template. For HarmonyGames that produced a 0-byte
+    # 3_UniverseDataForThisTask.json instead of the 940-byte contract descriptor, and an
+    # inject header citing the wrong schema path; for StarPM it dropped the dual-model
+    # 8a/8b + per-model Agent_Responses shape. template_root_for() falls back silently by
+    # design, so a missing entry is invisible - test_regression_anchors pins all five now.
+    "starpm": ROOT / "Tasks_Template_starpm",
+    "harmonygames": ROOT / "Tasks_Template_harmonygames",
 }
 
 
