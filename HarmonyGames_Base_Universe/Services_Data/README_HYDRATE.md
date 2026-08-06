@@ -27,7 +27,7 @@ teammate nothing until they actually need HarmonyGames.
 |---|---|
 | release tag | `harmonygames-payload-v2` |
 | assets | 7 parts (6 x 700 MB + 876 KB) + `MANIFEST.txt` |
-| archive | `tar --exclude=.git --exclude=README_HYDRATE.md \| zstd -10`, 4,404,895,494 bytes | zstd -10`, 1,917,167,087 bytes |
+| archive | `tar --exclude=.git --exclude=README_HYDRATE.md \| zstd -10`, 4,404,895,494 bytes |
 | archive sha256 | `53be756d294362816acee99ca7a5ed2b4057a436e6f4308163cb185a7ac9e183` |
 | payload | 296,543 files across 13 service directories (post-extract; the upstream tree also carries 20,000 files in 18 nested `.git` dirs, excluded from the archive) |
 | `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b` |
