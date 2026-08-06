@@ -21,27 +21,20 @@ per-file limit** (`Base_Universe_Complete_Data.json` 359 MB, `snowflake/snowflak
 125 MB, and a 100 MB packfile). Release assets are not part of a clone, so this costs a
 teammate nothing until they actually need HarmonyGames.
 
-> **UNRESOLVED — READ BEFORE HYDRATING.** The rows below describe the **v2** payload from the
-> 2026-08 `MCP_Eval_V4_HarmonyGames` drop (8.1 GB, 316,543 files, blob `31cb9ee5...1fc146b`).
-> The published release asset and `Validators/hydrate_harmonygames.sh` both still point at
-> **v1** (5.6 GB, blob `30751b60...858ebf`). Running the hydrate script therefore fetches v1,
-> and `check_hydration.py` will FAIL loudly on the blob sha and file count - that failure is
-> correct, not a bug in the checker. Until v2 is published as a release asset, the only source
-> of the v2 payload is the upstream drop itself. Publishing v2 requires bumping the release
-> tag AND `ARCHIVE_SHA256` AND `BLOB_SHA256` together (see the re-issue rule below).
-
 ## What you are getting
 
 | | |
 |---|---|
-| release tag | **`harmonygames-payload-v1` — HOLDS v1, NOT the payload described below** |
-| assets | 3 parts (700 + 700 + 428 MB) + `MANIFEST.txt` |
-| archive | `tar --exclude=.git \| zstd -10`, 1,917,167,087 bytes |
-| archive sha256 | `8263e032...401a5a` — **this is the v1 archive.** It extracts to a 233,946,251-byte blob (`30751b60...858ebf`), NOT the 359,094,851-byte blob in the row below. One archive cannot extract to two blobs: the v2 payload is NOT YET PUBLISHED as a release asset. |
-| payload | 316,543 files across 13 service directories |
+| release tag | `harmonygames-payload-v2` |
+| assets | 7 parts (6 x 700 MB + 876 KB) + `MANIFEST.txt` |
+| archive | `tar --exclude=.git --exclude=README_HYDRATE.md \| zstd -10`, 4,404,895,494 bytes | zstd -10`, 1,917,167,087 bytes |
+| archive sha256 | `53be756d294362816acee99ca7a5ed2b4057a436e6f4308163cb185a7ac9e183` |
+| payload | 296,543 files across 13 service directories (post-extract; the upstream tree also carries 20,000 files in 18 nested `.git` dirs, excluded from the archive) |
 | `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b` |
 
-Verified against the upstream drop: path+size identical for **all 316,543 files**, plus a
+Round-trip verified 2026-08-06: downloaded from the published release, reassembled to the
+archive sha above, extracted, and the blob sha + 296,543 file count + 13 service dirs all
+matched. Verified against the upstream drop: path+size identical for **all 316,543 upstream files** (296,543 after the `--exclude=.git` the archive applies), plus a
 400-file sha256 sample with zero mismatches.
 
 ## Searching this payload — read this before you grep

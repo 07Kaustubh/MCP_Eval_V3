@@ -2,14 +2,18 @@
 # Hydrate HarmonyGames Services_Data from the GitHub Release assets.
 #
 # HarmonyGames inverts the payload boundary: its per-task 3_UniverseDataForThisTask.json is
-# a ~721-byte pointer and Services_Data/ IS the source of truth. It cannot live in git -
-# 5.6 GB, ~294k files, and three files above GitHub's 100 MB per-file limit. So it ships as
-# a compressed, split Release asset instead, which is not part of a clone.
+# a ~940-byte contract descriptor and Services_Data/ IS the source of truth. It cannot live
+# in git - 8.1 GB and files above GitHub's 100 MB per-file limit. So it ships as a compressed,
+# split Release asset instead, which is not part of a clone.
+#
+# v2 (2026-08 MCP_Eval_V4_HarmonyGames drop): 7 parts, 4,404,895,494 B archive, 296,543 files
+# post-extract. The archive is built from INSIDE Services_Data, so its entries are `./<service>`
+# with no Services_Data/ prefix - it must be extracted with -C "$DEST", not into the parent.
 #
 # Usage:  bash Validators/hydrate_harmonygames.sh [--tag <release-tag>]
 set -euo pipefail
 
-TAG="harmonygames-payload-v1"
+TAG="harmonygames-payload-v2"
 REPO="07Kaustubh/MCP_Eval_V3"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -21,8 +25,8 @@ done
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST="$ROOT/HarmonyGames_Base_Universe/Services_Data"
 WORK="$ROOT/_dist/download"
-ARCHIVE_SHA256="8263e0324cc1c56521a52bb660131a23765ce03fc93c314a486406092d401a5a"
-BLOB_SHA256="30751b6066af0ae5c84bf782dbceeb53c143902d3cee55542d8c611640858ebf"
+ARCHIVE_SHA256="53be756d294362816acee99ca7a5ed2b4057a436e6f4308163cb185a7ac9e183"
+BLOB_SHA256="31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b"
 
 command -v gh >/dev/null 2>&1 || { echo "FAIL: gh CLI not found. brew install gh && gh auth login" >&2; exit 1; }
 
@@ -65,12 +69,15 @@ fi
 
 echo "==> extracting into $DEST"
 mkdir -p "$DEST"
-zstd -dc "$WORK/archive.tar.zst" | tar -xf - -C "$ROOT/HarmonyGames_Base_Universe"
+# Entries are `./<service>/...` relative to Services_Data (built with `tar -cf - .` from
+# inside it), so extract INTO $DEST. Extracting into the parent would scatter 13 service
+# directories alongside Services_Data/ instead of inside it.
+zstd -dc "$WORK/archive.tar.zst" | tar -xf - -C "$DEST"
 
 echo "==> verifying payload"
 got="$(shasum -a 256 "$DEST/Base_Universe_Complete_Data.json" | cut -d' ' -f1)"
 [ "$got" = "$BLOB_SHA256" ] || { echo "FAIL: payload blob sha256 mismatch" >&2; exit 1; }
 
 python3 "$ROOT/Validators/check_hydration.py"
-echo "==> done. Removing the ~1.8 GB download cache; delete $ROOT/_dist yourself if you want it kept."
+echo "==> done. Removing the ~4.1 GB download cache; delete $ROOT/_dist yourself if you want it kept."
 rm -rf "$WORK"

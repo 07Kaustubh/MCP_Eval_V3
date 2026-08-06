@@ -135,7 +135,20 @@ def check_universe(name: str) -> list:
     # rsync that still produced 13 service dirs passed. Counting 316k paths costs ~1s.
     want_files = pointer.get("files")
     if want_files is not None:
-        got_files = sum(1 for f in data_dir.rglob("*") if f.is_file() and f.name != "README_HYDRATE.md")
+        # Count the PAYLOAD, i.e. what the release archive actually carries. Two exclusions,
+        # both load-bearing:
+        #   README_HYDRATE.md - the pointer doc itself, tracked in git, never in the archive.
+        #   */.git/*          - the upstream drop ships 18 nested .git dirs holding 20,000
+        #                       files. hydrate_harmonygames.sh archives with `--exclude=.git`
+        #                       because nested .git become broken gitlinks and some packs
+        #                       exceed GitHub's 100 MB per-file limit. So an rsync'd tree has
+        #                       316,543 files while a HYDRATED tree has 296,543. Counting
+        #                       naively passes on the author's machine and FAILS on every
+        #                       real hydrate - the manifest records the post-extract count.
+        got_files = sum(
+            1 for f in data_dir.rglob("*")
+            if f.is_file() and f.name != "README_HYDRATE.md" and ".git" not in f.parts
+        )
         if got_files != want_files:
             issues.append(
                 f"FAIL: `{name}` payload holds {got_files} files, manifest records {want_files}. "
