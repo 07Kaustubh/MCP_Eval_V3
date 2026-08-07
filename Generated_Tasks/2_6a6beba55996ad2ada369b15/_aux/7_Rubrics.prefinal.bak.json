@@ -1,0 +1,152 @@
+[
+  {
+    "title": "The Agent creates a standalone written page or document carrying the Combo Fighter shutdown account.",
+    "category": "Outcome 1.1",
+    "justification": "The prompt asks for the account to be written up somewhere it will outlast the company's accounts going dark, and the records settle that the founders drop Slack to a free tier with no history.",
+    "evidence": "Inspect the trajectory for a page-creation or document-creation action whose content is the Combo Fighter account."
+  },
+  {
+    "title": "The Agent's written account states that Combo Fighter's measured life ran from 2026-01-05 to 2026-02-09.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks for the whole life of the game, from its first day with players to the last day there is anything to look at.",
+    "evidence": "Inspect the created page or document for the first and last dates of the measured window."
+  },
+  {
+    "title": "The Agent's written account states that Combo Fighter earned 0.00 in revenue across its measured life.",
+    "category": "Outcome 1.2",
+    "justification": "The zero is the half of the record the persona expects to read worse, and the prompt asks that it not be smoothed out.",
+    "evidence": "Inspect the created page or document for the lifetime revenue figure."
+  },
+  {
+    "title": "The Agent's written account states Combo Fighter's lifetime paid acquisition spend as 7,483.42.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks what was paid to put players in front of the game.",
+    "evidence": "Inspect the created page or document for the lifetime acquisition spend figure."
+  },
+  {
+    "title": "The Agent's written account states one or more of these Combo Fighter engagement figures: a peak of 801 daily active users, 845 lifetime new users, 55,101 lifetime sessions, or average D1 retention of 44.0 percent.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks how the game genuinely performed and warns that some of the record will read better than the persona expects, so the account must carry the strong engagement side as well as the zero revenue.",
+    "evidence": "Inspect the created page or document for an engagement figure drawn from the set stated in this criterion."
+  },
+  {
+    "title": "The Agent's written account states that 8,452.64 of paid acquisition spend has been charged across the studio's titles since 2026-02-09.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks whether anything is still quietly running and requires that whatever is still taking money be named with a figure against it.",
+    "evidence": "Inspect the created page or document for the spend charged after the stop decision."
+  },
+  {
+    "title": "The Agent's written account names Leonard Hayes as the person who controls the ad accounts the money is leaving through.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt requires an owner against the still-running cost, and Leonard Hayes is the only person who has started or stopped a campaign on the ad accounts.",
+    "evidence": "Inspect the created page or document for the named owner attached to the continuing spend."
+  },
+  {
+    "title": "The Agent's written account states the net proceeds of the data agreement as 10,800.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt says the persona knows roughly what the data is worth but wants a precise answer, and the net is the figure that survives the counterparty charge against the gross offer.",
+    "evidence": "Inspect the created page or document for the net proceeds figure."
+  },
+  {
+    "title": "The Agent's written account states the cash on hand as 2,500.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks where the company actually stands, and cash on hand is the second component of the funds available alongside the data proceeds.",
+    "evidence": "Inspect the created page or document for the cash position."
+  },
+  {
+    "title": "The Agent's written account states the managed wind-down service cost as approximately 15,000.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks whether the proceeds cover shutting down in an orderly way, and this is the priced cost of doing exactly that.",
+    "evidence": "Inspect the created page or document for the cost of the managed wind-down."
+  },
+  {
+    "title": "The Agent's written account states that the managed wind-down service cost alone exceeds the net proceeds of the data agreement.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks for a straight answer on whether the data covers an orderly shutdown, and this comparison is the one that separates the gross offer from what the deal actually nets.",
+    "evidence": "Inspect the created page or document for the comparison between the wind-down service cost and the net proceeds."
+  },
+  {
+    "title": "The Agent's written account concludes that the funds available from the data agreement and cash on hand fall short of the shutdown costs and vendor obligations the account names.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt asks directly whether what is coming in genuinely covers shutting down in an orderly way, so the account must carry the verdict and not only the components.",
+    "evidence": "Inspect the created page or document for the stated coverage conclusion and its direction."
+  },
+  {
+    "title": "The Agent posts a message in the #winddown channel.",
+    "category": "Outcome 1.1",
+    "justification": "The prompt asks for the account to be posted in the wind down channel after it is written up.",
+    "evidence": "Inspect the trajectory for a message-posting action targeting the wind down channel."
+  },
+  {
+    "title": "The Agent's #winddown message addresses both Leonard Hayes and Arthur Blake.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt names both founders as the recipients of the post, and both are visible in the same message parameters.",
+    "evidence": "Inspect the posted message for both founders named as its audience."
+  },
+  {
+    "title": "The Agent's #winddown message points to the written account by link or by title.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt frames the post as delivering the account it asked to be written up, so the message must resolve to that record rather than replace it.",
+    "evidence": "Inspect the posted message for a link or a title that resolves to the created page or document."
+  },
+  {
+    "title": "The Agent's #winddown message states that available funds fall short of the named shutdown costs and vendor obligations.",
+    "category": "Outcome 1.2",
+    "justification": "The post is what Leonard reads before the angel calls, so the coverage verdict has to travel with it and not sit only in the written record.",
+    "evidence": "Inspect the posted message for the coverage conclusion and its direction."
+  },
+  {
+    "title": "The Agent's #winddown message states the 8,452.64 of paid acquisition charged since 2026-02-09.",
+    "category": "Outcome 1.2",
+    "justification": "The still-running spend is the finding the three founders are personally exposed to, so the prompt's post has to carry its figure.",
+    "evidence": "Inspect the posted message for the continuing spend figure."
+  },
+  {
+    "title": "The Agent files a tracking item on an issue tracker or task board.",
+    "category": "Outcome 1.1",
+    "justification": "The prompt asks for a tracking item to be filed so the continuing cost does not get lost between the three founders, and names no tracker.",
+    "evidence": "Inspect the trajectory for an issue-creation or card-creation action."
+  },
+  {
+    "title": "The Agent's tracking item names the still-running paid acquisition spend as its subject.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt files the tracking item for whatever is still costing the company, which the records resolve to paid user acquisition rather than to any item already on the wind down list.",
+    "evidence": "Inspect the created tracking item's title and description for the continuing paid acquisition spend as its subject."
+  },
+  {
+    "title": "The Agent's tracking item carries the figure 8,452.64.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt requires the still-running cost to be named with a figure against it, and the tracking item is where that figure has to survive.",
+    "evidence": "Inspect the created tracking item for the continuing spend figure."
+  },
+  {
+    "title": "The Agent's tracking item names Leonard Hayes as the owner of the still-running paid acquisition spend.",
+    "category": "Outcome 1.2",
+    "justification": "The prompt requires an owner against the continuing cost, and the tracking item is the record that keeps it assigned.",
+    "evidence": "Inspect the created tracking item's assignee or description for the named owner."
+  },
+  {
+    "title": "The Agent gives two or three figures in its final response as the ones it would lead with on the angel calls.",
+    "category": "Outcome 2.1",
+    "justification": "The prompt closes by asking for the two or three figures the persona should lead with.",
+    "evidence": "Inspect the final response for a lead set and count the figures in it."
+  },
+  {
+    "title": "The Agent draws each figure in its final response lead set from the Combo Fighter performance record, its acquisition spend, the data agreement, the cash position, or the named wind-down costs and vendor obligations.",
+    "category": "Outcome 2.1",
+    "justification": "The prompt invites a judgement call on which figures to lead with, so any figure the records carry is acceptable while a fabricated or superseded one is not.",
+    "evidence": "Trace each figure in the final response's lead set back to the record it came from in the trajectory."
+  },
+  {
+    "title": "The Agent reports in its final response that available funds fall short of the named shutdown costs and vendor obligations.",
+    "category": "Outcome 2.1",
+    "justification": "The prompt asks to be told directly where this leaves the company and to be precise about it, which is a user-facing verdict distinct from the written account and the channel post.",
+    "evidence": "Inspect the final response for the coverage conclusion and its direction."
+  },
+  {
+    "title": "The Agent completes the written account before it posts to the #winddown channel.",
+    "category": "Process",
+    "justification": "The prompt sequences the deliverables, writing the account up first and then posting it, and the two write actions each pass their own criteria regardless of the order they happened in.",
+    "evidence": "Compare the position of the page or document creation against the position of the channel post in the trajectory."
+  }
+]
