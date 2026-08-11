@@ -85,7 +85,14 @@ If new V3 reference tasks are added, regenerate the inventory by re-extracting f
 ## HarmonyGames (`hg`) deltas
 
 Tool catalog is `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` (prefix **6**), and
-per `Guide_harmonygames` the capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`.
+per `Guide_harmonygames` the capability authority is `HarmonyGames_Base_Universe/Tool_Access/*.json`
+(**11** catalogs; V5 retired Snowflake and Confluence and their two catalogs were deleted with them).
+The catalog carries **239** tools: github 56, trello 36, slack 30, gmail 27, linear 26, gdrive 21,
+gcal 12, gsheets 9, contacts 8, gdocs 7, gslides 7.
+
+**Retired servers are a HARD GATE.** An OE that names Snowflake or Confluence, or reaches for one
+through a verb-scoped stand-in (wiki, knowledge base, analytics or data warehouse, a bare
+`SCHEMA.TABLE`), FAILs `validate.py --phase oe` via `Validators/check_retired_servers.py`.
 
 **BATCH OEs.** HarmonyGames adds a parameterized OE form for long-horizon work (a task with
 at least one run in the 500-1000 tool-call band). The framework profile's `oe_grammar` is
@@ -104,4 +111,4 @@ resulting call count, so the cohort is never left implicit.
 | `gdocs_create_document` | `bodyText` | not `body` / `content` |
 
 **Gmail is READ-ONLY.** All 27 `gmail_*` tools read, label or trash; there is no send, reply,
-compose or draft. An OE that emails anyone is not executable. Snowflake is query-only.
+compose or draft. An OE that emails anyone is not executable.

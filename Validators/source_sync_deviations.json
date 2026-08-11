@@ -8,11 +8,11 @@
   "harmonygames": {
     "_state_field": "one of: unresolved | permanent | pending-upstream | incidental (DEP-3 'Forwarded' semantics; 'permanent' == DEP-3 'Forwarded: not-needed', a deliberate local divergence never sent upstream)",
     "_update_mechanism": "Static  (README.chromium enum: Autoroll | Manual | Static | Static.HardFork). Vendored from a one-off drop; no autoroller exists.",
-    "_last_update": "2026-08-06",
+    "_last_update": "2026-08-11",
     "HG-U2": {
-      "state": "pending-upstream",
+      "state": "resolved-upstream",
       "path": "QC_Tasks/V5_HG_Buckets/QC_Passed/",
-      "detail": "Guide_harmonygames and Evals_harmonygames cite QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG from 9 files, including mandatory conditional pre-reads and the sole BATCH/BIND[] exemplar. The directory does not exist anywhere in the drop. Pinned, never aliased to another task."
+      "detail": "RESOLVED by the V5 drop (2026-08-11). The phantom Task5_Leonard_Hayes_Source_IP_Provenance_HG citation is gone: grep -rn 'Leonard_Hayes' Evals_harmonygames Docs_harmonygames returns nothing. Kept as a record of a citation that was live across two drops, not a live divergence."
     },
     "HG-U3": {
       "state": "resolved-upstream",
@@ -22,7 +22,7 @@
     "HG-U5": {
       "state": "permanent",
       "path": "QC_Tasks/V5_HG_Buckets/",
-      "detail": "Corpus is 10 tasks in a 4/4/2/0 split with QC_False_Fails_PT_Dispute_Accepted legitimately empty, against qc_verdict.py's previously documented '16/16 required'. selftest now reports N/N rather than asserting 16."
+      "detail": "Re-baselined to V5 on 2026-08-11: corpus is 7 VENDORED tasks in a 2/3/2/0 split (QC_Non_Fails 2, QC_Passed 3, QC_True_Fails 2, QC_False_Fails_PT_Dispute_Accepted legitimately empty), of which 5 are GRADED - the two _HG_DEPRECATED dirs are pinned but skipped and named by selftest. It was 10 in a 4/4/2/0 split before. VENDORED and GRADED are different numbers and must never be welded into one: check_qc_corpus pins 135 across 5 corpora, qc_verdict selftest grades 133."
     },
     "HG-U6": {
       "state": "permanent",
@@ -62,24 +62,57 @@
     "HG-U13": {
       "state": "permanent",
       "path": "HarmonyGames_Base_Universe/Services_Data/**",
-      "detail": "MISSING_IN_REPO by design. Services_Data is 8.1 GB / ~314k files including a 359 MB JSON and four nested git packs (was 5.6 GB / 223 MB before the 2026-08 drop regenerated the payload), against a 2.5 GB repo; GitHub rejects files over 100 MB and nested .git become broken gitlinks. Gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md."
+      "detail": "MISSING_IN_REPO by design. Measured on the V5 drop 2026-08-11: 316,501 files / 7,302,594,286 bytes (7.30 GB) counting nested .git trees, or 296,500 files / 6,734,069,813 bytes (6.73 GB) excluding them and the pointer, across 11 service dirs. GitHub rejects files over 100 MB and exactly one file exceeds it (a 105,206,509-byte git packfile); nested .git become broken gitlinks. The combined Base_Universe_Complete_Data.json cited by earlier revisions of this entry is ABSENT from V5, so its 359 MB figure is retired rather than restated. Gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md."
     },
     "HG-U14": {
       "state": "permanent",
       "path": "Tasks_Template_harmonygames/2_Persona.txt",
-      "detail": "Repo keeps its 207-byte template ('Copy one exact 4_Persona_ACL_Roster.json entry for the Taxonomy-selected persona. Do not derive or alter the email. Do not touch the AMV persona dropdown.' + labelled fields) against upstream's 46-byte 'Paste the persona for this task below.' Adopting upstream verbatim would drop roster-resolution discipline at exactly the moment Persona ACL became a QC fail dimension, and HG persona emails are irregular by design (arthur_blake -> blake@). Deliberate local divergence."
+      "detail": "Re-affirmed against V5 2026-08-11. Repo keeps its 209-byte template ('Copy one exact 4_Persona_ACL_Roster.json entry for the Taxonomy-selected persona. Do not derive or alter the email.' + labelled fields) against upstream's 46-byte 'Paste the persona for this task below.' Strict superset, no conflicting instruction. Adopting upstream verbatim would drop roster-resolution discipline exactly when Persona ACL became a QC fail dimension, and HG persona emails are irregular by design (arthur_blake -> blake@). Deliberate local divergence."
     },
     "HG-U15": {
       "state": "incidental",
       "path": "Docs_harmonygames/ + HarmonyGames_Base_Universe/",
-      "detail": "2026-08 drop renumbered both trees. Docs: 13_QC_Companion.md and Onboarding_Webinar_Universe_Guide.md DELETED, 14_Long_Horizon -> 13_, 15_Persona_ACL -> 14_. Base universe: 4_Reference_Sheet -> 5_, 5_Server_Tools_Details -> 6_, 6_Universe_Schema -> 7_, 7_Get_Universe_Data -> 8_, Persona_ACL_Roster.json -> 4_Persona_ACL_Roster.json, plus NEW 9_Get_Universe_Schema.sql. HG's tool catalog is therefore no longer a distinct prefix - it now shares 6_ with KeyStone and MoveOps. Repo-local Tool_Access/, README_SOURCE.md and README_UPSTREAM.md are preserved and remain absent upstream."
+      "detail": "2026-08 drop renumbered both trees. Docs: 13_QC_Companion.md and Onboarding_Webinar_Universe_Guide.md DELETED, 14_Long_Horizon -> 13_, 15_Persona_ACL -> 14_. Base universe: 4_Reference_Sheet -> 5_, 5_Server_Tools_Details -> 6_, 6_Universe_Schema -> 7_, 7_Get_Universe_Data -> 8_, Persona_ACL_Roster.json -> 4_Persona_ACL_Roster.json, plus NEW 9_Get_Universe_Schema.sql. HG's tool catalog is therefore no longer a distinct prefix - it now shares 6_ with KeyStone and MoveOps. Repo-local Tool_Access/, README_SOURCE.md and README_UPSTREAM.md are preserved and remain absent upstream. V5 additionally retired Snowflake and Confluence, so Tool_Access/confluence-tools.json and Tool_Access/snowflake-tools.json were DELETED with the servers they described, leaving 11 per-service catalogs. See HG-U20."
     },
-    "HarmonyGames_Base_Universe/Services_Data/**": "HG-U13. Vendored-out by design: 8.1 GB / 316,544 files including a 359 MB JSON and four nested git packs, against a 2.5 GB repo; GitHub rejects files over 100 MB and nested .git become broken gitlinks. Gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md. NOTE: check_source_sync._documented() matches on the top-level KEY being a path (or a `dir/**` prefix), NOT on an entry's `path` field - so a path-keyed entry like this one is the only shape that actually suppresses a finding. The HG-U* ID-keyed entries are documentation only.",
-    "Tasks_Template_harmonygames/2_Persona.txt": "HG-U14. Repo keeps its 207-byte template ('Copy one exact 4_Persona_ACL_Roster.json entry for the Taxonomy-selected persona. Do not derive or alter the email. Do not touch the AMV persona dropdown.' + labelled fields) against upstream's 46-byte 'Paste the persona for this task below.' Adopting upstream verbatim would drop roster-resolution discipline exactly when Persona ACL became a QC fail dimension, and HG persona emails are irregular by design (arthur_blake -> blake@). Deliberate local divergence.",
+    "HarmonyGames_Base_Universe/Services_Data/**": "HG-U13. Vendored-out by design: measured 2026-08-11 at 316,501 files / 7,302,594,286 bytes (7.30 GB) with nested .git, 296,500 / 6,734,069,813 (6.73 GB) without, across 11 service dirs. GitHub rejects files over 100 MB and exactly one file exceeds it (a 105,206,509-byte packfile); nested .git become broken gitlinks. The 359 MB combined blob cited by earlier revisions is ABSENT from V5. Gitignored behind HarmonyGames_Base_Universe/Services_Data/README_HYDRATE.md. NOTE: check_source_sync._documented() matches on the top-level KEY being a path (or a `dir/**` prefix), NOT on an entry's `path` field - so a path-keyed entry like this one is the only shape that actually suppresses a finding. The HG-U* ID-keyed entries are documentation only.",
+    "Tasks_Template_harmonygames/2_Persona.txt": "HG-U14. Re-affirmed against V5 2026-08-11. Repo keeps its 209-byte template ('Copy one exact 4_Persona_ACL_Roster.json entry for the Taxonomy-selected persona. Do not derive or alter the email.' + labelled fields) against upstream's 46-byte 'Paste the persona for this task below.' Strict superset, no conflicting instruction. Adopting upstream verbatim would drop roster-resolution discipline exactly when Persona ACL became a QC fail dimension, and HG persona emails are irregular by design (arthur_blake -> blake@). Deliberate local divergence.",
     "HG-U17": {
+      "state": "resolved-upstream",
+      "path": "(upstream) Tasks/ - ABSENT from V5",
+      "detail": "CORRECTED 2026-08-11. This row asserted that the drop ships Tasks/Task1 and Tasks/Task2 as empty scaffolds and that the repo deliberately declines to vendor them. Re-verified against MCP_Eval_V5_HarmonyGames: the drop has NO Tasks/ directory at all. Its root is exactly Docs, Evals, Guide, HarmonyGames_Base_Universe, QC_Tasks, README.md and Tasks_Template. So there is nothing to decline, and the earlier justification described a prior drop. The outcome is unchanged - nothing is vendored under QC_Tasks from a Tasks/ tree - but the stated reason was stale. Kept at this ID rather than renumbered, per the sparse-ID convention. If a future drop reintroduces Tasks/, re-open this row and re-apply the original test: empty scaffolding must not enter labeled-ground-truth territory."
+    },
+    "HG-U18": {
       "state": "permanent",
-      "path": "(upstream) Tasks/Task1, Tasks/Task2",
-      "detail": "NOT vendored, deliberately. The drop ships Tasks/Task1 and Tasks/Task2 which look like worked reference tasks but are EMPTY SCAFFOLDS: all 8 artifact files are byte-identical to Tasks_Template, 7_Rubrics.json is `[]` (4 bytes), 5_Prompt.txt is the 45-byte placeholder, and all six trajectory-run-*.json are 0 bytes. They duplicate Tasks_Template_harmonygames/ exactly and add nothing. Vendoring them under QC_Tasks/ would put empty scaffolding in labeled-ground-truth territory. If upstream ever POPULATES them they become real exemplars and this decision should be revisited."
+      "path": "HarmonyGames_Base_Universe/Data",
+      "detail": "V5 renames the payload directory Services_Data -> Data. The repo deliberately does NOT follow. In the other four universes *_Base_Universe/Data/ is the name that means 'stale, do not trust' (AGENTS.md hard rule 3), and reusing it in the one universe whose payload boundary is inverted, where that directory IS the source of truth, is the phantom-atom bug class. Permanent and deliberate. Surfaces as MISSING_IN_REPO: HarmonyGames_Base_Universe/Data and is suppressed by the path-keyed twin of this entry."
+    },
+    "HG-U19": {
+      "state": "permanent",
+      "path": "Validators/check_persona_acl.py",
+      "detail": "The persona-ACL scoped/unscoped service split is parsed LIVE from Docs_harmonygames/14_Persona_ACL.md's Access matrix rather than hardcoded, because Evals_harmonygames/1_Prompt_Eval.md instructs exactly that at :14, :42, :99 and :432. check_persona_acl.py parses the matrix at read time and asserts the parse equals the registry (7 scoped / 4 unscoped after V5 retired Snowflake and Confluence), so an upstream matrix change fails loudly instead of being silently overridden by a stale constant. The registry copy is the drift alarm, never the authority."
+    },
+    "HG-U20": {
+      "state": "permanent",
+      "path": "HarmonyGames_Base_Universe/Tool_Access/",
+      "detail": "Tool_Access/ is repo-only: V5 ships no such directory, yet Guide_harmonygames names it the capability authority, so the repo keeps 11 per-service catalogs. confluence-tools.json and snowflake-tools.json were deleted with the retired servers. check_source_sync cannot observe this either way - compare() yields only DIFFERS and MISSING_IN_REPO and its docstring states repo-only files are allowed - so a repo-extra directory is invisible to that gate by construction. Recorded because the gate's silence is a blind spot, not a pass."
+    },
+    "HG-U21": {
+      "state": "fixed",
+      "fixed_on": "2026-08-11",
+      "path": "Validators/build_universe_index.py",
+      "detail": "FIXED 2026-08-11, shared root cause with HG-U22. Was: HG's S0 index builders did not work. The hardcoded V3-family split filenames were a symptom; the cause was _stream_base_export's rglob descending into gdrive/root and github/root, which promoted every per-file payload to its own record source (47,571 stems measured) so the real tables never surfaced under a usable name. Fix: the walk is scoped to top-level table files and expands dict-of-tables into one source per key (38 tables); rows_of skips rows whose row_data decodes to a non-dict, which was the AttributeError: 'NoneType' at today_horizon; the two genuinely different stems are declared in a new OPTIONAL registry key index_table_map, HarmonyGames only, so the other four universes keep the defaults and their builder output is verified byte-identical across all 30 files; entities_personas and build_fact_ledger seed identities from the existing persona_acl_roster key. Index now exits 0, today_horizon reads 2026-02-28 America/Chicago, entities_personas.md is 180 lines with all 17 roster personas, ledger reports personas_declared 17. Coverage: anchors v22 IDX-1/IDX-2/FL-1/FL-2 against the real hydrated export, closing the gap that check_regression pins 7 v3-family tasks and no HarmonyGames task exists to pin."
+    },
+    "HG-U22": {
+      "state": "fixed",
+      "fixed_on": "2026-08-11",
+      "path": "Validators/universe_data_source.py",
+      "detail": "FIXED 2026-08-11, shared root cause with HG-U21. Was: load_universe_records was O(payload) and unguarded, measured at 1,836.8 MiB peak RSS for 715,697 records against the 384 MiB rule-33 ceiling, paid by split_universe.py per task split and again by require_resolvable, which four S0 builders called only to ask a yes/no. Fix in three measured stages, the first two necessary but insufficient: scoping the walk to declared tables gave 738 MiB; row-at-a-time JSONDecoder.raw_decode gave 620 MiB, the residue being the file text itself since CPython widens github/data.json from 39.4 MB to a 157.4 MB str; a bounded sliding window (_JsonCursor) gave 105.8 MiB, a 17.4x reduction. The accessor is now a generator, require_resolvable loads nothing, split_universe writes incrementally under this contract while the per_task_json branch is untouched and verified byte-identical on 5 snapshot tasks. Hand-rolled reader correctness is pinned against a json.load oracle 14/14 files by anchor v22 UDS-2. Rule 33's gate now covers the path: test_memory_bounds gained guard_static_accessor (G1b) and guard_empirical_accessor (G2b), and the self-check went from 5 mutants to 10, each new one proven behaviourally live rather than a text match."
+    },
+    "HarmonyGames_Base_Universe/Data": "HG-U18. V5 renames the payload directory Services_Data -> Data; the repo deliberately keeps Services_Data. In the other four universes *_Base_Universe/Data/ is the name that means 'stale, do not trust' (hard rule 3), and reusing it in the one universe whose payload boundary is inverted is the phantom-atom bug class. Permanent and deliberate. Exact-key entry: the finding is the bare directory, which a `Data/**` prefix key would NOT match.",
+    "HG-U23": {
+      "state": "permanent",
+      "path": "(upstream) README.md",
+      "detail": "The drop's root README.md is a deliberate NON-SURFACE. SURFACES maps DIRECTORY pairs, so a root-level file belongs to no surface and this gate is blind to it in both directions - recorded here because silence is not the same as a decision. Adopting it would be wrong, not merely redundant: its links are drop-relative (Docs/, Guide/, Tasks_Template/) and in this repo resolve to Brookfield's trees, where those files do not exist; check_pipeline_wiring W1 would flag them. It also instructs the reader to copy Tasks_Template/ to the repo root, which is not this pipeline's workflow. Equivalent guidance already lives in Guide_harmonygames/How_To_Use_This_Eval.md and Docs_harmonygames/README.md."
     }
   }
 }

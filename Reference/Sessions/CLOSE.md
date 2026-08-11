@@ -32,9 +32,13 @@ None needed — CLOSE is a read-only audit. It tells you what's missing instead 
    ```
    python Validators/close_task.py Tasks/<TASK_DIR>
    ```
-2. The script prints the per-artifact checklist + flow detection + FINAL verdict + trajectory verdict + READY/NOT-READY conclusion.
-3. If READY: read the recommended next actions and append any novel finding to `Tasks/_meta/Learnings.md` before closing the chat. Also confirm the cross-task logs (Linter_Justifications, Similarity_Log, Hardness_Patterns_Log, Stump_Hypotheses) reflect anything this task surfaced.
-4. If NOT READY: fix the items the script listed before re-running CLOSE.
+3. The script prints the per-artifact checklist + flow detection + FINAL verdict + trajectory verdict + READY/NOT-READY conclusion.
+4. If READY: read the recommended next actions and append any novel finding to `Tasks/_meta/Learnings.md` before closing the chat. Also confirm the cross-task logs (Linter_Justifications, Similarity_Log, Hardness_Patterns_Log, Stump_Hypotheses) reflect anything this task surfaced.
+5. If NOT READY: fix the items the script listed before re-running CLOSE.
+6. **Fill in Estimated Human Time on the platform form.** This is a platform form field with no spec artifact behind it — it appears nowhere in `Docs_harmonygames/`, `Evals_harmonygames/` or `Guide_harmonygames/` — so no gate can read it and none pretends to. `close_task.py` prompts for it and nothing more; the number is yours.
+   - COUNT: hunting for the information, reading long threads to find the part that matters, cross-checking sources that disagree, and writing and sending the output.
+   - DO NOT COUNT: waiting on replies, meetings that would have happened anyway, access or onboarding, or your own time spent authoring the task.
+   - People systematically underestimate the searching. It is usually the largest share, and the first draft of the number is usually too low.
 
 ## STOP gate
 

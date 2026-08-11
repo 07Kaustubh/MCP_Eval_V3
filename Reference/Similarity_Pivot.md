@@ -39,7 +39,7 @@ When the platform linter reports **40% or higher similarity** with a previously 
 
 Lever 4 (move the anchor from firm-internal to a client) is Brookfield-specific and does not
 transfer: HarmonyGames is a single studio with no client entities. Pivot instead across its
-six business functions, its thirteen services, or the long-horizon axis (a task with at least
+six business functions, its eleven services (V5 retired Snowflake and Confluence), or the long-horizon axis (a task with at least
 one run in the 500-1000 tool-call band is a materially different shape).
 
 > KeyStone, MoveOps and StarPM keep the full six-lever menu above; only the client-anchor lever (4) is Brookfield-specific and unavailable in the single-entity universes.

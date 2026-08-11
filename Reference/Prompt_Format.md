@@ -53,6 +53,22 @@ Push for 3+ write actions across 3+ services per prompt. Mix of:
 - approve / void an AP invoice
 - submit / approve / certify a reconciliation
 
+## The name-swap test
+
+Swap every person, product and channel name in the draft for a different one. If it still works perfectly, there is no situation in it — only a shape. The persona is decoration and the universe is interchangeable. Rewrite until some detail of THIS universe is load-bearing.
+
+- **"Collect X from Y, produce Z" is not a task.** It is a template with the nouns filled in.
+- **Needing only find-and-summarise is under-specified.** Touching six services does not fix that.
+- **Better shapes, all of which carry a decision:** compare-and-decide, diagnose-and-fix, coordinate-across-teams, prioritise-competing-demands.
+- **Vary tone and urgency between tasks.** A corpus where every prompt is the same measured request reads as mass-produced even when each one is individually fine.
+
+## Where the steering lives
+
+Some of it belongs outside the prompt — a pinned Slack message, a doc, an email thread, a calendar invite, a ticket comment. That is what makes the agent read rather than parse.
+
+- **Findable, not hidden.** If one sentence turns up only after sweeping every service, that is a guessing game. Anchor it where the persona would look and give the prompt a reason to point there.
+- **Vary the split.** Always putting half in the environment is itself a template. Reviewers read a run of tasks, not one.
+
 ## Anti-patterns (do not write)
 
 - "First, search emails. Then check Oracle GL. Then send an email." (command list)
@@ -62,6 +78,8 @@ Push for 3+ write actions across 3+ services per prompt. Mix of:
 - "Write me a 3-sentence summary in passive voice." (contrived format)
 - "Find the email from January 15 at 3:47 PM." (artificial precision)
 - Four unrelated asks stapled together. (bolt-on)
+- "Collect the invoices from Airtable and produce a summary doc." (template shape, no situation)
+- A prompt that survives swapping every name in it unchanged. (no situation, only a shape)
 
 ## Output
 
@@ -89,8 +107,10 @@ violation, so a prompt framed as "today" asking for routine comms is self-contra
 February is the second month of Q1, so "Q1 close" or "Q1 results are final" is incoherent;
 Q1 still has a month to run.
 
-Never construct, normalize or infer a persona email from a name. HarmonyGames addresses are
-irregular by design (`arthur_blake` is `blake@`, `julia_lawson` is `jlawson@`). Resolve via
+Never construct, normalize or infer a persona email from a name. V5 regularised HarmonyGames
+addresses to `firstname.lastname@`, so the pre-V5 spellings (`blake@`, `jlawson@`) now match
+nothing; and two single-token personas (`douglas@`, `robert@`) break a mechanical rule anyway.
+Resolve via
 `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json`, and note the roster is not exhaustive:
 `2_Persona_Briefs.md` documents personas absent from it.
 

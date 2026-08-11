@@ -709,6 +709,8 @@ The A5 persona whitelist is `4_Persona_ACL_Roster.json` (17 entries) PLUS the pe
 documented in `2_Persona_Briefs.md`. Do not treat the roster as exhaustive: a task whose
 persona is documented in the briefs but missing from the roster passed upstream QC.
 
-Services are the thirteen in the registry, with ZERO overlap with the other four universes.
+Services are the eleven in the registry, with ZERO overlap with the other four universes. V5 retired
+Snowflake and Confluence: naming either, or reaching for one through a verb-scoped stand-in
+(wiki, knowledge base, analytics or data warehouse, a bare `SCHEMA.TABLE`), is a HARD GATE FAIL.
 Model under test is **Opus 4.7**, not 4.8. QC spec is 7 dimensions / 38 sub-dimensions, 18 of
 them binary.
