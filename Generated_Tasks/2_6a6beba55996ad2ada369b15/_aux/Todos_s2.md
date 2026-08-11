@@ -1,0 +1,23 @@
+# Todos — S2 (`2_6a6beba55996ad2ada369b15`, universe harmonygames)
+
+- [x] Repair upstream `_aux/Verification_s1.md` so `check_verification.py` passes (missing `## Verdict` + the three source-category labels), then re-run `phase_ready.py --phase s2`
+- [x] Read `Docs_harmonygames/9_Common_Error.md` Part "Oracle Event errors" BEFORE drafting
+- [x] Read `Reference/OE_Format.md` (HG deltas), `Reference/OE_Convention_Inventory.json`, `Reference/Council_Protocol.md`
+- [x] Read `_aux/Hardness_Plan.md` levers + risk register + the S1 carry-forward list
+- [x] Load the HG tool catalog `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` and pin every tool name + parameter this OE list will cite
+- [x] Read HG reference OEs (`QC_Tasks/V5_HG_Buckets/QC_Passed/*/6_Oracle_Events.txt`) for voice and structure
+- [x] Decompose `5_Prompt.txt` sentence by sentence into discovery steps + write actions (forward map)
+- [x] Ground every OE figure against `_aux/Universe_Split/` by direct streaming query (Snowflake 159 MB, hard rule 33): CF lifetime revenue, CF lifetime UA spend, first/last player day, post-02-09 live ad spend + owner, net proceeds chain, cash position, named obligations
+- [x] Confirm the `_V2` decoy state and the `$22,500` role collision before writing either into an OE
+- [x] Confirm every write target is persona-reachable and catalog-feasible for Robert (Gmail send-less; ACL reads)
+- [x] Draft `6_Oracle_Events.txt` (numbered, no em-dash, real tool names, real params, concrete values)
+- [x] Run `validate.py --phase oe` -> exit 0, fix every fail, re-run until clean
+- [x] Run `check_persona_acl.py` and `verify_universe_atoms.py` on the OE list
+- [x] Council A — grounding -> `_aux/Council_Reports/S2_A_grounding.md`
+- [x] Council B — adversarial QC (B2 forward/reverse, B3 density, B4 levers, B8 write/rubric forward map) -> `_aux/Council_Reports/S2_B_adversarial.md`
+- [x] Apply fixes, re-run validator + BOTH councils until clean (3 rounds; both GO)
+- [x] AUDIT (`--phase oe`) -> `_aux/Council_Reports/AUDIT_oe.md`, require `PASS (STRICT)`
+- [x] Write `_aux/Verification_s2.md` (cross-source declarations + verdict)
+- [x] Write `_aux/Reads_s2.md` (running read log)
+- [x] Append final report to `_aux/Reasoning/OE_solvability.md` (coverage map + OE-to-rubric preview + AUDIT verdict)
+- [x] STOP gate: end response, next trigger `PIPELINE S3 — Generated_Tasks/2_6a6beba55996ad2ada369b15` in a FRESH chat

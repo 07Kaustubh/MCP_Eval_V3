@@ -1,0 +1,21 @@
+{
+ "task": "2_6a6beba55996ad2ada369b15",
+ "inputs": {
+  "8_Verifier_Fails.txt": {
+   "sha256": "d28c7c4ac71a9abddf713c96675aca61dd0734fecf176935cd9afd096e31c937",
+   "bytes": 53558,
+   "per_run_passed": [
+    16,
+    20,
+    22,
+    18,
+    16,
+    17
+   ]
+  },
+  "7_Rubrics.json": {
+   "sha256": "69713012b52f17d6e4f3e26031e7f72c384a2a12dc5b201d0a72ef6c8ea0d291",
+   "bytes": 11941
+  }
+ }
+}

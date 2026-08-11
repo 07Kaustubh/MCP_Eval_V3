@@ -36,3 +36,16 @@ __pycache__/
 _dist/
 # Pre-change corpus snapshot kept for rollback during the V5 re-baseline.
 _scratch_v5_rebaseline/
+
+# Per-task universe splits for HarmonyGames tasks (Generated_Tasks/).
+# Tasks/ tasks keep theirs committed - a Brookfield/Keystone/StarPM split is a few MB of
+# small JSON. A HarmonyGames split is 3.0 GB across 47,708 files and contains two blobs
+# over GitHub's hard 100 MB per-file cap (Universe_complete_data.json at 1.5 GB and
+# snowflake.snowflake.tables.json at 153 MB), so the push is rejected outright. Scope this
+# to Generated_Tasks/ only - do NOT generalize to **/_aux/Universe_Split/, which would
+# untrack the 2,185 split files the Tasks/ corpus already carries.
+# Regenerate after hydrating Services_Data:
+#   python3 Validators/split_universe.py Generated_Tasks/<TASK_DIR>
+# Everything else in the task (deliverables, trajectory-runs, _aux reports, Fact_Ledger,
+# Universe_Index) is ~20 MB across 100 files and IS committed.
+Generated_Tasks/*/_aux/Universe_Split/
