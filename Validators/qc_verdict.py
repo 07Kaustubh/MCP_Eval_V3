@@ -6,8 +6,11 @@ Commands:
   classify <task_dir>   - derive bucket from parsed CONTENT (scores + dispute decision)
   selftest <corpus_dir> - classify all labeled tasks, compare to bucket labels; every
                           classifiable task must match its bucket. Corpus size varies by
-                          universe (V3/V3.1/V4 = 16, V2.1 = 80, HarmonyGames = 10 in a
-                          4/4/2/0 split with one legitimately empty bucket).
+                          universe (V3/V3.1/V4 = 16, V2.1 = 80, HarmonyGames = 7 vendored
+                          in a 2/3/2/0 split with one legitimately empty bucket, of which 5
+                          are GRADED - two `_HG_DEPRECATED` dirs are skipped and named.
+                          VENDORED and GRADED are different numbers: check_qc_corpus.py pins
+                          135, selftest grades 133.
   audit    <task_dir>   - SSOT cross-reference: every finding's cited atoms checked against
                           the task's own universe data / prompt / OE / rubrics
   feedback <task_dir>   - draft a 9_QC_Feedback.txt skeleton from validator reports with
@@ -130,7 +133,8 @@ def parse_verdict(task_dir: Path) -> dict:
 
 # --- structural extraction -------------------------------------------------------------
 # Regex tuning was tried three times on this and failed three times, twice by regressing the
-# HarmonyGames corpus from 10/10 to 8/10. The reason is that a pattern cannot tell a
+# HarmonyGames corpus from 10/10 to 8/10 - measured against the then-10-task corpus, which
+# vendors 7 and grades 5 today. The reason is that a pattern cannot tell a
 # dimension score from a score-shaped number in prose ("All other audited components
 # received 5/5") or from the document's own verdict line ("bad 2/5"), because the difference
 # is STRUCTURAL, not lexical. So this parses structure.
@@ -245,6 +249,16 @@ def _score_values(text: str) -> list:
         else:
             out.append(float(_WORD_NUM[m.group("word").lower()]))
     return out
+
+
+# A component-structured auditor form headers each section `Component: <dimension>`. The
+# header and that component's score sit in DIFFERENT blocks (a blank line separates them),
+# so this is deliberately a whole-FILE test, not a same-block one. It is the discriminator
+# that keeps FALLBACK A off a genuine document-level verdict - see _extract_dimension_scores.
+_COMPONENT_HDR = re.compile(r"^\s*Component\s*[:\-]", re.MULTILINE | re.IGNORECASE)
+# A whole form that is nothing but its own summary line: "5/5 tasks in all dimensions."
+# Anchored at the start and used ONLY against a single-line file - see FALLBACK B.
+_TERSE_SUMMARY = re.compile(r"^([1-5])\s*/\s*5\b")
 
 
 def _extract_dimension_scores(text: str, fname: str) -> tuple:
@@ -411,7 +425,56 @@ def _extract_dimension_scores(text: str, fname: str) -> tuple:
     # TERSE form: "Approved. No failing QC issues." / "Score 5"
     bare = [int(x) for x in re.findall(r"^\W*" + _BARE_SCORE + r"$", text,
                                        re.MULTILINE | re.IGNORECASE)]
-    return ([min(bare)] if bare else []), None
+    if bare:
+        return [min(bare)], None
+
+    # Everything below is reached ONLY when every extractor above attributed nothing AND
+    # raised no error. That gate is what makes these additive: no form that resolves today
+    # can reach them, so neither can change a score that is already being reported.
+
+    # FALLBACK A - component-structured form whose per-component score is VERDICT-shaped.
+    #
+    # V5 HarmonyGames ships auditor forms where each `Component:` section scores itself with
+    # `ok 3/5` under the `Auditor Score and Feedback` preamble, and nothing else in the file
+    # is score-shaped. `ok N/5` matches _VERDICT_LINE, so the block loop above reads it as the
+    # DOCUMENT's verdict and strips it into `aggregates` - correct for a form that has one
+    # verdict, wrong for a form that has one per component. Those files therefore scored
+    # nothing at all and their tasks classified UNKNOWN.
+    #
+    # The discriminator is a `Component:` header anywhere in the file. A form without one
+    # keeps the old reading and still returns nothing here, which is precisely what stops this
+    # from swallowing a genuine document-level verdict line.
+    #
+    # MIN across components, matching the rule the scored path uses. Safe by construction in
+    # the one direction that matters: these values came from `aggregates`, so the returned
+    # score equals the lowest number the form states about itself and cannot exceed it.
+    if _COMPONENT_HDR.search(text):
+        comp = []
+        for block in re.split(r"\n\s*\n", text):
+            block_lines = block.splitlines()
+            if not any(_PREAMBLE.match(ln.strip()) for ln in block_lines):
+                continue
+            for ln in block_lines:
+                if _VERDICT_LINE.match(ln.strip()):
+                    comp += [int(v) for v in _score_values(ln)]
+        if comp:
+            return [min(comp)], None
+
+    # FALLBACK B - the whole form is a single terse summary line: "5/5 tasks in all
+    # dimensions." No extractor above can read it: _SCORE_LINE and _BARE_SCORE_LINE both
+    # require the literal word `Score`, and _INLINE_DIM requires a `name:` prefix.
+    #
+    # The file must be EXACTLY that one line. A file that merely BEGINS with a score and
+    # continues with other content is not a summary - it is a form whose remaining content
+    # still has to be read - and taking the leading number there would be exactly the
+    # silently-optimistic move this module exists to prevent.
+    body_lines = [ln for ln in text.strip().splitlines() if ln.strip()]
+    if len(body_lines) == 1:
+        m = _TERSE_SUMMARY.match(body_lines[0].strip())
+        if m:
+            return [int(m.group(1))], None
+
+    return [], None
 
 
 def _looks_like_prose(block: str) -> bool:
@@ -419,7 +482,7 @@ def _looks_like_prose(block: str) -> bool:
 
     Real auditor forms write "All other audited components received 5/5. No failing
     threshold was triggered." Counting that as an unattributed dimension made the guard fire
-    on 2 of 10 legitimate HarmonyGames tasks.
+    on 2 of 10 legitimate HarmonyGames tasks (measured against the then-10-task corpus).
     """
     first = block.splitlines()[0].strip() if block.splitlines() else ""
     # A line OPENING with a score label is a dimension line even when the extractors cannot
@@ -445,8 +508,8 @@ def parse_auditor_feedback(task_dir: Path) -> dict:
     """Fallback parser for the RAW auditor form in `9_QC_Feedback.txt`.
 
     Some corpora ship the auditor's working document without the derived
-    `QC_Feedback_Verdict.txt`, or ship that file empty (HarmonyGames does both: 6 of its
-    10 tasks have no verdict file and 2 more have a 0-byte one). The score is still
+    `QC_Feedback_Verdict.txt`, or ship that file empty (HarmonyGames does both: 2 of its
+    7 vendored tasks have no verdict file and 3 more ship a 0-byte one). The score is still
     recoverable, because the raw form carries a per-dimension `Score: N/5` for every
     dimension the auditor touched.
 
@@ -458,11 +521,19 @@ def parse_auditor_feedback(task_dir: Path) -> dict:
       scoring rule" and the primary source is NOT located in `Docs*/` or `Evals*/`. Treat
       this as a working rule justified by agreement with recorded scores, not as a quoted
       spec requirement.
-    - Cross-validation is N=2. Only 4 of 10 HarmonyGames tasks ship a verdict file and 2 of
-      those are 0 bytes, so MIN could be checked against a recorded `QC Score` on exactly two
-      tasks, both QC_True_Fails scoring 2.
-    - MIN is exercised on 4 of 10 tasks. The other 6 carry no per-dimension `Score: N/5`
-      lines and resolve through the single-score fallback below.
+    - Cross-validation is N=2, and BOTH cases are now deprecated. Of the 7 vendored
+      HarmonyGames tasks exactly 2 ship a usable verdict file to check MIN against, and both
+      are the `_HG_DEPRECATED` QC_True_Fails tasks scoring 2. MIN therefore has no
+      cross-validation at all among the 5 tasks selftest actually grades.
+    - MIN over several dimensions is exercised on 2 of 7, both deprecated. The other 5 resolve
+      through a single score: 2 via the terse bare-score form, 2 via FALLBACK A, 1 via
+      FALLBACK B.
+
+    These figures are DISK-DERIVED and go stale on every drop. RE-COUNT them; do not rescale
+    them. They were already wrong before this pass - they described a 10-task corpus while
+    disk held 8 tasks with no usable verdict file and 2 with one - because the 2026-08 drop
+    moved the artifacts and the prose was rescaled from the prior version instead of
+    re-measured. Rescaling a wrong number produces a differently-wrong number.
 
     Returns {} when no score can be read, so the caller reports an honest skip rather than
     inventing a classification.
@@ -526,16 +597,30 @@ def classify(parsed: dict) -> str:
 def selftest(corpus: Path) -> int:
     rows, correct, total = [], 0, 0
     skipped = []
+    deprecated = []
     for bucket_dir in sorted(corpus.iterdir()):
         if not bucket_dir.is_dir() or not bucket_dir.name.startswith("QC_"):
             continue
         for task_dir in sorted(bucket_dir.iterdir()):
             if not task_dir.is_dir():
                 continue
+            # A `_DEPRECATED` task is NOT graded. The V5 drop retired two HarmonyGames tasks
+            # by RENAMING them `_HG_DEPRECATED` rather than deleting them, so their artifacts
+            # stay vendored and hash-pinned (check_qc_corpus.py pins 7 HG dirs) while their
+            # labels stop asserting anything about current verdict logic. Grading them would
+            # let a retired task's label gate the engine; dropping them silently would make 7
+            # dirs on disk render as 5 with no explanation, which is worse than not skipping
+            # at all. They are excluded from BOTH numerator and denominator and REPORTED.
+            #
+            # This MUST stay above the has_verdict/has_raw gate: both deprecated dirs still
+            # ship a non-empty 9_QC_Feedback.txt, so they would otherwise reach `total += 1`.
+            if task_dir.name.endswith("_DEPRECATED"):
+                deprecated.append((task_dir.name, bucket_dir.name))
+                continue
             # A task is classifiable if it carries EITHER the derived verdict file or the
-            # raw auditor form. Requiring only the former silently hid 8 of HarmonyGames'
-            # 10 tasks: 6 ship no verdict file and 2 ship a 0-byte one. Verified to add
-            # zero tasks to the four pre-existing corpora, so their totals cannot move.
+            # raw auditor form. Requiring only the former silently hid 5 of HarmonyGames'
+            # 7 vendored tasks: 2 ship no verdict file and 3 ship a 0-byte one. Verified to
+            # add zero tasks to the four pre-existing corpora, so their totals cannot move.
             has_verdict = (task_dir / "QC_Feedback_Verdict.txt").is_file() and \
                 (task_dir / "QC_Feedback_Verdict.txt").stat().st_size > 0
             has_raw = (task_dir / "9_QC_Feedback.txt").is_file()
@@ -560,8 +645,15 @@ def selftest(corpus: Path) -> int:
         for name, bucket, why in skipped:
             print(f"  {bucket}/{name}: {why}")
         print()
-    # Corpus size is NOT fixed at 16. HarmonyGames ships 10 in a 4/4/2/0 split, with one
-    # bucket legitimately empty. Asserting a universal 16 would fail a valid corpus.
+    if deprecated:
+        print(f"skipped {len(deprecated)} deprecated task(s) (not graded, not counted):")
+        for name, bucket in deprecated:
+            print(f"  {bucket}/{name}")
+        print()
+    # Corpus size is NOT fixed at 16, and the printed denominator is the GRADED count, which
+    # is not the vendored count. HarmonyGames vendors 7 dirs and grades 5: two are
+    # `_HG_DEPRECATED` and are skipped above. Asserting a universal 16 would fail a valid
+    # corpus, and asserting the vendored count would fail this one.
     print(f"QC VERDICT SELFTEST: {correct}/{total} bucket-correct")
     return 0 if correct == total and total > 0 else 1
 

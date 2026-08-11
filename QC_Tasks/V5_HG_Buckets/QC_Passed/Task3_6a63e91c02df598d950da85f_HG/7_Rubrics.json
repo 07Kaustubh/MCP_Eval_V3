@@ -1,0 +1,476 @@
+[
+    {
+        "title": "The Agent produces one spreadsheet for the February 28 source-code provenance closeout.",
+        "category": "outcome",
+        "justification": "The register is the canonical per-PR preservation record.",
+        "evidence": "Inspect the persisted outputs for exactly one spreadsheet containing the completed Register."
+    },
+    {
+        "title": "The Agent writes nonempty provenance Register data to a spreadsheet.",
+        "category": "outcome",
+        "justification": "The spreadsheet deliverable requires a concrete Register write action.",
+        "evidence": "Inspect spreadsheet-write arguments for nonempty data targeting a Register tab."
+    },
+    {
+        "title": "The Agent produces one TL;DR memo file for the source-code preservation closeout.",
+        "category": "outcome",
+        "justification": "The memo is the founder-facing companion record.",
+        "evidence": "Inspect the persisted outputs for exactly one Markdown file containing the requested memo."
+    },
+    {
+        "title": "The Agent formats the TL;DR memo content as Markdown.",
+        "category": "outcome",
+        "justification": "The grounded handoff request asks for a Markdown memo rather than an unstructured plain-text note.",
+        "evidence": "Inspect the memo creation arguments for Markdown structure and either a .md filename or a Markdown MIME type."
+    },
+    {
+        "title": "The Agent names the spreadsheet tab Register.",
+        "category": "outcome",
+        "justification": "The grounded handoff thread fixes one worksheet name for the preservation matrix.",
+        "evidence": "Inspect the created spreadsheet and written range for the exact tab name Register."
+    },
+    {
+        "title": "The Agent gives repository identity its own Register field.",
+        "category": "outcome",
+        "justification": "Repository identity is one part of the metadata needed to locate a source PR.",
+        "evidence": "Inspect the Register header for a dedicated repository field."
+    },
+    {
+        "title": "The Agent gives PR number its own Register field.",
+        "category": "outcome",
+        "justification": "PR number is one part of the metadata needed to locate a source PR.",
+        "evidence": "Inspect the Register header for a dedicated PR-number field."
+    },
+    {
+        "title": "The Agent gives commit evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Commit evidence must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated commit-evidence field."
+    },
+    {
+        "title": "The Agent gives submitted-review evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Submitted-review evidence must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated submitted-review field."
+    },
+    {
+        "title": "The Agent gives inline-diff discussion evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Inline-diff discussion must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated inline-discussion field."
+    },
+    {
+        "title": "The Agent gives general PR conversation evidence its own Register field.",
+        "category": "outcome",
+        "justification": "General PR conversation must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated general-conversation field."
+    },
+    {
+        "title": "The Agent gives lifecycle-history evidence its own Register field.",
+        "category": "outcome",
+        "justification": "Lifecycle history must remain independently readable.",
+        "evidence": "Inspect the Register header for a dedicated lifecycle-history field."
+    },
+    {
+        "title": "The Agent gives provenance flags their own Register field.",
+        "category": "outcome",
+        "justification": "Preservation-gap classifications must remain distinct from evidence summaries.",
+        "evidence": "Inspect the Register header for a dedicated provenance-flags field."
+    },
+    {
+        "title": "The Agent records a clear completion marker on every one of the 116 PR rows.",
+        "category": "outcome",
+        "justification": "Arthur's grounded preservation notes require a completion marker for every PR.",
+        "evidence": "Inspect all 116 Register rows and confirm each has a nonblank, unambiguous completed status."
+    },
+    {
+        "title": "The Agent gives the cutoff its own Register field.",
+        "category": "outcome",
+        "justification": "The grounded handoff request requires the snapshot cutoff on every PR row.",
+        "evidence": "Inspect the Register header for a dedicated cutoff field."
+    },
+    {
+        "title": "The Agent records the Combo-Fighters PR-number multiset as every integer from 1 through 37 exactly once.",
+        "category": "outcome",
+        "justification": "This exact multiset accepts the complete discovered cohort and rejects missing, duplicate, or extra keys.",
+        "evidence": "Inspect the PR-number values on rows whose Repository is Combo-Fighters."
+    },
+    {
+        "title": "The Agent records the game-of-dominoes-backend PR-number multiset as every integer from 1 through 79 exactly once.",
+        "category": "outcome",
+        "justification": "This exact multiset accepts the complete discovered cohort and rejects missing, duplicate, or extra keys.",
+        "evidence": "Inspect the PR-number values on rows whose Repository is game-of-dominoes-backend."
+    },
+    {
+        "title": "The Agent keeps each repository's Register rows in one contiguous block.",
+        "category": "outcome",
+        "justification": "The grounded handoff request requires repository grouping while leaving the order of the two blocks flexible.",
+        "evidence": "Inspect the complete Register for exactly one uninterrupted block per repository."
+    },
+    {
+        "title": "The Agent uses one consistent PR-number sequence within each repository block",
+        "category": "outcome",
+        "justification": "The grounded handoff request groups each repository block by PR number without prescribing direction.",
+        "evidence": "Inspect each repository block for a strictly ascending or strictly descending PR-number sequence."
+    },
+    {
+        "title": "The Agent records exactly 116 populated data rows in the complete Register.",
+        "category": "outcome",
+        "justification": "The total excludes out-of-scope rows beyond the two exact repository cohorts.",
+        "evidence": "Count all populated data rows across the complete Register, excluding the header."
+    },
+    {
+        "title": "The Agent uses only these non-NONE Provenance flags: NO_SUBMITTED_REVIEW, NO_INLINE_REVIEW_DISCUSSION, NO_GENERAL_CONVERSATION, NO_REVIEW_REQUEST_EVENT, and MULTI_COMMIT_WITHOUT_APPROVAL.",
+        "category": "outcome",
+        "justification": "Arthur's grounded notes define a closed provenance-flag vocabulary.",
+        "evidence": "Inspect every non-NONE token in the Provenance flags field against the closed set in this criterion."
+    },
+    {
+        "title": "The Agent uses NONE only as the sole value of a Provenance flags cell.",
+        "category": "outcome",
+        "justification": "NONE represents the exclusive absence of all five preservation-gap flags.",
+        "evidence": "Inspect every Provenance flags field for any value that combines NONE with another token."
+    },
+    {
+        "title": "The Agent applies NO_SUBMITTED_REVIEW exactly on rows whose submitted-review summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of submitted review records.",
+        "evidence": "Compare the flag and submitted-review summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_INLINE_REVIEW_DISCUSSION exactly on rows whose inline-diff discussion summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of inline review discussion.",
+        "evidence": "Compare the flag and inline-discussion summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_GENERAL_CONVERSATION exactly on rows whose general PR conversation summary is NONE FOUND.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of general PR conversation.",
+        "evidence": "Compare the flag and general-conversation summary on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies NO_REVIEW_REQUEST_EVENT exactly on rows whose lifecycle summary does not include review_requested.",
+        "category": "outcome",
+        "justification": "This flag identifies the absence of a review-request lifecycle event.",
+        "evidence": "Compare the flag and lifecycle event set on every Register row in both directions."
+    },
+    {
+        "title": "The Agent applies MULTI_COMMIT_WITHOUT_APPROVAL exactly on rows with more than one commit and no APPROVED state in the submitted-review summary.",
+        "category": "outcome",
+        "justification": "This is Arthur's grounded approval rule for multi-commit preservation gaps.",
+        "evidence": "Compare the flag with the commit count and complete submitted-review state set on every row."
+    },
+    {
+        "title": "The Agent records Provenance flags as exactly NONE on every row where none of the five preservation-gap conditions applies.",
+        "category": "outcome",
+        "justification": "NONE is the required value when a PR has no record-gap flag.",
+        "evidence": "Inspect every row that meets none of the five flag conditions for the exact sole value NONE"
+    },
+    {
+        "title": "The Agent marks a row complete only when its commit-evidence field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result for the commit check.",
+        "evidence": "For every completed row, inspect the commit-evidence field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its submitted-review field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result or NONE FOUND for the review check.",
+        "evidence": "For every completed row, inspect the submitted-review field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its inline-discussion field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result or NONE FOUND for the inline check.",
+        "evidence": "For every completed row, inspect the inline-discussion field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its general-conversation field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result or NONE FOUND for the conversation check.",
+        "evidence": "For every completed row, inspect the general-conversation field for a nonblank value."
+    },
+    {
+        "title": "The Agent marks a row complete only when its lifecycle-history field is populated.",
+        "category": "outcome",
+        "justification": "A completion marker requires a recorded result for the lifecycle check.",
+        "evidence": "For every completed row, inspect the lifecycle-history field for a nonblank value."
+    },
+    {
+        "title": "The Agent records 2026-02-28 in every Cutoff cell.",
+        "category": "outcome",
+        "justification": "Every row belongs to the same preservation snapshot.",
+        "evidence": "Inspect the Cutoff field on every row for the exact date."
+    },
+    {
+        "title": "The Agent records the exact source-grounded commit count in every Commit summary.",
+        "category": "outcome",
+        "justification": "Complete per-row commit-count accuracy is required for the preservation record.",
+        "evidence": "Compare the count in every Commit summary with the complete commit records for all 116 repository-and-PR keys."
+    },
+    {
+        "title": "The Agent records the exact source-grounded event count in every Lifecycle summary.",
+        "category": "outcome",
+        "justification": "Complete per-row lifecycle-count accuracy is required for the preservation record.",
+        "evidence": "Compare the count in every Lifecycle summary with the complete timeline records for all 116 repository-and-PR keys."
+    },
+    {
+        "title": "The Agent records the exact source-grounded comment count or NONE FOUND in every General conversation summary.",
+        "category": "outcome",
+        "justification": "Complete per-row conversation-count and checked-absence accuracy is required for the preservation record.",
+        "evidence": "Compare each General conversation count or NONE FOUND value with the issue-comment records for all 116 repository-and-PR keys."
+    },
+    {
+        "title": "The Agent records the exact source-grounded review count or NONE FOUND in every Review summary.",
+        "category": "outcome",
+        "justification": "Complete per-row review-count and checked-absence accuracy is required for the preservation record.",
+        "evidence": "Compare each Review count or NONE FOUND value with the submitted-review records for all 116 repository-and-PR keys."
+    },
+    {
+        "title": "The Agent records the exact source-grounded comment count or NONE FOUND in every Inline discussion summary.",
+        "category": "outcome",
+        "justification": "Complete per-row inline-count and checked-absence accuracy is required for the preservation record.",
+        "evidence": "Compare each Inline discussion count or NONE FOUND value with the review-comment records for all 116 repository-and-PR keys."
+    },
+    {
+        "title": "The Agent records game-of-dominoes-backend PR #79 Provenance flags as exactly \"MULTI_COMMIT_WITHOUT_APPROVAL\".",
+        "category": "outcome",
+        "justification": "This atomic sample checks one fact within the repeated 116-row normalization work.",
+        "evidence": "Locate the row keyed by game-of-dominoes-backend PR #79 and inspect its Provenance flags for the exact value in this criterion."
+    },
+    {
+        "title": "The Agent applies NO_SUBMITTED_REVIEW to exactly 30 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_SUBMITTED_REVIEW."
+    },
+    {
+        "title": "The Agent applies NO_INLINE_REVIEW_DISCUSSION to exactly 105 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_INLINE_REVIEW_DISCUSSION."
+    },
+    {
+        "title": "The Agent applies NO_GENERAL_CONVERSATION to exactly 78 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_GENERAL_CONVERSATION."
+    },
+    {
+        "title": "The Agent applies NO_REVIEW_REQUEST_EVENT to exactly 21 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token NO_REVIEW_REQUEST_EVENT."
+    },
+    {
+        "title": "The Agent applies MULTI_COMMIT_WITHOUT_APPROVAL to exactly 22 Register rows.",
+        "category": "outcome",
+        "justification": "This aggregate invariant checks the complete Register classification for one preservation-gap flag.",
+        "evidence": "Count rows whose Provenance flags field contains the exact token MULTI_COMMIT_WITHOUT_APPROVAL."
+    },
+    {
+        "title": "The Agent makes the closeout pack traceable to a source-backed company wind-down decision.",
+        "category": "outcome",
+        "justification": "This verifies that the wind-down decision is used as one of the closeout pack's source anchors.",
+        "evidence": "Inspect the closeout memo for an accurate reference to either the #executives cash-and-obligations decision or the later #winddown shutdown-and-codebase decision."
+    },
+    {
+        "title": "The Agent makes the closeout pack traceable to Task List.xlsx on Drive, resolving to file ID f_31115ddb6ed866f2b10d60.",
+        "category": "outcome",
+        "justification": "This verifies that the Drive task list is used as the other closeout-pack source anchor.",
+        "evidence": "Inspect the closeout memo for a usable link or file-ID reference to the exact checklist."
+    },
+    {
+        "title": "The Agent includes a usable Register link in the memo whose spreadsheet ID matches the created Register.",
+        "category": "outcome",
+        "justification": "The companion memo must resolve to its detailed evidence register.",
+        "evidence": "Inspect the memo link and compare its spreadsheet ID with the Register write."
+    },
+    {
+        "title": "The Agent states the Combo-Fighters total as exactly 37 in the memo.",
+        "category": "outcome",
+        "justification": "The memo must reconcile each repository to the detailed register.",
+        "evidence": "Inspect the memo for Combo-Fighters: 37."
+    },
+    {
+        "title": "The Agent states the game-of-dominoes-backend total as exactly 79 in the memo.",
+        "category": "outcome",
+        "justification": "The memo must reconcile each repository to the detailed register.",
+        "evidence": "Inspect the memo for game-of-dominoes-backend: 79."
+    },
+    {
+        "title": "The Agent states the overall pull-request total as exactly 116 in the memo.",
+        "category": "outcome",
+        "justification": "The memo must reconcile each repository to the detailed register.",
+        "evidence": "Inspect the memo for game-of-dominoes-backend: 116."
+    },
+    {
+        "title": "The Agent states the NO_SUBMITTED_REVIEW total as exactly 30 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_SUBMITTED_REVIEW: 30."
+    },
+    {
+        "title": "The Agent states the NO_INLINE_REVIEW_DISCUSSION total as exactly 105 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_INLINE_REVIEW_DISCUSSION: 105."
+    },
+    {
+        "title": "The Agent states the NO_GENERAL_CONVERSATION total as exactly 78 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_GENERAL_CONVERSATION: 78."
+    },
+    {
+        "title": "The Agent states the NO_REVIEW_REQUEST_EVENT total as exactly 21 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for NO_REVIEW_REQUEST_EVENT: 21."
+    },
+    {
+        "title": "The Agent states the MULTI_COMMIT_WITHOUT_APPROVAL total as exactly 22 in the memo.",
+        "category": "outcome",
+        "justification": "Each memo total must reconcile to the exact individual-record evidence matrix.",
+        "evidence": "Inspect the memo for MULTI_COMMIT_WITHOUT_APPROVAL: 22."
+    },
+    {
+        "title": "The Agent states in the memo that the flags identify source-record preservation gaps.",
+        "category": "outcome",
+        "justification": "The requested framing distinguishes preservation evidence from engineering review.",
+        "evidence": "Inspect the memo's explanatory statement about what the flags identify."
+    },
+    {
+        "title": "The Agent keeps the closeout pack free of code-quality findings.",
+        "category": "outcome",
+        "justification": "Arthur's grounded notes explicitly reserve code-quality judgment.",
+        "evidence": "Inspect the Register and memo and confirm neither contains code-quality findings."
+    },
+    {
+        "title": "The Agent sends the completed provenance Register spreadsheet in the final handoff.",
+        "category": "outcome",
+        "justification": "The founder explicitly asks to receive the completed spreadsheet.",
+        "evidence": "Inspect the final response for a spreadsheet link whose ID matches the spreadsheet ID used for the Register write."
+    },
+    {
+        "title": "The Agent sends the created Markdown TL;DR memo in the final handoff.",
+        "category": "outcome",
+        "justification": "The founder explicitly asks to receive the completed memo.",
+        "evidence": "Inspect the final response for a Drive link presented as the Markdown memo whose file ID matches a file ID used to access the saved memo."
+    },
+    {
+        "title": "The Agent reports a verified Register row count of exactly 116.",
+        "category": "outcome",
+        "justification": "The hand-back explicitly requests the verified row count.",
+        "evidence": "Inspect the final response for the exact data-row count 116."
+    },
+    {
+        "title": "The Agent records the exact source-grounded first SHA in every Commit summary.",
+        "category": "outcome",
+        "justification": "The first commit boundary must be accurate for every PR.",
+        "evidence": "Compare the first SHA in all 116 Commit summaries with position-zero commit records."
+    },
+    {
+        "title": "The Agent records the exact source-grounded last SHA in every Commit summary.",
+        "category": "outcome",
+        "justification": "The last commit boundary must be accurate for every PR.",
+        "evidence": "Compare the last SHA in all 116 Commit summaries with each PR's highest-position commit record."
+    },
+    {
+        "title": "The Agent records the exact source-grounded event set in every Lifecycle summary.",
+        "category": "outcome",
+        "justification": "Every lifecycle event type, including undated events, must be preserved.",
+        "evidence": "Compare the semantic event set in every Lifecycle summary with the complete timeline records."
+    },
+    {
+        "title": "The Agent records the exact earliest dated lifecycle boundary in every Lifecycle summary.",
+        "category": "outcome",
+        "justification": "Undated events must not replace the first dated boundary.",
+        "evidence": "Compare each Lifecycle first value with the earliest dated timeline record for that PR."
+    },
+    {
+        "title": "The Agent records the exact latest dated lifecycle boundary in every Lifecycle summary.",
+        "category": "outcome",
+        "justification": "Undated events must not replace the last dated boundary.",
+        "evidence": "Compare each Lifecycle last value with the latest dated timeline record for that PR."
+    },
+    {
+        "title": "The Agent records the exact earliest comment date in every populated General conversation summary.",
+        "category": "outcome",
+        "justification": "The first general-conversation boundary must be accurate.",
+        "evidence": "Compare each populated General conversation first value with the earliest source issue comment."
+    },
+    {
+        "title": "The Agent records the exact latest comment date in every populated General conversation summary.",
+        "category": "outcome",
+        "justification": "The last general-conversation boundary must be accurate.",
+        "evidence": "Compare each populated General conversation last value with the latest source issue comment."
+    },
+    {
+        "title": "The Agent records the exact source-grounded author set in every populated General conversation summary.",
+        "category": "outcome",
+        "justification": "General-conversation contributors must be preserved without omission or invention.",
+        "evidence": "Compare each populated General conversation author set with all source issue-comment authors for that PR."
+    },
+    {
+        "title": "The Agent records the exact earliest submission date in every populated Review summary.",
+        "category": "outcome",
+        "justification": "The first submitted-review boundary must be accurate.",
+        "evidence": "Compare each populated Review first value with the earliest submitted review."
+    },
+    {
+        "title": "The Agent records the exact latest submission date in every populated Review summary.",
+        "category": "outcome",
+        "justification": "The last submitted-review boundary must be accurate.",
+        "evidence": "Compare each populated Review last value with the latest submitted review."
+    },
+    {
+        "title": "The Agent records the exact source-grounded state set in every populated Review summary.",
+        "category": "outcome",
+        "justification": "All submitted-review decisions must be preserved.",
+        "evidence": "Compare each populated Review state set with all source submitted-review states for that PR."
+    },
+    {
+        "title": "The Agent records the exact source-grounded author set in every populated Review summary.",
+        "category": "outcome",
+        "justification": "All submitted reviewers must be preserved.",
+        "evidence": "Compare each populated Review author set with all source submitted-review authors for that PR."
+    },
+    {
+        "title": "The Agent records the exact earliest comment date in every populated Inline discussion summary.",
+        "category": "outcome",
+        "justification": "The first inline-discussion boundary must be accurate.",
+        "evidence": "Compare each populated Inline discussion first value with the earliest source review comment."
+    },
+    {
+        "title": "The Agent records the exact latest comment date in every populated Inline discussion summary.",
+        "category": "outcome",
+        "justification": "The last inline-discussion boundary must be accurate.",
+        "evidence": "Compare each populated Inline discussion last value with the latest source review comment."
+    },
+    {
+        "title": "The Agent records the exact source-grounded author set in every populated Inline discussion summary.",
+        "category": "outcome",
+        "justification": "All inline-discussion contributors must be preserved.",
+        "evidence": "Compare each populated Inline discussion author set with all source review-comment authors for that PR."
+    },
+    {
+        "title": "The Agent records the exact source-grounded file-path set in every populated Inline discussion summary.",
+        "category": "outcome",
+        "justification": "All files represented in inline review discussion must remain discoverable.",
+        "evidence": "Compare each populated Inline discussion path set with all source review-comment paths for that PR."
+    },
+    {
+        "title": "The Agent does not include a pull-request total breakdown by state in the memo.",
+        "category": "outcome",
+        "justification": "Leonard explicitly limited totals to each repository and both combined.",
+        "evidence": "Inspect the memo and confirm it contains no open, closed, merged, or other state-level PR total."
+    },
+    {
+        "title": "The Agent does not include a pull-request total breakdown by contributor in the memo.",
+        "category": "outcome",
+        "justification": "Leonard explicitly excluded contributor-level totals.",
+        "evidence": "Inspect the memo and confirm it contains no author, reviewer, or other contributor-level PR total."
+    }
+]

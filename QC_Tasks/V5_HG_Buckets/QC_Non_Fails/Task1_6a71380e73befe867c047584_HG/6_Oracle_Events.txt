@@ -1,0 +1,67 @@
+OE 001. slack_conversations_history({"channel_id":"C09UHHN6PFZ"}).
+Expected: locate Arthur Blake's February 27 2026 thread, 15:42 to 16:42 UTC, establishing the operating rules: flag pull requests where a reviewer requested changes and no sign-off followed before merge, comment on each flagged pull request, raise one Linear ticket per flagged pull request with no bundling, leave those tickets unassigned, record the files and substance of each objection, state explicitly whether a sign-off occurred, separate objections that were argued with from objections nobody answered, check what landed on the branch after the reviewer complained, and post the summary back in the same channel. The same thread also carries a Zombie Match board request, which the prompt places outside this task's scope.
+Verification signoff: slack.slack_messages, channel C09UHHN6PFZ; exact value: 11 messages from EMPLOYEE_0025_SLACK_ID dated 2026-02-27.
+
+OE 002. github_list_pull_requests({"owner":"harmonygames-Games","repo":"Combo-Fighters","state":"all"}).
+Expected: enumerate the complete pull request cohort with pagination.
+Verification signoff: github.github_pull_requests joined to github_repositories; exact value: 37 pull requests.
+
+OE 003. BATCH github_get_pull_request_reviews fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary pullNumber over each integer 1..37.
+Expected: retrieve submitted review decisions once for every pull request, preserving an empty result as checked absence.
+Exact coverage: 37 distinct keys; CHANGES_REQUESTED present on pull requests 19, 24, 26, 35 and 37; all such reviews authored by EMPLOYEE_0003_GITHUB_USERNAME.
+Verification signoff: github.github_reviews.
+
+OE 004. github_get_pull_request({"owner":"harmonygames-Games","repo":"Combo-Fighters","pullNumber":24}).
+Expected: pull request 24 carries a later APPROVED review at 2026-01-13T20:08:03Z preceding its 20:14:50Z merge, excluding it from the qualifying cohort.
+Verification signoff: github.github_reviews; exact value: 1 APPROVED review on pull request 24, 0 on pull requests 19, 26, 35 and 37.
+
+OE 005. github_get_user({"username":"EMPLOYEE_0003_GITHUB_USERNAME"}).
+Expected: resolve the reviewer to Oliver Brooks, oliver.brooks@harmonygames.co, account type User, and establish him as the only human reviewer in the cohort, separate from PERSON_6026_GITHUB_USERNAME, whose account type is Organization and which is the automated reviewer that also comments on pull request 35.
+Verification signoff: github.github_users.
+
+OE 006. BATCH github_get_pull_request_commits fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary pullNumber over 19, 26, 35, 37.
+Expected: establish whether any commit landed on each branch after the change request and before the merge, and establish who authored each such commit.
+Exact coverage:
+  pull request 19, change request 2025-12-30T18:51:42Z, merged 2025-12-30T19:56:15Z by EMPLOYEE_0003_GITHUB_USERNAME; three commits land after the change request, all authored by EMPLOYEE_0003_GITHUB_USERNAME, at 19:03:57Z, 19:30:53Z "fixing combo event", and 19:52:59Z "fixing null refs"; the reviewer therefore resolved his own objection before merging and the prompt places this pull request outside the flagged set;
+  pull request 26, change request 2026-01-15T13:36:06Z, sole commit authored 2026-01-14T23:39:32Z roughly fourteen hours earlier, zero commits after the change request;
+  pull request 35, change request 2026-01-30T20:36:31Z, one commit after at 2026-01-30T21:32:29Z "Fixing feedback on PR." authored by EMPLOYEE_0025_GITHUB_USERNAME;
+  pull request 37, change request 2026-02-12T14:24:40Z, four commits after at 2026-02-12T16:57:16Z, 2026-02-12T17:09:00Z, 2026-02-13T17:46:48Z and 2026-02-13T18:26:03Z, all authored by PERSON_5877_GITHUB_USERNAME.
+Verification signoff: github.github_pull_request_commits joined to github_commits on authored_date.
+
+OE 007. BATCH github_get_pull_request_comments fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary pullNumber over 19, 26, 35, 37.
+Expected: retrieve the reviewer's inline objections, the files they were raised against, and whether the author answered each one.
+Exact coverage:
+  pull request 19, Assets/Scripts/VFX/ElectricityController.cs, two reviewer comments, no author reply;
+  pull request 26, Assets/Scripts/Managers/GameController.cs and Assets/Scripts/Helper/Memory.cs; the reviewer withdraws the Memory.cs objection at 2026-01-15T17:20:27Z with "Ops, sorry! My bad."; the author answers GameController.cs at 16:40:33Z only by deferring to EMPLOYEE_0016_GITHUB_USERNAME;
+  pull request 35, Assets/Store/DominoPlayerPrefs.cs, answered by the author with "Yes" at 2026-01-30T21:27:16Z, and Assets/Scripts/UI/Profile/ProfileScreen.cs at 20:40:41Z, 20:44:08Z and 20:44:30Z, which receive no author reply before the merge; a further 21 comments on this pull request are authored by the automated reviewer PERSON_6026_GITHUB_USERNAME and are not human review;
+  pull request 37, Assets/Scripts/ScriptableObjects/ComboDefinition.cs with three objections, Assets/Scripts/UI/ComboScreen.cs, Assets/Scripts/UI/LockedComboCell.cs, Assets/Scripts/ScriptableObjects/ComboRarityData.cs and Assets/Scripts/ScriptableObjects/ComboRarityDefinition.cs; the author replies at 16:09:32Z citing "Combo Unlocking Specs", 16:10:09Z and 16:11:41Z.
+Verification signoff: github.github_review_comments.
+
+OE 008. BATCH github_get_file_contents fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary path over the objection files at the merged head.
+Expected: determine from the shipped code, not from the review thread, which objections were implemented.
+Exact coverage:
+  Assets/Scripts/ScriptableObjects/ComboDefinition.cs, all three reviewer objections implemented: the enum is ERarityEnum, the stored Locked field is replaced by the computed IsLocked property, and LevelMultipliers is replaced by ComboLevelUpData lookups;
+  Assets/Scripts/ScriptableObjects/ComboRarityDefinition.cs, ships as a single-field stub containing only "public int LevelRequirements;" and is referenced only by ComboRarityData.cs, so the reviewer's objection is unanswered in the shipped code;
+  Assets/Scripts/ScriptableObjects/ComboRarityData.cs, referenced by no other file, so the reviewer's objection is unanswered;
+  Assets/Scripts/UI/Profile/ProfileScreen.cs, _statPrefab remains "[SerializeField] private GameObject" with an unguarded GetComponent, so the typing objection is unimplemented while the missing-private objection is implemented;
+  Assets/Store/HarmonyPlayerPrefs.cs exists and Assets/Store/DominoPlayerPrefs.cs does not, so the rename objection is implemented;
+  Assets/Scripts/Managers/GameController.cs, the upgrade-ad cooldown still resets on level loss, so the objection is unimplemented.
+Verification signoff: github repository tree at harmonygames-Games/Combo-Fighters.
+
+OE 009. gdocs_search_documents({"query":"Combo Fighter"}).
+Expected: locate the Combo Fighter GDD as the only design document reachable for the assigned persona.
+Verification signoff: gdocs.docs_documents; exact value: document f_8fb667cfb8d1e8dcc7a182, visibility domain.
+
+OE 010. gdocs_get_document_text({"documentId":"f_8fb667cfb8d1e8dcc7a182"}).
+Expected: confirm the design document contains no coverage of combo rarity or combo unlocking, so the rarity and unlock system merged in pull request 37 has no design backing and the "Combo Unlocking Specs" cited in review corresponds to no document.
+Verification signoff: gdocs.docs_documents body text; exact value: 30 occurrences of "combo" and zero occurrences of rarity, unlock, epic, legendary or mythic.
+
+OE 011. BATCH github_add_issue_comment fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary issue_number over 26, 35, 37.
+Expected: each comment records the unresolved reviewer objection, the files affected, whether the author answered, and that the pull request merged without a sign-off.
+
+OE 012. BATCH linear_create_issue fixed({"team":"Engineering"}) with assignee omitted; vary the referenced pull request over 26, 35, 37.
+Expected: three separate unassigned issues, one per flagged pull request, each naming the pull request and its unresolved review substance.
+
+OE 013. slack_send_message({"channel":"C09UHHN6PFZ"}).
+Expected: summary naming pull requests 26, 35 and 37 as the complete flagged set; stating that pull request 24 is excluded because a reviewer approved it before merge and that pull request 19 is excluded because the reviewer's own commits resolved the objection before merge; naming ComboRarityDefinition.cs as the pull request 37 file whose objection is unanswered in shipped code while the ComboDefinition.cs objections were implemented; naming ProfileScreen.cs _statPrefab as the pull request 35 objection that received no reply; reporting that no design document covers the rarity and unlock system; and referencing the Linear issues created via BIND[OE012.identifier]. No write is issued against the Zombie Match board.
+

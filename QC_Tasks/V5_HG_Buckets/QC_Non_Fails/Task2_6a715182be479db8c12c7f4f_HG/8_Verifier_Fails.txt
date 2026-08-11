@@ -1,0 +1,299 @@
+Run #1
+38/42 criteria passed
+Rubrics grading results
+38/42 passed
+Outcome
+38/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	The trajectory confirms ENG-2377 was updated to Canceled state via linear_update_issue.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	The trajectory confirms ENG-2380 was updated to Canceled state.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	The trajectory confirms ENG-2381 was updated to Canceled state.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	The trajectory confirms ENG-2382 was updated to Canceled state.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	The trajectory confirms ENG-2383 was updated to Canceled state.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	The trajectory confirms ENG-2385 was updated to Canceled state.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	The trajectory confirms ENG-2388 was updated to Canceled state.
+The Agent adds a comment to ENG-2377.	Pass	The trajectory confirms a comment was created on ENG-2377 via linear_create_comment.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	The comment on ENG-2377 explicitly states the Telegram DD initiative was called off in January 2026 and references Jan 6, 2026 as the date Leonard terminated the contractor.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Fail	The trajectory shows ENG-2410 (Shop) was NOT updated to Done. The agent identified it as having no merged code and left it open.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Fail	The trajectory shows ENG-2414 (Leaderboard) was NOT updated to Done. It was identified as having no merged code and left open.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Fail	The trajectory shows ENG-2415 (Quest) was NOT updated to Done. It was identified as having no merged code and left open.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2417 (Settings UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2418 (Level-win UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2419 (Level Lose UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2425 (Nathan's Treasure UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2426 (Axe Arena UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2432 (River Tile UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2433 (Memory Tile UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2434 (Tile Dozer UI Optimization) was updated to Done state.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2435 (Lucky Drop UI Optimization) was updated to Done state.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	The trajectory confirms ENG-2438 was created for Domino Delights' move off Helpshift.
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	The trajectory confirms ZOM-2439 was created for Zombie Match 3D's move off Helpshift.
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	Both created issues (ENG-2438 and ZOM-2439) have titles explicitly stating 'subscription ends Feb 28, 2026' and descriptions mentioning the Feb 28 deadline.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	The trajectory confirms a message was sent to channel C0ADGSZKR3R (winddown channel) with result ok:true.
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The Slack rundown explicitly states 'WARNING: we will miss it' and 'not started in code. The SDK is still fully wired into both games and there's no removal PR in either repo.'
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The rundown states 'Linear + Trello exports into their shared drive — still to drop' under the Sunset section.
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The rundown explicitly lists 'Linear + Trello exports into their shared drive — still to drop' for Sunset.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The rundown includes 'Slack private-channel export question: yes, it needs the Business+ upgrade' under the Sunset section.
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The rundown states the CrazyGames agreement was 'signed early Dec [December 2025]'.
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The rundown states 'integration never started. No CrazyGames SDK work... zero engineering progress.'
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Pass	The Slack rundown explicitly lists 'Collect&win' among the 10 tickets with no code behind them.
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Pass	The Slack rundown explicitly lists 'River Rush' among the 10 tickets with no code behind them.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Pass	The Slack rundown explicitly lists 'Rate-us' among the 10 tickets with no code behind them.
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Fail	The Slack rundown does not mention PR #1914 (Economy changes) as an open PR. The 'other still-open on eng' section only mentions the Unity upgrade build and that everything else is frozen.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Pass	The trajectory confirms ENG-2384 (Create friend only leaderboards) was updated to Canceled state.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Pass	The trajectory confirms ENG-2386 (Change pricing in google sheets to stars) was updated to Canceled state.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Pass	The trajectory confirms ENG-2389 (Make loading faster) was updated to Canceled state.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Pass	The trajectory confirms ENG-2390 (Crypto Integration) was updated to Canceled state.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The Slack rundown explicitly states the Telegram DD master and all 10 open sub-tickets were canceled.
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The Slack rundown states '9 that actually merged were stuck in review/validation → moved to Done' naming Settings, Level-win, Level-lose, Nathan's Treasure, Axe Arena + 4 mini-games.
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	Both Helpshift issues (ENG-2438 and ZOM-2439) explicitly state that remaining work includes swapping 'Contact Us' to a mailto link to the shared support inbox, routing players to email.
+
+Run #2
+34/42 criteria passed
+Rubrics grading results
+34/42 passed
+Outcome
+34/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	The trajectory confirms ENG-2377 was updated to Canceled state.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	The trajectory confirms ENG-2380 was updated to Canceled state.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	The trajectory confirms ENG-2381 was updated to Canceled state.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	The trajectory confirms ENG-2382 was updated to Canceled state.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	The trajectory confirms ENG-2383 was updated to Canceled state.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	The trajectory confirms ENG-2385 was updated to Canceled state.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	The trajectory confirms ENG-2388 was updated to Canceled state.
+The Agent adds a comment to ENG-2377.	Pass	The trajectory confirms a comment was created on ENG-2377.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	The comment on ENG-2377 references Leonard's Jan 6, 2026 decision to call off the Telegram push.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Fail	ENG-2410 (Shop UI Optimization) was moved to Todo, not Done. The agent misclassified it as having no merged code, but per criteria it merged in PR #1898.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Fail	ENG-2414 (Leaderboard UI Optimization) was moved to Todo, not Done. The agent misclassified it as having no merged code.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Fail	ENG-2415 (Quest UI Optimization) was moved to Todo, not Done. The agent misclassified it as having no merged code.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2417 was updated to Done state.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2418 was updated to Done state.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2419 was updated to Done state.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2425 was updated to Done state.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2426 was updated to Done state.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2432 was updated to Done state.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2433 was updated to Done state.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2434 was updated to Done state.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2435 was updated to Done state.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	ENG-2438 was created covering both Domino Delights and Zombie Match 3D Helpshift migration.
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	ENG-2438 explicitly covers Zombie Match 3D in its title alongside Domino Delights.
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	The Helpshift issue references the Feb 28, 2026 cutoff date for both games.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	A message was posted to the winddown channel (C0ADGSZKR3R) in the trajectory.
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The rundown states no removal code exists and the Helpshift move has not shipped, indicating migration is not complete.
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The rundown mentions Linear/Trello exports as still pending delivery to Sunset.
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The rundown explicitly names the Trello export as pending for Sunset.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The rundown notes the Slack Business+ private channel export question is on Leonard.
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The rundown states the CrazyGames agreement was signed early December 2025.
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The rundown explicitly states the CrazyGames integration was never started.
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Pass	The Slack rundown explicitly lists Collect&win among the 10 tickets with no code behind them.
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Pass	The Slack rundown explicitly lists River Rush among the 10 tickets with no code behind them.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Pass	The Slack rundown explicitly lists Rate-us among the 10 tickets with no code behind them.
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Fail	The Slack rundown does not mention PR #1914 or the Economy changes open PR. The agent missed this open engineering item.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Fail	ENG-2384 does not appear in any linear_update_issue call in the trajectory — it was not canceled.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Fail	ENG-2386 does not appear in any linear_update_issue call in the trajectory — it was not canceled.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Fail	ENG-2389 does not appear in any linear_update_issue call in the trajectory — it was not canceled.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Fail	ENG-2390 does not appear in any linear_update_issue call in the trajectory — it was not canceled.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The Slack rundown explicitly states the Telegram ticket arc was canceled.
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The Slack rundown states UI optimization sprint tickets whose code had merged were moved to Done.
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	The Helpshift issue description mentions email/ID fallback indicating player support routing to email.
+
+Run #3
+37/42 criteria passed
+Rubrics grading results
+37/42 passed
+Outcome
+37/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2377", "state": "Canceled"} and the result confirms the update succeeded.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2380", "state": "Canceled"} and the result confirms success.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2381", "state": "Canceled"} and the result confirms success.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2382", "state": "Canceled"} and the result confirms success.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2383", "state": "Canceled"} and the result confirms success.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2385", "state": "Canceled"} and the result confirms success.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2388", "state": "Canceled"} and the result confirms success.
+The Agent adds a comment to ENG-2377.	Pass	Trajectory shows linear_create_comment called with {"issueId": "ENG-2377", "body": "Canceled — Telegram push was called off in January 2026..."} confirming a comment was added.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	The comment on ENG-2377 explicitly states: 'on Jan 6, 2026, Leonard terminated the Telegram distribution lead's contract and confirmed the pivot' and includes the Slack permalink as the decision of record.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2410", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2414", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2415", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2417", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2418", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2419", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2425", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2426", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2432", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2433", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2434", "state": "Done"} and the result confirms success.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue called with {"id": "ENG-2435", "state": "Done"} and the result confirms success.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	Trajectory shows linear_create_issue for 'Domino Delights: remove Helpshift SDK, replace Contact Us with email' (ENG-2441) with parentId ENG-2438. Created multiple times due to retry logic, with successful result.
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	Trajectory shows linear_create_issue for 'Zombie Match: remove Helpshift SDK, replace Contact Us with email' in Zombie Match 3D team (ZOM-2442), with parentId ENG-2438. Created with successful result.
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	The master Helpshift issue ENG-2438 description references 'Helpshift subscription cutoff' and 'Deadline: today (2026-02-28)'. The sub-tickets also note 'Deadline: today (2026-02-28)'. The Slack rundown also states the deadline is today.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	Trajectory shows slack_send_message to channel C0ADGSZKR3R (the winddown channel) with the full rundown message.
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The Slack rundown explicitly states: 'Reality: no code has been written for either game yet — GitHub only has the original integration PRs, nothing removing it.' and 'shipping two fresh app-store builds today isn't realistic.'
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The Slack rundown states: 'Linear + Trello exports into their shared drive — still owed.' clearly listing the Linear export as pending.
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The Slack rundown states: 'Linear + Trello exports into their shared drive — still owed.' clearly listing the Trello export as pending.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The Slack rundown includes: 'Private-Slack-channel export question: exporting private channels + DMs isn't in the standard self-serve export — that needs Business+ (or Enterprise Grid) plus a requested export.' explicitly covering the Business+ question.
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The Slack rundown states: 'Publishing agreement signed early December (web only — CrazyGames → MSN → FB → WeChat...)' clearly placing the signing in December.
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The Slack rundown states: 'Integration never started — no branch, no PR, and nothing tracked in Linear or Trello... Net: signed, zero engineering work done.'
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Pass	The Slack rundown lists 'Collect&win' among tickets with 'No code behind them → canceled with a note: River Rush, Collect&win, Rate-us, Season Pass, Remove Ad, Offers, Daily Gift.'
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Pass	The Slack rundown lists 'River Rush' among tickets with 'No code behind them → canceled with a note: River Rush, Collect&win, Rate-us...' explicitly noting no PR was ever opened.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Pass	The Slack rundown lists 'Rate-us' among tickets with 'No code behind them → canceled with a note: River Rush, Collect&win, Rate-us, Season Pass, Remove Ad, Offers, Daily Gift.'
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Fail	The Slack rundown's 'Other genuinely-open engineering items' section lists ENG-2363, ENG-2345, ENG-2396, ENG-2023 but does NOT mention PR #1914 (Economy changes) anywhere in the message.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Fail	ENG-2384 does not appear in the trajectory's update_issue calls. The agent only canceled ENG-2380, 2381, 2382, 2383, 2385, 2388, and 2377. ENG-2384 was never updated to Canceled.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Fail	ENG-2386 does not appear in the trajectory's update_issue calls. The agent only canceled ENG-2380, 2381, 2382, 2383, 2385, 2388, and 2377. ENG-2386 was never updated to Canceled.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Fail	ENG-2389 does not appear in the trajectory's update_issue calls. The agent only canceled ENG-2380, 2381, 2382, 2383, 2385, 2388, and 2377. ENG-2389 was never updated to Canceled.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Fail	ENG-2390 does not appear in the trajectory's update_issue calls. The agent only canceled ENG-2380, 2381, 2382, 2383, 2385, 2388, and 2377. ENG-2390 was never updated to Canceled.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The Slack rundown states: 'Telegram: Our tracker still showed an active Telegram DD build. That push was called off Jan 6 when we changed directions... Canceled the master (ENG-2377) + the 6 open sub-tickets.'
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The Slack rundown states: 'Really done → flipped to Done: Shop, Settings, Leaderboard, Quest, Level-win, Level-lose, Axe Arena, Nathan's Treasure, all 4 mini-games. Core Game + Mini-Games parents are now Done.'
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	Both the master Helpshift issue ENG-2438 and the sub-tickets explicitly state 'replace Contact Us with email' and the description mentions 'swap Contact Us to just open the email app to our support inbox.' The Slack rundown also states this: 'swap Contact Us to just open the email app to our support inbox.'
+
+Run #4
+34/42 criteria passed
+Rubrics grading results
+34/42 passed
+Outcome
+34/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	The trajectory confirms ENG-2377 was updated to Canceled via the linear_update_issue tool.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	The trajectory confirms ENG-2380 was updated to Canceled.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	The trajectory confirms ENG-2381 was updated to Canceled.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	The trajectory confirms ENG-2382 was updated to Canceled.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	The trajectory confirms ENG-2383 was updated to Canceled.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	The trajectory confirms ENG-2385 was updated to Canceled.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	The trajectory confirms ENG-2388 was updated to Canceled.
+The Agent adds a comment to ENG-2377.	Pass	The trajectory confirms a comment was created on ENG-2377 via linear_create_comment.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	The ENG-2377 comment explicitly states the Telegram initiative was shelved in January 2026, referencing the Jan 6, 2026 contract termination by Leonard.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2410 was updated to Done.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2414 was updated to Done.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2415 was updated to Done.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2417 was updated to Done.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2418 was updated to Done.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2419 was updated to Done.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2425 was updated to Done.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2426 was updated to Done.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2432 was updated to Done.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2433 was updated to Done.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2434 was updated to Done.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	The trajectory confirms ENG-2435 was updated to Done.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	The trajectory confirms ENG-2438 was created covering Domino Delights' move off Helpshift.
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	The trajectory confirms ZOM-2439 was created covering Zombie Match 3D's move off Helpshift.
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	Both ENG-2438 and ZOM-2439 had a due date of 2026-02-28 (Feb 28) and the descriptions reference the Helpshift account cutoff/termination.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	The trajectory confirms a message was sent to the winddown channel (C0ADGSZKR3R).
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The rundown explicitly states both games are not ready (still using Helpshift SDK), describing the migration as 'at risk' since the email swap and builds are still pending.
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The winddown message explicitly states 'They still need the Linear and Trello exports dropped into their shared drive' — Linear export is listed as pending.
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The winddown message explicitly mentions 'Trello exports' still needed for Sunset.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The winddown message mentions 'private channel exports require Business+ plan' addressing the Slack export question.
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The winddown message states the web publishing agreement was 'signed Dec' (early December 2025).
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The winddown message states the CrazyGames integration 'never started', clearly communicating no integration work was done.
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Fail	The trajectory shows ENG-2424 (Collect&win) was not named in the winddown Slack message itself. The explore agent found it only in later analysis entries, not in the actual posted rundown.
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Fail	The trajectory shows ENG-2427 (River Rush) was not named in the winddown Slack message. The explore agent found it only in later analysis entries, not in the actual posted rundown.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Fail	The trajectory shows ENG-2431 (Rate-us pop-ups) was not named in the winddown Slack message. The explore agent found it only in later analysis entries, not in the posted rundown.
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Fail	The trajectory shows PR #1914 (Economy changes) was identified in analysis but was not explicitly named in the winddown Slack message.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Fail	ENG-2384 does not appear anywhere in the trajectory file. The agent only canceled 6 sub-tickets (2380, 2381, 2382, 2383, 2385, 2388) and did not cancel ENG-2384.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Fail	ENG-2386 does not appear anywhere in the trajectory file. It was not canceled by the agent.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Fail	ENG-2389 does not appear anywhere in the trajectory file. It was not canceled by the agent.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Fail	ENG-2390 does not appear anywhere in the trajectory file. It was not canceled by the agent.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The winddown message explicitly states that Telegram initiative tickets were canceled (7 tickets canceled per the rundown).
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The winddown message states 14 UI optimization tickets were flipped to Done after verifying merged PRs.
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	Both ENG-2438 and ZOM-2439 explicitly describe replacing the Helpshift SDK with an email-to-support flow so players can email a support address directly.
+
+Run #5
+39/42 criteria passed
+Rubrics grading results
+39/42 passed
+Outcome
+39/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2377 to Canceled state.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2380 to Canceled state.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2381 to Canceled state.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2382 to Canceled state.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2383 to Canceled state.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2385 to Canceled state.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2388 to Canceled state.
+The Agent adds a comment to ENG-2377.	Pass	The trajectory confirms a linear_create_comment call adding a comment to ENG-2377.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	The comment on ENG-2377 explicitly states the Telegram DD initiative was 'called off in early January 2026' and references Leonard terminating the contractor on Jan 6, 2026.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2410 to Done state.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Fail	ENG-2414 (Leaderboard) was NOT set to Done. The agent categorized it as having 'no code behind it at all' and listed it among the 9 tickets with no merged code. It was not flipped to Done.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Fail	ENG-2415 (Quest) was NOT set to Done. The agent listed it in the Slack message as one of the 9 tickets with no code behind them, not among the 11 flipped to Done.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2417 to Done state.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2418 to Done state.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2419 to Done state.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2425 to Done state.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2426 to Done state.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2432 to Done state.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2433 to Done state.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2434 to Done state.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2435 to Done state.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	ENG-2441 was created specifically covering 'Remove Helpshift from Domino Delights — repoint Contact Us to email.'
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	ENG-2442 was created specifically covering 'Remove Helpshift from Zombie Match 3D — repoint Contact Us to email.'
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	ENG-2438 (the parent Helpshift issue) explicitly includes a due date of Feb 28, 2026 in the trajectory.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	The trajectory confirms a slack_send_message call to channel C0ADGSZKR3R (#winddown) with the full rundown message.
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The Slack rundown explicitly states 'Helpshift removal — DUE TODAY, and NOT started ⚠️' and 'No code exists in either repo yet.'
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The Slack rundown states 'Linear + Trello exports into their shared drive — the trackers are now cleaned up and accurate, so they're ready to export; dropping the files is the remaining step.'
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The Slack rundown explicitly lists 'Linear + Trello exports into their shared drive' as remaining for the Sunset handover.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The Slack rundown includes 'The Business+ question: exporting private channels/DMs is not available on our current plan... private-channel export requires the Business+ upgrade.'
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The Slack rundown states 'We signed the web publishing agreement in early December' and the agent response says 'signed early Dec.'
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The Slack rundown states 'never started the integration — no branch, no ticket, zero eng work.'
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Pass	The Slack rundown lists 'Collect&Win' among the 9 tickets with no code behind them.
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Pass	The Slack rundown lists 'River Rush' among the 9 tickets with no code behind them.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Pass	The Slack rundown lists 'Rate-us' among the 9 tickets with no code behind them.
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Fail	The Slack rundown does not mention PR #1914 (Economy changes) as a still-open PR. Section 5 lists stale DD tickets by issue number but not this PR.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2384 to Canceled state.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2386 to Canceled state.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2389 to Canceled state.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Pass	The trajectory confirms a linear_update_issue call setting ENG-2390 to Canceled state.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The Slack rundown clearly states the Telegram push 'was called off in early January (Leonard terminated the contractor on Jan 6)' and that the master ticket and sub-tickets were closed as Canceled.
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The Slack rundown states 'I checked GitHub and flipped the 11 that actually merged to Done (Shop, Settings, Level-win, Level-lose, Nathan's Treasure, Axe Arena + all 4 Mini-Games).'
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	ENG-2441 and ENG-2442 both explicitly describe 'repoint Contact Us to email' (mailto), and the Slack rundown also states 'repoint the in-game Contact Us button to a mailto: to our support inbox.'
+
+Run #6
+42/42 criteria passed
+Rubrics grading results
+42/42 passed
+Outcome
+42/42 passed
+Rubric	Decision	Justification
+The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.	Pass	Trajectory shows linear_update_issue call with {"id": "ENG-2377", "state": "Canceled"} at Entry 130.
+The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.	Pass	Trajectory shows linear_update_issue call with {"id": "ENG-2380", "state": "Canceled"} at Entry 132.
+The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.	Pass	Trajectory confirms ENG-2381 was updated to Canceled state along with all other open Telegram sub-tickets.
+The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.	Pass	Trajectory confirms ENG-2382 was updated to Canceled state as part of the Telegram ticket cleanup.
+The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.	Pass	Trajectory confirms ENG-2383 was updated to Canceled state as part of the Telegram ticket cleanup.
+The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.	Pass	Trajectory confirms ENG-2385 was updated to Canceled state as part of the Telegram ticket cleanup.
+The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.	Pass	Trajectory confirms ENG-2388 was updated to Canceled state as part of the Telegram ticket cleanup.
+The Agent adds a comment to ENG-2377.	Pass	Trajectory shows a comment created on ENG-2377 at Entry 157 with decision details about the January 2026 cancellation.
+The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.	Pass	Comment on ENG-2377 explicitly states 'Telegram initiative called off (Jan 2026)' and references the Jan 6, 2026 decision in #executives Slack channel.
+The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue call with {"id": "ENG-2410", "state": "Done"} at Entry 164.
+The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue call with {"id": "ENG-2414", "state": "Done"} at Entry 166.
+The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.	Pass	Trajectory shows linear_update_issue call with {"id": "ENG-2415", "state": "Done"} at Entry 168.
+The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2417 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2418 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2419 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2425 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2426 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2432 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2433 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2434 was updated to Done state as part of the UI optimization reconciliation.
+The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.	Pass	Trajectory confirms ENG-2435 was updated to Done state as part of the UI optimization reconciliation.
+The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.	Pass	Trajectory shows ENG-2438 created at Entry 221 with title 'Remove Helpshift from Domino Delights & Zombie Match (replace in-game support with email)', explicitly covering Domino Delights.
+The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.	Pass	Trajectory shows ENG-2438 created at Entry 221 covering both Domino Delights and Zombie Match 3D.
+The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.	Pass	ENG-2438's description includes the Feb 28, 2026 deadline and references the account closing as the urgency driver.
+The Agent posts a rundown message in the winddown Slack channel.	Pass	Trajectory shows a message posted to the winddown channel (C0ADGSZKR3R) at Entry 225.
+The Agent's rundown states that the Helpshift migration is not complete.	Pass	The winddown message explicitly states 'Client side is *not started*. Both DD and Zombie Match still ship the Helpshift SDK and route Contact Us through it'.
+The Agent's rundown states that the Linear export is still owed to Sunset.	Pass	The winddown message states 'Linear export + Trello export dropped into their shared drive — not delivered yet'.
+The Agent's rundown states that the Trello export is still owed to Sunset.	Pass	The winddown message explicitly mentions the Trello export as not delivered yet alongside the Linear export.
+The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.	Pass	The winddown message mentions that exporting private channels + DMs requires Slack Business+ (or Enterprise), while the current Pro plan only exports public channels.
+The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.	Pass	The winddown message states the deal was 'signed early December' (2025), satisfying the requirement to mention the December 2025 signing.
+The Agent's rundown states that the CrazyGames web integration has not started.	Pass	The winddown message states 'Integration never started' for the CrazyGames deal.
+The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.	Pass	The winddown message lists ENG-2424 Collect&win among the 7 tickets that 'had no code behind them (were mislabeled as in-review)'.
+The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.	Pass	The winddown message lists ENG-2427 River Rush among the 7 tickets with no code behind them.
+The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.	Pass	The winddown message lists ENG-2431 Rate-us pop-ups among the 7 tickets with no code behind them.
+The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.	Pass	The winddown message references PR #1914 as 'open, has unresolved merge markers' — the Economy changes PR in GameOfDominoes.
+The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.	Pass	Trajectory confirms ENG-2384 was updated to Canceled state as part of the Telegram sub-ticket cleanup.
+The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.	Pass	Trajectory confirms ENG-2386 was updated to Canceled state as part of the Telegram sub-ticket cleanup.
+The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.	Pass	Trajectory confirms ENG-2389 was updated to Canceled state as part of the Telegram sub-ticket cleanup.
+The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.	Pass	Trajectory confirms ENG-2390 was updated to Canceled state as part of the Telegram sub-ticket cleanup.
+The Agent's rundown states that the Telegram ticket arc was canceled.	Pass	The winddown message states 'Canceled the master (ENG-2377) + all 10 remaining open sub-tickets'.
+The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.	Pass	The winddown message states 'Flipped *14 to Done* — Core Game group...and Mini-Games group are now *fully complete*'.
+The Agent's Helpshift tracking states that player support will be routed to email.	Pass	ENG-2438's description states the plan is to 'Replace in-game Helpshift support flow with simple email flow (email support address)', explicitly mentioning email routing.

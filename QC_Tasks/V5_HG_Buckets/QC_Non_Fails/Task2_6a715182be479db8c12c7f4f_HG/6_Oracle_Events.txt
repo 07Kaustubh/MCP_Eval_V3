@@ -1,0 +1,27 @@
+OE 1: Read the winddown Slack channel (slack_read_channel, channel C0ADGSZKR3R) and discover the task context: Leonard's Feb 27, 2026 nudge (Sunset still needs the Linear and Trello exports in their shared drive plus an answer on whether private channel export needs the Business+ upgrade; the CrazyGames publishing agreement was signed in early December with the integration never started; tomorrow is the Helpshift cutoff), Leonard's Feb 11, 2026 message setting the deadline ("We gotta move domino delights and zombie match off Helpshift before Feb 29th... let players send email to support@harmonygames.co @Arthur"), and the Feb 9 Helpshift termination email draft.
+
+OE 2: Search Slack for the Telegram cancellation decision (slack_search_public_and_private, query "telegram") and read the executives channel (C07C2866011). Discover Leonard's Jan 6, 2026 message: "I terminated her contract this morning... told her we changed directions and won't be doing telegram anytime soon." This is the decision of record the master ticket note must point to.
+
+OE 3: List the Telegram tickets in Linear (linear_list_issues, ENG team). Discover the arc frozen since Oct 27, 2025: ENG-2377 Telegram DD Master Ticket (In Progress), ENG-2380 (In Progress), ENG-2381, ENG-2382, ENG-2383, ENG-2385, ENG-2388 (Todo), and the three genuinely finished tickets ENG-2378, ENG-2379, ENG-2387 (Done), which stay as they are.
+
+OE 4: Update ENG-2377 to Canceled (linear_update_issue) and add a comment on ENG-2377 (linear_create_comment) stating the Telegram push was called off in January 2026, referencing Leonard's Jan 6 decision terminating the Telegram contractor.
+
+OE 5: Update each unfinished Telegram sub ticket to Canceled (linear_update_issue on ENG-2380, ENG-2381, ENG-2382, ENG-2383, ENG-2385, ENG-2388).
+
+OE 6: List the UI optimization sprint tickets (linear_list_issues, ENG team, PR and Validation states). Discover 14 tickets parked in PR state including ENG-2410, ENG-2414, ENG-2415, ENG-2417, ENG-2418, ENG-2419, ENG-2424, ENG-2425, ENG-2426, ENG-2427, ENG-2431, ENG-2432, ENG-2433, ENG-2434, ENG-2435, plus ENG-2428, ENG-2429, ENG-2430 in Validation and ENG-2437 In Progress.
+
+OE 7: Verify each parked ticket against merged code in harmonygames-Games/GameOfDominoes (github_search_pull_requests, github_get_pull_request, Nov 2025 window). Discover the merged mapping: ENG-2417 in PR #1901, ENG-2418 in PR #1902, ENG-2419 in PR #1903, ENG-2425 in PR #1895, ENG-2426 in PR #1908, ENG-2432 through ENG-2435 delivered together in PR #1905 (title references ENG-2405 but the body lists the four tickets), ENG-2414 and ENG-2415 delivered together in PR #1907 (title "quest and leaderboard" with no ticket number), and ENG-2410 in PR #1898 (title "eng 2410"). All merged Nov 12 to Nov 20, 2025.
+
+OE 8: Update the 12 tickets with merged code to Done (linear_update_issue on ENG-2410, ENG-2414, ENG-2415, ENG-2417, ENG-2418, ENG-2419, ENG-2425, ENG-2426, ENG-2432, ENG-2433, ENG-2434, ENG-2435).
+
+OE 9: Search GitHub for code behind the remaining parked tickets (github_search_pull_requests, github_search_code for ENG-2424 Collect&win Magical Wings, ENG-2427 River Rush, ENG-2431 Rate-us pop-ups) and confirm the searches return no PR and no merged code for any of the three, a checked absence. These are the "no code behind them" tickets the rundown must flag.
+
+OE 10: Search both repos for the state of the Helpshift migration (github_search_code, github_search_commits, "helpshift" in GameOfDominoes and match3d). Discover only the original integration work exists (ENG-1793, ZOM-301, ZOM-302 era) and confirm the search finds zero removal or email redirect changes after Feb 11, 2026, establishing that the migration has not shipped for either game.
+
+OE 11: List open pull requests in GameOfDominoes (github_list_pull_requests, state open). Discover PR #1914 "Economy changes" authored by Arthur Blake, open since Dec 17, 2025, last updated Feb 6, 2026, with no human review. This is the genuinely open engineering item for the rundown.
+
+OE 12: List Trello boards (trello_list_boards). Discover 4 active boards (DD Product Roadmap, Harmony Games, UA/BD, ZM ROADMAP) plus 1 archived, confirming the Trello export Sunset requested is substantive.
+
+OE 13: Create Linear tracking for the Helpshift migration (linear_create_issue, either one issue covering both games or a master with per game issues) covering moving Domino Delights and Zombie Match 3D off Helpshift, referencing the Feb 28, 2026 cutoff and the plan to route player support to email, assigned to Arthur.
+
+OE 14: Post the rundown in the winddown channel (slack_send_message, channel C0ADGSZKR3R) covering: the tracker cleanup (Telegram arc canceled with the January decision referenced, 12 sprint tickets flipped to Done, the no code tickets flagged including Collect&win, River Rush and Rate-us pop-ups), the Helpshift migration not complete against today's Feb 28 deadline, what Sunset is still waiting on (the Linear export, the Trello export, and the Business+ private channel export question), the CrazyGames deal status (agreement signed December 2025, web integration never started), and the still open Economy changes PR #1914.

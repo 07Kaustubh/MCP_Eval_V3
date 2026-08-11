@@ -1,0 +1,254 @@
+[
+    {
+        "title": "The Agent updates Linear issue ENG-2377 (Telegram DD Master Ticket) to the Canceled state.",
+        "category": "outcome",
+        "justification": "The prompt says the Telegram push was called off in January and the tickets must reflect that. ENG-2377 is the master ticket still showing In Progress.\n\n",
+        "evidence": "The issue update on ENG-2377 in the trajectory with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2380 (Hook up User Name from telegram channel) to the Canceled state.",
+        "category": "outcome",
+        "justification": "ENG-2380 is an unfinished Telegram ticket sitting In Progress, falsely implying active Telegram work.\n\n",
+        "evidence": "The issue update on ENG-2380 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2381 (Create payment requests using Telegram on Client) to the Canceled state.",
+        "category": "outcome",
+        "justification": "Unfinished Telegram ticket in Todo, part of the cancelled push the prompt asks to reflect.\n",
+        "evidence": "The issue update on ENG-2381 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2382 (Handle Telegram Payment verification on Server) to the Canceled state.",
+        "category": "outcome",
+        "justification": "Unfinished Telegram ticket in Todo, part of the cancelled push.\n\n",
+        "evidence": "The issue update on ENG-2382 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2383 (Change pricing to Telegram Stars on client) to the Canceled state.",
+        "category": "outcome",
+        "justification": "Unfinished Telegram ticket in Todo, part of the cancelled push.\n\n",
+        "evidence": "The issue update on ENG-2383 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2385 (Hook up telegram referral system) to the Canceled state.",
+        "category": "outcome",
+        "justification": "Unfinished Telegram ticket in Todo, part of the cancelled push.\n\n",
+        "evidence": "The issue update on ENG-2385 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2388 (Hook up Ads on Telegram) to the Canceled state.",
+        "category": "outcome",
+        "justification": "Unfinished Telegram ticket in Todo, part of the cancelled push.\n\n",
+        "evidence": "The issue update on ENG-2388 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent adds a comment to ENG-2377.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks for a note on the master ticket pointing at the actual decision.\n\n",
+        "evidence": "A comment created on ENG-2377 in the trajectory."
+    },
+    {
+        "title": "The Agent's comment on ENG-2377 states that the Telegram push was called off in January 2026.",
+        "category": "outcome",
+        "justification": "The note must point at the decision of record (Leonard terminated the Telegram contractor on Jan 6, 2026, saying they won't be doing Telegram anytime soon) so nobody has to dig for it.\n\n",
+        "evidence": "The ENG-2377 comment body referencing the January 2026 decision to call off the Telegram work."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2410 (Shop UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "ENG-2410's work merged in PR #1898 in November 2025 but the ticket stayed parked in review. The prompt asks to flip whatever really merged.\n\n",
+        "evidence": "The issue update on ENG-2410 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2414 (Leaderboard UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "ENG-2414's work merged in PR #1907, whose title carries no ticket number, and the ticket stayed parked in review.\n\n",
+        "evidence": "The issue update on ENG-2414 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2415 (Quest UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "ENG-2415's work merged in the same PR #1907 and the ticket stayed parked in review.\n\n",
+        "evidence": "The issue update on ENG-2415 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2417 (Settings UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Merged in PR #1901 on Nov 19, 2025; the ticket was never flipped.\n\n",
+        "evidence": "The issue update on ENG-2417 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2418 (Level-win UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Merged in PR #1902 on Nov 19, 2025; the ticket was never flipped.\n\n",
+        "evidence": "The issue update on ENG-2418 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2419 (Level Lose / Out-of-moves UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Merged in PR #1903 on Nov 19, 2025; the ticket was never flipped.\n\n",
+        "evidence": "The issue update on ENG-2419 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2425 (Nathan's Treasure UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Merged in PR #1895 on Nov 13, 2025; the ticket was never flipped.\n\n",
+        "evidence": "The issue update on ENG-2425 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2426 (Axe Arena UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Merged in PR #1908 on Nov 20, 2025; the ticket was never flipped.\n\n",
+        "evidence": "The issue update on ENG-2426 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2432 (River Tile UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Delivered in merged PR #1905, whose body lists ENG-2432 through ENG-2435.\n\n",
+        "evidence": "The issue update on ENG-2432 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2433 (Memory Tile UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Delivered in merged PR #1905.\n\n",
+        "evidence": "The issue update on ENG-2433 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2434 (Tile Dozer UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Delivered in merged PR #1905.\n\n",
+        "evidence": "The issue update on ENG-2434 with the state set to Done."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2435 (Lucky Drop UI Optimization) to the Done state.",
+        "category": "outcome",
+        "justification": "Delivered in merged PR #1905.\n\n",
+        "evidence": "The issue update on ENG-2435 with the state set to Done."
+    },
+    {
+        "title": "The Agent creates Linear tracking that covers moving Domino Delights off Helpshift.",
+        "category": "outcome",
+        "justification": "The prompt asks to get the untracked Helpshift migration tracked properly. Domino Delights is one of the two affected games named in Leonard's Feb 11 deadline message.\n\n",
+        "evidence": "A created Linear issue whose title or description covers Domino Delights' move off Helpshift. A single issue covering both games also satisfies this."
+    },
+    {
+        "title": "The Agent creates Linear tracking that covers moving Zombie Match 3D off Helpshift.",
+        "category": "outcome",
+        "justification": "Zombie Match 3D is the second affected game named in Leonard's Feb 11 deadline message.\n\n",
+        "evidence": "A created Linear issue whose title or description covers Zombie Match's move off Helpshift. A single issue covering both games also satisfies this."
+    },
+    {
+        "title": "The Agent's Helpshift tracking references the Feb 28, 2026 deadline, the end-of-February cutoff, or the Helpshift account closing.",
+        "category": "outcome",
+        "justification": "The migration is deadline-bound today; tracking without the cutoff loses the urgency Leonard set on Feb 11.\n\n",
+        "evidence": "The created issue's title or description mentioning the Feb 28 deadline, cutoff, or account closing."
+    },
+    {
+        "title": "The Agent posts a rundown message in the winddown Slack channel.",
+        "category": "outcome",
+        "justification": "The prompt explicitly asks to post the rundown Leonard requested in the winddown channel.\n\n",
+        "evidence": "A message sent to the winddown channel (C0ADGSZKR3R) in the trajectory."
+    },
+    {
+        "title": "The Agent's rundown states that the Helpshift migration is not complete.",
+        "category": "outcome",
+        "justification": "Ground truth: no removal or email redirect change exists in either repo, so the move has not shipped as of today's Feb 28 deadline. Reporting where the Helpshift move stands against the deadline is an explicit prompt ask.\n",
+        "evidence": "Rundown text stating the Helpshift move is not done or nothing has shipped for either game."
+    },
+    {
+        "title": "The Agent's rundown states that the Linear export is still owed to Sunset.",
+        "category": "outcome",
+        "justification": "Leonard's Feb 27 message lists the Linear export as pending, and what Sunset is still waiting on is an explicit prompt ask.\n\n",
+        "evidence": "Rundown text listing the Linear export as pending for the Sunset handover."
+    },
+    {
+        "title": "The Agent's rundown states that the Trello export is still owed to Sunset.",
+        "category": "outcome",
+        "justification": "Same source: the Trello export was requested by Sunset and never delivered.\n",
+        "evidence": "Rundown text listing the Trello export as pending."
+    },
+    {
+        "title": "The Agent's rundown mentions the private channel Slack export question (the Business+ upgrade) as part of the Sunset handover.",
+        "category": "outcome",
+        "justification": "Leonard still owes Sunset an answer on whether private channel export requires the Business+ upgrade. A complete list of what Sunset is waiting on includes it.\n",
+        "evidence": "Rundown text mentioning the private channel export or the Business+ question."
+    },
+    {
+        "title": "The Agent's rundown states that the CrazyGames publishing agreement was signed in December 2025.",
+        "category": "outcome",
+        "justification": "Where the CrazyGames deal stands is an explicit ask; the December 2025 signing (confirmed Dec 5 in the founders channel) is the anchor fact.\n\n",
+        "evidence": "Rundown text stating the agreement was signed in December 2025 or early December."
+    },
+    {
+        "title": "The Agent's rundown states that the CrazyGames web integration has not started.",
+        "category": "outcome",
+        "justification": "The deal's real status is that no integration work ever happened. This is the operative fact for Leonard and Robert.\n\n",
+        "evidence": "Rundown text stating the integration was never started or zero work was done."
+    },
+    {
+        "title": "The Agent's rundown identifies the Collect&win (Magical Wings) UI optimization ticket ENG-2424 as having no merged code.",
+        "category": "outcome",
+        "justification": "The prompt says to keep track of anything with no code behind it. ENG-2424 sits in a review state with no PR in existence.\n\n",
+        "evidence": "Rundown text naming Collect&win or ENG-2424 among the tickets with no merged code."
+    },
+    {
+        "title": "The Agent's rundown identifies the River Rush UI optimization ticket ENG-2427 as having no merged code.",
+        "category": "outcome",
+        "justification": "ENG-2427 sits in a review state with no PR in existence.\n",
+        "evidence": "Rundown text naming River Rush or ENG-2427 among the tickets with no merged code."
+    },
+    {
+        "title": "The Agent's rundown identifies the Rate-us pop-ups UI optimization ticket ENG-2431 as having no merged code.",
+        "category": "outcome",
+        "justification": "ENG-2431 sits in a review state with no PR in existence.\n\n",
+        "evidence": "Rundown text naming Rate-us pop-ups or ENG-2431 among the tickets with no merged code."
+    },
+    {
+        "title": "The Agent's rundown identifies the Economy changes pull request (PR #1914) in GameOfDominoes as still open.",
+        "category": "outcome",
+        "justification": "Anything else genuinely open on the engineering side is an explicit ask. PR #1914 is the only open PR with 2026 activity (opened Dec 17, 2025, last touched Feb 6, 2026, no human review).\n\n",
+        "evidence": "Rundown text referencing the open Economy changes PR by number or by name.\n\n"
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2384 (Create friend only leaderboards) to the Canceled state.",
+        "category": "outcome",
+        "justification": "ENG-2384 is an unfinished child of the Telegram master ticket ENG-2377 sitting in Todo, and the prompt asks for everything still open under the master to reflect the January cancellation.\n\n",
+        "evidence": "The issue update on ENG-2384 with the state set to Canceled.\n\n"
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2386 (Change pricing in google sheets to stars) to the Canceled state.",
+        "category": "outcome",
+        "justification": "ENG-2386 is an unfinished child of the Telegram master ticket ENG-2377 sitting in Todo, and the prompt asks for everything still open under the master to reflect the January cancellation.\n\n",
+        "evidence": "The issue update on ENG-2386 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2389 (Make loading faster) to the Canceled state.",
+        "category": "outcome",
+        "justification": "ENG-2389 is an unfinished child of the Telegram master ticket ENG-2377 sitting in Todo, and the prompt asks for everything still open under the master to reflect the January cancellation.\n\n",
+        "evidence": "The issue update on ENG-2389 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent updates Linear issue ENG-2390 (Crypto Integration) to the Canceled state.",
+        "category": "outcome",
+        "justification": "ENG-2390 is an unfinished child of the Telegram master ticket ENG-2377 sitting in Todo, and the prompt asks for everything still open under the master to reflect the January cancellation.\n\n",
+        "evidence": "The issue update on ENG-2390 with the state set to Canceled."
+    },
+    {
+        "title": "The Agent's rundown states that the Telegram ticket arc was canceled.",
+        "category": "outcome",
+        "justification": "The prompt names the tracker cleanup as the first item the rundown must cover, and the Telegram cancellation is one of its two halves.\n",
+        "evidence": "The rundown text sent to the winddown channel stating that the Telegram tickets were canceled."
+    },
+    {
+        "title": "The Agent's rundown states that UI optimization sprint tickets whose code had already merged were moved to Done.",
+        "category": "outcome",
+        "justification": "The tracker cleanup the rundown must cover also includes the sprint reconciliation, which is the second half of the work the prompt asks for on the tracker.\n\n",
+        "evidence": "The rundown text sent to the winddown channel stating that sprint tickets with merged code were moved to Done."
+    },
+    {
+        "title": "The Agent's Helpshift tracking states that player support will be routed to email.",
+        "category": "outcome",
+        "justification": "The prompt requires the Helpshift move to be tracked with whatever is still left to do, and routing players to email support is the remaining work of record set on Feb 11, 2026.\n\n",
+        "evidence": "The created Helpshift issue's description stating that player support moves to email."
+    }
+]

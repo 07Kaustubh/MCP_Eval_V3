@@ -1,0 +1,32 @@
+Auditor Score and Feedback
+ok 3/5
+Answer: [Non-Fail - Missing Process Rubric] - Any number of process criteria are missing ¶ Note: Only count a process criteria as missing when the prompt contains a sequential or causal dependency related to it (staged steps, an earlier step gating a later one, etc.).
+Feedback: The rubric set contains no Process criteria even though the task has explicit verification dependencies. In particular, the Agent must verify the UI tickets against merged GitHub code before changing their Linear states and must inspect both repositories before concluding that the Helpshift migration has not shipped. These investigations are required for trustworthy completion but are not proven by the final outcomes alone.
+
+
+
+
+Component: Oracle Events (OEs) - OE Completeness
+Rate the OEs' Completeness
+OEs are the key steps a correct agent would take.
+They serve two purposes: (1) prove solvability, and (2) drive rubric writing across both  categories — Outcome, or Process
+
+¶¶Each OE should note: what action happens, what info is discovered, what tool is used, and what parameters matter. 
+
+¶¶ OEs describe steps — not what the final response should say.
+Auditor Score and Feedback
+ok 3/5
+Answer: [Non-Fail - Incomplete Oracle Events] - OEs are missing critical steps needed to solve the task (e.g., no step describing how key info is retrieved, or how required action is executed).
+Feedback: OEs 3 and 5 omit four unfinished children of the Telegram master ticket: ENG-2384, ENG-2386, ENG-2389, and ENG-2390. These issues exist in the universe, are correctly covered by rubric criteria 36-39, and must be canceled under the prompt's instruction to update everything still open under the master. OE 6 also says there are 14 tickets in PR state while enumerating 15. In addition, the OEs omit updating ENG-2405 to Done even though OE 7 identifies merged PR #1905, titled "ENG-2405: Mini-Games UI Optimization," as delivering its full tracked scope.
+
+
+
+Component: Rubrics - Overall Rubric Quality
+Rate the Overall Rubric Quality
+Use the number of criteria that the CB wrote as the denominator while calculating % values. See the additional notes section for the numerator. Do NOT double count criteria while tallying even if it has multiple issues.
+
+¶¶Check the appendix in the spec for Rubric Quality Definitions
+Auditor Score and Feedback
+ok 3/5
+Answer: [Non-Fail - Up to 10% Major Errors] Up to 10% (<=10%) of the criteria contain major issues
+Feedback: The rubric is missing an Outcome criterion requiring ENG-2405 to be moved to Done. PR #1905 is directly associated with ENG-2405 and delivered the four child tickets covered by the Mini-Games UI Optimization work, so leaving the parent in Todo would still leave the tracker inaccurate under the prompt's instruction to flip whatever actually merged. This affects 1/42 = 2.4% of the criteria, below the 10% failing threshold. Criterion 9 only requires the ENG-2377 comment to state that the Telegram push was called off in January 2026. This is overly permissive because it would also accept a generic January-cancellation comment that does not point to the actual decision of record, such as Leonard's Jan 6 decision terminating the Telegram contractor. This gives 2/42=4.8% with minor/major issues, which is below the threshold as well.

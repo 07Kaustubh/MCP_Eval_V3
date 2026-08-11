@@ -1,0 +1,25 @@
+Component: Rubrics - Overall Rubric Quality
+Rate the Overall Rubric Quality
+Use the number of criteria that the CB wrote as the denominator while calculating % values. See the additional notes section for the numerator. Do NOT double count criteria while tallying even if it has multiple issues.
+
+¶¶Check the appendix in the spec for Rubric Quality Definitions
+Auditor Score and Feedback
+ok 3/5
+Answer: [Non-Fail - 5-20% Minor Errors] Between 5 and 20% (>=5% and <=20%) of criteria contain minor or moderate or major issues (with major issues contributing lower than 10% and moderate issues contributing lower than 15%)
+Feedback: [Non-Fail - 5-20% Minor Errors] : The criterions 17, 18 and 19 require the agent to mention why PRs 24 and 19 are excluded, which is not a requirement from the prompt or anywhere else. The prompt only requires the information about the PRs that fits the rules. Therefore mentioning some specific PRs that almost fits but fails on small points is not a mandatory step, so not mentioning them is not a valid failure.
+See less
+Selected Error Categories
+[All] [All] [Non-Fail - 5-20% Minor Errors]
+
+-----------------
+
+Component: Oracle Events (OEs) - OE Accuracy
+Rate OE Accuracy
+Auditors should verify OEs against the universe data using the Explorer or Sandbox. Each OE should reference the correct tool, correct service, correct parameters, and correct expected data. An OE that describes "look up Fatimah's relocations in Linear" when relocation records are actually in the CRM is inaccurate — the data exists but the OE points to the wrong place. OE Accuracy is distinct from OE Completeness: completeness checks whether steps are missing; accuracy checks whether the steps that exist are correct.
+Auditor Score and Feedback
+ok 3/5
+Answer: [Non-Fail - Minor OE Inaccuracies] OEs are substantially correct but contain minor imprecisions (e.g., slightly wrong parameter name that doesn't change the outcome, approximate rather than exact expected values for free text fields).
+Feedback: [Non-Fail - Minor OE Inaccuracies] : The 0E 006 determines that the PR 19 should be outside the flagged set, yet in the 0E 007, it still suggest to investigate PR 19 as if its not outside the flagged set. This doesn't change the result but it is an unnecessary step and doesn't help to reach the final result at all. [Non-Fail - Minor OE Inaccuracies] : The OE 013 requires the summary to include the reasons for why the PR 24 and the PR 19 excluded, yet that is not required in the prompt or in the slack messages that lays the rules. Therefore, requiring the summary to have that information is not the correct approach.
+See less
+Selected Error Categories
+[All] [All] [Non-Fail - Minor OE Inaccuracies]

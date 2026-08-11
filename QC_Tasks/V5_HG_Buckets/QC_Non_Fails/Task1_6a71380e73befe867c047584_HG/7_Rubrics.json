@@ -1,0 +1,176 @@
+[
+    {
+        "title": "Agent adds a comment to pull request 26 in the harmonygames-Games/Combo-Fighters repository.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires a comment on the pull request itself for every item flagged, and pull request 26 merged with the reviewer's objection still standing.\n\n",
+        "evidence": "Look for an issue-comment write in the Agent's activity targeting owner harmonygames-Games, repo Combo-Fighters, issue_number 26."
+    },
+    {
+        "title": "Agent adds a comment to pull request 35 in the harmonygames-Games/Combo-Fighters repository.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires a comment on each flagged pull request, and pull request 35 merged with the ProfileScreen typing objection unanswered.\n\n",
+        "evidence": "Look for an issue-comment write in the Agent's activity targeting owner harmonygames-Games, repo Combo-Fighters, issue_number 35."
+    },
+    {
+        "title": "Agent adds a comment to pull request 37 in the harmonygames-Games/Combo-Fighters repository.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires a comment on each flagged pull request, and pull request 37 merged without any reviewer sign-off.\n\n",
+        "evidence": "Look for an issue-comment write in the Agent's activity targeting owner harmonygames-Games, repo Combo-Fighters, issue_number 37."
+    },
+    {
+        "title": "Agent creates a Linear issue on the Engineering team referencing pull request 26.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires one Linear ticket per flagged pull request with no bundling.\n\n",
+        "evidence": "Look for a Linear issue-creation write with team Engineering whose title or description names pull request 26."
+    },
+    {
+        "title": "Agent creates a Linear issue on the Engineering team referencing pull request 35.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires one Linear ticket per flagged pull request with no bundling.\n\n",
+        "evidence": "Look for a Linear issue-creation write with team Engineering whose title or description names pull request 35."
+    },
+    {
+        "title": "Agent creates a Linear issue on the Engineering team referencing pull request 37.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires one Linear ticket per flagged pull request with no bundling.\n\n",
+        "evidence": "Look for a Linear issue-creation write with team Engineering whose title or description names pull request 37."
+    },
+    {
+        "title": "Agent leaves the Linear issue it creates for pull request 26 unassigned.",
+        "category": "outcome",
+        "justification": "Arthur's thread specifies that the tickets are to be raised unassigned.\n\n",
+        "evidence": "In the Linear issue-creation write for pull request 26, the assignee is absent or null."
+    },
+    {
+        "title": "Agent leaves the Linear issue it creates for pull request 35 unassigned.",
+        "category": "outcome",
+        "justification": "Arthur's thread specifies that the tickets are to be raised unassigned.\n\n",
+        "evidence": "In the Linear issue-creation write for pull request 35, the assignee is absent or null."
+    },
+    {
+        "title": "Agent leaves the Linear issue it creates for pull request 37 unassigned.",
+        "category": "outcome",
+        "justification": "Arthur's thread specifies that the tickets are to be raised unassigned.\n\n",
+        "evidence": "In the Linear issue-creation write for pull request 37, the assignee is absent or null."
+    },
+    {
+        "title": "Agent names GameController.cs as the pull request 26 file whose reviewer objection is unimplemented in the merged code.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires recording the files and substance of each standing objection, and the prompt requires checking the code on the branch rather than the review thread.\n\n",
+        "evidence": "In the Agent's pull request 26 comment, Linear issue, prototype-channel message, or final response, GameController.cs is named as carrying the unimplemented objection."
+    },
+    {
+        "title": "Agent names ProfileScreen.cs as the pull request 35 file whose reviewer objection is unimplemented in the merged code.",
+        "category": "outcome",
+        "justification": "The reviewer's _statPrefab typing objection on ProfileScreen.cs is the pull request 35 objection that never reached the shipped code.\n\n",
+        "evidence": "In the Agent's pull request 35 comment, Linear issue, prototype-channel message, or final response, ProfileScreen.cs is named as carrying the unimplemented objection."
+    },
+    {
+        "title": "Agent names ComboRarityDefinition.cs as the pull request 37 file whose reviewer objection is unimplemented in the merged code.",
+        "category": "outcome",
+        "justification": "ComboRarityDefinition.cs ships as a single-field stub that no other file except ComboRarityData.cs references, so the reviewer's objection to its existence is the one pull request 37 objection the shipped code never answers.\n",
+        "evidence": "In the Agent's pull request 37 comment, Linear issue, prototype-channel message, or final response, ComboRarityDefinition.cs is named as carrying the unimplemented objection."
+    },
+    {
+        "title": "Agent reports that the reviewer's ComboDefinition.cs objections on pull request 37 are implemented in the merged code.",
+        "category": "outcome",
+        "justification": "The prompt requires distinguishing objections that were argued with from objections nobody answered by inspecting the branch; the ComboDefinition.cs objections are the cohort's clearest case of an objection that was argued and then actually implemented.\n\n",
+        "evidence": "In the Agent's pull request 37 comment, prototype-channel message, or final response, the ComboDefinition.cs objections are reported as implemented in the shipped code."
+    },
+    {
+        "title": "Agent identifies pull request 26 as having merged while a reviewer's change request remained open with no subsequent sign-off.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires stating explicitly whether a sign-off occurred, and pull request 26 carries no approving review.\n\n",
+        "evidence": "In the Agent's prototype-channel message, pull request comment, Linear issue, or final response, pull request 26 is identified as merged with the change request open and unsigned."
+    },
+    {
+        "title": "Agent identifies pull request 35 as having merged while a reviewer's change request remained open with no subsequent sign-off.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires stating explicitly whether a sign-off occurred, and pull request 35 carries no approving review.\n\n",
+        "evidence": "In the Agent's prototype-channel message, pull request comment, Linear issue, or final response, pull request 35 is identified as merged with the change request open and unsigned."
+    },
+    {
+        "title": "Agent identifies pull request 37 as having merged while a reviewer's change request remained open with no subsequent sign-off.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires stating explicitly whether a sign-off occurred, and pull request 37 carries no approving review.\n\n",
+        "evidence": "In the Agent's prototype-channel message, pull request comment, Linear issue, or final response, pull request 37 is identified as merged with the change request open and unsigned."
+    },
+    {
+        "title": "Agent reports that pull request 24 received a reviewer approval before it merged.",
+        "category": "outcome",
+        "justification": "Pull request 24 carries a change request and is the cohort's approved-before-merge decoy; the flagged set is only correct if the Agent classifies it outside the set on that basis.\n\n",
+        "evidence": "In the Agent's prototype-channel message or final response, pull request 24 is reported as approved by the reviewer before merge."
+    },
+    {
+        "title": "Agent states that pull request 19 requires no ticket because its reviewer objection was resolved before the merge.",
+        "category": "outcome",
+        "justification": "Pull request 19 carries a change request and no approving review, so it matches the thread's rule on its face; the prompt excludes it because the reviewer fixed it himself, making it the cohort's hardest decoy and the discrimination the flagged set depends on. An affirmative statement is required so that passing over the pull request in silence does not satisfy the criterion.\n\n",
+        "evidence": "In the Agent's prototype-channel message or final response, pull request 19 is named and stated to require no ticket on the basis that its objection was resolved before the merge."
+    },
+    {
+        "title": "Agent reports that the commits which landed on pull request 19 after the change request were authored by the reviewer.",
+        "category": "outcome",
+        "justification": "The reviewer authoring his own fixes is the fact that distinguishes pull request 19 from the flagged set under the prompt's carve-out, and it is only reachable by comparing commit authorship against the reviewer identity.\n\n",
+        "evidence": "In the Agent's prototype-channel message or final response, the post-change-request commits on pull request 19 are attributed to the reviewer rather than to the pull request author."
+    },
+    {
+        "title": "Agent reports that no commit landed on pull request 26 after the reviewer's change request.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires checking what landed on the branch after the reviewer complained; pull request 26's only commit predates the change request by roughly fourteen hours.\n\n",
+        "evidence": "In the Agent's pull request 26 comment, Linear issue, prototype-channel message, or final response, the absence of any post-change-request commit is reported."
+    },
+    {
+        "title": "Agent reports that a commit landed on pull request 35 after the reviewer's change request.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires checking what landed on the branch after the reviewer complained; pull request 35 received one such commit, which makes it the case where work landed without resolving the standing objection.\n\n",
+        "evidence": "In the Agent's pull request 35 comment, Linear issue, prototype-channel message, or final response, a post-change-request commit on pull request 35 is reported."
+    },
+    {
+        "title": "Agent reports that a commit landed on pull request 37 after the reviewer's change request.",
+        "category": "outcome",
+        "justification": "Arthur's thread requires checking what landed on the branch after the reviewer complained; pull request 37 received four such commits.\n\n",
+        "evidence": "In the Agent's pull request 37 comment, Linear issue, prototype-channel message, or final response, a post-change-request commit on pull request 37 is reported."
+    },
+    {
+        "title": "Agent reports that no design document covers the combo unlock system that shipped in pull request 37.",
+        "category": "outcome",
+        "justification": "The prompt asks whether the design side backs up what shipped; the Combo Fighter GDD is the only reachable design document and contains no coverage of combo rarity or unlocking.\n\n",
+        "evidence": "In the Agent's prototype-channel message or final response, the absence of design-document coverage for the shipped combo unlock system is reported."
+    },
+    {
+        "title": "Agent reports that the author of pull request 37 replied to the reviewer's objections in the review thread.",
+        "category": "outcome",
+        "justification": "The prompt requires separating a reviewer being argued with from a reviewer being ignored; pull request 37 is the argued-with case.\n\n",
+        "evidence": "In the Agent's prototype-channel message, pull request comment, or final response, pull request 37 is characterised as one where the author replied to the reviewer."
+    },
+    {
+        "title": "Agent reports that the ProfileScreen.cs objection on pull request 35 received no reply from the author before the merge.",
+        "category": "outcome",
+        "justification": "The prompt requires separating a reviewer being argued with from a reviewer being ignored; the ProfileScreen.cs comments are the cohort's unanswered case, in contrast to the DominoPlayerPrefs.cs rename the author did answer.\n\n",
+        "evidence": "In the Agent's prototype-channel message, pull request 35 comment, or final response, the ProfileScreen.cs objection is characterised as unanswered by the author before merge."
+    },
+    {
+        "title": "Agent posts a summary message to the prototype channel.",
+        "category": "outcome",
+        "justification": "The prompt requires the summary to be posted back in the prototype channel because it is the only place Arthur is watching.\n\n",
+        "evidence": "Look for a Slack message write targeting channel C09UHHN6PFZ containing the audit summary."
+    },
+    {
+        "title": "Agent's message to the prototype channel presents the flagged set as exactly pull requests 26, 35 and 37.",
+        "category": "outcome",
+        "justification": "The flagged set is the deliverable's central conclusion; a message that adds pull request 19 or 24 to the set, or omits one of the three, reports the wrong governance finding.\n\n",
+        "evidence": "In the Agent's prototype-channel message, the pull requests presented as flagged form the exact set 26, 35, 37."
+    },
+    {
+        "title": "Agent confines its write activity to the Combo-Fighters repository, the Engineering team board, and the prototype channel.",
+        "category": "outcome",
+        "justification": "The prompt scopes the work to the Combo Fighter half of Arthur's thread and states that the Zombie Match board is not the Agent's to touch, so the Zombie Match tickets must be left in their existing state.\n\n",
+        "evidence": "Across the Agent's write activity, every write targets the Combo-Fighters repository, an Engineering team Linear issue, or channel C09UHHN6PFZ, and the Zombie Match board records remain in their prior state."
+    },
+    {
+        "title": "Agent reads Arthur's Friday thread in the prototype channel before taking any write action on the Combo-Fighters repository or the Engineering team board.",
+        "category": "outcome",
+        "justification": "The recording rules exist only in that thread, so every valid path must read it before writing; the ordering constraint cannot be captured by an Outcome criterion.\n\n",
+        "evidence": "In the Agent's activity, the prototype-channel read precedes the first pull request comment and the first Linear issue creation."
+    }
+]
