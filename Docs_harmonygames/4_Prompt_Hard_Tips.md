@@ -12,15 +12,15 @@ For current service availability, exact operations, parameters, and pagination c
 
 Agents do broad keyword searches and work with whatever comes back first. Once they have a plausible answer, they move on. They rarely follow up unless results explicitly point somewhere else.
 
-**Agents skip structured systems.** Agents discover information through Slack and email conversations, but may fail to query authoritative systems like Linear, GitHub, GSheets, or Snowflake directly. In one trajectory, the agent read many messages where colleagues discussed structured records but relied on that secondhand discussion instead of checking the source.
+**Agents skip structured systems.** Agents discover information through Slack and email conversations, but may fail to query authoritative systems like Linear, GitHub, or GSheets directly. In one trajectory, the agent read many messages where colleagues discussed structured records but relied on that secondhand discussion instead of checking the source.
 
 If a task requires an authoritative source, make the expected outcome depend on facts available there. Add a Process rubric for source verification only when it passes the normal three-condition test; do not reward a particular tool call by default.
 
 **Agents must plan scoped searches around membership.** Persona ACL is active:
 Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads depend on the assigned persona's mailbox,
 conversation membership/visibility, calendar ownership/sharing/invites, and
-Drive file ownership/share. The other six services—Contacts, GitHub, Snowflake,
-Trello, Linear, and Confluence—remain unscoped, and writes are
+Drive file ownership/share. The other four services—Contacts, GitHub, Trello,
+and Linear—remain unscoped, and writes are
 outside ACL scope. Use [`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact
 identity in
 [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).

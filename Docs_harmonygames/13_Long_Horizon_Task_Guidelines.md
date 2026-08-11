@@ -27,7 +27,7 @@ Persona ACL is active. Read [`14_Persona_ACL.md`](14_Persona_ACL.md) and bind
 the task to the exact key/email in
 [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json).
 Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are
-persona-scoped; Contacts, GitHub, Snowflake, Trello, Linear, and Confluence
+persona-scoped; Contacts, GitHub, Trello, and Linear
 reads remain unscoped. Writes are outside ACL scope.
 
 For task facts, the live task state and its injection/changelog take precedence
@@ -198,7 +198,7 @@ The delivered prompt is four sentences:
 
 > can you get the source handoff pack Arthur and I talked about over the line? the details are in #source-handoff. use his preservation notes and my totals note for the February 28 snapshot, then send me the finished pack and checked PR count. this is record keeping, not a code review
 
-Everything the two earlier tiers spelled out lives in an injected private Slack channel, `#source-handoff`, where Leonard and Arthur work the requirements out between themselves. Abridged from `Prompt_and_Injected_Conversation.md`:
+Everything the two earlier tiers spelled out lives in an injected private Slack channel, `#source-handoff`, where Leonard and Arthur work the requirements out between themselves. Abridged from that injected thread:
 
 > **Leonard:** can we make sure the source handoff and source control history dont become a loose end
 >
@@ -257,7 +257,7 @@ Long prompts become unnatural when they contain every policy, flag definition, c
 - A Slack thread where the team agreed on preservation flags.
 - Meeting notes with Jane’s register recommendations.
 - A Drive checklist or policy doc for wind-down closeouts.
-- A Linear comment or Confluence page defining evidence standards.
+- A Linear comment or GDoc defining evidence standards.
 
 Put them there. The prompt becomes a short, realistic delegation; the agent discovers the rules by reading the environment—adding legitimate retrieval calls without turning the prompt into a command list.
 
@@ -350,7 +350,7 @@ The test is simple: if removing a call cannot change the correctness, completene
 
 ### Portfolio Closeout
 
-A founder asks for a wind-down register covering all active products, vendor obligations, source archives, operating evidence, and unresolved owners. The work may require Slack decisions, Drive agreements, GitHub status, Linear ownership, Trello roadmap records, and Snowflake evidence. This is valid when every source contributes to one closeout decision and the final register reconciles the findings.
+A founder asks for a wind-down register covering all active products, vendor obligations, source archives, operating evidence, and unresolved owners. The work may require Slack decisions, Drive agreements, GitHub status, Linear ownership, Trello roadmap records, and GSheets evidence. This is valid when every source contributes to one closeout decision and the final register reconciles the findings.
 
 It is not valid to attach unrelated requests—such as an employee review, a marketing analysis, and a code audit—merely to use more services.
 
@@ -414,28 +414,29 @@ In HarmonyGames:
 - GitHub is the code and PR record.
 - Drive, Docs, Sheets, and Slides hold design, financial, legal, and presentation records.
 - Gmail is external evidence and is read/triage-only.
-- Snowflake is analytical evidence and is read-only.
-- Trello and Confluence may contain roadmap and durable operating context.
+- GSheets models hold the analytical evidence.
+- Trello may contain roadmap and durable operating context.
 
 These are source roles, not ACL rules. Gmail, Slack, GCal, and the Drive-family (Drive, Docs, Sheets, Slides) reads
-are persona-scoped. Contacts, GitHub, Snowflake, Trello,
-Linear, and Confluence reads remain unscoped, and Persona ACL does not grant or
+are persona-scoped. Contacts, GitHub, Trello, and
+Linear reads remain unscoped, and Persona ACL does not grant or
 deny writes.
 
 The local
-[`HarmonyGames_Base_Universe/Services_Data/`](../HarmonyGames_Base_Universe/Services_Data/)
+[`HarmonyGames_Base_Universe/Data/`](../HarmonyGames_Base_Universe/Data/)
 checkout contains the full base export. High-volume surfaces use two actual
 layouts:
 
 - **Full service-level JSON files**, including
-  `linear/linear.issues.json`, `github/github.pull_requests.json`,
-  `github/github.reviews.json`, and `gdrive/gdrive.drive_files.json`.
+  `linear/data.json` (`issues`), `github/data.json` (`pull_requests`),
+  `github/data.json` (`reviews`), and `gdrive/data.json` (`drive_files`).
 - **Sharded full payloads**, including
   `slack/messages/<channel-or-DM-id>/<YYYY-MM>.json` and
   `gmail/threads/<owner-or-service>_EMAIL_<thread-id>.json`.
 
-`Base_Universe_Complete_Data.json` is the combined base export. The checkout
-does not use a legacy `Data/` directory or `__sample30` files.
+`HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` pulls the combined base export. The checkout
+holds one folder per service and is the complete export, not a sampled subset — there are no
+`__sample30` files.
 
 Full base data is not the same as the live task state. Task-specific injection
 or changelog records may add or modify facts, and a service can render,

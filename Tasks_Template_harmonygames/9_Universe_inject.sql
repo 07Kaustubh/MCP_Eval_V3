@@ -5,14 +5,14 @@
 -- 1. Ground every statement in the current universe.
 --    - Read HarmonyGames_Base_Universe/7_Universe_Schema.json and use only its
 --      declared table_schema/table_name pairs, columns, types, and nullability.
---      Its SQL-backed namespaces cover Confluence, Contacts, GCal, GDocs,
---      GDrive, GitHub, Gmail, GSheets, GSlides, Linear, Slack, and Trello;
+--      Its SQL-backed namespaces cover Contacts, GCal, GDocs, GDrive, GitHub,
+--      Gmail, GSheets, GSlides, Linear, Slack, and Trello;
 --      public._changelog records task changes.
---    - Compare affected tables with HarmonyGames_Base_Universe/Services_Data/.
+--    - Compare affected tables with HarmonyGames_Base_Universe/Data/.
 --      Reuse each table's real ID, enum, timestamp, and relationship patterns.
---    - Check HarmonyGames_Base_Universe/6_Server_Tools_Details.json for the exact capabilities of all 13 enabled
---      services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets,
---      GSlides, Trello, Linear, Contacts, and Confluence.
+--    - Check HarmonyGames_Base_Universe/6_Server_Tools_Details.json for the exact capabilities of all 11 enabled
+--      services: Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets,
+--      GSlides, Trello, Linear, and Contacts.
 --
 -- 2. Fit the assigned business function: Engineering & Live-Ops; Product &
 --    Design; Growth / UA / Marketing; Founders / Exec / Strategy; Finance /

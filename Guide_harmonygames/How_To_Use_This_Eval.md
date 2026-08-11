@@ -29,7 +29,7 @@ There is no automated eval runner — run every phase below manually in Cursor.
 ├── Docs/                       # Normative rules and QC specifications
 ├── Evals/                      # Six eval playbooks, numbered 0–5
 ├── Guide/                      # This operational runbook
-├── HarmonyGames_Base_Universe/ # Narrative, schema, tool catalog, Services_Data
+├── HarmonyGames_Base_Universe/ # Narrative, schema, tool catalog, Data
 │   └── 6_Server_Tools_Details.json   # Combined authoritative tool catalog
 ├── QC_Tasks/                   # Completed calibration examples
 ├── Tasks_Template/             # Canonical task scaffold
@@ -103,7 +103,7 @@ path and the needed ownership, membership, share, invite, or visibility
 relationship — or that the task is an affirmative-denial outcome or uses an
 authorized unscoped alternate.
 
-**Read boundaries (read the doc; do NOT hardcode).** Exactly **13 services** are
+**Read boundaries (read the doc; do NOT hardcode).** Exactly **11 services** are
 task-visible. Derive the persona-scoped vs unscoped read sets from the
 `Docs/14_Persona_ACL.md` **Access matrix** at eval time; if that doc changes,
 this guide follows it with no edit here — do not assert a specific service's
@@ -155,13 +155,13 @@ Run before prompt, OE, or rubric evaluation.
 **Primary command**
 
 ```text
-Evaluate @TaskXX_XXXXX/9_Universe_inject.sql and @TaskXX_XXXXX/4_Changelog.json strictly per @Evals/0_Injection_Quality_Eval.md — that eval is the ONLY source of truth for this phase. Follow it exactly: create every required TODO and execute every HARD GATE with zero deviation, skipping, or softening. Compare against @HarmonyGames_Base_Universe/7_Universe_Schema.json and @HarmonyGames_Base_Universe/Services_Data/, and read the @HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog. Do not conclude until every gate is executed and reported.
+Evaluate @TaskXX_XXXXX/9_Universe_inject.sql and @TaskXX_XXXXX/4_Changelog.json strictly per @Evals/0_Injection_Quality_Eval.md — that eval is the ONLY source of truth for this phase. Follow it exactly: create every required TODO and execute every HARD GATE with zero deviation, skipping, or softening. Compare against @HarmonyGames_Base_Universe/7_Universe_Schema.json and @HarmonyGames_Base_Universe/Data/, and read the @HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog. Do not conclude until every gate is executed and reported.
 ```
 
 **Deep check 0a — Structural, cross-service & temporal integrity**
 
 ```text
-CRITICAL HARD GATE — STRUCTURAL, CROSS-SERVICE & TEMPORAL INTEGRITY. Strict and non-negotiable. For EVERY injected/modified row in @TaskXX_XXXXX/9_Universe_inject.sql, diff against @HarmonyGames_Base_Universe/Services_Data/ across all 13 services and check: (1) COLLISIONS — ID collisions, name-spelling mismatches, amount conflicts, status contradictions, timeline collisions, broken cross-service references; (2) ORPHANS & CONSISTENCY — every entity the injection changes still resolves and still agrees everywhere else it appears (threads, mentions, shares, invites, links, quoted amounts, meeting times) with no dangling reference, stale mention, or contradicted downstream record; (3) TEMPORAL — every timestamp within 2026-01-01 to 2026-02-28, on weekdays, created <= updated, parents strictly before children, causally consistent with base; (4) AI-TELLS — read every injected message/body/comment in the attributed human's voice and flag emojis, over-formal or too-perfect chat, repeated syntactic patterns across authors, corporate filler, and uniform lengths, cross-checking voice against @HarmonyGames_Base_Universe/Services_Data/. Any collision, orphan, contradiction, out-of-window/weekend/out-of-order timestamp, or machine-generated/off-voice text = FAIL — cite the offending injected row and the colliding/contradicted base record. Do not waive or rationalize.
+CRITICAL HARD GATE — STRUCTURAL, CROSS-SERVICE & TEMPORAL INTEGRITY. Strict and non-negotiable. For EVERY injected/modified row in @TaskXX_XXXXX/9_Universe_inject.sql, diff against @HarmonyGames_Base_Universe/Data/ across all 11 services and check: (1) COLLISIONS — ID collisions, name-spelling mismatches, amount conflicts, status contradictions, timeline collisions, broken cross-service references; (2) ORPHANS & CONSISTENCY — every entity the injection changes still resolves and still agrees everywhere else it appears (threads, mentions, shares, invites, links, quoted amounts, meeting times) with no dangling reference, stale mention, or contradicted downstream record; (3) TEMPORAL — every timestamp within 2026-01-01 to 2026-02-28, on weekdays, created <= updated, parents strictly before children, causally consistent with base; (4) AI-TELLS — read every injected message/body/comment in the attributed human's voice and flag emojis, over-formal or too-perfect chat, repeated syntactic patterns across authors, corporate filler, and uniform lengths, cross-checking voice against @HarmonyGames_Base_Universe/Data/. Any collision, orphan, contradiction, out-of-window/weekend/out-of-order timestamp, or machine-generated/off-voice text = FAIL — cite the offending injected row and the colliding/contradicted base record. Do not waive or rationalize.
 ```
 
 **Deep check 0b — Persona ACL reachability**

@@ -38,10 +38,10 @@ mixed entry, inferred email, or value mismatch prevents submission.
   - [ ] 0.2: Read 2_Persona.txt and 1_Business_Function.txt — require Persona Key, Persona Email, Name, Role, and Department to match one roster entry exactly; extract role, authority, and department
   - [ ] 0.3: Read 6_Oracle_Events.txt — extract every tool call, parameter, expected value
   - [ ] 0.4: Read 7_Rubrics.json — catalog every rubric: ID, `title`, `category`, `justification`, `evidence`, expected values
-  - [ ] 0.5: Read HarmonyGames_Base_Universe/6_Server_Tools_Details.json (the combined catalog for all 13 services) — build the authoritative tool, parameter, and capability inventory
-  - [ ] 0.6: Read 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Services_Data/ (always) + 4_Changelog.json (if exists) — build complete universe state
+  - [ ] 0.5: Read HarmonyGames_Base_Universe/6_Server_Tools_Details.json (the combined catalog for all 11 services) — build the authoritative tool, parameter, and capability inventory
+  - [ ] 0.6: Read 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Data/ (always) + 4_Changelog.json (if exists) — build complete universe state
   - [ ] 0.7: Read HarmonyGames_Base_Universe/2_Persona_Briefs.md — extract persona role boundaries
-  - [ ] 0.8: If any run uses 500–1,000 tool calls, read Docs/13_Long_Horizon_Task_Guidelines.md and QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/ (the pass baseline), then run the long-horizon legitimacy checks
+  - [ ] 0.8: If any run uses 500–1,000 tool calls, read Docs/13_Long_Horizon_Task_Guidelines.md including its canonical worked example (the pass baseline), then run the long-horizon legitimacy checks
   - [ ] 0.9: If rubrics use record-level spot checks, determine whether the large audit-table exception applies; do not impose a minimum spot-check count
   - [ ] 0.10: Read Docs/14_Persona_ACL.md + HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json; after the five-field hard gate passes, bind the required taxonomy persona and verify Agent Runner/Run Verifier parity
 
@@ -158,22 +158,20 @@ mixed entry, inferred email, or value mismatch prevents submission.
 | `2_Persona.txt` | Required persona artifact — all five fields must exactly match one roster entry |
 | `6_Oracle_Events.txt` | Expected agent steps — tool calls, parameters |
 | `7_Rubrics.json` | All stored rubric objects (`title`, `category`, `justification`, `evidence`) — primary target of this eval |
-| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
+| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 | `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | **Authoritative MCP catalogs** — Read the combined catalog for exact services, tools, parameters, and capabilities |
 | `HarmonyGames_Base_Universe/2_Persona_Briefs.md` | Persona role boundaries |
 | `Agent_Responses/trajectory-run-{N}.json` | Canonical agent trajectories (if available); when a canonical file is absent, accept legacy `Agent_Responses/Run{N}_Trajectory.json` |
-| `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run |
+| `Docs/13_Long_Horizon_Task_Guidelines.md` | Conditional rules for tasks with a 500–1,000-call run, plus the canonical long-horizon pass baseline (592 calls) |
 | `Docs/14_Persona_ACL.md` | Active scoped-read semantics, exact identity requirements, expected-denial handling, and author/runner/verifier separation |
 | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy Persona Key, Persona Email, Name, Role, and Department values |
-| `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` | Canonical long-horizon pass baseline (592 calls) |
-
-**Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail can search/read, read attachments, mutate message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but cannot send/reply/compose/draft. Snowflake is query/read-only.
+**Available services (exactly 11):** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. Gmail can search/read, read attachments, mutate message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but cannot send/reply/compose/draft.
 
 **ACL boundary (read the doc; do NOT hardcode):** Persona-scoped reads apply to exactly the services the `Docs/14_Persona_ACL.md` **Access matrix** marks scoped; the services it marks unscoped are the shared public-service group (shared across task personas, not public outside the HarmonyGames evaluation environment). Derive both sets from the doc at eval time and defer to it if it changes — do not assert a specific service's scope status from memory. Do not invent persona ACL on a service the doc marks unscoped, and do not treat a service the doc marks scoped as unscoped. Writes are outside ACL scope and tasks must not assume write denial.
 
 **Persona ACL feasibility is a STRONG HARD GATE that blocks submission on its own.** A rubric whose success depends on a scoped-service read the assigned persona cannot reach (with no affirmative-denial outcome and no authorized unscoped alternate) is UNREACHABLE and prevents submission regardless of how clean every other family is. It cannot be waived, offset by passing families, or excused as a minor/secondary item, and Universe Explorer author god-mode never satisfies it.
 
-`HarmonyGames_Base_Universe/Services_Data/` is the current full base checkout, not a sampled subset: it contains the consolidated export, service-level JSON, sharded payloads, and repository trees.
+`HarmonyGames_Base_Universe/Data/` is the current full base checkout, not a sampled subset: it contains the consolidated export, service-level JSON, sharded payloads, and repository trees.
 
 ---
 
@@ -212,7 +210,7 @@ A large cohort is not unreachable merely because it exceeds an ordinary-task rec
 
 An eligible large audit table does not need one rubric per repeated record-field cell. This exception never permits a bundled many-record mapping, an arbitrary “at least N of M” threshold, or sampling distinct write actions and non-repetitive requirements.
 
-**Pass baseline:** `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` clears all six checks above — a source-defined cohort of 116 pull requests enumerated from two repository listings, five separately exposed GitHub evidence surfaces per record, no bulk substitute for any of them, 592 declared calls of which 580 are record-level, and 79 outcome-first rubrics that reconcile totals without rewarding volume. When a long-horizon task under review falls short, name which of the six checks it fails relative to that baseline.
+**Pass baseline:** the canonical worked example in `Docs/13_Long_Horizon_Task_Guidelines.md` clears all six checks above — a source-defined cohort of 116 pull requests enumerated from two repository listings, five separately exposed GitHub evidence surfaces per record, no bulk substitute for any of them, 592 declared calls of which 580 are record-level, and 79 outcome-first rubrics that reconcile totals without rewarding volume. When a long-horizon task under review falls short, name which of the six checks it fails relative to that baseline.
 
 ---
 
@@ -255,7 +253,7 @@ Explicit sequencing or ordering is a common valid Process case, but it is not th
 | Always-pass | Tool call always succeeds trivially in this universe | "Must use Trello tool" — in empty environment, calling it always passes | **ALWAYS_PASS** |
 | Always-fail | Tool returns zero results; rubric always fails | "Must use `linear_list_comments`" — Linear has zero comments in this universe | **ALWAYS_FAIL** |
 | Write-in-Process | Write action (create/update/post) categorized as Process | `slack_send_message` or `linear_create_issue` passes just for calling the tool, ignoring content | **WRITE_IN_PROCESS** |
-| Inflated credit | 3+ rubric items credit calling the same tool/service; or Process >40% of total | 4 process items for Trello/GSheets/Confluence/Linear in empty env → 0.4-0.7 credit floor | Flag imbalance |
+| Inflated credit | 3+ rubric items credit calling the same tool/service; or Process >40% of total | 4 process items for Trello/GSheets/GDocs/Linear in empty env → 0.4-0.7 credit floor | Flag imbalance |
 | Environment-config credit | Rubric/OE/complexity count rewards `set_acting_user` | Persona binding is counted as Agent verification or a tool call | **TOOL_GATE** |
 
 ---

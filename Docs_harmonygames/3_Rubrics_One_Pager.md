@@ -25,7 +25,7 @@ exact key/email in
 
 * Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are
   persona-scoped.
-* Contacts, GitHub, Snowflake, Trello, Linear, and Confluence reads are unscoped. Writes
+* Contacts, GitHub, Trello, and Linear reads are unscoped. Writes
   are outside ACL scope.
 * Explorer author god-mode proves that a record exists, not that the assigned
   Agent Runner can reach it. Agent Runner and Run Verifiers use the same

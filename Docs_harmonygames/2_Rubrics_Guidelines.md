@@ -60,8 +60,7 @@ Apply ACL inside the normal Persona, Feasibility, Universe Reachability, and
 Rubric Correctness/Self-Containment checks:
 
 * **Persona-scoped reads:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides.
-* **Unscoped reads:** Contacts, GitHub, Snowflake, Trello, Linear, and
-  Confluence.
+* **Unscoped reads:** Contacts, GitHub, Trello, and Linear.
 * **Writes:** outside ACL scope. Determine write feasibility from
   [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json); never infer a write denial from read
   scoping.
@@ -227,7 +226,7 @@ Only add a Process rubric when a correct final output alone will not reliably pr
    * The behavior is necessary for trustworthy completion AND every valid solution path requires it — or the rubric is phrased broadly enough to pass any valid path. Prompt says "brief Brian before scheduling"? Rubric says "The Agent briefs Brian Foster," not "The Agent posts in #season-pass." A correct solution using another enabled collaboration surface should still pass.  
      1. **Note**: “Agent posts in #legal” is still a valid rubric if the prompt specifically requests a Slack post in `#legal`.  
 2. **Outcome can't cover it**  
-   * A stricter outcome rubric cannot capture the same requirement. When the outcome can check precise values pulled from available structured sources (a Snowflake amount, a GDrive PDF figure, derived math), the agent cannot fake the outcome without doing the underlying work — and the outcome alone is preferable.  
+   * A stricter outcome rubric cannot capture the same requirement. When the outcome can check precise values pulled from available structured sources (a GSheets figure, a GDrive PDF figure, derived math), the agent cannot fake the outcome without doing the underlying work — and the outcome alone is preferable.  
 3. **The rubric describes a verification, not an execution trace.**  
    * The rubric describes what the agent did or verified in a way the judge can confirm from the trajectory — not which specific tool was called, or what the agent was "thinking."  
      1. ✅ "Agent confirmed the vendor terms in Gmail match the signed agreement in GDrive before updating the Trello card."  
@@ -249,7 +248,7 @@ Before considering any process rubric, consider **Step 2** of the *Process Rubri
 
 If the outcome can check precise values pulled from structured sources 
 
-* a Snowflake amount, a figure from a GDrive PDF, a derived calculation, etc.
+* a figure from a GSheets model, a figure from a GDrive PDF, a derived calculation, etc.
 
 then the agent cannot fake the outcome without performing the underlying work. 
 
@@ -501,7 +500,7 @@ Before submitting, confirm:
 * Every criterion is verifiable from the trajectory or final response  
 * Persona-scoped criteria are gradeable from the trajectory/final response or evidence visible to the same assigned persona, never hidden cross-persona state
 * Required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) facts are reachable by the exact roster persona, or the prompt intentionally asks for an affirmative denial outcome plus reporting, escalation, or an authorized alternative
-* Contacts, GitHub, Snowflake, Trello, Linear, and Confluence reads remain unscoped; no rubric invents ACL read scoping for them
+* Contacts, GitHub, Trello, and Linear reads remain unscoped; no rubric invents ACL read scoping for them
 * Write feasibility comes from `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`, not Persona ACL
 * Environment `set_acting_user` configuration is absent from OEs, rubrics, Process criteria, and call counts
 * Gmail triage rubrics identify the target message/thread and requested triage operation or label  

@@ -4,7 +4,7 @@
 
 Start with the [`Docs/README.md`](README.md) index. [**HarmonyGames — Task Categories & Business Functions**](../HarmonyGames_Base_Universe/3_Task_Categories_Business_Functions.md) defines the 6 business functions, target shares, write-surface matrix, and grounded worked prompts. [`Evals/1_Prompt_Eval.md`](../Evals/1_Prompt_Eval.md) and [`Evals/5_Submission_Gate_Eval.md`](../Evals/5_Submission_Gate_Eval.md) control prompt evaluation. If an older example conflicts with those files, the live universe, or `HarmonyGames_Base_Universe/6_Server_Tools_Details.json`, the current authority wins.
 
-HarmonyGames tasks live at the intersection of game development and startup operations. Real work means triaging live-ops bugs across Linear + GitHub + Slack, reconciling a GDD spec against shipped code, threading a UA vendor arc from Gmail through Slack vendor channels to Trello and internally recorded attribution evidence, reconstructing a fundraise timeline from investor emails + board decks + founders Slack, or auditing internal documentation and discussions about a Firebase → BigQuery → Metabase pipeline against queryable Snowflake data. Firebase, BigQuery, and Metabase are business topics in that example, not directly accessible services. The failure mode is shallow — a prompt that just says "update the Linear ticket" or "post in Slack" isn't a HarmonyGames task, it's an inbox chore.
+HarmonyGames tasks live at the intersection of game development and startup operations. Real work means triaging live-ops bugs across Linear + GitHub + Slack, reconciling a GDD spec against shipped code, threading a UA vendor arc from Gmail through Slack vendor channels to Trello and internally recorded attribution evidence, reconstructing a fundraise timeline from investor emails + board decks + founders Slack, or auditing internal documentation and discussions about a Firebase → BigQuery → Metabase pipeline against the retention numbers the team keeps in GSheets. Firebase, BigQuery, and Metabase are business topics in that example, not directly accessible services. The failure mode is shallow — a prompt that just says "update the Linear ticket" or "post in Slack" isn't a HarmonyGames task, it's an inbox chore.
 
 🎯 Use this guide to diversify by workflow shape. HarmonyGames' six business functions move at different tempos: Engineering & Live-Ops (25%) runs on sprint cycles, live bugs, and feature shipping; Product & Design (20%) runs on GDD-vs-implementation reconciliation and roadmap hygiene; Growth/UA/Marketing (15%) runs on vendor arcs and campaign cycles; Founders/Exec (15%) runs on board cadence and strategic bets; Finance/Legal/HR (15%) runs on legal closings, hiring, and vendor contracts; Analytics & Data (10%) runs on pipeline health and data-discrepancy hunts. Author across the range. A task where Brian triages Season Pass reward bugs reads nothing like a task where Leonard reconstructs the failed bridge round, and both should show up in your body of work.
 
@@ -28,11 +28,10 @@ Oracle Events may describe the intended path, but they are non-authoritative and
 **⚠️ Key HarmonyGames tool constraints:**
 * [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is authoritative; see the [Tool Access Guide](0_Tool_Access_Guide.md).
 * Gmail supports reads and triage writes (labels, archive, trash/untrash/delete, label creation/deletion), but has no send/reply/compose tool.
-* Snowflake is read/query-only (analytics warehouse).
-* Exactly 13 catalogs are enabled: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
+* Exactly 11 catalogs are enabled: Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts.
 * Persona ACL scopes **reads only** for Gmail, Slack, GCal, and the Drive-family
   (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL). Contacts,
-  GitHub, Snowflake, Trello, Linear, and Confluence reads remain unscoped; writes
+  GitHub, Trello, and Linear reads remain unscoped; writes
   are outside ACL scope.
 * Universe Explorer/local exports prove existence, not reachability by the
   assigned persona. Required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides) evidence must be

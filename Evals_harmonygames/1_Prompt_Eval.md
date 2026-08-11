@@ -23,7 +23,7 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (covers all 13 services; plus the long-horizon guide when applicable)
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (covers all 11 services; plus the long-horizon guide when applicable)
 - [ ] Phase 0.2: DO VERY DEEP EXPLORATION OF UNIVERSE DATA - This is critical for feasibility, truthfulness, and data existence checks later
 - [ ] Phase 0.3: Explore QC-passed task prompts - Understand what good prompts look like
 - [ ] Phase 1.1: Persona Coherence - Deep verification against 1_Universe_Summary.md
@@ -36,6 +36,7 @@ TODO:
   - [ ] HARD GATE (T11): UGT Precision Guardrail - Before FAILING UGT, run three-part test: (1) enumerate concrete writes under each reading, (2) check if rubric accepts variation via "(or similar)", (3) verify deliverables actually differ. Only fail if writes/deliverables materially differ
   - [ ] HARD GATE: Convergence Investigation - If all 6 agent runs converge on same end-state, apply deeper scrutiny before failing UGT
 - [ ] Phase 2.2: Feasibility - Tool capability + Data existence + Dimensional feasibility verification
+  - [ ] HARD GATE: Retired Server Reference - flag any Snowflake or Confluence dependency, named or implied (wiki/knowledge base, analytics or data warehouse, SCHEMA.TABLE paths); those servers are UNAVAILABLE and must NOT be used, so any hit is a Feasibility FAIL
   - [ ] HARD GATE (T10): Dimensional Feasibility - For every per-X breakdown the prompt asks for, confirm the universe data carries that dimension field; missing field → FAIL Feasibility
   - [ ] HARD GATE: Numeric Observability - For every exact value, precision, rounding, or derived-number ask, verify the required value and inputs survive the cataloged tool path at the requested precision
   - [ ] STRONG HARD GATE: Persona-Scoped Read Feasibility & Ask-Level ACL Violation - Derive the scoped-service set live from the `Docs/14_Persona_ACL.md` access matrix (do not hardcode); confirm every required scoped-service read is visible to the assigned persona, and flag any prompt ask that directs the persona to read scoped data outside their view (unless affirmative-denial or authorized alternate). Any unreachable required scoped read = standalone FAIL, non-waivable
@@ -52,6 +53,8 @@ TODO:
 - [ ] Phase 2.7: Contrived vs Natural Difficulty - Pattern analysis
   - [ ] HARD GATE: Spec-Sheet Register Escalation - 2+ register triggers (enumerated deliverable contents, preservation/format rules, prescribed reply format, contents-driven length) escalates the soft over-stacking flag to a Contrived FAIL
 - [ ] Phase 2.8: Alignment with Today's Date - Detect relative time, apply the "would answer change?" litmus test, verify resolution against fixed date (February 28, 2026)
+- [ ] Phase 2.9: Sample Similarity / Originality - Compare candidate against ALL provided sample prompts (QC_Tasks + Tasks_Template)
+  - [ ] HARD GATE: Sample-Clone Detection - Fingerprint scenario/persona/entities/asks/services/writes/phrasing vs each sample; a clone or light paraphrase of any single sample = FAIL (non-waivable)
 - [ ] Phase 3.1: Data Existence - Per-entity verification in universe files
 - [ ] Phase 3.2: Cross-Service Coherence - Changelog review
 - [ ] Phase 4.1: Final Scoring Table - Per 7_QC_Spec_Doc1.json dimensions
@@ -91,13 +94,13 @@ TODO:
 | **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
 | **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
-**Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Do not infer any additional service from examples or older documentation. Gmail supports search/read, attachment reads, message/thread label changes, thread archive, message/thread trash/untrash/delete, and label create/delete, but no send/reply/compose/draft. Snowflake is query/read-only.
+**Available services (exactly 11):** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. Do not infer any additional service from examples or older documentation. Gmail supports search/read, attachment reads, message/thread label changes, thread archive, message/thread trash/untrash/delete, and label create/delete, but no send/reply/compose/draft.
 
 **ACL boundary (read the doc; do NOT hardcode the service set):** `Docs/14_Persona_ACL.md` is the single, authoritative, and *live* source for which services are persona-scoped for reads. Before evaluating ACL, read that doc's **Access matrix** and derive the sets dynamically: every service its matrix marks **Persona-scoped reads = Yes** is scoped; every service it marks **No** is unscoped. Use whatever the doc currently says — if the doc changes, this eval follows it automatically. Do not rely on any list memorized from a prior version of this eval, and do not reintroduce a hardcoded service list here. (Mechanic note, not a scope claim: if the matrix marks the Google Drive-family scoped, the doc's rule is that GDocs/GSheets/GSlides inherit GDrive's underlying file ACL and that supplying a known object ID does not bypass scoping.) Writes are **always** outside ACL scope: never infer that a write is denied because a related read is scoped, regardless of service.
 
 **Sample QC Tasks (for comparison — 3 categories):**
 - `QC_Tasks/QC_Passed/` — QC score 5. Clean reference tasks; study their prompts, OEs, and rubrics for what quality looks like.
-- `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` — the canonical **long-horizon** reference (592 calls). Its `5_Prompt.txt` is four sentences; the operating rules live in an injected Slack thread shown in `Prompt_and_Injected_Conversation.md`. Use it as the naturalness baseline whenever a prompt is expected to drive a 500–1,000-call run.
+- `Docs/13_Long_Horizon_Task_Guidelines.md` — the canonical **long-horizon** reference (592 calls), worked end to end. Its shipped prompt is four sentences; the operating rules live in an injected Slack thread. Use its three naturalness tiers as the baseline whenever a prompt is expected to drive a 500–1,000-call run.
 - `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing quality issues (non-atomic criteria, inaccurate OEs, missing outcome checks). Study these for the specific defect patterns this eval must catch.
 - `QC_Tasks/QC_True_Fails/` — QC score 2 (confirmed fails). Tasks with structural failures — rubric misreads prompt, impossible requests, contradictory universe data. Study these for hard-fail patterns.
 
@@ -116,35 +119,33 @@ five fields from one of the roster's 17 entries.
 | `5_Prompt.txt` | The prompt to evaluate |
 | `2_Persona.txt` | Assigned persona for this task |
 | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding for the assigned taxonomy persona |
-| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
+| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 
 ---
 
 ## Universe Data Files (For Verification)
 
-**Location:** `HarmonyGames_Base_Universe/Services_Data/`
+**Location:** `HarmonyGames_Base_Universe/Data/`
 
-This checkout is the full base export, not a sampled subset. It includes `Base_Universe_Complete_Data.json`, service-level JSON, sharded payloads such as Slack messages and Gmail threads, and GitHub repository trees.
+This checkout is the full base export, not a sampled subset. Each service has its own folder. Nine services consolidate into a single `data.json` keyed by table, where the key drops the service prefix (`linear_issues` → `issues`); Gmail and Slack are split into per-object files plus shard directories; GDrive, GitHub, Linear, and Trello add a `root/` blob tree. Nothing is zipped.
 
 | Service | Files | What to Verify |
 |---------|-------|----------------|
-| **Slack** | `slack/messages/<channel>/<YYYY-MM>.json`; `slack/slack.channels.json`; `slack/slack.users.json`; `slack/slack.files.json` | Messages, channels, users, and files |
-| **Linear** | `linear/linear.issues.json`; `linear/linear.projects.json`; `linear/linear.comments.json`; `linear/linear.teams.json`; `linear/linear.users.json`; `linear/linear.team_memberships.json` | Issues, projects, comments, teams, users, and memberships |
-| **GitHub** | `github/github.<table>.json` plus `github/root/` repository files | Repositories, PRs, issues, commits, comments, reviews, branches, labels, users, and repository contents |
-| **Gmail** | `gmail/threads/<thread>.json`; `gmail/gmail.users.json`; `gmail/gmail.labels.json`; `gmail/gmail.manifest.json` | Email messages, thread groupings, senders, recipients, attachments, users, and labels |
-| **GDrive** | `gdrive/gdrive.drive_files.json`; `gdrive/gdrive.drive_users.json`; `gdrive/gdrive.drive_sheets.json` | Files, folders, users, and sheet records |
-| **GDocs** | `gdocs/gdocs.docs_documents.json` | Document content and metadata |
-| **GSheets** | `gsheets/gsheets.sheets_spreadsheets.json` | Spreadsheet data, tabs, and cell values |
-| **GSlides** | `gslides/gslides.slides_presentations.json` | Slide decks and presentation content |
-| **GCal** | `gcal/gcal.calendars.json`; `gcal/gcal.events.json` | Calendars and events, including attendees, times, locations, and recurrence |
-| **Trello** | `trello/trello.<table>.json` | Boards, cards, lists, actions, members, labels, checklists, check items, attachments, and organizations |
-| **Confluence** | `confluence/confluence.<table>.json` | Spaces, pages, comments, users, labels, attachments, and page versions |
-| **Contacts** | `contacts/contacts.contacts.json`; `contacts/contacts.current_user_id.json` | Contact details and the current-user mapping |
-| **Snowflake** | `snowflake/snowflake.tables.json`; `snowflake/snowflake.databases.json`; `snowflake/snowflake.schemas.json`; `snowflake/snowflake.query_history.json` | Analytics table metadata and query history — read-only |
+| **Slack** | `slack/channels.json`, `slack/users.json`, `slack/files.json`, `slack/messages/` | Messages, channels, users, and files |
+| **Linear** | `linear/data.json`, attachments in `linear/root/` | Issues, projects, comments, teams, users, and memberships |
+| **GitHub** | `github/data.json`, repository trees in `github/root/` | Repositories, PRs, issues, commits, comments, reviews, branches, labels, users, and repository contents |
+| **Gmail** | `gmail/labels.json`, `gmail/users.json`, `gmail/threads/` | Email messages, thread groupings, senders, recipients, attachments, users, and labels |
+| **GDrive** | `gdrive/data.json`, blobs in `gdrive/root/` | Files, folders, users, and sheet records |
+| **GDocs** | `gdocs/data.json` | Document content and metadata |
+| **GSheets** | `gsheets/data.json` | Spreadsheet data, tabs, and cell values |
+| **GSlides** | `gslides/data.json` | Slide decks and presentation content |
+| **GCal** | `gcal/data.json` | Calendars and events, including attendees, times, locations, and recurrence |
+| **Trello** | `trello/data.json`, attachments in `trello/root/` | Boards, cards, lists, actions, members, labels, checklists, check items, attachments, and organizations |
+| **Contacts** | `contacts/data.json` | Contact details and the current-user mapping |
 
-> For a broad consolidated pass, read `HarmonyGames_Base_Universe/Services_Data/Base_Universe_Complete_Data.json`; use the service-level and sharded files in the same full checkout for detail. `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` can also retrieve the full base export.
+> For a broad consolidated pass, pull the whole universe with `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`; use the per-service folders above for detail.
 
-> **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** Some table-wise files may be empty or absent from a service split because they are write targets or populated only for a task. Check the table-wise files that actually exist, `Base_Universe_Complete_Data.json`, and `3_UniverseDataForThisTask.json` before deciding a service is empty or a task has a feasibility gap.
+> **Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** Some tables may be empty or absent from a service export because they are write targets or populated only for a task. Check the per-service export and `3_UniverseDataForThisTask.json` before deciding a service is empty or a task has a feasibility gap.
 
 ---
 
@@ -162,12 +163,12 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
-**Read ALL data files in `HarmonyGames_Base_Universe/Services_Data/` BEFORE evaluating anything.** Exhaustive upfront knowledge of what exists (entities, relationships, scenarios, retrievable data) is the only way to catch phantom references and feasibility gaps in later phases.
+**Read ALL data files in `HarmonyGames_Base_Universe/Data/` BEFORE evaluating anything.** Exhaustive upfront knowledge of what exists (entities, relationships, scenarios, retrievable data) is the only way to catch phantom references and feasibility gaps in later phases.
 
 **Explore EVERY file in the [Universe Data Files](#universe-data-files-for-verification) table above** - that table is the single source of truth for file paths, what to verify in each service, and which tables are empty in the base universe. Reading order:
 
-1. **Start broad:** read `Base_Universe_Complete_Data.json` or pull the full base export via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` for a consolidated pass.
-2. **Drill into the full checkout:** open the service-level JSON, sharded payloads, and repository trees under `Services_Data/`, prioritizing the services the prompt under evaluation actually touches.
+1. **Start broad:** pull the full base export via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql` for a consolidated pass.
+2. **Drill into the full checkout:** open the service-level JSON, sharded payloads, and repository trees under `Data/`, prioritizing the services the prompt under evaluation actually touches.
 3. **Skip the empty-in-base tables** for existence checks (see the empty-table note under the table) - but still check whether the task populates them via `UniverseDataForThisTask.json`.
 
 **Note:** Documents in the universe are stored as JSON data across the service files. Verify entity names, dollar amounts, dates, account numbers, and persona details in these JSON records against prompt claims the same way you verify any other universe data.
@@ -183,10 +184,12 @@ Pull paths and "what to extract" from the [Reference Documents](#reference-docum
 - How the persona's voice and role shape the request
 - How the prompt avoids pre-solving, tool mentions, and contrived constraints
 
-**For long-horizon tasks, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` first.** Compare its `5_Prompt.txt` against `Prompt_and_Injected_Conversation.md`: a four-sentence request drives 592 tool calls because the repositories, cutoff, evidence surfaces, flag vocabulary, approval rule, completion rule, and totals scope all live in an injected Slack thread instead of the user message. `Docs/13_Long_Horizon_Task_Guidelines.md` walks the same scenario through three tiers of naturalness and tabulates exactly which details moved out of the prompt. A long-horizon prompt that reads like a spec sheet is a finding even when every individual ask is feasible.
+**For long-horizon tasks, read `Docs/13_Long_Horizon_Task_Guidelines.md` first.** Compare its Tier 3 shipped prompt against the injected thread quoted beneath it: a four-sentence request drives 592 tool calls because the repositories, cutoff, evidence surfaces, flag vocabulary, approval rule, completion rule, and totals scope all live in an injected Slack thread instead of the user message. That doc walks the same scenario through three tiers of naturalness and tabulates exactly which details moved out of the prompt. A long-horizon prompt that reads like a spec sheet is a finding even when every individual ask is feasible.
 - How difficult & complex they have maintained
 
 **Also review tasks that had issues** - look for patterns in what prompt mistakes are common. Knowing what fails is as important as knowing what passes.
+
+> **Learn the pattern, never the content (HARD GATE ahead).** The samples exist to teach you what quality looks like — natural persona voice, cross-service friction, embedded difficulty, clean investigate-then-act shape. They are **not** a template to refill with swapped names. A prompt that reuses a sample's scenario, entities, ask set, or wording is a **clone** and FAILS under **Phase 2.9 (Sample Similarity / Originality)**. Study the structure; invent your own scenario, entities, and asks.
 
 ---
 
@@ -377,12 +380,14 @@ If all 6 agent runs converge on the same end-state, this is a mandatory investig
 | [Ask 1] | [What's needed] | [Tool name] | Yes/No |
 | [Ask 2] | [What's needed] | [Tool name] | Yes/No |
 
+**A1. Retired Server Reference (HARD GATE)** - Snowflake and Confluence are UNAVAILABLE and must NOT be used, so any prompt that leans on either is unsolvable. Scan for both the explicit names and the unnamed stand-ins: `snowflake_*` / `confluence_*` tool names, a wiki, knowledge base, or space/page to write up; an analytics or data warehouse to query; SQL over warehouse tables; or `SCHEMA.TABLE`-style warehouse paths. Any hit = **FAIL Feasibility** - quote the offending phrase and name which retired server it implies.
+
 **B. Data Feasibility** - Does the universe data contain EVERY piece of information needed to answer the prompt? This requires going into the raw JSON files and searching for the actual data. Do NOT trust your memory from Phase 0 - go back and verify.
 
 | Information Needed to Solve | Where Should It Exist? | Actually Searched? | Found? | Evidence |
 |----------------------------|----------------------|-------------------|--------|----------|
 | [Key fact 1] | `gmail/threads/<thread>.json` | Yes/No | Yes/No | "..." |
-| [Key fact 2] | `gsheets/gsheets.sheets_spreadsheets.json` | Yes/No | Yes/No | "..." |
+| [Key fact 2] | `gsheets/data.json` (`sheets_spreadsheets`) | Yes/No | Yes/No | "..." |
 | [Key discovery the agent must make] | `slack/messages/<channel>/<YYYY-MM>.json` | Yes/No | Yes/No | "..." |
 
 **No matter how long it takes - search the data files. If you cannot find the data, the task is NOT feasible.**
@@ -393,8 +398,8 @@ When the prompt asks for a quantitative result **broken down by a dimension** (p
 
 | Breakdown Requested in Prompt | Dimension Field Required | Table(s) to Check | Field Exists? | Verdict |
 |-------------------------------|--------------------------|--------------------|--------------:|---------|
-| [e.g., "per project"] | project name field | `linear/linear.projects.json`, relevant `trello/trello.<table>.json` files | Yes/No | Feasible / **FAIL** |
-| [e.g., "by assignee"] | assignee_id or assignee_name | `linear/linear.issues.json` | Yes/No | Feasible / **FAIL** |
+| [e.g., "per project"] | project name field | `linear/data.json` (`projects`), relevant `trello/data.json` files | Yes/No | Feasible / **FAIL** |
+| [e.g., "by assignee"] | assignee_id or assignee_name | `linear/data.json` (`issues`) | Yes/No | Feasible / **FAIL** |
 
 **Procedure (mandatory):**
 1. Extract every quantitative ask from the prompt that requests a breakdown or per-X split.
@@ -493,11 +498,11 @@ Rules:
 
 | Entity/Fact from Prompt | Search Query | File(s) Searched | Found? | Accurate? | Evidence |
 |------------------------|--------------|------------------|--------|-----------|----------|
-| [Person name] | grep "[name]" | `contacts/contacts.contacts.json`, `gmail/threads/<thread>.json` | Yes/No | Yes/No | Line X: "..." |
-| [Entity / team member / contractor] | grep "[name]" | `contacts/contacts.contacts.json`, `slack/slack.users.json`, `slack/messages/<channel>/<YYYY-MM>.json` | Yes/No | Yes/No | Line X: "..." |
+| [Person name] | grep "[name]" | `contacts/data.json` (`contacts`), `gmail/threads/<thread>.json` | Yes/No | Yes/No | Line X: "..." |
+| [Entity / team member / contractor] | grep "[name]" | `contacts/data.json` (`contacts`), `slack/users.json`, `slack/messages/<channel>/<YYYY-MM>.json` | Yes/No | Yes/No | Line X: "..." |
 | [Event/situation] | grep "[keywords]" | `gmail/threads/<thread>.json`, `slack/messages/<channel>/<YYYY-MM>.json` | Yes/No | Yes/No | Line X: "..." |
 | [Relationship claim] | grep "[person]" | HarmonyGames_Base_Universe/1_Universe_Summary.md (org chart) | Yes/No | Yes/No | Line X: "..." |
-| [Dollar amount] | grep "[amount]" | `gsheets/gsheets.sheets_spreadsheets.json` | Yes/No | Yes/No | Line X: "..." |
+| [Dollar amount] | grep "[amount]" | `gsheets/data.json` (`sheets_spreadsheets`) | Yes/No | Yes/No | Line X: "..." |
 
 **Deep Verification Checklist:**
 
@@ -532,9 +537,7 @@ Rules:
 | GDrive/GDocs/GSheets/GSlides | | Read / Write | "..." |
 | GCal | | Read / Write | "..." |
 | Trello | | Read / Write | "..." |
-| Confluence | | Read / Write | "..." |
 | Contacts | | Read / Write | "..." |
-| Snowflake | | Read | "..." |
 
 **Validation:**
 ```
@@ -560,7 +563,7 @@ Services required: [count]
 | Action (post Slack message, create issue, schedule GCal event, etc.) | Yes/No | "..." |
 | Investigation feeds the action (can't act without investigating) | Yes/No | "..." |
 
-**Write Actions:** Use `Docs/5_Prompt_Diversity_Business_Function.md` only for business-function framing. Build the actual write-tool list from the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog. In particular, Gmail has mailbox/label mutations but no send, reply, compose, or draft tool; Snowflake has no writes.
+**Write Actions:** Use `Docs/5_Prompt_Diversity_Business_Function.md` only for business-function framing. Build the actual write-tool list from the `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` catalog. In particular, Gmail has mailbox/label mutations but no send, reply, compose, or draft tool.
 
 **Scoring:**
 - FAIL: Only investigation with NO tool-based write action (unless intentional)
@@ -638,7 +641,7 @@ If ANY such statement appears alongside imperatives directed at the agent (e.g.,
 | Prescribes the reply format ("respond with a table with these columns", "give me back exactly these fields") | Yes/No | "..." |
 | Length driven by exhaustively listing contents rather than by scenario complexity | Yes/No | "..." |
 
-**Baseline for calibration:** `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/5_Prompt.txt` is four sentences and drives 592 calls — the operating detail lives in an injected thread, not the user message. A prompt that instead front-loads every deliverable's contents into the user message is contrived even when every individual ask is feasible. State the goal and the deliverables, then stop — do not enumerate their contents.
+**Baseline for calibration:** the Tier 3 shipped prompt in `Docs/13_Long_Horizon_Task_Guidelines.md` is four sentences and drives 592 calls — the operating detail lives in an injected thread, not the user message. A prompt that instead front-loads every deliverable's contents into the user message is contrived even when every individual ask is feasible. State the goal and the deliverables, then stop — do not enumerate their contents.
 
 **Natural Difficulty Indicators (GOOD):**
 
@@ -656,7 +659,7 @@ If ANY such statement appears alongside imperatives directed at the agent (e.g.,
 - NON-FAIL (3-4): Somewhat contrived elements but core scenario is natural
 - PASS (5): All difficulty comes from natural business complexity
 
-**Long-horizon anti-inflation check:** For a task expected to produce a 500–1,000-call run, verify that repeated calls answer distinct required questions over a source-defined cohort and that no complete bulk result can replace them. The call count itself is never evidence of quality. Repeatedly opening the same record, splitting one complete response into smaller calls, or adding process choreography only to increase volume is contrived. For a non-inflated baseline, see `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/`: 580 of its 592 calls are one evidence surface for one pull request, and each of the remaining twelve is discovery, creation, or verification that the deliverable depends on.
+**Long-horizon anti-inflation check:** For a task expected to produce a 500–1,000-call run, verify that repeated calls answer distinct required questions over a source-defined cohort and that no complete bulk result can replace them. The call count itself is never evidence of quality. Repeatedly opening the same record, splitting one complete response into smaller calls, or adding process choreography only to increase volume is contrived. For a non-inflated baseline, see the call breakdown in `Docs/13_Long_Horizon_Task_Guidelines.md`: 580 of its 592 calls are one evidence surface for one pull request, and each of the remaining twelve is discovery, creation, or verification that the deliverable depends on.
 
 ---
 
@@ -698,6 +701,59 @@ If ANY such statement appears alongside imperatives directed at the agent (e.g.,
   - Prompt does not contradict February 28, 2026, AND
   - No relative time used OR relative time resolves cleanly to a window with confirmed universe data, AND
   - Universe data is broadly consistent with February 28, 2026 (America/Chicago). **The "still-solvable" exception has been removed** — if universe data dates are misaligned with February 28, 2026 AND the misalignment creates stale references, ambiguous timeframes, or contradictory data in the scenario, this is a FAIL regardless of whether agents happen to solve it anyway. The task must be temporally sound on its own merits, not rescued by agent luck.
+
+---
+
+### 2.9 Sample Similarity / Originality (STRONG HARD GATE — Anti-Sample-Copying)
+
+**⚠️ SILENT KILLER. This gate stands alone.** A prompt that is a clone or light paraphrase of any provided sample is not original work and **FAILS here on its own**, no matter how strong every other dimension is. It cannot be waived, averaged away, or excused because the individual asks are feasible and truthful.
+
+**Why this exists:** CBs are handed the `QC_Tasks/` samples and `Tasks_Template/` as quality references (Phase 0.3). The failure mode is that a CB reuses a sample too closely — same scenario, same persona+entities, the same ask set, or near-verbatim wording — and ships what is effectively a reskinned copy. Every per-dimension check (Feasibility, Truthfulness, Clarity, etc.) can look fine, so a clone slips through unless it is checked explicitly. This is the **hard-fail complement** to the soft 1.4 Prompt Diversity flag: 1.4 flags "yet another generic pattern"; 2.9 hard-fails "a duplicate of a specific sample we shipped."
+
+**Scope of comparison (mandatory — compare the candidate against ALL of these):**
+- Every `QC_Tasks/QC_Passed/*/5_Prompt.txt`.
+- Every `QC_Tasks/QC_Non_Fails/*/5_Prompt.txt`.
+- Every `QC_Tasks/QC_True_Fails/*/5_Prompt.txt`.
+- The three tier prompts and the injected Slack thread quoted in `Docs/13_Long_Horizon_Task_Guidelines.md` — that doc supplies a complete shipped prompt and explicitly forbids reusing its scenario, cohort, repositories, flag vocabulary, or wording.
+- The `Tasks_Template/` prompt scaffold and any other sample prompt shared with CBs.
+- **Long-horizon tasks:** compare the injected operating thread too, not just `5_Prompt.txt` — the copied content often lives in the injection.
+
+**Fingerprint the candidate and each sample on these 7 elements:**
+
+| # | Element | How to extract |
+|---|---------|----------------|
+| 1 | Core scenario / premise | The one-line situation driving the task (e.g., "reconcile the duplicate-payment alert across finance systems") |
+| 2 | Persona + scenario pairing | The acting voice AND whether it is paired with the same situation as a sample |
+| 3 | Tight entities | Named channels, vendors, docs, tickets/issue IDs, people, account numbers, amounts, dates reused from the sample |
+| 4 | Ask set / deliverables | The specific artifacts the agent must produce and where they land |
+| 5 | Service + write combination | The exact mix of services touched and the write actions performed |
+| 6 | Workflow shape | The investigation→action structure, branching, batching, stacking pattern |
+| 7 | Distinctive phrasing | Sentence-level wording, opening line, signature phrases |
+
+**Comparison table (fill for the closest 1–3 samples):**
+
+| Sample (path) | 1 Scenario | 2 Persona+Scenario | 3 Entities | 4 Asks | 5 Svc+Writes | 6 Shape | 7 Phrasing | Elements matched (/7) |
+|---------------|-----------|--------------------|-----------|--------|--------------|---------|-----------|-----------------------|
+| `QC_Tasks/.../5_Prompt.txt` | same/diff | same/diff | same/diff | same/diff | same/diff | same/diff | same/diff | X/7 |
+
+**HARD-GATE thresholds — FAIL if ANY is true against ANY single sample:**
+- **Verbatim / near-verbatim reuse:** one or more full sentences (or the opening line) copied or only lightly reworded from a sample prompt or its injected thread.
+- **Paraphrase clone:** same core scenario (#1) **AND** same tight-entity core (#3) — the same story about the same records, only reworded.
+- **≥4 of 7 elements match** a single sample (structural clone, even if some entities were swapped and wording changed).
+- **Persona+scenario lift:** the same persona (#2) paired with the same scenario (#1) **and** the same ask set (#4) as a sample.
+
+**Scoring:**
+- **FAIL (1–2):** Meets any hard-gate threshold above — the prompt is a clone or light paraphrase of a provided sample. Non-waivable; cannot be offset by strong scores elsewhere.
+- **NON-FAIL (3–4):** Meaningful overlap with a sample (2–3 elements) but scenario, entities, and asks are materially different — it reads as its own task that merely shares a category or a service mix. Flag it and recommend further differentiation.
+- **PASS (5):** Distinct scenario, entities, asks, and wording. Shares only the *quality patterns* the samples were meant to teach (natural voice, cross-service friction, embedded difficulty), not their *content*.
+
+**Precision guardrail (mandatory before FAILING 2.9 — avoid over-fire):** Learning from the samples is required, not forbidden. Do **NOT** fail a prompt merely because it:
+- uses the **same persona** as a sample on a *different* scenario,
+- touches the **same service(s)** or targets the same task category,
+- follows the **same investigate-then-act shape** with different content, or
+- reuses **generic domain vocabulary** any HarmonyGames task would (standard channel names, common tool nouns, the fixed universe date).
+
+Only FAIL when the *content* is duplicated per the thresholds — scenario + entities + asks, or actual wording. When genuinely unsure, downgrade to NON-FAIL and flag it under Recommended Improvements rather than hard-failing.
 
 ---
 
@@ -753,6 +809,7 @@ All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phas
 | Prompt | Clarity & Specificity | 1/3/5 | ... |
 | Prompt | Contrived / Unnatural | 1/3/5 | ... |
 | Prompt | Alignment with Today's Date | 1/3/5 | ... |
+| Prompt | Originality / Sample Similarity | 1/3/5 (HARD GATE 2.9) | ... |
 | Prompt | Truthfulness | 1/3/5 | ... |
 | Prompt | Tool Use & Cross-service | 1/5 | ... |
 | Prompt | Investigation + Action | 1/5 | ... |
@@ -868,6 +925,7 @@ All entity/fact existence was verified in Phase 2.2B (Data Feasibility) and Phas
 | Action decision ambiguity | Two readings → different write actions (or write vs no-write / act vs defer) | Major (Clarity - 06/09) |
 | Wrong business function | Category doesn't match the task categories | Major (Business Function) |
 | Lacks diversity | Yet another "investigate + post one Slack message" pattern | Flag (Diversity) |
+| **Sample clone / copied prompt** | **Candidate duplicates a provided `QC_Tasks/` or `Tasks_Template/` sample — same scenario+entities, ≥4/7 fingerprint elements, persona+scenario+ask lift, or verbatim/near-verbatim sentences** | **Major (Originality — STRONG HARD GATE 2.9)** |
 | **Impossible dimensional breakdown** | **Prompt asks for a per-X split (per-state, per-vendor, etc.) but the universe data has no field for that dimension** | **Major (Feasibility)** |
 | **UGT over-fire on wording variation** | **UGT failed but the divergence is a label/wording variation with identical deliverables, and the rubric explicitly accepts it via "(or similar)" — apply the precision guardrail** | **Check before FAIL (UGT)** |
 

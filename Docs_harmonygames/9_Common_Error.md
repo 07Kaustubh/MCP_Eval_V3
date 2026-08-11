@@ -11,11 +11,11 @@ From the most recent QC review. `X/12` = tasks affected; ranked within each area
 - **Contrived / spec-sheet register — 5/12.** ~600-word prompts that enumerate each deliverable's exact contents, preservation rules, and reply format. The scenario is natural; the voice isn't. State the goal and the deliverables, then stop — do not list their contents. (See "Writing a tool script", "Bolting unrelated asks together".)
 - **Unique Ground Truth (UGT) — 4/12.** Two defensible readings that produce different final universe states: "those tickets" (6 or 10), two documented conversion rates 2× apart, or a premise some runs accept and others correctly refuse. If runs split, UGT fails — one clause must make a single reading correct.
 - **Clarity / action-decision ambiguity — 4/12.** "Keep track of anything with no code behind it" — cancel them or leave them? "The design spec" with four candidates. One clause usually fixes it. (See "Creating action ambiguity".)
-- **Truthfulness — 4/12 (2 hard, 2 minor).** A premise the universe contradicts: "that thread still has no reply from me" when the reply is right there; a rolling window the source Slack denies. Check every stated premise against `Services_Data/` before shipping.
+- **Truthfulness — 4/12 (2 hard, 2 minor).** A premise the universe contradicts: "that thread still has no reply from me" when the reply is right there; a rolling window the source Slack denies. Check every stated premise against `Data/` before shipping.
 
 ### Oracle Events
 
-- **Inaccurate Oracle Events — 12/12.** Wrong counts, wrong service or table, misquoted messages, paths that return nothing for the assigned persona. Non-failing on its own, but it is where most of the real damage starts. Verify every OE figure against `Services_Data/` before you write rubrics off it. (See "Treating OEs as ground truth", "Ignoring numeric visibility".)
+- **Inaccurate Oracle Events — 12/12.** Wrong counts, wrong service or table, misquoted messages, paths that return nothing for the assigned persona. Non-failing on its own, but it is where most of the real damage starts. Verify every OE figure against `Data/` before you write rubrics off it. (See "Treating OEs as ground truth", "Ignoring numeric visibility".)
 - **OE requirements propagated into scored rubrics — 4/12.** OEs sit at authority rank 6, so they cannot bind the Agent. If a demand exists only in the OE and not in the prompt, it cannot become a criterion.
 
 ### Rubrics
@@ -90,7 +90,7 @@ Gmail can read, search, inspect attachments, and perform mailbox or label triage
 
 ✅ “Review the Mattel thread, capture the outstanding points in a Drive brief, and notify the founders through an enabled collaboration surface.”
 
-Snowflake is query/read-only. Products without a catalog—Singular, AppLovin, Firebase, BigQuery, Metabase, Figma, Stripe, and others—may appear as topics or evidence inside enabled services, but they are not direct tools.
+Products without a catalog—Singular, AppLovin, Firebase, BigQuery, Metabase, Figma, Stripe, and others—may appear as topics or evidence inside enabled services, but they are not direct tools.
 
 ### Creating action ambiguity
 
@@ -162,10 +162,10 @@ escalation, or an authorized alternative.
 ### Applying ACL to the public-service group
 
 **Problem:** The author invents persona read filters for Contacts, GitHub,
-Snowflake, Trello, Linear, or Confluence—or interprets
+Trello, or Linear—or interprets
 “public-service group” as public outside the evaluation environment.
 
-✅ Those six services are unscoped across task personas. Only Gmail, Slack,
+✅ Those four services are unscoped across task personas. Only Gmail, Slack,
 GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped. “Unscoped” means shared across task
 personas, not Internet-public.
 
@@ -382,19 +382,17 @@ Exclude errored runs, inspect the trajectories, and add a grounded 1–2 line ju
 
 Use the live environment for final truth. Common local verification paths are:
 
-- [`../HarmonyGames_Base_Universe/Services_Data/slack/`](../HarmonyGames_Base_Universe/Services_Data/slack/)
-- [`../HarmonyGames_Base_Universe/Services_Data/linear/`](../HarmonyGames_Base_Universe/Services_Data/linear/)
-- [`../HarmonyGames_Base_Universe/Services_Data/github/`](../HarmonyGames_Base_Universe/Services_Data/github/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gmail/`](../HarmonyGames_Base_Universe/Services_Data/gmail/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gdrive/`](../HarmonyGames_Base_Universe/Services_Data/gdrive/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gdocs/`](../HarmonyGames_Base_Universe/Services_Data/gdocs/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gsheets/`](../HarmonyGames_Base_Universe/Services_Data/gsheets/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gslides/`](../HarmonyGames_Base_Universe/Services_Data/gslides/)
-- [`../HarmonyGames_Base_Universe/Services_Data/gcal/`](../HarmonyGames_Base_Universe/Services_Data/gcal/)
-- [`../HarmonyGames_Base_Universe/Services_Data/trello/`](../HarmonyGames_Base_Universe/Services_Data/trello/)
-- [`../HarmonyGames_Base_Universe/Services_Data/confluence/`](../HarmonyGames_Base_Universe/Services_Data/confluence/)
-- [`../HarmonyGames_Base_Universe/Services_Data/contacts/`](../HarmonyGames_Base_Universe/Services_Data/contacts/)
-- [`../HarmonyGames_Base_Universe/Services_Data/snowflake/`](../HarmonyGames_Base_Universe/Services_Data/snowflake/)
+- [`../HarmonyGames_Base_Universe/Data/slack/`](../HarmonyGames_Base_Universe/Data/slack/)
+- [`../HarmonyGames_Base_Universe/Data/linear/`](../HarmonyGames_Base_Universe/Data/linear/)
+- [`../HarmonyGames_Base_Universe/Data/github/`](../HarmonyGames_Base_Universe/Data/github/)
+- [`../HarmonyGames_Base_Universe/Data/gmail/`](../HarmonyGames_Base_Universe/Data/gmail/)
+- [`../HarmonyGames_Base_Universe/Data/gdrive/`](../HarmonyGames_Base_Universe/Data/gdrive/)
+- [`../HarmonyGames_Base_Universe/Data/gdocs/`](../HarmonyGames_Base_Universe/Data/gdocs/)
+- [`../HarmonyGames_Base_Universe/Data/gsheets/`](../HarmonyGames_Base_Universe/Data/gsheets/)
+- [`../HarmonyGames_Base_Universe/Data/gslides/`](../HarmonyGames_Base_Universe/Data/gslides/)
+- [`../HarmonyGames_Base_Universe/Data/gcal/`](../HarmonyGames_Base_Universe/Data/gcal/)
+- [`../HarmonyGames_Base_Universe/Data/trello/`](../HarmonyGames_Base_Universe/Data/trello/)
+- [`../HarmonyGames_Base_Universe/Data/contacts/`](../HarmonyGames_Base_Universe/Data/contacts/)
 
 This checkout contains the full base export in service-level JSON and sharded
 payloads. Combine it with task `3_UniverseDataForThisTask.json`,
@@ -411,6 +409,6 @@ Examples from other universes, archived tasks, old screenshots, and external QC 
 - any Process decision rule other than the current three-condition test;
 - Query Construction or Tool Selection rubric categories;
 - negative criterion wording;
-- any capability absent from the current 13 catalogs.
+- any capability absent from the current 11 catalogs.
 
 Use [`README.md`](README.md) to locate the current documentation and [`../QC_Tasks/`](../QC_Tasks/) only for labeled calibration history.

@@ -1,11 +1,12 @@
 -- Regenerates 7_Universe_Schema.json for the HarmonyGames universe.
 -- Includes every declared service schema that exists in the DB, even ones with
--- zero tables (e.g. snowflake) -> emitted as {table_name: null, columns: []}.
--- Run in the universe Postgres DB; output is a single JSON array cell.
+-- zero tables -> emitted as {table_name: null, columns: []}.
+-- Run in the universe Postgres DB; output is a single JSON array cell. Save the
+-- contents of that cell -- not the one-row export wrapping it -- to 7_Universe_Schema.json.
 WITH target_schemas(schema_name) AS (
   VALUES
-    ('confluence'),('contacts'),('gcal'),('gdocs'),('gdrive'),('github'),
-    ('gmail'),('gsheets'),('gslides'),('linear'),('slack'),('snowflake'),('trello')
+    ('contacts'),('gcal'),('gdocs'),('gdrive'),('github'),
+    ('gmail'),('gsheets'),('gslides'),('linear'),('slack'),('trello')
 ),
 table_cols AS (
   SELECT

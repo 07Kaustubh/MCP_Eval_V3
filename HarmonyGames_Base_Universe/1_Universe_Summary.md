@@ -68,15 +68,15 @@ Thomas Baker & Benjamin Clark (outside counsel — Rimon/Orrick seed close), plu
 
 Harmony Games runs on a **game-studio tool stack** (not a business-ops stack). The state of record is spread across:
 
-> **Tool authority and boundary:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is authoritative. Directly available services are Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. There are no direct Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe tools. Those names below describe company systems, vendors, topics, or artifacts; retrieve evidence about them through Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, Confluence, or Snowflake as relevant.
+> **Tool authority and boundary:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is authoritative. Directly available services are Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. There are no direct Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe tools. Those names below describe company systems, vendors, topics, or artifacts; retrieve evidence about them through Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, or Trello as relevant.
 
 > **Persona ACL boundary:** task identity comes only from the 17-entry
 > [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json), with read visibility
 > governed by [`Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md). Gmail,
 > Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped; the
-> other six service reads are unscoped, and writes are outside Persona ACL.
+> other four service reads are unscoped, and writes are outside Persona ACL.
 
-> **Base export vs. live task state:** `Services_Data/` contains the full base service-level JSON. Large content is sharded or nested for Slack messages, Gmail threads, GDrive content, and GitHub repository content; `Services_Data/Base_Universe_Complete_Data.json` is the combined export. A live task can differ after its `9_Universe_inject.sql` and `4_Changelog.json` changes, and live tool responses determine what the Agent can observe.
+> **Base export vs. live task state:** `Data/` contains the full base service-level export, one folder per service — `data.json` for Contacts, GCal, GDocs, GSheets, and GSlides, and a zipped bundle for the large services (GDrive, GitHub, Gmail, Linear, Slack, Trello). A live task can differ after its `9_Universe_inject.sql` and `4_Changelog.json` changes, and live tool responses determine what the Agent can observe.
 
 - **Slack** — primary internal comms. **985 channels** total (product, engineering, founders, investors, live-ops, per-feature and per-vendor channels, plus many multi-person DMs). Representative channels: `#founders`, `#admin_foundersonly`, `#investors`, `#pitch-deck`, `#product`, `#recruiting`, `#engineering-bots`, `#builds`, `#god-gameart`, `#god-ui-ux`, `#god-vfx`, `#game-design`, `#analytics`, `#leaderboards`, `#season-pass`, `#winandcollect`, `#river-rush`, `#prototype`, `#4xgame`, `#mattel_proposal`, `#aa_boardmeeting_room`, `#vendors`, `#node-external`, `#difficulty-optimization`. (~586K messages.)
 - **Linear** — engineering/design PM. **5 teams** (ENG Engineering, ART Art, DES Design, EPI Epic, ZOM Zombie Match 3D) and per-title projects (`GoD - Beta`, `Zombie Match 3D`). ~3,852 issues (ENG-/ART-/DES-/ZOM- keys).
@@ -84,10 +84,8 @@ Harmony Games runs on a **game-studio tool stack** (not a business-ops stack). T
 - **Google Drive / Docs / Sheets / Slides** — GDDs, specs, financial models, pitch decks, legal docs. ~53K Drive files. Key docs: MVP requirements, Progression Philosophy GDD, Combo Fighter GDD, promissory notes, Certificate of Incorporation, Founders Stock Purchase Agreement, board decks, financial models, the Barbie "Dream Life Glow" pitch deck.
 - **Gmail** — external correspondence: investors, outside counsel, vendors (AppLovin, Adjoe, Node Media, Singular, Solsten), and partners (Google Ads, Mattel, CrazyGames). ~24.7K messages across ~21K threads.
 - **Trello** — product roadmap. **5 boards**: `Harmony Games`, `DD Product Roadmap`, `UA/BD`, `ZM ROADMAP`, `Welcome Board`.
-- **Confluence** — wiki. **4 spaces**: `ENG` (Engineering), `PROD` (Product & Design), `COMPANY`, `OPS` (Operations & Live Ops).
 - **Contacts** — address book for staff, contractors, investors, vendors, and legal contacts.
 - **Google Calendar** — calendars, events, availability, invitations, and company scheduling.
-- **Snowflake** — analytics warehouse for player funnel, retention, and DPS/economy tables.
 
 ---
 
@@ -136,7 +134,6 @@ Unlike the accounting/CRM universes, Harmony Games' operational state lives in *
 - **Trello** is the roadmap-of-record: boards/lists/cards track planned vs. done features (roadmap sprints named after releases).
 - **Google Drive/Docs/Sheets/Slides** hold the design-of-record (GDDs), the money-of-record (financial models, board decks, promissory notes, cap-table docs), and the pitch-of-record (investor and Mattel decks).
 - **Gmail** holds the external-of-record: investor commitments, legal closings, and vendor contracts/invoices.
-- **Confluence** holds durable wiki documentation (ENG/PROD/COMPANY/OPS spaces).
-- **Snowflake** holds the analytics-of-record (player funnel, retention, DPS/economy tables).
+- **GSheets** holds the analytics-of-record that is directly readable: player funnel, retention, and DPS/economy models maintained by the team.
 
 Cross-service threading is tight: a feature's truth is rarely in one place — a Slack decision → a Linear ticket → a GitHub PR → a Drive spec → (sometimes) a Gmail vendor thread. Tasks that read only Slack + Gmail will miss half the story.

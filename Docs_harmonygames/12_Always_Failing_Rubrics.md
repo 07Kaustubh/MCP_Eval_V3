@@ -57,7 +57,7 @@ assigned roster persona. A record found only through Explorer, local export, or
 another persona does not establish Runner reachability. Required scoped-service
 evidence inaccessible to the assigned persona makes the task/rubric invalid
 unless the authorized outcome is an affirmative denial finding plus reporting,
-escalation, or an authorized alternative. The other six services remain
+escalation, or an authorized alternative. The other four services remain
 unscoped, and writes are outside ACL scope.
 
 The number of failures is only a prioritization signal. Repetition never proves
@@ -99,7 +99,7 @@ The status and issue identification can pass or fail independently. Split them:
 > (Bottom right of UI) buttons.”
 
 Both values are grounded in
-[`HarmonyGames_Base_Universe/Services_Data/linear/linear.issues.json`](../HarmonyGames_Base_Universe/Services_Data/linear/linear.issues.json).
+[`HarmonyGames_Base_Universe/Data/linear/data.json`](../HarmonyGames_Base_Universe/Data/linear/data.json).
 
 ### Affirmative exclusion example
 

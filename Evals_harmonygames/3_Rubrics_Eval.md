@@ -14,7 +14,7 @@ Issues are classified by severity (Major/Moderate/Minor/Non-Failing) and counted
 - **Accuracy is non-negotiable.** Every expected value, entity name, dollar amount, and email address embedded in a rubric MUST match canonical universe data and be reachable through the Agent's cataloged tool environment at the precision the criterion requires. Wrong or unobservable values = wrong scoring.
 - **Completeness is non-negotiable.** Every explicit prompt ask must have a covering Outcome rubric. Process rubrics are optional and added ONLY when the three-condition test passes. Missing Outcome rubrics = gaps in evaluation.
 - **Requirement-level coverage is non-negotiable.** Every explicit requirement in the prompt must be covered by at least one rubric. This includes each action, requested fact or conclusion, content item, recipient, destination, condition, qualifier, timing or ordering constraint, format requirement, and exclusion stated in the prompt.
-- **Large audit-table exception.** For a qualifying long-horizon audit under `Docs/13_Long_Horizon_Task_Guidelines.md`, repetitive per-record facts may be evaluated with overall total/reconciliation checks plus representative atomic spot checks. There is no minimum number of spot-check criteria and no one-rubric-per-row requirement. Oracle Events and execution must remain exhaustive, and every non-repetitive requirement still needs direct rubric coverage. `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` is the worked reference for applying this exception.
+- **Large audit-table exception.** For a qualifying long-horizon audit under `Docs/13_Long_Horizon_Task_Guidelines.md`, repetitive per-record facts may be evaluated with overall total/reconciliation checks plus representative atomic spot checks. There is no minimum number of spot-check criteria and no one-rubric-per-row requirement. Oracle Events and execution must remain exhaustive, and every non-repetitive requirement still needs direct rubric coverage. "How 116 Records Are Graded Without 116 Rubrics" in that same doc is the worked reference for applying this exception.
 - **Valid incorporation by reference counts as prompt authorization.** When the prompt explicitly directs the Agent to follow a uniquely discoverable company record, the task-relevant requirements clearly stated in that live record count as prompt requirements. The record must exist in the live task environment and be supported by the base universe or task changelog/injection; incidental facts in the record do not become requirements.
 - **Agent-centric, affirmative acceptance phrasing is non-negotiable.** Every criterion must read as a positively stated action or observable state attributable to **The Agent** ("The Agent posts…", "The Agent identifies…", "The Agent confines repository activity to inspection…") and must **never name a tool** (for example, no `slack_send_message` and no `(via the Slack tool)`). Prohibition-only or absence-only criterion syntax is invalid, including `The Agent does not…`, `The Agent makes no…`, `The Agent never…`, `The Agent avoids…`, `The Agent refrains from…`, `The Agent fails to…`, and equivalent `without` constructions. Rewrite exclusions as affirmative classifications, scope boundaries, or preserved states. This is a scored sub-dimension - a single violation fails it.
 - **Positive wording never removes exclusion coverage.** Required exclusions, decoys, and prohibited actions must still have atomic rubrics. Express them affirmatively: `The Agent classifies X outside the qualifying set`, `The Agent leaves page Y unchanged`, or `The Agent confines production activity to observation`. Negative factual states such as `unimplemented`, `unconfirmed`, or `unresolved` remain valid when the Agent affirmatively reports or classifies them. Exact immutable entity titles containing words such as `not` are exempt. This repository-level policy overrides legacy negative-criterion wording in reference documents and sample tasks.
@@ -34,14 +34,14 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 13 services, combined)
-- [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Services_Data/ BEFORE evaluating anything
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 11 services, combined)
+- [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Data/ BEFORE evaluating anything
 - [ ] Phase 0.3: Explore QC-passed task rubrics - Understand what good rubrics look like
 - [ ] HARD GATE: Persona ACL - read Docs/14_Persona_ACL.md + 4_Persona_ACL_Roster.json; verify exact taxonomy persona identity and runner/verifier parity
 - [ ] Phase 1.1: Rubric Inventory & Category Distribution (Outcome 1.1/1.2/2.1 vs Process)
 - [ ] Phase 1.2: Four-Field Validation (`title`, `category`, `justification`, `evidence`)
   - [ ] HARD GATE: Blank Fields — Zero Tolerance (every rubric must have `title`, `category`, `justification`, and `evidence` populated)
-  - [ ] HARD GATE: Large Audit-Table Eligibility — If spot checks replace per-record rubric expansion, verify the conditions in `Docs/13_Long_Horizon_Task_Guidelines.md` without imposing a minimum spot-check count; calibrate against `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json`
+  - [ ] HARD GATE: Large Audit-Table Eligibility — If spot checks replace per-record rubric expansion, verify the conditions in `Docs/13_Long_Horizon_Task_Guidelines.md` without imposing a minimum spot-check count; calibrate against its "How 116 Records Are Graded Without 116 Rubrics" section
   - [ ] HARD GATE: Requirement-Level Forward Coverage — Every Explicit Prompt Requirement Must Have a Rubric (decompose prompt into atomic requirements → map each to at least one rubric)
 - [ ] Phase 2: Per-Rubric Quality Assessment - Self-Contained, Atomic, Correct, Verifiable, Objective, Category for EACH rubric
   - [ ] HARD GATE (Phase 2.1): Placeholder-Acceptance Pre-Scan - lexical scan of every title for "states a specific figure", "the correct value", "a discrete testable definition", open-ended range hedges; value not embedded = Not Self-Contained (Major)
@@ -110,13 +110,13 @@ TODO:
 | **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
 | **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
-**Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail supports search/read and mailbox/label mutations, but no send, reply, compose, or draft. Snowflake is query/read-only. Examples in older documents or sample tasks do not add capabilities.
+**Available services (exactly 11):** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. Gmail supports search/read and mailbox/label mutations, but no send, reply, compose, or draft. Examples in older documents or sample tasks do not add capabilities.
 
 **ACL boundary (read the doc; do NOT hardcode):** Persona scoping applies to **reads only**, and only to the services the `Docs/14_Persona_ACL.md` **Access matrix** marks persona-scoped. Derive that scoped set (and its unscoped complement) from the doc at eval time; if the doc changes, this eval follows it with no edit here — do not assert a specific service's scope status from memory. Writes are outside ACL scope; rubrics must not assume write denial for any service, nor invent read ACL on a service the doc marks unscoped. Bind the assigned taxonomy persona to the exact roster key/email; the AMV dropdown cannot override it, and Agent Runner and Run Verifiers must use the same persona.
 
 **Sample QC Tasks (for comparison — 3 categories):**
 - `QC_Tasks/QC_Passed/` — QC score 5. Clean reference rubrics; study their self-containment, atomicity, correctness, and flexibility craft.
-- `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` — the canonical **long-horizon** reference: 79 criteria covering a 116-row register. Study it before applying the large audit-table exception.
+- `Docs/13_Long_Horizon_Task_Guidelines.md` — the canonical **long-horizon** reference: 79 criteria covering a 116-row register, with the five coverage devices worked through. Study it before applying the large audit-table exception.
 - `QC_Tasks/QC_Non_Fails/` — QC score 3. Tasks with non-failing rubric issues (non-atomic criteria, missing outcomes, OE inaccuracies). Study these for the specific defect patterns this eval must catch.
 - `QC_Tasks/QC_True_Fails/` — QC score 2 (confirmed fails). Tasks with structural rubric failures — rubric misreads prompt, incorrect criteria, role overreach. Use as worked negative examples.
 
@@ -131,13 +131,13 @@ TODO:
 | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding for Agent Runner and Run Verifiers |
 | `6_Oracle_Events.txt` | Critical path steps (for process rubric coverage) |
 | `7_Rubrics.json` | Stored rubric objects with exactly `title`, `category`, `justification`, and `evidence` |
-| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
+| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 
 ---
 
 ## Universe Data Files (For Verification)
 
-**Location:** `HarmonyGames_Base_Universe/Services_Data/`
+**Location:** `HarmonyGames_Base_Universe/Data/`
 
 This is the full base checkout, not a sampled subset: it includes the consolidated export, service-level JSON, sharded payloads, and repository trees. Refer to the complete list in `1_Prompt_Eval.md`. Use these files to verify every factual claim in the rubrics.
 
@@ -154,23 +154,20 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 
 ### 0.2 DO VERY DEEP EXPLORATION OF UNIVERSE DATA
 
-**Read and understand ALL data in the full/sharded `HarmonyGames_Base_Universe/Services_Data/` checkout BEFORE evaluating any rubric.** This is how you catch rubrics that embed wrong values - wrong email addresses, dollar amounts, entity mappings, statuses, or data discrepancies. Skip it and you WILL miss correctness errors that propagate into broken evaluations.
+**Read and understand ALL data in the full/sharded `HarmonyGames_Base_Universe/Data/` checkout BEFORE evaluating any rubric.** This is how you catch rubrics that embed wrong values - wrong email addresses, dollar amounts, entity mappings, statuses, or data discrepancies. Skip it and you WILL miss correctness errors that propagate into broken evaluations.
 
-**Explore these files (all paths relative to `HarmonyGames_Base_Universe/Services_Data/`):**
-- `Base_Universe_Complete_Data.json` — whole-universe snapshot
-- `slack/` — `slack.channels.json`, `slack.files.json`, `slack.users.json` + `messages/<channel>/<YYYY-MM>.json`
-- `linear/` — `linear.issues.json`, `linear.projects.json`, `linear.teams.json`, `linear.users.json`, `linear.team_memberships.json`, `linear.comments.json`
-- `github/` — `github.pull_requests.json`, `github.commits.json`, `github.issues.json`, `github.reviews.json`, etc. + `root/` repo files
-- `gmail/` — `gmail.labels.json`, `gmail.users.json`, `gmail.manifest.json` + `threads/<thread>.json`
-- `gdrive/` — `gdrive.drive_files.json`, `gdrive.drive_users.json`, `gdrive.drive_sheets.json`
-- `gdocs/` — `gdocs.docs_documents.json`
-- `gsheets/` — `gsheets.sheets_spreadsheets.json`
-- `gslides/` — `gslides.slides_presentations.json`
-- `gcal/` — `gcal.calendars.json`, `gcal.events.json`
-- `trello/` — `trello.boards.json`, `trello.cards.json`, `trello.actions.json`, `trello.lists.json`, etc.
-- `confluence/` — `confluence.pages.json`, `confluence.spaces.json`, `confluence.users.json`, etc.
-- `contacts/` — `contacts.contacts.json`, `contacts.current_user_id.json`
-- `snowflake/` — `snowflake.tables.json`, `snowflake.databases.json`, `snowflake.schemas.json`, `snowflake.query_history.json`
+**Explore these files (all paths relative to `HarmonyGames_Base_Universe/Data/`):**
+- `slack/channels.json`, `slack/users.json`, `slack/files.json`, `slack/messages/` — channels, files, users, and messages
+- `linear/data.json` (plus attachments in `linear/root/`) — issues, projects, teams, users, memberships, comments
+- `github/data.json` (plus repository trees in `github/root/`) — pull requests, commits, issues, reviews, and repo files
+- `gmail/labels.json`, `gmail/users.json`, `gmail/threads/` — labels, users, and threads
+- `gdrive/data.json` (plus blobs in `gdrive/root/`) — files, users, and sheet records
+- `gdocs/data.json`
+- `gsheets/data.json`
+- `gslides/data.json`
+- `gcal/data.json`
+- `trello/data.json` (plus attachments in `trello/root/`) — boards, cards, actions, lists
+- `contacts/data.json`
 
 You can also pull the full universe via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`.
 
@@ -180,17 +177,17 @@ Cross-check every literal in a rubric against the raw JSON by searching it direc
 
 **Read the `7_Rubrics.json` files from passed sample tasks in `QC_Tasks/QC_Passed/` to understand how good rubrics are structured.** This gives you a baseline for craft - how they embed expected values, decompose content, and handle flexibility. For negative examples, review `QC_Tasks/QC_Non_Fails/` (score-3 defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails).
 
-**For long-horizon tasks, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/7_Rubrics.json` in full.** It grades a 116-row register with 79 criteria and shows the five devices that make the large audit-table exception work without losing coverage:
+**For long-horizon tasks, read "How 116 Records Are Graded Without 116 Rubrics" in `Docs/13_Long_Horizon_Task_Guidelines.md`.** It grades a 116-row register with 79 criteria and shows the five devices that make the large audit-table exception work without losing coverage:
 
-| Device | Example from that file |
-|--------|------------------------|
+| Device | Example from that reference |
+|--------|------------------------------|
 | Exact cohort multiset | "The Agent records the Combo-Fighters PR-number multiset as every integer from 1 through 37 exactly once." |
 | Whole-column accuracy as one atomic claim | "The Agent records the exact source-grounded first SHA in every Commit summary." |
 | Aggregate invariant per classification | "The Agent applies NO_INLINE_REVIEW_DISCUSSION to exactly 105 Register rows." |
 | Named atomic spot check | "The Agent records game-of-dominoes-backend PR #79 Provenance flags as exactly \"MULTI_COMMIT_WITHOUT_APPROVAL\"." |
 | Explicit exclusion | "The Agent leaves the contributor pull-request total breakdown outside the memo." |
 
-Every non-repetitive requirement in that task — tab name, cutoff, memo links, both source anchors, and each hand-back fact — still carries its own direct rubric. The exception compresses repetition, never coverage. A long-horizon rubric set that uses spot checks but leaves a non-repetitive requirement uncovered is still a Missing Criteria fail.
+Every non-repetitive requirement in that reference — tab name, cutoff, memo links, both source anchors, and each hand-back fact — still carries its own direct rubric. The exception compresses repetition, never coverage. A long-horizon rubric set that uses spot checks but leaves a non-repetitive requirement uncovered is still a Missing Criteria fail.
 
 **Pay attention to:**
 - How self-containment is achieved (specific emails, amounts, names embedded in criterion text)
@@ -501,7 +498,7 @@ This is the self-containment analog to the negative-wording pre-scan (Phase 2.8)
 - "The Agent posts to Slack AND creates a note in a separate service" — independent actions (different services)
 - "The Agent reviewed the [client entity] records AND posted a Slack summary" — investigation + write action
 - "Note created AND references the correct record AND states the variance" — if the note creation and the content check come from different verification steps, split them (1.1 for creation + 1.2 for content)
-- "The Agent posts to Slack covering X AND creates a Confluence page covering Y" — independent write actions to different services
+- "The Agent posts to Slack covering X AND creates a GDoc covering Y" — independent write actions to different services
 
 ### HARD GATE: Atomicity — Split Completely (ML-confirmed July 2026)
 
@@ -534,7 +531,7 @@ Examples of violations:
 
 **Verification Checklist:**
 - [ ] Entity names match universe data exactly (entities, accounts, spellings)
-- [ ] Email addresses exist in `contacts/contacts.contacts.json` or `gmail/threads/<thread>.json`
+- [ ] Email addresses exist in `contacts/data.json` (`contacts`) or `gmail/threads/<thread>.json`
 - [ ] Dollar amounts / variances match canonical raw data and remain observable through the cataloged tool path at the criterion's accepted precision
 - [ ] Approval workflows and project-to-lead assignments are correct (verify in the relevant service data / Contacts)
 - [ ] Counts are correct (if rubric says "3 open exceptions" - verify there are indeed 3 in the data)
@@ -561,7 +558,7 @@ For each quantitative criterion, raw universe truth and tool-visible truth must 
 | R# | [raw amount/rate/components] | [tool + query/read] | [returned value / scale] | Yes/No | Yes/No | Correct / **Incorrect** |
 
 **Decision rules:**
-- A raw value in `Services_Data/` proves factual truth; it does not prove the Agent can observe that value.
+- A raw value in `Data/` proves factual truth; it does not prove the Agent can observe that value.
 - Exact-value criteria are valid only when a cataloged tool returns the exact value, a prompt-authorized calculation can derive it from tool-visible inputs, or the criterion states a complete prompt-authorized accepted set that includes the tool-rendered equivalent.
 - Formatting and computation are different requirements. “Report to one decimal place” permits `11.0`; it does not silently require deriving `10.7` from `91 / 853`.
 - Approximate or rounded acceptance is valid only when the criterion labels it accordingly, remains factually compatible with the canonical value, and matches the prompt's specificity.
@@ -588,7 +585,7 @@ If the prompt uses persona-scoped language ("my projects", "my issues", "my assi
 
 ### HARD GATE: Deliverable Destination Consistency
 
-Extract the prompt's specified output destination(s) — e.g., "post in #eng-general", "update the Linear ticket", "create a Confluence page".
+Extract the prompt's specified output destination(s) — e.g., "post in #eng-general", "update the Linear ticket", "create a GDoc".
 
 For each rubric, verify it targets the CORRECT destination. **If a rubric checks "in its final response" but the prompt specifies a different available deliverable (Slack post, GDocs page, record update) → FAIL (Moderate — Incorrect Criteria)**
 

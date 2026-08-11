@@ -10,9 +10,9 @@ capabilities, exact tools, parameters, and available read and write operations.
 1. **Identity configuration:** the assigned taxonomy persona resolves to one
    exact roster email. The environment uses that email as the acting user.
 2. **Read enforcement:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and
-   GSlides filter reads to data visible to the acting user. The other six
-   task-visible services (Contacts, GitHub, Snowflake, Trello, Linear, and
-   Confluence) do not apply persona-scoped read filtering.
+   GSlides filter reads to data visible to the acting user. The other four
+   task-visible services (Contacts, GitHub, Trello, and Linear) do not apply
+   persona-scoped read filtering.
 
 Persona ACL does not govern writes. A cataloged write may still be available,
 but this policy must not be cited as granting or denying it.
@@ -44,13 +44,11 @@ HarmonyGames evaluation environment.
 | GSheets | Yes | Spreadsheets, sheet metadata, and cell ranges readable by the acting user through the same Drive file visibility |
 | GSlides | Yes | Presentations, pages, and page elements readable by the acting user through the same Drive file visibility |
 | GitHub | No | Unscoped |
-| Snowflake | No | Unscoped |
 | Trello | No | Unscoped |
 | Linear | No | Unscoped |
-| Confluence | No | Unscoped |
 
 The unscoped group is the policy's **public-service group**. It contains exactly
-Contacts, GitHub, Snowflake, Trello, Linear, and Confluence.
+Contacts, GitHub, Trello, and Linear.
 
 The four Google document services share Drive's underlying file ACL. A file that
 is invisible to the acting user in GDrive is also invisible through GDocs,
@@ -135,5 +133,5 @@ GDocs, GSheets, and GSlides as well as GCal.
   Oracle Event, or rubric. Determine write feasibility only from the
   authoritative tool catalogs.
 - A shared catalog does not imply shared read visibility: all personas have the
-  same 13 task-visible services, while seven of those services enforce
+  same 11 task-visible services, while seven of those services enforce
   persona-scoped reads.

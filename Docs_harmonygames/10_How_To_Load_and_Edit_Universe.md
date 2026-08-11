@@ -4,8 +4,8 @@ Last refreshed: **July 28, 2026**
 
 ## Fixed provisioning values
 
-- **Environment ID:** `hg4-2026-07-02-env`
-- **Base Universe ID:** `hg4-2026-07-02`
+- **Environment ID:** `hg4-real-env`
+- **Base Universe ID:** `hg4-real`
 - **Simulation date:** February 28, 2026, America/Chicago
 - **Active injection window:** January 1 through February 28, 2026
 
@@ -52,20 +52,34 @@ Explorer visibility therefore does not establish Agent reachability. Read:
 - [`../HarmonyGames_Base_Universe/5_Reference_Sheet.md`](../HarmonyGames_Base_Universe/5_Reference_Sheet.md)
 
 The local service exports are under
-[`../HarmonyGames_Base_Universe/Services_Data/`](../HarmonyGames_Base_Universe/Services_Data/).
-This checkout contains the full base export; high-volume Slack, Gmail, GDrive,
-and GitHub payloads use sharded or nested layouts. Use the live environment for
+[`../HarmonyGames_Base_Universe/Data/`](../HarmonyGames_Base_Universe/Data/).
+This checkout contains the full base export. Nine services consolidate into one
+`<service>/data.json` keyed by table, where the key drops the service prefix
+(`linear_issues` → `issues`, `gcal_calendars` → `calendars`; gdocs, gsheets, and
+gslides already use full table names). Gmail and Slack are split into per-object
+files plus sharded `threads/` and `messages/` directories, and GDrive, GitHub,
+Linear, and Trello add a `root/` blob tree. Use the live environment for
 task-specific changes and to verify what the Agent can observe through tools.
 
-Persona ACL is active. Exactly 13 services are task-visible:
+Prefix-stripping resolves 38 of the 44 tables that `data.json` backs. The
+exceptions: `github_pr_comments` is keyed `pull_request_comments`;
+`github_releases` and `github_tags` have no rows in the export; `sheets_sheets`
+is nested inside `sheets_spreadsheets[].sheets`; and `slides_pages` and
+`slides_page_elements` sit under presentations, which is itself empty.
+
+These exports show what the tools return, which is not the database shape — the
+payloads carry denormalized extras and, in the GSheets case, nest an entire table
+inside its parent. Read them to understand the BEFORE state and tool-visible
+rendering, never to derive the columns you will write.
+
+Persona ACL is active. Exactly 11 services are task-visible:
 
 - **Persona-scoped reads:** Gmail, Slack, GCal, and the Drive-family (GDrive,
   GDocs, GSheets, GSlides). Read results depend on mailbox ownership, channel
   membership, calendar ownership/sharing/invites, and Drive file ownership/share
   for the assigned persona (the Drive-family inherits Drive's file ACL, and a
   known object ID does not bypass it).
-- **Unscoped reads:** Contacts, GitHub, Snowflake, Trello, Linear, and
-  Confluence.
+- **Unscoped reads:** Contacts, GitHub, Trello, and Linear.
 - **Writes:** outside Persona ACL scope.
 
 Required injected evidence in Gmail, Slack, GCal, or the Drive-family (GDrive/GDocs/GSheets/GSlides) must be reachable
@@ -84,8 +98,8 @@ The **Scenario Generation** tool is offline and has been unavailable since April
 
 Chatbot and SQL edits are universe-authoring operations. They do not grant the
 task Agent additional capabilities or bypass Persona ACL.
-[`../HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) remains authoritative; in particular, the
-task Agent's Snowflake access is query/read-only.
+[`../HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) remains authoritative for what the
+task Agent can call.
 
 ### 4. Review every edit
 
@@ -101,7 +115,9 @@ The editing interfaces do not guarantee consistency or cascade related changes. 
 - verifier observability under the same persona scope as the Agent Runner;
 - absence of precomputed answers or ready-made deliverables.
 
-Use the current schema:
+Use the current schema. It is the only authority for the columns, types, NOT
+NULLs, and defaults your `9_Universe_inject.sql` statements may use, and it
+covers all 57 tables:
 
 - [`../HarmonyGames_Base_Universe/7_Universe_Schema.json`](../HarmonyGames_Base_Universe/7_Universe_Schema.json)
 
@@ -158,8 +174,7 @@ Do not place in-progress tasks in `QC_Tasks/`; that directory contains completed
 
 For offline checks, use:
 
-- `HarmonyGames_Base_Universe/Services_Data/Base_Universe_Complete_Data.json`
-- `HarmonyGames_Base_Universe/Services_Data/<service>/...`
+- `HarmonyGames_Base_Universe/Data/<service>/...`
 - `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`
 - `HarmonyGames_Base_Universe/7_Universe_Schema.json`
 - the task's `3_UniverseDataForThisTask.json`, `4_Changelog.json`, and `9_Universe_inject.sql`

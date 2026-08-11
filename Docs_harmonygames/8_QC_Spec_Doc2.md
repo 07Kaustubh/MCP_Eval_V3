@@ -10,7 +10,7 @@ This document explains the machine-readable dimensions in [`7_QC_Spec_Doc1.json`
 2. [`14_Persona_ACL.md`](14_Persona_ACL.md) and the exact 17-entry
    [`4_Persona_ACL_Roster.json`](../HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json)
    — task-visible identity and persona-scoped read visibility.
-3. [`../HarmonyGames_Base_Universe/Services_Data/`](../HarmonyGames_Base_Universe/Services_Data/),
+3. [`../HarmonyGames_Base_Universe/Data/`](../HarmonyGames_Base_Universe/Data/),
    task `4_Changelog.json`, task `9_Universe_inject.sql`, and
    [`../HarmonyGames_Base_Universe/7_Universe_Schema.json`](../HarmonyGames_Base_Universe/7_Universe_Schema.json)
    — live task/universe facts and database structure.
@@ -43,13 +43,12 @@ These numbers apply at different stages:
 
 - Today: **February 28, 2026**, America/Chicago.
 - Injection window: **January 1 through February 28, 2026**.
-- Exactly 13 services are enabled: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
+- Exactly 11 services are enabled: Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts.
 - Gmail supports reading, searching, attachments, and mailbox/label triage. It has no send, reply, compose, or draft capability.
-- Snowflake is query/read-only.
-- Product names outside the 13 catalogs may be business topics or evidence stored in an enabled service; they are not direct tools.
+- Product names outside the 11 catalogs may be business topics or evidence stored in an enabled service; they are not direct tools.
 - Persona ACL is active and implemented and scopes reads only for Gmail, Slack,
   GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit
-  Drive's file ACL). Contacts, GitHub, Snowflake, Trello, Linear, and Confluence
+  Drive's file ACL). Contacts, GitHub, Trello, and Linear
   reads remain unscoped; writes are outside ACL scope.
 - Universe Explorer is author god-mode. Agent Runner and Run Verifiers use the
   same assigned persona.
@@ -110,8 +109,8 @@ Required Gmail, Slack, GCal, or Drive-family (GDrive/GDocs/GSheets/GSlides)
 evidence inaccessible to the assigned persona is a hard feasibility failure
 unless the intended task outcome is an affirmative access-denial finding plus
 reporting, escalation, or an authorized alternative. Do not apply persona read
-scoping to the other six services (Contacts, GitHub, Snowflake, Trello, Linear,
-Confluence), and do not infer write denial from Persona ACL.
+scoping to the other four services (Contacts, GitHub, Trello, Linear), and do
+not infer write denial from Persona ACL.
 
 ### Clarity, truthfulness, and time
 
@@ -148,20 +147,21 @@ GCal, and the Drive-family (GDrive/GDocs/GSheets/GSlides), test visibility as th
 assigned roster persona; author god-mode is not a reachability check. Current
 HarmonyGames paths include:
 
-- `HarmonyGames_Base_Universe/Services_Data/slack/messages/<channel>/<YYYY-MM>.json`
-- `HarmonyGames_Base_Universe/Services_Data/linear/linear.issues.json`
-- `HarmonyGames_Base_Universe/Services_Data/github/github.<table>.json`
-- `HarmonyGames_Base_Universe/Services_Data/github/root/`
-- `HarmonyGames_Base_Universe/Services_Data/gmail/threads/<thread>.json`
-- `HarmonyGames_Base_Universe/Services_Data/gdrive/gdrive.drive_files.json`
-- `HarmonyGames_Base_Universe/Services_Data/gdocs/gdocs.docs_documents.json`
-- `HarmonyGames_Base_Universe/Services_Data/gsheets/gsheets.sheets_spreadsheets.json`
-- `HarmonyGames_Base_Universe/Services_Data/gslides/gslides.slides_presentations.json`
-- `HarmonyGames_Base_Universe/Services_Data/gcal/gcal.events.json`
-- `HarmonyGames_Base_Universe/Services_Data/trello/trello.<table>.json`
-- `HarmonyGames_Base_Universe/Services_Data/confluence/confluence.<table>.json`
-- `HarmonyGames_Base_Universe/Services_Data/contacts/contacts.contacts.json`
-- `HarmonyGames_Base_Universe/Services_Data/snowflake/snowflake.tables.json`
+- `HarmonyGames_Base_Universe/Data/contacts/data.json`
+- `HarmonyGames_Base_Universe/Data/gcal/data.json`
+- `HarmonyGames_Base_Universe/Data/gdocs/data.json`
+- `HarmonyGames_Base_Universe/Data/gdrive/data.json`, blobs under `HarmonyGames_Base_Universe/Data/gdrive/root/`
+- `HarmonyGames_Base_Universe/Data/github/data.json`, repository trees under `HarmonyGames_Base_Universe/Data/github/root/`
+- `HarmonyGames_Base_Universe/Data/gmail/` — `labels.json`, `users.json`, and sharded `HarmonyGames_Base_Universe/Data/gmail/threads/`
+- `HarmonyGames_Base_Universe/Data/gsheets/data.json`
+- `HarmonyGames_Base_Universe/Data/gslides/data.json`
+- `HarmonyGames_Base_Universe/Data/linear/data.json`, attachments under `HarmonyGames_Base_Universe/Data/linear/root/`
+- `HarmonyGames_Base_Universe/Data/slack/` — `channels.json`, `users.json`, `files.json`, and sharded `HarmonyGames_Base_Universe/Data/slack/messages/`
+- `HarmonyGames_Base_Universe/Data/trello/data.json`, attachments under `HarmonyGames_Base_Universe/Data/trello/root/`
+
+Nine services consolidate into one `data.json` keyed by table; Gmail and Slack
+are split into per-object files plus shard directories. Bundles ship extracted —
+read the directories directly, there are no archives left to unpack.
 
 This checkout contains the full base export. High-volume payloads are stored in
 full service-level JSON files or shards (for example, Slack messages and Gmail

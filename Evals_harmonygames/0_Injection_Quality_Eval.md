@@ -12,11 +12,22 @@ This eval consolidates all injection validation into 7 hard gates plus a difficu
 
 **Fixed universe date:** February 28, 2026 (America/Chicago)
 **Active workflow window:** 2026-01-01 to 2026-02-28
-**Services:** Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, GCal, Trello, Confluence, Contacts, Snowflake
+**Services:** Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, GCal, Trello, Contacts
 
-`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is the sole authority for tool capabilities. Gmail can search/read messages and threads, read attachments, modify labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but it has no send, reply, compose, or draft tool. Snowflake is query/read-only.
+`HarmonyGames_Base_Universe/6_Server_Tools_Details.json` is the sole authority for tool capabilities. Gmail can search/read messages and threads, read attachments, modify labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels, but it has no send, reply, compose, or draft tool.
 
-`HarmonyGames_Base_Universe/Services_Data/` is the current full base checkout: it contains the consolidated export plus service-level JSON, sharded payloads, and repository trees. It is not a sampled subset. Combine it with task injection/changelog records and live service reads to establish task-specific state and tool-visible behavior.
+`HarmonyGames_Base_Universe/Data/` is the current full base checkout, not a sampled subset. Nine services consolidate into one `data.json` keyed by table; Gmail and Slack are split into per-object files plus shard directories; GDrive, GitHub, Linear, and Trello add a `root/` blob tree. Combine it with task injection/changelog records and live service reads to establish task-specific state and tool-visible behavior.
+
+**`Data/` is the tool-visible view, not a table dump — never validate columns against it.** Its payloads carry the shape the MCP tools return, which is deliberately not the database shape: `linear` issues carry `labels`, `relations`, and `uuid`; `trello` cards carry `idLabels` and `badges`; `gsheets` nests the entire `sheets_sheets` table inside `sheets_spreadsheets[].sheets`. Its keys are also short names (`issues`, `actions`, `calendars`), not table names (`linear_issues`, `trello_actions`, `gcal_calendars`), except in gdocs/gsheets/gslides where they already match. `HarmonyGames_Base_Universe/7_Universe_Schema.json` is the sole authority for column names, types, and NOT NULL constraints in Phase 1. Use `Data/` only to confirm the BEFORE state, ID conventions, and tool-visible rendering.
+
+Dropping the service prefix resolves 38 of the 44 tables that `data.json` backs. The six that do not resolve that way are listed below; a table being unresolvable here is a property of the export, never grounds for a SCHEMA_VIOLATION.
+
+| Table | Where its data actually is |
+|---|---|
+| `github_pr_comments` | key is `pull_request_comments`, not `pr_comments` |
+| `github_releases`, `github_tags` | absent from the export — no rows |
+| `sheets_sheets` | nested inside `sheets_spreadsheets[].sheets` |
+| `slides_pages`, `slides_page_elements` | nested under presentations; `slides_presentations` is itself empty |
 
 **Persona ACL feasibility is a STRONG HARD GATE.** Apply
 `Docs/14_Persona_ACL.md` (derive the scoped-service set live from its Access
@@ -37,11 +48,11 @@ Explorer author god-mode never satisfies it.
 
 ```
 - [ ] Phase 0: Load & Pre-Read
-  - [ ] 0.1: Read 9_Universe_inject.sql (PRIMARY — the injection SQL) + 4_Changelog.json (if exists) + 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Services_Data/ (always for base comparison) — catalog every injected/modified record
+  - [ ] 0.1: Read 9_Universe_inject.sql (PRIMARY — the injection SQL) + 4_Changelog.json (if exists) + 3_UniverseDataForThisTask.json (if populated) + HarmonyGames_Base_Universe/Data/ (always for base comparison) — catalog every injected/modified record
   - [ ] 0.2: Read 4_Changelog.json — extract the CB's change manifest
-  - [ ] 0.3: Read HarmonyGames_Base_Universe/7_Universe_Schema.json — load column names, types, NOT NULLs, FKs
+  - [ ] 0.3: Read HarmonyGames_Base_Universe/7_Universe_Schema.json — load column names, types, NOT NULLs, FKs. This is the ONLY column authority for Phase 1
   - [ ] 0.4: Read every JSON file in HarmonyGames_Base_Universe/6_Server_Tools_Details.json (combined tool catalog) — build the authoritative tool, parameter, and capability inventory for reachability
-  - [ ] 0.5: Read base data for each affected service in HarmonyGames_Base_Universe/Services_Data/
+  - [ ] 0.5: Read base data for each affected service in HarmonyGames_Base_Universe/Data/ — open `<service>/data.json` and select the table's key (strip the service prefix: `linear_issues` → `issues`, `gcal_calendars` → `calendars`; gdocs/gsheets/gslides keys already match). Gmail and Slack are per-object files plus shard directories instead. Treat what you find as the BEFORE state and tool-visible shape only, not as the column list
   - [ ] 0.6: Read 5_Prompt.txt (if available) — understand what scenario the injection supports
   - [ ] 0.7: Build inventory: list every injected record (table, ID, operation: insert/update/delete)
   - [ ] 0.8: If the task is long-horizon, read Docs/13_Long_Horizon_Task_Guidelines.md and apply its injection, discoverability, and anti-inflation rules
@@ -134,9 +145,9 @@ Explorer author god-mode never satisfies it.
 |---|---|
 | `9_Universe_inject.sql` | **PRIMARY INPUT** — the SQL INSERT/UPDATE statements that inject the scenario into the base universe. This is the source of truth for what was changed. |
 | `4_Changelog.json` | CB's change manifest (auto-generated from the platform) — what was added, modified, or deleted |
-| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
-| `HarmonyGames_Base_Universe/Services_Data/` | Current full base export for comparison — consolidated, service-level, and sharded payloads plus repository trees (for example, `linear/linear.issues.json`) — the BEFORE state, not a sample |
-| `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Schema — column names, types, constraints, foreign keys |
+| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the full/sharded base checkout in `HarmonyGames_Base_Universe/Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
+| `HarmonyGames_Base_Universe/Data/` | Current full base export for comparison — the BEFORE state, not a sample. One `data.json` keyed by table per service (for example, `HarmonyGames_Base_Universe/Data/linear/data.json` → `issues`), with Gmail and Slack split per object and GDrive/GitHub/Linear/Trello carrying a `root/` blob tree. Tool-shaped, so it is evidence of the BEFORE state and of tool-visible rendering — never a column authority |
+| `HarmonyGames_Base_Universe/7_Universe_Schema.json` | **Sole column authority** — all 57 tables with column names, types, NOT NULLs, defaults. Validate every injected column against this, never against `Data/` |
 | `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` | **Authoritative MCP tool inventory** — Read the combined catalog for exact service availability, tool names, parameters, and reachability/discovery support |
 | `2_Persona.txt` | **Required persona artifact** — Persona Key, Persona Email, Name, Role, and Department must exactly match one roster entry before scoped reachability checks |
 | `Docs/14_Persona_ACL.md` | **Authoritative persona ACL semantics** — scoped read services, visibility rules, runner/verifier identity parity, and author god-mode separation |
@@ -159,7 +170,7 @@ A small task-specific Slack message, meeting note, checklist, or policy record m
 
 When local exports and the live environment disagree, treat the live environment as authoritative and flag the injection/export mismatch.
 
-**Reference injection:** `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/` is the canonical example of rules-in-the-environment injection for a long-horizon task. Its `9_Universe_inject.sql` adds one private Slack channel and a fourteen-message thread — nothing else — and each row also appears in `4_Changelog.json`. Read `Prompt_and_Injected_Conversation.md` to see the payoff: because the repositories, cutoff, evidence surfaces, flag vocabulary, and totals scope are all in that thread, the prompt shrinks to four sentences and the agent has to read Slack before it can start. Check that the injection seeds only rules and prior requests — the exemplar contains no register row, no flag total, and no cohort size, which is what keeps it instructional rather than precomputed.
+**Reference injection:** `Docs/13_Long_Horizon_Task_Guidelines.md` walks through the canonical example of rules-in-the-environment injection for a long-horizon task. The injection is one private Slack channel and a fourteen-message thread — nothing else — with every row recorded in both `9_Universe_inject.sql` and `4_Changelog.json`. Its "Tier 3 — What actually shipped" section shows the payoff: because the repositories, cutoff, evidence surfaces, flag vocabulary, and totals scope all live in that thread, the prompt shrinks to four sentences and the agent has to read Slack before it can start. Check that the injection seeds only rules and prior requests — the reference contains no register row, no flag total, and no cohort size, which is what keeps it instructional rather than precomputed.
 
 ---
 
@@ -178,6 +189,13 @@ When local exports and the live environment disagree, treat the live environment
 
 **Any SCHEMA_VIOLATION → FAIL. No exceptions.**
 
+**Resolve every check in this phase against `7_Universe_Schema.json`.** A field
+present in `Data/<service>/data.json` is not evidence that a column exists — the
+export is tool-shaped and carries denormalized extras (`labels`, `relations`,
+`idLabels`, `badges`, nested `sheets`). Equally, a schema column absent from the
+export is not an unknown column. Both mistakes are live failure modes: the first
+passes an INSERT that will not execute, the second fails a valid injection.
+
 ---
 
 ## Phase 2: ID Format & Convention (HARD GATE)
@@ -193,7 +211,7 @@ When local exports and the live environment disagree, treat the live environment
 | Sequential gap | Injected ID creates an obvious gap in existing numbering | Existing invoices: `INV-0001` through `INV-0089`; injected: `INV-0500` | **ID_VIOLATION** |
 
 **Procedure (mandatory):**
-1. For each affected table, sample at least 3 existing IDs to establish the pattern.
+1. For each affected table, sample at least 3 existing IDs to establish the pattern. Sample from `Data/<service>/data.json` under the table's key; IDs are identical in the tool view and the database, so the export is a valid source here.
 2. Compare every injected ID against that pattern.
 3. Grep every injected ID against the base universe to confirm no duplicates.
 
@@ -345,7 +363,7 @@ When local exports and the live environment disagree, treat the live environment
 | **Temporal Complexity** | Does the injection create timeline reasoning demands? | No time dimension — all data is current | Some date reasoning (e.g., distinguish January vs February invoices) | Complex timeline with ordering dependencies (stale vs current status, overlapping events, superseded approvals) |
 | **Tool Call Depth** | Minimum tool calls to discover all injected scenario data? | <5 calls (one search surfaces everything) | 10-20 calls across multiple services | 25+ calls required, multi-hop discovery chains |
 | **Reasoning Chain** | Does the agent need to connect dots, not just retrieve? | Retrieve and report — answer is in one tool response | Cross-reference 2 sources (e.g., match Slack mention to GSheets budget entry) | Multi-hop reasoning across 3+ sources (e.g., Slack → Linear ticket → GSheets entry → Contacts to identify the responsible vendor) |
-| **Write Action Diversity** | How many different write tools would a correct solution need? | One write action (e.g., post one Slack message) | 2-3 writes across services (e.g., Slack post + Linear update + Trello card move) | 4+ writes across 3+ services (e.g., Slack + Linear issue + Trello card + Confluence page + GCal event) |
+| **Write Action Diversity** | How many different write tools would a correct solution need? | One write action (e.g., post one Slack message) | 2-3 writes across services (e.g., Slack post + Linear update + Trello card move) | 4+ writes across 3+ services (e.g., Slack + Linear issue + Trello card + GDoc + GCal event) |
 
 **Composite Score:** Average of all 7 dimensions (round to 1 decimal).
 

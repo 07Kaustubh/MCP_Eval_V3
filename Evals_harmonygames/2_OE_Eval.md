@@ -34,8 +34,8 @@ Before ANY evaluation, create a comprehensive TODO list. **Do NOT proceed withou
 
 ```
 TODO:
-- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 13 services, combined)
-- [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Services_Data/ BEFORE evaluating anything - Critical
+- [ ] Phase 0.1: Read all reference documents and the HarmonyGames_Base_Universe/6_Server_Tools_Details.json catalog (all 11 services, combined)
+- [ ] Phase 0.2: DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA - Read and understand ALL data files in HarmonyGames_Base_Universe/Data/ BEFORE evaluating anything - Critical
 - [ ] Phase 0.3: Explore sample Oracle Events in `QC_Tasks/QC_Passed/` (score-5 reference) + `QC_Tasks/QC_Non_Fails/` (score-3 defects) + `QC_Tasks/QC_True_Fails/` (hard fails) - Critical
 - [ ] HARD GATE: Persona ACL Binding - exact roster match; assigned taxonomy persona used for scoped reads; Agent Runner and Run Verifiers use the same identity
 - [ ] HARD GATE: Verify OEs do not contradict prompt or universe data. OE-rubric contradictions = mandatory investigation.
@@ -85,7 +85,7 @@ TODO:
 | **Universe Schema** | `HarmonyGames_Base_Universe/7_Universe_Schema.json` | Database schema for all universe tables and columns |
 | **Persona ACL Roster** | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact taxonomy persona keys and email identities |
 
-**Available services (exactly 13):** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail is not read-only: it can search/read, read attachments, modify message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels; it cannot send, reply, compose, or draft. Snowflake is query/read-only.
+**Available services (exactly 11):** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. Gmail is not read-only: it can search/read, read attachments, modify message/thread labels, archive threads, trash/untrash/delete messages or threads, and create/delete labels; it cannot send, reply, compose, or draft.
 
 **ACL boundary (read the doc; do NOT hardcode):** Persona scoping applies to **reads only**, and only to the services the `Docs/14_Persona_ACL.md` **Access matrix** marks persona-scoped. Derive that scoped set (and its unscoped complement) from the doc at eval time; if the doc changes, this eval follows it with no edit here. Do not assert a specific service's scope status from memory. Writes are outside ACL scope; an OE must not assume write denial for any service.
 
@@ -99,13 +99,13 @@ TODO:
 | `2_Persona.txt` | The assigned persona |
 | `HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json` | Exact persona key/email binding used by Agent Runner and Run Verifiers |
 | `6_Oracle_Events.txt` | The Oracle Events to evaluate |
-| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Services_Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
+| `3_UniverseDataForThisTask.json` | Task-specific universe snapshot (may be empty if CB did not export). Combine it with the current full/sharded base checkout in `HarmonyGames_Base_Universe/Data/`, `4_Changelog.json`, `9_Universe_inject.sql` when present, and live service reads. |
 
 ---
 
 ## Universe Data Files (For Verification)
 
-**Location:** `HarmonyGames_Base_Universe/Services_Data/`
+**Location:** `HarmonyGames_Base_Universe/Data/`
 
 This is the full base checkout, not a sampled subset: it includes the consolidated export, service-level JSON, sharded payloads, and repository trees. Refer to the complete list in `1_Prompt_Eval.md`. Use these files to verify every factual claim in the OEs.
 
@@ -119,7 +119,7 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 
 1. **Read `Docs/7_QC_Spec_Doc1.json`** - Extract OE Completeness and OE Accuracy definitions
 2. **Read `Docs/8_QC_Spec_Doc2.md`** - Understand audit workflow Step 5 (OE evaluation)
-3. **Read `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` in full (the combined catalog for all 13 services)** - Know all available tools, their exact names, parameters, and capabilities. This file is the sole source of truth for tool verification.
+3. **Read `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` in full (the combined catalog for all 11 services)** - Know all available tools, their exact names, parameters, and capabilities. This file is the sole source of truth for tool verification.
 4. **Read `Docs/2_Rubrics_Guidelines.md`** - Understand how OEs map to rubrics: write actions → Outcome 1.1/1.2, key facts asked for → Outcome 2.1, read/lookup → Process candidates via the three-condition test
 5. **Skim `HarmonyGames_Base_Universe/1_Universe_Summary.md`** - Quick-reference for all personas, client entities, vendors, Slack channels, scenarios
 6. **Skim `Docs/9_Common_Error.md`** - Common errors in task creation
@@ -127,29 +127,26 @@ This is the full base checkout, not a sampled subset: it includes the consolidat
 
 ### 0.2 DO VERY VERY DEEP EXPLORATION OF UNIVERSE DATA
 
-**Read ALL data in the full/sharded `HarmonyGames_Base_Universe/Services_Data/` checkout BEFORE evaluating any OE.** Exhaustive upfront knowledge of what data exists where (personas, game projects, sprint issues, bug tickets, open PRs, contacts) is the only way to catch OE inaccuracies in Phase 2.
+**Read ALL data in the full/sharded `HarmonyGames_Base_Universe/Data/` checkout BEFORE evaluating any OE.** Exhaustive upfront knowledge of what data exists where (personas, game projects, sprint issues, bug tickets, open PRs, contacts) is the only way to catch OE inaccuracies in Phase 2.
 
-**Explore these files (all paths relative to `HarmonyGames_Base_Universe/Services_Data/`):**
-- `Base_Universe_Complete_Data.json` — Whole-universe snapshot for a broad first pass
-- `slack/messages/<channel>/<YYYY-MM>.json`; `slack/slack.channels.json`; `slack/slack.users.json`; `slack/slack.files.json`
-- `linear/linear.issues.json`; `linear/linear.projects.json`; `linear/linear.comments.json`; `linear/linear.teams.json`; `linear/linear.users.json`; `linear/linear.team_memberships.json`
-- `github/github.<table>.json` plus `github/root/` repository files
-- `gmail/threads/<thread>.json`; `gmail/gmail.users.json`; `gmail/gmail.labels.json`; `gmail/gmail.manifest.json`
-- `gdrive/gdrive.drive_files.json`; `gdrive/gdrive.drive_users.json`; `gdrive/gdrive.drive_sheets.json`
-- `gdocs/gdocs.docs_documents.json`
-- `gsheets/gsheets.sheets_spreadsheets.json`
-- `gslides/gslides.slides_presentations.json`
-- `gcal/gcal.calendars.json`; `gcal/gcal.events.json`
-- `trello/trello.<table>.json`
-- `confluence/confluence.<table>.json`
-- `contacts/contacts.contacts.json`; `contacts/contacts.current_user_id.json`
-- `snowflake/snowflake.tables.json`; `snowflake/snowflake.databases.json`; `snowflake/snowflake.schemas.json`; `snowflake/snowflake.query_history.json` — read-only
+**Explore these files (all paths relative to `HarmonyGames_Base_Universe/Data/`):**
+- `slack/channels.json`, `slack/users.json`, `slack/files.json`, `slack/messages/` — messages, channels, users, files
+- `linear/data.json` (plus attachments in `linear/root/`) — issues, projects, comments, teams, users, memberships
+- `github/data.json` (plus repository trees in `github/root/`) — repos, PRs, issues, commits, reviews, repository contents
+- `gmail/labels.json`, `gmail/users.json`, `gmail/threads/` — threads, messages, users, labels
+- `gdrive/data.json` (plus blobs in `gdrive/root/`) — files, folders, users, sheet records
+- `gdocs/data.json`
+- `gsheets/data.json`
+- `gslides/data.json`
+- `gcal/data.json`
+- `trello/data.json` (plus attachments in `trello/root/`)
+- `contacts/data.json`
 
 You can also pull the full universe via `HarmonyGames_Base_Universe/8_Get_Universe_Data.sql`.
 
 **Note:** HarmonyGames documents live in structured database tables and service data files. Verify project names, amounts, dates, and persona details in these JSON records against OE claims the same way you verify any other universe data.
 
-**Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** Some table-wise files may be empty or absent from a service split because they are write targets or populated only for a task. Check the files that actually exist, `Base_Universe_Complete_Data.json`, and `3_UniverseDataForThisTask.json` before deciding a service is empty or a task has a feasibility gap.
+**Empty-in-base tables (do NOT flag as phantom/feasibility gaps):** Some table-wise files may be empty or absent from a service split because they are write targets or populated only for a task. Check the per-service export that actually exists and `3_UniverseDataForThisTask.json` before deciding a service is empty or a task has a feasibility gap.
 
 ### 0.3 Explore QC-Passed Task Oracle Events
 
@@ -161,7 +158,7 @@ You can also pull the full universe via `HarmonyGames_Base_Universe/8_Get_Univer
 - How the critical path flows from investigation to write actions
 - How parameters are described (query terms, recipients, entity names)
 
-**For long-horizon OEs, read `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/6_Oracle_Events.txt`.** It is the canonical reference for a 592-call task expressed in 22 Oracle Events: ten `BATCH` OEs cover the 580 record-level calls, `BIND[OE007.spreadsheetId]` carries the runtime spreadsheet identity into every later write and read-back, each OE ends with its own `Calls:` count, and the file closes with `FINAL EXACT MINIMUM CALL TOTAL: 592`. Use it to judge whether a long-horizon OE set is complete, arithmetically checkable, and free of invented future identifiers.
+**For long-horizon OEs, read "How the Repetition Is Expressed in Oracle Events" in `Docs/13_Long_Horizon_Task_Guidelines.md`.** It is the canonical reference for a 592-call task: `BATCH` OEs cover the 580 record-level calls, `BIND[OE007.spreadsheetId]` carries the runtime spreadsheet identity into every later write and read-back, each OE ends with its own `Calls:` count, and the set closes with `FINAL EXACT MINIMUM CALL TOTAL: 592`. Use it to judge whether a long-horizon OE set is complete, arithmetically checkable, and free of invented future identifiers.
 
 **To study OE mistakes:** review `QC_Tasks/QC_Non_Fails/` (score-3 tasks with non-failing defect patterns) and `QC_Tasks/QC_True_Fails/` (confirmed hard fails).
 
@@ -189,7 +186,7 @@ For repeated retrieval over a complete, source-defined key set, one `BATCH` OE m
 
 `BATCH` is compact planning notation, not a bulk tool that may not exist. It must not hide an unknown cohort, skip per-record surfaces, or turn one available bulk response into artificial repetition.
 
-A conforming `BATCH` OE, from `QC_Tasks/QC_Passed/Task5_Leonard_Hayes_Source_IP_Provenance_HG/6_Oracle_Events.txt`:
+A conforming `BATCH` OE, from the worked example in `Docs/13_Long_Horizon_Task_Guidelines.md`:
 
 > OE 008 — BATCH github_get_pull_request_reviews fixed({"owner":"harmonygames-Games","repo":"Combo-Fighters"}); vary pullNumber over each integer 1..37. Expected: retrieve the individual submitted review decisions once for every pull request in harmonygames-Games/Combo-Fighters, preserving empty results as checked absence. […] exact value: 37 distinct PR keys; NONE FOUND=27; populated=10 […] Calls: 37.
 
@@ -312,7 +309,7 @@ Reasoning OEs (flagged): [X]
 | ... | ... | ... | ... | ... |
 
 **Common Tool Errors:**
-- Referencing a tool from any service outside the 13 catalogs is invalid; use an exact available tool only when its service actually contains the required data.
+- Referencing a tool from any service outside the 11 catalogs is invalid; use an exact available tool only when its service actually contains the required data.
 - Referencing an unqualified generic variant is invalid; use the exact catalog name, such as `slack_conversations_search_messages`, `gmail_search_messages`, `linear_get_issue`, or `github_get_issue`, as appropriate.
 - Assuming a capability from a familiar product rather than the catalog is invalid. In particular, Gmail has no send, reply, compose, or draft tool.
 - Missing tool alternatives that would also work
@@ -326,11 +323,11 @@ Reasoning OEs (flagged): [X]
 
 | OE # | Service Referenced | Data Actually There? | Verified In File | Evidence |
 |------|-------------------|---------------------|-----------------|----------|
-| 1 | Linear | Yes/No | `linear/linear.issues.json` | Line X: "..." |
-| 2 | Linear | Yes/No | `linear/linear.projects.json` | Line X: "..." |
+| 1 | Linear | Yes/No | `linear/data.json` (`issues`) | Line X: "..." |
+| 2 | Linear | Yes/No | `linear/data.json` (`projects`) | Line X: "..." |
 | ... | ... | ... | ... | ... |
 
-**Search the corresponding JSON files in `HarmonyGames_Base_Universe/Services_Data/` to confirm.**
+**Search the corresponding JSON files in `HarmonyGames_Base_Universe/Data/` to confirm.**
 
 #### Persona-Scoped Read Verification
 
@@ -397,10 +394,10 @@ For every OE containing an amount, percentage, decimal value, total, count, or d
 
 | OE # | Claim in OE | File(s) Actually Searched (full path) | Search Term / Query | Value Found (exact quote or "NOT FOUND") | Accurate? | Discrepancy |
 |------|------------|--------------------------------------|--------------------|-----------------------------------------|-----------|-------------|
-| 1 | "Domino Delights has an unresolved bug ticket for July" | `linear/linear.issues.json` | grep "Domino Delights" + state "unresolved" | `"issue_id": "ISS_...", "state": "unresolved"` | Yes/No | ... |
-| 2 | "Brian Foster is the Head of Product for Domino Delights" | `contacts/contacts.contacts.json` | grep "Brian Foster" | `"role": "Head of Product"` | Yes/No | ... |
-| 3 | "6 overdue tickets across the monthly owner report" | `linear/linear.issues.json` | count where state="overdue" + period="July" | Found: 4 (NOT 6) | **No** | "OE says 6 but only 4 exist" |
-| 4 | "$12,400 contractor invoice referenced in email is unresolved" | `gsheets/gsheets.sheets_spreadsheets.json` | grep amount + status | `"amount": 12400, "status": "unresolved"` | Yes/No | ... |
+| 1 | "Domino Delights has an unresolved bug ticket for July" | `linear/data.json` (`issues`) | grep "Domino Delights" + state "unresolved" | `"issue_id": "ISS_...", "state": "unresolved"` | Yes/No | ... |
+| 2 | "Brian Foster is the Head of Product for Domino Delights" | `contacts/data.json` (`contacts`) | grep "Brian Foster" | `"role": "Head of Product"` | Yes/No | ... |
+| 3 | "6 overdue tickets across the monthly owner report" | `linear/data.json` (`issues`) | count where state="overdue" + period="July" | Found: 4 (NOT 6) | **No** | "OE says 6 but only 4 exist" |
+| 4 | "$12,400 contractor invoice referenced in email is unresolved" | `gsheets/data.json` (`sheets_spreadsheets`) | grep amount + status | `"amount": 12400, "status": "unresolved"` | Yes/No | ... |
 | ... | ... | ... | ... | ... | ... | ... |
 
 **Completion rule:** Every OE must have a row. Every row must have a non-empty "File(s) or Live Source Actually Searched" and "Value Found" column. For a `BATCH`, the value must include the verified cohort size and coverage rule; sampled verification alone cannot establish the complete cohort. For a quantitative claim, the row or its linked Numeric Observability row must record both the raw value/inputs and the tool-visible rendering. If you cannot find a claim → mark "NOT FOUND" in the value column and flag the OE as inaccurate. Do NOT leave rows blank or write generic "verified" without the specific source and value.
@@ -410,7 +407,7 @@ For every OE containing an amount, percentage, decimal value, total, count, or d
 - **Approver/persona-project assignments** - check who maps to which project (e.g., Brian Foster = Head of Product; Leonard Hayes = Co-founder & Creative Director) against Contacts / Linear / Slack
 - **Dollar amounts and rates** - verify canonical values against the raw source, then verify the cataloged tool preserves the precision the OE expects
 - **Date-scoped queries** - verify the date filter captures all relevant records
-- **Email addresses** - verify they exist in `contacts/contacts.contacts.json` or `gmail/threads/<thread>.json`
+- **Email addresses** - verify they exist in `contacts/data.json` (`contacts`) or `gmail/threads/<thread>.json`
 - **Status claims** - if an OE says "ticket is overdue" or "bill is unpaid," verify the actual status
 - **Names and spellings** - verify every person's name is spelled exactly as it appears in the universe
 - **Act-vs-defer override (HARD GATE for write-action OEs):** When an OE describes a write action (corrective action, ticket resolution, bill payment) whose basis is a ticket's `proposed_resolution` or a system-generated remediation suggestion, you MUST scan the **accessible** record set — Slack channels the authoring persona is a member of + the persona's Gmail inbox — for a **documented decision to defer, accept-timing, not-act, or override**. If such a decision is found in accessible data, the OE's expected write action is **not the only valid path** — an agent that correctly defers is also correct, and the OE is inaccurate or incomplete if it mandates only the write. Flag: "OE #X mandates [write action] from `proposed_resolution`, but [channel/email] contains a defer/accept-timing decision — the OE should acknowledge the defer path as equally valid." **Do NOT take `proposed_resolution` at face value — always cross-check accessible comms.**
@@ -650,7 +647,7 @@ A critical path step is one where: without it, you can't imagine a successful tr
 | Persona-scoped read assumes cross-persona visibility | Bind the exact roster identity and test scoped-service visibility (scoped set derived live from the `Docs/14_Persona_ACL.md` Access matrix) rather than relying on author god-mode | Non-Fail (Accuracy) |
 | Expected ACL denial has no affirmative follow-up | Denial-only text is incomplete; require prompt-authorized reporting, escalation, or authorized alternate lookup | Non-Fail (Completeness) |
 | `set_acting_user` counted as an OE/call | Identity binding is environment configuration, not Agent work | Non-Fail (Completeness/Accuracy) |
-| Wrong email address | Search `contacts/contacts.contacts.json` and relevant `gmail/threads/<thread>.json` files | Non-Fail (Accuracy) |
+| Wrong email address | Search `contacts/data.json` (`contacts`) and relevant `gmail/threads/<thread>.json` files | Non-Fail (Accuracy) |
 | Wrong approver/persona-project mapping | Verify against Contacts / Linear / Slack | Non-Fail (Accuracy) |
 | **Act-vs-defer override missed** | **OE mandates write from `proposed_resolution` without scanning accessible Slack/Gmail for a defer/accept-timing decision** | **Non-Fail (Accuracy)** |
 

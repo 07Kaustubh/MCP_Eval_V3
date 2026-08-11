@@ -2,7 +2,7 @@
 
 > Universe date: **February 28, 2026**. The exact 17 task-visible identities are in [`4_Persona_ACL_Roster.json`](4_Persona_ACL_Roster.json); [`../Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) controls their read visibility. The "active work / relationships / open threads" below describe what people do across the storylines. Additional people can appear in service data without being selectable task personas.
 
-> **Tool and ACL clarification:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` defines capabilities for exactly 13 services: Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence. Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped; the other six services are unscoped. Writes are outside Persona ACL scope. Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, and Stripe references below are narrative systems, vendors, topics, or artifacts—not directly callable tools. Gmail has no send/reply/compose capability; Snowflake is query/read-only.
+> **Tool and ACL clarification:** `HarmonyGames_Base_Universe/6_Server_Tools_Details.json` defines capabilities for exactly 11 services: Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts. Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides reads are persona-scoped; the other four services are unscoped. Writes are outside Persona ACL scope. Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, and Stripe references below are narrative systems, vendors, topics, or artifacts—not directly callable tools. Gmail has no send/reply/compose capability.
 
 ## How to read these
 
@@ -25,7 +25,7 @@ task-visible Finance persona or CFO.
 **Active work:** The studio's primary operator. Drives product direction, live-ops strategy, difficulty tuning, the analytics stack, fundraising (2023 seed, 2024 board cadence, 2025 bridge round), and most external vendor/partner relationships. Owns the financial model and runway narrative.
 **Key relationships:** Internal — Arthur Blake (co-founder/CTO), Robert (co-founder/design), Frederick Stone (BD/UA); leans on Douglas/Owen Baker/Oliver Brooks for engineering and Julia Lawson/Brian Foster for product. External — Griffin Gaming Partners, AppLovin (Marcus Lee), Solsten, Adjoe, Mattel (Tim Steudler), outside counsel.
 **Open threads:** Failed $2.5M bridge round · Mattel "Dream Life Glow" pitch · Combo Fighter live experiment · Telegram DD port · Helpshift wind-down · company runway/wind-down.
-**Recent activity:** Investor-update emails, board decks, pitch decks (Drive), most `#founders`/`#investors`/`#executives` decisions, Snowflake analytics reads, and Metabase dashboard evidence referenced in available Slack/Drive/Confluence artifacts.
+**Recent activity:** Investor-update emails, board decks, pitch decks (Drive), most `#founders`/`#investors`/`#executives` decisions, GSheets performance models, and Metabase dashboard evidence referenced in available Slack/Drive artifacts.
 
 ### Arthur Blake — Co-founder & CTO · `arthur.blake@harmonygames.co` · Executive · `arthur_blake`
 **Active work:** Owns engineering architecture and the internal tooling saga (puzzle editor, bot/sequencer, difficulty simulation, vision-bot QA). Built the financial model that anchored the seed pitch; co-signatory/secretary on the Carta advisor-equity program; personally bridge-funded the company via promissory notes. Reviews/merges most major PRs.
@@ -115,7 +115,7 @@ task-visible Finance persona or CFO.
 **Recent activity:** ART tickets, `#god-ui-ux` threads, and Figma file references/exports linked from available services.
 
 ### Simon Walker — Data Analyst (Contractor) · `simon.walker@harmonygames.co` · Engineering · `simon_walker`
-**Active work:** Stood up the BigQuery/dbt/Metabase analytics layer and the retention dashboards; drove Singular reconciliation and manual data-detective work. Evidence about these non-direct systems is available through Slack, Gmail, Drive, GitHub, Linear, Confluence, and Snowflake artifacts.
+**Active work:** Stood up the BigQuery/dbt/Metabase analytics layer and the retention dashboards; drove Singular reconciliation and manual data-detective work. Evidence about these non-direct systems is available through Slack, Gmail, Drive, GSheets, GitHub, and Linear artifacts.
 **Key relationships:** Leonard Hayes, Douglas, Arthur Blake, Owen Baker.
 **Recent activity:** `#analytics` threads, dashboard/spreadsheet artifacts.
 

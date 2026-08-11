@@ -109,7 +109,7 @@ entry. Do not edit historical QC folders to retrofit this format.
 
 - Today: **2026-02-28**, America/Chicago
 - Active injection window: **2026-01-01 through 2026-02-28**
-- Enabled MCP services: **13**
+- Enabled MCP services: **11**
 - Persona ACL: **17 task-visible personas; scoped reads on Gmail, Slack, GCal,
   and Contacts only**
 - Business functions: **6**

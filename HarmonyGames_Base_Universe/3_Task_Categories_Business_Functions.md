@@ -35,18 +35,18 @@ Each of the six is described below with typical work, its **write-action surface
 
 ## 1) Engineering & Live-Ops (25%)
 **Typical work:** triaging live bugs across Linear + GitHub + Slack; reconciling what actually shipped (PR merged? ticket Done? Trello card in the right list?); coordinating a live-ops event's client/backend/art handoff; auditing a feature's status across titles (GoD vs match3d); finding stalled/abandoned work.
-**Write actions:** `linear_create_issue`/`linear_update_issue`/`linear_create_comment`, `github_create_issue`/`github_add_issue_comment`/`github_create_pull_request_review`, `trello_create_card`/`trello_update_card`/`trello_add_comment`, `slack_send_message`, `confluence_create_page`.
+**Write actions:** `linear_create_issue`/`linear_update_issue`/`linear_create_comment`, `github_create_issue`/`github_add_issue_comment`/`github_create_pull_request_review`, `trello_create_card`/`trello_update_card`/`trello_add_comment`, `slack_send_message`, `gdocs_create_document`.
 **Worked example:** *"The Season Pass on Zombie Match keeps throwing weird reward bugs after launch and I can't tell what's actually been fixed vs still open. Can you get to the bottom of it, make sure the right tickets reflect reality, and flag anything that's slipped through so the right engineer picks it up?"* → requires reading ZOM Linear tickets + match3d PRs + `#season-pass`/`#zombie-bugs` Slack + the reward spec sheet, noticing a fixed-but-still-open ticket and a minutes-vs-days unit bug, then updating Linear and pinging the owner.
 
 ## 2) Product & Design (20%)
 **Typical work:** reconciling a GDD/spec (Drive) against what's implemented (Linear/GitHub); difficulty-curve and economy decisions backed by analytics; FTUE/tutorial redesign; roadmap hygiene (Trello); prototype go/no-go reconstruction.
-**Write actions:** `gdocs_create_document`/`gdocs_batch_update`, `gsheets_values_update`/`gsheets_values_append`, `trello_create_card`/`trello_move_card`, `linear_create_issue`, `slack_send_message`, `confluence_create_page`.
-**Worked example:** *"Robert wants the Combo Fighter progression to actually match what we wrote in the GDD before we push the next build. Check whether the combo rarity/leveling we shipped lines up with the design doc, write up what's off, and get it in front of the team."* → cross-reads the Combo Fighter GDD (Drive), `Combo-Fighters` PRs, `#prototype` Slack, direct Snowflake DPS data, and any Metabase dashboard evidence linked in Slack/Drive/Confluence; writes a discrepancy doc and a Slack summary.
+**Write actions:** `gdocs_create_document`/`gdocs_batch_update`, `gsheets_values_update`/`gsheets_values_append`, `trello_create_card`/`trello_move_card`, `linear_create_issue`, `slack_send_message`.
+**Worked example:** *"Robert wants the Combo Fighter progression to actually match what we wrote in the GDD before we push the next build. Check whether the combo rarity/leveling we shipped lines up with the design doc, write up what's off, and get it in front of the team."* → cross-reads the Combo Fighter GDD (Drive), `Combo-Fighters` PRs, `#prototype` Slack, the DPS/balance tables kept in GSheets, and any Metabase dashboard evidence linked in Slack/Drive; writes a discrepancy doc and a Slack summary.
 
 ## 3) Growth / UA / Marketing (15%)
 **Typical work:** reconstructing a vendor/UA arc (AppLovin, Adjoe, Node Media, PlayableX, Google Ads) across Gmail threads + Slack vendor channels + Trello UA/BD board; ASO/store-listing readiness; attribution discrepancy hunts (Singular); spend/ROAS reconciliation.
 **Write actions:** `trello_create_card`/`trello_update_card`, `slack_send_message`, `gdocs_create_document`, `gsheets_values_append`, `linear_create_issue` (creative/ASO tickets), plus Gmail label/archive/trash triage when the request calls for inbox organization. *(Gmail cannot send or reply.)*
-**Worked example:** *"I need to know where the Adjoe test actually landed before the board call — what we spent, what the retention looked like, and why we paused. Pull the whole picture together and drop a clean summary in the UA channel."* → reads the Adjoe Gmail/Slack Connect thread, Singular reports or exports referenced in Gmail/Slack/Drive, direct Snowflake evidence where relevant, and `#executives`; computes ~$50–54.5K spend / ~21.5% ROAS / ~4% D30, then posts a Slack summary and/or a Trello card.
+**Worked example:** *"I need to know where the Adjoe test actually landed before the board call — what we spent, what the retention looked like, and why we paused. Pull the whole picture together and drop a clean summary in the UA channel."* → reads the Adjoe Gmail/Slack Connect thread, Singular reports or exports referenced in Gmail/Slack/Drive, the UA spend and retention sheets in GSheets, and `#executives`; computes ~$50–54.5K spend / ~21.5% ROAS / ~4% D30, then posts a Slack summary and/or a Trello card.
 
 ## 4) Founders / Exec / Strategy (15%)
 **Typical work:** fundraise/board reconstruction; strategic-bet post-mortems (NFT/hypercasual, 4X crypto, Mattel Barbie); partnership status (CrazyGames/BoomBit/Mattel); runway/wind-down synthesis.
@@ -55,13 +55,13 @@ Each of the six is described below with typical work, its **write-action surface
 
 ## 5) Finance / Legal / HR / Ops (15%)
 **Typical work:** cap-table/equity reconstruction (Carta exports, promissory notes, and board consents stored in Drive); patent-matter status (Superplay/TYZ); hiring/offboarding threads (Deel payroll, terminations, referrals); vendor-contract lifecycle (Helpshift, Deel, art vendors).
-**Write actions:** `gdocs_create_document`/`gdocs_batch_update`, `gsheets_values_update`, `slack_send_message` (`#admin_foundersonly`), `contacts_add_new_contact`/`contacts_edit_contact`, `confluence_create_page`, `gcal_create_event`.
+**Write actions:** `gdocs_create_document`/`gdocs_batch_update`, `gsheets_values_update`, `slack_send_message` (`#admin_foundersonly`), `contacts_add_new_contact`/`contacts_edit_contact`, `gcal_create_event`.
 **Worked example:** *"Before we close the books on Helpshift, make sure we actually paid everything we owe and that both games are moved off it. Confirm the state and write up what's left."* → reads the Helpshift Gmail/Slack termination thread + invoices + the match3d/GoD integration PRs; writes a wind-down status doc and flags the ~$1.5K back-invoices / migration deadline.
 
 ## 6) Analytics & Data (10%)
-**Typical work:** funnel/retention/DPS analysis (direct Snowflake queries plus Metabase references found in available services); pipeline-health reconstruction from Firebase→BigQuery and Singular evidence in Slack/Gmail/Drive/Linear/GitHub/Confluence; data-discrepancy hunts; instrumentation-gap audits.
-**Write actions:** `gsheets_values_update`/`gsheets_create_spreadsheet`, `gdocs_create_document`, `linear_create_issue` (instrumentation gaps), `slack_send_message` (`#analytics`). *(Snowflake is read-only — query for evidence.)*
-**Worked example:** *"Something's off between what Singular says and what our own dashboards show for installs — figure out where the gap is and write up what we think is real."* → reads the Singular reconciliation Slack/Gmail thread + Snowflake funnel tables; documents the ~15–38% user-level gap and pseudo-userid/region root cause; files an instrumentation ticket.
+**Typical work:** funnel/retention/DPS analysis from the GSheets models plus Metabase references found in available services; pipeline-health reconstruction from Firebase→BigQuery and Singular evidence in Slack/Gmail/Drive/Linear/GitHub; data-discrepancy hunts; instrumentation-gap audits.
+**Write actions:** `gsheets_values_update`/`gsheets_create_spreadsheet`, `gdocs_create_document`, `linear_create_issue` (instrumentation gaps), `slack_send_message` (`#analytics`). *(There is no analytics service tool — evidence comes from GSheets, Drive, and discussion.)*
+**Worked example:** *"Something's off between what Singular says and what our own dashboards show for installs — figure out where the gap is and write up what we think is real."* → reads the Singular reconciliation Slack/Gmail thread + the funnel tables in GSheets; documents the ~15–38% user-level gap and pseudo-userid/region root cause; files an instrumentation ticket.
 
 ---
 
@@ -82,8 +82,6 @@ This matrix is rebuilt from `HarmonyGames_Base_Universe/6_Server_Tools_Details.j
 | Trello | Create/update/archive/move/delete cards; add comments, members, and labels to cards; create/archive lists; create labels and checklists/check items; update check items. |
 | Linear | Create users, teams, projects, issues, and issue comments; update projects and issues. |
 | Contacts | Add, edit, and delete contacts. |
-| Confluence | Create spaces; create/update/delete pages; restore page versions; add comments and page labels. |
-| Snowflake | **None. Query/read-only.** |
 
 ---
 
@@ -91,6 +89,6 @@ This matrix is rebuilt from `HarmonyGames_Base_Universe/6_Server_Tools_Details.j
 
 - Use **Outcome** rubrics for required action results, action content, and key final-response facts.
 - Use **Process** rubrics only when the process itself is explicitly required and outcome evidence cannot capture it. Do not add tool-selection criteria merely because a service was historically labeled "default" or "non-default."
-- Ground any required action in the exact capabilities above. A rubric must not require Gmail sending, Snowflake writes, or direct calls to a non-tool system.
+- Ground any required action in the exact capabilities above. A rubric must not require Gmail sending or direct calls to a non-tool system.
 - Validate required Gmail, Slack, GCal, and Drive-family (GDrive/GDocs/GSheets/GSlides) reads from the assigned persona's Agent/Verifier view. Universe Explorer is author god-mode; author-visible evidence may still be inaccessible to the selected persona.
 - Do not write a rubric for acting-user setup or assume a persona-based write denial. Scoped list/search/get results, including by-ID denied/not-found behavior, are read-visibility constraints only.

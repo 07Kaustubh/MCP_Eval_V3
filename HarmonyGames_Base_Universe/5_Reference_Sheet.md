@@ -2,7 +2,7 @@
 
 Use this when writing prompts, Oracle Events, and rubrics to stay consistent with existing universe data. **Universe date: February 28, 2026.** Email domain: `harmonygames.co`. GitHub org: `harmonygames-Games`.
 
-> `Services_Data/` contains the full base export: full service-level JSON plus sharded or nested Slack messages, Gmail threads, GDrive content, and GitHub repository content. `Services_Data/Base_Universe_Complete_Data.json` is the combined export. A live task can differ after its `9_Universe_inject.sql` and `4_Changelog.json` changes; live tool responses control what the Agent can observe. The Agent has no direct Postgres tool.
+> `Data/` contains the full base export, one folder per service: `data.json` for Contacts, GCal, GDocs, GSheets, and GSlides, and a zipped bundle for the large services (GDrive, GitHub, Gmail, Linear, Slack, Trello). A live task can differ after its `9_Universe_inject.sql` and `4_Changelog.json` changes; live tool responses control what the Agent can observe. The Agent has no direct Postgres tool.
 
 ## Tool capabilities and Persona ACL
 
@@ -10,15 +10,14 @@ Use this when writing prompts, Oracle Events, and rubrics to stay consistent wit
 and parameters. [`../Docs/14_Persona_ACL.md`](../Docs/14_Persona_ACL.md) is the
 authority for task-visible identity and read visibility.
 
-- **Available services:** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
+- **Available services:** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts.
 - **Persona-scoped reads:** Gmail, Slack, GCal, GDrive, GDocs, GSheets, and GSlides (the Drive-family inherits Drive's file ACL). List/search results are filtered to the acting user, and direct by-ID retrieval does not bypass visibility; inaccessible records are denied or returned as not found.
-- **Unscoped reads:** Contacts, GitHub, Snowflake, Trello, Linear, and Confluence.
+- **Unscoped reads:** Contacts, GitHub, Trello, and Linear.
 - **Context:** Universe Explorer is author god-mode. Agent Runner and Run Verifiers use the same taxonomy-selected required persona. The environment automatically applies `set_acting_user` with the exact roster email after universe load and reapplies it each run and turn. Do not use the persistent, overriding AMV persona dropdown. Acting-user setup is environment configuration, not Agent work or a task-call contribution.
 - **Writes:** Persona ACL does not govern writes. Use the catalogs alone to determine write capability; do not assume persona-based write permission or denial.
 - **Gmail:** read/search, thread/message/label/profile lookup, and attachment reads; triage writes include message/thread label modifications, batch message-label changes, thread archive, message/thread trash/untrash/delete, and label creation/deletion. There is no send/reply/compose and no single-message archive tool.
-- **Snowflake:** database/schema/table discovery, table descriptions, query execution/submission, and query history only; it is query/read-only.
-- **Other write-capable services:** Slack (post/reply/edit/schedule/draft messages, add/remove reactions, create conversations); Linear (create users/teams/projects/issues/comments; update projects/issues); GitHub (create/update issues, add comments, create/update/merge PRs, create reviews/replies/branches, create/update/delete or batch-push files, create/update/delete labels); Trello (create/update/archive/move/delete cards, add comments/members/labels to cards, create/archive lists, create labels/checklists/items, update check items); GDrive (create folders/files, update metadata/content, move/trash/restore/delete/share); GDocs (create/batch-update/delete); GSheets (create, value update/append, batch-update); GSlides (create/batch-update); GCal (create/update/patch/delete events and RSVP); Confluence (create spaces/pages/comments, update/delete pages, restore page versions, add page labels); Contacts (add/edit/delete).
-- **No direct tools:** Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe. These may appear below as company systems, vendors, topics, or artifacts. Retrieve evidence about them through available Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, Confluence, or Snowflake sources as relevant.
+- **Other write-capable services:** Slack (post/reply/edit/schedule/draft messages, add/remove reactions, create conversations); Linear (create users/teams/projects/issues/comments; update projects/issues); GitHub (create/update issues, add comments, create/update/merge PRs, create reviews/replies/branches, create/update/delete or batch-push files, create/update/delete labels); Trello (create/update/archive/move/delete cards, add comments/members/labels to cards, create/archive lists, create labels/checklists/items, update check items); GDrive (create folders/files, update metadata/content, move/trash/restore/delete/share); GDocs (create/batch-update/delete); GSheets (create, value update/append, batch-update); GSlides (create/batch-update); GCal (create/update/patch/delete events and RSVP); Contacts (add/edit/delete).
+- **No direct tools:** Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, CRM, Airtable, QuickBooks, or Stripe. These may appear below as company systems, vendors, topics, or artifacts. Retrieve evidence about them through available Slack, Gmail, Drive/Docs/Sheets/Slides, Linear, GitHub, or Trello sources as relevant.
 
 ---
 
@@ -145,15 +144,6 @@ tokens. These counts do not expand the 17-person task-visible ACL roster.)*
 
 ---
 
-## Confluence (4 spaces, ~31 pages)
-
-- **ENG** — Engineering Home, Architecture Overview, AWS Infrastructure Guide, Backend Services (Elixir/Phoenix), CI/CD & Branching, Nakama Server Setup, Data Model & Event Schema, API Reference, Observability & Alerting, Local Dev Setup, Analytics Integration (Unity→Snowflake).
-- **PROD** — Product & Design Home, Domino Delights GDD, Zombie Match 3D GDD, Combo Fighter GDD, Economy Design, Live-Ops Event Engine, Product OKRs 2025 H1, Competitive Analysis (Match Factory), DD 2024 Roadmap (archived).
-- **COMPANY** — Company Home, Company Story & Mission, Team & Onboarding.
-- **OPS** — Operations & Live Ops Home, Live-Ops Event Calendar & Planning, Analytics & Metrics Dashboards (Metabase), QA Regression Runbook, Release Checklist & Store Submission, Quest System Design & Incident Postmortem, ZM3D Season Pass Spec, Customer Support Playbook.
-
----
-
 ## Google Drive / Docs / Sheets / Slides (key artifacts)
 
 - **GDDs / specs:** Combo Fighter GDD, Progression Philosophy, Zombie Match 3D Level/Item/Monster Design docs, GDD Template, Funnel Completion & Dynamic Difficulty.
@@ -163,15 +153,9 @@ tokens. These counts do not expand the 17-person task-visible ACL roster.)*
 
 ---
 
-## Snowflake (analytics warehouse — read-only)
-
-Player-behavior tables (funnel, retention, DPS/economy; e.g. `LEVEL_PERFORMANCE` with `game_id` values like `pioneer_delights`, `zombie_match_3d`). Reachable via `snowflake_list_databases`, `snowflake_list_schemas`, `snowflake_list_tables`, `snowflake_describe_table`, and `snowflake_execute_query` (SELECT/WITH/SHOW/DESCRIBE only).
-
----
-
 ## Environment / Universe IDs
 
-- **Environment ID:** `hg4-2026-07-02-env`
-- **Base Universe ID:** `hg4-2026-07-02`
+- **Environment ID:** `hg4-real-env`
+- **Base Universe ID:** `hg4-real`
 
-These are existing provisioning identifiers. Their embedded date is a legacy label and does not define the universe's simulation date.
+These are existing provisioning identifiers and do not define the universe's simulation date.

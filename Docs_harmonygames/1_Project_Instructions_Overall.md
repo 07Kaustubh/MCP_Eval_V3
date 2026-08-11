@@ -7,7 +7,7 @@
 | Date | Type | Description |
 | :---- | :---- | :---- |
 | **Jul 28, 2026** | **Documentation refresh** | Clarified authority, active Persona ACL read visibility, complexity targets versus evaluator/QC floors, rubric storage, OE non-authority, and HarmonyGames examples. |
-| **Jul 17, 2026** | **HarmonyGames Universe** | Docs updated for the HarmonyGames universe. Environment ID: `hg4-2026-07-02-env`, Base Universe ID: `hg4-2026-07-02`, fixed simulation date: February 28, 2026. The IDs retain legacy provisioning labels. |
+| **Jul 17, 2026** | **HarmonyGames Universe** | Docs updated for the HarmonyGames universe. Environment ID: `hg4-real-env`, Base Universe ID: `hg4-real`, fixed simulation date: February 28, 2026. The IDs retain legacy provisioning labels. |
 
 ## **Where Rules Come From**
 
@@ -30,7 +30,7 @@ Oracle Events are internal planning notes. They help prove solvability, but neve
 
 ## **Your Goal**
 
-Create complex tasks for an AI agent operating inside the **HarmonyGames** universe — a founder-led mobile game studio. The agent has access to the company's Slack, Linear, GitHub, Gmail, Google Drive/Docs/Sheets/Slides, Trello, Confluence, Contacts, Google Calendar, and Snowflake.
+Create complex tasks for an AI agent operating inside the **HarmonyGames** universe — a founder-led mobile game studio. The agent has access to the company's Slack, Linear, GitHub, Gmail, Google Drive/Docs/Sheets/Slides, Trello, Contacts, and Google Calendar.
 
 You're looking for situations where the AI agent could fail — where it misses something, gets confused, makes a wrong assumption, or doesn't explore deeply enough. A good task is one where the agent needs to dig through many data sources and still gets something wrong.
 
@@ -72,7 +72,7 @@ You will receive the HarmonyGames base universe. This is your universe to explor
 
 ### **The Universe Guide**
 
-Read the Universe Guides to understand the company's background, key personas and their relationships, all pre-built scenarios and storylines, and what data exists across services (Slack, Linear, GitHub, Gmail, Drive, Trello, Confluence, etc.)
+Read the Universe Guides to understand the company's background, key personas and their relationships, all pre-built scenarios and storylines, and what data exists across services (Slack, Linear, GitHub, Gmail, Drive, Trello, etc.)
 
 * [HarmonyGames — Universe Summary](../HarmonyGames_Base_Universe/1_Universe_Summary.md) — company, org chart, storylines by lens, and systems.
 * [HarmonyGames — One-Pager](../HarmonyGames_Base_Universe/0_Universe_One-Pager.md) — quick overview.
@@ -90,7 +90,7 @@ You will be assigned one of the 17 task-visible personas through the taxonomy. U
 
 If your assigned persona is "saturated" (you've exhausted the interesting situations for that role), you may switch to a different roster persona through the taxonomy. When you do, mark which persona the task is written for so we can track the distribution. Do not touch the AMV persona dropdown: it overrides the taxonomy selection and persists.
 
-Every persona receives the same 13-service catalog, but Persona ACL actively scopes reads on Gmail, Slack, GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL). Reads on Contacts, GitHub, Snowflake, Trello, Linear, and Confluence are unscoped. Writes are outside Persona ACL scope; use the tool catalogs, not ACL, to determine write capability. See [`Docs/14_Persona_ACL.md`](14_Persona_ACL.md).
+Every persona receives the same 11-service catalog, but Persona ACL actively scopes reads on Gmail, Slack, GCal, and the Drive-family (GDrive, GDocs, GSheets, GSlides, which inherit Drive's file ACL). Reads on Contacts, GitHub, Trello, and Linear are unscoped. Writes are outside Persona ACL scope; use the tool catalogs, not ACL, to determine write capability. See [`Docs/14_Persona_ACL.md`](14_Persona_ACL.md).
 
 The environment automatically applies `set_acting_user` with the roster's exact email after universe load and reapplies it for every run and turn. This is environment configuration, not an Agent tool, Oracle Event or rubric process requirement, or task-call contribution. The Agent Runner and Run Verifiers use the same required persona.
 
@@ -128,15 +128,14 @@ There is no task-visible Finance persona or CFO. Finance is a business function 
 
 ### **What Data Can the Agent Access?**
 
-The agent has exactly 13 task-visible services: Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, Trello, Confluence, Contacts, GCal, and Snowflake. For prompt writing, you do not need to specify tool names or parameters. Required evidence must both exist in the universe and be readable by the assigned persona; author visibility in Universe Explorer is not sufficient for a scoped service.
+The agent has exactly 11 task-visible services: Slack, Linear, GitHub, Gmail, GDrive, GDocs, GSheets, GSlides, Trello, Contacts, and GCal. For prompt writing, you do not need to specify tool names or parameters. Required evidence must both exist in the universe and be readable by the assigned persona; author visibility in Universe Explorer is not sufficient for a scoped service.
 
 **⚠️ Important tool constraints for HarmonyGames:**
 * [`HarmonyGames_Base_Universe/6_Server_Tools_Details.json`](../HarmonyGames_Base_Universe/6_Server_Tools_Details.json) is the authority for enabled tools; see the concise [Tool Access Guide](0_Tool_Access_Guide.md).
 * **Gmail is triage-capable, but cannot send** — it supports read/search, attachments, label changes, archive, trash/untrash/delete, and label creation/deletion. There is no send/reply/compose tool.
-* **Snowflake is read/query-only** — it lists and describes warehouse objects and runs queries; it is not a write surface.
-* **Exactly 13 service catalogs are enabled:** Gmail, GDrive, GitHub, Snowflake, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, Contacts, and Confluence.
+* **Exactly 11 service catalogs are enabled:** Gmail, GDrive, GitHub, Slack, GCal, GDocs, GSheets, GSlides, Trello, Linear, and Contacts.
 * **Persona-scoped reads apply only to Gmail, Slack, GCal, and the Drive-family (GDrive/GDocs/GSheets/GSlides).** List and search results are filtered, and a known object ID does not bypass visibility; inaccessible by-ID reads are denied or return not found.
-* **The other six services (Contacts, GitHub, Snowflake, Trello, Linear, Confluence) are unscoped for reads. Persona ACL does not govern writes.**
+* **The other four services (Contacts, GitHub, Trello, and Linear) are unscoped for reads. Persona ACL does not govern writes.**
 * **No direct tools exist for CRM, Airtable, QuickBooks, Firebase, BigQuery, Metabase, App Store Connect, Google Play, AppLovin, Singular, Figma, Carta, or Stripe.** Those names may appear as business topics or evidence recorded inside enabled services, but the agent cannot query them directly.
 
 ---
@@ -159,7 +158,7 @@ Use Universe Explorer author god-mode and the chat agent to understand what data
 * Look at GitHub for PR history, CodeRabbit-only reviews, merge activity  
 * Check Drive for GDDs, financial models, pitch decks, legal docs  
 * Browse Trello for roadmap boards, sprint status, feature cards  
-* Read Confluence for architecture docs, GDDs, OKRs, runbooks
+* Read Drive/GDocs for architecture docs, GDDs, OKRs, runbooks
 
 Here's a non-exhaustive list of what to look for:
 
@@ -178,7 +177,7 @@ Here's a non-exhaustive list of what you can add:
 * GitHub issues or PR comments that create contradictions  
 * Trello cards with stale/wrong status  
 * Drive docs with conflicting specs  
-* Confluence pages with outdated architecture decisions
+* GDocs specs with outdated architecture decisions
 
 **Danger Zone:** The chat agent for editing is currently unconstrained — it will make whatever changes you ask for without checking for conflicts. This means:
 
@@ -215,7 +214,7 @@ Why it works: Simple ask, but answering it correctly requires checking Linear ZO
 
 *"Something's off between the Singular figures the team recorded and what our own dashboards show for installs — figure out where the gap is and write up what we think is real."*
 
-Why it works: Requires investigation across Singular reconciliation evidence in Slack/Gmail, Snowflake funnel tables, and analytics docs. Singular is a business topic here, not a directly accessible service. Root cause is a ~15–38% user-level gap from pseudo-userid/region issues. Agent must investigate then take write actions (doc, instrumentation ticket).
+Why it works: Requires investigation across Singular reconciliation evidence in Slack/Gmail, the funnel numbers kept in GSheets, and analytics docs. Singular is a business topic here, not a directly accessible service. Root cause is a ~15–38% user-level gap from pseudo-userid/region issues. Agent must investigate then take write actions (doc, instrumentation ticket).
 
 **GOOD: Open-ended performance review**
 
@@ -237,7 +236,7 @@ Why it fails: Tells the agent exactly what steps to take.
 
 **BAD: Bolted-together requests**
 
-*"Check the Mattel pitch status, audit the Snowflake analytics tables, review Calvin's PRs, and look up Arthur's equity docs."*
+*"Check the Mattel pitch status, audit the retention sheet, review Calvin's PRs, and look up Arthur's equity docs."*
 
 Why it fails: Four unrelated requests stapled together. Each sub-request should causally flow from the same situation.
 
@@ -493,7 +492,7 @@ Examples of natural difficulty (GOOD):
 
 * Two UA managers named Marcus (Marcus Lee vs Marcus Bennett) causing a mix-up in attribution data  
 * A stalled prototype (Zombie Match Lite) whose status requires connecting a Slack decision, a GitHub branch, a Linear ticket, and a Trello card  
-* A cost question whose root cause requires connecting a Slack vendor discussion, a Gmail invoice, internally recorded Singular figures, and Snowflake funnel data
+* A cost question whose root cause requires connecting a Slack vendor discussion, a Gmail invoice, internally recorded Singular figures, and the funnel data in GSheets
 
 **Mistake 5: Bolted-Together Requests** Four unrelated tasks crammed together. Every sub-request should flow from the same situation.
 
