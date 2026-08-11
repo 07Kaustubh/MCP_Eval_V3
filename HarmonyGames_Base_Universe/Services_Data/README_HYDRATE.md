@@ -13,29 +13,56 @@ and `zstd`. Re-running is safe: it verifies and exits if already hydrated.
 ## Why the payload is not in git
 
 HarmonyGames inverts the usual boundary. For the other four universes the per-task
-`3_UniverseDataForThisTask.json` carries the data. Here that file is a ~721-byte **pointer**
+`3_UniverseDataForThisTask.json` carries the data. Here that file is a ~940-byte **pointer**
 and this directory IS the source of truth — so it must stay *hydratable*, never deleted.
 
-It cannot go into git: 8.1 GB, 316,543 files, and three files above GitHub's **100 MB hard
-per-file limit** (`Base_Universe_Complete_Data.json` 359 MB, `snowflake/snowflake.tables.json`
-125 MB, and a 100 MB packfile). Release assets are not part of a clone, so this costs a
-teammate nothing until they actually need HarmonyGames.
+It cannot go into git: 6.80 GiB across 316,500 files, including one file above GitHub's
+**100 MB hard per-file limit** — a 105,206,509-byte packfile at
+`github/root/harmonygames-Games/liveops/.git/objects/pack/`. Release assets are not part of a
+clone, so this costs a teammate nothing until they actually need HarmonyGames.
 
 ## What you are getting
 
 | | |
 |---|---|
-| release tag | `harmonygames-payload-v2` |
-| assets | 7 parts (6 x 700 MB + 876 KB) + `MANIFEST.txt` |
-| archive | `tar --exclude=.git --exclude=README_HYDRATE.md \| zstd -10`, 4,404,895,494 bytes |
-| archive sha256 | `53be756d294362816acee99ca7a5ed2b4057a436e6f4308163cb185a7ac9e183` |
-| payload | 296,543 files across 13 service directories (post-extract; the upstream tree also carries 20,000 files in 18 nested `.git` dirs, excluded from the archive) |
-| `Base_Universe_Complete_Data.json` | 359,094,851 bytes, sha256 `31cb9ee54367c5b11c9896409ef3b8c021884710858636db28d4ba7fd1fc146b` |
+| release tag | `harmonygames-payload-v3` |
+| archive | `tar --exclude=.git --exclude=README_HYDRATE.md \| zstd -10` |
+| archive sha256 | `60c797474999771f70a96430ef1b043125fa16e628d796b2a58106e0f47bfe2c` |
+| payload | 296,500 files across 11 service directories |
+| service dirs | `contacts, gcal, gdocs, gdrive, github, gmail, gsheets, gslides, linear, slack, trello` |
+| payload bytes | 6,734,069,813 |
+| tree sha256 | `40d7873a596d9433cd4f03fc2995f95ab2a02bc194ee6f5fe12a98b54b446c62` |
 
-Round-trip verified 2026-08-06: downloaded from the published release, reassembled to the
-archive sha above, extracted, and the blob sha + 296,543 file count + 13 service dirs all
-matched. Verified against the upstream drop: path+size identical for **all 316,543 upstream files** (296,543 after the `--exclude=.git` the archive applies), plus a
-400-file sha256 sample with zero mismatches.
+`archive sha256` is the sha256 of the reassembled archive published under release tag
+`harmonygames-payload-v3`. `hydrate_harmonygames.sh` refuses to extract anything whose
+checksum does not match it, and still refuses outright if a future drop resets it to the
+`TODO-UNPUBLISHED-FILL-AT-PUBLISH-TIME` placeholder.
+
+The four manifest rows below `archive sha256` are what `check_hydration.py` enforces. All
+four were measured from disk with `check_hydration.py --print-manifest harmonygames` and
+cross-checked independently with `find | wc -l` and `stat -f%z`. Counts EXCLUDE the 20,000
+files inside 19 nested `.git` directories (dropped by the archive's `--exclude=.git`) and
+this pointer file. The full tree as rsync'd from the drop is 316,500 files / 7,302,587,458
+bytes; 296,500 files / 6,734,069,813 bytes remain after that exclusion.
+
+`tree sha256` is a digest over the sorted `relpath\0size` listing of every payload file, not
+over their contents. It pins the shape of all 296,500 files for the cost of a stat() each and
+reads zero payload bytes, so it stays inside the constant-memory rule. It replaced a sha256 of
+the old combined export, which pinned one 359 MB file and said nothing about the rest.
+
+### V5 re-hydrate: what changed from `harmonygames-payload-v2`
+
+| | v2 (V4 drop) | v3 (V5 drop) |
+|---|---|---|
+| service dirs | 13 | **11** — `snowflake/` and `confluence/` are gone |
+| `Base_Universe_Complete_Data.json` | 359,094,851 bytes | **not shipped** |
+| files >100 MB | 3 | **1** (the packfile above) |
+| per-service filenames | doubled (`slack/slack.files.json`) | flat (`slack/files.json`) |
+| version pin | blob sha256 | tree digest over all 296,500 files |
+
+Removing the combined export changes nothing downstream:
+`universe_data_source._stream_base_export` walks the per-service JSON and never read it. An
+HG task resolves to the same record count with and without it.
 
 ## Searching this payload — read this before you grep
 
@@ -50,35 +77,47 @@ matches is NOT evidence of absence. Force it explicitly:
 rg --no-ignore --hidden 'oliver@harmonygames.co' HarmonyGames_Base_Universe/Services_Data
 ```
 
-**2. The service-level tables are not the whole universe.** The 118 files sitting directly
-under each service directory hold only 234 MB. The records live deeper — `slack/messages/`
-(901 MB), `gmail/threads/` (338 MB), `github/root/` (166 MB), `gdrive/root/` (54 MB) — 1.9 GB
-of JSON across 71,021 files in all. A scan scoped to the top level misses most of the data
+**2. The service-level tables are not the whole universe.** Only 16 files sit directly under
+the service directories, holding 126.3 MB. The records live deeper — `linear/root` (2.3G,
+2,027 files), `gdrive/root` (2.1G, 30,436), `github/root` (1.8G, 257,399), `slack/messages`
+(871M, 5,371), `gmail/threads` (374M, 21,209), `trello/root` (49M, 42). The scan streams
+70,979 JSON files totalling 1.48 GiB. A scan scoped to the top level misses most of the data
 and will report real values as missing. This exact mistake made 11 of the 17 roster emails
 look absent when every one of them is present.
 
 **3. Two Windows-specific hazards.** Paths inside the Unity `PackageCache` trees exceed the
 260-char `MAX_PATH` limit, so `open()` and `os.path.getsize()` raise on files `os.walk` just
-listed — retry through the `\\?\` prefix. And the tarball carries macOS AppleDouble `._*.json`
-siblings that are not valid UTF-8; skip any name starting with `._`.
+listed — retry through the `\\?\` prefix. On AppleDouble `._*.json` siblings: this drop
+carries **zero** of them (`find -name '._*'` returns 0), unlike v2. The `name.startswith("._")`
+skip in `Presence._scan_roots` stays as defense, because a macOS tar round-trip can
+reintroduce them and they are not valid UTF-8.
 
 The reference implementation of a correct scan is `Presence` in
 `Validators/verify_universe_atoms.py`: one streaming pass, chunked with an overlap, constant
-memory. Do not load this payload into memory — earlier attempts were OOM-killed.
+memory. Do not load this payload into memory — earlier attempts were OOM-killed. The `.json`
+extension filter in `_scan_roots` is load-bearing, not cosmetic: it is the only thing keeping
+the 105 MB packfile and the other ~225,500 non-JSON files out of the byte stream.
+`test_memory_bounds.py` G1(c) guards it, and `--self-check` mutates it to prove that guard
+can fail.
 
 ## The one deliberate omission
 
-The 17 nested git repositories (548 MB) are excluded. Their **working trees are fully
-included** — 57,126 files in `rpg-prototype`, 49,586 in `GameOfDominoes`, and so on. Only
-`.git` history is dropped, and nothing reads it: all 56 `github_*` tools resolve from the
-service JSONs (`github.commits.json`, `github.commit_map.json`, `github.branches.json`, …),
-never from `.git`. Copying them in would also create broken gitlinks inside this repo.
+The 19 nested git repositories are excluded — 20,000 files, 568,517,645 bytes of `.git`
+history. Their **working trees are fully included**. Only `.git` history is dropped, and
+nothing reads it: all 56 `github_*` tools resolve from the service JSONs, never from `.git`.
+Copying them in would also create broken gitlinks inside this repo.
 
 ## If the upstream payload is ever re-issued
 
-Bump the release tag **and** the two checksums in `Validators/hydrate_harmonygames.sh`
-(`ARCHIVE_SHA256`, `BLOB_SHA256`) together with the manifest values above. Changing the tag
-alone would silently hydrate a stale payload that still passes its own checksum.
+Bump the release tag **and** `ARCHIVE_SHA256` in `Validators/hydrate_harmonygames.sh`,
+together with the four manifest rows above. Changing the tag alone would silently hydrate a
+stale payload that still passes its own checksum. Regenerate the manifest rows with:
+
+```sh
+python3 Validators/check_hydration.py --print-manifest harmonygames
+```
+
+There is no longer a `BLOB_SHA256` to bump: the combined export is not part of this payload.
 
 ## Until you hydrate
 
