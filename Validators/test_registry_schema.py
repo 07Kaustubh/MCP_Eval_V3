@@ -37,6 +37,7 @@ SENTINEL = "UNRESOLVED"
 CORE_KEYS = {
     "name", "framework_version", "domain", "base_path", "docs_path", "evals_path",
     "tool_catalog", "persona_briefs", "qc_reference_path",
+    "similarity_corpus_globs", "similarity_reads_injection",
     "today", "today_tz", "persona_email_domain", "business_functions",
     "tight_identifiers", "oe_service_map", "cross_service_pairs",
     "retention_codes", "slack_channels", "classifications", "npcs", "services",
@@ -56,6 +57,11 @@ OPTIONAL_KEYS = {
     "long_horizon_calls", "acl_scoped_services", "acl_unscoped_services",
     "id_pattern_set", "index_internal_by_domain", "index_tz_from_registry",
     "weekend_comms_rule",
+    # Logical-table -> split-source overrides for build_universe_index. Declared only by a
+    # universe whose export tables are named differently from the v3-family defaults
+    # (HarmonyGames: `slack.users`, `linear.issues`). Absence means "the defaults are
+    # correct here", which is true for the other four, so it is optional by design.
+    "index_table_map",
 }
 
 

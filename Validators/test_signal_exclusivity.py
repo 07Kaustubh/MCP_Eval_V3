@@ -84,7 +84,7 @@ NEGATIVE_FIXTURES = [
 # A signal set MUST claim these.
 POSITIVE_FIXTURES = [
     ("HarmonyGames persona domain plus set_acting_user", "harmonygames", {
-        "2_Persona.txt": "claire@harmonygames.co\n",
+        "2_Persona.txt": "claire.morgan@harmonygames.co\n",
         "5_Prompt.txt": "set_acting_user then read the live-ops config.\n",
     }),
     ("HarmonyGames pointer file alone", "harmonygames", {

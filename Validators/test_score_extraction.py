@@ -20,7 +20,8 @@ Two further cases survived a first round of fixes and were only found by review:
 AGENTS.md rule 27, so the line is lexically ambiguous with the document's own aggregate).
 
 Three attempts to fix this by widening the regex each traded one defect for another, and
-two of them regressed the HarmonyGames corpus from 10/10 to 8/10 - because a pattern cannot
+two of them regressed the HarmonyGames corpus from 10/10 to 8/10 (the then-10-task
+corpus) - because a pattern cannot
 distinguish a dimension score from a score-shaped number in prose ("All other audited
 components received 5/5") or from the form's own verdict line ("bad 2/5"). The difference is
 structural, not lexical. The extractor now parses blocks.
@@ -224,6 +225,44 @@ CASES = [
     # --- a declared dimension with no attributable score must fail loudly, not be dropped ---
     ("scoreless dimension block must be LOUD",
      "Prompt - Clarity\nSome note mentioning 3/5 oddly\nMore text\n\nScore: 4/5\n", None),
+
+    # -------------------------------------------------------------------------------
+    # FALLBACK A / FALLBACK B - the two shapes the V5 HarmonyGames drop introduced. Both
+    # run only after every extractor above attributed nothing and raised no error.
+    #
+    # Only the OPTIMISTIC direction is testable here, which is the direction this suite
+    # exists for: `run_case` reads `expect=None` as "must be LOUD", so it cannot express
+    # "no score AND no error" - the state both fallbacks must produce when they decline.
+    # Those declining cases are anchored in test_regression_anchors.py as v22 QC-3.
+    # -------------------------------------------------------------------------------
+    ("FALLBACK A: component form scoring itself `ok 3/5`",
+     "Component: Rubrics - Overall Rubric Quality\nRate the Overall Rubric Quality\n\n"
+     "Auditor Score and Feedback\nok 3/5\nAnswer: [Non-Fail - 5-20% Minor Errors]\n", 3),
+    # THE mutant for A. An implementation that took the first match, or MAX, returns 5 and
+    # is caught as OPTIMISTIC. MIN is the same rule the scored path uses.
+    ("FALLBACK A: MIN across components, never the highest",
+     "Component: Rubrics - Overall Rubric Quality\nRate it\n\n"
+     "Auditor Score and Feedback\nok 5/5\nAnswer: [Non-Fail - A]\n\n"
+     "Component: Prompt - Coherence\nRate it\n\n"
+     "Auditor Score and Feedback\nok 2/5\nAnswer: [Fail - B]\n", 2),
+    # NOT the condition-4 discriminator, and labelled so deliberately. Verified by mutation:
+    # with `_COMPONENT_HDR` forced true this case STILL returns 2, because `Score: 2/5` is
+    # attributable and the fallbacks are never reached. What it does pin is real - a document
+    # verdict coexisting with a dimension resolves to the dimension, and a regression letting
+    # the verdict win surfaces here as OPTIMISTIC. The actual "A declines when there is no
+    # `Component:` header" discriminator requires "no score AND no error", which this harness
+    # cannot express, and is v22 QC-3 in test_regression_anchors.py.
+    ("FALLBACK A: doc verdict without a Component header stays a verdict",
+     "Task Feedback\nAuditor Score and Feedback\nok 5/5\n\nPrompt - Coherence\nScore: 2/5\n", 2),
+    ("FALLBACK B: whole-file single summary line",
+     "5/5 tasks in all dimensions.\n", 5),
+    # NOT the condition-5 discriminator, same reason and verified the same way: with the
+    # single-line requirement relaxed to `>= 1` this case STILL returns 2, because the
+    # fallback is unreachable once `Score: 2/5` is attributed. It pins that a leading summary
+    # never outranks a real dimension. The "B declines on a multi-line file" discriminator is
+    # also v22 QC-3.
+    ("FALLBACK B must decline when the file continues past the summary",
+     "5/5 tasks in all dimensions.\n\nPrompt - Coherence\nScore: 2/5\n", 2),
 ]
 
 
@@ -274,7 +313,7 @@ def check_live_corpus_parses() -> int:
 
     So this gate detects exactly one class: a form that becomes UNPARSEABLE. That class is
     worth a gate, because such a regression is otherwise invisible - the affected tasks
-    route via the verdict file, so the 138/138 selftest stays green while the fallback is
+    route via the verdict file, so the 133/133 selftest stays green while the fallback is
     broken, and a form that cannot be parsed is not a safe outcome merely because it is
     loud: the fallback is unavailable precisely when the verdict file is missing, which is
     the only situation it exists for.

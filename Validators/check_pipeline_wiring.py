@@ -272,6 +272,74 @@ def check_orphan_validators() -> list:
     return out
 
 
+def check_unwired_gates() -> list:
+    """W9b: a validator with a CLI entry point that no runbook or doc ever invokes.
+
+    W9 above fires only when a validator is BOTH un-imported AND undocumented, so a
+    gate that is thoroughly documented and simply never RUN is invisible to it. That is
+    exactly how check_sample_clone.py survived: 751 lines, its own HF1/HF2 hard-fail
+    floor, an exit-1 path and a memo calling it non-waivable, wired into nothing.
+
+    An import from a TEST is coverage, not wiring, and must not count. W9 counted it:
+    test_regression_anchors.py imports check_sample_clone to exercise it, which flipped
+    the `imported` bit and bought the module a clean bill of health from the one check
+    that existed to notice. So this check ignores imports entirely and asks the only
+    question that matters for a gate - does anything ever CALL it?
+
+    A doc MENTION is not an invocation either. `check_sample_clone.py` in a tree listing
+    or a prose inventory is how this module was 'documented'; an invocation names the
+    runnable path, `Validators/check_sample_clone.py`. Requiring the directory prefix is
+    what separates the two.
+
+    OPT-OUT, for a tool that genuinely has no call site by design:
+
+        wiring: standalone - <reason>
+
+    in the module docstring. Used by make_fill_script.py, which emits a browser-console
+    snippet for an operator to paste and so has no pipeline call site. Deliberately NOT
+    used by check_rubric_antipatterns.py: that module is standalone in the sense of
+    living outside validate.py's report, but it IS invoked as a command in
+    Validators/AGENTS.md, so it is wired and this check must keep holding it to that.
+    """
+    out = []
+    mods = sorted(p.stem for p in VDIR.glob("*.py") if p.stem != "__init__")
+    if not mods:
+        return out
+    alt = "|".join(re.escape(m) for m in sorted(mods, key=len, reverse=True))
+    # The Validators/ prefix is load-bearing: it is what makes this an invocation rather
+    # than a mention. See the docstring.
+    doc_invoke = re.compile(rf"Validators/({alt})\.py")
+    # A sibling running it through subprocess counts too (check_regression.py does this).
+    py_invoke = re.compile(rf"[\"']({alt})\.py[\"']")
+
+    invoked = set()
+    for q in tree()["mds"]:
+        invoked.update(mo.group(1) for mo in doc_invoke.finditer(read_text_safe(q)))
+    for q in tree()["pys"]:
+        if q.stem.startswith("test_"):
+            continue          # a test harness calling it is coverage, not a call site
+        for mo in py_invoke.finditer(read_text_safe(q)):
+            if mo.group(1) != q.stem:
+                invoked.add(mo.group(1))
+
+    for m in mods:
+        if m in invoked:
+            continue
+        src = read_text_safe(VDIR / f"{m}.py")
+        if "__main__" not in src:
+            continue          # a pure library needs no call site
+        try:
+            doc = ast.get_docstring(ast.parse(src)) or ""
+        except SyntaxError:
+            doc = ""           # W5 owns syntax errors; do not double-report here
+        if "wiring: standalone" in doc:
+            continue
+        out.append(f"[W9b] Validators/{m}.py is a CLI gate that no doc or runbook invokes "
+                   f"- documented but unwired (opt out with `wiring: standalone` "
+                   f"in the docstring if it genuinely has no call site)")
+    return out
+
+
 def check_duplicated_logic() -> list:
     """W10: the rubric-category census must have exactly ONE implementation.
 
@@ -517,8 +585,11 @@ def main():
     # W10 is a FAIL, not a warning: two live copies of the rubric-category census can drift
     # apart and silently mis-score the balance rules - exactly the defect class AGENTS.md
     # rule 18 says must become a standing gate instead of prose.
+    # W9b is a FAIL for the same reason: an unwired gate is indistinguishable from a
+    # deleted one at runtime, and the one it was added for is called non-waivable.
     fails = (list(fails) + check_duplicated_logic() + check_tool_vocab()
-             + check_universe_count_claims() + check_absolute_paths())
+             + check_universe_count_claims() + check_absolute_paths()
+             + check_unwired_gates())
 
     # ---------- report
     print("=== Pipeline wiring audit ===")

@@ -125,6 +125,39 @@ def main() -> int:
                 print(line)
         failures.append("QC corpus: labeled ground truth drifted from its pin")
 
+    # The vacuity meta-gate. Three gates in this repo have reported PASS or CAUGHT while
+    # guarding nothing: a mutant that changed source text for a filename matching zero
+    # files in the payload, two mutation cases whose fallback was never reached, and an
+    # allowlist entry that prefix-absorbed four siblings and printed a real leak as
+    # "allowlisted". Validators/AGENTS.md names the pattern; this makes it blocking.
+    # Beer et al.'s vacuity result is the reason it blocks rather than warns: a vacuous
+    # pass "always points to a real problem in either the design or its specification".
+    vac = subprocess.run(
+        [sys.executable, str(ROOT / "Validators" / "test_gate_vacuity.py")],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    if vac.returncode != 0:
+        for line in (vac.stdout + vac.stderr).splitlines():
+            if line.strip().startswith("[V") and "[V3-INFO]" not in line:
+                print(line)
+        failures.append("gate vacuity: a gate is guarding something that cannot fail")
+
+    # The S0 builders. This gate runs `validate.py --phase all` and NOTHING ELSE against
+    # the snapshot tasks, so it says nothing whatever about split_universe.py,
+    # build_universe_index.py, build_fact_ledger.py or universe_data_source.py - all four
+    # of which were rewritten by the HG-U21/HG-U22 fixes. "reports 21/21 identical" was
+    # nevertheless cited as proof that the other universes' builder output was unchanged.
+    # That claim existed only as prose, which AGENTS.md rule 18 forbids; this is the gate.
+    s0 = subprocess.run(
+        [sys.executable, str(ROOT / "Validators" / "test_s0_builders.py")],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    if s0.returncode != 0:
+        for line in (s0.stdout + s0.stderr).splitlines():
+            if "CHANGED" in line or "MISSING" in line or "NEW artifact" in line or "FAIL" in line:
+                print(line)
+        failures.append("S0 builders: split/index/ledger output moved for a non-HG universe")
+
     # 2) frozen report hashes
     baseline = load_baseline_hashes()
     identical = 0

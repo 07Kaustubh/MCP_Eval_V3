@@ -46,7 +46,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 TASKS_DIR = ROOT / "Tasks"
-QC_V3_DIR = ROOT / "QC_Tasks" / "V3_Tasks"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from universes import UNIVERSES, detect_universe, get_universe_constants  # noqa: E402
 
 # Lexical-score weights (sum to 1.0 — applied to raw lexical components)
 W_BIGRAM = 0.40
@@ -116,10 +118,79 @@ def resolve_task_dir(arg_path):
     return p.resolve()  # fall through; caller checks existence
 
 
-def gather_corpus(self_path):
+def corpus_globs(universe):
+    """ROOT-relative comparison-corpus globs for `universe`, resolved from the registry.
+
+    Split at the FIRST wildcard segment so the underlying call stays `base.glob(rest)`,
+    byte-for-byte the pair of calls this replaced. ROOT.glob(<whole pattern>) would have
+    selected the same files but not necessarily in the same order, and the tracked
+    _aux/Similarity_Report.json artifacts are ordered output.
+    """
+    out = []
+    for pattern in get_universe_constants(universe)["similarity_corpus_globs"]:
+        parts = pattern.split("/")
+        cut = next(i for i, seg in enumerate(parts) if "*" in seg or "?" in seg)
+        out.append((ROOT.joinpath(*parts[:cut]), "/".join(parts[cut:])))
+    return out
+
+
+def resolve_universe(task_dir):
+    """Universe for `task_dir`, without ever writing into a hash-pinned corpus.
+
+    detect_universe() caches its verdict by WRITING _aux/Universe.txt into the directory it
+    inspects. The labeled QC corpora are pinned by content hash (check_qc_corpus.py), so
+    running detection against one mutates ground truth. Cached read first, then a
+    registry-derived answer for anything under QC_Tasks/, and detection only for a real
+    task directory.
+    """
+    cached = task_dir / "_aux" / "Universe.txt"
+    if cached.is_file():
+        name = cached.read_text(encoding="utf-8").strip()
+        if name in UNIVERSES:
+            return name
+    try:
+        rel = task_dir.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        rel = ""
+    if rel.startswith("QC_Tasks/"):
+        for name, consts in UNIVERSES.items():
+            ref = consts["qc_reference_path"]
+            if rel == ref or rel.startswith(ref + "/"):
+                return name
+        # Matches detect_universe's own tie-break rather than inventing a second rule.
+        return "brookfield"
+    return detect_universe(task_dir)
+
+
+def comparison_text(task_dir, prompt_text, reads_injection):
+    """Prompt plus, where the registry says so, the injected thread.
+
+    Copied and colliding content often lives in the injection rather than the prompt, so
+    a similarity gate reading only 5_Prompt.txt can be walked straight past. This one had
+    exactly that hole: `grep -n inject Validators/calc_similarity.py` returned nothing,
+    and it is the gate that actually fires today.
+
+    Gated by the registry rather than applied everywhere, because the four non-HG
+    universes' similarity output is frozen by tracked report artifacts. The flag is False
+    for all four, so this is a no-op for them BY CONSTRUCTION - not by the accident that
+    their inject files happen to be comment-only right now. Implementation is imported
+    from check_sample_clone rather than copied, so the two gates cannot drift (W10).
+    """
+    if not reads_injection:
+        return prompt_text
+    # Imported HERE, not at module scope: check_sample_clone imports corpus_globs,
+    # read_optional, resolve_task_dir and resolve_universe FROM this module, so a
+    # top-level import is a hard circular-import crash. Sitting after the early return
+    # also means the four frozen universes never execute it at all.
+    from check_sample_clone import injected_text
+    extra = injected_text(task_dir)
+    return f"{prompt_text}\n{extra}".strip() if extra.strip() else prompt_text
+
+
+def gather_corpus(self_path, universe, reads_injection=False):
     """Returns list of dicts: path, task_dir, prompt_text, business_function, persona, universe_hash."""
     out = []
-    for pattern_dir, pattern in ((TASKS_DIR, "*/5_Prompt.txt"), (QC_V3_DIR, "*/Prompt.txt")):
+    for pattern_dir, pattern in corpus_globs(universe):
         if not pattern_dir.is_dir():
             continue
         for p in pattern_dir.glob(pattern):
@@ -134,6 +205,7 @@ def gather_corpus(self_path):
             if not text:
                 continue
             task_dir = p.parent
+            text = comparison_text(task_dir, text, reads_injection)
             out.append({
                 "path": str(p.relative_to(ROOT)),
                 "task_dir": str(task_dir.relative_to(ROOT)),
@@ -321,7 +393,18 @@ def main():
         run_explain(self_data, self_path, task_dir, args.explain_path)
         return  # never reached; run_explain calls sys.exit
 
-    corpus = gather_corpus(self_path)
+    universe = resolve_universe(task_dir)
+    reads_injection = get_universe_constants(universe)["similarity_reads_injection"]
+    # Deliberately AFTER the explain branch: resolve_universe() can write _aux/Universe.txt,
+    # and calling it in a path that never called it before would itself be a behaviour change.
+    if reads_injection:
+        augmented = comparison_text(task_dir, self_text, True)
+        if augmented != self_text:
+            aug_tokens = tokenize(augmented)
+            self_data["bigrams"] = bigrams(aug_tokens)
+            self_data["unigrams"] = unigrams(aug_tokens)
+            self_data["word_count"] = len(aug_tokens)
+    corpus = gather_corpus(self_path, universe, reads_injection)
     scored = [score_pair(self_data, other) for other in corpus]
     scored.sort(key=lambda r: r["composite"], reverse=True)
 
