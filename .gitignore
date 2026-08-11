@@ -34,3 +34,5 @@ __pycache__/
 # Distribution build output for the HarmonyGames payload (1.8 GB of release assets).
 # Built by hand, uploaded to a GitHub Release, never committed.
 _dist/
+# Pre-change corpus snapshot kept for rollback during the V5 re-baseline.
+_scratch_v5_rebaseline/
