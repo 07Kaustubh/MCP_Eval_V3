@@ -115,7 +115,12 @@ def load_universe_data(task_dir: Path) -> dict:
 
 
 POINTER_MARKERS = {"How This Works", "Base Universe Path", "Changelog Path", "SQL Query"}
-_COMBINED_BLOB = "Base_Universe_Complete_Data.json"
+# The V5 HarmonyGames drop no longer ships a combined export, so the old _COMBINED_BLOB
+# skip matched zero files on disk and asserted nothing. Payload SHAPE (blob absent, 11
+# service dirs) is now check_hydration.py's job; this module's job is staying constant-memory.
+# What keeps the 105 MB git packfile and the ~245k other non-JSON payload files out of the
+# byte stream is the `.json` extension filter in _scan_roots below - that is the load-bearing
+# guard, and test_memory_bounds.py G1(c) is pointed at it.
 
 
 def is_pointer_payload(task_dir: Path) -> bool:
@@ -181,7 +186,7 @@ class Presence:
                 if depth is None and rel_depth <= 1:
                     continue
                 for name in sorted(filenames):
-                    if not name.endswith(".json") or name.startswith("._") or name == _COMBINED_BLOB:
+                    if not name.endswith(".json") or name.startswith("._"):
                         continue
                     p = os.path.join(dirpath, name)
                     if p in seen:

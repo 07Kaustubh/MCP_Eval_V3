@@ -74,6 +74,45 @@ def _domain_tagging(universe: str):
     return (bool(c.get("index_internal_by_domain")),
             "@" + str(c.get("persona_email_domain") or ""), npcs)
 
+def split_source(universe: str, logical: str, default: str) -> str:
+    """This universe's split-file stem for a logical table.
+
+    The v3-family names are the defaults and are unchanged, so those universes' index
+    output stays byte-identical. HarmonyGames declares `index_table_map` because its tables
+    are named for the key inside each service's data.json (`slack.users`, `linear.issues`)
+    and it ships none of the services whose names are hardcoded below. Half of AGENTS.md
+    HG-U21 was this builder reading file names that have never existed in that payload.
+    """
+    try:
+        mapping = get_universe_constants(universe).get("index_table_map") or {}
+    except Exception:
+        mapping = {}
+    return mapping.get(logical, default)
+
+
+def persona_roster(universe: str) -> list:
+    """The declared persona roster, or [] for universes that do not have one.
+
+    Only HarmonyGames declares `persona_acl_roster`, so this is inert everywhere else.
+    It exists because HG's persona identities are NOT derivable from the data: contacts
+    rows carry redacted placeholder tokens (`EMPLOYEE_0032_EMAIL`), so an index built from
+    contacts alone lists 174 NPCs and zero personas against a 17-entry roster.
+    """
+    try:
+        rel = get_universe_constants(universe).get("persona_acl_roster")
+    except Exception:
+        return []
+    if not rel:
+        return []
+    p = Path(__file__).resolve().parent.parent / rel
+    if not p.is_file():
+        return []
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    return data if isinstance(data, list) else []
+
 
 def load(path: Path):
     if not path.is_file():
@@ -88,12 +127,17 @@ def rows_of(path: Path):
     if not raw:
         return
     for rec in raw:
-        rd = rec.get("row_data")
+        rd = rec.get("row_data") if isinstance(rec, dict) else None
         if isinstance(rd, str):
             try:
-                yield json.loads(rd)
+                parsed = json.loads(rd)
             except json.JSONDecodeError:
                 continue
+            # A row whose row_data decodes to `null` or a bare scalar is not a record.
+            # Yielding it made every consumer that calls `.get()` raise; that is the
+            # AttributeError: 'NoneType' this builder died with on HarmonyGames.
+            if isinstance(parsed, dict):
+                yield parsed
         elif isinstance(rd, dict):
             yield rd
         elif isinstance(rec, dict):
@@ -123,6 +167,17 @@ def entities_personas(split_dir: Path, out: Path) -> None:
         universe = "brookfield"
     seen = set()
 
+    # Declared personas first, so they win the `seen` race and are tagged `persona` on
+    # their own authority rather than inferred from a data row. Inert for the four
+    # universes that declare no roster.
+    for entry in persona_roster(universe):
+        email = (entry.get("email") or "").strip()
+        if not email or email in seen:
+            continue
+        seen.add(email)
+        role = " / ".join(x for x in (entry.get("role"), entry.get("department")) if x)
+        rows.append((entry.get("name") or "", email, role, "persona"))
+
     for d in rows_of(split_dir / "contacts.contacts.json"):
         email = d.get("email")
         name = " ".join(filter(None, [d.get("first_name"), d.get("last_name")])).strip() or d.get("display_name") or d.get("name")
@@ -136,7 +191,7 @@ def entities_personas(split_dir: Path, out: Path) -> None:
             tag = "persona" if internal else "npc"
             rows.append((name or "", email, role or "", tag))
 
-    for d in rows_of(split_dir / "slack.slack_users.json"):
+    for d in rows_of(split_dir / f"{split_source(universe, 'slack_users', 'slack.slack_users')}.json"):
         prof = d.get("profile") if isinstance(d.get("profile"), dict) else {}
         email = d.get("email") or prof.get("email")
         name = d.get("real_name") or prof.get("real_name") or d.get("display_name") or d.get("name")
@@ -252,7 +307,8 @@ def key_facts(split_dir: Path, out: Path) -> None:
             "",
         ]
 
-    issues = list(rows_of(split_dir / "linear.linear_issues.json"))
+    issues = list(rows_of(
+        split_dir / f"{split_source(universe, 'linear_issues', 'linear.linear_issues')}.json"))
     if issues:
         # Presence-driven, not name-driven: any universe whose split ships a workflow-state
         # table gets human-readable state names. Verified that this file exists ONLY in

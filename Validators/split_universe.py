@@ -65,9 +65,13 @@ def split_and_write(task_dir: Path) -> int:
         print(f"ERROR: {e}", file=sys.stderr)
         return 1
 
+    # `records` is a list under the `per_task_json` contract and a GENERATOR under
+    # `base_export_plus_changelog`. The list branch below is untouched and stays
+    # byte-identical for the four per_task_json universes, whose split output is depended on
+    # by tracked artifacts; the streaming branch exists because materialising the export
+    # here would put back the 1.8 GiB peak that AGENTS.md HG-U22 records.
     if not isinstance(records, list):
-        print("ERROR: top-level JSON must be an array.", file=sys.stderr)
-        return 1
+        return _split_streaming(records, out_dir, src, task_dir)
 
     groups: dict[str, list] = defaultdict(list)
     missing_source = 0
@@ -101,6 +105,75 @@ def split_and_write(task_dir: Path) -> int:
     print(f"sha256: {h}")
     print(f"Output: {out_dir}")
     return 0
+
+
+def _split_streaming(records, out_dir: Path, src: Path, task_dir: Path) -> int:
+    """Write the split without ever holding every record.
+
+    One append-mode handle per source plus one for the combined file. The handle count is
+    the number of TABLES (38 for the HarmonyGames V5 export), not the number of records, so
+    it is bounded by the universe's schema rather than its size.
+
+    The combined file is assembled by hand rather than with `json.dump(records)` for the
+    same reason: `json.dump` of a generator is not possible, and listifying to get one is
+    the exact regression this branch exists to avoid. Output is still a well-formed JSON
+    array, `indent=2`, matching the list branch's shape.
+    """
+    handles: dict[str, object] = {}
+    counts: dict[str, int] = defaultdict(int)
+    missing_source = 0
+    total = 0
+
+    complete = open(out_dir / COMPLETE_DATA_FILE, "w", encoding="utf-8")
+    complete.write("[")
+    first_overall = True
+    try:
+        for rec in records:
+            source = rec.get("source") if isinstance(rec, dict) else None
+            if source is None:
+                missing_source += 1
+                continue
+            total += 1
+
+            complete.write(("\n" if first_overall else ",\n") +
+                           _indent(json.dumps(rec, indent=2, ensure_ascii=False)))
+            first_overall = False
+
+            fh = handles.get(source)
+            if fh is None:
+                fh = open(out_dir / f"{_safe_source_name(source)}.json", "w",
+                          encoding="utf-8")
+                fh.write("[")
+                handles[source] = fh
+            fh.write(("\n" if counts[source] == 0 else ",\n") +
+                     _indent(json.dumps(rec, indent=2, ensure_ascii=False)))
+            counts[source] += 1
+
+        complete.write(("\n]\n" if not first_overall else "]\n"))
+    finally:
+        complete.close()
+        for source, fh in handles.items():
+            fh.write("\n]\n" if counts[source] else "]\n")
+            fh.close()
+
+    with open(src, "rb") as f:
+        h = hashlib.sha256(f.read()).hexdigest()
+    with open(task_dir / "_aux" / "data_hash.txt", "w", encoding="utf-8") as f:
+        f.write(h + "\n")
+
+    print(f"Total: {total} records across {len(counts)} services")
+    for src_name in sorted(counts):
+        print(f"  {src_name + '.json':<45} {counts[src_name]:>6}")
+    if missing_source:
+        print(f"  WARNING: {missing_source} records had no 'source' field")
+    print(f"sha256: {h}")
+    print(f"Output: {out_dir}")
+    return 0
+
+
+def _indent(blob: str) -> str:
+    """Indent a json.dumps block by two spaces so it sits inside an array literal."""
+    return "\n".join("  " + line for line in blob.split("\n"))
 
 
 def main() -> None:

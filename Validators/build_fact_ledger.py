@@ -171,6 +171,26 @@ def _collect(obj, emails, amounts, dates, depth=0):
             dates.add(d)
 
 
+def _persona_roster(consts):
+    """The universe's declared persona roster, or [] when it declares none.
+
+    Keyed off the existing `persona_acl_roster` registry entry rather than a
+    `universe == "harmonygames"` branch, per the registry-over-branch rule in
+    Validators/AGENTS.md. Only HarmonyGames declares it today.
+    """
+    rel = consts.get("persona_acl_roster")
+    if not rel:
+        return []
+    p = Path(__file__).resolve().parent.parent / rel
+    if not p.is_file():
+        return []
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    return data if isinstance(data, list) else []
+
+
 def load_records(split_dir):
     by_source = defaultdict(list)
     for p in split_dir.glob("*.json"):
@@ -219,6 +239,35 @@ def build_ledger(task_dir):
     aliases_last = defaultdict(set)
     aliases_full = defaultdict(set)
     entities = set()
+
+    # A declared persona roster is authoritative and is seeded BEFORE the data sweep, so a
+    # contacts row cannot overwrite a persona's name or title. Only HarmonyGames declares
+    # `persona_acl_roster`, so this is inert for the other four universes and their ledgers
+    # are unchanged. It exists because HG persona identity is not derivable from the data:
+    # AGENTS.md records this ledger reporting 0 personas against a 17-entry roster, and the
+    # irregular addresses (`arthur_blake` -> `blake@`) mean a name cannot be turned into an
+    # address either - the roster is the only correct source.
+    roster_emails = set()
+    for entry in _persona_roster(consts):
+        email = (entry.get("email") or "").strip().lower()
+        if not email:
+            continue
+        roster_emails.add(email)
+        name = (entry.get("name") or "").strip()
+        personas[email] = {
+            "name": name,
+            "title": entry.get("role") or "",
+            "is_user": True,
+            "contact_id": entry.get("persona_key"),
+        }
+        emails.add(email)
+        parts = name.split()
+        if parts:
+            aliases_first[parts[0].lower()].add(email)
+        if len(parts) > 1:
+            aliases_last[parts[-1].lower()].add(email)
+        if name:
+            aliases_full[name.lower()].add(email)
 
     for src, rows in by_source.items():
         for inner in rows:
@@ -272,6 +321,13 @@ def build_ledger(task_dir):
                 email = (inner.get("email") or "").lower()
                 if not email:
                     continue
+                if roster_emails and "@" not in email:
+                    # HarmonyGames' contacts table carries redacted placeholder tokens
+                    # (`EMPLOYEE_0032_EMAIL`, `SVC_2796_EMAIL`) in the email column.
+                    # Counting them made the ledger report 174 personas for a universe
+                    # with a 17-entry roster - a number that looked like data and was not
+                    # one. Gated on the roster so no other universe's ledger moves.
+                    continue
                 first = (inner.get("first_name") or "").strip()
                 last = (inner.get("last_name") or "").strip()
                 full = f"{first} {last}".strip()
@@ -318,6 +374,12 @@ def build_ledger(task_dir):
                 **{f"id_{k}": len(v) for k, v in ids.items()},
                 "entities": len(entities),
                 "personas": len(personas),
+                # `personas` stays the superset it has always been: every identity the
+                # data carries, with `is_user` distinguishing staff from NPCs. This is the
+                # DECLARED subset, emitted separately so the roster count is assertable
+                # without overloading a field four universes already depend on. Absent as
+                # a key for universes that declare no roster, so their ledgers do not move.
+                **({"personas_declared": len(roster_emails)} if roster_emails else {}),
                 "fiscal_periods": len(fiscal_periods),
             },
         },
