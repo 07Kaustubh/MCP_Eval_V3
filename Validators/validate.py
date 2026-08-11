@@ -81,6 +81,11 @@ except ImportError:
     from check_persona_acl import (
         load_roster, load_brief_names, check_persona_resolves, check_no_impossible_writes)
 
+try:
+    from Validators.check_retired_servers import retired_server_findings
+except ImportError:
+    from check_retired_servers import retired_server_findings
+
 EM_DASH_PATTERN = re.compile(r"[\u2014\u2013]")          # em-dash, en-dash
 TOOL_NAME_HINT = re.compile(r"\b(?:[a-z_]+_(?:list|search|get|create|update|send|add|upload|approve|reject|post|reply|submit|delete|show|history)_[a-z_]+|email_send_email|slack_conversations_add_message)\b")
 INTERNAL_ID = re.compile(r"\b(?:JE-[a-z_]+-FP-\d{4}-\d{2}-\d{4}|BL-[A-F0-9]{12}|exc_[a-f0-9]{14}|VEN-\d{3,4}(?:-[A-Za-z]+)?(?:-\d{3,6})?|apinv_[a-f0-9]{14,16}|issue_[a-f0-9]{32}|reminder_[a-z0-9_]{6,}|conversation_[a-z0-9_]{6,}|airtable_[a-f0-9]{12}|doc_[a-f0-9]{8}|linear_[a-f0-9]{12})\b")
@@ -1498,6 +1503,43 @@ def validate_persona_acl(task_dir: Path, rep: Report) -> None:
     for issue in check_no_impossible_writes(task_dir):
         (rep.fail if issue.strip().startswith("[FAIL]") else rep.warn)(f"persona ACL: {issue.strip()}")
 
+def validate_retired_servers(task_dir: Path, rep: Report, phase: str) -> None:
+    """Retired Server Reference, the V5 A1 HARD GATE (Evals_harmonygames/1_Prompt_Eval.md:383).
+
+    Snowflake and Confluence ship in no catalog after the 2026-08 V5 drop, so a prompt that
+    leans on either is unsolvable and it is a Feasibility FAIL - a TASK defect, not a model
+    miss, exactly like the persona-ACL gate above.
+
+    Gated on the framework `retired_services` key, and returns having emitted NOTHING when it
+    is empty. That silence is load-bearing: check_regression.py pins the hashes of 21
+    validate.py reports on brookfield / keystone / moveops snapshot tasks, so a single extra
+    NOTE line here would fail the zero-regression gate for four universes that retired no
+    server. Same reason validate_persona_acl returns before touching `rep`.
+
+    Logic is imported from check_retired_servers rather than restated, so the standalone
+    checker and this gate cannot drift - the failure mode AGENTS.md rule 18 records, where a
+    fix verified by a hand-run grep was silently reintroduced.
+    """
+    retired = get_framework_profile(detect_universe(task_dir)).get("retired_services") or []
+    if not retired:
+        return
+    src = "5_Prompt.txt" if phase == "prompt" else "6_Oracle_Events.txt"
+    p = task_dir / src
+    if not p.is_file():
+        return
+    text = p.read_text(encoding="utf-8", errors="ignore")
+    for tier, server, phrase, quote, verb in retired_server_findings(text, retired):
+        why = ("names it outright" if tier == 1
+               else f"stands in for it, in the action context `{verb}`")
+        if tier in (1, 2):
+            rep.fail(f"[Fail - Feasibility] retired server {server} is UNAVAILABLE and must "
+                     f"not be used, and this {src} {why}, so the task is unsolvable. "
+                     f"Offending phrase: \"{phrase}\" ...{quote}...")
+        else:
+            rep.note(f"retired-server stand-in `{phrase}` could imply {server}, but no action "
+                     f"verb is nearby, so it reads as prose rather than a dependency. "
+                     f"Surfaced for review, not blocking: ...{quote}...")
+
 
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -1526,8 +1568,10 @@ def main() -> None:
         if phase == "prompt":
             validate_prompt(task_dir, rep)
             validate_persona_acl(task_dir, rep)
+            validate_retired_servers(task_dir, rep, "prompt")
         elif phase == "oe":
             validate_oe(task_dir, rep)
+            validate_retired_servers(task_dir, rep, "oe")
         elif phase == "rubrics":
             validate_rubrics(task_dir, rep)
         elif phase in ("injection", "submission_gate"):

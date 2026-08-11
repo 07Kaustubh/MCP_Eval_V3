@@ -27,6 +27,14 @@ UNIVERSES = {
         "docs_path": "Docs",
         "evals_path": "Evals",
         "qc_reference_path": "QC_Tasks/V3_Tasks",
+        # Sample-clone comparison corpus, ROOT-relative globs, in iteration order.
+        # NOTE: the four v3-family universes deliberately point at V3_Tasks, which is
+        # Brookfield's reference set - keystone/moveops/starpm are fingerprinted against
+        # a foreign corpus. That is the PRE-EXISTING behaviour frozen by the tracked
+        # _aux/Similarity_Report.json artifacts, so it is declared here rather than
+        # silently "fixed"; changing it is a scoped decision, not a refactor.
+        "similarity_reads_injection": False,
+        "similarity_corpus_globs": ["Tasks/*/5_Prompt.txt", "QC_Tasks/V3_Tasks/*/Prompt.txt"],
         "tool_catalog": "Brookfield_Base_Universe/8_Server_Tools_Details.json",
         "persona_briefs": "Brookfield_Base_Universe/2_Persona_Briefs.md",
         "business_function_doc": "Brookfield_Base_Universe/3_Task_Categories_Business_Functions.md",
@@ -108,6 +116,14 @@ UNIVERSES = {
         "docs_path": "Docs_keystone",
         "evals_path": "Evals_keystone",
         "qc_reference_path": "QC_Tasks/V3.1_Tasks",
+        # Sample-clone comparison corpus, ROOT-relative globs, in iteration order.
+        # NOTE: the four v3-family universes deliberately point at V3_Tasks, which is
+        # Brookfield's reference set - keystone/moveops/starpm are fingerprinted against
+        # a foreign corpus. That is the PRE-EXISTING behaviour frozen by the tracked
+        # _aux/Similarity_Report.json artifacts, so it is declared here rather than
+        # silently "fixed"; changing it is a scoped decision, not a refactor.
+        "similarity_reads_injection": False,
+        "similarity_corpus_globs": ["Tasks/*/5_Prompt.txt", "QC_Tasks/V3_Tasks/*/Prompt.txt"],
         "tool_catalog": "Mortgage_Base_Universe/6_Server_Tools_Details.json",
         "persona_briefs": "Mortgage_Base_Universe/3_Persona_Briefs.md",
         "business_function_doc": "Mortgage_Base_Universe/5_Task_Categories_Business_Functions.md",
@@ -193,6 +209,14 @@ UNIVERSES = {
         "docs_path": "Docs_moveops",
         "evals_path": "Evals_moveops",
         "qc_reference_path": "QC_Tasks/V2.1_Tasks",
+        # Sample-clone comparison corpus, ROOT-relative globs, in iteration order.
+        # NOTE: the four v3-family universes deliberately point at V3_Tasks, which is
+        # Brookfield's reference set - keystone/moveops/starpm are fingerprinted against
+        # a foreign corpus. That is the PRE-EXISTING behaviour frozen by the tracked
+        # _aux/Similarity_Report.json artifacts, so it is declared here rather than
+        # silently "fixed"; changing it is a scoped decision, not a refactor.
+        "similarity_reads_injection": False,
+        "similarity_corpus_globs": ["Tasks/*/5_Prompt.txt", "QC_Tasks/V3_Tasks/*/Prompt.txt"],
         "tool_catalog": "MoveOps_Base_Universe/6_Server_Tools_Details.json",
         "persona_briefs": "MoveOps_Base_Universe/2_Persona_Briefs.md",
         "business_function_doc": "MoveOps_Base_Universe/3_Task_Categories_Business_Functions.md",
@@ -278,6 +302,14 @@ UNIVERSES = {
         "docs_path": "Docs_starpm",
         "evals_path": "Evals_starpm",
         "qc_reference_path": "QC_Tasks/V4_Tasks",
+        # Sample-clone comparison corpus, ROOT-relative globs, in iteration order.
+        # NOTE: the four v3-family universes deliberately point at V3_Tasks, which is
+        # Brookfield's reference set - keystone/moveops/starpm are fingerprinted against
+        # a foreign corpus. That is the PRE-EXISTING behaviour frozen by the tracked
+        # _aux/Similarity_Report.json artifacts, so it is declared here rather than
+        # silently "fixed"; changing it is a scoped decision, not a refactor.
+        "similarity_reads_injection": False,
+        "similarity_corpus_globs": ["Tasks/*/5_Prompt.txt", "QC_Tasks/V3_Tasks/*/Prompt.txt"],
         "tool_catalog": "StarPM_Base_Universe/7_Server_Tools_Details.json",
         "persona_briefs": "StarPM_Base_Universe/2_StarPM_PERSONA BRIEFS.md",
         "business_function_doc": "StarPM_Base_Universe/3_StarPM_TASK CATEGORIES.md",
@@ -396,6 +428,15 @@ UNIVERSES = {
         "persona_acl_roster": "HarmonyGames_Base_Universe/4_Persona_ACL_Roster.json",
         "tool_access_dir": "HarmonyGames_Base_Universe/Tool_Access",
         "qc_reference_path": "QC_Tasks/V5_HG_Buckets",
+        # Sample-clone comparison corpus, ROOT-relative globs, in iteration order.
+        # HG buckets nest one level deeper than the v3-family reference sets
+        # (<bucket>/<task>/5_Prompt.txt vs <task>/Prompt.txt), so the pattern differs too.
+        "similarity_reads_injection": True,
+        "similarity_corpus_globs": [
+            "Tasks/*/5_Prompt.txt",
+            "Generated_Tasks/*/5_Prompt.txt",
+            "QC_Tasks/V5_HG_Buckets/*/*/5_Prompt.txt",
+        ],
 
         # 2026-02-28 is a SATURDAY and the last day of February. Both matter: the universe
         # forbids routine weekday-business comms on a weekend, yet "today" is a weekend day.
@@ -420,18 +461,32 @@ UNIVERSES = {
             "issues": "linear", "tickets": "linear",
             "cards": "trello", "boards": "trello",
             "repos": "github", "pull_requests": "github", "commits": "github",
-            "queries": "snowflake", "tables": "snowflake", "warehouse": "snowflake",
             "docs": "gdocs", "spreadsheets": "gsheets", "slides": "gslides",
             "files": "gdrive", "calendar_events": "gcal",
             "email_threads": "gmail",
             "chat": "slack", "channels": "slack",
-            "wiki": "confluence", "pages": "confluence",
+            # No rows for the retired servers' nouns (queries / tables / warehouse / wiki /
+            # pages). Re-pointing them at a live service would launder a retired dependency
+            # into an OE that reads as feasible, which is exactly what the A1 gate blocks.
             "contacts": "contacts",
         },
         "cross_service_pairs": [
             ("gmail", "slack"), ("gmail", "gdrive"), ("slack", "linear"), ("slack", "trello"),
-            ("github", "linear"), ("snowflake", "gsheets"), ("gdrive", "gdocs"),
-            ("confluence", "github"), ("gcal", "gmail"), ("snowflake", "slack"),
+            ("github", "linear"), ("gdrive", "gdocs"), ("gcal", "gmail"),
+            # V5 replacements for the three pairs that named a retired server. Each keeps the
+            # SEMANTIC ROLE of the pair it replaces rather than backfilling an arbitrary live
+            # combination, so the set still spans the same business functions and the count
+            # stays 10.
+            #   ("snowflake", "slack")   -> ("gsheets", "slack"): Analytics & Data reporting a
+            #     number out to a channel. With the warehouse retired, the KPI / live-ops
+            #     sheet is the only queryable metrics surface the studio still ships.
+            #   ("snowflake", "gsheets") -> ("gsheets", "gslides"): numbers rolled into a
+            #     review artifact, the Founders / Exec / Strategy deck. Also the only pair
+            #     exercising gslides, which the retired set left uncovered entirely.
+            #   ("confluence", "github") -> ("github", "gdocs"): Engineering & Live-Ops
+            #     writing a PR or commit up long-form. With the wiki retired, GDocs is the
+            #     only long-form write-up surface in the catalog.
+            ("gsheets", "slack"), ("gsheets", "gslides"), ("github", "gdocs"),
         ],
 
         "retention_codes": set(),
@@ -467,31 +522,39 @@ UNIVERSES = {
             "thomas@harmonygames.co",
         },
         # All 17 authoring personas, read verbatim from 4_Persona_ACL_Roster.json.
-        # Emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@,
-        # martin_walsh -> martin.walsh@) so they are transcribed, never derived from names.
+        # V5 REGULARISED these to firstname.lastname@. The pre-V5 irregular spellings
+        # (blake@, jlawson@, leonard@, ...) now match ZERO rows anywhere in the payload,
+        # so any memory of them is wrong and 14 of these 17 were stale until the V5
+        # re-baseline. Still TRANSCRIBED and never derived: `douglas` and `robert` are
+        # single-token keys mapping to douglas@ / robert@, so a mechanical
+        # firstname.lastname@ derivation still breaks on 2 of the 17.
         # Previously this held ONE entry, which made the v4_gates F2 persona check truthy
         # but wrong: the other 16 real personas were flagged as unknown-persona defects.
         "personas": {
-            "blake@harmonygames.co": "Arthur Blake",
-            "brian@harmonygames.co": "Brian Foster",
-            "calvin@harmonygames.co": "Calvin Price",
-            "claire@harmonygames.co": "Claire Morgan",
+            "arthur.blake@harmonygames.co": "Arthur Blake",
+            "brian.foster@harmonygames.co": "Brian Foster",
+            "calvin.price@harmonygames.co": "Calvin Price",
+            "claire.morgan@harmonygames.co": "Claire Morgan",
             "douglas@harmonygames.co": "Douglas",
-            "frederick@harmonygames.co": "Frederick Stone",
-            "jlawson@harmonygames.co": "Julia Lawson",
-            "leonard@harmonygames.co": "Leonard Hayes",
-            "marcus@harmonygames.co": "Marcus Bennett",
+            "frederick.stone@harmonygames.co": "Frederick Stone",
+            "julia.lawson@harmonygames.co": "Julia Lawson",
+            "leonard.hayes@harmonygames.co": "Leonard Hayes",
+            "marcus.bennett@harmonygames.co": "Marcus Bennett",
             "martin.walsh@harmonygames.co": "Martin Walsh",
-            "oliver@harmonygames.co": "Oliver Brooks",
-            "owen@harmonygames.co": "Owen Baker",
+            "oliver.brooks@harmonygames.co": "Oliver Brooks",
+            "owen.baker@harmonygames.co": "Owen Baker",
             "robert@harmonygames.co": "Robert",
-            "samuel@harmonygames.co": "Samuel Turner",
-            "simon@harmonygames.co": "Simon Walker",
-            "victor@harmonygames.co": "Victor Barnes",
-            "vincent@harmonygames.co": "Vincent Parker",
+            "samuel.turner@harmonygames.co": "Samuel Turner",
+            "simon.walker@harmonygames.co": "Simon Walker",
+            "victor.barnes@harmonygames.co": "Victor Barnes",
+            "vincent.parker@harmonygames.co": "Vincent Parker",
         },
-        "services": ["confluence", "contacts", "gcal", "gdocs", "gdrive", "github", "gmail",
-                     "gsheets", "gslides", "linear", "slack", "snowflake", "trello"],
+        # 11, not 13. V5 retired Snowflake and Confluence: their tools ship in no catalog and
+        # their Tool_Access files are gone. The NAMES survive in FRAMEWORKS["hg"]
+        # ["retired_services"] and in the detection regex below, because retired is not
+        # unknown - a name must stay recognisable to be rejected.
+        "services": ["contacts", "gcal", "gdocs", "gdrive", "github", "gmail",
+                     "gsheets", "gslides", "linear", "slack", "trello"],
 
         # Routes per-universe behavior through the registry instead of a `universe ==`
         # branch. The three pre-V4 universes deliberately declare NEITHER flag so their
@@ -501,6 +564,22 @@ UNIVERSES = {
         "id_pattern_set": "harmonygames",
         "index_internal_by_domain": True,
         "index_tz_from_registry": True,
+        # Logical table -> this universe's actual split source stem.
+        #
+        # build_universe_index.py hardcodes the v3-family names (`slack.slack_users`,
+        # `linear.linear_issues`, ...). HarmonyGames ships none of those services, and its
+        # own tables are named for the KEY inside each service's data.json - `slack.users`,
+        # `linear.issues`. That mismatch is half of AGENTS.md HG-U21: the builder looked up
+        # files that never existed under any version of this payload and reported success.
+        #
+        # Only the DIFFERENCES are listed. `contacts.contacts` already matches the builder's
+        # default and is deliberately absent, so this map cannot silently restate a default
+        # and drift from it. The four other universes declare no map at all and keep the
+        # hardcoded names, which is what keeps their index output byte-identical.
+        "index_table_map": {
+            "slack_users": "slack.users",
+            "linear_issues": "linear.issues",
+        },
         "account_trap_check": False,
         "entity_name_to_id": {
             "harmony games": "harmonygames", "harmonygames": "harmonygames",
@@ -508,21 +587,25 @@ UNIVERSES = {
         "lifecycle_check_kind": "persona_acl",
         "lifecycle_states_closed": set(),
         "lifecycle_states_open": set(),
-        # Docs_harmonygames/14_Persona_ACL.md (2026-08 drop) settles an ambiguity the
-        # superseded 15_Persona_ACL.md carried. That older doc asserted "eight scoped
-        # services" three times (:87, :129) while its own matrix marked Contacts "No" in
-        # the scoped-reads column, and this registry reconciled toward eight. Upstream has
-        # now corrected the prose to match the matrix: :61 enumerates the scoped seven,
-        # and :52-53 states the unscoped group "contains exactly Contacts, GitHub,
-        # Snowflake, Trello, Linear, and Confluence". Tasks_Template 9_Universe_inject.sql
+        # Docs_harmonygames/14_Persona_ACL.md is the authority, and its Access matrix is
+        # PARSED LIVE by check_persona_acl.py rather than trusted from here:
+        # Evals_harmonygames/1_Prompt_Eval.md:99 forbids a service list memorised from a prior
+        # version. These two keys are therefore a cross-checked MIRROR of that matrix, not an
+        # independent claim, and ACL-3 fails loudly the moment upstream and this registry
+        # disagree - which is the only reason it is still safe to keep them here at all.
+        #
+        # V5 retired Snowflake and Confluence, both of which were unscoped, so the unscoped
+        # group went from six to four. :50 now reads: "The unscoped group is the policy's
+        # public-service group. It contains exactly Contacts, GitHub, Trello, and Linear."
+        # :59 enumerates the scoped seven. 7 + 4 = 11. Tasks_Template 9_Universe_inject.sql
         # independently confirms "Persona ACL is active for Gmail, Slack, GCal, and
-        # Drive-family reads". 7 + 6 = 13. Reads only - :17 "Persona ACL does not govern
-        # writes", and :134 forbids making an ACL-based write denial necessary to any
-        # prompt, Oracle Event or rubric.
+        # Drive-family reads".
+        #
+        # Reads only - :17 "Persona ACL does not govern writes", and :132 forbids making an
+        # ACL-based write denial necessary to any prompt, Oracle Event or rubric.
         "acl_scoped_services": ["gmail", "gcal", "gdrive", "gdocs", "gsheets", "gslides",
                                 "slack"],
-        "acl_unscoped_services": ["contacts", "github", "snowflake", "trello", "linear",
-                                  "confluence"],
+        "acl_unscoped_services": ["contacts", "github", "trello", "linear"],
         "long_horizon_calls": (500, 1000),
 
         # Verified against HarmonyGames_Base_Universe/Tool_Access/*-tools.json, which
@@ -538,13 +621,13 @@ UNIVERSES = {
         },
 
         "landmines": [
-            "Gmail is READ-ONLY. All 27 gmail_* tools are read/label/trash operations; there is NO send, reply, compose or draft tool. 'Email the vendor' is not an available action, and a rubric that requires one is ungradeable. Weaker than StarPM, which at least has create_draft. Snowflake is likewise query/read-only.",
+            "Gmail is READ-ONLY. All 27 gmail_* tools are read/label/trash operations; there is NO send, reply, compose or draft tool. 'Email the vendor' is not an available action, and a rubric that requires one is ungradeable. Weaker than StarPM, which at least has create_draft.",
             "Two Slack send tools with DIFFERENT text parameters: slack_send_message uses `text`, slack_conversations_add_message uses `payload`. Both are valid. Never assume one param name across Slack.",
             "gdocs_create_document takes `bodyText`, not `body` or `content`.",
             "linear_create_issue takes `team`, not `teamId` (matches MoveOps, differs from Brookfield).",
             "Weekend rule vs today: routine Slack/Gmail business communication dated on a weekend is a temporal violation, and today (2026-02-28) IS a Saturday and the last day of February. Any 'today'-framed routine-comms ask is a live authoring hazard.",
             "Mid-quarter framing: 2026-02-28 is the second month of Q1/H1, so 'Q1 close' or 'Q1 results are final' is incoherent; Q1 still has a month to run.",
-            "Persona emails are IRREGULAR by design (arthur_blake -> blake@, julia_lawson -> jlawson@, martin_walsh -> martin.walsh@). Docs_harmonygames/14_Persona_ACL.md: never construct, normalize or infer an email from a person's name. Resolve via 4_Persona_ACL_Roster.json.",
+            "Persona emails were REGULARISED by V5 to firstname.lastname@ (arthur_blake -> arthur.blake@, julia_lawson -> julia.lawson@). The pre-V5 spellings (blake@, jlawson@, leonard@) match ZERO rows in the payload, so any memory of them is wrong. Docs_harmonygames/14_Persona_ACL.md still says never construct, normalize or infer an email from a person's name, and it still bites: douglas and robert are single-token keys mapping to douglas@ / robert@, so even a mechanical firstname.lastname@ rule breaks on 2 of the 17. Resolve via 4_Persona_ACL_Roster.json.",
             "Slack has 985 channels and 218 users, so channel IDs are NOT enumerable against a whitelist the way C001..C0NN are in the other four universes.",
             "Persona ACL: seven services apply persona-scoped read filtering. A read performed under the wrong acting identity is an Excluded execution, not a pass or a fail.",
             "set_acting_user is environment configuration. It is never an Agent action, never Outcome/Process/OE, never complexity-bearing, and must receive no rubric credit.",
@@ -605,6 +688,13 @@ _STARPM_SIGNALS = re.compile(
 # cite a client's billing address. Name markers still
 # participate in the short-circuit below, but only paired with a structural marker that
 # cannot appear in prose about another company.
+# `snowflake_\w+` and `confluence_\w+` are KEPT here deliberately. V5 retired both services
+# and they are gone from `services`, from the tool catalog and from the ACL sets - but these
+# are DETECTION signals, not capability claims. Archived pre-V5 HarmonyGames task folders
+# still contain those tool names, and stripping the tokens would make detect_universe()
+# misroute them into the brookfield tie-break. Do not "clean these up" to match the service
+# list: the two answer different questions - what the universe can DO, versus what a task
+# folder looks LIKE.
 _HARMONYGAMES_SIGNALS = re.compile(
     r"\b(?:Persona_ACL_Roster|set_acting_user|"
     r"gslides_\w+|gsheets_\w+|gdocs_\w+|gdrive_\w+|gcal_\w+|snowflake_\w+|trello_\w+|"
@@ -750,6 +840,7 @@ FRAMEWORKS = {
         "trajectory_dispositions": ["pass", "fail"],
         "pass_at_1_ceiling": 0.40,
         "slack_channels_enumerable": True,
+        "retired_services": [],
         "working_dir_name": "Tasks",
         "acl_gate": False,
         "oe_grammar": ["standard"],
@@ -763,6 +854,9 @@ FRAMEWORKS = {
         "density_excluded_calls": [],
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
+        # Only meaningful under `base_export_plus_changelog`; declared here so the flag set
+        # stays in parity (check_capability_registry C3) and so absence is a stated choice.
+        "export_table_scan": None,
         "rubric_balance_rule": "outcome_gt_process",
         # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
         # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
@@ -782,6 +876,7 @@ FRAMEWORKS = {
         "trajectory_dispositions": ["pass", "fail"],
         "pass_at_1_ceiling": 0.40,
         "slack_channels_enumerable": True,
+        "retired_services": [],
         "working_dir_name": "Tasks",
         "acl_gate": False,
         "oe_grammar": ["standard"],
@@ -795,6 +890,7 @@ FRAMEWORKS = {
         "density_excluded_calls": [],
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
+        "export_table_scan": None,   # see the v3 profile
         "rubric_balance_rule": "outcome_gt_process",
         # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
         # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
@@ -814,6 +910,7 @@ FRAMEWORKS = {
         "trajectory_dispositions": ["pass", "fail"],
         "pass_at_1_ceiling": 0.40,
         "slack_channels_enumerable": True,
+        "retired_services": [],
         "working_dir_name": "Tasks",
         "acl_gate": False,
         "oe_grammar": ["standard"],
@@ -827,6 +924,7 @@ FRAMEWORKS = {
         "density_excluded_calls": [],
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
+        "export_table_scan": None,   # see the v3 profile
         "rubric_balance_rule": "outcome_gt_process",
         # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
         # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.
@@ -849,6 +947,26 @@ FRAMEWORKS = {
         "trajectory_dispositions": ["pass", "fail", "excluded"],
         "pass_at_1_ceiling": 0.40,
         "slack_channels_enumerable": False,   # 985 channels / 218 users: no derivable whitelist
+        # Services the universe still DESCRIBES but whose tools ship in no catalog. The
+        # 2026-08 V5 drop cut 6_Server_Tools_Details.json from 276 tools to 239 and removed
+        # every snowflake_* and confluence_* entry, leaving 11 prefixes: github 56, trello 36,
+        # slack 30, gmail 27, linear 26, gdrive 21, gcal 12, gsheets 9, contacts 8, gdocs 7,
+        # gslides 7.
+        #
+        # RETIRED IS NOT UNKNOWN, and that distinction is the whole point of the key. Two
+        # consumers need it and they need opposite things:
+        #   - Evals_harmonygames/1_Prompt_Eval.md:383 (A1 HARD GATE) makes any prompt leaning
+        #     on either one UNSOLVABLE, so the names must stay RECOGNISABLE to be rejected.
+        #   - v4_gates F1 phantom detection derives its head vocabulary from real catalogs.
+        #     Deleting the tools deleted the head `query`, which snowflake_* alone supplied,
+        #     so `snowflake_query` silently stopped being classified as a phantom and anchor
+        #     XU-2 failed. The prefix was never the problem; the HEAD was.
+        #
+        # Deliberately NOT derived from `services`: the V5 re-baseline removed these two from
+        # that list, and both consumers above still need the names. Keying off `services`
+        # would have re-broken them the moment that landed, so this key is the durable
+        # statement of the fact rather than a shadow of a list that no longer carries it.
+        "retired_services": ["snowflake", "confluence"],
         "working_dir_name": "Generated_Tasks",
         "acl_gate": True,
         "oe_grammar": ["standard", "batch"],
@@ -871,6 +989,31 @@ FRAMEWORKS = {
         # HarmonyGames' 3_UniverseDataForThisTask.json is a ~721-byte POINTER, not
         # data. Truth is <base_path>/Services_Data/ overlaid by 4_Changelog.json.
         "universe_data_contract": "base_export_plus_changelog",
+        # WHERE THE TABLES ARE, declared rather than discovered.
+        #
+        # The walk used to be `svc_dir.rglob("*.json")`, which descended into gdrive/root/,
+        # github/root/ and slack/messages/ and promoted every individual file payload to its
+        # own record source: 47,571 source stems like
+        # `gdrive.174f2bc5-0185-4176-b276-82ce4abeda00.vsidx-inf`, 715,697 records, ~1.8 GiB
+        # peak RSS. That is AGENTS.md HG-U22, and it is also HG-U21: the REAL tables never
+        # surfaced under a usable name, so every S0 builder found nothing.
+        #
+        # The tables are the TOP-LEVEL *.json in each service directory. Everything below
+        # that is per-file or per-message CONTENT addressed by a row in one of those tables
+        # (gdrive/root <- gdrive.drive_files, slack/messages <- slack.channels,
+        # gmail/threads <- gmail.users, {linear,trello}/root/attachments <- their rows).
+        # Full-text presence over that content is already covered, correctly and in constant
+        # memory, by verify_universe_atoms.Presence, which streams the whole 7.30 GB export
+        # at ~115 MiB. Re-materialising it here would duplicate that at 4x the ceiling.
+        #
+        # `content_subdirs` is an ALLOWLIST, not decoration: any service subdirectory not
+        # named here raises rather than being silently dropped, so the next drop's rename
+        # fails loudly. That is the standing-gate half of AGENTS.md rule 18.
+        "export_table_scan": {
+            "table_glob": "*.json",
+            "non_table_stems": ["manifest", "_manifest"],
+            "content_subdirs": ["root", "messages", "threads", "attachments"],
+        },
         # HarmonyGames is NOT "v5". It is v3-shaped SINGLE-model verification PLUS v4's
         # injection + submission_gate phases. A version ordinal would imply a successor
         # relationship to v4 that does not exist, so the key is the universe name.
@@ -903,6 +1046,7 @@ FRAMEWORKS = {
         "trajectory_dispositions": ["pass", "fail"],
         "pass_at_1_ceiling": 0.40,
         "slack_channels_enumerable": True,
+        "retired_services": [],
         "working_dir_name": "Tasks",
         "acl_gate": False,
         "oe_grammar": ["standard"],
@@ -916,6 +1060,7 @@ FRAMEWORKS = {
         "density_excluded_calls": [],
         "long_horizon_call_band": None,
         "universe_data_contract": "per_task_json",
+        "export_table_scan": None,   # see the v3 profile
         "rubric_balance_rule": "outcome_gt_process",
         # No Negative Criteria dimension in this framework's QC spec, and its vague-exemplar
         # ban covers the title only (validate.py V3_VAGUE_CONNECTOR). See the hg profile.

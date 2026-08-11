@@ -627,11 +627,28 @@ def _tool_head_vocab() -> frozenset:
                 heads.add(rest[0])
     return frozenset(heads)
 
+@lru_cache(maxsize=1)
+def _retired_service_prefixes() -> frozenset:
+    """Prefixes a universe still DESCRIBES but whose tools ship in no catalog.
+
+    Read from the FRAMEWORKS `retired_services` key, never from any universe's `services`
+    list. `services` still carries all 13 HarmonyGames services and a later task removes
+    snowflake and confluence from it; deriving this from `services` would make that removal
+    silently re-break phantom detection.
+    """
+    from universes import FRAMEWORKS
+    out = set()
+    for prof in FRAMEWORKS.values():
+        out |= {s.lower() for s in (prof.get("retired_services") or ())}
+    return frozenset(out)
+
 
 @lru_cache(maxsize=1)
 def _all_service_prefixes() -> frozenset:
     from universes import UNIVERSES, get_universe_constants
-    out = set(_LEGACY_EXTRA_PREFIXES)
+    # Retired services are folded in so a prefix stays KNOWN after its tools leave the
+    # catalog. Retired is not unknown: the name must remain recognisable to be rejected.
+    out = set(_LEGACY_EXTRA_PREFIXES) | set(_retired_service_prefixes())
     for u in UNIVERSES:
         out |= set(get_universe_constants(u).get("services") or [])
     return frozenset(out)
@@ -644,12 +661,27 @@ def _looks_like_tool_name(tok: str) -> bool:
     if not pref:
         return False
     rest = low[len(pref) + 1:].split("_")
+    if not (rest and rest[0]):
+        return False
+    if pref in _retired_service_prefixes():
+        # A retired service has NO tools in ANY catalog, so no head segment can ever validate
+        # one and the head filter below can only ever answer "prose". Any `<retired>_<snake>`
+        # token is a phantom BY CONSTRUCTION, which is strictly more certain than the vocab
+        # test it replaces - there is no catalog left for it to be a real tool in.
+        #
+        # This branch is what repairs anchor XU-2. `query` WAS a real head segment until the
+        # 2026-08 V5 drop deleted every snowflake_* tool, and snowflake_* was its only source
+        # across all five catalogs, so `snowflake_query` stopped being classified as a phantom
+        # while `confluence_get_page` kept working purely by coincidence (`get` survives in
+        # other catalogs). Keying the repair to the head, not the prefix, is the point:
+        # the prefix was never missing.
+        return True
     vocab = _tool_head_vocab()
     # Fail CLOSED on an empty vocabulary. The old `not vocab or ...` escape meant a
     # catalogue-read failure silently restored every false positive it exists to suppress.
     # An empty vocab is a broken environment, not a permissive one; check_pipeline_wiring
     # W11 gates it so the breakage surfaces loudly instead of as scoring noise.
-    return bool(rest and rest[0] and vocab and rest[0] in vocab)
+    return bool(vocab and rest[0] in vocab)
 
 
 def service_prefix_re(consts: dict):
@@ -669,6 +701,9 @@ def service_prefix_re(consts: dict):
     for _u in UNIVERSES.values():
         names.update(_u.get("services") or [])
     names.update(_LEGACY_EXTRA_PREFIXES)
+    # Retired services keep their prefix in the alternation even once `services` drops them,
+    # so a `snowflake_*` / `confluence_*` leak stays matchable in every universe.
+    names.update(_retired_service_prefixes())
     if not names:
         return _LEGACY_SERVICE_PREFIX_RE
     alt = "|".join(sorted((re.escape(s) for s in names), key=len, reverse=True))
