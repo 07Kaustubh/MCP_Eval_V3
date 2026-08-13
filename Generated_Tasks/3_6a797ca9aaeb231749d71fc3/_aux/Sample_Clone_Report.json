@@ -1,0 +1,427 @@
+{
+  "task": "3_6a797ca9aaeb231749d71fc3",
+  "universe": "harmonygames",
+  "corpus_size": 7,
+  "mechanical_elements": [
+    "E3_named_entities",
+    "E5_service_write_mix",
+    "E7_distinctive_phrasing"
+  ],
+  "partial_elements": [
+    "E2_persona_pairing",
+    "E4_asks_deliverables"
+  ],
+  "surfaced_elements": [
+    "E1_core_scenario",
+    "E6_workflow_shape"
+  ],
+  "results": [
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_Passed/Task1_6a625f3ea428e7b7d971e57f_HG/5_Prompt.txt",
+      "sample_name": "Task1_6a625f3ea428e7b7d971e57f_HG",
+      "deprecated": false,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'leonard hayes'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.029,
+          "evidence": "1 distinctive entities shared: ['Combo-Fighters']"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.059,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['count', 'link', 'list', 'memo', 'message', 'pack', 'register', 'spreadsheet', 'tab']; shared ['list']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.464,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['gdocs', 'gdrive', 'github', 'gsheets', 'trello']; write verbs shared ['close', 'open', 'send']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.0
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_True_Fails/Task1_6a628947b9b7eafafb3e8f97_HG_DEPRECATED/5_Prompt.txt",
+      "sample_name": "Task1_6a628947b9b7eafafb3e8f97_HG_DEPRECATED",
+      "deprecated": true,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'brian foster'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive entities shared: []"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.222,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['status', 'ticket']; shared ['status', 'ticket']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.181,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['gdocs', 'linear', 'slack']; write verbs shared ['open']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.031
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_Non_Fails/Task1_6a71380e73befe867c047584_HG/5_Prompt.txt",
+      "sample_name": "Task1_6a71380e73befe867c047584_HG",
+      "deprecated": false,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": null,
+          "score": null,
+          "evidence": "persona file absent on one side"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.143,
+          "evidence": "3 distinctive entities shared: ['Friday', 'Start', 'Zombie Match']"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['message', 'post', 'summary']; shared []"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.125,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['github', 'slack', 'trello']; write verbs shared []",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.053
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_True_Fails/Task2_6a5fd46c1f3bf9d3522bc488_HG_DEPRECATED/5_Prompt.txt",
+      "sample_name": "Task2_6a5fd46c1f3bf9d3522bc488_HG_DEPRECATED",
+      "deprecated": true,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'julia lawson'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.04,
+          "evidence": "1 distinctive entities shared: ['Zombie Match']"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.444,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['brief', 'doc', 'note', 'ticket']; shared ['brief', 'doc', 'note', 'ticket']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.233,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['gcal', 'gdocs', 'github', 'linear']; write verbs shared ['note']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.056
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_Passed/Task2_6a62909d918832d268962da6_HG/5_Prompt.txt",
+      "sample_name": "Task2_6a62909d918832d268962da6_HG",
+      "deprecated": false,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'arthur blake'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive entities shared: []"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.133,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['comment', 'count', 'link', 'post', 'readout', 'register', 'spreadsheet', 'ticket']; shared ['comment', 'ticket']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.238,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['gcal', 'github', 'gsheets', 'linear', 'slack']; write verbs shared ['comment', 'send']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.0
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_Non_Fails/Task2_6a715182be479db8c12c7f4f_HG/5_Prompt.txt",
+      "sample_name": "Task2_6a715182be479db8c12c7f4f_HG",
+      "deprecated": false,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'arthur blake'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.069,
+          "evidence": "2 distinctive entities shared: ['Then', 'Zombie Match']"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.182,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['note', 'post', 'rundown', 'ticket']; shared ['note', 'ticket']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.196,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['github', 'linear', 'slack']; write verbs shared ['note', 'open']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.053
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    },
+    {
+      "sample": "QC_Tasks/V5_HG_Buckets/QC_Passed/Task3_6a63e91c02df598d950da85f_HG/5_Prompt.txt",
+      "sample_name": "Task3_6a63e91c02df598d950da85f_HG",
+      "deprecated": false,
+      "elements": {
+        "E1_core_scenario": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E2_persona_pairing": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "persona 'victor barnes' vs 'leonard hayes'"
+        },
+        "E3_named_entities": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive entities shared: []"
+        },
+        "E4_asks_deliverables": {
+          "status": "PARTIAL",
+          "match": false,
+          "score": 0.091,
+          "evidence": "deliverables ['brief', 'comment', 'doc', 'email', 'list', 'note', 'sheet', 'status', 'ticket'] vs ['count', 'note', 'pack']; shared ['note']"
+        },
+        "E5_service_write_mix": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.196,
+          "evidence": "services ['gdocs', 'gdrive', 'github', 'gmail', 'gsheets', 'linear', 'trello'] vs ['github']; write verbs shared ['note', 'send']",
+          "never_fails_alone": true
+        },
+        "E6_workflow_shape": {
+          "status": "SURFACED",
+          "match": null,
+          "score": null,
+          "evidence": "semantic - not computed here"
+        },
+        "E7_distinctive_phrasing": {
+          "status": "MECHANICAL",
+          "match": false,
+          "score": 0.0,
+          "evidence": "0 distinctive 5-grams shared: []",
+          "verbatim_sentences": [],
+          "reworded_sentences": [],
+          "opening_similarity": 0.0
+        }
+      },
+      "confirmed": [],
+      "confirmed_count": 0,
+      "hard_fail_reasons": [],
+      "adjudication": [],
+      "verdict": "CLEAR"
+    }
+  ],
+  "verdict": "CLEAR"
+}

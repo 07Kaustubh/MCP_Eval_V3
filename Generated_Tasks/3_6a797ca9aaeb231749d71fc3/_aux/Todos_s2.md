@@ -1,0 +1,24 @@
+# S2 TODO — Oracle Events
+
+- [x] 1. Read root AGENTS.md + Reference/OE_Format.md + Reference/Sessions/S2.md (this runbook)
+- [x] 2. Read Docs_harmonygames/9_Common_Error.md Part 2 (OE errors)
+- [x] 3. Read Evals_harmonygames/2_OE_Eval.md (OE eval spec)
+- [x] 4. Docs_harmonygames/7_QC_Spec_Doc1.json OE dimension inspected via AUDIT sub-agents
+- [x] 5. Read 5_Prompt.txt (S1-cleared)
+- [x] 6. Read Hardness_Plan.md (levers to preserve in OE trace)
+- [x] 7. Read Fact_Ledger.json metadata + Universe_Index (verified per-task universe atoms)
+- [x] 8. HarmonyGames_Base_Universe/6_Server_Tools_Details.json (tool catalog SSOT) queried for every write tool used
+- [x] 9. Reference/OE_Convention_Inventory.json read (opening phrases + param traps)
+- [x] 10. V4 reference OE structure informed by StarPM QC_Passed contract patterns via runbook citations
+- [x] 11. Decomposed prompt into 13 sentences (S1..S13) mapped to write / discovery / read actions
+- [x] 12. Mapped each ask to discovery step(s) and/or write action(s)
+- [x] 13. Verified each step against Universe_Split (43+ row lookups matched) and Fact_Ledger (atoms accurate)
+- [x] 14. Drafted 6_Oracle_Events.txt (R1 32 OEs -> R2 30 OEs -> R3 30 OEs)
+- [x] 15. Ran validate.py --phase oe every round; all rounds PASS (0/0/3)
+- [x] 16. Spawned Council A R1 (GO with 2 Minor), R2 (GO), R3 delta (GO)
+- [x] 17. Spawned Council B R1 (GO with 2 Moderate + 3 Minor), R2 (GO), R3 delta (GO)
+- [x] 18. Applied REVISE loop: R1 fixes -> R2 (F1/F2/F5/F6/F7/F8 closed) -> R3 (F1-r2/F2-r2 closed, F1-r3 surfaced)
+- [x] 19. AUDIT R1 (REVISE), R2 (REVISE), R3 (REVISE cap hit); Council A + B both GO through R3
+- [x] 20. Wrote Verification_s2.md (cross-source verification)
+- [x] 21. Wrote OE_solvability.md (interim; carries the F1-r3 escalation)
+- [x] 22. STOP gate: iteration cap reached, escalating to user per runbook

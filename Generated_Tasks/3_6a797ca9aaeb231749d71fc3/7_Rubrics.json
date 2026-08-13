@@ -1,0 +1,170 @@
+[
+    {
+        "title": "The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).",
+        "category": "Outcome 1.1",
+        "justification": "The prompt requires a reconciliation comment on the ART tracking ticket. OE 24's fallback deterministically resolves the ART tracking ticket to ART-770 because zero fresh unresolved ART VFX tickets exist as of 2026-02-28.",
+        "evidence": "Inspect Linear write actions. FAIL if no linear_create_comment call is made on either ART-770 or ART-252, and FAIL if a linear_create_comment call is made but its issueId is neither 'ART-770' nor 'ART-252'."
+    },
+    {
+        "title": "The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt requires noting a draft PR with no code separately; PR #1 is that draft (additions 0, changed_files 0).",
+        "evidence": "Inspect the ART-team VFX tracker comment body (on either ART-770 or ART-252) and confirm it identifies PR #1 as a draft and states it has zero code changes (or equivalent zero-additions / zero-changed-files phrasing)."
+    },
+    {
+        "title": "The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.",
+        "category": "Outcome 1.2",
+        "justification": "PR #36 \"vfx updates\" is the substantive merged VFX import the prompt asks the agent to recognize.",
+        "evidence": "Inspect the ART-team VFX tracker comment body (on either ART-770 or ART-252) and confirm it names PR #36 as merged on 2026-02-11 (UTC calendar date as returned by the GitHub API tools)."
+    },
+    {
+        "title": "The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.",
+        "category": "Outcome 1.2",
+        "justification": "PR #16 \"Marcus/win screen coin vfx\" is the second Marcus-authored VFX merge in the December window the prompt asks the agent to surface.",
+        "evidence": "Inspect the ART-team VFX tracker comment body (on either ART-770 or ART-252) and confirm it names PR #16 as merged on 2025-12-21 (UTC calendar date as returned by the GitHub API tools)."
+    },
+    {
+        "title": "The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt states \"if a merged PR still has review pushback that never got resolved, that counts as still open\"; PR #37 satisfies that condition.",
+        "evidence": "Inspect the ART-team VFX tracker comment body (on either ART-770 or ART-252) and confirm it identifies PR #37 as merged with an unresolved CHANGES_REQUESTED review."
+    },
+    {
+        "title": "The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific harmonygames.co Marcus mailbox is not resolvable from git alone.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt requires that any Marcus named as owner be specifically identified; the GitHub author has no linked company email, so ownership attribution must call this out.",
+        "evidence": "Inspect the ART-team VFX tracker comment body (on either ART-770 or ART-252). FAIL if the comment does not attribute the merged VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME or an equivalent unambiguous GitHub-user reference), and FAIL if the comment resolves the identity to a single specific harmonygames.co Marcus mailbox without any hedging on the ambiguity (acceptable hedging includes naming two or more of the three harmonygames.co Marcus mailboxes as distinct candidates, or noting that git-side attribution alone does not pin ownership)."
+    },
+    {
+        "title": "The Agent updates Trello check_item \"Marcus to create VFX\" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.",
+        "category": "Outcome 1.1",
+        "justification": "The prompt asks the agent to close out checklist items that the merged code actually finished; PR #36 shipped the Combo-Fighters VFX, so the \"Marcus to create VFX\" line-item is factually finished.",
+        "evidence": "Inspect Trello write actions and confirm the check_item update sets id 6855f20fb11687de8c0be3c8 to state \"complete\"."
+    },
+    {
+        "title": "The Agent leaves Trello check_item \"Engineer to implement\" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.",
+        "category": "Outcome 1.1",
+        "justification": "The prompt says to close out only checklist items the merged code actually finished; the \"Engineer to implement\" item is genuinely still open because PR #37 carries unresolved CHANGES_REQUESTED. Closing it would be incorrect.",
+        "evidence": "Inspect Trello write actions and confirm no update sets check_item id 6855f2153528bf8d9fb8e116 to state \"complete\"."
+    },
+    {
+        "title": "The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).",
+        "category": "Outcome 1.1",
+        "justification": "The prompt asks the agent to leave a comment on the affected roadmap card explaining what still needs owner attention.",
+        "evidence": "Inspect Trello write actions and confirm a new comment is added to card 6851a9942b47001e59c8e777."
+    },
+    {
+        "title": "The Agent's Trello card comment identifies \"Engineer to implement\" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt asks the comment to explain what still needs owner attention on the roadmap card; the check_item is open specifically because PR #37 pushback is unresolved.",
+        "evidence": "Inspect the Trello card comment body and confirm it names \"Engineer to implement\" as still open and cites Combo-Fighters PR #37's unresolved CHANGES_REQUESTED as the reason."
+    },
+    {
+        "title": "The Agent creates a Google Doc for the Monday-morning status brief for Leonard.",
+        "category": "Outcome 1.1",
+        "justification": "The prompt requires a short status brief in a Drive doc Victor can send Leonard on Monday morning.",
+        "evidence": "Inspect Google Docs write actions and confirm one new document is created for this status brief."
+    },
+    {
+        "title": "The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt requires the brief to reflect that a draft PR with no code exists and is separable from the real merged work.",
+        "evidence": "Inspect the status brief body and confirm it states PR #1 is a draft with no code changes (or equivalent zero-additions / zero-changed-files phrasing)."
+    },
+    {
+        "title": "The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.",
+        "category": "Outcome 1.2",
+        "justification": "PR #36 is the substantive VFX import; the brief must attribute the actual merged VFX to the right PR and convey its scale in objective terms.",
+        "evidence": "Inspect the status brief body and confirm it identifies PR #36 as the substantive merged VFX import and states it merged on 2026-02-11 (UTC calendar date as returned by the GitHub API tools)."
+    },
+    {
+        "title": "The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.",
+        "category": "Outcome 1.2",
+        "justification": "PR #16 is the second Marcus-authored VFX merge in the December window; the brief must cover it.",
+        "evidence": "Inspect the status brief body and confirm it names PR #16 as merged on 2025-12-21 (UTC calendar date as returned by the GitHub API tools)."
+    },
+    {
+        "title": "The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific harmonygames.co Marcus mailbox is not resolvable from git alone.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt requires the agent to be specific about which Marcus is meant when listing a Marcus as owner; the merged VFX author is the GitHub \"Marcus\" whose mailbox identity is not resolvable from git alone.",
+        "evidence": "Inspect the status brief body. FAIL if the brief does not distinguish the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) from the three harmonygames.co Marcus mailboxes, and FAIL if the brief conflates the GitHub author with a single specific harmonygames.co Marcus mailbox without any hedging on the ambiguity (acceptable hedging includes stating that the GitHub profile carries no email, naming two or more of the three harmonygames.co Marcus mailboxes as distinct candidates, or noting that the git commit author email marcus@harmonygames.co is one of three ambiguous harmonygames.co candidates and does not pin ownership)."
+    },
+    {
+        "title": "The Agent's status brief enumerates the three harmonygames.co Marcus identities marcus.bennett@harmonygames.co, marcus.lee@harmonygames.co, and marcus@harmonygames.co as distinct from the GitHub author.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt requires the agent to be specific about which Marcus is meant; the brief must enumerate the three harmonygames.co Marcus mailboxes to demonstrate that a specific mapping between GitHub \"Marcus\" and any of them is not resolvable from git alone.",
+        "evidence": "Inspect the status brief body and confirm it enumerates the three harmonygames.co Marcus identities marcus.bennett@harmonygames.co, marcus.lee@harmonygames.co, and marcus@harmonygames.co (by full email address, by first-last name pair, or by equivalent unambiguous reference) and identifies them as distinct from the GitHub author."
+    },
+    {
+        "title": "The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt asks the brief to cover which checklist items were closed and why; this item was closed because the merged VFX shipped in PR #36.",
+        "evidence": "This criterion is a content check on the toggle reported in a preceding criterion; if the check_item was not toggled complete in the agent's Trello writes, this criterion also fails on absence-of-subject. Inspect the status brief body. FAIL if the brief does not state the 'Marcus to create VFX' check_item was closed, and FAIL if the brief states the item was closed but cites no Marcus-authored merged Combo-Fighters VFX PR from the December-through-February window as the reason. Acceptable citations are PR #36 (merged 2026-02-11, the substantive VFX import) or PR #16 (merged 2025-12-21, the Marcus win-screen coin VFX merge)."
+    },
+    {
+        "title": "The Agent's status brief reports that the ZM ROADMAP check_item \"Engineer to implement\" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt asks the brief to cover which checklist items remain open and why; this item is open because PR #37 pushback is unresolved. This criterion also carries the PR #37 status in the brief (merged with unresolved CHANGES_REQUESTED leaving engineering open), since the check_item incompleteness cited-because-of PR #37 necessarily entails that status.",
+        "evidence": "Inspect the status brief body and confirm it states the \"Engineer to implement\" check_item remains open and cites Combo-Fighters PR #37's unresolved CHANGES_REQUESTED as the reason."
+    },
+    {
+        "title": "The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt asks the brief to frame the recommended posture toward Leonard's \"treat it as parked\" claim; parking the draft PR itself is safe because it holds no code and never had reviews.",
+        "evidence": "Inspect the status brief body and confirm it states parking PR #1 is safe on its own merits and cites its zero code changes (or equivalent zero-additions / zero-changed-files phrasing) as the reason."
+    },
+    {
+        "title": "The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt asks the brief to frame the recommended posture; the broader \"already covered\" claim overstates the position because engineering work remains open on both PR #37 and the check_item.",
+        "evidence": "Inspect the status brief body. FAIL if the brief endorses the 'already covered' framing outright, and FAIL if the brief does not cite the ZM ROADMAP 'Engineer to implement' check_item on the Equipped Card Item Infusion VFX card as still open (or as a reason the framing overstates the position)."
+    },
+    {
+        "title": "The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).",
+        "category": "Outcome 1.1",
+        "justification": "The prompt requires a fresh sheet as the single place Victor can work from for vendor followups.",
+        "evidence": "Inspect Google Sheets write actions and confirm one new spreadsheet is created for this vendor tracker with a title referencing the art vendor followups or an equivalent domain-appropriate title."
+    },
+    {
+        "title": "The Agent's vendor tracker spreadsheet includes a Leapblock followup row.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt names Leapblock as one of the two vendor followups Victor still owes.",
+        "evidence": "Inspect the vendor tracker spreadsheet and confirm one row corresponds to the Leapblock followup."
+    },
+    {
+        "title": "The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying martin.walsh@harmonygames.co as the internal owner.",
+        "category": "Outcome 1.2",
+        "justification": "The prompt names Martin Walsh as the second vendor followup; his internal contact is martin.walsh@harmonygames.co. A followup row that omits the owner email is a defective row (the whole point of the tracker is single-place ownership), so identifying martin.walsh@harmonygames.co is intrinsic to the row's correctness rather than a separately gradable action.",
+        "evidence": "Inspect the vendor tracker spreadsheet and confirm one row corresponds to the Martin Walsh followup and identifies martin.walsh@harmonygames.co as the internal owner."
+    },
+    {
+        "title": "The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.",
+        "category": "Outcome 2.1",
+        "justification": "The prompt asks the agent to tell Victor in the reply whether the reconciliation supports Leonard's \"treat it as parked\" read; the draft PR itself is safely parked because it has no code.",
+        "evidence": "Inspect the agent's reply to Victor and confirm it states the reconciliation supports parking draft PR #1."
+    },
+    {
+        "title": "The Agent's reply recommends that Victor push back on Leonard's broader \"already covered\" framing (as distinct from parking the draft PR itself).",
+        "category": "Outcome 2.1",
+        "justification": "The prompt asks the agent whether to push back on Leonard's framing Monday morning; the recommendation to push back is the primary reply outcome, independent of the reason cited.",
+        "evidence": "Inspect the agent's reply to Victor and confirm it recommends pushing back on the broader \"already covered\" framing, distinct from the concession that the draft PR itself is safe to park."
+    },
+    {
+        "title": "The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.",
+        "category": "Outcome 2.1",
+        "justification": "The prompt requires Victor to be told the real state so he can push back with substance Monday morning; PR #37's unresolved review pushback is one of the two universe facts that make the broader \"already covered\" framing wrong.",
+        "evidence": "Inspect the agent's reply to Victor and confirm it states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged."
+    },
+    {
+        "title": "The Agent's reply identifies the ZM ROADMAP check_item \"Engineer to implement\" on the Equipped Card Item Infusion VFX card as still open.",
+        "category": "Outcome 2.1",
+        "justification": "The prompt asks Victor to be told the real state item by item; the still-open \"Engineer to implement\" line-item is central to the reconciliation outcome.",
+        "evidence": "Inspect the agent's reply to Victor and confirm it identifies the \"Engineer to implement\" check_item on the Equipped Card Item Infusion VFX card as still open."
+    },
+    {
+        "title": "The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific harmonygames.co Marcus mailbox is not resolvable from git alone.",
+        "category": "Outcome 2.1",
+        "justification": "The prompt requires the agent to be specific about which Marcus is meant when listing a Marcus as owner; the merged VFX author is the GitHub \"Marcus\" whose mailbox identity is not resolvable from git alone.",
+        "evidence": "Inspect the agent's reply to Victor. FAIL if the reply does not attribute the merged VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME or an equivalent unambiguous GitHub-user reference), and FAIL if the reply resolves the identity to a single specific harmonygames.co Marcus mailbox without any hedging on the ambiguity (acceptable hedging includes naming two or more of the three harmonygames.co Marcus mailboxes as distinct candidates, or noting that git-side attribution alone does not pin ownership to a specific harmonygames.co mailbox)."
+    }
+]

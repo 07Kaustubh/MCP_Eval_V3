@@ -1,0 +1,65 @@
+{
+  "task": "3_6a797ca9aaeb231749d71fc3",
+  "per_run": [
+    {
+      "run": 1,
+      "file": "Agent_Responses/trajectory-run-1.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 64,
+      "tool_calls_mcp_only": 58
+    },
+    {
+      "run": 2,
+      "file": "Agent_Responses/trajectory-run-2.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 74,
+      "tool_calls_mcp_only": 51
+    },
+    {
+      "run": 3,
+      "file": "Agent_Responses/trajectory-run-3.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 77,
+      "tool_calls_mcp_only": 60
+    },
+    {
+      "run": 4,
+      "file": "Agent_Responses/trajectory-run-4.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 74,
+      "tool_calls_mcp_only": 54
+    },
+    {
+      "run": 5,
+      "file": "Agent_Responses/trajectory-run-5.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 80,
+      "tool_calls_mcp_only": 67
+    },
+    {
+      "run": 6,
+      "file": "Agent_Responses/trajectory-run-6.json",
+      "status": "ok",
+      "disposition": "counted",
+      "tool_calls_total": 63,
+      "tool_calls_mcp_only": 57
+    }
+  ],
+  "runs_evaluated": 6,
+  "avg_tool_calls_total": 72,
+  "avg_tool_calls_mcp_only": 57.8,
+  "min_tool_calls_total": 63,
+  "max_tool_calls_total": 80,
+  "runs_excluded": 0,
+  "density_ok_at_15": true,
+  "density_target": 40,
+  "meets_density_target": true,
+  "verifier_fails": null,
+  "difficulty_ok_at_40pct": null,
+  "verdict": "OK"
+}

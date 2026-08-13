@@ -1,0 +1,42 @@
+# Service Inventory (per-task)
+
+| Source | Records |
+|---|---:|
+| `contacts.contacts` | 174 |
+| `gdocs.docs_documents` | 67 |
+| `gdrive.drive_files` | 53702 |
+| `gdrive.drive_users` | 25 |
+| `github.branches` | 16 |
+| `github.commit_map` | 21208 |
+| `github.commits` | 12687 |
+| `github.labels` | 11 |
+| `github.pull_request_comments` | 884 |
+| `github.pull_request_commits` | 15938 |
+| `github.pull_requests` | 2629 |
+| `github.repositories` | 16 |
+| `github.review_comments` | 1614 |
+| `github.reviews` | 2421 |
+| `github.timeline_events` | 12437 |
+| `github.users` | 47 |
+| `gmail.labels` | 24 |
+| `gmail.users` | 8 |
+| `gsheets.sheets_spreadsheets` | 26 |
+| `linear.attachments` | 2027 |
+| `linear.issues` | 3852 |
+| `linear.projects` | 2 |
+| `linear.team_memberships` | 76 |
+| `linear.teams` | 5 |
+| `linear.users` | 42 |
+| `slack.channels` | 985 |
+| `slack.files` | 47968 |
+| `slack.users` | 218 |
+| `trello.actions` | 5294 |
+| `trello.attachments` | 106 |
+| `trello.boards` | 5 |
+| `trello.cards` | 803 |
+| `trello.check_items` | 161 |
+| `trello.checklists` | 54 |
+| `trello.labels` | 31 |
+| `trello.lists` | 48 |
+| `trello.members` | 6 |
+| `trello.organizations` | 1 |

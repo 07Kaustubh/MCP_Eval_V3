@@ -1,0 +1,23 @@
+# S3 Todos
+
+- [x] Fix Verification_s2.md schema so phase_ready gate passes (format-only edit; substantive content preserved).
+- [x] Document S3<-S2 carryover ruling on OE 24 ART ticket resolution -> ART-770.
+- [x] Create Todos_s3.md + Reads_s3.md.
+- [x] Read Docs_harmonygames/9_Common_Error.md Part 3 (rubric errors).
+- [x] Read Docs_harmonygames/12_Always_Failing_Rubrics.md (AF patterns).
+- [x] Read one QC_Tasks/V5_HG_Buckets/QC_Passed reference rubric set (Task2 — voice/structure).
+- [x] Confirm HarmonyGames_Base_Universe/6_Server_Tools_Details.json shape (239 tools, list format).
+- [x] Re-confirm phase_ready.py --phase s3 exits 0 after Verification_s2.md fix.
+- [x] Draft 7_Rubrics.json — 26 initial rubrics, Outcome first per OE list, atomic per multi-item, lowercase category.
+- [x] Run validate.py --phase rubrics; 0 fails, 11 warns (ART-770 + reply/response alignment), 5 notes.
+- [x] Align reply/response terminology in rubrics [22]-[25]; reduced warns to 6.
+- [x] Run check_rubric_antipatterns.py -> OK, no anti-patterns.
+- [x] Run check_ordering_coverage.py -> no ordering language detected (zero Process correct).
+- [x] Spawn Council A (grounding) — background oracle bg_c3bd98ef. Verdict: GO.
+- [x] Spawn Council B (adversarial QC) — background oracle bg_96fbd147. Verdict: BLOCK (F1 MAJOR schema + F2-F8 MODERATE atomicity).
+- [x] Spawn AUDIT_rubrics (strict veteran) — background oracle bg_289263fc. Verdict: PASS (STRICT) with 5 MINOR + 1 INFO.
+- [x] Resolve council conflict: apply Council B F1 (category enum), F3 (concrete diff scale), F4/F5/F6/F7 (atomicity splits). Decline F2/F8 per AUDIT rule-19 re-read.
+- [x] Re-run validator: PASS, 0 fails, 11 warns (6 ART-770 carryover + 1 Jaccard R6/R16 across DIFFERENT artifacts + 4 false-positive verb heuristics), 6 notes. 30 rubrics (6 Outcome 1.1 + 20 Outcome 1.2 + 4 Outcome 2.1).
+- [x] Write coverage matrix (_aux/Reasoning/Rubric_Coverage_Matrix.md).
+- [x] Write Verification_s3.md.
+- [x] End response at STOP gate.

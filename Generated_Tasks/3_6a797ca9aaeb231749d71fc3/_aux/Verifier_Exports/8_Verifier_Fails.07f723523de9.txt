@@ -1,0 +1,550 @@
+Rubrics grading results
+17/28 passed
+Outcome17/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent posted the Linear comment on ZOM-247, not ART-770 or ART-252. The agent noted 'There is no dedicated ART-team tracking ticket' and used ZOM-247 as a fallback. The criteria require the comment to be on ART-770 or ART-252; the agent's issueId was 'ZOM-247'. FAIL.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Fail
+The Linear comment was posted on ZOM-247, not on ART-770 or ART-252. Even examining the ZOM-247 comment body, it doesn't mention PR #1 or its zero code changes. The criteria require this content on the ART-team VFX tracker. FAIL.
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+No comment was made on ART-770. The agent's only Linear comment was on ZOM-247. The criterion requires identifying PR #36 merged on 2026-02-11 in an ART-770 comment body. FAIL.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+No comment was made on ART-770 or ART-252. The agent's only Linear comment was on ZOM-247, and that comment does not mention PR #16 at all. FAIL.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent never fetched PR #37 review data (only checked reviews for PRs #1, #33, #36). The agent concluded 'no merged VFX PR has unresolved review pushback (reviews are empty across the board)' — missing PR #37's CHANGES_REQUESTED entirely. Neither the ART-team Linear comment (wrong issue anyway) nor the ZOM-247 comment mentions PR #37 or CHANGES_REQUESTED. FAIL.
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The only Linear comment was on ZOM-247, not ART-770 or ART-252. The criterion requires this attribution and ambiguity note to appear in the ART-team VFX tracker comment. FAIL.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Pass
+The agent called trello_update_check_item with cardId='6851a9942b47001e59c8e777', checkItemId='6855f20fb11687de8c0be3c8', and state='complete'. This exactly matches the required action. PASS.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+The agent never called trello_update_check_item with checkItemId '6855f2153528bf8d9fb8e116'. The 'Engineer to implement' check_item was left in its current (incomplete) state. PASS.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Pass
+The agent called trello_add_comment with cardId='6851a9942b47001e59c8e777'. PASS.
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello comment on card 6851a9942b47001e59c8e777 cites ZOM-248 cancellation as the reason 'Engineer to implement' is still open, not PR #37's unresolved CHANGES_REQUESTED. The agent never identified PR #37 as having CHANGES_REQUESTED. FAIL.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+The agent called gdocs_create_document with title 'Combo-Fighters VFX/Art Import — Status Brief (for Leonard, Mon Mar 2)'. PASS.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The status brief states: 'The draft import PR (#1, Marcus/ImportingArtAssets -> main) is SAFE to park/close. It literally contains no code: 0 additions / 0 deletions / 0 changed files, labeled "do not merge," draft.' PASS.
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Pass
+The status brief identifies '#36 "vfx updates" (bloom post-processing volume) — Marcus Bennett -> playable, merged Feb 11' as the substantive merged VFX import. Feb 11 = 2026-02-11. PASS.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Pass
+The status brief states '#16 "Marcus/win screen coin vfx" — Marcus Bennett -> develop, Dec 21. Real.' This corresponds to 2025-12-21. PASS.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The status brief states 'The GitHub author on all the recent Combo-Fighters art/VFX work shows only as "Marcus" with NO company email on the GitHub profile.' It then explains resolution via Linear cross-referencing and names all three harmonygames.co Marcus identities as distinct, hedging appropriately. PASS.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Pass
+The status brief names all three: marcus.bennett@harmonygames.co ('our 3D/VFX artist'), marcus@harmonygames.co ('bare "Marcus", non-user contact'), and 'Marcus Lee (marcus.lee@harmonygames.co)', identifying them as distinct from the GitHub author. PASS.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+The status brief says 'checked "Marcus to create VFX" (asset creation done per ZOM-247)' — citing the ZOM-247 Linear ticket (a Zombie Match 3D ticket), not a Marcus-authored merged Combo-Fighters VFX PR. The required citation must be PR #36 (2026-02-11) or PR #16 (2025-12-21). FAIL.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The status brief says 'Engineer to implement' is open and cites ZOM-248 cancellation, not PR #37's unresolved CHANGES_REQUESTED. The agent never identified PR #37 as having CHANGES_REQUESTED. FAIL.
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The status brief states 'The draft import PR (#1...) is SAFE to park/close. It literally contains no code: 0 additions / 0 deletions / 0 changed files.' PASS.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Pass
+The status brief's 'STILL OPEN / NEEDS OWNER ATTENTION' section explicitly lists '#4. ZM Card #15 "Engineer to implement" (equipped card infusion) — confirm whether the engineering implementation actually landed and in which build.' This cites the ZM ROADMAP check_item as still open, and the brief recommends pushing back on the 'already covered' framing. PASS.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+The agent called gsheets_create_spreadsheet with title 'Vendor Follow-ups — Leapblock & Martin Walsh (Victor)'. PASS.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The spreadsheet contains two Leapblock rows in the gsheets_values_update call. PASS.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Fail
+The Martin Walsh row in the vendor tracker lists 'Linear @Martin.Walsh (ART team assignee usr_51f5f16d46e8cf55)' as the contact, but does NOT include martin.walsh@harmonygames.co as the internal owner email. The criterion requires this specific email address to be present. FAIL.
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply states 'The draft (PR #1, Marcus/ImportingArtAssets → main) is genuinely safe to park/close.' PASS.
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply states 'push back Monday on any read that "it's covered / it's in the build"' and 'agree the draft is parked, but the develop→main promotion... is still owed and un‑owned.' This clearly recommends pushing back on the broader 'already covered' framing. PASS.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent's reply states 'Review‑debt check: no merged VFX PR has unresolved review pushback (reviews are empty across the board), so nothing counts as "still open" on that basis.' The agent never fetched PR #37 reviews and thus did not identify PR #37's unresolved CHANGES_REQUESTED. FAIL.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Pass
+The agent's reply states 'Card #15 "Equipped Card Item Infusion VFX implementation – Oleg": marked done (Jun 30, 2025) with both checklist items open... "Engineer to implement" → still open.' PASS.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The agent's reply states 'The GitHub art author shows only as "Marcus" with no company email on the profile' and lists three distinct Marcuses (marcus.bennett@harmonygames.co, marcus@harmonygames.co, Marcus Lee). It definitively identifies the author as Marcus Bennett via Linear cross-referencing but names the other two as distinct candidates, meeting the hedging requirement. PASS.
+
+Run #217/28 criteria passed
+Rubrics grading results
+17/28 passed
+Outcome17/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent created a Linear comment on ART-760, not ART-770 or ART-252 as required. The criterion explicitly requires the comment to be on either ART-770 or ART-252.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Fail
+The agent's Linear comment is on ART-760, not ART-770 or ART-252. The evidence requires inspecting the comment on ART-770 or ART-252; since no comment exists on those tickets, this criterion fails. (The ART-760 comment does correctly note PR #1 as an empty draft with 0 files changed, but it's on the wrong ticket.)
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+No comment was created on ART-770. The agent's Linear write action targeted ART-760. Criterion requires the ART-770 comment to identify PR #36 as merged on 2026-02-11.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The agent's Linear comment is on ART-760, not ART-770 or ART-252. No comment on either acceptable ticket exists to satisfy this criterion.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The Linear comment is on ART-760 (wrong ticket). Additionally, PR #37 and 'CHANGES_REQUESTED' appear nowhere in the Linear comment body — the agent retrieved PR #37 from GitHub but never referenced it in any output artifact.
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The Linear comment is on ART-760 (not ART-770 or ART-252), so there is no compliant ART-team VFX tracker comment to inspect. Additionally, the ART-760 comment resolves the GitHub 'Marcus' to marcus.bennett@harmonygames.co specifically, though it does mention the other two records (marcus@ and Marcus Lee) as exclusions.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Fail
+No Trello check_item updates were made at all. The agent explicitly stated it left both checklist items unchecked and made no trello_update_checkitem call on id 6855f20fb11687de8c0be3c8.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+No update was made to check_item id 6855f2153528bf8d9fb8e116 ('Engineer to implement'). No trello_update_checkitem call targeted this id, so it remains in its incomplete state. The criterion is satisfied.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Pass
+A Trello comment (trello_add_comment) was confirmed added to card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello card comment does not mention PR #37 or 'CHANGES_REQUESTED' at all. It references PR #33, #16, #36, and #1, but never cites PR #37's unresolved CHANGES_REQUESTED as the reason 'Engineer to implement' is still open.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+A Google Doc was created via gdocs_create_document titled 'Combo-Fighters VFX/Art Import — Status Brief for Leonard (Feb 28, 2026)'.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The Google Doc status brief's Section 3 identifies PR #1 as an empty draft with 0 files changed ('labeled do not merge with 0 files changed against main').
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Pass
+The Google Doc explicitly states PR #36 'vfx updates' merged into the playable branch on 2026-02-11. The brief identifies it as the substantive VFX import (though noting it's off-mainline) with the correct merge date.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Pass
+The Google Doc status brief identifies PR #16 'Win Screen Coin VFX' as merged on 2025-12-21 in Section 1 covering what reached mainline.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The Google Doc Section 5 enumerates all three harmonygames.co Marcus identities and notes the GitHub 'Marcus' author cannot be definitively mapped to a single one. The brief attributes the VFX to the GitHub identity 'Marcus' with explicit hedging that the mapping is behavior-based and not email-verified.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Pass
+The Google Doc Section 5 explicitly enumerates all three harmonygames.co Marcus mailboxes: marcus.bennett@harmonygames.co (identified as likely VFX author), marcus.lee@harmonygames.co, and marcus@harmonygames.co, distinguishing them from each other and from the GitHub author.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+The criterion states it fails if the check_item was not toggled complete in the agent's Trello writes. No Trello check_item updates were made at all — the 'Marcus to create VFX' item was never set to complete. The criterion fails on absence-of-subject.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The Google Doc does not mention PR #37 anywhere, and 'CHANGES_REQUESTED' appears nowhere in the file. The brief states both checklist items are open but cites no specific PR #37 unresolved CHANGES_REQUESTED as the reason 'Engineer to implement' remains incomplete.
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The Google Doc identifies PR #1 as an empty draft with 0 files changed and explicitly frames parking it as safe on those merits. The brief distinguishes parking the empty draft from the broader 'already covered' claim.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Pass
+The Google Doc does not endorse the 'already covered' framing — it explicitly states the VFX is not 'landed' and notes both checklist items (including 'Engineer to implement') on the Equipped Card Item Infusion VFX card remain open, contradicting the 'already covered' claim.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+A Google Sheets spreadsheet was created via gsheets_create_spreadsheet with the title 'Vendor Follow-ups — Leapblock & Martin Walsh (Victor, Feb 2026)'.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The vendor tracker spreadsheet includes two Leapblock Ltd. rows: one for the payment conversation follow-up and one for reconciling imported VFX asset origins.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Pass
+The vendor tracker spreadsheet includes Martin Walsh rows with martin.walsh@harmonygames.co explicitly identified as the internal owner (e.g., ART-792 row: 'Martin Walsh (martin.walsh@harmonygames.co)').
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply explicitly states 'Parking the DRAFT is fine — PR #1 Marcus/importing art assets (import → main) is an empty draft: labeled do not merge, 0 files changed against main. Nothing ships from it, so parking it carries no risk.'
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply explicitly recommends 'Push back Monday' and states 'But covered by the merged VFX branch is NOT true,' clearly advising Victor to push back on the broader 'already covered' framing while conceding the draft PR itself can be parked.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+PR #37 is not mentioned anywhere in the agent's reply. The reply discusses PR #33, #16, #36, #7, #10, #32, and #1, but never references PR #37 or 'CHANGES_REQUESTED.' The agent retrieved PR #37 from GitHub API but never surfaced it in any output.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Pass
+The agent's reply states 'The ZM roadmap VFX card (Equipped Card Item Infusion VFX implementation) is marked complete but its checklist — Marcus to create VFX and Engineer to implement — is both still open,' explicitly identifying 'Engineer to implement' as still open.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The agent's reply states 'The art/VFX PR author is a GitHub account named just Marcus (login PERSON_0396) with no company email on GitHub' and notes the identification is 'behavior-based, not email-verified — worth a 10-second confirm before any formal audit,' providing the required hedging rather than resolving definitively to a single harmonygames.co mailbox.
+
+Run #311/28 criteria passed
+Rubrics grading results
+11/28 passed
+Outcome11/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent created a NEW Linear issue (ART-2438) and commented there, rather than commenting on the pre-existing ART-770 or ART-252 tracking tickets. The criterion requires a comment on ART-770 or ART-252; neither received a comment.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Fail
+No comment was placed on ART-770 or ART-252. The agent commented only on the newly created ART-2438. The criterion requires the ART-team VFX tracker comment (on ART-770 or ART-252) to identify PR #1 as a draft with zero code. That comment does not exist on the required tickets.
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+No comment was placed on ART-770. The agent only commented on ART-2438. Additionally, the agent's analysis framed PR #36 as merging to a 'playable' branch (not done), not as a clean merge on 2026-02-11, and did not state this specific date in any ART-770 comment.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+No comment was placed on ART-770 or ART-252. The agent commented only on ART-2438. Additionally, the agent did not mention PR #16's specific merge date (2025-12-21) in the ART-2438 comment either.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+No comment was placed on ART-770 or ART-252. The agent commented only on ART-2438. Furthermore, the agent never identified PR #37 with unresolved CHANGES_REQUESTED — PR #37 is entirely absent from the agent's trajectory and response.
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+No comment was placed on ART-770 or ART-252. The agent commented only on ART-2438. Additionally, the comment on ART-2438 confidently attributes the VFX to 'Marcus Bennett (marcus.bennett@)' without hedging on the ambiguity between the three harmonygames.co Marcus mailboxes.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Fail
+The trajectory shows NO Trello check_item update tool calls at all. Check_item 6855f20fb11687de8c0be3c8 ('Marcus to create VFX') was never updated to 'complete'. The agent explicitly said it did NOT check off either item.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+The trajectory shows no Trello check_item update calls at all. Since no update sets check_item 6855f2153528bf8d9fb8e116 ('Engineer to implement') to 'complete', it remains in its original incomplete state. The criterion requires confirming no such update was made — confirmed.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Pass
+The trajectory confirms a trello_add_comment call on card 6851a9942b47001e59c8e777 with a full reconciliation comment body. This satisfies the criterion.
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello comment on card 6851a9942b47001e59c8e777 notes that 'Engineer to implement' is still open, but does NOT cite Combo-Fighters PR #37's unresolved CHANGES_REQUESTED as the reason. The comment says 'No merged PR delivers the equipped-item infusion VFX' and PR #37 is never mentioned.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+The trajectory confirms a gdocs_create_document call creating 'Combo-Fighters VFX/Art Import — Status Brief for Leonard (2026-02-28)'. A Google Doc was created.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The status brief body states PR #1 is 'OPEN as a DRAFT, labeled do not merge' and 'Now shows 0 changed files.' This satisfies the criterion.
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Fail
+The status brief mentions PR #36 as merging into a 'playable' branch but does NOT identify it as 'merged on 2026-02-11.' The merge date 2026-02-11 is absent from the brief entirely. Additionally, the brief frames PR #36 as NOT having reached main/develop, which differs from the ground-truth that it is the substantive merged VFX import.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The status brief mentions PR #16 'Win-screen coin VFX — merged to develop' but does NOT specify the date 2025-12-21. The specific merge date is absent from the brief.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The status brief states 'The art/VFX author on all Marcus/* branches = Marcus Bennett (marcus.bennett@). NOT Marcus Lee, NOT the generic marcus@ account.' This confidently resolves to a single specific harmonygames.co mailbox (marcus.bennett@) without adequate hedging that mapping the GitHub identity to a specific company email is not resolvable from git alone. This is the anti-pattern the criterion prohibits.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Fail
+The status brief says 'Marcus Bennett (marcus.bennett@). NOT Marcus Lee, NOT the generic marcus@ account.' It partially references the three identities but does not enumerate them with full email addresses or as 'distinct from the GitHub author.' The brief presents Marcus Bennett as the confirmed GitHub author rather than listing the three as candidates and noting the GitHub identity cannot be pinned to a specific mailbox from git alone.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+The status brief does not state that the 'Marcus to create VFX' check_item was toggled to complete, because the agent never made that Trello update. The criterion requires the brief to report this action with an attribution to a Marcus-authored merged VFX PR, which is absent.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The status brief states 'Engineer to implement' is still open (via the Infusion VFX checklist), but does NOT cite PR #37's unresolved CHANGES_REQUESTED as the reason. PR #37 is never mentioned in the status brief. The brief instead says 'No merged PR delivers this.'
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The status brief states 'this draft has nothing left to merge — it should be formally CLOSED, not left dangling. That part supports treat it as parked' and cites '0 changed files.' This satisfies the criterion.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Pass
+The status brief states 'parking is reasonable but work still outstanding' and specifically calls out the 'Engineer to implement' item on the Equipped Card Item Infusion VFX card as still open, explaining why the broader 'already covered' framing overstates the position.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+The trajectory confirms a gsheets_create_spreadsheet call creating 'Vendor Follow-ups — Leapblock & Martin Walsh (Victor)' with an initial 'Follow-ups' sheet. This satisfies the criterion.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The vendor tracker spreadsheet includes 3 Leapblock rows covering character/enemy models material, LeapBlock/* branches integration, and an invoice/payment follow-up.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Fail
+The vendor tracker shows 'Martin Walsh (martin.walsh@ — ZM UI/art)' — only a partial email 'martin.walsh@' without the full domain '@harmonygames.co'. The criterion requires identifying 'martin.walsh@harmonygames.co' as the internal owner. The sheet does not contain the complete email address.
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply states 'Parking the draft import PR is reasonable' and 'Leonard is right that the draft import PR itself is dead weight,' supporting parking of draft PR #1.
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply states 'push back on any implication that the VFX import is *done*' and 'Partly — park the PR, but push back on any implication that the VFX import is done.' This clearly recommends pushing back on the broader 'already covered' framing, distinct from parking the draft PR.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent's reply never mentions PR #37 or unresolved CHANGES_REQUESTED review pushback. PR #37 does not appear anywhere in the agent's response. The agent discusses PR #36 going to a 'playable' branch instead.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Pass
+The agent's reply states 'ZM roadmap card Equipped Card Item Infusion VFX implementation is marked done, but both checklist items are still OPEN — Marcus to create VFX and Engineer to implement.' This directly identifies the 'Engineer to implement' check_item as still open.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The agent's reply states 'The art/VFX author on every Marcus/* branch and GitHub Marcus = Marcus Bennett (marcus.bennett@) — confirmed by cross-referencing branch naming with his own Linear tickets.' This confidently resolves the GitHub identity to a single specific harmonygames.co mailbox (marcus.bennett@) without adequate hedging that this mapping is not resolvable from git alone. The criterion requires flagging this ambiguity, not resolving it.
+
+Run #417/28 criteria passed
+Rubrics grading results
+17/28 passed
+Outcome17/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent posted the Linear comment on ART-760 (issueId: ART-760), not on ART-770 or ART-252 as required. The evidence explicitly states to FAIL if a linear_create_comment call is made but its issueId is neither 'ART-770' nor 'ART-252'.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The Linear comment body (on ART-760) explicitly states PR #1 (Marcus/ImportingArtAssets → main) 'has 0 files changed, label do not merge, and only an automated CodeRabbit comment — no human review, no unique code. It is an empty shell.' This clearly identifies PR #1 as a draft with zero code changes.
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+The Linear comment lists '#36 vfx updates bloom/material fix (→ playable only)' as merged but does not include the specific merge date 2026-02-11. The PR date was available in the data but was not included in the comment body.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The Linear comment lists '#16 WinScreen_CoinVfx' as merged but does not include the specific merge date 2025-12-21. No date is mentioned for PR #16 anywhere in the ART tracker comment body.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent never fetched reviews for PR #37, and 'CHANGES_REQUESTED' appears nowhere in the trajectory. The agent did not identify PR #37 as having unresolved review pushback. The Linear comment discusses only CodeRabbit automated reviews and does not mention PR #37 at all.
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The Linear comment attributes the VFX to 'GitHub art/VFX author Marcus = commits authored as marcus@harmonygames.co (contact Marcus, no last name, external/contract artist — NOT a company user)' and explicitly lists all three Marcus identities (marcus@harmonygames.co, Marcus Bennett/marcus.bennett@harmonygames.co, Marcus Lee/marcus.lee@harmonygames.co) as distinct. The comment notes this person is 'NOT a company user' which hedges that the git identity does not map to an internal company email definitively.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Fail
+The agent explicitly stated 'I deliberately closed no checklist items: the merged code didn't actually finish either one.' No Trello checkitem update was made — the only Trello write action was trello_add_comment. The checkitem 6855f20fb11687de8c0be3c8 (Marcus to create VFX) was never set to complete.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+The agent made no Trello checkitem updates at all. The 'Engineer to implement' checkitem (6855f2153528bf8d9fb8e116) was never set to complete. The agent explicitly noted both items were left open on purpose.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Pass
+The agent called mcp__mcp_5ce5393c__trello_add_comment with cardId: 6851a9942b47001e59c8e777, successfully adding a reconciliation comment to the correct Trello card.
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello comment says 'Engineer to implement — not started; no matching implementation in the repo' but does not cite Combo-Fighters PR #37 or any unresolved CHANGES_REQUESTED review as the reason. The agent never retrieved reviews for PR #37 and CHANGES_REQUESTED appears nowhere in the trajectory.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+The agent called mcp__mcp_5ce5393c__gdocs_create_document with title 'Combo-Fighters VFX Import — Status Brief for Leonard (Mon 2026-03-02)', creating the status brief Google Doc.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The status brief Google Doc states PR #1 'Marcus/importing art assets...is an EMPTY shell: 0 files changed, labeled do not merge, only an automated CodeRabbit comment, no human review.' Clearly identifies PR #1 as a draft with zero code changes.
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Pass
+The status brief lists '#36 vfx updates (bloom post-processing + material fix) — merged to the PLAYABLE branch only' and later says 'The most recent VFX (#36 bloom/material fix, Feb 11)...' — Feb 11 corresponds to 2026-02-11, identifying PR #36 as the substantive merged VFX import with the correct date.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The status brief Google Doc lists '#16 WinScreen_CoinVfx — merged' but does not include the specific merge date 2025-12-21. No date is provided for PR #16 anywhere in the document.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The status brief identifies the GitHub VFX author as 'Marcus' with email marcus@harmonygames.co and describes them as 'EXTERNAL/contract artist (contact has no last name, not a company user).' It lists all three Marcus identities as distinct and adds 'Worth confirming which Marcus told you it was covered' — hedging on which specific company Marcus is which.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Pass
+The status brief explicitly lists all three harmonygames.co Marcus identities: 'marcus@harmonygames.co' (GitHub art/VFX author), 'Marcus Bennett (marcus.bennett@harmonygames.co)', and 'Marcus Lee (marcus.lee@harmonygames.co)', identifying each as a distinct person.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+The agent deliberately left both checklist items open (stated 'Left both checklist items open on purpose — the merged code did not complete either.'). The status brief says BOTH checklist items including 'Marcus to create VFX' are 'still incomplete.' The item was never toggled to complete, so the brief cannot report it was closed.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The status brief states the 'Engineer to implement' checklist item remains open, but cites 'not started; no matching implementation in the repo' as the reason rather than Combo-Fighters PR #37's unresolved CHANGES_REQUESTED. PR #37 is never mentioned in the brief at all.
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The status brief states 'Safe to park/close the draft PR itself' and describes PR #1 as 'an EMPTY shell: 0 files changed, labeled do not merge, only an automated CodeRabbit comment, no human review.' The zero code changes rationale for parking safety is clearly stated.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Pass
+The status brief states 'do NOT treat the whole thing as done/covered' and lists the 'Engineer to implement' checklist item as still incomplete among the reasons why the broader 'already covered' framing overstates the position.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+The agent called mcp__mcp_5ce5393c__gsheets_create_spreadsheet with title 'Vendor Followups — Leapblock & Martin Walsh (Victor)', creating the vendor tracker spreadsheet.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The vendor tracker spreadsheet contains multiple Leapblock rows (4 rows with 'Leapblock' in the Vendor column), covering branch integration, invoice verification, new-client ask, and shares/equity proposal.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Fail
+The vendor tracker contains Martin Walsh rows but none identify martin.walsh@harmonygames.co as the internal owner. The Contact column shows 'Martin Walsh (Figma)', 'via LeapBlock', and 'Martin Walsh (assignee)' — no martin.walsh@harmonygames.co email address appears in any row.
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply states 'the draft import PR itself (PR #1, Marcus/ImportingArtAssets → main) is an empty shell...There is no unique code sitting in it...So closing/parking that PR loses nothing.' The reply clearly supports parking PR #1.
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply explicitly states 'But already covered by the merged VFX branch / done is an overstatement' and 'You should push back Monday before signing off.' The reply recommends pushing back on the broader 'already covered' framing while conceding that parking PR #1 itself is safe.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent's reply does not mention PR #37 at all, and 'CHANGES_REQUESTED' appears nowhere in the reply or in the entire trajectory. The agent never fetched reviews for PR #37 and therefore could not identify its unresolved review pushback.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Pass
+The agent's reply states 'both checklist items — Marcus to create VFX and Engineer to implement — are still incomplete (a June-2025 one day, almost done note never landed).' The 'Engineer to implement' checkitem is explicitly identified as still open.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The agent's reply attributes the VFX to 'GitHub art/VFX author Marcus = commits as marcus@harmonygames.co — an external/contract artist (contact has no last name, not a company user)' and names all three harmonygames.co Marcus identities as distinct, with the caveat 'Worth confirming which Marcus told Leonard it was covered' — providing acceptable hedging on the attribution ambiguity.
+
+Run #515/28 criteria passed
+Rubrics grading results
+15/28 passed
+Outcome15/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent called linear_create_comment with issueId 'ZOM-247', not ART-770 or ART-252. The criterion requires the comment to be on an ART tracking ticket (ART-770 or ART-252). The agent chose the ZOM tracking ticket instead.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Fail
+The agent's Linear comment was placed on ZOM-247, not ART-770 or ART-252. Since the comment is on the wrong ticket, this criterion fails even though the ZOM-247 comment body does mention PR #1 as a draft with zero-file diff.
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+The agent made no comment on ART-770 at all. The single Linear comment was on ZOM-247. Even in that comment, PR #36's merge date (2026-02-11) is not stated, and PR #36 is characterized as merging only to the throwaway 'playable' branch rather than as the substantive VFX import.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The agent's only Linear comment was on ZOM-247, not ART-770 or ART-252. Additionally, even in that comment, PR #16's merge date of 2025-12-21 is not mentioned.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent never checked PR #37's reviews in the trajectory (it reviewed PRs #36, #33, #16, #3, #22, #7 but not #37). No comment about PR #37 having unresolved CHANGES_REQUESTED appears anywhere. The Linear comment is also on the wrong ticket (ZOM-247).
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The agent's Linear comment was on ZOM-247, not ART-770 or ART-252. The criterion requires this content on the ART-team tracker. Additionally, the ZOM-247 comment definitively resolves the GitHub 'Marcus' to 'Marcus Bennett' rather than maintaining adequate ambiguity.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Pass
+The agent called trello_update_check_item with cardId '6851a9942b47001e59c8e777', checkItemId '6855f20fb11687de8c0be3c8', and state 'complete'. This matches the required action exactly.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+The agent only issued one trello_update_check_item call, targeting checkItemId '6855f20fb11687de8c0be3c8' (Marcus to create VFX). There is no update call for checkItemId '6855f2153528bf8d9fb8e116' (Engineer to implement), so it was left in the incomplete state.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Pass
+The agent called trello_add_comment with cardId '6851a9942b47001e59c8e777', confirmed in the trajectory at idx=179.
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello comment leaves 'Engineer to implement' open but cites ZOM-248 being closed as 'Duplicate' as the reason, not PR #37's unresolved CHANGES_REQUESTED. The agent never investigated PR #37's reviews and does not mention PR #37 in the comment.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+The agent called gdocs_create_document with title 'Combo-Fighters VFX / Art-Import Reconciliation — Status Brief (for Leonard, 2026-03-02)', confirmed at idx=185.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The status brief body says PR #1 'shows a zero-file diff and never merged' and is 'still OPEN, DRAFT, labeled do not merge.' This clearly identifies PR #1 as a draft with zero code changes.
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Fail
+The status brief characterizes PR #36 as merged 'only into the playable branch' and 'stranded off-mainline' — the opposite of identifying it as the substantive merged VFX import. The date 2026-02-11 is not stated for PR #36 in the brief.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The status brief mentions PR #16 as 'MERGED to develop, APPROVED by Oliver Brooks' but does not provide the merge date of 2025-12-21. The date is absent from the brief.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The status brief says 'The Combo-Fighters GitHub account shows only the display name Marcus with no company email, which is why it doesn't map to a familiar address at a glance.' This explicitly states the GitHub profile carries no email, which is listed as acceptable hedging per the criterion. The brief also names all three harmonygames.co Marcus identities as distinct.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Pass
+The status brief enumerates all three: 'Marcus Bennett (marcus.bennett@harmonygames.co)', 'the bare directory entry Marcus (marcus@harmonygames.co, no last name)', and 'Marcus Lee (marcus.lee@harmonygames.co)'. All three are identified as distinct.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+The brief states 'Marcus to create VFX is genuinely done (Marcus Bennett, Linear ZOM-247, done 2025-06-26)' and 'I checked that item off.' However, it cites the Linear ZOM-247 ticket (a Zombie Match issue), not a Marcus-authored merged Combo-Fighters VFX PR from the December-through-February window, as the reason. The criterion requires citing PR #36 or PR #16 as the reason.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The status brief says 'Engineer to implement I left open — the dedicated engineering ticket (ZOM-248) was closed as Duplicate, not Done.' It does not cite PR #37's unresolved CHANGES_REQUESTED as the reason. PR #37 was never investigated in the trajectory.
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The status brief states 'Parking the Combo-Fighters art-import draft PR (#1...) is reasonable — it is explicitly a draft, labeled do not merge' and separately notes 'it shows a zero-file diff and never merged.' This clearly states parking PR #1 is safe on its own merits due to zero code changes.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Fail
+The status brief's push-back section focuses on PR #36 being off-mainline and unverified asset breadth, but does not cite the ZM ROADMAP 'Engineer to implement' check_item still being open as a reason why the broader 'already covered' framing overstates the position. The check_item is mentioned elsewhere but not connected to the push-back framing.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+The agent called gsheets_create_spreadsheet with title 'Vendor Followups — Leapblock & Martin Walsh (Victor)', confirmed at idx=187.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The spreadsheet values include multiple rows for 'Leapblock' vendor, confirmed in the gsheets_values_update call at idx=191.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Pass
+The spreadsheet includes rows for 'Martin Walsh' with contact 'martin.walsh@harmonygames.co' explicitly listed in the Contact column, confirmed in the gsheets_values_update call.
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply states 'Parking is fine as an action. The Combo-Fighters import PR he means (PR #1, Marcus/ImportingArtAssets) is a draft, explicitly labeled do not merge, shows a zero-file diff, and never merged.' This clearly supports parking PR #1.
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply states 'But already covered by the merged VFX branch is loose and worth challenging Monday' and provides two reasons to push back. This clearly recommends pushing back on the broader 'already covered' framing.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The agent's reply never mentions PR #37 at all. The agent did not investigate PR #37's reviews in the trajectory (checked PRs #36, #33, #16, #3, #22, #7 but not #37). No unresolved CHANGES_REQUESTED on PR #37 is mentioned anywhere in the reply.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Pass
+The agent's reply states in the 'Roadmap reality' section that the card was 'marked complete while BOTH checklist items still read open' and specifically says 'left Engineer to implement open for Oleg/eng to confirm.' This identifies the check_item as still open.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The agent's reply states 'The Combo-Fighters GitHub account shows only Marcus with no company email, which is why it doesn't map cleanly.' This explicitly notes the GitHub profile carries no email — which the criterion lists as acceptable hedging. The reply also names all three harmonygames.co Marcus mailboxes as distinct.
+
+Run #612/28 criteria passed
+Rubrics grading results
+12/28 passed
+Outcome12/28 passed
+Rubric
+Decision
+Justification
+The Agent creates a Linear comment on the ART-team VFX tracking issue (either ART-770 as the most-recently-updated ART VFX ticket, or the top-level ART-252 'ART: VFX' tracker; either is acceptable).
+Fail
+The agent created a Linear comment on ZOM-521, not on ART-770 or ART-252. The criterion requires the comment to be on the ART tracking ticket (ART-770 or ART-252). FAIL.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Fail
+The Linear comment was on ZOM-521, not on ART-770 or ART-252. Since the comment was placed on the wrong issue, this criterion fails regardless of the comment content.
+The Agent's ART-770 comment identifies Combo-Fighters PR #36 as merged on 2026-02-11.
+Fail
+The Linear comment was on ZOM-521, not ART-770. Additionally, the Linear comment body does not include the specific date 2026-02-11 for PR #36. Fails on both wrong issue and missing date.
+The Agent's ART-team VFX tracker comment identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The Linear comment was on ZOM-521, not on ART-770 or ART-252. Additionally, no specific date (2025-12-21) for PR #16 appears in the Linear comment body. Fails on both wrong issue and missing date.
+The Agent's ART-team VFX tracker comment states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The string 'CHANGES_REQUESTED' does not appear anywhere in the trajectory. The agent never identified PR #37 as having an unresolved CHANGES_REQUESTED review. Additionally, the comment was on ZOM-521 not ART-770/ART-252. Double failure.
+The Agent's ART-team VFX tracker comment attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Fail
+The Linear comment was on ZOM-521, not ART-770 or ART-252. The criterion requires the attribution to appear in the ART-team VFX tracker comment specifically.
+The Agent updates Trello check_item "Marcus to create VFX" (id 6855f20fb11687de8c0be3c8) on card 6851a9942b47001e59c8e777 to the complete state.
+Fail
+No trello_update_check_item calls were made anywhere in the trajectory. The agent explicitly stated in its Trello comment that it 'did NOT tick any checklist items.' The check_item 6855f20fb11687de8c0be3c8 was never set to complete.
+The Agent leaves Trello check_item "Engineer to implement" (id 6855f2153528bf8d9fb8e116) on card 6851a9942b47001e59c8e777 in the incomplete state.
+Pass
+Anti-pattern ABSENT. No trello_update_check_item calls were made at all in the trajectory. The check_item 6855f2153528bf8d9fb8e116 ('Engineer to implement') was never set to any state, meaning it was left in its existing incomplete state. The anti-pattern (setting it to complete) is absent, so score is 1.0.
+The Agent adds a comment to Trello card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation).
+Fail
+The agent added a Trello comment to card 6851aafe8c9e95ec0abbd262 (the Reward Animations card), not card 6851a9942b47001e59c8e777 (Equipped Card Item Infusion VFX implementation). Wrong card. FAIL.
+The Agent's Trello card comment identifies "Engineer to implement" as still open due to unresolved CHANGES_REQUESTED on Combo-Fighters PR #37.
+Fail
+The Trello comment was on card 6851aafe8c9e95ec0abbd262 (wrong card). Additionally, PR #37 with CHANGES_REQUESTED was never detected by the agent and is not mentioned in any Trello write. FAIL on both counts.
+The Agent creates a Google Doc for the Monday-morning status brief for Leonard.
+Pass
+The agent created a Google Doc titled 'Combo-Fighters VFX / Art-Import Reconciliation — for Leonard (2026-02-28)' via gdocs_create_document. PASS.
+The Agent's status brief identifies Combo-Fighters PR #1 as a draft with zero code changes.
+Pass
+The Google Doc body states that PR #1 is a draft with 0 changed files (described as '0-line draft, content already in main history'). Equivalent zero-additions/zero-changed-files phrasing is present. PASS.
+The Agent's status brief identifies Combo-Fighters PR #36 as the substantive merged VFX import, merged on 2026-02-11.
+Fail
+The Google Doc body does not contain the date '2026-02-11' for PR #36. The doc describes PR #36 bloom as stranded on the playable branch but does not state its merge date. The specific date is required by this criterion. FAIL.
+The Agent's status brief identifies Combo-Fighters PR #16 as merged on 2025-12-21.
+Fail
+The Google Doc body does not contain the date '2025-12-21' for PR #16. The doc mentions '#16 win screen coin vfx merged to develop' but without the specific date. FAIL.
+The Agent's status brief identifies the merged Combo-Fighters VFX author as the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and notes that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The status brief attributes VFX to contractor 'marcus@harmonygames.co' and explicitly states this is NOT Marcus Bennett and NOT Marcus Lee, and recommends confirming which Marcus made the 'it's covered' call. This constitutes adequate hedging that git-side attribution does not definitively pin ownership. PASS.
+The Agent's status brief enumerates the three [harmonygames.co](http://harmonygames.co) Marcus identities [marcus.bennett@harmonygames.co](mailto:marcus.bennett@harmonygames.co), [marcus.lee@harmonygames.co](mailto:marcus.lee@harmonygames.co), and [marcus@harmonygames.co](mailto:marcus@harmonygames.co) as distinct from the GitHub author.
+Pass
+The status brief enumerates: contractor 'marcus@harmonygames.co' (full email), 'Marcus Bennett' (first-last name pair = marcus.bennett@), and 'Marcus Lee' (first-last name pair = marcus.lee@). All three harmonygames.co Marcus identities are identified as distinct, satisfying the criterion's 'by first-last name pair' acceptable form. PASS.
+The Agent's status brief reports that the ZM ROADMAP check_item 'Marcus to create VFX' was toggled to complete because a Marcus-authored merged Combo-Fighters VFX PR shipped.
+Fail
+No trello_update_check_item call was made anywhere in the trajectory. The agent explicitly stated it 'did NOT tick any checklist items.' Therefore the brief cannot correctly report that 'Marcus to create VFX' was toggled to complete. FAIL.
+The Agent's status brief reports that the ZM ROADMAP check_item "Engineer to implement" remains incomplete because Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED.
+Fail
+The string 'CHANGES_REQUESTED' never appears anywhere in the trajectory. PR #37 is not identified as having unresolved CHANGES_REQUESTED. The status brief cites different reasons (VFX only on develop, PR #36 stranded on playable branch) but does not mention PR #37 or the 'Engineer to implement' check_item being open due to it. FAIL.
+The Agent's status brief states that parking draft Combo-Fighters PR #1 is safe on its own merits because it has zero code changes.
+Pass
+The status brief states parking PR #1 is safe because it is a '0-line draft' with 'content already in main history' (equivalent to zero code changes). The brief explicitly separates this from the broader 'already covered' claim. PASS.
+The Agent's status brief states that the broader 'already covered' framing overstates the position because the ZM ROADMAP 'Engineer to implement' check_item is still open.
+Fail
+The brief's pushback reasons are: VFX only on develop not main, PR #36 bloom stranded on playable, and Marcus identity ambiguity. The brief does not cite the ZM ROADMAP 'Engineer to implement' check_item on the Equipped Card Item Infusion VFX card as still open. That specific check_item is never mentioned in the doc. FAIL.
+The Agent creates a Google Sheets spreadsheet with a title related to the art vendor followups (or similar).
+Pass
+The agent created a Google Sheets spreadsheet titled 'Combo-Fighters Vendor Follow-ups — Victor (2026-02-28)' via gsheets_create_spreadsheet. The title references vendor followups in an appropriate domain-relevant way. PASS.
+The Agent's vendor tracker spreadsheet includes a Leapblock followup row.
+Pass
+The vendor tracker spreadsheet includes two LeapBlock rows: one for auditing open LeapBlock/* branches and one for verifying the current invoice. Leapblock is represented. PASS.
+The Agent's vendor tracker spreadsheet includes a Martin Walsh followup row identifying [martin.walsh@harmonygames.co](mailto:martin.walsh@harmonygames.co) as the internal owner.
+Pass
+The vendor tracker spreadsheet's gsheets_values_update call includes two Martin Walsh rows. The Contact column for both rows contains 'martin.walsh@harmonygames.co' (one with suffix '(paid via LeapBlock)', one bare). The internal owner is identified. PASS.
+The Agent's reply states that the reconciliation supports parking draft Combo-Fighters PR #1.
+Pass
+The agent's reply states PR #1 is 'an empty shell, not blocked work' and that it's 'worth formally closing, not just parking,' but also concludes it's 'safe to park' on its own merits. The reply clearly supports parking draft PR #1. PASS.
+The Agent's reply recommends that Victor push back on Leonard's broader "already covered" framing (as distinct from parking the draft PR itself).
+Pass
+The agent's reply explicitly recommends pushing back on the broader framing with three specific points: VFX only on develop not main, PR #36 stranded on playable branch, and identity confirmation. The reply distinguishes parking the draft (safe) from the broader 'already covered' claim (pushback needed). PASS.
+The Agent's reply states that Combo-Fighters PR #37 carries unresolved CHANGES_REQUESTED review pushback despite being merged.
+Fail
+The string 'CHANGES_REQUESTED' never appears anywhere in the trajectory. PR #37 is mentioned only in GitHub API list results as 'Combo Definition Updates' (closed, merged) but the agent never detected or reported unresolved CHANGES_REQUESTED review pushback. Not present in the reply. FAIL.
+The Agent's reply identifies the ZM ROADMAP check_item "Engineer to implement" on the Equipped Card Item Infusion VFX card as still open.
+Fail
+The agent's reply does not mention the 'Engineer to implement' check_item on the Equipped Card Item Infusion VFX card. The reply's pushback points are: VFX on develop only, PR #36 on playable branch, and Marcus identity. The specific check_item is never referenced. FAIL.
+The Agent's reply attributes the merged Combo-Fighters VFX to the GitHub identity 'Marcus' (login PERSON_0396_GITHUB_USERNAME) and flags that mapping this identity to a specific [harmonygames.co](http://harmonygames.co) Marcus mailbox is not resolvable from git alone.
+Pass
+The agent's reply attributes merged VFX to 'git `marcus` = marcus@harmonygames.co, the external/contractor artist (GitHub PERSON_0396)' and explicitly states this is 'not Marcus Bennett (marcus.bennett@, our internal ART/VFX employee)' and 'not Marcus Lee.' The identity is named with adequate hedging — three distinct Marcus identities are distinguished. PASS.

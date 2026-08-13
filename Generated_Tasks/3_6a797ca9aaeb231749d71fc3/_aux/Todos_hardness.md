@@ -1,0 +1,26 @@
+# HARDNESS phase todos — 3_6a797ca9aaeb231749d71fc3 (Victor Barnes / Engineering / HarmonyGames)
+
+- [completed] 1. Run phase_ready.py --phase hardness (all upstream artifacts present)
+- [completed] 2. Create Todos_hardness.md
+- [completed] 3. Create Reads_hardness.md (v11 E2 compliance gate)
+- [completed] 4. Read Tasks/_meta/Learnings.md end-to-end (L1-L35)
+- [completed] 5. Read Reference/Hardness_Playbook.md (11-lever catalog with cost ranges)
+- [completed] 6. Read all _aux/Universe_Index/* (6 files including graph_report.md)
+- [completed] 7. Read _aux/Fact_Ledger.json (atom surface)
+- [completed] 8. Grep-sample _aux/Universe_Split/* for the persona (delegated to oracle sub-agent bg_476a2499)
+- [completed] 9. Check for _aux/REDO_reason.md and _aux/Candidate_Originals/ — NOT PRESENT, this is a fresh CB
+- [completed] 10. Spawn deep-reasoning sub-agent (oracle bg_476a2499) for lever scan with grep evidence + Learnings cites
+- [completed] 11. Sub-agent selected levers (L1, L2 both variants, L6, L9, L10) with steering placement decisions
+- [completed] 12. Sub-agent projected tool-call density; corrected gmail-draft error (HG gmail is read-only, no draft tool); rebalanced to GDocs + GSheets writes. Midpoint 54, 7 distinct services — PASS HG authoring target (40+ AND 3+)
+- [completed] 13. Sub-agent produced 4 stump hypotheses with confidence + mechanism + Learnings cite
+- [completed] 14. Write _aux/Hardness_Plan.md with all 6 sections + Hardness Score + Hardness Brief
+- [completed] 15. Apply gates — 5 levers PASS (>= 3), density 54 PASS (>= 40 HG target with 3+ services). Score 5/5 PASS
+- [completed] 16. Write _aux/Verification_hardness.md (cross-source verification, v16) with 3 discrepancies surfaced
+- [completed] 17. Append predicted entries to Tasks/_meta/Hardness_Patterns_Log.md and Tasks/_meta/Stump_Hypotheses.md
+- [completed] 18. Print PASS message; STOP gate — do not proceed to S1 in this chat
+- [completed] 19. (2026-08-12 rev) Run check_persona_acl.py + per-channel Slack membership scan for Victor
+- [completed] 20. (2026-08-12 rev) Confirmed Victor in 0 Slack channels; god-* fallback also blocked
+- [completed] 21. (2026-08-12 rev) Re-anchor L1/L2a/L2b/L6/L9/L10 on unscoped services + Contacts + Drive; drop Slack reads AND writes
+- [completed] 22. (2026-08-12 rev) Re-project density 54 -> 56 midpoint; 7 distinct services (Slack out, GDrive in)
+- [completed] 23. (2026-08-12 rev) Update Hardness_Plan.md with revised anchors + new `## Lever changes from ACL re-verification` section
+- [completed] 24. (2026-08-12 rev) Mark Verification_hardness.md discrepancy #2 as RESOLVED with the ACL scan results

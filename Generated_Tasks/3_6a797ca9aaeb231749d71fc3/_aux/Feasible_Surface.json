@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "universe": "harmonygames",
+    "tables_scanned": 38
+  },
+  "tables": {
+    "contacts.contacts": {
+      "status": [
+        "Unknown",
+        "active"
+      ]
+    },
+    "gdrive.drive_files": {
+      "mime_type": [
+        "application/json",
+        "application/msword",
+        "application/pdf",
+        "application/vnd.google-apps.document",
+        "application/vnd.google-apps.folder",
+        "application/vnd.google-apps.spreadsheet",
+        "text/csv",
+        "text/markdown",
+        "text/plain"
+      ]
+    },
+    "github.pull_requests": {
+      "state": [
+        "closed",
+        "open"
+      ]
+    },
+    "github.reviews": {
+      "state": [
+        "APPROVED",
+        "CHANGES_REQUESTED",
+        "COMMENTED",
+        "DISMISSED"
+      ]
+    },
+    "github.users": {
+      "type": [
+        "Bot",
+        "Organization",
+        "User"
+      ]
+    },
+    "gmail.labels": {
+      "type": [
+        "system",
+        "user"
+      ]
+    },
+    "linear.attachments": {
+      "kind": [
+        "archive",
+        "audio",
+        "image"
+      ],
+      "mime_type": [
+        "application/vnd.rar",
+        "application/zip",
+        "audio/mpeg",
+        "audio/x-wav",
+        "image/gif",
+        "image/jpeg",
+        "image/png"
+      ]
+    },
+    "linear.issues": {
+      "state_id": [
+        "Backlog",
+        "Bugs",
+        "Canceled",
+        "Done",
+        "Duplicate",
+        "In Progress",
+        "In Review",
+        "In Validation",
+        "PR",
+        "Regression",
+        "Team Epic",
+        "Todo",
+        "Validation"
+      ],
+      "time_in_status_minutes": [
+        "1012933",
+        "1022272",
+        "1023915",
+        "1023926",
+        "1034081",
+        "1034082",
+        "1064344",
+        "1064434",
+        "1064444",
+        "1064446",
+        "1069899",
+        "1082448",
+        "1082454",
+        "1082455",
+        "1098641",
+        "1102987",
+        "1103187",
+        "1104921",
+        "1104923",
+        "1112500",
+        "1149135",
+        "1152158",
+        "1153485",
+        "1154986",
+        "1154987",
+        "1154988",
+        "1154989",
+        "1154991",
+        "1165062",
+        "1185210",
+        "1185238",
+        "1195299",
+        "1215526",
+        "1225643",
+        "1235683",
+        "1245801",
+        "1265967",
+        "1270470",
+        "1270471",
+        "634161",
+        "657224",
+        "688984",
+        "719344",
+        "748210",
+        "801544",
+        "882558",
+        "953445",
+        "953446",
+        "978737",
+        "988457"
+      ]
+    },
+    "slack.files": {
+      "filetype": [
+        "",
+        "apk",
+        "binary",
+        "csv",
+        "docx",
+        "gdoc",
+        "gif",
+        "gpres",
+        "gsheet",
+        "heic",
+        "jpg",
+        "json",
+        "m4a",
+        "mov",
+        "mp3",
+        "mp4",
+        "pdf",
+        "png",
+        "pptx",
+        "psd",
+        "text",
+        "webm",
+        "webp",
+        "xlsx",
+        "zip"
+      ],
+      "mimetype": [
+        "",
+        "application/octet-stream",
+        "application/pdf",
+        "application/photoshop",
+        "application/vnd.android.package-archive",
+        "application/vnd.google-apps.document",
+        "application/vnd.google-apps.presentation",
+        "application/vnd.google-apps.spreadsheet",
+        "application/zip",
+        "audio/mp4",
+        "audio/mpeg",
+        "image/gif",
+        "image/heic",
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "text/csv",
+        "text/plain",
+        "video/mp4",
+        "video/quicktime",
+        "video/webm"
+      ]
+    },
+    "trello.actions": {
+      "type": [
+        "addAttachmentToCard",
+        "addChecklistToCard",
+        "addMemberToBoard",
+        "addMemberToCard",
+        "addToOrganizationBoard",
+        "commentCard",
+        "convertToCardFromCheckItem",
+        "copyBoard",
+        "copyCard",
+        "createBoard",
+        "createCard",
+        "createList",
+        "deactivatedMemberInBoard",
+        "deleteAttachmentFromCard",
+        "deleteCard",
+        "enablePlugin",
+        "removeChecklistFromCard",
+        "removeMemberFromCard",
+        "unconfirmedBoardInvitation",
+        "updateBoard",
+        "updateCard",
+        "updateCheckItemStateOnCard",
+        "updateCustomFieldItem",
+        "updateList"
+      ]
+    },
+    "trello.attachments": {
+      "mimeType": [
+        "",
+        "image/jpeg",
+        "image/png",
+        "video/mp4"
+      ]
+    },
+    "trello.check_items": {
+      "state": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "trello.members": {
+      "memberType": [
+        "normal"
+      ]
+    }
+  }
+}
